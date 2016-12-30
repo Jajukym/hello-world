@@ -1,3 +1,3 @@
 # hello-world
-in the beginning
+In the beginning,
 I created my first github repository/branch.
