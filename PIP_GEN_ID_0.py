@@ -17,12 +17,16 @@ d = a.sheet_by_index(2)
 wb = Workbook() #create a workbook
 sheet1 = wb.add_sheet('Sheet1') #Procedure
 sheet2 = wb.add_sheet('Sheet2') #Revision
-style0 = easyxf('pattern: pattern solid,fore_colour red;') #cell styling
+
+rev0 = xlwt.easyxf('font: colour red; align: horiz center') #cell styling
+#date = xlwt.easyxf(num_format_str = 'YYYY-MM-DD')
+center = xlwt.easyxf('align: horiz center')
+note = xlwt.easyxf('align: wrap yes')
 sheet2.col(2).width = 7000 #column width
-sheet2.write(0,0,('REV 0'), style0)
+sheet2.write(0,0,('REV 0'), rev0)
 sheet2.write(0,1,'20171116')
-sheet2.write(0,2,'Preliminary')
-sheet2.write(0,3,'ID_0')
+sheet2.write(0,2,('Preliminary revision.'), note)
+sheet2.write(0,3,('ID_0'), center)
 
 
 #Parse .xml file
@@ -73,6 +77,7 @@ class Device( xml.sax.ContentHandler ):
    def endElement(self, tag):
       if self.CurrentData == "consolePartNumber":
          print "Part Number:", self.consolePartNumber, "\n"
+         sheet1.write(1,0, self.consolePartNumber)
       elif self.CurrentData == "mcuChipName":
          print "Processor:", self.mcuChipName, "\n"
       elif self.CurrentData == "systemUnitType":
