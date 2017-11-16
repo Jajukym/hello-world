@@ -5,37 +5,27 @@ from xlwt import Workbook, Formula, easyxf #create a workbook
 import xlwt #write to an existing workbook
 import xlrd #read an existing workbook
 
-#code read
+#EQF1259 App Procedure read
 
 a = xlrd.open_workbook("./EQF1259 App Procedures.xlsx") #open the created excel file
 
-#print a.nsheets #number of sheets
-#print a.sheet_names() #and their names
+b = a.sheet_by_index(0) #select first sheet
+c = a.sheet_by_index(1)
+d = a.sheet_by_index(2)
 
-s = a.sheet_by_index(0) #select first sheet
-t = a.sheet_by_index(1)
-u = a.sheet_by_index(2)
-
-#print s.nrows #number of rows used in a sheet
-#print s.ncols #number of columbs used in a sheet
-
-#print s.row_values(1) #row cell data
-#print s.col_values(1) #column cell data
-
-
-#b = s.cell(0,0).value
-c = t.cell(1,1).value #get one cell value preferred method!!!
-d = u.cell(1,1).value
-#dt = xlrd.xdate_as_tuple(d,b.datemode) #convert a date in cell
-#print b
-print d
-print c
-
-#print sum(a) #and their sum
-#print dt
+#TracVia Web Procedure create
+wb = Workbook() #create a workbook
+sheet1 = wb.add_sheet('Sheet1') #Procedure
+sheet2 = wb.add_sheet('Sheet2') #Revision
+style0 = easyxf('pattern: pattern solid,fore_colour red;') #cell styling
+sheet2.col(2).width = 7000 #column width
+sheet2.write(0,0,('REV 0'), style0)
+sheet2.write(0,1,'20171116')
+sheet2.write(0,2,'Preliminary')
+sheet2.write(0,3,'ID_0')
 
 
-#parse
+#Parse .xml file
 class Device( xml.sax.ContentHandler ):
    def __init__(self):
       self.CurrentData = ""
@@ -45,7 +35,7 @@ class Device( xml.sax.ContentHandler ):
       self.systemUnitType = ""
       self.BuildModelString = "" 
       self.TypeName = ""
-      self.Enabled = ""
+      #self.Enabled = ""
 	  
 	  
 	  
@@ -54,10 +44,10 @@ class Device( xml.sax.ContentHandler ):
       self.CurrentData = tag
       if tag == "Config":
          print "*************Part Inspection Procedure*************\n"
-      elif tag == "FeatureItem":
-         print "*************Feature Items**************\n"
-         feature = attributes["xsi:type"]
-         print "Feature:", feature
+      #elif tag == "FeatureItem":
+         #print "*************Feature Items**************\n"
+         #feature = attributes["xsi:type"]
+         #print "Feature:", feature
 		 
 		 
 		 
@@ -75,8 +65,8 @@ class Device( xml.sax.ContentHandler ):
          self.BuildModelString = content
       elif self.CurrentData == "TypeName":
          self.TypeName = content
-      elif self.CurrentData == "Enabled":
-         self.Enabled = content
+      #elif self.CurrentData == "Enabled":
+         #self.Enabled = content
 		 
          
    # Call when an elements ends
@@ -93,8 +83,8 @@ class Device( xml.sax.ContentHandler ):
          print "Part Name:", self.BuildModelString, "\n"
       elif self.CurrentData == "TypeName":
          print "Display:", self.TypeName, "\n"
-      elif self.CurrentData == "Enabled":
-         print "Enabled:", self.Enabled, "\n"
+      #elif self.CurrentData == "Enabled":
+         #print "Enabled:", self.Enabled, "\n"
       self.CurrentData = ""
 
   
@@ -120,27 +110,32 @@ if ( __name__ == "__main__"):
    
    parser.parse(filename)
 
-   
-#code create
-wb = Workbook() #create a workbook
-sheet1 = wb.add_sheet('Sheet1') #add sheets
-#sheet2 = wb.add_sheet('Page 2')
+#e = b.cell(0,0).value
+f = c.cell(0,1).value #header of column
+g = c.cell(1,1).value #get one cell value preferred method!!!
+h = d.cell(1,1).value
+#dt = xlrd.xdate_as_tuple(d,b.datemode) #convert a date in cell
+print f
+print h
+print g
 
-sheet1.write(2,13, d + c) #writing to cells
-#sheet1.write(1,13, 'The')
-#sheet2.write(2,13, 'other words here')
+#print sum(a) #and their sum
+#print dt
 
-#sheet1.col(13).width = 7000 #column width
-#sheet2.col(13).width = 7000
 
-#style2 = easyxf('pattern: pattern solid,fore_colour red;') #cell styling
+
+sheet1.write(0,13,f)
+sheet1.write(2,13,h+g) #writing to cells
+
+
+
+
 
 #for i in xrange(10): #function of writing 1-10 in column 0 sheet2
     #sheet2.write(i,0,i)
-
 #sheet2.write(10,0,Formula('SUM(A1:A10)'),style2) #adding column 0 and adding the style2
 
 wb.save('TrackVia Web Procedures.xls') #save created workbook
 
 #Remove me when done with project
-End = raw_input()
+#End = raw_input()
