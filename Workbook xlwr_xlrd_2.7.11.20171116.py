@@ -8,7 +8,7 @@ wb = Workbook() #create a workbook
 sheet1 = wb.add_sheet('Page 1') #add sheets
 sheet2 = wb.add_sheet('Page 2')
 
-sheet1.write(2,13, 'words here') #writing to cells
+sheet1.write(2,13, 'words here') #writing to cells on the Trackvia table
 sheet1.write(1,13, 'The')
 sheet2.write(2,13, 'other words here')
 
