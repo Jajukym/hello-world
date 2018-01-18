@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+
 print 'Python'
 print "This is for text sentences."
 
@@ -11,3 +12,5 @@ this within the brackets [ \n ], or just a NEWLINE within
 the variable assignment will also show up.
 """
 print para_str
+
+
