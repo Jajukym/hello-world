@@ -471,6 +471,7 @@ if ( __name__ == "__main__"):
 e = eng['e2'].value #ESD bag
 c = chi['e2'].value
 sta['s2'].alignment = Alignment(wrap_text = True)
+
 sta['s2'] = e
 
 e = eng['aa2'].value #finish
