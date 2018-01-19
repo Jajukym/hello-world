@@ -1,4 +1,4 @@
-#libraries
+#libraries that are used in this script
 import sys; #print(sys.version) #build system
 from datetime import datetime, date; print(datetime.now()) #date stamp
 import xml.sax #.xml parser
