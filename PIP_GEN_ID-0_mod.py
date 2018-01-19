@@ -359,7 +359,10 @@ class Device( xml.sax.ContentHandler ):
          sta['an2'] = e
       elif self.CurrentData == "MaintenanceConfigFunction":
          print "", self.MaintenanceConfigFunction
-          if self.MaintenanceConfigFunction == #some array for incline, keycodes, or display check
+         e = eng[''].value
+         c = chi[''].value
+         sta[''].alignment = Alignment(wrap_text = True)
+         sta[''] = e
           
           
           
