@@ -56,8 +56,8 @@ header = ['void for function call', 'RecordID', 'Link to Parts - Consoles', 'Lin
           'Part Type Pull', 'PIP', 'Video of Inspection', 'EQF1259 Config', 'BLE Setup Image 1', 'BLE Setup Image 2',
           'Setup Image 1', 'Setup Image 2', 'ESD Bag', 'Cosmetics', 'Warning Label', 'Warning Label Picture',
           'Cosmetic, Color, and Texture', 'Picture of Console', 'Soldering Quality', 'Power up', 'Safety Key',
-          'BLE Test', 'BLE Test Image 1', 'BLE Test Image 2', 'Software Version', 'Test Mode Image',
-          'Display Test', 'Display Test Image', 'Button Test', 'Button TestImage', 'Drive Motor Output Test',
+          'BLE Test', 'BLE Test Image 1', 'BLE Test Image 2', 'Software Version', 'Test Mode Image', 'Incline Calibration',
+          'Display Test', 'Display Test Image', 'Button Test', 'Button Test Image', 'Drive Motor Output Test',
           'Tach Input Test', 'Resistance Motor Test', 'Incline Motor Test', 'USB port test', 'Hand Pulse Test',
           'Chest Pulse Test', 'Fan Test', 'Audio Test', 'TV Test', 'Upright Motor Test', 'Finish Test',
           'Last User', 'Created By User', 'Updated', 'Created'];
@@ -196,8 +196,8 @@ class Device( xml.sax.ContentHandler ):
          if feature == "UsbFeature":
              e = eng['s2'].value #USB
              c = chi['s2'].value
-             sta['ao2'].alignment = Alignment(wrap_text = True)
-             sta['ao2'] = e
+             sta['ap2'].alignment = Alignment(wrap_text = True)
+             sta['ap2'] = e
 
     # Call when a character is read
    def characters(self, content):
@@ -260,13 +260,13 @@ class Device( xml.sax.ContentHandler ):
                  sta['aa2'] = e
                  e = eng['o2'].value #Drive motor (PWM)
                  c = chi['o2'].value
-                 sta['ak2'].alignment = Alignment(wrap_text = True)
-                 sta['ak2'] = e
+                 sta['al2'].alignment = Alignment(wrap_text = True)
+                 sta['al2'] = e
              else:
                  e = eng['p2'].value #Tach
                  c = chi['p2'].value
-                 sta['al2'].alignment = Alignment(wrap_text = True)
-                 sta['al2'] = e
+                 sta['am2'].alignment = Alignment(wrap_text = True)
+                 sta['am2'] = e
       elif self.CurrentData == "TypeName": #Isolates tag to array items only
          if self.TypeName == display[0]:
              print "Display:", self.TypeName
@@ -288,8 +288,8 @@ class Device( xml.sax.ContentHandler ):
              sta['ab2'] = e
              e = eng['t5'].value #BLE Chest pulse
              c = chi['t5'].value
-             sta['aq2'].alignment = Alignment(wrap_text = True)
-             sta['aq2'] = e
+             sta['ar2'].alignment = Alignment(wrap_text = True)
+             sta['ar2'] = e
       elif self.CurrentData == "systemUnitType":
          print "Unit Measure:", self.systemUnitType
       elif self.CurrentData == "PowerBoard": #----------------------------------------------------------------------------------------
@@ -342,27 +342,39 @@ class Device( xml.sax.ContentHandler ):
           c = chi['g3'].value
           sta['w2'].alignment = Alignment(wrap_text = True)
           sta['w2'] = e
+          e = eng['k2'].value #Wolf software
+          c = chi['k2'].value
+          sta['ae2'].alignment = Alignment(wrap_text = True)
+          sta['ae2'] = e
+          e = eng['l2'].value #Wolf calibrate
+          c = chi['l2'].value
+          sta['ag2'].alignment = Alignment(wrap_text = True)
+          sta['ag2'] = e
+          e = eng['m2'].value #Wolf display
+          c = chi['m2'].value
+          sta['ah2'].alignment = Alignment(wrap_text = True)
+          sta['ah2'] = e
+          #e = eng['n2'].value #Wolf keycodes
+          #c = chi['n2'].value
+          #sta['ai2'].alignment = Alignment(wrap_text = True)
+          #sta['ai2'] = e
           e = eng['t6'].value #Wolf chest pulse
           c = chi['t6'].value
-          sta['aq2'].alignment = Alignment(wrap_text = True)
-          sta['aq2'] = e
-          
+          sta['ar2'].alignment = Alignment(wrap_text = True)
+          sta['ar2'] = e
           e = eng['w2'].value #Wolf HDMI
           c = chi['w2'].value
-          sta['at2'].alignment = Alignment(wrap_text = True)
-          sta['at2'] = e
+          sta['au2'].alignment = Alignment(wrap_text = True)
+          sta['au2'] = e
       elif self.CurrentData == "GradeProtocol":
          print "", self.GradeProtocol
          e = eng['q2'].value #Incline
          c = chi['q2'].value
-         sta['an2'].alignment = Alignment(wrap_text = True)
-         sta['an2'] = e
+         sta['ao2'].alignment = Alignment(wrap_text = True)
+         sta['ao2'] = e
       elif self.CurrentData == "MaintenanceConfigFunction":
          print "", self.MaintenanceConfigFunction
-         e = eng[''].value
-         c = chi[''].value
-         sta[''].alignment = Alignment(wrap_text = True)
-         sta[''] = e
+         
           
           
           
@@ -372,59 +384,59 @@ class Device( xml.sax.ContentHandler ):
          if self.PulseDriverItem == pulse[0] or self.PulseDriverItem == pulse[5]:
              e = eng['t2'].value #Hand or nanoHand pulse
              c = chi['t2'].value
-             sta['ap2'].alignment = Alignment(wrap_text = True)
-             sta['ap2'] = e
+             sta['aq2'].alignment = Alignment(wrap_text = True)
+             sta['aq2'] = e
          if self.PulseDriverItem == pulse[1]:
              e = eng['t3'].value #Thumb pulse
              c = chi['t3'].value
-             sta['ap2'].alignment = Alignment(wrap_text = True)
-             sta['ap2'] = e
+             sta['aq2'].alignment = Alignment(wrap_text = True)
+             sta['aq2'] = e
          if self.PulseDriverItem == pulse[2] or self.PulseDriverItem == pulse[3]:
              e = eng['t4'].value #Chest pulse
              c = chi['t4'].value
-             sta['aq2'].alignment = Alignment(wrap_text = True)
-             sta['aq2'] = e
+             sta['ar2'].alignment = Alignment(wrap_text = True)
+             sta['ar2'] = e
       elif self.CurrentData == "FanProtocol":
          print "", self.FanProtocol
          if self.FanProtocol == fan[0]:
             e = eng['u2'].value #Two pin
             c = chi['u2'].value
-            sta['ar2'].alignment = Alignment(wrap_text = True)
-            sta['ar2'] = e
+            sta['as2'].alignment = Alignment(wrap_text = True)
+            sta['as2'] = e
          else:
             e = eng['u3'].value #Three pin
             c = chi['u3'].value
-            sta['ar2'].alignment = Alignment(wrap_text = True)
-            sta['ar2'] = e
+            sta['as2'].alignment = Alignment(wrap_text = True)
+            sta['as2'] = e
       elif self.CurrentData == "AudioSrcItem":
          print "", self.AudioSrcItem
          for i in range(0,4):
              if self.AudioSrcItem == audio[i]:
                 e = eng['v2'].value #Connect iPOD
                 c = chi['v2'].value
-                sta['as2'].alignment = Alignment(wrap_text = True)
-                sta['as2'] = e
+                sta['at2'].alignment = Alignment(wrap_text = True)
+                sta['at2'] = e
          if self.AudioSrcItem == audio[4]:
              e = eng['t3'].value #Connect TV
              c = chi['t3'].value
-             sta['as2'].alignment = Alignment(wrap_text = True)
-             sta['as2'] = e       
+             sta['at2'].alignment = Alignment(wrap_text = True)
+             sta['at2'] = e       
          if self.AudioSrcItem == audio[5]:
              e = eng['v4'].value #FM
              c = chi['v4'].value
-             sta['as2'].alignment = Alignment(wrap_text = True)
-             sta['as2'] = e
+             sta['at2'].alignment = Alignment(wrap_text = True)
+             sta['at2'] = e
          if self.AudioSrcItem == audio[6]:
              e = eng['v3'].value #Connect TV
              c = chi['v3'].value
-             sta['as2'].alignment = Alignment(wrap_text = True)
-             sta['as2'] = e
+             sta['at2'].alignment = Alignment(wrap_text = True)
+             sta['at2'] = e
       elif self.CurrentData == "ResistanceDriver":
          print "", self.ResistanceDriver
          e = eng['r2'].value #resistance
          c = chi['r2'].value
-         sta['am2'].alignment = Alignment(wrap_text = True)
-         sta['am2'] = e
+         sta['an2'].alignment = Alignment(wrap_text = True)
+         sta['an2'] = e
       elif self.CurrentData == "DistanceDriver":
          print "", self.DistanceDriver
       elif self.CurrentData == "ConsoleVoltage":
