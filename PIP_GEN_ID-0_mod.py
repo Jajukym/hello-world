@@ -1,4 +1,4 @@
-#libraries
+#libraries that are used in this script
 import sys; #print(sys.version) #build system
 from datetime import datetime, date; print(datetime.now()) #date stamp
 import xml.sax #.xml parser
@@ -359,6 +359,14 @@ class Device( xml.sax.ContentHandler ):
          sta['an2'] = e
       elif self.CurrentData == "MaintenanceConfigFunction":
          print "", self.MaintenanceConfigFunction
+         e = eng[''].value
+         c = chi[''].value
+         sta[''].alignment = Alignment(wrap_text = True)
+         sta[''] = e
+          
+          
+          
+          
       elif self.CurrentData == "PulseDriverItem":
          print "", self.PulseDriverItem
          if self.PulseDriverItem == pulse[0] or self.PulseDriverItem == pulse[5]:
