@@ -359,6 +359,11 @@ class Device( xml.sax.ContentHandler ):
          sta['an2'] = e
       elif self.CurrentData == "MaintenanceConfigFunction":
          print "", self.MaintenanceConfigFunction
+          if self.MaintenanceConfigFunction == #some array for incline, keycodes, or display check
+          
+          
+          
+          
       elif self.CurrentData == "PulseDriverItem":
          print "", self.PulseDriverItem
          if self.PulseDriverItem == pulse[0] or self.PulseDriverItem == pulse[5]:
