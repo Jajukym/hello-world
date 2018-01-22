@@ -1,0 +1,1290 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"main.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 D0000000 		.text
+  20      02005300 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.comm	pinDMK,4,4
+  24              		.comm	CaptureFlag,4,4
+  25              		.comm	statusButtonRead,1,1
+  26              		.comm	Polar_C_Pulse_Count,1,1
+  27              		.comm	Polar_S_Pulse_Count,1,1
+  28              		.comm	ANTplus_Pulse_Count,1,1
+  29              		.comm	ShiftData,255,4
+  30              		.section	.text.InitializeHardware,"ax",%progbits
+  31              		.align	2
+  32              		.global	InitializeHardware
+  33              		.thumb
+  34              		.thumb_func
+  35              		.type	InitializeHardware, %function
+  36              	InitializeHardware:
+  37              	.LFB29:
+  38              		.file 1 ".\\main.c"
+   1:.\main.c      **** /* ========================================
+   2:.\main.c      ****  *
+   3:.\main.c      ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\main.c      ****  * All Rights Reserved
+   5:.\main.c      ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\main.c      ****  *
+   7:.\main.c      ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\main.c      ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\main.c      ****  *
+  10:.\main.c      ****  * ========================================
+  11:.\main.c      **** */
+  12:.\main.c      **** #include <device.h>
+  13:.\main.c      **** 
+  14:.\main.c      **** #define forever 1
+  15:.\main.c      **** 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 2
+
+
+  16:.\main.c      **** CY_ISR_PROTO(StoreISR);
+  17:.\main.c      **** CY_ISR(PulseCapture);
+  18:.\main.c      **** 
+  19:.\main.c      **** 
+  20:.\main.c      **** 
+  21:.\main.c      **** int pinDMK;
+  22:.\main.c      **** int CaptureFlag;
+  23:.\main.c      **** uint8 statusButtonRead; //0xFF starting point
+  24:.\main.c      **** uint8 Polar_C_Pulse_Count;
+  25:.\main.c      **** uint8 Polar_S_Pulse_Count;
+  26:.\main.c      **** uint8 ANTplus_Pulse_Count;
+  27:.\main.c      **** uint8 ShiftData[255];
+  28:.\main.c      **** 
+  29:.\main.c      **** 
+  30:.\main.c      **** 
+  31:.\main.c      **** void InitializeHardware()
+  32:.\main.c      **** {
+  39              		.loc 1 32 0
+  40              		.cfi_startproc
+  41              		@ args = 0, pretend = 0, frame = 0
+  42              		@ frame_needed = 1, uses_anonymous_args = 0
+  43 0000 80B5     		push	{r7, lr}
+  44              	.LCFI0:
+  45              		.cfi_def_cfa_offset 8
+  46 0002 00AF     		add	r7, sp, #0
+  47              		.cfi_offset 14, -4
+  48              		.cfi_offset 7, -8
+  49              	.LCFI1:
+  50              		.cfi_def_cfa_register 7
+  33:.\main.c      **** 	CyGlobalIntEnable;                                   //ISR
+  51              		.loc 1 33 0
+  52              	@ 33 ".\main.c" 1
+  53 0004 62B6     		CPSIE   i
+  54              	@ 0 "" 2
+  34:.\main.c      **** 	isrStoreInt_StartEx(StoreISR);
+  55              		.loc 1 34 0
+  56              		.thumb
+  57 0006 40F20000 		movw	r0, #:lower16:StoreISR
+  58 000a C0F20000 		movt	r0, #:upper16:StoreISR
+  59 000e FFF7FEFF 		bl	isrStoreInt_StartEx
+  35:.\main.c      ****     isrPulseCapture_StartEx(PulseCapture);
+  60              		.loc 1 35 0
+  61 0012 40F20000 		movw	r0, #:lower16:PulseCapture
+  62 0016 C0F20000 		movt	r0, #:upper16:PulseCapture
+  63 001a FFF7FEFF 		bl	isrPulseCapture_StartEx
+  36:.\main.c      ****     
+  37:.\main.c      ****     
+  38:.\main.c      ****     lcdDisplay_Start();
+  64              		.loc 1 38 0
+  65 001e FFF7FEFF 		bl	lcdDisplay_Start
+  39:.\main.c      ****     lcdDisplay_ClearDisplay();
+  66              		.loc 1 39 0
+  67 0022 4FF00100 		mov	r0, #1
+  68 0026 FFF7FEFF 		bl	lcdDisplay_WriteControl
+  40:.\main.c      ****     pgaPolarC_Start();                                   //Polar Chest Pulse buffer
+  69              		.loc 1 40 0
+  70 002a FFF7FEFF 		bl	pgaPolarC_Start
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 3
+
+
+  41:.\main.c      ****     counterPolarC_Start();
+  71              		.loc 1 41 0
+  72 002e FFF7FEFF 		bl	counterPolarC_Start
+  42:.\main.c      ****     pgaPolarS_Start();                                   //Polar Hand Pulse buffer
+  73              		.loc 1 42 0
+  74 0032 FFF7FEFF 		bl	pgaPolarS_Start
+  43:.\main.c      ****     counterPolarS_Start();
+  75              		.loc 1 43 0
+  76 0036 FFF7FEFF 		bl	counterPolarS_Start
+  44:.\main.c      ****     pgaANTPlus_Start();                                  //ANT+ Chest Pulse buffer
+  77              		.loc 1 44 0
+  78 003a FFF7FEFF 		bl	pgaANTPlus_Start
+  45:.\main.c      ****     counterANTPlus_Start();
+  79              		.loc 1 45 0
+  80 003e FFF7FEFF 		bl	counterANTPlus_Start
+  46:.\main.c      ****     PWMPulseCapture_Start();                             //Capture Clock
+  81              		.loc 1 46 0
+  82 0042 FFF7FEFF 		bl	PWMPulseCapture_Start
+  47:.\main.c      **** 	counterShift_Start();                                //Membrane Button Read components
+  83              		.loc 1 47 0
+  84 0046 FFF7FEFF 		bl	counterShift_Start
+  48:.\main.c      ****     shiftregSender_Start();
+  85              		.loc 1 48 0
+  86 004a FFF7FEFF 		bl	shiftregSender_Start
+  49:.\main.c      ****     shiftregSender_WriteData(0x00);
+  87              		.loc 1 49 0
+  88 004e 4FF00000 		mov	r0, #0
+  89 0052 FFF7FEFF 		bl	shiftregSender_WriteData
+  50:.\main.c      ****     CyDelay(250);
+  90              		.loc 1 50 0
+  91 0056 4FF0FA00 		mov	r0, #250
+  92 005a FFF7FEFF 		bl	CyDelay
+  51:.\main.c      ****     shiftregReceiver_Start();	 
+  93              		.loc 1 51 0
+  94 005e FFF7FEFF 		bl	shiftregReceiver_Start
+  52:.\main.c      **** }
+  95              		.loc 1 52 0
+  96 0062 80BD     		pop	{r7, pc}
+  97              		.cfi_endproc
+  98              	.LFE29:
+  99              		.size	InitializeHardware, .-InitializeHardware
+ 100              		.section	.rodata
+ 101              		.align	2
+ 102              	.LC0:
+ 103 0000 42455441 		.ascii	"BETA\000"
+ 103      00
+ 104 0005 000000   		.align	2
+ 105              	.LC1:
+ 106 0008 444D4B3A 		.ascii	"DMK:\000"
+ 106      00
+ 107 000d 000000   		.align	2
+ 108              	.LC2:
+ 109 0010 42757474 		.ascii	"Buttons:\000"
+ 109      6F6E733A 
+ 109      00
+ 110 0019 000000   		.align	2
+ 111              	.LC3:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 4
+
+
+ 112 001c 50756C73 		.ascii	"Pulse:\000"
+ 112      653A00
+ 113 0023 00       		.align	2
+ 114              	.LC4:
+ 115 0024 4F4E2000 		.ascii	"ON \000"
+ 116              		.align	2
+ 117              	.LC5:
+ 118 0028 4F464600 		.ascii	"OFF\000"
+ 119              		.align	2
+ 120              	.LC6:
+ 121 002c 43686573 		.ascii	"Chest\000"
+ 121      7400
+ 122 0032 0000     		.section	.text.main,"ax",%progbits
+ 123              		.align	2
+ 124              		.global	main
+ 125              		.thumb
+ 126              		.thumb_func
+ 127              		.type	main, %function
+ 128              	main:
+ 129              	.LFB30:
+  53:.\main.c      **** //***********************************************************************************
+  54:.\main.c      **** 
+  55:.\main.c      **** void main()
+  56:.\main.c      **** {
+ 130              		.loc 1 56 0
+ 131              		.cfi_startproc
+ 132              		@ args = 0, pretend = 0, frame = 8
+ 133              		@ frame_needed = 1, uses_anonymous_args = 0
+ 134 0000 80B5     		push	{r7, lr}
+ 135              	.LCFI2:
+ 136              		.cfi_def_cfa_offset 8
+ 137 0002 82B0     		sub	sp, sp, #8
+ 138              	.LCFI3:
+ 139              		.cfi_def_cfa_offset 16
+ 140 0004 00AF     		add	r7, sp, #0
+ 141              		.cfi_offset 14, -4
+ 142              		.cfi_offset 7, -8
+ 143              	.LCFI4:
+ 144              		.cfi_def_cfa_register 7
+  57:.\main.c      ****     //uint8 ii = 0x00;      //Calibration
+  58:.\main.c      ****     uint8 Status;
+  59:.\main.c      **** 	InitializeHardware();
+ 145              		.loc 1 59 0
+ 146 0006 FFF7FEFF 		bl	InitializeHardware
+  60:.\main.c      ****     clockShift_SetDivider(128);
+ 147              		.loc 1 60 0
+ 148 000a 4FF08000 		mov	r0, #128
+ 149 000e 4FF00101 		mov	r1, #1
+ 150 0012 FFF7FEFF 		bl	clockShift_SetDividerRegister
+  61:.\main.c      ****     lcdDisplay_Position(0,8);
+ 151              		.loc 1 61 0
+ 152 0016 4FF00000 		mov	r0, #0
+ 153 001a 4FF00801 		mov	r1, #8
+ 154 001e FFF7FEFF 		bl	lcdDisplay_Position
+  62:.\main.c      ****     lcdDisplay_PrintString("BETA");
+ 155              		.loc 1 62 0
+ 156 0022 40F20000 		movw	r0, #:lower16:.LC0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 5
+
+
+ 157 0026 C0F20000 		movt	r0, #:upper16:.LC0
+ 158 002a FFF7FEFF 		bl	lcdDisplay_PrintString
+  63:.\main.c      ****     lcdDisplay_Position(1,0);
+ 159              		.loc 1 63 0
+ 160 002e 4FF00100 		mov	r0, #1
+ 161 0032 4FF00001 		mov	r1, #0
+ 162 0036 FFF7FEFF 		bl	lcdDisplay_Position
+  64:.\main.c      ****     lcdDisplay_PrintString("DMK:");
+ 163              		.loc 1 64 0
+ 164 003a 40F20000 		movw	r0, #:lower16:.LC1
+ 165 003e C0F20000 		movt	r0, #:upper16:.LC1
+ 166 0042 FFF7FEFF 		bl	lcdDisplay_PrintString
+  65:.\main.c      ****     lcdDisplay_Position(2,0);
+ 167              		.loc 1 65 0
+ 168 0046 4FF00200 		mov	r0, #2
+ 169 004a 4FF00001 		mov	r1, #0
+ 170 004e FFF7FEFF 		bl	lcdDisplay_Position
+  66:.\main.c      ****     lcdDisplay_PrintString("Buttons:");
+ 171              		.loc 1 66 0
+ 172 0052 40F20000 		movw	r0, #:lower16:.LC2
+ 173 0056 C0F20000 		movt	r0, #:upper16:.LC2
+ 174 005a FFF7FEFF 		bl	lcdDisplay_PrintString
+  67:.\main.c      ****     lcdDisplay_Position(3,0);
+ 175              		.loc 1 67 0
+ 176 005e 4FF00300 		mov	r0, #3
+ 177 0062 4FF00001 		mov	r1, #0
+ 178 0066 FFF7FEFF 		bl	lcdDisplay_Position
+  68:.\main.c      ****     lcdDisplay_PrintString("Pulse:");
+ 179              		.loc 1 68 0
+ 180 006a 40F20000 		movw	r0, #:lower16:.LC3
+ 181 006e C0F20000 		movt	r0, #:upper16:.LC3
+ 182 0072 FFF7FEFF 		bl	lcdDisplay_PrintString
+ 183 0076 00E0     		b	.L7
+ 184              	.L9:
+  69:.\main.c      ****     
+  70:.\main.c      ****     
+  71:.\main.c      ****     for(;;)
+  72:.\main.c      ****     {
+  73:.\main.c      ****         if (pinDMK_Read() == 0)                     //DMK function
+  74:.\main.c      ****         {
+  75:.\main.c      ****             lcdDisplay_Position(1,5);
+  76:.\main.c      ****             lcdDisplay_PrintString("ON ");
+  77:.\main.c      ****         }
+  78:.\main.c      ****         else
+  79:.\main.c      ****         {
+  80:.\main.c      ****             lcdDisplay_Position(1,5);
+  81:.\main.c      ****             lcdDisplay_PrintString("OFF");
+  82:.\main.c      ****         }
+  83:.\main.c      ****         if (CaptureFlag = 1)
+  84:.\main.c      ****        {
+  85:.\main.c      ****             CaptureFlag = 0;
+  86:.\main.c      ****             
+  87:.\main.c      ****             Polar_C_Pulse_Count = counterPolarC_ReadCapture();
+  88:.\main.c      ****             lcdDisplay_Position (3,7);
+  89:.\main.c      ****             lcdDisplay_PrintString("Chest");
+  90:.\main.c      ****             
+  91:.\main.c      ****             
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 6
+
+
+  92:.\main.c      ****             /*Polar_S_Pulse_Count = counterPolarS_ReadCapture();
+  93:.\main.c      ****             lcdDisplay_Position (3,7);
+  94:.\main.c      ****             lcdDisplay_PrintString("Hand");
+  95:.\main.c      ****             
+  96:.\main.c      ****             
+  97:.\main.c      ****             ANTplus_Pulse_Count = counterANTPlus_ReadCapture();
+  98:.\main.c      ****             lcdDisplay_Position (3,7);
+  99:.\main.c      ****             lcdDisplay_PrintString("ANTplus");*/
+ 100:.\main.c      ****                         
+ 101:.\main.c      ****         }
+ 102:.\main.c      ****         
+ 103:.\main.c      ****         
+ 104:.\main.c      ****         
+ 105:.\main.c      ****         statusButton_Read();  //Button Hex strings...Left1:FE, Left2:FD, Rigth1:FB, and Right2:F7
+ 106:.\main.c      ****         {
+ 107:.\main.c      ****             /*lcdDisplay_Position(2,9);  //Button Hex Strings...InclineD:FE, InclineU:FD, Run:FB, S
+ 108:.\main.c      ****             lcdDisplay_PrintInt8(statusButton_Read());*/
+ 109:.\main.c      ****             shiftregReceiver_WriteRegValue(statusButton_Read());//Writes to the Shift Register
+ 110:.\main.c      ****         }
+ 111:.\main.c      ****     	
+ 112:.\main.c      **** 		if(!((Status = shiftregSender_GetFIFOStatus(shiftregSender_IN_FIFO)) == shiftregSender_RET_FIFO_F
+ 113:.\main.c      **** 		{
+ 114:.\main.c      **** 			/*shiftregSender_WriteData(++ii);//FOR CALIBRATION ONLY. WILL COUNT UP FROM 0X00 TO 0XFF.*/
+ 115:.\main.c      ****             {
+ 116:.\main.c      ****                 lcdDisplay_Position(2,9);
+ 117:.\main.c      ****                 lcdDisplay_PrintInt8(shiftregReceiver_ReadData());
+ 118:.\main.c      ****             }
+ 119:.\main.c      **** 		}
+ 120:.\main.c      ****            
+ 121:.\main.c      ****       }      
+ 185              		.loc 1 121 0
+ 186 0078 00BF     		nop
+ 187              	.L7:
+ 188              		.loc 1 73 0
+ 189 007a FFF7FEFF 		bl	pinDMK_Read
+ 190 007e 0346     		mov	r3, r0
+ 191 0080 002B     		cmp	r3, #0
+ 192 0082 0CD1     		bne	.L4
+ 193              		.loc 1 75 0
+ 194 0084 4FF00100 		mov	r0, #1
+ 195 0088 4FF00501 		mov	r1, #5
+ 196 008c FFF7FEFF 		bl	lcdDisplay_Position
+ 197              		.loc 1 76 0
+ 198 0090 40F20000 		movw	r0, #:lower16:.LC4
+ 199 0094 C0F20000 		movt	r0, #:upper16:.LC4
+ 200 0098 FFF7FEFF 		bl	lcdDisplay_PrintString
+ 201 009c 0BE0     		b	.L5
+ 202              	.L4:
+ 203              		.loc 1 80 0
+ 204 009e 4FF00100 		mov	r0, #1
+ 205 00a2 4FF00501 		mov	r1, #5
+ 206 00a6 FFF7FEFF 		bl	lcdDisplay_Position
+ 207              		.loc 1 81 0
+ 208 00aa 40F20000 		movw	r0, #:lower16:.LC5
+ 209 00ae C0F20000 		movt	r0, #:upper16:.LC5
+ 210 00b2 FFF7FEFF 		bl	lcdDisplay_PrintString
+ 211              	.L5:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 7
+
+
+ 212              		.loc 1 83 0
+ 213 00b6 40F20003 		movw	r3, #:lower16:CaptureFlag
+ 214 00ba C0F20003 		movt	r3, #:upper16:CaptureFlag
+ 215 00be 4FF00102 		mov	r2, #1
+ 216 00c2 1A60     		str	r2, [r3, #0]
+ 217              		.loc 1 85 0
+ 218 00c4 40F20003 		movw	r3, #:lower16:CaptureFlag
+ 219 00c8 C0F20003 		movt	r3, #:upper16:CaptureFlag
+ 220 00cc 4FF00002 		mov	r2, #0
+ 221 00d0 1A60     		str	r2, [r3, #0]
+ 222              		.loc 1 87 0
+ 223 00d2 FFF7FEFF 		bl	counterPolarC_ReadCapture
+ 224 00d6 0346     		mov	r3, r0
+ 225 00d8 1A46     		mov	r2, r3
+ 226 00da 40F20003 		movw	r3, #:lower16:Polar_C_Pulse_Count
+ 227 00de C0F20003 		movt	r3, #:upper16:Polar_C_Pulse_Count
+ 228 00e2 1A70     		strb	r2, [r3, #0]
+ 229              		.loc 1 88 0
+ 230 00e4 4FF00300 		mov	r0, #3
+ 231 00e8 4FF00701 		mov	r1, #7
+ 232 00ec FFF7FEFF 		bl	lcdDisplay_Position
+ 233              		.loc 1 89 0
+ 234 00f0 40F20000 		movw	r0, #:lower16:.LC6
+ 235 00f4 C0F20000 		movt	r0, #:upper16:.LC6
+ 236 00f8 FFF7FEFF 		bl	lcdDisplay_PrintString
+ 237              		.loc 1 105 0
+ 238 00fc FFF7FEFF 		bl	statusButton_Read
+ 239              		.loc 1 109 0
+ 240 0100 FFF7FEFF 		bl	statusButton_Read
+ 241 0104 0346     		mov	r3, r0
+ 242 0106 1846     		mov	r0, r3
+ 243 0108 FFF7FEFF 		bl	shiftregReceiver_WriteRegValue
+ 244              		.loc 1 112 0
+ 245 010c 4FF00100 		mov	r0, #1
+ 246 0110 FFF7FEFF 		bl	shiftregSender_GetFIFOStatus
+ 247 0114 0346     		mov	r3, r0
+ 248 0116 FB71     		strb	r3, [r7, #7]
+ 249 0118 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 250 011a 002B     		cmp	r3, #0
+ 251 011c ACD0     		beq	.L9
+ 252              		.loc 1 116 0
+ 253 011e 4FF00200 		mov	r0, #2
+ 254 0122 4FF00901 		mov	r1, #9
+ 255 0126 FFF7FEFF 		bl	lcdDisplay_Position
+ 256              		.loc 1 117 0
+ 257 012a FFF7FEFF 		bl	shiftregReceiver_ReadData
+ 258 012e 0346     		mov	r3, r0
+ 259 0130 1846     		mov	r0, r3
+ 260 0132 FFF7FEFF 		bl	lcdDisplay_PrintInt8
+ 261              		.loc 1 121 0
+ 262 0136 A0E7     		b	.L7
+ 263              		.cfi_endproc
+ 264              	.LFE30:
+ 265              		.size	main, .-main
+ 266              		.section	.text.StoreISR,"ax",%progbits
+ 267              		.align	2
+ 268              		.global	StoreISR
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 8
+
+
+ 269              		.thumb
+ 270              		.thumb_func
+ 271              		.type	StoreISR, %function
+ 272              	StoreISR:
+ 273              	.LFB31:
+ 122:.\main.c      **** }
+ 123:.\main.c      **** /*END OF FILE */
+ 124:.\main.c      **** 
+ 125:.\main.c      **** 
+ 126:.\main.c      **** /************************************************************************************/
+ 127:.\main.c      **** CY_ISR(StoreISR)
+ 128:.\main.c      **** {
+ 274              		.loc 1 128 0
+ 275              		.cfi_startproc
+ 276              		@ args = 0, pretend = 0, frame = 8
+ 277              		@ frame_needed = 1, uses_anonymous_args = 0
+ 278 0000 80B5     		push	{r7, lr}
+ 279              	.LCFI5:
+ 280              		.cfi_def_cfa_offset 8
+ 281 0002 82B0     		sub	sp, sp, #8
+ 282              	.LCFI6:
+ 283              		.cfi_def_cfa_offset 16
+ 284 0004 00AF     		add	r7, sp, #0
+ 285              		.cfi_offset 14, -4
+ 286              		.cfi_offset 7, -8
+ 287              	.LCFI7:
+ 288              		.cfi_def_cfa_register 7
+ 129:.\main.c      **** uint8 Status;
+ 130:.\main.c      **** 	while((Status = shiftregReceiver_GetFIFOStatus(shiftregReceiver_OUT_FIFO)) == shiftregReceiver_RET
+ 289              		.loc 1 130 0
+ 290 0006 01E0     		b	.L11
+ 291              	.L12:
+ 131:.\main.c      **** 	{
+ 132:.\main.c      **** 		shiftregReceiver_ReadData();   
+ 292              		.loc 1 132 0
+ 293 0008 FFF7FEFF 		bl	shiftregReceiver_ReadData
+ 294              	.L11:
+ 295              		.loc 1 130 0
+ 296 000c 4FF00200 		mov	r0, #2
+ 297 0010 FFF7FEFF 		bl	shiftregReceiver_GetFIFOStatus
+ 298 0014 0346     		mov	r3, r0
+ 299 0016 FB71     		strb	r3, [r7, #7]
+ 300 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 301 001a 012B     		cmp	r3, #1
+ 302 001c F4D0     		beq	.L12
+ 133:.\main.c      **** 	}
+ 134:.\main.c      **** }
+ 303              		.loc 1 134 0
+ 304 001e 07F10807 		add	r7, r7, #8
+ 305 0022 BD46     		mov	sp, r7
+ 306 0024 80BD     		pop	{r7, pc}
+ 307              		.cfi_endproc
+ 308              	.LFE31:
+ 309              		.size	StoreISR, .-StoreISR
+ 310 0026 00BF     		.section	.text.PulseCapture,"ax",%progbits
+ 311              		.align	2
+ 312              		.global	PulseCapture
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 9
+
+
+ 313              		.thumb
+ 314              		.thumb_func
+ 315              		.type	PulseCapture, %function
+ 316              	PulseCapture:
+ 317              	.LFB32:
+ 135:.\main.c      **** 
+ 136:.\main.c      **** /**********************************************************************************/
+ 137:.\main.c      **** CY_ISR(PulseCapture)
+ 138:.\main.c      **** {
+ 318              		.loc 1 138 0
+ 319              		.cfi_startproc
+ 320              		@ args = 0, pretend = 0, frame = 0
+ 321              		@ frame_needed = 1, uses_anonymous_args = 0
+ 322              		@ link register save eliminated.
+ 323 0000 80B4     		push	{r7}
+ 324              	.LCFI8:
+ 325              		.cfi_def_cfa_offset 4
+ 326 0002 00AF     		add	r7, sp, #0
+ 327              		.cfi_offset 7, -4
+ 328              	.LCFI9:
+ 329              		.cfi_def_cfa_register 7
+ 139:.\main.c      ****     CaptureFlag = 1;
+ 330              		.loc 1 139 0
+ 331 0004 40F20003 		movw	r3, #:lower16:CaptureFlag
+ 332 0008 C0F20003 		movt	r3, #:upper16:CaptureFlag
+ 333 000c 4FF00102 		mov	r2, #1
+ 334 0010 1A60     		str	r2, [r3, #0]
+ 140:.\main.c      **** }...
+ 335              		.loc 1 140 0
+ 336 0012 BD46     		mov	sp, r7
+ 337 0014 80BC     		pop	{r7}
+ 338 0016 7047     		bx	lr
+ 339              		.cfi_endproc
+ 340              	.LFE32:
+ 341              		.size	PulseCapture, .-PulseCapture
+ 342              		.text
+ 343              	.Letext0:
+ 344              		.section	.debug_loc,"",%progbits
+ 345              	.Ldebug_loc0:
+ 346              	.LLST0:
+ 347 0000 00000000 		.4byte	.LFB29
+ 348 0004 02000000 		.4byte	.LCFI0
+ 349 0008 0100     		.2byte	0x1
+ 350 000a 5D       		.byte	0x5d
+ 351 000b 02000000 		.4byte	.LCFI0
+ 352 000f 04000000 		.4byte	.LCFI1
+ 353 0013 0200     		.2byte	0x2
+ 354 0015 7D       		.byte	0x7d
+ 355 0016 08       		.sleb128 8
+ 356 0017 04000000 		.4byte	.LCFI1
+ 357 001b 64000000 		.4byte	.LFE29
+ 358 001f 0200     		.2byte	0x2
+ 359 0021 77       		.byte	0x77
+ 360 0022 08       		.sleb128 8
+ 361 0023 00000000 		.4byte	0x0
+ 362 0027 00000000 		.4byte	0x0
+ 363              	.LLST1:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 10
+
+
+ 364 002b 00000000 		.4byte	.LFB30
+ 365 002f 02000000 		.4byte	.LCFI2
+ 366 0033 0100     		.2byte	0x1
+ 367 0035 5D       		.byte	0x5d
+ 368 0036 02000000 		.4byte	.LCFI2
+ 369 003a 04000000 		.4byte	.LCFI3
+ 370 003e 0200     		.2byte	0x2
+ 371 0040 7D       		.byte	0x7d
+ 372 0041 08       		.sleb128 8
+ 373 0042 04000000 		.4byte	.LCFI3
+ 374 0046 06000000 		.4byte	.LCFI4
+ 375 004a 0200     		.2byte	0x2
+ 376 004c 7D       		.byte	0x7d
+ 377 004d 10       		.sleb128 16
+ 378 004e 06000000 		.4byte	.LCFI4
+ 379 0052 38010000 		.4byte	.LFE30
+ 380 0056 0200     		.2byte	0x2
+ 381 0058 77       		.byte	0x77
+ 382 0059 10       		.sleb128 16
+ 383 005a 00000000 		.4byte	0x0
+ 384 005e 00000000 		.4byte	0x0
+ 385              	.LLST2:
+ 386 0062 00000000 		.4byte	.LFB31
+ 387 0066 02000000 		.4byte	.LCFI5
+ 388 006a 0100     		.2byte	0x1
+ 389 006c 5D       		.byte	0x5d
+ 390 006d 02000000 		.4byte	.LCFI5
+ 391 0071 04000000 		.4byte	.LCFI6
+ 392 0075 0200     		.2byte	0x2
+ 393 0077 7D       		.byte	0x7d
+ 394 0078 08       		.sleb128 8
+ 395 0079 04000000 		.4byte	.LCFI6
+ 396 007d 06000000 		.4byte	.LCFI7
+ 397 0081 0200     		.2byte	0x2
+ 398 0083 7D       		.byte	0x7d
+ 399 0084 10       		.sleb128 16
+ 400 0085 06000000 		.4byte	.LCFI7
+ 401 0089 26000000 		.4byte	.LFE31
+ 402 008d 0200     		.2byte	0x2
+ 403 008f 77       		.byte	0x77
+ 404 0090 10       		.sleb128 16
+ 405 0091 00000000 		.4byte	0x0
+ 406 0095 00000000 		.4byte	0x0
+ 407              	.LLST3:
+ 408 0099 00000000 		.4byte	.LFB32
+ 409 009d 02000000 		.4byte	.LCFI8
+ 410 00a1 0100     		.2byte	0x1
+ 411 00a3 5D       		.byte	0x5d
+ 412 00a4 02000000 		.4byte	.LCFI8
+ 413 00a8 04000000 		.4byte	.LCFI9
+ 414 00ac 0200     		.2byte	0x2
+ 415 00ae 7D       		.byte	0x7d
+ 416 00af 04       		.sleb128 4
+ 417 00b0 04000000 		.4byte	.LCFI9
+ 418 00b4 18000000 		.4byte	.LFE32
+ 419 00b8 0200     		.2byte	0x2
+ 420 00ba 77       		.byte	0x77
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 11
+
+
+ 421 00bb 04       		.sleb128 4
+ 422 00bc 00000000 		.4byte	0x0
+ 423 00c0 00000000 		.4byte	0x0
+ 424              		.file 2 "./Generated_Source/PSoC5/core_cm3.h"
+ 425              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 426              		.section	.debug_info
+ 427 0000 9A010000 		.4byte	0x19a
+ 428 0004 0200     		.2byte	0x2
+ 429 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 430 000a 04       		.byte	0x4
+ 431 000b 01       		.uleb128 0x1
+ 432 000c 9C000000 		.4byte	.LASF19
+ 433 0010 01       		.byte	0x1
+ 434 0011 1E010000 		.4byte	.LASF20
+ 435 0015 3C010000 		.4byte	.LASF21
+ 436 0019 00000000 		.4byte	0x0
+ 437 001d 00000000 		.4byte	0x0
+ 438 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 439 0025 00000000 		.4byte	.Ldebug_line0
+ 440 0029 02       		.uleb128 0x2
+ 441 002a 01       		.byte	0x1
+ 442 002b 06       		.byte	0x6
+ 443 002c F9000000 		.4byte	.LASF0
+ 444 0030 02       		.uleb128 0x2
+ 445 0031 01       		.byte	0x1
+ 446 0032 08       		.byte	0x8
+ 447 0033 A8000000 		.4byte	.LASF1
+ 448 0037 02       		.uleb128 0x2
+ 449 0038 02       		.byte	0x2
+ 450 0039 05       		.byte	0x5
+ 451 003a D9000000 		.4byte	.LASF2
+ 452 003e 02       		.uleb128 0x2
+ 453 003f 02       		.byte	0x2
+ 454 0040 07       		.byte	0x7
+ 455 0041 82000000 		.4byte	.LASF3
+ 456 0045 02       		.uleb128 0x2
+ 457 0046 04       		.byte	0x4
+ 458 0047 05       		.byte	0x5
+ 459 0048 E3000000 		.4byte	.LASF4
+ 460 004c 02       		.uleb128 0x2
+ 461 004d 04       		.byte	0x4
+ 462 004e 07       		.byte	0x7
+ 463 004f 59000000 		.4byte	.LASF5
+ 464 0053 02       		.uleb128 0x2
+ 465 0054 08       		.byte	0x8
+ 466 0055 05       		.byte	0x5
+ 467 0056 00000000 		.4byte	.LASF6
+ 468 005a 02       		.uleb128 0x2
+ 469 005b 08       		.byte	0x8
+ 470 005c 07       		.byte	0x7
+ 471 005d 6B000000 		.4byte	.LASF7
+ 472 0061 03       		.uleb128 0x3
+ 473 0062 04       		.byte	0x4
+ 474 0063 05       		.byte	0x5
+ 475 0064 696E7400 		.ascii	"int\000"
+ 476 0068 02       		.uleb128 0x2
+ 477 0069 04       		.byte	0x4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 12
+
+
+ 478 006a 07       		.byte	0x7
+ 479 006b 2B000000 		.4byte	.LASF8
+ 480 006f 02       		.uleb128 0x2
+ 481 0070 01       		.byte	0x1
+ 482 0071 08       		.byte	0x8
+ 483 0072 B6000000 		.4byte	.LASF9
+ 484 0076 04       		.uleb128 0x4
+ 485 0077 3F000000 		.4byte	.LASF22
+ 486 007b 03       		.byte	0x3
+ 487 007c 60       		.byte	0x60
+ 488 007d 30000000 		.4byte	0x30
+ 489 0081 05       		.uleb128 0x5
+ 490 0082 04       		.byte	0x4
+ 491 0083 07       		.byte	0x7
+ 492 0084 06       		.uleb128 0x6
+ 493 0085 01       		.byte	0x1
+ 494 0086 18000000 		.4byte	.LASF23
+ 495 008a 01       		.byte	0x1
+ 496 008b 1F       		.byte	0x1f
+ 497 008c 00000000 		.4byte	.LFB29
+ 498 0090 64000000 		.4byte	.LFE29
+ 499 0094 00000000 		.4byte	.LLST0
+ 500 0098 07       		.uleb128 0x7
+ 501 0099 01       		.byte	0x1
+ 502 009a 05010000 		.4byte	.LASF24
+ 503 009e 01       		.byte	0x1
+ 504 009f 37       		.byte	0x37
+ 505 00a0 00000000 		.4byte	.LFB30
+ 506 00a4 38010000 		.4byte	.LFE30
+ 507 00a8 2B000000 		.4byte	.LLST1
+ 508 00ac BF000000 		.4byte	0xbf
+ 509 00b0 08       		.uleb128 0x8
+ 510 00b1 95000000 		.4byte	.LASF10
+ 511 00b5 01       		.byte	0x1
+ 512 00b6 3A       		.byte	0x3a
+ 513 00b7 76000000 		.4byte	0x76
+ 514 00bb 02       		.byte	0x2
+ 515 00bc 91       		.byte	0x91
+ 516 00bd 77       		.sleb128 -9
+ 517 00be 00       		.byte	0x0
+ 518 00bf 09       		.uleb128 0x9
+ 519 00c0 01       		.byte	0x1
+ 520 00c1 33010000 		.4byte	.LASF25
+ 521 00c5 01       		.byte	0x1
+ 522 00c6 7F       		.byte	0x7f
+ 523 00c7 01       		.byte	0x1
+ 524 00c8 00000000 		.4byte	.LFB31
+ 525 00cc 26000000 		.4byte	.LFE31
+ 526 00d0 62000000 		.4byte	.LLST2
+ 527 00d4 E7000000 		.4byte	0xe7
+ 528 00d8 08       		.uleb128 0x8
+ 529 00d9 95000000 		.4byte	.LASF10
+ 530 00dd 01       		.byte	0x1
+ 531 00de 81       		.byte	0x81
+ 532 00df 76000000 		.4byte	0x76
+ 533 00e3 02       		.byte	0x2
+ 534 00e4 91       		.byte	0x91
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 13
+
+
+ 535 00e5 77       		.sleb128 -9
+ 536 00e6 00       		.byte	0x0
+ 537 00e7 0A       		.uleb128 0xa
+ 538 00e8 01       		.byte	0x1
+ 539 00e9 EC000000 		.4byte	.LASF26
+ 540 00ed 01       		.byte	0x1
+ 541 00ee 89       		.byte	0x89
+ 542 00ef 01       		.byte	0x1
+ 543 00f0 00000000 		.4byte	.LFB32
+ 544 00f4 18000000 		.4byte	.LFE32
+ 545 00f8 99000000 		.4byte	.LLST3
+ 546 00fc 0B       		.uleb128 0xb
+ 547 00fd BB000000 		.4byte	.LASF11
+ 548 0101 02       		.byte	0x2
+ 549 0102 CE06     		.2byte	0x6ce
+ 550 0104 0A010000 		.4byte	0x10a
+ 551 0108 01       		.byte	0x1
+ 552 0109 01       		.byte	0x1
+ 553 010a 0C       		.uleb128 0xc
+ 554 010b 61000000 		.4byte	0x61
+ 555 010f 0D       		.uleb128 0xd
+ 556 0110 38000000 		.4byte	.LASF12
+ 557 0114 01       		.byte	0x1
+ 558 0115 15       		.byte	0x15
+ 559 0116 61000000 		.4byte	0x61
+ 560 011a 01       		.byte	0x1
+ 561 011b 05       		.byte	0x5
+ 562 011c 03       		.byte	0x3
+ 563 011d 00000000 		.4byte	pinDMK
+ 564 0121 0D       		.uleb128 0xd
+ 565 0122 27010000 		.4byte	.LASF13
+ 566 0126 01       		.byte	0x1
+ 567 0127 16       		.byte	0x16
+ 568 0128 61000000 		.4byte	0x61
+ 569 012c 01       		.byte	0x1
+ 570 012d 05       		.byte	0x5
+ 571 012e 03       		.byte	0x3
+ 572 012f 00000000 		.4byte	CaptureFlag
+ 573 0133 0D       		.uleb128 0xd
+ 574 0134 C8000000 		.4byte	.LASF14
+ 575 0138 01       		.byte	0x1
+ 576 0139 17       		.byte	0x17
+ 577 013a 76000000 		.4byte	0x76
+ 578 013e 01       		.byte	0x1
+ 579 013f 05       		.byte	0x5
+ 580 0140 03       		.byte	0x3
+ 581 0141 00000000 		.4byte	statusButtonRead
+ 582 0145 0D       		.uleb128 0xd
+ 583 0146 88010000 		.4byte	.LASF15
+ 584 014a 01       		.byte	0x1
+ 585 014b 18       		.byte	0x18
+ 586 014c 76000000 		.4byte	0x76
+ 587 0150 01       		.byte	0x1
+ 588 0151 05       		.byte	0x5
+ 589 0152 03       		.byte	0x3
+ 590 0153 00000000 		.4byte	Polar_C_Pulse_Count
+ 591 0157 0D       		.uleb128 0xd
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 14
+
+
+ 592 0158 0A010000 		.4byte	.LASF16
+ 593 015c 01       		.byte	0x1
+ 594 015d 19       		.byte	0x19
+ 595 015e 76000000 		.4byte	0x76
+ 596 0162 01       		.byte	0x1
+ 597 0163 05       		.byte	0x5
+ 598 0164 03       		.byte	0x3
+ 599 0165 00000000 		.4byte	Polar_S_Pulse_Count
+ 600 0169 0D       		.uleb128 0xd
+ 601 016a 45000000 		.4byte	.LASF17
+ 602 016e 01       		.byte	0x1
+ 603 016f 1A       		.byte	0x1a
+ 604 0170 76000000 		.4byte	0x76
+ 605 0174 01       		.byte	0x1
+ 606 0175 05       		.byte	0x5
+ 607 0176 03       		.byte	0x3
+ 608 0177 00000000 		.4byte	ANTplus_Pulse_Count
+ 609 017b 0E       		.uleb128 0xe
+ 610 017c 76000000 		.4byte	0x76
+ 611 0180 8B010000 		.4byte	0x18b
+ 612 0184 0F       		.uleb128 0xf
+ 613 0185 81000000 		.4byte	0x81
+ 614 0189 FE       		.byte	0xfe
+ 615 018a 00       		.byte	0x0
+ 616 018b 0D       		.uleb128 0xd
+ 617 018c 0E000000 		.4byte	.LASF18
+ 618 0190 01       		.byte	0x1
+ 619 0191 1B       		.byte	0x1b
+ 620 0192 7B010000 		.4byte	0x17b
+ 621 0196 01       		.byte	0x1
+ 622 0197 05       		.byte	0x5
+ 623 0198 03       		.byte	0x3
+ 624 0199 00000000 		.4byte	ShiftData
+ 625 019d 00       		.byte	0x0
+ 626              		.section	.debug_abbrev
+ 627 0000 01       		.uleb128 0x1
+ 628 0001 11       		.uleb128 0x11
+ 629 0002 01       		.byte	0x1
+ 630 0003 25       		.uleb128 0x25
+ 631 0004 0E       		.uleb128 0xe
+ 632 0005 13       		.uleb128 0x13
+ 633 0006 0B       		.uleb128 0xb
+ 634 0007 03       		.uleb128 0x3
+ 635 0008 0E       		.uleb128 0xe
+ 636 0009 1B       		.uleb128 0x1b
+ 637 000a 0E       		.uleb128 0xe
+ 638 000b 11       		.uleb128 0x11
+ 639 000c 01       		.uleb128 0x1
+ 640 000d 52       		.uleb128 0x52
+ 641 000e 01       		.uleb128 0x1
+ 642 000f 55       		.uleb128 0x55
+ 643 0010 06       		.uleb128 0x6
+ 644 0011 10       		.uleb128 0x10
+ 645 0012 06       		.uleb128 0x6
+ 646 0013 00       		.byte	0x0
+ 647 0014 00       		.byte	0x0
+ 648 0015 02       		.uleb128 0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 15
+
+
+ 649 0016 24       		.uleb128 0x24
+ 650 0017 00       		.byte	0x0
+ 651 0018 0B       		.uleb128 0xb
+ 652 0019 0B       		.uleb128 0xb
+ 653 001a 3E       		.uleb128 0x3e
+ 654 001b 0B       		.uleb128 0xb
+ 655 001c 03       		.uleb128 0x3
+ 656 001d 0E       		.uleb128 0xe
+ 657 001e 00       		.byte	0x0
+ 658 001f 00       		.byte	0x0
+ 659 0020 03       		.uleb128 0x3
+ 660 0021 24       		.uleb128 0x24
+ 661 0022 00       		.byte	0x0
+ 662 0023 0B       		.uleb128 0xb
+ 663 0024 0B       		.uleb128 0xb
+ 664 0025 3E       		.uleb128 0x3e
+ 665 0026 0B       		.uleb128 0xb
+ 666 0027 03       		.uleb128 0x3
+ 667 0028 08       		.uleb128 0x8
+ 668 0029 00       		.byte	0x0
+ 669 002a 00       		.byte	0x0
+ 670 002b 04       		.uleb128 0x4
+ 671 002c 16       		.uleb128 0x16
+ 672 002d 00       		.byte	0x0
+ 673 002e 03       		.uleb128 0x3
+ 674 002f 0E       		.uleb128 0xe
+ 675 0030 3A       		.uleb128 0x3a
+ 676 0031 0B       		.uleb128 0xb
+ 677 0032 3B       		.uleb128 0x3b
+ 678 0033 0B       		.uleb128 0xb
+ 679 0034 49       		.uleb128 0x49
+ 680 0035 13       		.uleb128 0x13
+ 681 0036 00       		.byte	0x0
+ 682 0037 00       		.byte	0x0
+ 683 0038 05       		.uleb128 0x5
+ 684 0039 24       		.uleb128 0x24
+ 685 003a 00       		.byte	0x0
+ 686 003b 0B       		.uleb128 0xb
+ 687 003c 0B       		.uleb128 0xb
+ 688 003d 3E       		.uleb128 0x3e
+ 689 003e 0B       		.uleb128 0xb
+ 690 003f 00       		.byte	0x0
+ 691 0040 00       		.byte	0x0
+ 692 0041 06       		.uleb128 0x6
+ 693 0042 2E       		.uleb128 0x2e
+ 694 0043 00       		.byte	0x0
+ 695 0044 3F       		.uleb128 0x3f
+ 696 0045 0C       		.uleb128 0xc
+ 697 0046 03       		.uleb128 0x3
+ 698 0047 0E       		.uleb128 0xe
+ 699 0048 3A       		.uleb128 0x3a
+ 700 0049 0B       		.uleb128 0xb
+ 701 004a 3B       		.uleb128 0x3b
+ 702 004b 0B       		.uleb128 0xb
+ 703 004c 11       		.uleb128 0x11
+ 704 004d 01       		.uleb128 0x1
+ 705 004e 12       		.uleb128 0x12
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 16
+
+
+ 706 004f 01       		.uleb128 0x1
+ 707 0050 40       		.uleb128 0x40
+ 708 0051 06       		.uleb128 0x6
+ 709 0052 00       		.byte	0x0
+ 710 0053 00       		.byte	0x0
+ 711 0054 07       		.uleb128 0x7
+ 712 0055 2E       		.uleb128 0x2e
+ 713 0056 01       		.byte	0x1
+ 714 0057 3F       		.uleb128 0x3f
+ 715 0058 0C       		.uleb128 0xc
+ 716 0059 03       		.uleb128 0x3
+ 717 005a 0E       		.uleb128 0xe
+ 718 005b 3A       		.uleb128 0x3a
+ 719 005c 0B       		.uleb128 0xb
+ 720 005d 3B       		.uleb128 0x3b
+ 721 005e 0B       		.uleb128 0xb
+ 722 005f 11       		.uleb128 0x11
+ 723 0060 01       		.uleb128 0x1
+ 724 0061 12       		.uleb128 0x12
+ 725 0062 01       		.uleb128 0x1
+ 726 0063 40       		.uleb128 0x40
+ 727 0064 06       		.uleb128 0x6
+ 728 0065 01       		.uleb128 0x1
+ 729 0066 13       		.uleb128 0x13
+ 730 0067 00       		.byte	0x0
+ 731 0068 00       		.byte	0x0
+ 732 0069 08       		.uleb128 0x8
+ 733 006a 34       		.uleb128 0x34
+ 734 006b 00       		.byte	0x0
+ 735 006c 03       		.uleb128 0x3
+ 736 006d 0E       		.uleb128 0xe
+ 737 006e 3A       		.uleb128 0x3a
+ 738 006f 0B       		.uleb128 0xb
+ 739 0070 3B       		.uleb128 0x3b
+ 740 0071 0B       		.uleb128 0xb
+ 741 0072 49       		.uleb128 0x49
+ 742 0073 13       		.uleb128 0x13
+ 743 0074 02       		.uleb128 0x2
+ 744 0075 0A       		.uleb128 0xa
+ 745 0076 00       		.byte	0x0
+ 746 0077 00       		.byte	0x0
+ 747 0078 09       		.uleb128 0x9
+ 748 0079 2E       		.uleb128 0x2e
+ 749 007a 01       		.byte	0x1
+ 750 007b 3F       		.uleb128 0x3f
+ 751 007c 0C       		.uleb128 0xc
+ 752 007d 03       		.uleb128 0x3
+ 753 007e 0E       		.uleb128 0xe
+ 754 007f 3A       		.uleb128 0x3a
+ 755 0080 0B       		.uleb128 0xb
+ 756 0081 3B       		.uleb128 0x3b
+ 757 0082 0B       		.uleb128 0xb
+ 758 0083 27       		.uleb128 0x27
+ 759 0084 0C       		.uleb128 0xc
+ 760 0085 11       		.uleb128 0x11
+ 761 0086 01       		.uleb128 0x1
+ 762 0087 12       		.uleb128 0x12
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 17
+
+
+ 763 0088 01       		.uleb128 0x1
+ 764 0089 40       		.uleb128 0x40
+ 765 008a 06       		.uleb128 0x6
+ 766 008b 01       		.uleb128 0x1
+ 767 008c 13       		.uleb128 0x13
+ 768 008d 00       		.byte	0x0
+ 769 008e 00       		.byte	0x0
+ 770 008f 0A       		.uleb128 0xa
+ 771 0090 2E       		.uleb128 0x2e
+ 772 0091 00       		.byte	0x0
+ 773 0092 3F       		.uleb128 0x3f
+ 774 0093 0C       		.uleb128 0xc
+ 775 0094 03       		.uleb128 0x3
+ 776 0095 0E       		.uleb128 0xe
+ 777 0096 3A       		.uleb128 0x3a
+ 778 0097 0B       		.uleb128 0xb
+ 779 0098 3B       		.uleb128 0x3b
+ 780 0099 0B       		.uleb128 0xb
+ 781 009a 27       		.uleb128 0x27
+ 782 009b 0C       		.uleb128 0xc
+ 783 009c 11       		.uleb128 0x11
+ 784 009d 01       		.uleb128 0x1
+ 785 009e 12       		.uleb128 0x12
+ 786 009f 01       		.uleb128 0x1
+ 787 00a0 40       		.uleb128 0x40
+ 788 00a1 06       		.uleb128 0x6
+ 789 00a2 00       		.byte	0x0
+ 790 00a3 00       		.byte	0x0
+ 791 00a4 0B       		.uleb128 0xb
+ 792 00a5 34       		.uleb128 0x34
+ 793 00a6 00       		.byte	0x0
+ 794 00a7 03       		.uleb128 0x3
+ 795 00a8 0E       		.uleb128 0xe
+ 796 00a9 3A       		.uleb128 0x3a
+ 797 00aa 0B       		.uleb128 0xb
+ 798 00ab 3B       		.uleb128 0x3b
+ 799 00ac 05       		.uleb128 0x5
+ 800 00ad 49       		.uleb128 0x49
+ 801 00ae 13       		.uleb128 0x13
+ 802 00af 3F       		.uleb128 0x3f
+ 803 00b0 0C       		.uleb128 0xc
+ 804 00b1 3C       		.uleb128 0x3c
+ 805 00b2 0C       		.uleb128 0xc
+ 806 00b3 00       		.byte	0x0
+ 807 00b4 00       		.byte	0x0
+ 808 00b5 0C       		.uleb128 0xc
+ 809 00b6 35       		.uleb128 0x35
+ 810 00b7 00       		.byte	0x0
+ 811 00b8 49       		.uleb128 0x49
+ 812 00b9 13       		.uleb128 0x13
+ 813 00ba 00       		.byte	0x0
+ 814 00bb 00       		.byte	0x0
+ 815 00bc 0D       		.uleb128 0xd
+ 816 00bd 34       		.uleb128 0x34
+ 817 00be 00       		.byte	0x0
+ 818 00bf 03       		.uleb128 0x3
+ 819 00c0 0E       		.uleb128 0xe
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 18
+
+
+ 820 00c1 3A       		.uleb128 0x3a
+ 821 00c2 0B       		.uleb128 0xb
+ 822 00c3 3B       		.uleb128 0x3b
+ 823 00c4 0B       		.uleb128 0xb
+ 824 00c5 49       		.uleb128 0x49
+ 825 00c6 13       		.uleb128 0x13
+ 826 00c7 3F       		.uleb128 0x3f
+ 827 00c8 0C       		.uleb128 0xc
+ 828 00c9 02       		.uleb128 0x2
+ 829 00ca 0A       		.uleb128 0xa
+ 830 00cb 00       		.byte	0x0
+ 831 00cc 00       		.byte	0x0
+ 832 00cd 0E       		.uleb128 0xe
+ 833 00ce 01       		.uleb128 0x1
+ 834 00cf 01       		.byte	0x1
+ 835 00d0 49       		.uleb128 0x49
+ 836 00d1 13       		.uleb128 0x13
+ 837 00d2 01       		.uleb128 0x1
+ 838 00d3 13       		.uleb128 0x13
+ 839 00d4 00       		.byte	0x0
+ 840 00d5 00       		.byte	0x0
+ 841 00d6 0F       		.uleb128 0xf
+ 842 00d7 21       		.uleb128 0x21
+ 843 00d8 00       		.byte	0x0
+ 844 00d9 49       		.uleb128 0x49
+ 845 00da 13       		.uleb128 0x13
+ 846 00db 2F       		.uleb128 0x2f
+ 847 00dc 0B       		.uleb128 0xb
+ 848 00dd 00       		.byte	0x0
+ 849 00de 00       		.byte	0x0
+ 850 00df 00       		.byte	0x0
+ 851              		.section	.debug_pubnames,"",%progbits
+ 852 0000 D2000000 		.4byte	0xd2
+ 853 0004 0200     		.2byte	0x2
+ 854 0006 00000000 		.4byte	.Ldebug_info0
+ 855 000a 9E010000 		.4byte	0x19e
+ 856 000e 84000000 		.4byte	0x84
+ 857 0012 496E6974 		.ascii	"InitializeHardware\000"
+ 857      69616C69 
+ 857      7A654861 
+ 857      72647761 
+ 857      726500
+ 858 0025 98000000 		.4byte	0x98
+ 859 0029 6D61696E 		.ascii	"main\000"
+ 859      00
+ 860 002e BF000000 		.4byte	0xbf
+ 861 0032 53746F72 		.ascii	"StoreISR\000"
+ 861      65495352 
+ 861      00
+ 862 003b E7000000 		.4byte	0xe7
+ 863 003f 50756C73 		.ascii	"PulseCapture\000"
+ 863      65436170 
+ 863      74757265 
+ 863      00
+ 864 004c 0F010000 		.4byte	0x10f
+ 865 0050 70696E44 		.ascii	"pinDMK\000"
+ 865      4D4B00
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 19
+
+
+ 866 0057 21010000 		.4byte	0x121
+ 867 005b 43617074 		.ascii	"CaptureFlag\000"
+ 867      75726546 
+ 867      6C616700 
+ 868 0067 33010000 		.4byte	0x133
+ 869 006b 73746174 		.ascii	"statusButtonRead\000"
+ 869      75734275 
+ 869      74746F6E 
+ 869      52656164 
+ 869      00
+ 870 007c 45010000 		.4byte	0x145
+ 871 0080 506F6C61 		.ascii	"Polar_C_Pulse_Count\000"
+ 871      725F435F 
+ 871      50756C73 
+ 871      655F436F 
+ 871      756E7400 
+ 872 0094 57010000 		.4byte	0x157
+ 873 0098 506F6C61 		.ascii	"Polar_S_Pulse_Count\000"
+ 873      725F535F 
+ 873      50756C73 
+ 873      655F436F 
+ 873      756E7400 
+ 874 00ac 69010000 		.4byte	0x169
+ 875 00b0 414E5470 		.ascii	"ANTplus_Pulse_Count\000"
+ 875      6C75735F 
+ 875      50756C73 
+ 875      655F436F 
+ 875      756E7400 
+ 876 00c4 8B010000 		.4byte	0x18b
+ 877 00c8 53686966 		.ascii	"ShiftData\000"
+ 877      74446174 
+ 877      6100
+ 878 00d2 00000000 		.4byte	0x0
+ 879              		.section	.debug_aranges,"",%progbits
+ 880 0000 34000000 		.4byte	0x34
+ 881 0004 0200     		.2byte	0x2
+ 882 0006 00000000 		.4byte	.Ldebug_info0
+ 883 000a 04       		.byte	0x4
+ 884 000b 00       		.byte	0x0
+ 885 000c 0000     		.2byte	0x0
+ 886 000e 0000     		.2byte	0x0
+ 887 0010 00000000 		.4byte	.LFB29
+ 888 0014 64000000 		.4byte	.LFE29-.LFB29
+ 889 0018 00000000 		.4byte	.LFB30
+ 890 001c 38010000 		.4byte	.LFE30-.LFB30
+ 891 0020 00000000 		.4byte	.LFB31
+ 892 0024 26000000 		.4byte	.LFE31-.LFB31
+ 893 0028 00000000 		.4byte	.LFB32
+ 894 002c 18000000 		.4byte	.LFE32-.LFB32
+ 895 0030 00000000 		.4byte	0x0
+ 896 0034 00000000 		.4byte	0x0
+ 897              		.section	.debug_ranges,"",%progbits
+ 898              	.Ldebug_ranges0:
+ 899 0000 00000000 		.4byte	.Ltext0
+ 900 0004 00000000 		.4byte	.Letext0
+ 901 0008 00000000 		.4byte	.LFB29
+ 902 000c 64000000 		.4byte	.LFE29
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 20
+
+
+ 903 0010 00000000 		.4byte	.LFB30
+ 904 0014 38010000 		.4byte	.LFE30
+ 905 0018 00000000 		.4byte	.LFB31
+ 906 001c 26000000 		.4byte	.LFE31
+ 907 0020 00000000 		.4byte	.LFB32
+ 908 0024 18000000 		.4byte	.LFE32
+ 909 0028 00000000 		.4byte	0x0
+ 910 002c 00000000 		.4byte	0x0
+ 911              		.section	.debug_str,"MS",%progbits,1
+ 912              	.LASF6:
+ 913 0000 6C6F6E67 		.ascii	"long long int\000"
+ 913      206C6F6E 
+ 913      6720696E 
+ 913      7400
+ 914              	.LASF18:
+ 915 000e 53686966 		.ascii	"ShiftData\000"
+ 915      74446174 
+ 915      6100
+ 916              	.LASF23:
+ 917 0018 496E6974 		.ascii	"InitializeHardware\000"
+ 917      69616C69 
+ 917      7A654861 
+ 917      72647761 
+ 917      726500
+ 918              	.LASF8:
+ 919 002b 756E7369 		.ascii	"unsigned int\000"
+ 919      676E6564 
+ 919      20696E74 
+ 919      00
+ 920              	.LASF12:
+ 921 0038 70696E44 		.ascii	"pinDMK\000"
+ 921      4D4B00
+ 922              	.LASF22:
+ 923 003f 75696E74 		.ascii	"uint8\000"
+ 923      3800
+ 924              	.LASF17:
+ 925 0045 414E5470 		.ascii	"ANTplus_Pulse_Count\000"
+ 925      6C75735F 
+ 925      50756C73 
+ 925      655F436F 
+ 925      756E7400 
+ 926              	.LASF5:
+ 927 0059 6C6F6E67 		.ascii	"long unsigned int\000"
+ 927      20756E73 
+ 927      69676E65 
+ 927      6420696E 
+ 927      7400
+ 928              	.LASF7:
+ 929 006b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 929      206C6F6E 
+ 929      6720756E 
+ 929      7369676E 
+ 929      65642069 
+ 930              	.LASF3:
+ 931 0082 73686F72 		.ascii	"short unsigned int\000"
+ 931      7420756E 
+ 931      7369676E 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 21
+
+
+ 931      65642069 
+ 931      6E7400
+ 932              	.LASF10:
+ 933 0095 53746174 		.ascii	"Status\000"
+ 933      757300
+ 934              	.LASF19:
+ 935 009c 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 935      4320342E 
+ 935      342E3100 
+ 936              	.LASF1:
+ 937 00a8 756E7369 		.ascii	"unsigned char\000"
+ 937      676E6564 
+ 937      20636861 
+ 937      7200
+ 938              	.LASF9:
+ 939 00b6 63686172 		.ascii	"char\000"
+ 939      00
+ 940              	.LASF11:
+ 941 00bb 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 941      52784275 
+ 941      66666572 
+ 941      00
+ 942              	.LASF14:
+ 943 00c8 73746174 		.ascii	"statusButtonRead\000"
+ 943      75734275 
+ 943      74746F6E 
+ 943      52656164 
+ 943      00
+ 944              	.LASF2:
+ 945 00d9 73686F72 		.ascii	"short int\000"
+ 945      7420696E 
+ 945      7400
+ 946              	.LASF4:
+ 947 00e3 6C6F6E67 		.ascii	"long int\000"
+ 947      20696E74 
+ 947      00
+ 948              	.LASF26:
+ 949 00ec 50756C73 		.ascii	"PulseCapture\000"
+ 949      65436170 
+ 949      74757265 
+ 949      00
+ 950              	.LASF0:
+ 951 00f9 7369676E 		.ascii	"signed char\000"
+ 951      65642063 
+ 951      68617200 
+ 952              	.LASF24:
+ 953 0105 6D61696E 		.ascii	"main\000"
+ 953      00
+ 954              	.LASF16:
+ 955 010a 506F6C61 		.ascii	"Polar_S_Pulse_Count\000"
+ 955      725F535F 
+ 955      50756C73 
+ 955      655F436F 
+ 955      756E7400 
+ 956              	.LASF20:
+ 957 011e 2E5C6D61 		.ascii	".\\main.c\000"
+ 957      696E2E63 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccveiHVe.s 			page 22
+
+
+ 957      00
+ 958              	.LASF13:
+ 959 0127 43617074 		.ascii	"CaptureFlag\000"
+ 959      75726546 
+ 959      6C616700 
+ 960              	.LASF25:
+ 961 0133 53746F72 		.ascii	"StoreISR\000"
+ 961      65495352 
+ 961      00
+ 962              	.LASF21:
+ 963 013c 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\PSoC Creator\\Puls"
+ 963      73657273 
+ 963      5C627279 
+ 963      616E2E6C 
+ 963      65655C44 
+ 964 016a 655F7073 		.ascii	"e_psoc5\\Combine\\Combine.cydsn\000"
+ 964      6F63355C 
+ 964      436F6D62 
+ 964      696E655C 
+ 964      436F6D62 
+ 965              	.LASF15:
+ 966 0188 506F6C61 		.ascii	"Polar_C_Pulse_Count\000"
+ 966      725F435F 
+ 966      50756C73 
+ 966      655F436F 
+ 966      756E7400 
+ 967              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

@@ -1,0 +1,2691 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"PWMPulseCapture.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	PWMPulseCapture_initVar
+  19              		.bss
+  20              		.type	PWMPulseCapture_initVar, %object
+  21              		.size	PWMPulseCapture_initVar, 1
+  22              	PWMPulseCapture_initVar:
+  23 0000 00       		.space	1
+  24              		.section	.text.PWMPulseCapture_Start,"ax",%progbits
+  25              		.align	2
+  26              		.global	PWMPulseCapture_Start
+  27              		.thumb
+  28              		.thumb_func
+  29              		.type	PWMPulseCapture_Start, %function
+  30              	PWMPulseCapture_Start:
+  31              	.LFB0:
+  32              		.file 1 "Generated_Source\\PSoC5\\PWMPulseCapture.c"
+   1:Generated_Source\PSoC5/PWMPulseCapture.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/PWMPulseCapture.c **** * File Name: PWMPulseCapture.c
+   3:Generated_Source\PSoC5/PWMPulseCapture.c **** * Version 3.30
+   4:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+   5:Generated_Source\PSoC5/PWMPulseCapture.c **** * Description:
+   6:Generated_Source\PSoC5/PWMPulseCapture.c **** *  The PWM User Module consist of an 8 or 16-bit counter with two 8 or 16-bit
+   7:Generated_Source\PSoC5/PWMPulseCapture.c **** *  comparitors. Each instance of this user module is capable of generating
+   8:Generated_Source\PSoC5/PWMPulseCapture.c **** *  two PWM outputs with the same period. The pulse width is selectable between
+   9:Generated_Source\PSoC5/PWMPulseCapture.c **** *  1 and 255/65535. The period is selectable between 2 and 255/65536 clocks.
+  10:Generated_Source\PSoC5/PWMPulseCapture.c **** *  The compare value output may be configured to be active when the present
+  11:Generated_Source\PSoC5/PWMPulseCapture.c **** *  counter is less than or less than/equal to the compare value.
+  12:Generated_Source\PSoC5/PWMPulseCapture.c **** *  A terminal count output is also provided. It generates a pulse one clock
+  13:Generated_Source\PSoC5/PWMPulseCapture.c **** *  width wide when the counter is equal to zero.
+  14:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+  15:Generated_Source\PSoC5/PWMPulseCapture.c **** * Note:
+  16:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+  17:Generated_Source\PSoC5/PWMPulseCapture.c **** *******************************************************************************
+  18:Generated_Source\PSoC5/PWMPulseCapture.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  19:Generated_Source\PSoC5/PWMPulseCapture.c **** * You may use this file only in accordance with the license, terms, conditions,
+  20:Generated_Source\PSoC5/PWMPulseCapture.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  21:Generated_Source\PSoC5/PWMPulseCapture.c **** * the software package with which this file was provided.
+  22:Generated_Source\PSoC5/PWMPulseCapture.c **** ********************************************************************************/
+  23:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+  24:Generated_Source\PSoC5/PWMPulseCapture.c **** #include "PWMPulseCapture.h"
+  25:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 2
+
+
+  26:Generated_Source\PSoC5/PWMPulseCapture.c **** /* Error message for removed <resource> through optimization */
+  27:Generated_Source\PSoC5/PWMPulseCapture.c **** #ifdef PWMPulseCapture_PWMUDB_genblk1_ctrlreg__REMOVED
+  28:Generated_Source\PSoC5/PWMPulseCapture.c ****     #error PWM_v3_30 detected with a constant 0 for the enable or \
+  29:Generated_Source\PSoC5/PWMPulseCapture.c ****          constant 1 for reset. This will prevent the component from operating.
+  30:Generated_Source\PSoC5/PWMPulseCapture.c **** #endif /* PWMPulseCapture_PWMUDB_genblk1_ctrlreg__REMOVED */
+  31:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+  32:Generated_Source\PSoC5/PWMPulseCapture.c **** uint8 PWMPulseCapture_initVar = 0u;
+  33:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+  34:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+  35:Generated_Source\PSoC5/PWMPulseCapture.c **** /*******************************************************************************
+  36:Generated_Source\PSoC5/PWMPulseCapture.c **** * Function Name: PWMPulseCapture_Start
+  37:Generated_Source\PSoC5/PWMPulseCapture.c **** ********************************************************************************
+  38:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+  39:Generated_Source\PSoC5/PWMPulseCapture.c **** * Summary:
+  40:Generated_Source\PSoC5/PWMPulseCapture.c **** *  The start function initializes the pwm with the default values, the
+  41:Generated_Source\PSoC5/PWMPulseCapture.c **** *  enables the counter to begin counting.  It does not enable interrupts,
+  42:Generated_Source\PSoC5/PWMPulseCapture.c **** *  the EnableInt command should be called if interrupt generation is required.
+  43:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+  44:Generated_Source\PSoC5/PWMPulseCapture.c **** * Parameters:
+  45:Generated_Source\PSoC5/PWMPulseCapture.c **** *  None
+  46:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+  47:Generated_Source\PSoC5/PWMPulseCapture.c **** * Return:
+  48:Generated_Source\PSoC5/PWMPulseCapture.c **** *  None
+  49:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+  50:Generated_Source\PSoC5/PWMPulseCapture.c **** * Global variables:
+  51:Generated_Source\PSoC5/PWMPulseCapture.c **** *  PWMPulseCapture_initVar: Is modified when this function is called for the
+  52:Generated_Source\PSoC5/PWMPulseCapture.c **** *   first time. Is used to ensure that initialization happens only once.
+  53:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+  54:Generated_Source\PSoC5/PWMPulseCapture.c **** *******************************************************************************/
+  55:Generated_Source\PSoC5/PWMPulseCapture.c **** void PWMPulseCapture_Start(void) 
+  56:Generated_Source\PSoC5/PWMPulseCapture.c **** {
+  33              		.loc 1 56 0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 0
+  36              		@ frame_needed = 1, uses_anonymous_args = 0
+  37 0000 80B5     		push	{r7, lr}
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 7, -8
+  40              		.cfi_offset 14, -4
+  41 0002 00AF     		add	r7, sp, #0
+  42              		.cfi_def_cfa_register 7
+  57:Generated_Source\PSoC5/PWMPulseCapture.c ****     /* If not Initialized then initialize all required hardware and software */
+  58:Generated_Source\PSoC5/PWMPulseCapture.c ****     if(PWMPulseCapture_initVar == 0u)
+  43              		.loc 1 58 0
+  44 0004 054B     		ldr	r3, .L3
+  45 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  46 0008 002B     		cmp	r3, #0
+  47 000a 04D1     		bne	.L2
+  59:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+  60:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_Init();
+  48              		.loc 1 60 0
+  49 000c FFF7FEFF 		bl	PWMPulseCapture_Init
+  61:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_initVar = 1u;
+  50              		.loc 1 61 0
+  51 0010 024B     		ldr	r3, .L3
+  52 0012 0122     		movs	r2, #1
+  53 0014 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 3
+
+
+  54              	.L2:
+  62:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+  63:Generated_Source\PSoC5/PWMPulseCapture.c ****     PWMPulseCapture_Enable();
+  55              		.loc 1 63 0
+  56 0016 FFF7FEFF 		bl	PWMPulseCapture_Enable
+  64:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+  65:Generated_Source\PSoC5/PWMPulseCapture.c **** }
+  57              		.loc 1 65 0
+  58 001a 80BD     		pop	{r7, pc}
+  59              	.L4:
+  60              		.align	2
+  61              	.L3:
+  62 001c 00000000 		.word	PWMPulseCapture_initVar
+  63              		.cfi_endproc
+  64              	.LFE0:
+  65              		.size	PWMPulseCapture_Start, .-PWMPulseCapture_Start
+  66              		.section	.text.PWMPulseCapture_Init,"ax",%progbits
+  67              		.align	2
+  68              		.global	PWMPulseCapture_Init
+  69              		.thumb
+  70              		.thumb_func
+  71              		.type	PWMPulseCapture_Init, %function
+  72              	PWMPulseCapture_Init:
+  73              	.LFB1:
+  66:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+  67:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+  68:Generated_Source\PSoC5/PWMPulseCapture.c **** /*******************************************************************************
+  69:Generated_Source\PSoC5/PWMPulseCapture.c **** * Function Name: PWMPulseCapture_Init
+  70:Generated_Source\PSoC5/PWMPulseCapture.c **** ********************************************************************************
+  71:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+  72:Generated_Source\PSoC5/PWMPulseCapture.c **** * Summary:
+  73:Generated_Source\PSoC5/PWMPulseCapture.c **** *  Initialize component's parameters to the parameters set by user in the
+  74:Generated_Source\PSoC5/PWMPulseCapture.c **** *  customizer of the component placed onto schematic. Usually called in
+  75:Generated_Source\PSoC5/PWMPulseCapture.c **** *  PWMPulseCapture_Start().
+  76:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+  77:Generated_Source\PSoC5/PWMPulseCapture.c **** * Parameters:
+  78:Generated_Source\PSoC5/PWMPulseCapture.c **** *  None
+  79:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+  80:Generated_Source\PSoC5/PWMPulseCapture.c **** * Return:
+  81:Generated_Source\PSoC5/PWMPulseCapture.c **** *  None
+  82:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+  83:Generated_Source\PSoC5/PWMPulseCapture.c **** *******************************************************************************/
+  84:Generated_Source\PSoC5/PWMPulseCapture.c **** void PWMPulseCapture_Init(void) 
+  85:Generated_Source\PSoC5/PWMPulseCapture.c **** {
+  74              		.loc 1 85 0
+  75              		.cfi_startproc
+  76              		@ args = 0, pretend = 0, frame = 8
+  77              		@ frame_needed = 1, uses_anonymous_args = 0
+  78 0000 80B5     		push	{r7, lr}
+  79              		.cfi_def_cfa_offset 8
+  80              		.cfi_offset 7, -8
+  81              		.cfi_offset 14, -4
+  82 0002 82B0     		sub	sp, sp, #8
+  83              		.cfi_def_cfa_offset 16
+  84 0004 00AF     		add	r7, sp, #0
+  85              		.cfi_def_cfa_register 7
+  86:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (PWMPulseCapture_UsingFixedFunction || PWMPulseCapture_UseControl)
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 4
+
+
+  87:Generated_Source\PSoC5/PWMPulseCapture.c ****         uint8 ctrl;
+  88:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (PWMPulseCapture_UsingFixedFunction || PWMPulseCapture_UseControl) */
+  89:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+  90:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if(!PWMPulseCapture_UsingFixedFunction)
+  91:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if(PWMPulseCapture_UseStatus)
+  92:Generated_Source\PSoC5/PWMPulseCapture.c ****             /* Interrupt State Backup for Critical Region*/
+  93:Generated_Source\PSoC5/PWMPulseCapture.c ****             uint8 PWMPulseCapture_interruptState;
+  94:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_UseStatus) */
+  95:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (!PWMPulseCapture_UsingFixedFunction) */
+  96:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+  97:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (PWMPulseCapture_UsingFixedFunction)
+  98:Generated_Source\PSoC5/PWMPulseCapture.c ****         /* You are allowed to write the compare value (FF only) */
+  99:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_CONTROL |= PWMPulseCapture_CFG0_MODE;
+ 100:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if (PWMPulseCapture_DeadBand2_4)
+ 101:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_CONTROL |= PWMPulseCapture_CFG0_DB;
+ 102:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_DeadBand2_4) */
+ 103:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 104:Generated_Source\PSoC5/PWMPulseCapture.c ****         ctrl = PWMPulseCapture_CONTROL3 & ((uint8 )(~PWMPulseCapture_CTRL_CMPMODE1_MASK));
+ 105:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_CONTROL3 = ctrl | PWMPulseCapture_DEFAULT_COMPARE1_MODE;
+ 106:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 107:Generated_Source\PSoC5/PWMPulseCapture.c ****          /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+ 108:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_RT1 &= ((uint8)(~PWMPulseCapture_RT1_MASK));
+ 109:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_RT1 |= PWMPulseCapture_SYNC;
+ 110:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 111:Generated_Source\PSoC5/PWMPulseCapture.c ****         /*Enable DSI Sync all all inputs of the PWM*/
+ 112:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_RT1 &= ((uint8)(~PWMPulseCapture_SYNCDSI_MASK));
+ 113:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_RT1 |= PWMPulseCapture_SYNCDSI_EN;
+ 114:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 115:Generated_Source\PSoC5/PWMPulseCapture.c ****     #elif (PWMPulseCapture_UseControl)
+ 116:Generated_Source\PSoC5/PWMPulseCapture.c ****         /* Set the default compare mode defined in the parameter */
+ 117:Generated_Source\PSoC5/PWMPulseCapture.c ****         ctrl = PWMPulseCapture_CONTROL & ((uint8)(~PWMPulseCapture_CTRL_CMPMODE2_MASK)) &
+  86              		.loc 1 117 0
+  87 0006 204B     		ldr	r3, .L6
+  88 0008 1B78     		ldrb	r3, [r3]
+  89 000a DBB2     		uxtb	r3, r3
+  90 000c 23F03F03 		bic	r3, r3, #63
+  91 0010 FB71     		strb	r3, [r7, #7]
+ 118:Generated_Source\PSoC5/PWMPulseCapture.c ****                 ((uint8)(~PWMPulseCapture_CTRL_CMPMODE1_MASK));
+ 119:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_CONTROL = ctrl | PWMPulseCapture_DEFAULT_COMPARE2_MODE |
+  92              		.loc 1 119 0
+  93 0012 1D4A     		ldr	r2, .L6
+  94 0014 FB79     		ldrb	r3, [r7, #7]
+  95 0016 43F00C03 		orr	r3, r3, #12
+  96 001a DBB2     		uxtb	r3, r3
+  97 001c 1370     		strb	r3, [r2]
+ 120:Generated_Source\PSoC5/PWMPulseCapture.c ****                                    PWMPulseCapture_DEFAULT_COMPARE1_MODE;
+ 121:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 122:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 123:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (!PWMPulseCapture_UsingFixedFunction)
+ 124:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if (PWMPulseCapture_Resolution == 8)
+ 125:Generated_Source\PSoC5/PWMPulseCapture.c ****             /* Set FIFO 0 to 1 byte register for period*/
+ 126:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_AUX_CONTROLDP0 |= (PWMPulseCapture_AUX_CTRL_FIFO0_CLR);
+ 127:Generated_Source\PSoC5/PWMPulseCapture.c ****         #else /* (PWMPulseCapture_Resolution == 16)*/
+ 128:Generated_Source\PSoC5/PWMPulseCapture.c ****             /* Set FIFO 0 to 1 byte register for period */
+ 129:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_AUX_CONTROLDP0 |= (PWMPulseCapture_AUX_CTRL_FIFO0_CLR);
+  98              		.loc 1 129 0
+  99 001e 1B4A     		ldr	r2, .L6+4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 5
+
+
+ 100 0020 1A4B     		ldr	r3, .L6+4
+ 101 0022 1B78     		ldrb	r3, [r3]
+ 102 0024 DBB2     		uxtb	r3, r3
+ 103 0026 43F00103 		orr	r3, r3, #1
+ 104 002a DBB2     		uxtb	r3, r3
+ 105 002c 1370     		strb	r3, [r2]
+ 130:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_AUX_CONTROLDP1 |= (PWMPulseCapture_AUX_CTRL_FIFO0_CLR);
+ 106              		.loc 1 130 0
+ 107 002e 184A     		ldr	r2, .L6+8
+ 108 0030 174B     		ldr	r3, .L6+8
+ 109 0032 1B78     		ldrb	r3, [r3]
+ 110 0034 DBB2     		uxtb	r3, r3
+ 111 0036 43F00103 		orr	r3, r3, #1
+ 112 003a DBB2     		uxtb	r3, r3
+ 113 003c 1370     		strb	r3, [r2]
+ 131:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_Resolution == 8) */
+ 132:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 133:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_WriteCounter(PWMPulseCapture_INIT_PERIOD_VALUE);
+ 114              		.loc 1 133 0
+ 115 003e 4FF6FF70 		movw	r0, #65535
+ 116 0042 FFF7FEFF 		bl	PWMPulseCapture_WriteCounter
+ 134:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (!PWMPulseCapture_UsingFixedFunction) */
+ 135:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 136:Generated_Source\PSoC5/PWMPulseCapture.c ****     PWMPulseCapture_WritePeriod(PWMPulseCapture_INIT_PERIOD_VALUE);
+ 117              		.loc 1 136 0
+ 118 0046 4FF6FF70 		movw	r0, #65535
+ 119 004a FFF7FEFF 		bl	PWMPulseCapture_WritePeriod
+ 137:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 138:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if (PWMPulseCapture_UseOneCompareMode)
+ 139:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_WriteCompare(PWMPulseCapture_INIT_COMPARE_VALUE1);
+ 120              		.loc 1 139 0
+ 121 004e 4FF40040 		mov	r0, #32768
+ 122 0052 FFF7FEFF 		bl	PWMPulseCapture_WriteCompare
+ 140:Generated_Source\PSoC5/PWMPulseCapture.c ****         #else
+ 141:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_WriteCompare1(PWMPulseCapture_INIT_COMPARE_VALUE1);
+ 142:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_WriteCompare2(PWMPulseCapture_INIT_COMPARE_VALUE2);
+ 143:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_UseOneCompareMode) */
+ 144:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 145:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if (PWMPulseCapture_KillModeMinTime)
+ 146:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_WriteKillTime(PWMPulseCapture_MinimumKillTime);
+ 147:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_KillModeMinTime) */
+ 148:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 149:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if (PWMPulseCapture_DeadBandUsed)
+ 150:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_WriteDeadTime(PWMPulseCapture_INIT_DEAD_TIME);
+ 151:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_DeadBandUsed) */
+ 152:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 153:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (PWMPulseCapture_UseStatus || PWMPulseCapture_UsingFixedFunction)
+ 154:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_SetInterruptMode(PWMPulseCapture_INIT_INTERRUPTS_MODE);
+ 123              		.loc 1 154 0
+ 124 0056 0120     		movs	r0, #1
+ 125 0058 FFF7FEFF 		bl	PWMPulseCapture_SetInterruptMode
+ 155:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (PWMPulseCapture_UseStatus || PWMPulseCapture_UsingFixedFunction) */
+ 156:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 157:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (PWMPulseCapture_UsingFixedFunction)
+ 158:Generated_Source\PSoC5/PWMPulseCapture.c ****         /* Globally Enable the Fixed Function Block chosen */
+ 159:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_GLOBAL_ENABLE |= PWMPulseCapture_BLOCK_EN_MASK;
+ 160:Generated_Source\PSoC5/PWMPulseCapture.c ****         /* Set the Interrupt source to come from the status register */
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 6
+
+
+ 161:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_CONTROL2 |= PWMPulseCapture_CTRL2_IRQ_SEL;
+ 162:Generated_Source\PSoC5/PWMPulseCapture.c ****     #else
+ 163:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if(PWMPulseCapture_UseStatus)
+ 164:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 165:Generated_Source\PSoC5/PWMPulseCapture.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 166:Generated_Source\PSoC5/PWMPulseCapture.c ****             /* Enter Critical Region*/
+ 167:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_interruptState = CyEnterCriticalSection();
+ 126              		.loc 1 167 0
+ 127 005c FFF7FEFF 		bl	CyEnterCriticalSection
+ 128 0060 0346     		mov	r3, r0
+ 129 0062 BB71     		strb	r3, [r7, #6]
+ 168:Generated_Source\PSoC5/PWMPulseCapture.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 169:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_STATUS_AUX_CTRL |= PWMPulseCapture_STATUS_ACTL_INT_EN_MASK;
+ 130              		.loc 1 169 0
+ 131 0064 094A     		ldr	r2, .L6+4
+ 132 0066 094B     		ldr	r3, .L6+4
+ 133 0068 1B78     		ldrb	r3, [r3]
+ 134 006a DBB2     		uxtb	r3, r3
+ 135 006c 43F01003 		orr	r3, r3, #16
+ 136 0070 DBB2     		uxtb	r3, r3
+ 137 0072 1370     		strb	r3, [r2]
+ 170:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 171:Generated_Source\PSoC5/PWMPulseCapture.c ****              /* Exit Critical Region*/
+ 172:Generated_Source\PSoC5/PWMPulseCapture.c ****             CyExitCriticalSection(PWMPulseCapture_interruptState);
+ 138              		.loc 1 172 0
+ 139 0074 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 140 0076 1846     		mov	r0, r3
+ 141 0078 FFF7FEFF 		bl	CyExitCriticalSection
+ 173:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 174:Generated_Source\PSoC5/PWMPulseCapture.c ****             /* Clear the FIFO to enable the PWMPulseCapture_STATUS_FIFOFULL
+ 175:Generated_Source\PSoC5/PWMPulseCapture.c ****                    bit to be set on FIFO full. */
+ 176:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_ClearFIFO();
+ 142              		.loc 1 176 0
+ 143 007c FFF7FEFF 		bl	PWMPulseCapture_ClearFIFO
+ 177:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_UseStatus) */
+ 178:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 179:Generated_Source\PSoC5/PWMPulseCapture.c **** }
+ 144              		.loc 1 179 0
+ 145 0080 0837     		adds	r7, r7, #8
+ 146              		.cfi_def_cfa_offset 8
+ 147 0082 BD46     		mov	sp, r7
+ 148              		.cfi_def_cfa_register 13
+ 149              		@ sp needed
+ 150 0084 80BD     		pop	{r7, pc}
+ 151              	.L7:
+ 152 0086 00BF     		.align	2
+ 153              	.L6:
+ 154 0088 74650040 		.word	1073767796
+ 155 008c 94650040 		.word	1073767828
+ 156 0090 95650040 		.word	1073767829
+ 157              		.cfi_endproc
+ 158              	.LFE1:
+ 159              		.size	PWMPulseCapture_Init, .-PWMPulseCapture_Init
+ 160              		.section	.text.PWMPulseCapture_Enable,"ax",%progbits
+ 161              		.align	2
+ 162              		.global	PWMPulseCapture_Enable
+ 163              		.thumb
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 7
+
+
+ 164              		.thumb_func
+ 165              		.type	PWMPulseCapture_Enable, %function
+ 166              	PWMPulseCapture_Enable:
+ 167              	.LFB2:
+ 180:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 181:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 182:Generated_Source\PSoC5/PWMPulseCapture.c **** /*******************************************************************************
+ 183:Generated_Source\PSoC5/PWMPulseCapture.c **** * Function Name: PWMPulseCapture_Enable
+ 184:Generated_Source\PSoC5/PWMPulseCapture.c **** ********************************************************************************
+ 185:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 186:Generated_Source\PSoC5/PWMPulseCapture.c **** * Summary:
+ 187:Generated_Source\PSoC5/PWMPulseCapture.c **** *  Enables the PWM block operation
+ 188:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 189:Generated_Source\PSoC5/PWMPulseCapture.c **** * Parameters:
+ 190:Generated_Source\PSoC5/PWMPulseCapture.c **** *  None
+ 191:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 192:Generated_Source\PSoC5/PWMPulseCapture.c **** * Return:
+ 193:Generated_Source\PSoC5/PWMPulseCapture.c **** *  None
+ 194:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 195:Generated_Source\PSoC5/PWMPulseCapture.c **** * Side Effects:
+ 196:Generated_Source\PSoC5/PWMPulseCapture.c **** *  This works only if software enable mode is chosen
+ 197:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 198:Generated_Source\PSoC5/PWMPulseCapture.c **** *******************************************************************************/
+ 199:Generated_Source\PSoC5/PWMPulseCapture.c **** void PWMPulseCapture_Enable(void) 
+ 200:Generated_Source\PSoC5/PWMPulseCapture.c **** {
+ 168              		.loc 1 200 0
+ 169              		.cfi_startproc
+ 170              		@ args = 0, pretend = 0, frame = 0
+ 171              		@ frame_needed = 1, uses_anonymous_args = 0
+ 172              		@ link register save eliminated.
+ 173 0000 80B4     		push	{r7}
+ 174              		.cfi_def_cfa_offset 4
+ 175              		.cfi_offset 7, -4
+ 176 0002 00AF     		add	r7, sp, #0
+ 177              		.cfi_def_cfa_register 7
+ 201:Generated_Source\PSoC5/PWMPulseCapture.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 202:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (PWMPulseCapture_UsingFixedFunction)
+ 203:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_GLOBAL_ENABLE |= PWMPulseCapture_BLOCK_EN_MASK;
+ 204:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_GLOBAL_STBY_ENABLE |= PWMPulseCapture_BLOCK_STBY_EN_MASK;
+ 205:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 206:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 207:Generated_Source\PSoC5/PWMPulseCapture.c ****     /* Enable the PWM from the control register  */
+ 208:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (PWMPulseCapture_UseControl || PWMPulseCapture_UsingFixedFunction)
+ 209:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_CONTROL |= PWMPulseCapture_CTRL_ENABLE;
+ 178              		.loc 1 209 0
+ 179 0004 054A     		ldr	r2, .L9
+ 180 0006 054B     		ldr	r3, .L9
+ 181 0008 1B78     		ldrb	r3, [r3]
+ 182 000a DBB2     		uxtb	r3, r3
+ 183 000c 63F07F03 		orn	r3, r3, #127
+ 184 0010 DBB2     		uxtb	r3, r3
+ 185 0012 1370     		strb	r3, [r2]
+ 210:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (PWMPulseCapture_UseControl || PWMPulseCapture_UsingFixedFunction) */
+ 211:Generated_Source\PSoC5/PWMPulseCapture.c **** }
+ 186              		.loc 1 211 0
+ 187 0014 BD46     		mov	sp, r7
+ 188              		.cfi_def_cfa_register 13
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 8
+
+
+ 189              		@ sp needed
+ 190 0016 5DF8047B 		ldr	r7, [sp], #4
+ 191              		.cfi_restore 7
+ 192              		.cfi_def_cfa_offset 0
+ 193 001a 7047     		bx	lr
+ 194              	.L10:
+ 195              		.align	2
+ 196              	.L9:
+ 197 001c 74650040 		.word	1073767796
+ 198              		.cfi_endproc
+ 199              	.LFE2:
+ 200              		.size	PWMPulseCapture_Enable, .-PWMPulseCapture_Enable
+ 201              		.section	.text.PWMPulseCapture_Stop,"ax",%progbits
+ 202              		.align	2
+ 203              		.global	PWMPulseCapture_Stop
+ 204              		.thumb
+ 205              		.thumb_func
+ 206              		.type	PWMPulseCapture_Stop, %function
+ 207              	PWMPulseCapture_Stop:
+ 208              	.LFB3:
+ 212:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 213:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 214:Generated_Source\PSoC5/PWMPulseCapture.c **** /*******************************************************************************
+ 215:Generated_Source\PSoC5/PWMPulseCapture.c **** * Function Name: PWMPulseCapture_Stop
+ 216:Generated_Source\PSoC5/PWMPulseCapture.c **** ********************************************************************************
+ 217:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 218:Generated_Source\PSoC5/PWMPulseCapture.c **** * Summary:
+ 219:Generated_Source\PSoC5/PWMPulseCapture.c **** *  The stop function halts the PWM, but does not change any modes or disable
+ 220:Generated_Source\PSoC5/PWMPulseCapture.c **** *  interrupts.
+ 221:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 222:Generated_Source\PSoC5/PWMPulseCapture.c **** * Parameters:
+ 223:Generated_Source\PSoC5/PWMPulseCapture.c **** *  None
+ 224:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 225:Generated_Source\PSoC5/PWMPulseCapture.c **** * Return:
+ 226:Generated_Source\PSoC5/PWMPulseCapture.c **** *  None
+ 227:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 228:Generated_Source\PSoC5/PWMPulseCapture.c **** * Side Effects:
+ 229:Generated_Source\PSoC5/PWMPulseCapture.c **** *  If the Enable mode is set to Hardware only then this function
+ 230:Generated_Source\PSoC5/PWMPulseCapture.c **** *  has no effect on the operation of the PWM
+ 231:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 232:Generated_Source\PSoC5/PWMPulseCapture.c **** *******************************************************************************/
+ 233:Generated_Source\PSoC5/PWMPulseCapture.c **** void PWMPulseCapture_Stop(void) 
+ 234:Generated_Source\PSoC5/PWMPulseCapture.c **** {
+ 209              		.loc 1 234 0
+ 210              		.cfi_startproc
+ 211              		@ args = 0, pretend = 0, frame = 0
+ 212              		@ frame_needed = 1, uses_anonymous_args = 0
+ 213              		@ link register save eliminated.
+ 214 0000 80B4     		push	{r7}
+ 215              		.cfi_def_cfa_offset 4
+ 216              		.cfi_offset 7, -4
+ 217 0002 00AF     		add	r7, sp, #0
+ 218              		.cfi_def_cfa_register 7
+ 235:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (PWMPulseCapture_UseControl || PWMPulseCapture_UsingFixedFunction)
+ 236:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_CONTROL &= ((uint8)(~PWMPulseCapture_CTRL_ENABLE));
+ 219              		.loc 1 236 0
+ 220 0004 054A     		ldr	r2, .L12
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 9
+
+
+ 221 0006 054B     		ldr	r3, .L12
+ 222 0008 1B78     		ldrb	r3, [r3]
+ 223 000a DBB2     		uxtb	r3, r3
+ 224 000c 03F07F03 		and	r3, r3, #127
+ 225 0010 DBB2     		uxtb	r3, r3
+ 226 0012 1370     		strb	r3, [r2]
+ 237:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (PWMPulseCapture_UseControl || PWMPulseCapture_UsingFixedFunction) */
+ 238:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 239:Generated_Source\PSoC5/PWMPulseCapture.c ****     /* Globally disable the Fixed Function Block chosen */
+ 240:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (PWMPulseCapture_UsingFixedFunction)
+ 241:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_GLOBAL_ENABLE &= ((uint8)(~PWMPulseCapture_BLOCK_EN_MASK));
+ 242:Generated_Source\PSoC5/PWMPulseCapture.c ****         PWMPulseCapture_GLOBAL_STBY_ENABLE &= ((uint8)(~PWMPulseCapture_BLOCK_STBY_EN_MASK));
+ 243:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 244:Generated_Source\PSoC5/PWMPulseCapture.c **** }
+ 227              		.loc 1 244 0
+ 228 0014 BD46     		mov	sp, r7
+ 229              		.cfi_def_cfa_register 13
+ 230              		@ sp needed
+ 231 0016 5DF8047B 		ldr	r7, [sp], #4
+ 232              		.cfi_restore 7
+ 233              		.cfi_def_cfa_offset 0
+ 234 001a 7047     		bx	lr
+ 235              	.L13:
+ 236              		.align	2
+ 237              	.L12:
+ 238 001c 74650040 		.word	1073767796
+ 239              		.cfi_endproc
+ 240              	.LFE3:
+ 241              		.size	PWMPulseCapture_Stop, .-PWMPulseCapture_Stop
+ 242              		.section	.text.PWMPulseCapture_WriteCounter,"ax",%progbits
+ 243              		.align	2
+ 244              		.global	PWMPulseCapture_WriteCounter
+ 245              		.thumb
+ 246              		.thumb_func
+ 247              		.type	PWMPulseCapture_WriteCounter, %function
+ 248              	PWMPulseCapture_WriteCounter:
+ 249              	.LFB4:
+ 245:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 246:Generated_Source\PSoC5/PWMPulseCapture.c **** #if (PWMPulseCapture_UseOneCompareMode)
+ 247:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (PWMPulseCapture_CompareMode1SW)
+ 248:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 249:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 250:Generated_Source\PSoC5/PWMPulseCapture.c ****         /*******************************************************************************
+ 251:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Function Name: PWMPulseCapture_SetCompareMode
+ 252:Generated_Source\PSoC5/PWMPulseCapture.c ****         ********************************************************************************
+ 253:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ 254:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Summary:
+ 255:Generated_Source\PSoC5/PWMPulseCapture.c ****         *  This function writes the Compare Mode for the pwm output when in Dither mode,
+ 256:Generated_Source\PSoC5/PWMPulseCapture.c ****         *  Center Align Mode or One Output Mode.
+ 257:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ 258:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Parameters:
+ 259:Generated_Source\PSoC5/PWMPulseCapture.c ****         *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 260:Generated_Source\PSoC5/PWMPulseCapture.c ****         *                defined in the H file as input arguments.
+ 261:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ 262:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Return:
+ 263:Generated_Source\PSoC5/PWMPulseCapture.c ****         *  None
+ 264:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 10
+
+
+ 265:Generated_Source\PSoC5/PWMPulseCapture.c ****         *******************************************************************************/
+ 266:Generated_Source\PSoC5/PWMPulseCapture.c ****         void PWMPulseCapture_SetCompareMode(uint8 comparemode) 
+ 267:Generated_Source\PSoC5/PWMPulseCapture.c ****         {
+ 268:Generated_Source\PSoC5/PWMPulseCapture.c ****             #if(PWMPulseCapture_UsingFixedFunction)
+ 269:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 270:Generated_Source\PSoC5/PWMPulseCapture.c ****                 #if(0 != PWMPulseCapture_CTRL_CMPMODE1_SHIFT)
+ 271:Generated_Source\PSoC5/PWMPulseCapture.c ****                     uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWMPulseCapture_CTRL_C
+ 272:Generated_Source\PSoC5/PWMPulseCapture.c ****                 #else
+ 273:Generated_Source\PSoC5/PWMPulseCapture.c ****                     uint8 comparemodemasked = comparemode;
+ 274:Generated_Source\PSoC5/PWMPulseCapture.c ****                 #endif /* (0 != PWMPulseCapture_CTRL_CMPMODE1_SHIFT) */
+ 275:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 276:Generated_Source\PSoC5/PWMPulseCapture.c ****                 PWMPulseCapture_CONTROL3 &= ((uint8)(~PWMPulseCapture_CTRL_CMPMODE1_MASK)); /*Clear
+ 277:Generated_Source\PSoC5/PWMPulseCapture.c ****                 PWMPulseCapture_CONTROL3 |= comparemodemasked;
+ 278:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 279:Generated_Source\PSoC5/PWMPulseCapture.c ****             #elif (PWMPulseCapture_UseControl)
+ 280:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 281:Generated_Source\PSoC5/PWMPulseCapture.c ****                 #if(0 != PWMPulseCapture_CTRL_CMPMODE1_SHIFT)
+ 282:Generated_Source\PSoC5/PWMPulseCapture.c ****                     uint8 comparemode1masked = ((uint8)((uint8)comparemode << PWMPulseCapture_CTRL_
+ 283:Generated_Source\PSoC5/PWMPulseCapture.c ****                                                 PWMPulseCapture_CTRL_CMPMODE1_MASK;
+ 284:Generated_Source\PSoC5/PWMPulseCapture.c ****                 #else
+ 285:Generated_Source\PSoC5/PWMPulseCapture.c ****                     uint8 comparemode1masked = comparemode & PWMPulseCapture_CTRL_CMPMODE1_MASK;
+ 286:Generated_Source\PSoC5/PWMPulseCapture.c ****                 #endif /* (0 != PWMPulseCapture_CTRL_CMPMODE1_SHIFT) */
+ 287:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 288:Generated_Source\PSoC5/PWMPulseCapture.c ****                 #if(0 != PWMPulseCapture_CTRL_CMPMODE2_SHIFT)
+ 289:Generated_Source\PSoC5/PWMPulseCapture.c ****                     uint8 comparemode2masked = ((uint8)((uint8)comparemode << PWMPulseCapture_CTRL_
+ 290:Generated_Source\PSoC5/PWMPulseCapture.c ****                                                PWMPulseCapture_CTRL_CMPMODE2_MASK;
+ 291:Generated_Source\PSoC5/PWMPulseCapture.c ****                 #else
+ 292:Generated_Source\PSoC5/PWMPulseCapture.c ****                     uint8 comparemode2masked = comparemode & PWMPulseCapture_CTRL_CMPMODE2_MASK;
+ 293:Generated_Source\PSoC5/PWMPulseCapture.c ****                 #endif /* (0 != PWMPulseCapture_CTRL_CMPMODE2_SHIFT) */
+ 294:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 295:Generated_Source\PSoC5/PWMPulseCapture.c ****                 /*Clear existing mode */
+ 296:Generated_Source\PSoC5/PWMPulseCapture.c ****                 PWMPulseCapture_CONTROL &= ((uint8)(~(PWMPulseCapture_CTRL_CMPMODE1_MASK |
+ 297:Generated_Source\PSoC5/PWMPulseCapture.c ****                                             PWMPulseCapture_CTRL_CMPMODE2_MASK)));
+ 298:Generated_Source\PSoC5/PWMPulseCapture.c ****                 PWMPulseCapture_CONTROL |= (comparemode1masked | comparemode2masked);
+ 299:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 300:Generated_Source\PSoC5/PWMPulseCapture.c ****             #else
+ 301:Generated_Source\PSoC5/PWMPulseCapture.c ****                 uint8 temp = comparemode;
+ 302:Generated_Source\PSoC5/PWMPulseCapture.c ****             #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 303:Generated_Source\PSoC5/PWMPulseCapture.c ****         }
+ 304:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* PWMPulseCapture_CompareMode1SW */
+ 305:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 306:Generated_Source\PSoC5/PWMPulseCapture.c **** #else /* UseOneCompareMode */
+ 307:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 308:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (PWMPulseCapture_CompareMode1SW)
+ 309:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 310:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 311:Generated_Source\PSoC5/PWMPulseCapture.c ****         /*******************************************************************************
+ 312:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Function Name: PWMPulseCapture_SetCompareMode1
+ 313:Generated_Source\PSoC5/PWMPulseCapture.c ****         ********************************************************************************
+ 314:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ 315:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Summary:
+ 316:Generated_Source\PSoC5/PWMPulseCapture.c ****         *  This function writes the Compare Mode for the pwm or pwm1 output
+ 317:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ 318:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Parameters:
+ 319:Generated_Source\PSoC5/PWMPulseCapture.c ****         *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 320:Generated_Source\PSoC5/PWMPulseCapture.c ****         *                defined in the H file as input arguments.
+ 321:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 11
+
+
+ 322:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Return:
+ 323:Generated_Source\PSoC5/PWMPulseCapture.c ****         *  None
+ 324:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ 325:Generated_Source\PSoC5/PWMPulseCapture.c ****         *******************************************************************************/
+ 326:Generated_Source\PSoC5/PWMPulseCapture.c ****         void PWMPulseCapture_SetCompareMode1(uint8 comparemode) 
+ 327:Generated_Source\PSoC5/PWMPulseCapture.c ****         {
+ 328:Generated_Source\PSoC5/PWMPulseCapture.c ****             #if(0 != PWMPulseCapture_CTRL_CMPMODE1_SHIFT)
+ 329:Generated_Source\PSoC5/PWMPulseCapture.c ****                 uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWMPulseCapture_CTRL_CMPMO
+ 330:Generated_Source\PSoC5/PWMPulseCapture.c ****                                            PWMPulseCapture_CTRL_CMPMODE1_MASK;
+ 331:Generated_Source\PSoC5/PWMPulseCapture.c ****             #else
+ 332:Generated_Source\PSoC5/PWMPulseCapture.c ****                 uint8 comparemodemasked = comparemode & PWMPulseCapture_CTRL_CMPMODE1_MASK;
+ 333:Generated_Source\PSoC5/PWMPulseCapture.c ****             #endif /* (0 != PWMPulseCapture_CTRL_CMPMODE1_SHIFT) */
+ 334:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 335:Generated_Source\PSoC5/PWMPulseCapture.c ****             #if (PWMPulseCapture_UseControl)
+ 336:Generated_Source\PSoC5/PWMPulseCapture.c ****                 PWMPulseCapture_CONTROL &= ((uint8)(~PWMPulseCapture_CTRL_CMPMODE1_MASK)); /*Clear 
+ 337:Generated_Source\PSoC5/PWMPulseCapture.c ****                 PWMPulseCapture_CONTROL |= comparemodemasked;
+ 338:Generated_Source\PSoC5/PWMPulseCapture.c ****             #endif /* (PWMPulseCapture_UseControl) */
+ 339:Generated_Source\PSoC5/PWMPulseCapture.c ****         }
+ 340:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* PWMPulseCapture_CompareMode1SW */
+ 341:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 342:Generated_Source\PSoC5/PWMPulseCapture.c **** #if (PWMPulseCapture_CompareMode2SW)
+ 343:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 344:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 345:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 346:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_SetCompareMode2
+ 347:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 348:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 349:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 350:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  This function writes the Compare Mode for the pwm or pwm2 output
+ 351:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 352:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 353:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 354:Generated_Source\PSoC5/PWMPulseCapture.c ****     *                defined in the H file as input arguments.
+ 355:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 356:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 357:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 358:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 359:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 360:Generated_Source\PSoC5/PWMPulseCapture.c ****     void PWMPulseCapture_SetCompareMode2(uint8 comparemode) 
+ 361:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 362:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 363:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if(0 != PWMPulseCapture_CTRL_CMPMODE2_SHIFT)
+ 364:Generated_Source\PSoC5/PWMPulseCapture.c ****             uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWMPulseCapture_CTRL_CMPMODE2_
+ 365:Generated_Source\PSoC5/PWMPulseCapture.c ****                                                  PWMPulseCapture_CTRL_CMPMODE2_MASK;
+ 366:Generated_Source\PSoC5/PWMPulseCapture.c ****         #else
+ 367:Generated_Source\PSoC5/PWMPulseCapture.c ****             uint8 comparemodemasked = comparemode & PWMPulseCapture_CTRL_CMPMODE2_MASK;
+ 368:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (0 != PWMPulseCapture_CTRL_CMPMODE2_SHIFT) */
+ 369:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 370:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if (PWMPulseCapture_UseControl)
+ 371:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_CONTROL &= ((uint8)(~PWMPulseCapture_CTRL_CMPMODE2_MASK)); /*Clear exis
+ 372:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_CONTROL |= comparemodemasked;
+ 373:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_UseControl) */
+ 374:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 375:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /*PWMPulseCapture_CompareMode2SW */
+ 376:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 377:Generated_Source\PSoC5/PWMPulseCapture.c **** #endif /* UseOneCompareMode */
+ 378:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 12
+
+
+ 379:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 380:Generated_Source\PSoC5/PWMPulseCapture.c **** #if (!PWMPulseCapture_UsingFixedFunction)
+ 381:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 382:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 383:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 384:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_WriteCounter
+ 385:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 386:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 387:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 388:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  Writes a new counter value directly to the counter register. This will be
+ 389:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  implemented for that currently running period and only that period. This API
+ 390:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  is valid only for UDB implementation and not available for fixed function
+ 391:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  PWM implementation.
+ 392:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 393:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 394:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  counter:  The period new period counter value.
+ 395:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 396:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 397:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 398:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 399:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Side Effects:
+ 400:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  The PWM Period will be reloaded when a counter value will be a zero
+ 401:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 402:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 403:Generated_Source\PSoC5/PWMPulseCapture.c ****     void PWMPulseCapture_WriteCounter(uint16 counter) \
+ 404:Generated_Source\PSoC5/PWMPulseCapture.c ****                                        
+ 405:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 250              		.loc 1 405 0
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 8
+ 253              		@ frame_needed = 1, uses_anonymous_args = 0
+ 254              		@ link register save eliminated.
+ 255 0000 80B4     		push	{r7}
+ 256              		.cfi_def_cfa_offset 4
+ 257              		.cfi_offset 7, -4
+ 258 0002 83B0     		sub	sp, sp, #12
+ 259              		.cfi_def_cfa_offset 16
+ 260 0004 00AF     		add	r7, sp, #0
+ 261              		.cfi_def_cfa_register 7
+ 262 0006 0346     		mov	r3, r0
+ 263 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 406:Generated_Source\PSoC5/PWMPulseCapture.c ****         CY_SET_REG16(PWMPulseCapture_COUNTER_LSB_PTR, counter);
+ 264              		.loc 1 406 0
+ 265 000a 044A     		ldr	r2, .L15
+ 266 000c FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 267 000e 1380     		strh	r3, [r2]	@ movhi
+ 407:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 268              		.loc 1 407 0
+ 269 0010 0C37     		adds	r7, r7, #12
+ 270              		.cfi_def_cfa_offset 4
+ 271 0012 BD46     		mov	sp, r7
+ 272              		.cfi_def_cfa_register 13
+ 273              		@ sp needed
+ 274 0014 5DF8047B 		ldr	r7, [sp], #4
+ 275              		.cfi_restore 7
+ 276              		.cfi_def_cfa_offset 0
+ 277 0018 7047     		bx	lr
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 13
+
+
+ 278              	.L16:
+ 279 001a 00BF     		.align	2
+ 280              	.L15:
+ 281 001c 086A0040 		.word	1073768968
+ 282              		.cfi_endproc
+ 283              	.LFE4:
+ 284              		.size	PWMPulseCapture_WriteCounter, .-PWMPulseCapture_WriteCounter
+ 285              		.section	.text.PWMPulseCapture_ReadCounter,"ax",%progbits
+ 286              		.align	2
+ 287              		.global	PWMPulseCapture_ReadCounter
+ 288              		.thumb
+ 289              		.thumb_func
+ 290              		.type	PWMPulseCapture_ReadCounter, %function
+ 291              	PWMPulseCapture_ReadCounter:
+ 292              	.LFB5:
+ 408:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 409:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 410:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 411:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_ReadCounter
+ 412:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 413:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 414:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 415:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  This function returns the current value of the counter.  It doesn't matter
+ 416:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  if the counter is enabled or running.
+ 417:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 418:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 419:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 420:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 421:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 422:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  The current value of the counter.
+ 423:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 424:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 425:Generated_Source\PSoC5/PWMPulseCapture.c ****     uint16 PWMPulseCapture_ReadCounter(void) 
+ 426:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 293              		.loc 1 426 0
+ 294              		.cfi_startproc
+ 295              		@ args = 0, pretend = 0, frame = 0
+ 296              		@ frame_needed = 1, uses_anonymous_args = 0
+ 297              		@ link register save eliminated.
+ 298 0000 80B4     		push	{r7}
+ 299              		.cfi_def_cfa_offset 4
+ 300              		.cfi_offset 7, -4
+ 301 0002 00AF     		add	r7, sp, #0
+ 302              		.cfi_def_cfa_register 7
+ 427:Generated_Source\PSoC5/PWMPulseCapture.c ****         /* Force capture by reading Accumulator */
+ 428:Generated_Source\PSoC5/PWMPulseCapture.c ****         /* Must first do a software capture to be able to read the counter */
+ 429:Generated_Source\PSoC5/PWMPulseCapture.c ****         /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 430:Generated_Source\PSoC5/PWMPulseCapture.c ****           (void)CY_GET_REG8(PWMPulseCapture_COUNTERCAP_LSB_PTR_8BIT);
+ 303              		.loc 1 430 0
+ 304 0004 044B     		ldr	r3, .L19
+ 305 0006 1B78     		ldrb	r3, [r3]
+ 431:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 432:Generated_Source\PSoC5/PWMPulseCapture.c ****         /* Read the data from the FIFO */
+ 433:Generated_Source\PSoC5/PWMPulseCapture.c ****         return (CY_GET_REG16(PWMPulseCapture_CAPTURE_LSB_PTR));
+ 306              		.loc 1 433 0
+ 307 0008 044B     		ldr	r3, .L19+4
+ 308 000a 1B88     		ldrh	r3, [r3]	@ movhi
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 14
+
+
+ 309 000c 9BB2     		uxth	r3, r3
+ 434:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 310              		.loc 1 434 0
+ 311 000e 1846     		mov	r0, r3
+ 312 0010 BD46     		mov	sp, r7
+ 313              		.cfi_def_cfa_register 13
+ 314              		@ sp needed
+ 315 0012 5DF8047B 		ldr	r7, [sp], #4
+ 316              		.cfi_restore 7
+ 317              		.cfi_def_cfa_offset 0
+ 318 0016 7047     		bx	lr
+ 319              	.L20:
+ 320              		.align	2
+ 321              	.L19:
+ 322 0018 14650040 		.word	1073767700
+ 323 001c A86A0040 		.word	1073769128
+ 324              		.cfi_endproc
+ 325              	.LFE5:
+ 326              		.size	PWMPulseCapture_ReadCounter, .-PWMPulseCapture_ReadCounter
+ 327              		.section	.text.PWMPulseCapture_ClearFIFO,"ax",%progbits
+ 328              		.align	2
+ 329              		.global	PWMPulseCapture_ClearFIFO
+ 330              		.thumb
+ 331              		.thumb_func
+ 332              		.type	PWMPulseCapture_ClearFIFO, %function
+ 333              	PWMPulseCapture_ClearFIFO:
+ 334              	.LFB6:
+ 435:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 436:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if (PWMPulseCapture_UseStatus)
+ 437:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 438:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 439:Generated_Source\PSoC5/PWMPulseCapture.c ****         /*******************************************************************************
+ 440:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Function Name: PWMPulseCapture_ClearFIFO
+ 441:Generated_Source\PSoC5/PWMPulseCapture.c ****         ********************************************************************************
+ 442:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ 443:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Summary:
+ 444:Generated_Source\PSoC5/PWMPulseCapture.c ****         *  This function clears all capture data from the capture FIFO
+ 445:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ 446:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Parameters:
+ 447:Generated_Source\PSoC5/PWMPulseCapture.c ****         *  None
+ 448:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ 449:Generated_Source\PSoC5/PWMPulseCapture.c ****         * Return:
+ 450:Generated_Source\PSoC5/PWMPulseCapture.c ****         *  None
+ 451:Generated_Source\PSoC5/PWMPulseCapture.c ****         *
+ 452:Generated_Source\PSoC5/PWMPulseCapture.c ****         *******************************************************************************/
+ 453:Generated_Source\PSoC5/PWMPulseCapture.c ****         void PWMPulseCapture_ClearFIFO(void) 
+ 454:Generated_Source\PSoC5/PWMPulseCapture.c ****         {
+ 335              		.loc 1 454 0
+ 336              		.cfi_startproc
+ 337              		@ args = 0, pretend = 0, frame = 0
+ 338              		@ frame_needed = 1, uses_anonymous_args = 0
+ 339 0000 80B5     		push	{r7, lr}
+ 340              		.cfi_def_cfa_offset 8
+ 341              		.cfi_offset 7, -8
+ 342              		.cfi_offset 14, -4
+ 343 0002 00AF     		add	r7, sp, #0
+ 344              		.cfi_def_cfa_register 7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 15
+
+
+ 455:Generated_Source\PSoC5/PWMPulseCapture.c ****             while(0u != (PWMPulseCapture_ReadStatusRegister() & PWMPulseCapture_STATUS_FIFONEMPTY))
+ 345              		.loc 1 455 0
+ 346 0004 01E0     		b	.L22
+ 347              	.L23:
+ 456:Generated_Source\PSoC5/PWMPulseCapture.c ****             {
+ 457:Generated_Source\PSoC5/PWMPulseCapture.c ****                 (void)PWMPulseCapture_ReadCapture();
+ 348              		.loc 1 457 0
+ 349 0006 FFF7FEFF 		bl	PWMPulseCapture_ReadCapture
+ 350              	.L22:
+ 455:Generated_Source\PSoC5/PWMPulseCapture.c ****             while(0u != (PWMPulseCapture_ReadStatusRegister() & PWMPulseCapture_STATUS_FIFONEMPTY))
+ 351              		.loc 1 455 0
+ 352 000a FFF7FEFF 		bl	PWMPulseCapture_ReadStatusRegister
+ 353 000e 0346     		mov	r3, r0
+ 354 0010 03F01003 		and	r3, r3, #16
+ 355 0014 002B     		cmp	r3, #0
+ 356 0016 F6D1     		bne	.L23
+ 458:Generated_Source\PSoC5/PWMPulseCapture.c ****             }
+ 459:Generated_Source\PSoC5/PWMPulseCapture.c ****         }
+ 357              		.loc 1 459 0
+ 358 0018 80BD     		pop	{r7, pc}
+ 359              		.cfi_endproc
+ 360              	.LFE6:
+ 361              		.size	PWMPulseCapture_ClearFIFO, .-PWMPulseCapture_ClearFIFO
+ 362 001a 00BF     		.section	.text.PWMPulseCapture_WritePeriod,"ax",%progbits
+ 363              		.align	2
+ 364              		.global	PWMPulseCapture_WritePeriod
+ 365              		.thumb
+ 366              		.thumb_func
+ 367              		.type	PWMPulseCapture_WritePeriod, %function
+ 368              	PWMPulseCapture_WritePeriod:
+ 369              	.LFB7:
+ 460:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 461:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* PWMPulseCapture_UseStatus */
+ 462:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 463:Generated_Source\PSoC5/PWMPulseCapture.c **** #endif /* !PWMPulseCapture_UsingFixedFunction */
+ 464:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 465:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 466:Generated_Source\PSoC5/PWMPulseCapture.c **** /*******************************************************************************
+ 467:Generated_Source\PSoC5/PWMPulseCapture.c **** * Function Name: PWMPulseCapture_WritePeriod
+ 468:Generated_Source\PSoC5/PWMPulseCapture.c **** ********************************************************************************
+ 469:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 470:Generated_Source\PSoC5/PWMPulseCapture.c **** * Summary:
+ 471:Generated_Source\PSoC5/PWMPulseCapture.c **** *  This function is used to change the period of the counter.  The new period
+ 472:Generated_Source\PSoC5/PWMPulseCapture.c **** *  will be loaded the next time terminal count is detected.
+ 473:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 474:Generated_Source\PSoC5/PWMPulseCapture.c **** * Parameters:
+ 475:Generated_Source\PSoC5/PWMPulseCapture.c **** *  period:  Period value. May be between 1 and (2^Resolution)-1.  A value of 0
+ 476:Generated_Source\PSoC5/PWMPulseCapture.c **** *           will result in the counter remaining at zero.
+ 477:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 478:Generated_Source\PSoC5/PWMPulseCapture.c **** * Return:
+ 479:Generated_Source\PSoC5/PWMPulseCapture.c **** *  None
+ 480:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 481:Generated_Source\PSoC5/PWMPulseCapture.c **** *******************************************************************************/
+ 482:Generated_Source\PSoC5/PWMPulseCapture.c **** void PWMPulseCapture_WritePeriod(uint16 period) 
+ 483:Generated_Source\PSoC5/PWMPulseCapture.c **** {
+ 370              		.loc 1 483 0
+ 371              		.cfi_startproc
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 16
+
+
+ 372              		@ args = 0, pretend = 0, frame = 8
+ 373              		@ frame_needed = 1, uses_anonymous_args = 0
+ 374              		@ link register save eliminated.
+ 375 0000 80B4     		push	{r7}
+ 376              		.cfi_def_cfa_offset 4
+ 377              		.cfi_offset 7, -4
+ 378 0002 83B0     		sub	sp, sp, #12
+ 379              		.cfi_def_cfa_offset 16
+ 380 0004 00AF     		add	r7, sp, #0
+ 381              		.cfi_def_cfa_register 7
+ 382 0006 0346     		mov	r3, r0
+ 383 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 484:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if(PWMPulseCapture_UsingFixedFunction)
+ 485:Generated_Source\PSoC5/PWMPulseCapture.c ****         CY_SET_REG16(PWMPulseCapture_PERIOD_LSB_PTR, (uint16)period);
+ 486:Generated_Source\PSoC5/PWMPulseCapture.c ****     #else
+ 487:Generated_Source\PSoC5/PWMPulseCapture.c ****         CY_SET_REG16(PWMPulseCapture_PERIOD_LSB_PTR, period);
+ 384              		.loc 1 487 0
+ 385 000a 044A     		ldr	r2, .L25
+ 386 000c FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 387 000e 1380     		strh	r3, [r2]	@ movhi
+ 488:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 489:Generated_Source\PSoC5/PWMPulseCapture.c **** }
+ 388              		.loc 1 489 0
+ 389 0010 0C37     		adds	r7, r7, #12
+ 390              		.cfi_def_cfa_offset 4
+ 391 0012 BD46     		mov	sp, r7
+ 392              		.cfi_def_cfa_register 13
+ 393              		@ sp needed
+ 394 0014 5DF8047B 		ldr	r7, [sp], #4
+ 395              		.cfi_restore 7
+ 396              		.cfi_def_cfa_offset 0
+ 397 0018 7047     		bx	lr
+ 398              	.L26:
+ 399 001a 00BF     		.align	2
+ 400              	.L25:
+ 401 001c 886A0040 		.word	1073769096
+ 402              		.cfi_endproc
+ 403              	.LFE7:
+ 404              		.size	PWMPulseCapture_WritePeriod, .-PWMPulseCapture_WritePeriod
+ 405              		.section	.text.PWMPulseCapture_WriteCompare,"ax",%progbits
+ 406              		.align	2
+ 407              		.global	PWMPulseCapture_WriteCompare
+ 408              		.thumb
+ 409              		.thumb_func
+ 410              		.type	PWMPulseCapture_WriteCompare, %function
+ 411              	PWMPulseCapture_WriteCompare:
+ 412              	.LFB8:
+ 490:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 491:Generated_Source\PSoC5/PWMPulseCapture.c **** #if (PWMPulseCapture_UseOneCompareMode)
+ 492:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 493:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 494:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 495:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_WriteCompare
+ 496:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 497:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 498:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 499:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  This funtion is used to change the compare1 value when the PWM is in Dither
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 17
+
+
+ 500:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  mode. The compare output will reflect the new value on the next UDB clock.
+ 501:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  The compare output will be driven high when the present counter value is
+ 502:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  compared to the compare value based on the compare mode defined in
+ 503:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  Dither Mode.
+ 504:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 505:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 506:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  compare:  New compare value.
+ 507:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 508:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 509:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 510:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 511:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Side Effects:
+ 512:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  This function is only available if the PWM mode parameter is set to
+ 513:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  Dither Mode, Center Aligned Mode or One Output Mode
+ 514:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 515:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 516:Generated_Source\PSoC5/PWMPulseCapture.c ****     void PWMPulseCapture_WriteCompare(uint16 compare) \
+ 517:Generated_Source\PSoC5/PWMPulseCapture.c ****                                        
+ 518:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 413              		.loc 1 518 0
+ 414              		.cfi_startproc
+ 415              		@ args = 0, pretend = 0, frame = 8
+ 416              		@ frame_needed = 1, uses_anonymous_args = 0
+ 417              		@ link register save eliminated.
+ 418 0000 80B4     		push	{r7}
+ 419              		.cfi_def_cfa_offset 4
+ 420              		.cfi_offset 7, -4
+ 421 0002 83B0     		sub	sp, sp, #12
+ 422              		.cfi_def_cfa_offset 16
+ 423 0004 00AF     		add	r7, sp, #0
+ 424              		.cfi_def_cfa_register 7
+ 425 0006 0346     		mov	r3, r0
+ 426 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 519:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if(PWMPulseCapture_UsingFixedFunction)
+ 520:Generated_Source\PSoC5/PWMPulseCapture.c ****             CY_SET_REG16(PWMPulseCapture_COMPARE1_LSB_PTR, (uint16)compare);
+ 521:Generated_Source\PSoC5/PWMPulseCapture.c ****         #else
+ 522:Generated_Source\PSoC5/PWMPulseCapture.c ****             CY_SET_REG16(PWMPulseCapture_COMPARE1_LSB_PTR, compare);
+ 427              		.loc 1 522 0
+ 428 000a 044A     		ldr	r2, .L28
+ 429 000c FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 430 000e 1380     		strh	r3, [r2]	@ movhi
+ 523:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 524:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 525:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if (PWMPulseCapture_PWMMode == PWMPulseCapture__B_PWM__DITHER)
+ 526:Generated_Source\PSoC5/PWMPulseCapture.c ****             #if(PWMPulseCapture_UsingFixedFunction)
+ 527:Generated_Source\PSoC5/PWMPulseCapture.c ****                 CY_SET_REG16(PWMPulseCapture_COMPARE2_LSB_PTR, (uint16)(compare + 1u));
+ 528:Generated_Source\PSoC5/PWMPulseCapture.c ****             #else
+ 529:Generated_Source\PSoC5/PWMPulseCapture.c ****                 CY_SET_REG16(PWMPulseCapture_COMPARE2_LSB_PTR, (compare + 1u));
+ 530:Generated_Source\PSoC5/PWMPulseCapture.c ****             #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 531:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_PWMMode == PWMPulseCapture__B_PWM__DITHER) */
+ 532:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 431              		.loc 1 532 0
+ 432 0010 0C37     		adds	r7, r7, #12
+ 433              		.cfi_def_cfa_offset 4
+ 434 0012 BD46     		mov	sp, r7
+ 435              		.cfi_def_cfa_register 13
+ 436              		@ sp needed
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 18
+
+
+ 437 0014 5DF8047B 		ldr	r7, [sp], #4
+ 438              		.cfi_restore 7
+ 439              		.cfi_def_cfa_offset 0
+ 440 0018 7047     		bx	lr
+ 441              	.L29:
+ 442 001a 00BF     		.align	2
+ 443              	.L28:
+ 444 001c 486A0040 		.word	1073769032
+ 445              		.cfi_endproc
+ 446              	.LFE8:
+ 447              		.size	PWMPulseCapture_WriteCompare, .-PWMPulseCapture_WriteCompare
+ 448              		.section	.text.PWMPulseCapture_SetInterruptMode,"ax",%progbits
+ 449              		.align	2
+ 450              		.global	PWMPulseCapture_SetInterruptMode
+ 451              		.thumb
+ 452              		.thumb_func
+ 453              		.type	PWMPulseCapture_SetInterruptMode, %function
+ 454              	PWMPulseCapture_SetInterruptMode:
+ 455              	.LFB9:
+ 533:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 534:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 535:Generated_Source\PSoC5/PWMPulseCapture.c **** #else
+ 536:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 537:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 538:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 539:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_WriteCompare1
+ 540:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 541:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 542:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 543:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  This funtion is used to change the compare1 value.  The compare output will
+ 544:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  reflect the new value on the next UDB clock.  The compare output will be
+ 545:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  driven high when the present counter value is less than or less than or
+ 546:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  equal to the compare register, depending on the mode.
+ 547:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 548:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 549:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  compare:  New compare value.
+ 550:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 551:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 552:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 553:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 554:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 555:Generated_Source\PSoC5/PWMPulseCapture.c ****     void PWMPulseCapture_WriteCompare1(uint16 compare) \
+ 556:Generated_Source\PSoC5/PWMPulseCapture.c ****                                         
+ 557:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 558:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if(PWMPulseCapture_UsingFixedFunction)
+ 559:Generated_Source\PSoC5/PWMPulseCapture.c ****             CY_SET_REG16(PWMPulseCapture_COMPARE1_LSB_PTR, (uint16)compare);
+ 560:Generated_Source\PSoC5/PWMPulseCapture.c ****         #else
+ 561:Generated_Source\PSoC5/PWMPulseCapture.c ****             CY_SET_REG16(PWMPulseCapture_COMPARE1_LSB_PTR, compare);
+ 562:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 563:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 564:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 565:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 566:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 567:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_WriteCompare2
+ 568:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 569:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 570:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 19
+
+
+ 571:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  This funtion is used to change the compare value, for compare1 output.
+ 572:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  The compare output will reflect the new value on the next UDB clock.
+ 573:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  The compare output will be driven high when the present counter value is
+ 574:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  less than or less than or equal to the compare register, depending on the
+ 575:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  mode.
+ 576:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 577:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 578:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  compare:  New compare value.
+ 579:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 580:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 581:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 582:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 583:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 584:Generated_Source\PSoC5/PWMPulseCapture.c ****     void PWMPulseCapture_WriteCompare2(uint16 compare) \
+ 585:Generated_Source\PSoC5/PWMPulseCapture.c ****                                         
+ 586:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 587:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if(PWMPulseCapture_UsingFixedFunction)
+ 588:Generated_Source\PSoC5/PWMPulseCapture.c ****             CY_SET_REG16(PWMPulseCapture_COMPARE2_LSB_PTR, compare);
+ 589:Generated_Source\PSoC5/PWMPulseCapture.c ****         #else
+ 590:Generated_Source\PSoC5/PWMPulseCapture.c ****             CY_SET_REG16(PWMPulseCapture_COMPARE2_LSB_PTR, compare);
+ 591:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 592:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 593:Generated_Source\PSoC5/PWMPulseCapture.c **** #endif /* UseOneCompareMode */
+ 594:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 595:Generated_Source\PSoC5/PWMPulseCapture.c **** #if (PWMPulseCapture_DeadBandUsed)
+ 596:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 597:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 598:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 599:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_WriteDeadTime
+ 600:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 601:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 602:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 603:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  This function writes the dead-band counts to the corresponding register
+ 604:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 605:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 606:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  deadtime:  Number of counts for dead time
+ 607:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 608:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 609:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 610:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 611:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 612:Generated_Source\PSoC5/PWMPulseCapture.c ****     void PWMPulseCapture_WriteDeadTime(uint8 deadtime) 
+ 613:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 614:Generated_Source\PSoC5/PWMPulseCapture.c ****         /* If using the Dead Band 1-255 mode then just write the register */
+ 615:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if(!PWMPulseCapture_DeadBand2_4)
+ 616:Generated_Source\PSoC5/PWMPulseCapture.c ****             CY_SET_REG8(PWMPulseCapture_DEADBAND_COUNT_PTR, deadtime);
+ 617:Generated_Source\PSoC5/PWMPulseCapture.c ****         #else
+ 618:Generated_Source\PSoC5/PWMPulseCapture.c ****             /* Otherwise the data has to be masked and offset */
+ 619:Generated_Source\PSoC5/PWMPulseCapture.c ****             /* Clear existing data */
+ 620:Generated_Source\PSoC5/PWMPulseCapture.c ****             PWMPulseCapture_DEADBAND_COUNT &= ((uint8)(~PWMPulseCapture_DEADBAND_COUNT_MASK));
+ 621:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 622:Generated_Source\PSoC5/PWMPulseCapture.c ****             /* Set new dead time */
+ 623:Generated_Source\PSoC5/PWMPulseCapture.c ****             #if(PWMPulseCapture_DEADBAND_COUNT_SHIFT)
+ 624:Generated_Source\PSoC5/PWMPulseCapture.c ****                 PWMPulseCapture_DEADBAND_COUNT |= ((uint8)((uint8)deadtime << PWMPulseCapture_DEADB
+ 625:Generated_Source\PSoC5/PWMPulseCapture.c ****                                                     PWMPulseCapture_DEADBAND_COUNT_MASK;
+ 626:Generated_Source\PSoC5/PWMPulseCapture.c ****             #else
+ 627:Generated_Source\PSoC5/PWMPulseCapture.c ****                 PWMPulseCapture_DEADBAND_COUNT |= deadtime & PWMPulseCapture_DEADBAND_COUNT_MASK;
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 20
+
+
+ 628:Generated_Source\PSoC5/PWMPulseCapture.c ****             #endif /* (PWMPulseCapture_DEADBAND_COUNT_SHIFT) */
+ 629:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 630:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (!PWMPulseCapture_DeadBand2_4) */
+ 631:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 632:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 633:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 634:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 635:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_ReadDeadTime
+ 636:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 637:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 638:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 639:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  This function reads the dead-band counts from the corresponding register
+ 640:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 641:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 642:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 643:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 644:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 645:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  Dead Band Counts
+ 646:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 647:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 648:Generated_Source\PSoC5/PWMPulseCapture.c ****     uint8 PWMPulseCapture_ReadDeadTime(void) 
+ 649:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 650:Generated_Source\PSoC5/PWMPulseCapture.c ****         /* If using the Dead Band 1-255 mode then just read the register */
+ 651:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if(!PWMPulseCapture_DeadBand2_4)
+ 652:Generated_Source\PSoC5/PWMPulseCapture.c ****             return (CY_GET_REG8(PWMPulseCapture_DEADBAND_COUNT_PTR));
+ 653:Generated_Source\PSoC5/PWMPulseCapture.c ****         #else
+ 654:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 655:Generated_Source\PSoC5/PWMPulseCapture.c ****             /* Otherwise the data has to be masked and offset */
+ 656:Generated_Source\PSoC5/PWMPulseCapture.c ****             #if(PWMPulseCapture_DEADBAND_COUNT_SHIFT)
+ 657:Generated_Source\PSoC5/PWMPulseCapture.c ****                 return ((uint8)(((uint8)(PWMPulseCapture_DEADBAND_COUNT & PWMPulseCapture_DEADBAND_
+ 658:Generated_Source\PSoC5/PWMPulseCapture.c ****                                                                            PWMPulseCapture_DEADBAND
+ 659:Generated_Source\PSoC5/PWMPulseCapture.c ****             #else
+ 660:Generated_Source\PSoC5/PWMPulseCapture.c ****                 return (PWMPulseCapture_DEADBAND_COUNT & PWMPulseCapture_DEADBAND_COUNT_MASK);
+ 661:Generated_Source\PSoC5/PWMPulseCapture.c ****             #endif /* (PWMPulseCapture_DEADBAND_COUNT_SHIFT) */
+ 662:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (!PWMPulseCapture_DeadBand2_4) */
+ 663:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 664:Generated_Source\PSoC5/PWMPulseCapture.c **** #endif /* DeadBandUsed */
+ 665:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 666:Generated_Source\PSoC5/PWMPulseCapture.c **** #if (PWMPulseCapture_UseStatus || PWMPulseCapture_UsingFixedFunction)
+ 667:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 668:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 669:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 670:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_SetInterruptMode
+ 671:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 672:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 673:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 674:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  This function configures the interrupts mask control of theinterrupt
+ 675:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  source status register.
+ 676:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 677:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 678:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  uint8 interruptMode: Bit field containing the interrupt sources enabled
+ 679:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 680:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 681:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 682:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 683:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 684:Generated_Source\PSoC5/PWMPulseCapture.c ****     void PWMPulseCapture_SetInterruptMode(uint8 interruptMode) 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 21
+
+
+ 685:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 456              		.loc 1 685 0
+ 457              		.cfi_startproc
+ 458              		@ args = 0, pretend = 0, frame = 8
+ 459              		@ frame_needed = 1, uses_anonymous_args = 0
+ 460              		@ link register save eliminated.
+ 461 0000 80B4     		push	{r7}
+ 462              		.cfi_def_cfa_offset 4
+ 463              		.cfi_offset 7, -4
+ 464 0002 83B0     		sub	sp, sp, #12
+ 465              		.cfi_def_cfa_offset 16
+ 466 0004 00AF     		add	r7, sp, #0
+ 467              		.cfi_def_cfa_register 7
+ 468 0006 0346     		mov	r3, r0
+ 469 0008 FB71     		strb	r3, [r7, #7]
+ 686:Generated_Source\PSoC5/PWMPulseCapture.c ****         CY_SET_REG8(PWMPulseCapture_STATUS_MASK_PTR, interruptMode);
+ 470              		.loc 1 686 0
+ 471 000a 044A     		ldr	r2, .L31
+ 472 000c FB79     		ldrb	r3, [r7, #7]
+ 473 000e 1370     		strb	r3, [r2]
+ 687:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 474              		.loc 1 687 0
+ 475 0010 0C37     		adds	r7, r7, #12
+ 476              		.cfi_def_cfa_offset 4
+ 477 0012 BD46     		mov	sp, r7
+ 478              		.cfi_def_cfa_register 13
+ 479              		@ sp needed
+ 480 0014 5DF8047B 		ldr	r7, [sp], #4
+ 481              		.cfi_restore 7
+ 482              		.cfi_def_cfa_offset 0
+ 483 0018 7047     		bx	lr
+ 484              	.L32:
+ 485 001a 00BF     		.align	2
+ 486              	.L31:
+ 487 001c 84650040 		.word	1073767812
+ 488              		.cfi_endproc
+ 489              	.LFE9:
+ 490              		.size	PWMPulseCapture_SetInterruptMode, .-PWMPulseCapture_SetInterruptMode
+ 491              		.section	.text.PWMPulseCapture_ReadStatusRegister,"ax",%progbits
+ 492              		.align	2
+ 493              		.global	PWMPulseCapture_ReadStatusRegister
+ 494              		.thumb
+ 495              		.thumb_func
+ 496              		.type	PWMPulseCapture_ReadStatusRegister, %function
+ 497              	PWMPulseCapture_ReadStatusRegister:
+ 498              	.LFB10:
+ 688:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 689:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 690:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 691:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_ReadStatusRegister
+ 692:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 693:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 694:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 695:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  This function returns the current state of the status register.
+ 696:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 697:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 698:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 22
+
+
+ 699:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 700:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 701:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  uint8 : Current status register value. The status register bits are:
+ 702:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  [7:6] : Unused(0)
+ 703:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  [5]   : Kill event output
+ 704:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  [4]   : FIFO not empty
+ 705:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  [3]   : FIFO full
+ 706:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  [2]   : Terminal count
+ 707:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  [1]   : Compare output 2
+ 708:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  [0]   : Compare output 1
+ 709:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 710:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 711:Generated_Source\PSoC5/PWMPulseCapture.c ****     uint8 PWMPulseCapture_ReadStatusRegister(void) 
+ 712:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 499              		.loc 1 712 0
+ 500              		.cfi_startproc
+ 501              		@ args = 0, pretend = 0, frame = 0
+ 502              		@ frame_needed = 1, uses_anonymous_args = 0
+ 503              		@ link register save eliminated.
+ 504 0000 80B4     		push	{r7}
+ 505              		.cfi_def_cfa_offset 4
+ 506              		.cfi_offset 7, -4
+ 507 0002 00AF     		add	r7, sp, #0
+ 508              		.cfi_def_cfa_register 7
+ 713:Generated_Source\PSoC5/PWMPulseCapture.c ****         return (CY_GET_REG8(PWMPulseCapture_STATUS_PTR));
+ 509              		.loc 1 713 0
+ 510 0004 034B     		ldr	r3, .L35
+ 511 0006 1B78     		ldrb	r3, [r3]
+ 512 0008 DBB2     		uxtb	r3, r3
+ 714:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 513              		.loc 1 714 0
+ 514 000a 1846     		mov	r0, r3
+ 515 000c BD46     		mov	sp, r7
+ 516              		.cfi_def_cfa_register 13
+ 517              		@ sp needed
+ 518 000e 5DF8047B 		ldr	r7, [sp], #4
+ 519              		.cfi_restore 7
+ 520              		.cfi_def_cfa_offset 0
+ 521 0012 7047     		bx	lr
+ 522              	.L36:
+ 523              		.align	2
+ 524              	.L35:
+ 525 0014 64650040 		.word	1073767780
+ 526              		.cfi_endproc
+ 527              	.LFE10:
+ 528              		.size	PWMPulseCapture_ReadStatusRegister, .-PWMPulseCapture_ReadStatusRegister
+ 529              		.section	.text.PWMPulseCapture_ReadControlRegister,"ax",%progbits
+ 530              		.align	2
+ 531              		.global	PWMPulseCapture_ReadControlRegister
+ 532              		.thumb
+ 533              		.thumb_func
+ 534              		.type	PWMPulseCapture_ReadControlRegister, %function
+ 535              	PWMPulseCapture_ReadControlRegister:
+ 536              	.LFB11:
+ 715:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 716:Generated_Source\PSoC5/PWMPulseCapture.c **** #endif /* (PWMPulseCapture_UseStatus || PWMPulseCapture_UsingFixedFunction) */
+ 717:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 23
+
+
+ 718:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 719:Generated_Source\PSoC5/PWMPulseCapture.c **** #if (PWMPulseCapture_UseControl)
+ 720:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 721:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 722:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 723:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_ReadControlRegister
+ 724:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 725:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 726:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 727:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  Returns the current state of the control register. This API is available
+ 728:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  only if the control register is not removed.
+ 729:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 730:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 731:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 732:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 733:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 734:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  uint8 : Current control register value
+ 735:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 736:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 737:Generated_Source\PSoC5/PWMPulseCapture.c ****     uint8 PWMPulseCapture_ReadControlRegister(void) 
+ 738:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 537              		.loc 1 738 0
+ 538              		.cfi_startproc
+ 539              		@ args = 0, pretend = 0, frame = 8
+ 540              		@ frame_needed = 1, uses_anonymous_args = 0
+ 541              		@ link register save eliminated.
+ 542 0000 80B4     		push	{r7}
+ 543              		.cfi_def_cfa_offset 4
+ 544              		.cfi_offset 7, -4
+ 545 0002 83B0     		sub	sp, sp, #12
+ 546              		.cfi_def_cfa_offset 16
+ 547 0004 00AF     		add	r7, sp, #0
+ 548              		.cfi_def_cfa_register 7
+ 739:Generated_Source\PSoC5/PWMPulseCapture.c ****         uint8 result;
+ 740:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 741:Generated_Source\PSoC5/PWMPulseCapture.c ****         result = CY_GET_REG8(PWMPulseCapture_CONTROL_PTR);
+ 549              		.loc 1 741 0
+ 550 0006 054B     		ldr	r3, .L39
+ 551 0008 1B78     		ldrb	r3, [r3]
+ 552 000a FB71     		strb	r3, [r7, #7]
+ 742:Generated_Source\PSoC5/PWMPulseCapture.c ****         return (result);
+ 553              		.loc 1 742 0
+ 554 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 743:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 555              		.loc 1 743 0
+ 556 000e 1846     		mov	r0, r3
+ 557 0010 0C37     		adds	r7, r7, #12
+ 558              		.cfi_def_cfa_offset 4
+ 559 0012 BD46     		mov	sp, r7
+ 560              		.cfi_def_cfa_register 13
+ 561              		@ sp needed
+ 562 0014 5DF8047B 		ldr	r7, [sp], #4
+ 563              		.cfi_restore 7
+ 564              		.cfi_def_cfa_offset 0
+ 565 0018 7047     		bx	lr
+ 566              	.L40:
+ 567 001a 00BF     		.align	2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 24
+
+
+ 568              	.L39:
+ 569 001c 74650040 		.word	1073767796
+ 570              		.cfi_endproc
+ 571              	.LFE11:
+ 572              		.size	PWMPulseCapture_ReadControlRegister, .-PWMPulseCapture_ReadControlRegister
+ 573              		.section	.text.PWMPulseCapture_WriteControlRegister,"ax",%progbits
+ 574              		.align	2
+ 575              		.global	PWMPulseCapture_WriteControlRegister
+ 576              		.thumb
+ 577              		.thumb_func
+ 578              		.type	PWMPulseCapture_WriteControlRegister, %function
+ 579              	PWMPulseCapture_WriteControlRegister:
+ 580              	.LFB12:
+ 744:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 745:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 746:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 747:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_WriteControlRegister
+ 748:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 749:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 750:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 751:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  Sets the bit field of the control register. This API is available only if
+ 752:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  the control register is not removed.
+ 753:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 754:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 755:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  uint8 control: Control register bit field, The status register bits are:
+ 756:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  [7]   : PWM Enable
+ 757:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  [6]   : Reset
+ 758:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  [5:3] : Compare Mode2
+ 759:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  [2:0] : Compare Mode2
+ 760:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 761:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 762:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 763:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 764:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 765:Generated_Source\PSoC5/PWMPulseCapture.c ****     void PWMPulseCapture_WriteControlRegister(uint8 control) 
+ 766:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 581              		.loc 1 766 0
+ 582              		.cfi_startproc
+ 583              		@ args = 0, pretend = 0, frame = 8
+ 584              		@ frame_needed = 1, uses_anonymous_args = 0
+ 585              		@ link register save eliminated.
+ 586 0000 80B4     		push	{r7}
+ 587              		.cfi_def_cfa_offset 4
+ 588              		.cfi_offset 7, -4
+ 589 0002 83B0     		sub	sp, sp, #12
+ 590              		.cfi_def_cfa_offset 16
+ 591 0004 00AF     		add	r7, sp, #0
+ 592              		.cfi_def_cfa_register 7
+ 593 0006 0346     		mov	r3, r0
+ 594 0008 FB71     		strb	r3, [r7, #7]
+ 767:Generated_Source\PSoC5/PWMPulseCapture.c ****         CY_SET_REG8(PWMPulseCapture_CONTROL_PTR, control);
+ 595              		.loc 1 767 0
+ 596 000a 044A     		ldr	r2, .L42
+ 597 000c FB79     		ldrb	r3, [r7, #7]
+ 598 000e 1370     		strb	r3, [r2]
+ 768:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 599              		.loc 1 768 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 25
+
+
+ 600 0010 0C37     		adds	r7, r7, #12
+ 601              		.cfi_def_cfa_offset 4
+ 602 0012 BD46     		mov	sp, r7
+ 603              		.cfi_def_cfa_register 13
+ 604              		@ sp needed
+ 605 0014 5DF8047B 		ldr	r7, [sp], #4
+ 606              		.cfi_restore 7
+ 607              		.cfi_def_cfa_offset 0
+ 608 0018 7047     		bx	lr
+ 609              	.L43:
+ 610 001a 00BF     		.align	2
+ 611              	.L42:
+ 612 001c 74650040 		.word	1073767796
+ 613              		.cfi_endproc
+ 614              	.LFE12:
+ 615              		.size	PWMPulseCapture_WriteControlRegister, .-PWMPulseCapture_WriteControlRegister
+ 616              		.section	.text.PWMPulseCapture_ReadCapture,"ax",%progbits
+ 617              		.align	2
+ 618              		.global	PWMPulseCapture_ReadCapture
+ 619              		.thumb
+ 620              		.thumb_func
+ 621              		.type	PWMPulseCapture_ReadCapture, %function
+ 622              	PWMPulseCapture_ReadCapture:
+ 623              	.LFB13:
+ 769:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 770:Generated_Source\PSoC5/PWMPulseCapture.c **** #endif /* (PWMPulseCapture_UseControl) */
+ 771:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 772:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 773:Generated_Source\PSoC5/PWMPulseCapture.c **** #if (!PWMPulseCapture_UsingFixedFunction)
+ 774:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 775:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 776:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 777:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_ReadCapture
+ 778:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 779:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 780:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 781:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  Reads the capture value from the capture FIFO.
+ 782:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 783:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 784:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 785:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 786:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 787:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  uint8/uint16: The current capture value
+ 788:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 789:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 790:Generated_Source\PSoC5/PWMPulseCapture.c ****     uint16 PWMPulseCapture_ReadCapture(void) 
+ 791:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 624              		.loc 1 791 0
+ 625              		.cfi_startproc
+ 626              		@ args = 0, pretend = 0, frame = 0
+ 627              		@ frame_needed = 1, uses_anonymous_args = 0
+ 628              		@ link register save eliminated.
+ 629 0000 80B4     		push	{r7}
+ 630              		.cfi_def_cfa_offset 4
+ 631              		.cfi_offset 7, -4
+ 632 0002 00AF     		add	r7, sp, #0
+ 633              		.cfi_def_cfa_register 7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 26
+
+
+ 792:Generated_Source\PSoC5/PWMPulseCapture.c ****         return (CY_GET_REG16(PWMPulseCapture_CAPTURE_LSB_PTR));
+ 634              		.loc 1 792 0
+ 635 0004 034B     		ldr	r3, .L46
+ 636 0006 1B88     		ldrh	r3, [r3]	@ movhi
+ 637 0008 9BB2     		uxth	r3, r3
+ 793:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 638              		.loc 1 793 0
+ 639 000a 1846     		mov	r0, r3
+ 640 000c BD46     		mov	sp, r7
+ 641              		.cfi_def_cfa_register 13
+ 642              		@ sp needed
+ 643 000e 5DF8047B 		ldr	r7, [sp], #4
+ 644              		.cfi_restore 7
+ 645              		.cfi_def_cfa_offset 0
+ 646 0012 7047     		bx	lr
+ 647              	.L47:
+ 648              		.align	2
+ 649              	.L46:
+ 650 0014 A86A0040 		.word	1073769128
+ 651              		.cfi_endproc
+ 652              	.LFE13:
+ 653              		.size	PWMPulseCapture_ReadCapture, .-PWMPulseCapture_ReadCapture
+ 654              		.section	.text.PWMPulseCapture_ReadCompare,"ax",%progbits
+ 655              		.align	2
+ 656              		.global	PWMPulseCapture_ReadCompare
+ 657              		.thumb
+ 658              		.thumb_func
+ 659              		.type	PWMPulseCapture_ReadCompare, %function
+ 660              	PWMPulseCapture_ReadCompare:
+ 661              	.LFB14:
+ 794:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 795:Generated_Source\PSoC5/PWMPulseCapture.c **** #endif /* (!PWMPulseCapture_UsingFixedFunction) */
+ 796:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 797:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 798:Generated_Source\PSoC5/PWMPulseCapture.c **** #if (PWMPulseCapture_UseOneCompareMode)
+ 799:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 800:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 801:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 802:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_ReadCompare
+ 803:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 804:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 805:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 806:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  Reads the compare value for the compare output when the PWM Mode parameter is
+ 807:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  set to Dither mode, Center Aligned mode, or One Output mode.
+ 808:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 809:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 810:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 811:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 812:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 813:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  uint8/uint16: Current compare value
+ 814:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 815:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 816:Generated_Source\PSoC5/PWMPulseCapture.c ****     uint16 PWMPulseCapture_ReadCompare(void) 
+ 817:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 662              		.loc 1 817 0
+ 663              		.cfi_startproc
+ 664              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 27
+
+
+ 665              		@ frame_needed = 1, uses_anonymous_args = 0
+ 666              		@ link register save eliminated.
+ 667 0000 80B4     		push	{r7}
+ 668              		.cfi_def_cfa_offset 4
+ 669              		.cfi_offset 7, -4
+ 670 0002 00AF     		add	r7, sp, #0
+ 671              		.cfi_def_cfa_register 7
+ 818:Generated_Source\PSoC5/PWMPulseCapture.c ****         #if(PWMPulseCapture_UsingFixedFunction)
+ 819:Generated_Source\PSoC5/PWMPulseCapture.c ****             return ((uint16)CY_GET_REG16(PWMPulseCapture_COMPARE1_LSB_PTR));
+ 820:Generated_Source\PSoC5/PWMPulseCapture.c ****         #else
+ 821:Generated_Source\PSoC5/PWMPulseCapture.c ****             return (CY_GET_REG16(PWMPulseCapture_COMPARE1_LSB_PTR));
+ 672              		.loc 1 821 0
+ 673 0004 034B     		ldr	r3, .L50
+ 674 0006 1B88     		ldrh	r3, [r3]	@ movhi
+ 675 0008 9BB2     		uxth	r3, r3
+ 822:Generated_Source\PSoC5/PWMPulseCapture.c ****         #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 823:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 676              		.loc 1 823 0
+ 677 000a 1846     		mov	r0, r3
+ 678 000c BD46     		mov	sp, r7
+ 679              		.cfi_def_cfa_register 13
+ 680              		@ sp needed
+ 681 000e 5DF8047B 		ldr	r7, [sp], #4
+ 682              		.cfi_restore 7
+ 683              		.cfi_def_cfa_offset 0
+ 684 0012 7047     		bx	lr
+ 685              	.L51:
+ 686              		.align	2
+ 687              	.L50:
+ 688 0014 486A0040 		.word	1073769032
+ 689              		.cfi_endproc
+ 690              	.LFE14:
+ 691              		.size	PWMPulseCapture_ReadCompare, .-PWMPulseCapture_ReadCompare
+ 692              		.section	.text.PWMPulseCapture_ReadPeriod,"ax",%progbits
+ 693              		.align	2
+ 694              		.global	PWMPulseCapture_ReadPeriod
+ 695              		.thumb
+ 696              		.thumb_func
+ 697              		.type	PWMPulseCapture_ReadPeriod, %function
+ 698              	PWMPulseCapture_ReadPeriod:
+ 699              	.LFB15:
+ 824:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 825:Generated_Source\PSoC5/PWMPulseCapture.c **** #else
+ 826:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 827:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 828:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 829:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_ReadCompare1
+ 830:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 831:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 832:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 833:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  Reads the compare value for the compare1 output.
+ 834:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 835:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 836:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 837:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 838:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 839:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  uint8/uint16: Current compare value.
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 28
+
+
+ 840:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 841:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 842:Generated_Source\PSoC5/PWMPulseCapture.c ****     uint16 PWMPulseCapture_ReadCompare1(void) 
+ 843:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 844:Generated_Source\PSoC5/PWMPulseCapture.c ****         return (CY_GET_REG16(PWMPulseCapture_COMPARE1_LSB_PTR));
+ 845:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 846:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 847:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 848:Generated_Source\PSoC5/PWMPulseCapture.c ****     /*******************************************************************************
+ 849:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Function Name: PWMPulseCapture_ReadCompare2
+ 850:Generated_Source\PSoC5/PWMPulseCapture.c ****     ********************************************************************************
+ 851:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 852:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Summary:
+ 853:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  Reads the compare value for the compare2 output.
+ 854:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 855:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Parameters:
+ 856:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  None
+ 857:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 858:Generated_Source\PSoC5/PWMPulseCapture.c ****     * Return:
+ 859:Generated_Source\PSoC5/PWMPulseCapture.c ****     *  uint8/uint16: Current compare value.
+ 860:Generated_Source\PSoC5/PWMPulseCapture.c ****     *
+ 861:Generated_Source\PSoC5/PWMPulseCapture.c ****     *******************************************************************************/
+ 862:Generated_Source\PSoC5/PWMPulseCapture.c ****     uint16 PWMPulseCapture_ReadCompare2(void) 
+ 863:Generated_Source\PSoC5/PWMPulseCapture.c ****     {
+ 864:Generated_Source\PSoC5/PWMPulseCapture.c ****         return (CY_GET_REG16(PWMPulseCapture_COMPARE2_LSB_PTR));
+ 865:Generated_Source\PSoC5/PWMPulseCapture.c ****     }
+ 866:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 867:Generated_Source\PSoC5/PWMPulseCapture.c **** #endif /* (PWMPulseCapture_UseOneCompareMode) */
+ 868:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 869:Generated_Source\PSoC5/PWMPulseCapture.c **** 
+ 870:Generated_Source\PSoC5/PWMPulseCapture.c **** /*******************************************************************************
+ 871:Generated_Source\PSoC5/PWMPulseCapture.c **** * Function Name: PWMPulseCapture_ReadPeriod
+ 872:Generated_Source\PSoC5/PWMPulseCapture.c **** ********************************************************************************
+ 873:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 874:Generated_Source\PSoC5/PWMPulseCapture.c **** * Summary:
+ 875:Generated_Source\PSoC5/PWMPulseCapture.c **** *  Reads the period value used by the PWM hardware.
+ 876:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 877:Generated_Source\PSoC5/PWMPulseCapture.c **** * Parameters:
+ 878:Generated_Source\PSoC5/PWMPulseCapture.c **** *  None
+ 879:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 880:Generated_Source\PSoC5/PWMPulseCapture.c **** * Return:
+ 881:Generated_Source\PSoC5/PWMPulseCapture.c **** *  uint8/16: Period value
+ 882:Generated_Source\PSoC5/PWMPulseCapture.c **** *
+ 883:Generated_Source\PSoC5/PWMPulseCapture.c **** *******************************************************************************/
+ 884:Generated_Source\PSoC5/PWMPulseCapture.c **** uint16 PWMPulseCapture_ReadPeriod(void) 
+ 885:Generated_Source\PSoC5/PWMPulseCapture.c **** {
+ 700              		.loc 1 885 0
+ 701              		.cfi_startproc
+ 702              		@ args = 0, pretend = 0, frame = 0
+ 703              		@ frame_needed = 1, uses_anonymous_args = 0
+ 704              		@ link register save eliminated.
+ 705 0000 80B4     		push	{r7}
+ 706              		.cfi_def_cfa_offset 4
+ 707              		.cfi_offset 7, -4
+ 708 0002 00AF     		add	r7, sp, #0
+ 709              		.cfi_def_cfa_register 7
+ 886:Generated_Source\PSoC5/PWMPulseCapture.c ****     #if(PWMPulseCapture_UsingFixedFunction)
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 29
+
+
+ 887:Generated_Source\PSoC5/PWMPulseCapture.c ****         return ((uint16)CY_GET_REG16(PWMPulseCapture_PERIOD_LSB_PTR));
+ 888:Generated_Source\PSoC5/PWMPulseCapture.c ****     #else
+ 889:Generated_Source\PSoC5/PWMPulseCapture.c ****         return (CY_GET_REG16(PWMPulseCapture_PERIOD_LSB_PTR));
+ 710              		.loc 1 889 0
+ 711 0004 034B     		ldr	r3, .L54
+ 712 0006 1B88     		ldrh	r3, [r3]	@ movhi
+ 713 0008 9BB2     		uxth	r3, r3
+ 890:Generated_Source\PSoC5/PWMPulseCapture.c ****     #endif /* (PWMPulseCapture_UsingFixedFunction) */
+ 891:Generated_Source\PSoC5/PWMPulseCapture.c **** }
+ 714              		.loc 1 891 0
+ 715 000a 1846     		mov	r0, r3
+ 716 000c BD46     		mov	sp, r7
+ 717              		.cfi_def_cfa_register 13
+ 718              		@ sp needed
+ 719 000e 5DF8047B 		ldr	r7, [sp], #4
+ 720              		.cfi_restore 7
+ 721              		.cfi_def_cfa_offset 0
+ 722 0012 7047     		bx	lr
+ 723              	.L55:
+ 724              		.align	2
+ 725              	.L54:
+ 726 0014 886A0040 		.word	1073769096
+ 727              		.cfi_endproc
+ 728              	.LFE15:
+ 729              		.size	PWMPulseCapture_ReadPeriod, .-PWMPulseCapture_ReadPeriod
+ 730              		.text
+ 731              	.Letext0:
+ 732              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 733              		.section	.debug_info,"",%progbits
+ 734              	.Ldebug_info0:
+ 735 0000 9C020000 		.4byte	0x29c
+ 736 0004 0400     		.2byte	0x4
+ 737 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 738 000a 04       		.byte	0x4
+ 739 000b 01       		.uleb128 0x1
+ 740 000c 77010000 		.4byte	.LASF40
+ 741 0010 01       		.byte	0x1
+ 742 0011 06000000 		.4byte	.LASF41
+ 743 0015 36000000 		.4byte	.LASF42
+ 744 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 745 001d 00000000 		.4byte	0
+ 746 0021 00000000 		.4byte	.Ldebug_line0
+ 747 0025 02       		.uleb128 0x2
+ 748 0026 01       		.byte	0x1
+ 749 0027 06       		.byte	0x6
+ 750 0028 C3030000 		.4byte	.LASF0
+ 751 002c 02       		.uleb128 0x2
+ 752 002d 01       		.byte	0x1
+ 753 002e 08       		.byte	0x8
+ 754 002f EE000000 		.4byte	.LASF1
+ 755 0033 02       		.uleb128 0x2
+ 756 0034 02       		.byte	0x2
+ 757 0035 05       		.byte	0x5
+ 758 0036 BF000000 		.4byte	.LASF2
+ 759 003a 02       		.uleb128 0x2
+ 760 003b 02       		.byte	0x2
+ 761 003c 07       		.byte	0x7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 30
+
+
+ 762 003d AC000000 		.4byte	.LASF3
+ 763 0041 02       		.uleb128 0x2
+ 764 0042 04       		.byte	0x4
+ 765 0043 05       		.byte	0x5
+ 766 0044 A3000000 		.4byte	.LASF4
+ 767 0048 02       		.uleb128 0x2
+ 768 0049 04       		.byte	0x4
+ 769 004a 07       		.byte	0x7
+ 770 004b 1D010000 		.4byte	.LASF5
+ 771 004f 02       		.uleb128 0x2
+ 772 0050 08       		.byte	0x8
+ 773 0051 05       		.byte	0x5
+ 774 0052 EC020000 		.4byte	.LASF6
+ 775 0056 02       		.uleb128 0x2
+ 776 0057 08       		.byte	0x8
+ 777 0058 07       		.byte	0x7
+ 778 0059 58020000 		.4byte	.LASF7
+ 779 005d 03       		.uleb128 0x3
+ 780 005e 04       		.byte	0x4
+ 781 005f 05       		.byte	0x5
+ 782 0060 696E7400 		.ascii	"int\000"
+ 783 0064 02       		.uleb128 0x2
+ 784 0065 04       		.byte	0x4
+ 785 0066 07       		.byte	0x7
+ 786 0067 4B020000 		.4byte	.LASF8
+ 787 006b 04       		.uleb128 0x4
+ 788 006c 2F010000 		.4byte	.LASF9
+ 789 0070 02       		.byte	0x2
+ 790 0071 9201     		.2byte	0x192
+ 791 0073 2C000000 		.4byte	0x2c
+ 792 0077 04       		.uleb128 0x4
+ 793 0078 44020000 		.4byte	.LASF10
+ 794 007c 02       		.byte	0x2
+ 795 007d 9301     		.2byte	0x193
+ 796 007f 3A000000 		.4byte	0x3a
+ 797 0083 02       		.uleb128 0x2
+ 798 0084 04       		.byte	0x4
+ 799 0085 04       		.byte	0x4
+ 800 0086 BD030000 		.4byte	.LASF11
+ 801 008a 02       		.uleb128 0x2
+ 802 008b 08       		.byte	0x8
+ 803 008c 04       		.byte	0x4
+ 804 008d 05020000 		.4byte	.LASF12
+ 805 0091 02       		.uleb128 0x2
+ 806 0092 01       		.byte	0x1
+ 807 0093 08       		.byte	0x8
+ 808 0094 99030000 		.4byte	.LASF13
+ 809 0098 04       		.uleb128 0x4
+ 810 0099 18010000 		.4byte	.LASF14
+ 811 009d 02       		.byte	0x2
+ 812 009e 3C02     		.2byte	0x23c
+ 813 00a0 A4000000 		.4byte	0xa4
+ 814 00a4 05       		.uleb128 0x5
+ 815 00a5 6B000000 		.4byte	0x6b
+ 816 00a9 04       		.uleb128 0x4
+ 817 00aa 00000000 		.4byte	.LASF15
+ 818 00ae 02       		.byte	0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 31
+
+
+ 819 00af 3D02     		.2byte	0x23d
+ 820 00b1 B5000000 		.4byte	0xb5
+ 821 00b5 05       		.uleb128 0x5
+ 822 00b6 77000000 		.4byte	0x77
+ 823 00ba 02       		.uleb128 0x2
+ 824 00bb 04       		.byte	0x4
+ 825 00bc 07       		.byte	0x7
+ 826 00bd BF020000 		.4byte	.LASF16
+ 827 00c1 06       		.uleb128 0x6
+ 828 00c2 D7030000 		.4byte	.LASF19
+ 829 00c6 01       		.byte	0x1
+ 830 00c7 37       		.byte	0x37
+ 831 00c8 00000000 		.4byte	.LFB0
+ 832 00cc 20000000 		.4byte	.LFE0-.LFB0
+ 833 00d0 01       		.uleb128 0x1
+ 834 00d1 9C       		.byte	0x9c
+ 835 00d2 07       		.uleb128 0x7
+ 836 00d3 3D010000 		.4byte	.LASF22
+ 837 00d7 01       		.byte	0x1
+ 838 00d8 54       		.byte	0x54
+ 839 00d9 00000000 		.4byte	.LFB1
+ 840 00dd 94000000 		.4byte	.LFE1-.LFB1
+ 841 00e1 01       		.uleb128 0x1
+ 842 00e2 9C       		.byte	0x9c
+ 843 00e3 04010000 		.4byte	0x104
+ 844 00e7 08       		.uleb128 0x8
+ 845 00e8 73030000 		.4byte	.LASF17
+ 846 00ec 01       		.byte	0x1
+ 847 00ed 57       		.byte	0x57
+ 848 00ee 6B000000 		.4byte	0x6b
+ 849 00f2 02       		.uleb128 0x2
+ 850 00f3 91       		.byte	0x91
+ 851 00f4 77       		.sleb128 -9
+ 852 00f5 08       		.uleb128 0x8
+ 853 00f6 9E030000 		.4byte	.LASF18
+ 854 00fa 01       		.byte	0x1
+ 855 00fb 5D       		.byte	0x5d
+ 856 00fc 6B000000 		.4byte	0x6b
+ 857 0100 02       		.uleb128 0x2
+ 858 0101 91       		.byte	0x91
+ 859 0102 76       		.sleb128 -10
+ 860 0103 00       		.byte	0
+ 861 0104 09       		.uleb128 0x9
+ 862 0105 1D030000 		.4byte	.LASF20
+ 863 0109 01       		.byte	0x1
+ 864 010a C7       		.byte	0xc7
+ 865 010b 00000000 		.4byte	.LFB2
+ 866 010f 20000000 		.4byte	.LFE2-.LFB2
+ 867 0113 01       		.uleb128 0x1
+ 868 0114 9C       		.byte	0x9c
+ 869 0115 09       		.uleb128 0x9
+ 870 0116 FA020000 		.4byte	.LASF21
+ 871 011a 01       		.byte	0x1
+ 872 011b E9       		.byte	0xe9
+ 873 011c 00000000 		.4byte	.LFB3
+ 874 0120 20000000 		.4byte	.LFE3-.LFB3
+ 875 0124 01       		.uleb128 0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 32
+
+
+ 876 0125 9C       		.byte	0x9c
+ 877 0126 0A       		.uleb128 0xa
+ 878 0127 6F020000 		.4byte	.LASF23
+ 879 012b 01       		.byte	0x1
+ 880 012c 9301     		.2byte	0x193
+ 881 012e 00000000 		.4byte	.LFB4
+ 882 0132 20000000 		.4byte	.LFE4-.LFB4
+ 883 0136 01       		.uleb128 0x1
+ 884 0137 9C       		.byte	0x9c
+ 885 0138 4C010000 		.4byte	0x14c
+ 886 013c 0B       		.uleb128 0xb
+ 887 013d E6000000 		.4byte	.LASF26
+ 888 0141 01       		.byte	0x1
+ 889 0142 9301     		.2byte	0x193
+ 890 0144 77000000 		.4byte	0x77
+ 891 0148 02       		.uleb128 0x2
+ 892 0149 91       		.byte	0x91
+ 893 014a 76       		.sleb128 -10
+ 894 014b 00       		.byte	0
+ 895 014c 0C       		.uleb128 0xc
+ 896 014d 28020000 		.4byte	.LASF32
+ 897 0151 01       		.byte	0x1
+ 898 0152 A901     		.2byte	0x1a9
+ 899 0154 77000000 		.4byte	0x77
+ 900 0158 00000000 		.4byte	.LFB5
+ 901 015c 20000000 		.4byte	.LFE5-.LFB5
+ 902 0160 01       		.uleb128 0x1
+ 903 0161 9C       		.byte	0x9c
+ 904 0162 0D       		.uleb128 0xd
+ 905 0163 82000000 		.4byte	.LASF24
+ 906 0167 01       		.byte	0x1
+ 907 0168 C501     		.2byte	0x1c5
+ 908 016a 00000000 		.4byte	.LFB6
+ 909 016e 1A000000 		.4byte	.LFE6-.LFB6
+ 910 0172 01       		.uleb128 0x1
+ 911 0173 9C       		.byte	0x9c
+ 912 0174 0A       		.uleb128 0xa
+ 913 0175 57030000 		.4byte	.LASF25
+ 914 0179 01       		.byte	0x1
+ 915 017a E201     		.2byte	0x1e2
+ 916 017c 00000000 		.4byte	.LFB7
+ 917 0180 20000000 		.4byte	.LFE7-.LFB7
+ 918 0184 01       		.uleb128 0x1
+ 919 0185 9C       		.byte	0x9c
+ 920 0186 9A010000 		.4byte	0x19a
+ 921 018a 0B       		.uleb128 0xb
+ 922 018b 9C000000 		.4byte	.LASF27
+ 923 018f 01       		.byte	0x1
+ 924 0190 E201     		.2byte	0x1e2
+ 925 0192 77000000 		.4byte	0x77
+ 926 0196 02       		.uleb128 0x2
+ 927 0197 91       		.byte	0x91
+ 928 0198 76       		.sleb128 -10
+ 929 0199 00       		.byte	0
+ 930 019a 0A       		.uleb128 0xa
+ 931 019b C9000000 		.4byte	.LASF28
+ 932 019f 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 33
+
+
+ 933 01a0 0402     		.2byte	0x204
+ 934 01a2 00000000 		.4byte	.LFB8
+ 935 01a6 20000000 		.4byte	.LFE8-.LFB8
+ 936 01aa 01       		.uleb128 0x1
+ 937 01ab 9C       		.byte	0x9c
+ 938 01ac C0010000 		.4byte	0x1c0
+ 939 01b0 0B       		.uleb128 0xb
+ 940 01b1 CF030000 		.4byte	.LASF29
+ 941 01b5 01       		.byte	0x1
+ 942 01b6 0402     		.2byte	0x204
+ 943 01b8 77000000 		.4byte	0x77
+ 944 01bc 02       		.uleb128 0x2
+ 945 01bd 91       		.byte	0x91
+ 946 01be 76       		.sleb128 -10
+ 947 01bf 00       		.byte	0
+ 948 01c0 0A       		.uleb128 0xa
+ 949 01c1 78030000 		.4byte	.LASF30
+ 950 01c5 01       		.byte	0x1
+ 951 01c6 AC02     		.2byte	0x2ac
+ 952 01c8 00000000 		.4byte	.LFB9
+ 953 01cc 20000000 		.4byte	.LFE9-.LFB9
+ 954 01d0 01       		.uleb128 0x1
+ 955 01d1 9C       		.byte	0x9c
+ 956 01d2 E6010000 		.4byte	0x1e6
+ 957 01d6 0B       		.uleb128 0xb
+ 958 01d7 0F030000 		.4byte	.LASF31
+ 959 01db 01       		.byte	0x1
+ 960 01dc AC02     		.2byte	0x2ac
+ 961 01de 6B000000 		.4byte	0x6b
+ 962 01e2 02       		.uleb128 0x2
+ 963 01e3 91       		.byte	0x91
+ 964 01e4 77       		.sleb128 -9
+ 965 01e5 00       		.byte	0
+ 966 01e6 0C       		.uleb128 0xc
+ 967 01e7 34030000 		.4byte	.LASF33
+ 968 01eb 01       		.byte	0x1
+ 969 01ec C702     		.2byte	0x2c7
+ 970 01ee 6B000000 		.4byte	0x6b
+ 971 01f2 00000000 		.4byte	.LFB10
+ 972 01f6 18000000 		.4byte	.LFE10-.LFB10
+ 973 01fa 01       		.uleb128 0x1
+ 974 01fb 9C       		.byte	0x9c
+ 975 01fc 0E       		.uleb128 0xe
+ 976 01fd C8020000 		.4byte	.LASF43
+ 977 0201 01       		.byte	0x1
+ 978 0202 E102     		.2byte	0x2e1
+ 979 0204 6B000000 		.4byte	0x6b
+ 980 0208 00000000 		.4byte	.LFB11
+ 981 020c 20000000 		.4byte	.LFE11-.LFB11
+ 982 0210 01       		.uleb128 0x1
+ 983 0211 9C       		.byte	0x9c
+ 984 0212 26020000 		.4byte	0x226
+ 985 0216 0F       		.uleb128 0xf
+ 986 0217 2F000000 		.4byte	.LASF34
+ 987 021b 01       		.byte	0x1
+ 988 021c E302     		.2byte	0x2e3
+ 989 021e 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 34
+
+
+ 990 0222 02       		.uleb128 0x2
+ 991 0223 91       		.byte	0x91
+ 992 0224 77       		.sleb128 -9
+ 993 0225 00       		.byte	0
+ 994 0226 0A       		.uleb128 0xa
+ 995 0227 52010000 		.4byte	.LASF35
+ 996 022b 01       		.byte	0x1
+ 997 022c FD02     		.2byte	0x2fd
+ 998 022e 00000000 		.4byte	.LFB12
+ 999 0232 20000000 		.4byte	.LFE12-.LFB12
+ 1000 0236 01       		.uleb128 0x1
+ 1001 0237 9C       		.byte	0x9c
+ 1002 0238 4C020000 		.4byte	0x24c
+ 1003 023c 0B       		.uleb128 0xb
+ 1004 023d 35010000 		.4byte	.LASF36
+ 1005 0241 01       		.byte	0x1
+ 1006 0242 FD02     		.2byte	0x2fd
+ 1007 0244 6B000000 		.4byte	0x6b
+ 1008 0248 02       		.uleb128 0x2
+ 1009 0249 91       		.byte	0x91
+ 1010 024a 77       		.sleb128 -9
+ 1011 024b 00       		.byte	0
+ 1012 024c 0C       		.uleb128 0xc
+ 1013 024d FC000000 		.4byte	.LASF37
+ 1014 0251 01       		.byte	0x1
+ 1015 0252 1603     		.2byte	0x316
+ 1016 0254 77000000 		.4byte	0x77
+ 1017 0258 00000000 		.4byte	.LFB13
+ 1018 025c 18000000 		.4byte	.LFE13-.LFB13
+ 1019 0260 01       		.uleb128 0x1
+ 1020 0261 9C       		.byte	0x9c
+ 1021 0262 0C       		.uleb128 0xc
+ 1022 0263 0C020000 		.4byte	.LASF38
+ 1023 0267 01       		.byte	0x1
+ 1024 0268 3003     		.2byte	0x330
+ 1025 026a 77000000 		.4byte	0x77
+ 1026 026e 00000000 		.4byte	.LFB14
+ 1027 0272 18000000 		.4byte	.LFE14-.LFB14
+ 1028 0276 01       		.uleb128 0x1
+ 1029 0277 9C       		.byte	0x9c
+ 1030 0278 0C       		.uleb128 0xc
+ 1031 0279 A4020000 		.4byte	.LASF39
+ 1032 027d 01       		.byte	0x1
+ 1033 027e 7403     		.2byte	0x374
+ 1034 0280 77000000 		.4byte	0x77
+ 1035 0284 00000000 		.4byte	.LFB15
+ 1036 0288 18000000 		.4byte	.LFE15-.LFB15
+ 1037 028c 01       		.uleb128 0x1
+ 1038 028d 9C       		.byte	0x9c
+ 1039 028e 10       		.uleb128 0x10
+ 1040 028f 8C020000 		.4byte	.LASF44
+ 1041 0293 01       		.byte	0x1
+ 1042 0294 20       		.byte	0x20
+ 1043 0295 6B000000 		.4byte	0x6b
+ 1044 0299 05       		.uleb128 0x5
+ 1045 029a 03       		.byte	0x3
+ 1046 029b 00000000 		.4byte	PWMPulseCapture_initVar
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 35
+
+
+ 1047 029f 00       		.byte	0
+ 1048              		.section	.debug_abbrev,"",%progbits
+ 1049              	.Ldebug_abbrev0:
+ 1050 0000 01       		.uleb128 0x1
+ 1051 0001 11       		.uleb128 0x11
+ 1052 0002 01       		.byte	0x1
+ 1053 0003 25       		.uleb128 0x25
+ 1054 0004 0E       		.uleb128 0xe
+ 1055 0005 13       		.uleb128 0x13
+ 1056 0006 0B       		.uleb128 0xb
+ 1057 0007 03       		.uleb128 0x3
+ 1058 0008 0E       		.uleb128 0xe
+ 1059 0009 1B       		.uleb128 0x1b
+ 1060 000a 0E       		.uleb128 0xe
+ 1061 000b 55       		.uleb128 0x55
+ 1062 000c 17       		.uleb128 0x17
+ 1063 000d 11       		.uleb128 0x11
+ 1064 000e 01       		.uleb128 0x1
+ 1065 000f 10       		.uleb128 0x10
+ 1066 0010 17       		.uleb128 0x17
+ 1067 0011 00       		.byte	0
+ 1068 0012 00       		.byte	0
+ 1069 0013 02       		.uleb128 0x2
+ 1070 0014 24       		.uleb128 0x24
+ 1071 0015 00       		.byte	0
+ 1072 0016 0B       		.uleb128 0xb
+ 1073 0017 0B       		.uleb128 0xb
+ 1074 0018 3E       		.uleb128 0x3e
+ 1075 0019 0B       		.uleb128 0xb
+ 1076 001a 03       		.uleb128 0x3
+ 1077 001b 0E       		.uleb128 0xe
+ 1078 001c 00       		.byte	0
+ 1079 001d 00       		.byte	0
+ 1080 001e 03       		.uleb128 0x3
+ 1081 001f 24       		.uleb128 0x24
+ 1082 0020 00       		.byte	0
+ 1083 0021 0B       		.uleb128 0xb
+ 1084 0022 0B       		.uleb128 0xb
+ 1085 0023 3E       		.uleb128 0x3e
+ 1086 0024 0B       		.uleb128 0xb
+ 1087 0025 03       		.uleb128 0x3
+ 1088 0026 08       		.uleb128 0x8
+ 1089 0027 00       		.byte	0
+ 1090 0028 00       		.byte	0
+ 1091 0029 04       		.uleb128 0x4
+ 1092 002a 16       		.uleb128 0x16
+ 1093 002b 00       		.byte	0
+ 1094 002c 03       		.uleb128 0x3
+ 1095 002d 0E       		.uleb128 0xe
+ 1096 002e 3A       		.uleb128 0x3a
+ 1097 002f 0B       		.uleb128 0xb
+ 1098 0030 3B       		.uleb128 0x3b
+ 1099 0031 05       		.uleb128 0x5
+ 1100 0032 49       		.uleb128 0x49
+ 1101 0033 13       		.uleb128 0x13
+ 1102 0034 00       		.byte	0
+ 1103 0035 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 36
+
+
+ 1104 0036 05       		.uleb128 0x5
+ 1105 0037 35       		.uleb128 0x35
+ 1106 0038 00       		.byte	0
+ 1107 0039 49       		.uleb128 0x49
+ 1108 003a 13       		.uleb128 0x13
+ 1109 003b 00       		.byte	0
+ 1110 003c 00       		.byte	0
+ 1111 003d 06       		.uleb128 0x6
+ 1112 003e 2E       		.uleb128 0x2e
+ 1113 003f 00       		.byte	0
+ 1114 0040 3F       		.uleb128 0x3f
+ 1115 0041 19       		.uleb128 0x19
+ 1116 0042 03       		.uleb128 0x3
+ 1117 0043 0E       		.uleb128 0xe
+ 1118 0044 3A       		.uleb128 0x3a
+ 1119 0045 0B       		.uleb128 0xb
+ 1120 0046 3B       		.uleb128 0x3b
+ 1121 0047 0B       		.uleb128 0xb
+ 1122 0048 27       		.uleb128 0x27
+ 1123 0049 19       		.uleb128 0x19
+ 1124 004a 11       		.uleb128 0x11
+ 1125 004b 01       		.uleb128 0x1
+ 1126 004c 12       		.uleb128 0x12
+ 1127 004d 06       		.uleb128 0x6
+ 1128 004e 40       		.uleb128 0x40
+ 1129 004f 18       		.uleb128 0x18
+ 1130 0050 9642     		.uleb128 0x2116
+ 1131 0052 19       		.uleb128 0x19
+ 1132 0053 00       		.byte	0
+ 1133 0054 00       		.byte	0
+ 1134 0055 07       		.uleb128 0x7
+ 1135 0056 2E       		.uleb128 0x2e
+ 1136 0057 01       		.byte	0x1
+ 1137 0058 3F       		.uleb128 0x3f
+ 1138 0059 19       		.uleb128 0x19
+ 1139 005a 03       		.uleb128 0x3
+ 1140 005b 0E       		.uleb128 0xe
+ 1141 005c 3A       		.uleb128 0x3a
+ 1142 005d 0B       		.uleb128 0xb
+ 1143 005e 3B       		.uleb128 0x3b
+ 1144 005f 0B       		.uleb128 0xb
+ 1145 0060 27       		.uleb128 0x27
+ 1146 0061 19       		.uleb128 0x19
+ 1147 0062 11       		.uleb128 0x11
+ 1148 0063 01       		.uleb128 0x1
+ 1149 0064 12       		.uleb128 0x12
+ 1150 0065 06       		.uleb128 0x6
+ 1151 0066 40       		.uleb128 0x40
+ 1152 0067 18       		.uleb128 0x18
+ 1153 0068 9642     		.uleb128 0x2116
+ 1154 006a 19       		.uleb128 0x19
+ 1155 006b 01       		.uleb128 0x1
+ 1156 006c 13       		.uleb128 0x13
+ 1157 006d 00       		.byte	0
+ 1158 006e 00       		.byte	0
+ 1159 006f 08       		.uleb128 0x8
+ 1160 0070 34       		.uleb128 0x34
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 37
+
+
+ 1161 0071 00       		.byte	0
+ 1162 0072 03       		.uleb128 0x3
+ 1163 0073 0E       		.uleb128 0xe
+ 1164 0074 3A       		.uleb128 0x3a
+ 1165 0075 0B       		.uleb128 0xb
+ 1166 0076 3B       		.uleb128 0x3b
+ 1167 0077 0B       		.uleb128 0xb
+ 1168 0078 49       		.uleb128 0x49
+ 1169 0079 13       		.uleb128 0x13
+ 1170 007a 02       		.uleb128 0x2
+ 1171 007b 18       		.uleb128 0x18
+ 1172 007c 00       		.byte	0
+ 1173 007d 00       		.byte	0
+ 1174 007e 09       		.uleb128 0x9
+ 1175 007f 2E       		.uleb128 0x2e
+ 1176 0080 00       		.byte	0
+ 1177 0081 3F       		.uleb128 0x3f
+ 1178 0082 19       		.uleb128 0x19
+ 1179 0083 03       		.uleb128 0x3
+ 1180 0084 0E       		.uleb128 0xe
+ 1181 0085 3A       		.uleb128 0x3a
+ 1182 0086 0B       		.uleb128 0xb
+ 1183 0087 3B       		.uleb128 0x3b
+ 1184 0088 0B       		.uleb128 0xb
+ 1185 0089 27       		.uleb128 0x27
+ 1186 008a 19       		.uleb128 0x19
+ 1187 008b 11       		.uleb128 0x11
+ 1188 008c 01       		.uleb128 0x1
+ 1189 008d 12       		.uleb128 0x12
+ 1190 008e 06       		.uleb128 0x6
+ 1191 008f 40       		.uleb128 0x40
+ 1192 0090 18       		.uleb128 0x18
+ 1193 0091 9742     		.uleb128 0x2117
+ 1194 0093 19       		.uleb128 0x19
+ 1195 0094 00       		.byte	0
+ 1196 0095 00       		.byte	0
+ 1197 0096 0A       		.uleb128 0xa
+ 1198 0097 2E       		.uleb128 0x2e
+ 1199 0098 01       		.byte	0x1
+ 1200 0099 3F       		.uleb128 0x3f
+ 1201 009a 19       		.uleb128 0x19
+ 1202 009b 03       		.uleb128 0x3
+ 1203 009c 0E       		.uleb128 0xe
+ 1204 009d 3A       		.uleb128 0x3a
+ 1205 009e 0B       		.uleb128 0xb
+ 1206 009f 3B       		.uleb128 0x3b
+ 1207 00a0 05       		.uleb128 0x5
+ 1208 00a1 27       		.uleb128 0x27
+ 1209 00a2 19       		.uleb128 0x19
+ 1210 00a3 11       		.uleb128 0x11
+ 1211 00a4 01       		.uleb128 0x1
+ 1212 00a5 12       		.uleb128 0x12
+ 1213 00a6 06       		.uleb128 0x6
+ 1214 00a7 40       		.uleb128 0x40
+ 1215 00a8 18       		.uleb128 0x18
+ 1216 00a9 9742     		.uleb128 0x2117
+ 1217 00ab 19       		.uleb128 0x19
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 38
+
+
+ 1218 00ac 01       		.uleb128 0x1
+ 1219 00ad 13       		.uleb128 0x13
+ 1220 00ae 00       		.byte	0
+ 1221 00af 00       		.byte	0
+ 1222 00b0 0B       		.uleb128 0xb
+ 1223 00b1 05       		.uleb128 0x5
+ 1224 00b2 00       		.byte	0
+ 1225 00b3 03       		.uleb128 0x3
+ 1226 00b4 0E       		.uleb128 0xe
+ 1227 00b5 3A       		.uleb128 0x3a
+ 1228 00b6 0B       		.uleb128 0xb
+ 1229 00b7 3B       		.uleb128 0x3b
+ 1230 00b8 05       		.uleb128 0x5
+ 1231 00b9 49       		.uleb128 0x49
+ 1232 00ba 13       		.uleb128 0x13
+ 1233 00bb 02       		.uleb128 0x2
+ 1234 00bc 18       		.uleb128 0x18
+ 1235 00bd 00       		.byte	0
+ 1236 00be 00       		.byte	0
+ 1237 00bf 0C       		.uleb128 0xc
+ 1238 00c0 2E       		.uleb128 0x2e
+ 1239 00c1 00       		.byte	0
+ 1240 00c2 3F       		.uleb128 0x3f
+ 1241 00c3 19       		.uleb128 0x19
+ 1242 00c4 03       		.uleb128 0x3
+ 1243 00c5 0E       		.uleb128 0xe
+ 1244 00c6 3A       		.uleb128 0x3a
+ 1245 00c7 0B       		.uleb128 0xb
+ 1246 00c8 3B       		.uleb128 0x3b
+ 1247 00c9 05       		.uleb128 0x5
+ 1248 00ca 27       		.uleb128 0x27
+ 1249 00cb 19       		.uleb128 0x19
+ 1250 00cc 49       		.uleb128 0x49
+ 1251 00cd 13       		.uleb128 0x13
+ 1252 00ce 11       		.uleb128 0x11
+ 1253 00cf 01       		.uleb128 0x1
+ 1254 00d0 12       		.uleb128 0x12
+ 1255 00d1 06       		.uleb128 0x6
+ 1256 00d2 40       		.uleb128 0x40
+ 1257 00d3 18       		.uleb128 0x18
+ 1258 00d4 9742     		.uleb128 0x2117
+ 1259 00d6 19       		.uleb128 0x19
+ 1260 00d7 00       		.byte	0
+ 1261 00d8 00       		.byte	0
+ 1262 00d9 0D       		.uleb128 0xd
+ 1263 00da 2E       		.uleb128 0x2e
+ 1264 00db 00       		.byte	0
+ 1265 00dc 3F       		.uleb128 0x3f
+ 1266 00dd 19       		.uleb128 0x19
+ 1267 00de 03       		.uleb128 0x3
+ 1268 00df 0E       		.uleb128 0xe
+ 1269 00e0 3A       		.uleb128 0x3a
+ 1270 00e1 0B       		.uleb128 0xb
+ 1271 00e2 3B       		.uleb128 0x3b
+ 1272 00e3 05       		.uleb128 0x5
+ 1273 00e4 27       		.uleb128 0x27
+ 1274 00e5 19       		.uleb128 0x19
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 39
+
+
+ 1275 00e6 11       		.uleb128 0x11
+ 1276 00e7 01       		.uleb128 0x1
+ 1277 00e8 12       		.uleb128 0x12
+ 1278 00e9 06       		.uleb128 0x6
+ 1279 00ea 40       		.uleb128 0x40
+ 1280 00eb 18       		.uleb128 0x18
+ 1281 00ec 9642     		.uleb128 0x2116
+ 1282 00ee 19       		.uleb128 0x19
+ 1283 00ef 00       		.byte	0
+ 1284 00f0 00       		.byte	0
+ 1285 00f1 0E       		.uleb128 0xe
+ 1286 00f2 2E       		.uleb128 0x2e
+ 1287 00f3 01       		.byte	0x1
+ 1288 00f4 3F       		.uleb128 0x3f
+ 1289 00f5 19       		.uleb128 0x19
+ 1290 00f6 03       		.uleb128 0x3
+ 1291 00f7 0E       		.uleb128 0xe
+ 1292 00f8 3A       		.uleb128 0x3a
+ 1293 00f9 0B       		.uleb128 0xb
+ 1294 00fa 3B       		.uleb128 0x3b
+ 1295 00fb 05       		.uleb128 0x5
+ 1296 00fc 27       		.uleb128 0x27
+ 1297 00fd 19       		.uleb128 0x19
+ 1298 00fe 49       		.uleb128 0x49
+ 1299 00ff 13       		.uleb128 0x13
+ 1300 0100 11       		.uleb128 0x11
+ 1301 0101 01       		.uleb128 0x1
+ 1302 0102 12       		.uleb128 0x12
+ 1303 0103 06       		.uleb128 0x6
+ 1304 0104 40       		.uleb128 0x40
+ 1305 0105 18       		.uleb128 0x18
+ 1306 0106 9742     		.uleb128 0x2117
+ 1307 0108 19       		.uleb128 0x19
+ 1308 0109 01       		.uleb128 0x1
+ 1309 010a 13       		.uleb128 0x13
+ 1310 010b 00       		.byte	0
+ 1311 010c 00       		.byte	0
+ 1312 010d 0F       		.uleb128 0xf
+ 1313 010e 34       		.uleb128 0x34
+ 1314 010f 00       		.byte	0
+ 1315 0110 03       		.uleb128 0x3
+ 1316 0111 0E       		.uleb128 0xe
+ 1317 0112 3A       		.uleb128 0x3a
+ 1318 0113 0B       		.uleb128 0xb
+ 1319 0114 3B       		.uleb128 0x3b
+ 1320 0115 05       		.uleb128 0x5
+ 1321 0116 49       		.uleb128 0x49
+ 1322 0117 13       		.uleb128 0x13
+ 1323 0118 02       		.uleb128 0x2
+ 1324 0119 18       		.uleb128 0x18
+ 1325 011a 00       		.byte	0
+ 1326 011b 00       		.byte	0
+ 1327 011c 10       		.uleb128 0x10
+ 1328 011d 34       		.uleb128 0x34
+ 1329 011e 00       		.byte	0
+ 1330 011f 03       		.uleb128 0x3
+ 1331 0120 0E       		.uleb128 0xe
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 40
+
+
+ 1332 0121 3A       		.uleb128 0x3a
+ 1333 0122 0B       		.uleb128 0xb
+ 1334 0123 3B       		.uleb128 0x3b
+ 1335 0124 0B       		.uleb128 0xb
+ 1336 0125 49       		.uleb128 0x49
+ 1337 0126 13       		.uleb128 0x13
+ 1338 0127 3F       		.uleb128 0x3f
+ 1339 0128 19       		.uleb128 0x19
+ 1340 0129 02       		.uleb128 0x2
+ 1341 012a 18       		.uleb128 0x18
+ 1342 012b 00       		.byte	0
+ 1343 012c 00       		.byte	0
+ 1344 012d 00       		.byte	0
+ 1345              		.section	.debug_aranges,"",%progbits
+ 1346 0000 94000000 		.4byte	0x94
+ 1347 0004 0200     		.2byte	0x2
+ 1348 0006 00000000 		.4byte	.Ldebug_info0
+ 1349 000a 04       		.byte	0x4
+ 1350 000b 00       		.byte	0
+ 1351 000c 0000     		.2byte	0
+ 1352 000e 0000     		.2byte	0
+ 1353 0010 00000000 		.4byte	.LFB0
+ 1354 0014 20000000 		.4byte	.LFE0-.LFB0
+ 1355 0018 00000000 		.4byte	.LFB1
+ 1356 001c 94000000 		.4byte	.LFE1-.LFB1
+ 1357 0020 00000000 		.4byte	.LFB2
+ 1358 0024 20000000 		.4byte	.LFE2-.LFB2
+ 1359 0028 00000000 		.4byte	.LFB3
+ 1360 002c 20000000 		.4byte	.LFE3-.LFB3
+ 1361 0030 00000000 		.4byte	.LFB4
+ 1362 0034 20000000 		.4byte	.LFE4-.LFB4
+ 1363 0038 00000000 		.4byte	.LFB5
+ 1364 003c 20000000 		.4byte	.LFE5-.LFB5
+ 1365 0040 00000000 		.4byte	.LFB6
+ 1366 0044 1A000000 		.4byte	.LFE6-.LFB6
+ 1367 0048 00000000 		.4byte	.LFB7
+ 1368 004c 20000000 		.4byte	.LFE7-.LFB7
+ 1369 0050 00000000 		.4byte	.LFB8
+ 1370 0054 20000000 		.4byte	.LFE8-.LFB8
+ 1371 0058 00000000 		.4byte	.LFB9
+ 1372 005c 20000000 		.4byte	.LFE9-.LFB9
+ 1373 0060 00000000 		.4byte	.LFB10
+ 1374 0064 18000000 		.4byte	.LFE10-.LFB10
+ 1375 0068 00000000 		.4byte	.LFB11
+ 1376 006c 20000000 		.4byte	.LFE11-.LFB11
+ 1377 0070 00000000 		.4byte	.LFB12
+ 1378 0074 20000000 		.4byte	.LFE12-.LFB12
+ 1379 0078 00000000 		.4byte	.LFB13
+ 1380 007c 18000000 		.4byte	.LFE13-.LFB13
+ 1381 0080 00000000 		.4byte	.LFB14
+ 1382 0084 18000000 		.4byte	.LFE14-.LFB14
+ 1383 0088 00000000 		.4byte	.LFB15
+ 1384 008c 18000000 		.4byte	.LFE15-.LFB15
+ 1385 0090 00000000 		.4byte	0
+ 1386 0094 00000000 		.4byte	0
+ 1387              		.section	.debug_ranges,"",%progbits
+ 1388              	.Ldebug_ranges0:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 41
+
+
+ 1389 0000 00000000 		.4byte	.LFB0
+ 1390 0004 20000000 		.4byte	.LFE0
+ 1391 0008 00000000 		.4byte	.LFB1
+ 1392 000c 94000000 		.4byte	.LFE1
+ 1393 0010 00000000 		.4byte	.LFB2
+ 1394 0014 20000000 		.4byte	.LFE2
+ 1395 0018 00000000 		.4byte	.LFB3
+ 1396 001c 20000000 		.4byte	.LFE3
+ 1397 0020 00000000 		.4byte	.LFB4
+ 1398 0024 20000000 		.4byte	.LFE4
+ 1399 0028 00000000 		.4byte	.LFB5
+ 1400 002c 20000000 		.4byte	.LFE5
+ 1401 0030 00000000 		.4byte	.LFB6
+ 1402 0034 1A000000 		.4byte	.LFE6
+ 1403 0038 00000000 		.4byte	.LFB7
+ 1404 003c 20000000 		.4byte	.LFE7
+ 1405 0040 00000000 		.4byte	.LFB8
+ 1406 0044 20000000 		.4byte	.LFE8
+ 1407 0048 00000000 		.4byte	.LFB9
+ 1408 004c 20000000 		.4byte	.LFE9
+ 1409 0050 00000000 		.4byte	.LFB10
+ 1410 0054 18000000 		.4byte	.LFE10
+ 1411 0058 00000000 		.4byte	.LFB11
+ 1412 005c 20000000 		.4byte	.LFE11
+ 1413 0060 00000000 		.4byte	.LFB12
+ 1414 0064 20000000 		.4byte	.LFE12
+ 1415 0068 00000000 		.4byte	.LFB13
+ 1416 006c 18000000 		.4byte	.LFE13
+ 1417 0070 00000000 		.4byte	.LFB14
+ 1418 0074 18000000 		.4byte	.LFE14
+ 1419 0078 00000000 		.4byte	.LFB15
+ 1420 007c 18000000 		.4byte	.LFE15
+ 1421 0080 00000000 		.4byte	0
+ 1422 0084 00000000 		.4byte	0
+ 1423              		.section	.debug_line,"",%progbits
+ 1424              	.Ldebug_line0:
+ 1425 0000 8F010000 		.section	.debug_str,"MS",%progbits,1
+ 1425      02004C00 
+ 1425      00000201 
+ 1425      FB0E0D00 
+ 1425      01010101 
+ 1426              	.LASF15:
+ 1427 0000 72656731 		.ascii	"reg16\000"
+ 1427      3600
+ 1428              	.LASF41:
+ 1429 0006 47656E65 		.ascii	"Generated_Source\\PSoC5\\PWMPulseCapture.c\000"
+ 1429      72617465 
+ 1429      645F536F 
+ 1429      75726365 
+ 1429      5C50536F 
+ 1430              	.LASF34:
+ 1431 002f 72657375 		.ascii	"result\000"
+ 1431      6C7400
+ 1432              	.LASF42:
+ 1433 0036 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\PSoC Creator\\Puls"
+ 1433      73657273 
+ 1433      5C627279 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 42
+
+
+ 1433      616E2E6C 
+ 1433      65655C44 
+ 1434 0064 655F7073 		.ascii	"e_psoc5\\Combine\\Combine.cydsn\000"
+ 1434      6F63355C 
+ 1434      436F6D62 
+ 1434      696E655C 
+ 1434      436F6D62 
+ 1435              	.LASF24:
+ 1436 0082 50574D50 		.ascii	"PWMPulseCapture_ClearFIFO\000"
+ 1436      756C7365 
+ 1436      43617074 
+ 1436      7572655F 
+ 1436      436C6561 
+ 1437              	.LASF27:
+ 1438 009c 70657269 		.ascii	"period\000"
+ 1438      6F6400
+ 1439              	.LASF4:
+ 1440 00a3 6C6F6E67 		.ascii	"long int\000"
+ 1440      20696E74 
+ 1440      00
+ 1441              	.LASF3:
+ 1442 00ac 73686F72 		.ascii	"short unsigned int\000"
+ 1442      7420756E 
+ 1442      7369676E 
+ 1442      65642069 
+ 1442      6E7400
+ 1443              	.LASF2:
+ 1444 00bf 73686F72 		.ascii	"short int\000"
+ 1444      7420696E 
+ 1444      7400
+ 1445              	.LASF28:
+ 1446 00c9 50574D50 		.ascii	"PWMPulseCapture_WriteCompare\000"
+ 1446      756C7365 
+ 1446      43617074 
+ 1446      7572655F 
+ 1446      57726974 
+ 1447              	.LASF26:
+ 1448 00e6 636F756E 		.ascii	"counter\000"
+ 1448      74657200 
+ 1449              	.LASF1:
+ 1450 00ee 756E7369 		.ascii	"unsigned char\000"
+ 1450      676E6564 
+ 1450      20636861 
+ 1450      7200
+ 1451              	.LASF37:
+ 1452 00fc 50574D50 		.ascii	"PWMPulseCapture_ReadCapture\000"
+ 1452      756C7365 
+ 1452      43617074 
+ 1452      7572655F 
+ 1452      52656164 
+ 1453              	.LASF14:
+ 1454 0118 72656738 		.ascii	"reg8\000"
+ 1454      00
+ 1455              	.LASF5:
+ 1456 011d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1456      20756E73 
+ 1456      69676E65 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 43
+
+
+ 1456      6420696E 
+ 1456      7400
+ 1457              	.LASF9:
+ 1458 012f 75696E74 		.ascii	"uint8\000"
+ 1458      3800
+ 1459              	.LASF36:
+ 1460 0135 636F6E74 		.ascii	"control\000"
+ 1460      726F6C00 
+ 1461              	.LASF22:
+ 1462 013d 50574D50 		.ascii	"PWMPulseCapture_Init\000"
+ 1462      756C7365 
+ 1462      43617074 
+ 1462      7572655F 
+ 1462      496E6974 
+ 1463              	.LASF35:
+ 1464 0152 50574D50 		.ascii	"PWMPulseCapture_WriteControlRegister\000"
+ 1464      756C7365 
+ 1464      43617074 
+ 1464      7572655F 
+ 1464      57726974 
+ 1465              	.LASF40:
+ 1466 0177 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1466      4320342E 
+ 1466      392E3320 
+ 1466      32303135 
+ 1466      30333033 
+ 1467 01aa 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 1467      20726576 
+ 1467      6973696F 
+ 1467      6E203232 
+ 1467      31323230 
+ 1468 01dd 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1468      66756E63 
+ 1468      74696F6E 
+ 1468      2D736563 
+ 1468      74696F6E 
+ 1469              	.LASF12:
+ 1470 0205 646F7562 		.ascii	"double\000"
+ 1470      6C6500
+ 1471              	.LASF38:
+ 1472 020c 50574D50 		.ascii	"PWMPulseCapture_ReadCompare\000"
+ 1472      756C7365 
+ 1472      43617074 
+ 1472      7572655F 
+ 1472      52656164 
+ 1473              	.LASF32:
+ 1474 0228 50574D50 		.ascii	"PWMPulseCapture_ReadCounter\000"
+ 1474      756C7365 
+ 1474      43617074 
+ 1474      7572655F 
+ 1474      52656164 
+ 1475              	.LASF10:
+ 1476 0244 75696E74 		.ascii	"uint16\000"
+ 1476      313600
+ 1477              	.LASF8:
+ 1478 024b 756E7369 		.ascii	"unsigned int\000"
+ 1478      676E6564 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 44
+
+
+ 1478      20696E74 
+ 1478      00
+ 1479              	.LASF7:
+ 1480 0258 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1480      206C6F6E 
+ 1480      6720756E 
+ 1480      7369676E 
+ 1480      65642069 
+ 1481              	.LASF23:
+ 1482 026f 50574D50 		.ascii	"PWMPulseCapture_WriteCounter\000"
+ 1482      756C7365 
+ 1482      43617074 
+ 1482      7572655F 
+ 1482      57726974 
+ 1483              	.LASF44:
+ 1484 028c 50574D50 		.ascii	"PWMPulseCapture_initVar\000"
+ 1484      756C7365 
+ 1484      43617074 
+ 1484      7572655F 
+ 1484      696E6974 
+ 1485              	.LASF39:
+ 1486 02a4 50574D50 		.ascii	"PWMPulseCapture_ReadPeriod\000"
+ 1486      756C7365 
+ 1486      43617074 
+ 1486      7572655F 
+ 1486      52656164 
+ 1487              	.LASF16:
+ 1488 02bf 73697A65 		.ascii	"sizetype\000"
+ 1488      74797065 
+ 1488      00
+ 1489              	.LASF43:
+ 1490 02c8 50574D50 		.ascii	"PWMPulseCapture_ReadControlRegister\000"
+ 1490      756C7365 
+ 1490      43617074 
+ 1490      7572655F 
+ 1490      52656164 
+ 1491              	.LASF6:
+ 1492 02ec 6C6F6E67 		.ascii	"long long int\000"
+ 1492      206C6F6E 
+ 1492      6720696E 
+ 1492      7400
+ 1493              	.LASF21:
+ 1494 02fa 50574D50 		.ascii	"PWMPulseCapture_Stop\000"
+ 1494      756C7365 
+ 1494      43617074 
+ 1494      7572655F 
+ 1494      53746F70 
+ 1495              	.LASF31:
+ 1496 030f 696E7465 		.ascii	"interruptMode\000"
+ 1496      72727570 
+ 1496      744D6F64 
+ 1496      6500
+ 1497              	.LASF20:
+ 1498 031d 50574D50 		.ascii	"PWMPulseCapture_Enable\000"
+ 1498      756C7365 
+ 1498      43617074 
+ 1498      7572655F 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cceIznDb.s 			page 45
+
+
+ 1498      456E6162 
+ 1499              	.LASF33:
+ 1500 0334 50574D50 		.ascii	"PWMPulseCapture_ReadStatusRegister\000"
+ 1500      756C7365 
+ 1500      43617074 
+ 1500      7572655F 
+ 1500      52656164 
+ 1501              	.LASF25:
+ 1502 0357 50574D50 		.ascii	"PWMPulseCapture_WritePeriod\000"
+ 1502      756C7365 
+ 1502      43617074 
+ 1502      7572655F 
+ 1502      57726974 
+ 1503              	.LASF17:
+ 1504 0373 6374726C 		.ascii	"ctrl\000"
+ 1504      00
+ 1505              	.LASF30:
+ 1506 0378 50574D50 		.ascii	"PWMPulseCapture_SetInterruptMode\000"
+ 1506      756C7365 
+ 1506      43617074 
+ 1506      7572655F 
+ 1506      53657449 
+ 1507              	.LASF13:
+ 1508 0399 63686172 		.ascii	"char\000"
+ 1508      00
+ 1509              	.LASF18:
+ 1510 039e 50574D50 		.ascii	"PWMPulseCapture_interruptState\000"
+ 1510      756C7365 
+ 1510      43617074 
+ 1510      7572655F 
+ 1510      696E7465 
+ 1511              	.LASF11:
+ 1512 03bd 666C6F61 		.ascii	"float\000"
+ 1512      7400
+ 1513              	.LASF0:
+ 1514 03c3 7369676E 		.ascii	"signed char\000"
+ 1514      65642063 
+ 1514      68617200 
+ 1515              	.LASF29:
+ 1516 03cf 636F6D70 		.ascii	"compare\000"
+ 1516      61726500 
+ 1517              	.LASF19:
+ 1518 03d7 50574D50 		.ascii	"PWMPulseCapture_Start\000"
+ 1518      756C7365 
+ 1518      43617074 
+ 1518      7572655F 
+ 1518      53746172 
+ 1519              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

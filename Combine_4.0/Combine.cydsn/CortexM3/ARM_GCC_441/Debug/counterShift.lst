@@ -1,0 +1,2074 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"counterShift.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 5A010000 		.text
+  20      02006500 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.global	counterShift_initVar
+  24              		.bss
+  25              		.type	counterShift_initVar, %object
+  26              		.size	counterShift_initVar, 1
+  27              	counterShift_initVar:
+  28 0000 00       		.space	1
+  29              		.section	.text.counterShift_Init,"ax",%progbits
+  30              		.align	2
+  31              		.global	counterShift_Init
+  32              		.thumb
+  33              		.thumb_func
+  34              		.type	counterShift_Init, %function
+  35              	counterShift_Init:
+  36              	.LFB0:
+  37              		.file 1 ".\\Generated_Source\\PSoC5\\counterShift.c"
+   1:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/counterShift.c **** * File Name: counterShift.c  
+   3:.\Generated_Source\PSoC5/counterShift.c **** * Version 2.20
+   4:.\Generated_Source\PSoC5/counterShift.c **** *
+   5:.\Generated_Source\PSoC5/counterShift.c **** *  Description:
+   6:.\Generated_Source\PSoC5/counterShift.c **** *     The Counter component consists of a 8, 16, 24 or 32-bit counter with
+   7:.\Generated_Source\PSoC5/counterShift.c **** *     a selectable period between 2 and 2^Width - 1.  
+   8:.\Generated_Source\PSoC5/counterShift.c **** *
+   9:.\Generated_Source\PSoC5/counterShift.c **** *   Note:
+  10:.\Generated_Source\PSoC5/counterShift.c **** *     None
+  11:.\Generated_Source\PSoC5/counterShift.c **** *
+  12:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************
+  13:.\Generated_Source\PSoC5/counterShift.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:.\Generated_Source\PSoC5/counterShift.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:.\Generated_Source\PSoC5/counterShift.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:.\Generated_Source\PSoC5/counterShift.c **** * the software package with which this file was provided.
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 2
+
+
+  17:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************/
+  18:.\Generated_Source\PSoC5/counterShift.c **** 
+  19:.\Generated_Source\PSoC5/counterShift.c **** #include "counterShift.h"
+  20:.\Generated_Source\PSoC5/counterShift.c **** 
+  21:.\Generated_Source\PSoC5/counterShift.c **** uint8 counterShift_initVar = 0u;
+  22:.\Generated_Source\PSoC5/counterShift.c **** 
+  23:.\Generated_Source\PSoC5/counterShift.c **** 
+  24:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+  25:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_Init
+  26:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+  27:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+  28:.\Generated_Source\PSoC5/counterShift.c **** *     Initialize to the schematic state
+  29:.\Generated_Source\PSoC5/counterShift.c **** * 
+  30:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+  31:.\Generated_Source\PSoC5/counterShift.c **** *  void  
+  32:.\Generated_Source\PSoC5/counterShift.c **** *
+  33:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+  34:.\Generated_Source\PSoC5/counterShift.c **** *  void
+  35:.\Generated_Source\PSoC5/counterShift.c **** *
+  36:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+  37:.\Generated_Source\PSoC5/counterShift.c **** void counterShift_Init(void) 
+  38:.\Generated_Source\PSoC5/counterShift.c **** {
+  38              		.loc 1 38 0
+  39              		.cfi_startproc
+  40              		@ args = 0, pretend = 0, frame = 0
+  41              		@ frame_needed = 1, uses_anonymous_args = 0
+  42 0000 80B5     		push	{r7, lr}
+  43              	.LCFI0:
+  44              		.cfi_def_cfa_offset 8
+  45 0002 00AF     		add	r7, sp, #0
+  46              		.cfi_offset 14, -4
+  47              		.cfi_offset 7, -8
+  48              	.LCFI1:
+  49              		.cfi_def_cfa_register 7
+  39:.\Generated_Source\PSoC5/counterShift.c ****         #if (!counterShift_UsingFixedFunction && !counterShift_ControlRegRemoved)
+  40:.\Generated_Source\PSoC5/counterShift.c ****             uint8 ctrl;
+  41:.\Generated_Source\PSoC5/counterShift.c ****         #endif /* (!counterShift_UsingFixedFunction && !counterShift_ControlRegRemoved) */
+  42:.\Generated_Source\PSoC5/counterShift.c ****         
+  43:.\Generated_Source\PSoC5/counterShift.c ****         #if(!counterShift_UsingFixedFunction) 
+  44:.\Generated_Source\PSoC5/counterShift.c ****             /* Interrupt State Backup for Critical Region*/
+  45:.\Generated_Source\PSoC5/counterShift.c ****             uint8 counterShift_interruptState;
+  46:.\Generated_Source\PSoC5/counterShift.c ****         #endif /* (!counterShift_UsingFixedFunction) */
+  47:.\Generated_Source\PSoC5/counterShift.c ****         
+  48:.\Generated_Source\PSoC5/counterShift.c ****         #if (counterShift_UsingFixedFunction)
+  49:.\Generated_Source\PSoC5/counterShift.c ****             /* Clear all bits but the enable bit (if it's already set for Timer operation */
+  50:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_CONTROL &= counterShift_CTRL_ENABLE;
+  50              		.loc 1 50 0
+  51 0004 44F60073 		movw	r3, #:lower16:1073762048
+  52 0008 C4F20003 		movt	r3, #:upper16:1073762048
+  53 000c 44F60072 		movw	r2, #:lower16:1073762048
+  54 0010 C4F20002 		movt	r2, #:upper16:1073762048
+  55 0014 1278     		ldrb	r2, [r2, #0]
+  56 0016 D2B2     		uxtb	r2, r2
+  57 0018 02F00102 		and	r2, r2, #1
+  58 001c 1A70     		strb	r2, [r3, #0]
+  51:.\Generated_Source\PSoC5/counterShift.c ****             
+  52:.\Generated_Source\PSoC5/counterShift.c ****             /* Clear the mode bits for continuous run mode */
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 3
+
+
+  53:.\Generated_Source\PSoC5/counterShift.c ****             #if (CY_PSOC5A)
+  54:.\Generated_Source\PSoC5/counterShift.c ****                 counterShift_CONTROL2 &= ~counterShift_CTRL_MODE_MASK;
+  59              		.loc 1 54 0
+  60 001e 44F60173 		movw	r3, #:lower16:1073762049
+  61 0022 C4F20003 		movt	r3, #:upper16:1073762049
+  62 0026 44F60172 		movw	r2, #:lower16:1073762049
+  63 002a C4F20002 		movt	r2, #:upper16:1073762049
+  64 002e 1278     		ldrb	r2, [r2, #0]
+  65 0030 D2B2     		uxtb	r2, r2
+  66 0032 02F0F102 		and	r2, r2, #241
+  67 0036 1A70     		strb	r2, [r3, #0]
+  55:.\Generated_Source\PSoC5/counterShift.c ****             #endif /* (CY_PSOC5A) */
+  56:.\Generated_Source\PSoC5/counterShift.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+  57:.\Generated_Source\PSoC5/counterShift.c ****                 counterShift_CONTROL3 &= ~counterShift_CTRL_MODE_MASK;                
+  58:.\Generated_Source\PSoC5/counterShift.c ****             #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+  59:.\Generated_Source\PSoC5/counterShift.c ****             /* Check if One Shot mode is enabled i.e. RunMode !=0*/
+  60:.\Generated_Source\PSoC5/counterShift.c ****             #if (counterShift_RunModeUsed != 0x0u)
+  61:.\Generated_Source\PSoC5/counterShift.c ****                 /* Set 3rd bit of Control register to enable one shot mode */
+  62:.\Generated_Source\PSoC5/counterShift.c ****                 counterShift_CONTROL |= counterShift_ONESHOT;
+  63:.\Generated_Source\PSoC5/counterShift.c ****             #endif /* (counterShift_RunModeUsed != 0x0u) */
+  64:.\Generated_Source\PSoC5/counterShift.c ****             
+  65:.\Generated_Source\PSoC5/counterShift.c ****             /* Set the IRQ to use the status register interrupts */
+  66:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_CONTROL2 |= counterShift_CTRL2_IRQ_SEL;
+  68              		.loc 1 66 0
+  69 0038 44F60173 		movw	r3, #:lower16:1073762049
+  70 003c C4F20003 		movt	r3, #:upper16:1073762049
+  71 0040 44F60172 		movw	r2, #:lower16:1073762049
+  72 0044 C4F20002 		movt	r2, #:upper16:1073762049
+  73 0048 1278     		ldrb	r2, [r2, #0]
+  74 004a D2B2     		uxtb	r2, r2
+  75 004c 42F00102 		orr	r2, r2, #1
+  76 0050 D2B2     		uxtb	r2, r2
+  77 0052 1A70     		strb	r2, [r3, #0]
+  67:.\Generated_Source\PSoC5/counterShift.c ****             
+  68:.\Generated_Source\PSoC5/counterShift.c ****             /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+  69:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_RT1 &= ~counterShift_RT1_MASK;
+  78              		.loc 1 69 0
+  79 0054 44F60A73 		movw	r3, #:lower16:1073762058
+  80 0058 C4F20003 		movt	r3, #:upper16:1073762058
+  81 005c 44F60A72 		movw	r2, #:lower16:1073762058
+  82 0060 C4F20002 		movt	r2, #:upper16:1073762058
+  83 0064 1278     		ldrb	r2, [r2, #0]
+  84 0066 D2B2     		uxtb	r2, r2
+  85 0068 02F0CF02 		and	r2, r2, #207
+  86 006c 1A70     		strb	r2, [r3, #0]
+  70:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_RT1 |= counterShift_SYNC;     
+  87              		.loc 1 70 0
+  88 006e 44F60A73 		movw	r3, #:lower16:1073762058
+  89 0072 C4F20003 		movt	r3, #:upper16:1073762058
+  90 0076 44F60A72 		movw	r2, #:lower16:1073762058
+  91 007a C4F20002 		movt	r2, #:upper16:1073762058
+  92 007e 1278     		ldrb	r2, [r2, #0]
+  93 0080 D2B2     		uxtb	r2, r2
+  94 0082 42F03002 		orr	r2, r2, #48
+  95 0086 D2B2     		uxtb	r2, r2
+  96 0088 1A70     		strb	r2, [r3, #0]
+  71:.\Generated_Source\PSoC5/counterShift.c ****                     
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 4
+
+
+  72:.\Generated_Source\PSoC5/counterShift.c ****             /*Enable DSI Sync all all inputs of the Timer*/
+  73:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_RT1 &= ~(counterShift_SYNCDSI_MASK);
+  97              		.loc 1 73 0
+  98 008a 44F60A73 		movw	r3, #:lower16:1073762058
+  99 008e C4F20003 		movt	r3, #:upper16:1073762058
+ 100 0092 44F60A72 		movw	r2, #:lower16:1073762058
+ 101 0096 C4F20002 		movt	r2, #:upper16:1073762058
+ 102 009a 1278     		ldrb	r2, [r2, #0]
+ 103 009c D2B2     		uxtb	r2, r2
+ 104 009e 02F0F002 		and	r2, r2, #240
+ 105 00a2 1A70     		strb	r2, [r3, #0]
+  74:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_RT1 |= counterShift_SYNCDSI_EN;
+ 106              		.loc 1 74 0
+ 107 00a4 44F60A73 		movw	r3, #:lower16:1073762058
+ 108 00a8 C4F20003 		movt	r3, #:upper16:1073762058
+ 109 00ac 44F60A72 		movw	r2, #:lower16:1073762058
+ 110 00b0 C4F20002 		movt	r2, #:upper16:1073762058
+ 111 00b4 1278     		ldrb	r2, [r2, #0]
+ 112 00b6 D2B2     		uxtb	r2, r2
+ 113 00b8 42F00F02 		orr	r2, r2, #15
+ 114 00bc D2B2     		uxtb	r2, r2
+ 115 00be 1A70     		strb	r2, [r3, #0]
+  75:.\Generated_Source\PSoC5/counterShift.c **** 
+  76:.\Generated_Source\PSoC5/counterShift.c ****         #else
+  77:.\Generated_Source\PSoC5/counterShift.c ****             #if(!counterShift_ControlRegRemoved)
+  78:.\Generated_Source\PSoC5/counterShift.c ****             /* Set the default compare mode defined in the parameter */
+  79:.\Generated_Source\PSoC5/counterShift.c ****             ctrl = counterShift_CONTROL & ~counterShift_CTRL_CMPMODE_MASK;
+  80:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_CONTROL = ctrl | counterShift_DEFAULT_COMPARE_MODE;
+  81:.\Generated_Source\PSoC5/counterShift.c ****             
+  82:.\Generated_Source\PSoC5/counterShift.c ****             /* Set the default capture mode defined in the parameter */
+  83:.\Generated_Source\PSoC5/counterShift.c ****             ctrl = counterShift_CONTROL & ~counterShift_CTRL_CAPMODE_MASK;
+  84:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_CONTROL = ctrl | counterShift_DEFAULT_CAPTURE_MODE;
+  85:.\Generated_Source\PSoC5/counterShift.c ****             #endif /* (!counterShift_ControlRegRemoved) */
+  86:.\Generated_Source\PSoC5/counterShift.c ****         #endif /* (counterShift_UsingFixedFunction) */
+  87:.\Generated_Source\PSoC5/counterShift.c ****         
+  88:.\Generated_Source\PSoC5/counterShift.c ****         /* Clear all data in the FIFO's */
+  89:.\Generated_Source\PSoC5/counterShift.c ****         #if (!counterShift_UsingFixedFunction)
+  90:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_ClearFIFO();
+  91:.\Generated_Source\PSoC5/counterShift.c ****         #endif /* (!counterShift_UsingFixedFunction) */
+  92:.\Generated_Source\PSoC5/counterShift.c ****         
+  93:.\Generated_Source\PSoC5/counterShift.c ****         /* Set Initial values from Configuration */
+  94:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_WritePeriod(counterShift_INIT_PERIOD_VALUE);
+ 116              		.loc 1 94 0
+ 117 00c0 4FF00800 		mov	r0, #8
+ 118 00c4 FFF7FEFF 		bl	counterShift_WritePeriod
+  95:.\Generated_Source\PSoC5/counterShift.c ****         #if (!(counterShift_UsingFixedFunction && (CY_PSOC5A)))
+  96:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_WriteCounter(counterShift_INIT_COUNTER_VALUE);
+  97:.\Generated_Source\PSoC5/counterShift.c ****         #endif /* (!(counterShift_UsingFixedFunction && (CY_PSOC5A))) */
+  98:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_SetInterruptMode(counterShift_INIT_INTERRUPTS_MASK);
+ 119              		.loc 1 98 0
+ 120 00c8 4FF00000 		mov	r0, #0
+ 121 00cc FFF7FEFF 		bl	counterShift_SetInterruptMode
+  99:.\Generated_Source\PSoC5/counterShift.c ****         
+ 100:.\Generated_Source\PSoC5/counterShift.c ****         #if (!counterShift_UsingFixedFunction)
+ 101:.\Generated_Source\PSoC5/counterShift.c ****             /* Read the status register to clear the unwanted interrupts */
+ 102:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_ReadStatusRegister();
+ 103:.\Generated_Source\PSoC5/counterShift.c ****             /* Set the compare value (only available to non-fixed function implementation */
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 5
+
+
+ 104:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_WriteCompare(counterShift_INIT_COMPARE_VALUE);
+ 105:.\Generated_Source\PSoC5/counterShift.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 106:.\Generated_Source\PSoC5/counterShift.c ****             
+ 107:.\Generated_Source\PSoC5/counterShift.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 108:.\Generated_Source\PSoC5/counterShift.c ****             /* Enter Critical Region*/
+ 109:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_interruptState = CyEnterCriticalSection();
+ 110:.\Generated_Source\PSoC5/counterShift.c ****             
+ 111:.\Generated_Source\PSoC5/counterShift.c ****             counterShift_STATUS_AUX_CTRL |= counterShift_STATUS_ACTL_INT_EN_MASK;
+ 112:.\Generated_Source\PSoC5/counterShift.c ****             
+ 113:.\Generated_Source\PSoC5/counterShift.c ****             /* Exit Critical Region*/
+ 114:.\Generated_Source\PSoC5/counterShift.c ****             CyExitCriticalSection(counterShift_interruptState);
+ 115:.\Generated_Source\PSoC5/counterShift.c ****             
+ 116:.\Generated_Source\PSoC5/counterShift.c ****         #endif /* (!counterShift_UsingFixedFunction) */
+ 117:.\Generated_Source\PSoC5/counterShift.c **** }
+ 122              		.loc 1 117 0
+ 123 00d0 80BD     		pop	{r7, pc}
+ 124              		.cfi_endproc
+ 125              	.LFE0:
+ 126              		.size	counterShift_Init, .-counterShift_Init
+ 127 00d2 00BF     		.section	.text.counterShift_Enable,"ax",%progbits
+ 128              		.align	2
+ 129              		.global	counterShift_Enable
+ 130              		.thumb
+ 131              		.thumb_func
+ 132              		.type	counterShift_Enable, %function
+ 133              	counterShift_Enable:
+ 134              	.LFB1:
+ 118:.\Generated_Source\PSoC5/counterShift.c **** 
+ 119:.\Generated_Source\PSoC5/counterShift.c **** 
+ 120:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 121:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_Enable
+ 122:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ 123:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 124:.\Generated_Source\PSoC5/counterShift.c **** *     Enable the Counter
+ 125:.\Generated_Source\PSoC5/counterShift.c **** * 
+ 126:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ 127:.\Generated_Source\PSoC5/counterShift.c **** *  void  
+ 128:.\Generated_Source\PSoC5/counterShift.c **** *
+ 129:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 130:.\Generated_Source\PSoC5/counterShift.c **** *  void
+ 131:.\Generated_Source\PSoC5/counterShift.c **** *
+ 132:.\Generated_Source\PSoC5/counterShift.c **** * Side Effects: 
+ 133:.\Generated_Source\PSoC5/counterShift.c **** *   If the Enable mode is set to Hardware only then this function has no effect 
+ 134:.\Generated_Source\PSoC5/counterShift.c **** *   on the operation of the counter.
+ 135:.\Generated_Source\PSoC5/counterShift.c **** *
+ 136:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 137:.\Generated_Source\PSoC5/counterShift.c **** void counterShift_Enable(void) 
+ 138:.\Generated_Source\PSoC5/counterShift.c **** {
+ 135              		.loc 1 138 0
+ 136              		.cfi_startproc
+ 137              		@ args = 0, pretend = 0, frame = 0
+ 138              		@ frame_needed = 1, uses_anonymous_args = 0
+ 139              		@ link register save eliminated.
+ 140 0000 80B4     		push	{r7}
+ 141              	.LCFI2:
+ 142              		.cfi_def_cfa_offset 4
+ 143 0002 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 6
+
+
+ 144              		.cfi_offset 7, -4
+ 145              	.LCFI3:
+ 146              		.cfi_def_cfa_register 7
+ 139:.\Generated_Source\PSoC5/counterShift.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 140:.\Generated_Source\PSoC5/counterShift.c ****     #if (counterShift_UsingFixedFunction)
+ 141:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_GLOBAL_ENABLE |= counterShift_BLOCK_EN_MASK;
+ 147              		.loc 1 141 0
+ 148 0004 44F2A333 		movw	r3, #:lower16:1073759139
+ 149 0008 C4F20003 		movt	r3, #:upper16:1073759139
+ 150 000c 44F2A332 		movw	r2, #:lower16:1073759139
+ 151 0010 C4F20002 		movt	r2, #:upper16:1073759139
+ 152 0014 1278     		ldrb	r2, [r2, #0]
+ 153 0016 D2B2     		uxtb	r2, r2
+ 154 0018 42F00102 		orr	r2, r2, #1
+ 155 001c D2B2     		uxtb	r2, r2
+ 156 001e 1A70     		strb	r2, [r3, #0]
+ 142:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_GLOBAL_STBY_ENABLE |= counterShift_BLOCK_STBY_EN_MASK;
+ 157              		.loc 1 142 0
+ 158 0020 44F2B333 		movw	r3, #:lower16:1073759155
+ 159 0024 C4F20003 		movt	r3, #:upper16:1073759155
+ 160 0028 44F2B332 		movw	r2, #:lower16:1073759155
+ 161 002c C4F20002 		movt	r2, #:upper16:1073759155
+ 162 0030 1278     		ldrb	r2, [r2, #0]
+ 163 0032 D2B2     		uxtb	r2, r2
+ 164 0034 42F00102 		orr	r2, r2, #1
+ 165 0038 D2B2     		uxtb	r2, r2
+ 166 003a 1A70     		strb	r2, [r3, #0]
+ 143:.\Generated_Source\PSoC5/counterShift.c ****     #endif /* (counterShift_UsingFixedFunction) */  
+ 144:.\Generated_Source\PSoC5/counterShift.c ****         
+ 145:.\Generated_Source\PSoC5/counterShift.c ****     /* Enable the counter from the control register  */
+ 146:.\Generated_Source\PSoC5/counterShift.c ****     /* If Fixed Function then make sure Mode is set correctly */
+ 147:.\Generated_Source\PSoC5/counterShift.c ****     /* else make sure reset is clear */
+ 148:.\Generated_Source\PSoC5/counterShift.c ****     #if(!counterShift_ControlRegRemoved || counterShift_UsingFixedFunction)
+ 149:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_CONTROL |= counterShift_CTRL_ENABLE;                
+ 167              		.loc 1 149 0
+ 168 003c 44F60073 		movw	r3, #:lower16:1073762048
+ 169 0040 C4F20003 		movt	r3, #:upper16:1073762048
+ 170 0044 44F60072 		movw	r2, #:lower16:1073762048
+ 171 0048 C4F20002 		movt	r2, #:upper16:1073762048
+ 172 004c 1278     		ldrb	r2, [r2, #0]
+ 173 004e D2B2     		uxtb	r2, r2
+ 174 0050 42F00102 		orr	r2, r2, #1
+ 175 0054 D2B2     		uxtb	r2, r2
+ 176 0056 1A70     		strb	r2, [r3, #0]
+ 150:.\Generated_Source\PSoC5/counterShift.c ****     #endif /* (!counterShift_ControlRegRemoved || counterShift_UsingFixedFunction) */
+ 151:.\Generated_Source\PSoC5/counterShift.c ****     
+ 152:.\Generated_Source\PSoC5/counterShift.c **** }
+ 177              		.loc 1 152 0
+ 178 0058 BD46     		mov	sp, r7
+ 179 005a 80BC     		pop	{r7}
+ 180 005c 7047     		bx	lr
+ 181              		.cfi_endproc
+ 182              	.LFE1:
+ 183              		.size	counterShift_Enable, .-counterShift_Enable
+ 184 005e 00BF     		.section	.text.counterShift_Start,"ax",%progbits
+ 185              		.align	2
+ 186              		.global	counterShift_Start
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 7
+
+
+ 187              		.thumb
+ 188              		.thumb_func
+ 189              		.type	counterShift_Start, %function
+ 190              	counterShift_Start:
+ 191              	.LFB2:
+ 153:.\Generated_Source\PSoC5/counterShift.c **** 
+ 154:.\Generated_Source\PSoC5/counterShift.c **** 
+ 155:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 156:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_Start
+ 157:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ 158:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 159:.\Generated_Source\PSoC5/counterShift.c **** *  Enables the counter for operation 
+ 160:.\Generated_Source\PSoC5/counterShift.c **** *
+ 161:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ 162:.\Generated_Source\PSoC5/counterShift.c **** *  void  
+ 163:.\Generated_Source\PSoC5/counterShift.c **** *
+ 164:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 165:.\Generated_Source\PSoC5/counterShift.c **** *  void
+ 166:.\Generated_Source\PSoC5/counterShift.c **** *
+ 167:.\Generated_Source\PSoC5/counterShift.c **** * Global variables:
+ 168:.\Generated_Source\PSoC5/counterShift.c **** *  counterShift_initVar: Is modified when this function is called for the  
+ 169:.\Generated_Source\PSoC5/counterShift.c **** *   first time. Is used to ensure that initialization happens only once.
+ 170:.\Generated_Source\PSoC5/counterShift.c **** *
+ 171:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 172:.\Generated_Source\PSoC5/counterShift.c **** void counterShift_Start(void) 
+ 173:.\Generated_Source\PSoC5/counterShift.c **** {
+ 192              		.loc 1 173 0
+ 193              		.cfi_startproc
+ 194              		@ args = 0, pretend = 0, frame = 0
+ 195              		@ frame_needed = 1, uses_anonymous_args = 0
+ 196 0000 80B5     		push	{r7, lr}
+ 197              	.LCFI4:
+ 198              		.cfi_def_cfa_offset 8
+ 199 0002 00AF     		add	r7, sp, #0
+ 200              		.cfi_offset 14, -4
+ 201              		.cfi_offset 7, -8
+ 202              	.LCFI5:
+ 203              		.cfi_def_cfa_register 7
+ 174:.\Generated_Source\PSoC5/counterShift.c ****     if(counterShift_initVar == 0u)
+ 204              		.loc 1 174 0
+ 205 0004 40F20003 		movw	r3, #:lower16:counterShift_initVar
+ 206 0008 C0F20003 		movt	r3, #:upper16:counterShift_initVar
+ 207 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 208 000e 002B     		cmp	r3, #0
+ 209 0010 08D1     		bne	.L6
+ 175:.\Generated_Source\PSoC5/counterShift.c ****     {
+ 176:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_Init();
+ 210              		.loc 1 176 0
+ 211 0012 FFF7FEFF 		bl	counterShift_Init
+ 177:.\Generated_Source\PSoC5/counterShift.c ****         
+ 178:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_initVar = 1u; /* Clear this bit for Initialization */        
+ 212              		.loc 1 178 0
+ 213 0016 40F20003 		movw	r3, #:lower16:counterShift_initVar
+ 214 001a C0F20003 		movt	r3, #:upper16:counterShift_initVar
+ 215 001e 4FF00102 		mov	r2, #1
+ 216 0022 1A70     		strb	r2, [r3, #0]
+ 217              	.L6:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 8
+
+
+ 179:.\Generated_Source\PSoC5/counterShift.c ****     }
+ 180:.\Generated_Source\PSoC5/counterShift.c ****     
+ 181:.\Generated_Source\PSoC5/counterShift.c ****     /* Enable the Counter */
+ 182:.\Generated_Source\PSoC5/counterShift.c ****     counterShift_Enable();        
+ 218              		.loc 1 182 0
+ 219 0024 FFF7FEFF 		bl	counterShift_Enable
+ 183:.\Generated_Source\PSoC5/counterShift.c **** }
+ 220              		.loc 1 183 0
+ 221 0028 80BD     		pop	{r7, pc}
+ 222              		.cfi_endproc
+ 223              	.LFE2:
+ 224              		.size	counterShift_Start, .-counterShift_Start
+ 225 002a 00BF     		.section	.text.counterShift_Stop,"ax",%progbits
+ 226              		.align	2
+ 227              		.global	counterShift_Stop
+ 228              		.thumb
+ 229              		.thumb_func
+ 230              		.type	counterShift_Stop, %function
+ 231              	counterShift_Stop:
+ 232              	.LFB3:
+ 184:.\Generated_Source\PSoC5/counterShift.c **** 
+ 185:.\Generated_Source\PSoC5/counterShift.c **** 
+ 186:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 187:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_Stop
+ 188:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ 189:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 190:.\Generated_Source\PSoC5/counterShift.c **** * Halts the counter, but does not change any modes or disable interrupts.
+ 191:.\Generated_Source\PSoC5/counterShift.c **** *
+ 192:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ 193:.\Generated_Source\PSoC5/counterShift.c **** *  void  
+ 194:.\Generated_Source\PSoC5/counterShift.c **** *
+ 195:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 196:.\Generated_Source\PSoC5/counterShift.c **** *  void
+ 197:.\Generated_Source\PSoC5/counterShift.c **** *
+ 198:.\Generated_Source\PSoC5/counterShift.c **** * Side Effects: If the Enable mode is set to Hardware only then this function
+ 199:.\Generated_Source\PSoC5/counterShift.c **** *               has no effect on the operation of the counter.
+ 200:.\Generated_Source\PSoC5/counterShift.c **** *
+ 201:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 202:.\Generated_Source\PSoC5/counterShift.c **** void counterShift_Stop(void) 
+ 203:.\Generated_Source\PSoC5/counterShift.c **** {
+ 233              		.loc 1 203 0
+ 234              		.cfi_startproc
+ 235              		@ args = 0, pretend = 0, frame = 0
+ 236              		@ frame_needed = 1, uses_anonymous_args = 0
+ 237              		@ link register save eliminated.
+ 238 0000 80B4     		push	{r7}
+ 239              	.LCFI6:
+ 240              		.cfi_def_cfa_offset 4
+ 241 0002 00AF     		add	r7, sp, #0
+ 242              		.cfi_offset 7, -4
+ 243              	.LCFI7:
+ 244              		.cfi_def_cfa_register 7
+ 204:.\Generated_Source\PSoC5/counterShift.c ****     /* Disable Counter */
+ 205:.\Generated_Source\PSoC5/counterShift.c ****     #if(!counterShift_ControlRegRemoved || counterShift_UsingFixedFunction)
+ 206:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_CONTROL &= ~counterShift_CTRL_ENABLE;        
+ 245              		.loc 1 206 0
+ 246 0004 44F60073 		movw	r3, #:lower16:1073762048
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 9
+
+
+ 247 0008 C4F20003 		movt	r3, #:upper16:1073762048
+ 248 000c 44F60072 		movw	r2, #:lower16:1073762048
+ 249 0010 C4F20002 		movt	r2, #:upper16:1073762048
+ 250 0014 1278     		ldrb	r2, [r2, #0]
+ 251 0016 D2B2     		uxtb	r2, r2
+ 252 0018 02F0FE02 		and	r2, r2, #254
+ 253 001c 1A70     		strb	r2, [r3, #0]
+ 207:.\Generated_Source\PSoC5/counterShift.c ****     #endif /* (!counterShift_ControlRegRemoved || counterShift_UsingFixedFunction) */
+ 208:.\Generated_Source\PSoC5/counterShift.c ****     
+ 209:.\Generated_Source\PSoC5/counterShift.c ****     /* Globally disable the Fixed Function Block chosen */
+ 210:.\Generated_Source\PSoC5/counterShift.c ****     #if (counterShift_UsingFixedFunction)
+ 211:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_GLOBAL_ENABLE &= ~counterShift_BLOCK_EN_MASK;
+ 254              		.loc 1 211 0
+ 255 001e 44F2A333 		movw	r3, #:lower16:1073759139
+ 256 0022 C4F20003 		movt	r3, #:upper16:1073759139
+ 257 0026 44F2A332 		movw	r2, #:lower16:1073759139
+ 258 002a C4F20002 		movt	r2, #:upper16:1073759139
+ 259 002e 1278     		ldrb	r2, [r2, #0]
+ 260 0030 D2B2     		uxtb	r2, r2
+ 261 0032 02F0FE02 		and	r2, r2, #254
+ 262 0036 1A70     		strb	r2, [r3, #0]
+ 212:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_GLOBAL_STBY_ENABLE &= ~counterShift_BLOCK_STBY_EN_MASK;
+ 263              		.loc 1 212 0
+ 264 0038 44F2B333 		movw	r3, #:lower16:1073759155
+ 265 003c C4F20003 		movt	r3, #:upper16:1073759155
+ 266 0040 44F2B332 		movw	r2, #:lower16:1073759155
+ 267 0044 C4F20002 		movt	r2, #:upper16:1073759155
+ 268 0048 1278     		ldrb	r2, [r2, #0]
+ 269 004a D2B2     		uxtb	r2, r2
+ 270 004c 02F0FE02 		and	r2, r2, #254
+ 271 0050 1A70     		strb	r2, [r3, #0]
+ 213:.\Generated_Source\PSoC5/counterShift.c ****     #endif /* (counterShift_UsingFixedFunction) */
+ 214:.\Generated_Source\PSoC5/counterShift.c **** }
+ 272              		.loc 1 214 0
+ 273 0052 BD46     		mov	sp, r7
+ 274 0054 80BC     		pop	{r7}
+ 275 0056 7047     		bx	lr
+ 276              		.cfi_endproc
+ 277              	.LFE3:
+ 278              		.size	counterShift_Stop, .-counterShift_Stop
+ 279              		.section	.text.counterShift_SetInterruptMode,"ax",%progbits
+ 280              		.align	2
+ 281              		.global	counterShift_SetInterruptMode
+ 282              		.thumb
+ 283              		.thumb_func
+ 284              		.type	counterShift_SetInterruptMode, %function
+ 285              	counterShift_SetInterruptMode:
+ 286              	.LFB4:
+ 215:.\Generated_Source\PSoC5/counterShift.c **** 
+ 216:.\Generated_Source\PSoC5/counterShift.c **** 
+ 217:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 218:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_SetInterruptMode
+ 219:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ 220:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 221:.\Generated_Source\PSoC5/counterShift.c **** * Configures which interrupt sources are enabled to generate the final interrupt
+ 222:.\Generated_Source\PSoC5/counterShift.c **** *
+ 223:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 10
+
+
+ 224:.\Generated_Source\PSoC5/counterShift.c **** *  InterruptsMask: This parameter is an or'd collection of the status bits
+ 225:.\Generated_Source\PSoC5/counterShift.c **** *                   which will be allowed to generate the counters interrupt.   
+ 226:.\Generated_Source\PSoC5/counterShift.c **** *
+ 227:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 228:.\Generated_Source\PSoC5/counterShift.c **** *  void
+ 229:.\Generated_Source\PSoC5/counterShift.c **** *
+ 230:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 231:.\Generated_Source\PSoC5/counterShift.c **** void counterShift_SetInterruptMode(uint8 interruptsMask) 
+ 232:.\Generated_Source\PSoC5/counterShift.c **** {
+ 287              		.loc 1 232 0
+ 288              		.cfi_startproc
+ 289              		@ args = 0, pretend = 0, frame = 8
+ 290              		@ frame_needed = 1, uses_anonymous_args = 0
+ 291              		@ link register save eliminated.
+ 292 0000 80B4     		push	{r7}
+ 293              	.LCFI8:
+ 294              		.cfi_def_cfa_offset 4
+ 295 0002 83B0     		sub	sp, sp, #12
+ 296              	.LCFI9:
+ 297              		.cfi_def_cfa_offset 16
+ 298 0004 00AF     		add	r7, sp, #0
+ 299              		.cfi_offset 7, -4
+ 300              	.LCFI10:
+ 301              		.cfi_def_cfa_register 7
+ 302 0006 0346     		mov	r3, r0
+ 303 0008 FB71     		strb	r3, [r7, #7]
+ 233:.\Generated_Source\PSoC5/counterShift.c ****     counterShift_STATUS_MASK = interruptsMask;
+ 304              		.loc 1 233 0
+ 305 000a 44F60873 		movw	r3, #:lower16:1073762056
+ 306 000e C4F20003 		movt	r3, #:upper16:1073762056
+ 307 0012 FA79     		ldrb	r2, [r7, #7]
+ 308 0014 1A70     		strb	r2, [r3, #0]
+ 234:.\Generated_Source\PSoC5/counterShift.c **** }
+ 309              		.loc 1 234 0
+ 310 0016 07F10C07 		add	r7, r7, #12
+ 311 001a BD46     		mov	sp, r7
+ 312 001c 80BC     		pop	{r7}
+ 313 001e 7047     		bx	lr
+ 314              		.cfi_endproc
+ 315              	.LFE4:
+ 316              		.size	counterShift_SetInterruptMode, .-counterShift_SetInterruptMode
+ 317              		.section	.text.counterShift_ReadStatusRegister,"ax",%progbits
+ 318              		.align	2
+ 319              		.global	counterShift_ReadStatusRegister
+ 320              		.thumb
+ 321              		.thumb_func
+ 322              		.type	counterShift_ReadStatusRegister, %function
+ 323              	counterShift_ReadStatusRegister:
+ 324              	.LFB5:
+ 235:.\Generated_Source\PSoC5/counterShift.c **** 
+ 236:.\Generated_Source\PSoC5/counterShift.c **** 
+ 237:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 238:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_ReadStatusRegister
+ 239:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ 240:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 241:.\Generated_Source\PSoC5/counterShift.c **** *   Reads the status register and returns it's state. This function should use
+ 242:.\Generated_Source\PSoC5/counterShift.c **** *       defined types for the bit-field information as the bits in this
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 11
+
+
+ 243:.\Generated_Source\PSoC5/counterShift.c **** *       register may be permuteable.
+ 244:.\Generated_Source\PSoC5/counterShift.c **** *
+ 245:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ 246:.\Generated_Source\PSoC5/counterShift.c **** *  void
+ 247:.\Generated_Source\PSoC5/counterShift.c **** *
+ 248:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 249:.\Generated_Source\PSoC5/counterShift.c **** *  (uint8) The contents of the status register
+ 250:.\Generated_Source\PSoC5/counterShift.c **** *
+ 251:.\Generated_Source\PSoC5/counterShift.c **** * Side Effects:
+ 252:.\Generated_Source\PSoC5/counterShift.c **** *   Status register bits may be clear on read. 
+ 253:.\Generated_Source\PSoC5/counterShift.c **** *
+ 254:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 255:.\Generated_Source\PSoC5/counterShift.c **** uint8   counterShift_ReadStatusRegister(void) 
+ 256:.\Generated_Source\PSoC5/counterShift.c **** {
+ 325              		.loc 1 256 0
+ 326              		.cfi_startproc
+ 327              		@ args = 0, pretend = 0, frame = 0
+ 328              		@ frame_needed = 1, uses_anonymous_args = 0
+ 329              		@ link register save eliminated.
+ 330 0000 80B4     		push	{r7}
+ 331              	.LCFI11:
+ 332              		.cfi_def_cfa_offset 4
+ 333 0002 00AF     		add	r7, sp, #0
+ 334              		.cfi_offset 7, -4
+ 335              	.LCFI12:
+ 336              		.cfi_def_cfa_register 7
+ 257:.\Generated_Source\PSoC5/counterShift.c ****     return counterShift_STATUS;
+ 337              		.loc 1 257 0
+ 338 0004 44F60873 		movw	r3, #:lower16:1073762056
+ 339 0008 C4F20003 		movt	r3, #:upper16:1073762056
+ 340 000c 1B78     		ldrb	r3, [r3, #0]
+ 341 000e DBB2     		uxtb	r3, r3
+ 258:.\Generated_Source\PSoC5/counterShift.c **** }
+ 342              		.loc 1 258 0
+ 343 0010 1846     		mov	r0, r3
+ 344 0012 BD46     		mov	sp, r7
+ 345 0014 80BC     		pop	{r7}
+ 346 0016 7047     		bx	lr
+ 347              		.cfi_endproc
+ 348              	.LFE5:
+ 349              		.size	counterShift_ReadStatusRegister, .-counterShift_ReadStatusRegister
+ 350              		.section	.text.counterShift_ReadControlRegister,"ax",%progbits
+ 351              		.align	2
+ 352              		.global	counterShift_ReadControlRegister
+ 353              		.thumb
+ 354              		.thumb_func
+ 355              		.type	counterShift_ReadControlRegister, %function
+ 356              	counterShift_ReadControlRegister:
+ 357              	.LFB6:
+ 259:.\Generated_Source\PSoC5/counterShift.c **** 
+ 260:.\Generated_Source\PSoC5/counterShift.c **** 
+ 261:.\Generated_Source\PSoC5/counterShift.c **** #if(!counterShift_ControlRegRemoved)
+ 262:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 263:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_ReadControlRegister
+ 264:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ 265:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 266:.\Generated_Source\PSoC5/counterShift.c **** *   Reads the control register and returns it's state. This function should use
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 12
+
+
+ 267:.\Generated_Source\PSoC5/counterShift.c **** *       defined types for the bit-field information as the bits in this
+ 268:.\Generated_Source\PSoC5/counterShift.c **** *       register may be permuteable.
+ 269:.\Generated_Source\PSoC5/counterShift.c **** *
+ 270:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ 271:.\Generated_Source\PSoC5/counterShift.c **** *  void
+ 272:.\Generated_Source\PSoC5/counterShift.c **** *
+ 273:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 274:.\Generated_Source\PSoC5/counterShift.c **** *  (uint8) The contents of the control register
+ 275:.\Generated_Source\PSoC5/counterShift.c **** *
+ 276:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 277:.\Generated_Source\PSoC5/counterShift.c **** uint8   counterShift_ReadControlRegister(void) 
+ 278:.\Generated_Source\PSoC5/counterShift.c **** {
+ 358              		.loc 1 278 0
+ 359              		.cfi_startproc
+ 360              		@ args = 0, pretend = 0, frame = 0
+ 361              		@ frame_needed = 1, uses_anonymous_args = 0
+ 362              		@ link register save eliminated.
+ 363 0000 80B4     		push	{r7}
+ 364              	.LCFI13:
+ 365              		.cfi_def_cfa_offset 4
+ 366 0002 00AF     		add	r7, sp, #0
+ 367              		.cfi_offset 7, -4
+ 368              	.LCFI14:
+ 369              		.cfi_def_cfa_register 7
+ 279:.\Generated_Source\PSoC5/counterShift.c ****     return counterShift_CONTROL;
+ 370              		.loc 1 279 0
+ 371 0004 44F60073 		movw	r3, #:lower16:1073762048
+ 372 0008 C4F20003 		movt	r3, #:upper16:1073762048
+ 373 000c 1B78     		ldrb	r3, [r3, #0]
+ 374 000e DBB2     		uxtb	r3, r3
+ 280:.\Generated_Source\PSoC5/counterShift.c **** }
+ 375              		.loc 1 280 0
+ 376 0010 1846     		mov	r0, r3
+ 377 0012 BD46     		mov	sp, r7
+ 378 0014 80BC     		pop	{r7}
+ 379 0016 7047     		bx	lr
+ 380              		.cfi_endproc
+ 381              	.LFE6:
+ 382              		.size	counterShift_ReadControlRegister, .-counterShift_ReadControlRegister
+ 383              		.section	.text.counterShift_WriteControlRegister,"ax",%progbits
+ 384              		.align	2
+ 385              		.global	counterShift_WriteControlRegister
+ 386              		.thumb
+ 387              		.thumb_func
+ 388              		.type	counterShift_WriteControlRegister, %function
+ 389              	counterShift_WriteControlRegister:
+ 390              	.LFB7:
+ 281:.\Generated_Source\PSoC5/counterShift.c **** 
+ 282:.\Generated_Source\PSoC5/counterShift.c **** 
+ 283:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 284:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_WriteControlRegister
+ 285:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ 286:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 287:.\Generated_Source\PSoC5/counterShift.c **** *   Sets the bit-field of the control register.  This function should use
+ 288:.\Generated_Source\PSoC5/counterShift.c **** *       defined types for the bit-field information as the bits in this
+ 289:.\Generated_Source\PSoC5/counterShift.c **** *       register may be permuteable.
+ 290:.\Generated_Source\PSoC5/counterShift.c **** *
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 13
+
+
+ 291:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ 292:.\Generated_Source\PSoC5/counterShift.c **** *  void
+ 293:.\Generated_Source\PSoC5/counterShift.c **** *
+ 294:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 295:.\Generated_Source\PSoC5/counterShift.c **** *  (uint8) The contents of the control register
+ 296:.\Generated_Source\PSoC5/counterShift.c **** *
+ 297:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 298:.\Generated_Source\PSoC5/counterShift.c **** void    counterShift_WriteControlRegister(uint8 control) 
+ 299:.\Generated_Source\PSoC5/counterShift.c **** {
+ 391              		.loc 1 299 0
+ 392              		.cfi_startproc
+ 393              		@ args = 0, pretend = 0, frame = 8
+ 394              		@ frame_needed = 1, uses_anonymous_args = 0
+ 395              		@ link register save eliminated.
+ 396 0000 80B4     		push	{r7}
+ 397              	.LCFI15:
+ 398              		.cfi_def_cfa_offset 4
+ 399 0002 83B0     		sub	sp, sp, #12
+ 400              	.LCFI16:
+ 401              		.cfi_def_cfa_offset 16
+ 402 0004 00AF     		add	r7, sp, #0
+ 403              		.cfi_offset 7, -4
+ 404              	.LCFI17:
+ 405              		.cfi_def_cfa_register 7
+ 406 0006 0346     		mov	r3, r0
+ 407 0008 FB71     		strb	r3, [r7, #7]
+ 300:.\Generated_Source\PSoC5/counterShift.c ****     counterShift_CONTROL = control;
+ 408              		.loc 1 300 0
+ 409 000a 44F60073 		movw	r3, #:lower16:1073762048
+ 410 000e C4F20003 		movt	r3, #:upper16:1073762048
+ 411 0012 FA79     		ldrb	r2, [r7, #7]
+ 412 0014 1A70     		strb	r2, [r3, #0]
+ 301:.\Generated_Source\PSoC5/counterShift.c **** }
+ 413              		.loc 1 301 0
+ 414 0016 07F10C07 		add	r7, r7, #12
+ 415 001a BD46     		mov	sp, r7
+ 416 001c 80BC     		pop	{r7}
+ 417 001e 7047     		bx	lr
+ 418              		.cfi_endproc
+ 419              	.LFE7:
+ 420              		.size	counterShift_WriteControlRegister, .-counterShift_WriteControlRegister
+ 421              		.section	.text.counterShift_ReadCounter,"ax",%progbits
+ 422              		.align	2
+ 423              		.global	counterShift_ReadCounter
+ 424              		.thumb
+ 425              		.thumb_func
+ 426              		.type	counterShift_ReadCounter, %function
+ 427              	counterShift_ReadCounter:
+ 428              	.LFB8:
+ 302:.\Generated_Source\PSoC5/counterShift.c **** 
+ 303:.\Generated_Source\PSoC5/counterShift.c **** #endif  /* (!counterShift_ControlRegRemoved) */
+ 304:.\Generated_Source\PSoC5/counterShift.c **** 
+ 305:.\Generated_Source\PSoC5/counterShift.c **** 
+ 306:.\Generated_Source\PSoC5/counterShift.c **** #if (!(counterShift_UsingFixedFunction && (CY_PSOC5A)))
+ 307:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 308:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_WriteCounter
+ 309:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 14
+
+
+ 310:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 311:.\Generated_Source\PSoC5/counterShift.c **** *   This funtion is used to set the counter to a specific value
+ 312:.\Generated_Source\PSoC5/counterShift.c **** *
+ 313:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ 314:.\Generated_Source\PSoC5/counterShift.c **** *  counter:  New counter value. 
+ 315:.\Generated_Source\PSoC5/counterShift.c **** *
+ 316:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 317:.\Generated_Source\PSoC5/counterShift.c **** *  void 
+ 318:.\Generated_Source\PSoC5/counterShift.c **** *
+ 319:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 320:.\Generated_Source\PSoC5/counterShift.c **** void counterShift_WriteCounter(uint8 counter) \
+ 321:.\Generated_Source\PSoC5/counterShift.c ****                                    
+ 322:.\Generated_Source\PSoC5/counterShift.c **** {
+ 323:.\Generated_Source\PSoC5/counterShift.c ****     #if(counterShift_UsingFixedFunction)
+ 324:.\Generated_Source\PSoC5/counterShift.c ****         /* assert if block is already enabled */
+ 325:.\Generated_Source\PSoC5/counterShift.c ****         CYASSERT (!(counterShift_GLOBAL_ENABLE & counterShift_BLOCK_EN_MASK));
+ 326:.\Generated_Source\PSoC5/counterShift.c ****         /* If block is disabled, enable it and then write the counter */
+ 327:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_GLOBAL_ENABLE |= counterShift_BLOCK_EN_MASK;
+ 328:.\Generated_Source\PSoC5/counterShift.c ****         CY_SET_REG16(counterShift_COUNTER_LSB_PTR, (uint16)counter);
+ 329:.\Generated_Source\PSoC5/counterShift.c ****         counterShift_GLOBAL_ENABLE &= ~counterShift_BLOCK_EN_MASK;
+ 330:.\Generated_Source\PSoC5/counterShift.c ****     #else
+ 331:.\Generated_Source\PSoC5/counterShift.c ****         CY_SET_REG8(counterShift_COUNTER_LSB_PTR, counter);
+ 332:.\Generated_Source\PSoC5/counterShift.c ****     #endif /* (counterShift_UsingFixedFunction) */
+ 333:.\Generated_Source\PSoC5/counterShift.c **** }
+ 334:.\Generated_Source\PSoC5/counterShift.c **** #endif /* (!(counterShift_UsingFixedFunction && (CY_PSOC5A))) */
+ 335:.\Generated_Source\PSoC5/counterShift.c **** 
+ 336:.\Generated_Source\PSoC5/counterShift.c **** 
+ 337:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 338:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_ReadCounter
+ 339:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ 340:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 341:.\Generated_Source\PSoC5/counterShift.c **** * Returns the current value of the counter.  It doesn't matter
+ 342:.\Generated_Source\PSoC5/counterShift.c **** * if the counter is enabled or running.
+ 343:.\Generated_Source\PSoC5/counterShift.c **** *
+ 344:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ 345:.\Generated_Source\PSoC5/counterShift.c **** *  void:  
+ 346:.\Generated_Source\PSoC5/counterShift.c **** *
+ 347:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 348:.\Generated_Source\PSoC5/counterShift.c **** *  (uint8) The present value of the counter.
+ 349:.\Generated_Source\PSoC5/counterShift.c **** *
+ 350:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 351:.\Generated_Source\PSoC5/counterShift.c **** uint8 counterShift_ReadCounter(void) 
+ 352:.\Generated_Source\PSoC5/counterShift.c **** {
+ 429              		.loc 1 352 0
+ 430              		.cfi_startproc
+ 431              		@ args = 0, pretend = 0, frame = 0
+ 432              		@ frame_needed = 1, uses_anonymous_args = 0
+ 433              		@ link register save eliminated.
+ 434 0000 80B4     		push	{r7}
+ 435              	.LCFI18:
+ 436              		.cfi_def_cfa_offset 4
+ 437 0002 00AF     		add	r7, sp, #0
+ 438              		.cfi_offset 7, -4
+ 439              	.LCFI19:
+ 440              		.cfi_def_cfa_register 7
+ 353:.\Generated_Source\PSoC5/counterShift.c ****     /* Force capture by reading Accumulator */
+ 354:.\Generated_Source\PSoC5/counterShift.c ****     /* Must first do a software capture to be able to read the counter */
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 15
+
+
+ 355:.\Generated_Source\PSoC5/counterShift.c ****     /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 356:.\Generated_Source\PSoC5/counterShift.c ****     CY_GET_REG8(counterShift_COUNTER_LSB_PTR);
+ 441              		.loc 1 356 0
+ 442 0004 44F60473 		movw	r3, #:lower16:1073762052
+ 443 0008 C4F20003 		movt	r3, #:upper16:1073762052
+ 444 000c 1B78     		ldrb	r3, [r3, #0]
+ 357:.\Generated_Source\PSoC5/counterShift.c ****     
+ 358:.\Generated_Source\PSoC5/counterShift.c ****     /* Read the data from the FIFO (or capture register for Fixed Function)*/
+ 359:.\Generated_Source\PSoC5/counterShift.c ****     return (CY_GET_REG8(counterShift_STATICCOUNT_LSB_PTR));
+ 445              		.loc 1 359 0
+ 446 000e 44F60673 		movw	r3, #:lower16:1073762054
+ 447 0012 C4F20003 		movt	r3, #:upper16:1073762054
+ 448 0016 1B78     		ldrb	r3, [r3, #0]
+ 449 0018 DBB2     		uxtb	r3, r3
+ 360:.\Generated_Source\PSoC5/counterShift.c **** }
+ 450              		.loc 1 360 0
+ 451 001a 1846     		mov	r0, r3
+ 452 001c BD46     		mov	sp, r7
+ 453 001e 80BC     		pop	{r7}
+ 454 0020 7047     		bx	lr
+ 455              		.cfi_endproc
+ 456              	.LFE8:
+ 457              		.size	counterShift_ReadCounter, .-counterShift_ReadCounter
+ 458 0022 00BF     		.section	.text.counterShift_ReadCapture,"ax",%progbits
+ 459              		.align	2
+ 460              		.global	counterShift_ReadCapture
+ 461              		.thumb
+ 462              		.thumb_func
+ 463              		.type	counterShift_ReadCapture, %function
+ 464              	counterShift_ReadCapture:
+ 465              	.LFB9:
+ 361:.\Generated_Source\PSoC5/counterShift.c **** 
+ 362:.\Generated_Source\PSoC5/counterShift.c **** 
+ 363:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 364:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_ReadCapture
+ 365:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ 366:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 367:.\Generated_Source\PSoC5/counterShift.c **** *   This function returns the last value captured.
+ 368:.\Generated_Source\PSoC5/counterShift.c **** *
+ 369:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ 370:.\Generated_Source\PSoC5/counterShift.c **** *  void
+ 371:.\Generated_Source\PSoC5/counterShift.c **** *
+ 372:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 373:.\Generated_Source\PSoC5/counterShift.c **** *  (uint8) Present Capture value.
+ 374:.\Generated_Source\PSoC5/counterShift.c **** *
+ 375:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 376:.\Generated_Source\PSoC5/counterShift.c **** uint8 counterShift_ReadCapture(void) 
+ 377:.\Generated_Source\PSoC5/counterShift.c **** {
+ 466              		.loc 1 377 0
+ 467              		.cfi_startproc
+ 468              		@ args = 0, pretend = 0, frame = 0
+ 469              		@ frame_needed = 1, uses_anonymous_args = 0
+ 470              		@ link register save eliminated.
+ 471 0000 80B4     		push	{r7}
+ 472              	.LCFI20:
+ 473              		.cfi_def_cfa_offset 4
+ 474 0002 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 16
+
+
+ 475              		.cfi_offset 7, -4
+ 476              	.LCFI21:
+ 477              		.cfi_def_cfa_register 7
+ 378:.\Generated_Source\PSoC5/counterShift.c ****    return ( CY_GET_REG8(counterShift_STATICCOUNT_LSB_PTR) );  
+ 478              		.loc 1 378 0
+ 479 0004 44F60673 		movw	r3, #:lower16:1073762054
+ 480 0008 C4F20003 		movt	r3, #:upper16:1073762054
+ 481 000c 1B78     		ldrb	r3, [r3, #0]
+ 482 000e DBB2     		uxtb	r3, r3
+ 379:.\Generated_Source\PSoC5/counterShift.c **** }
+ 483              		.loc 1 379 0
+ 484 0010 1846     		mov	r0, r3
+ 485 0012 BD46     		mov	sp, r7
+ 486 0014 80BC     		pop	{r7}
+ 487 0016 7047     		bx	lr
+ 488              		.cfi_endproc
+ 489              	.LFE9:
+ 490              		.size	counterShift_ReadCapture, .-counterShift_ReadCapture
+ 491              		.section	.text.counterShift_WritePeriod,"ax",%progbits
+ 492              		.align	2
+ 493              		.global	counterShift_WritePeriod
+ 494              		.thumb
+ 495              		.thumb_func
+ 496              		.type	counterShift_WritePeriod, %function
+ 497              	counterShift_WritePeriod:
+ 498              	.LFB10:
+ 380:.\Generated_Source\PSoC5/counterShift.c **** 
+ 381:.\Generated_Source\PSoC5/counterShift.c **** 
+ 382:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 383:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_WritePeriod
+ 384:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ 385:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 386:.\Generated_Source\PSoC5/counterShift.c **** * Changes the period of the counter.  The new period 
+ 387:.\Generated_Source\PSoC5/counterShift.c **** * will be loaded the next time terminal count is detected.
+ 388:.\Generated_Source\PSoC5/counterShift.c **** *
+ 389:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ 390:.\Generated_Source\PSoC5/counterShift.c **** *  period: (uint8) A value of 0 will result in
+ 391:.\Generated_Source\PSoC5/counterShift.c **** *         the counter remaining at zero.  
+ 392:.\Generated_Source\PSoC5/counterShift.c **** *
+ 393:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 394:.\Generated_Source\PSoC5/counterShift.c **** *  void
+ 395:.\Generated_Source\PSoC5/counterShift.c **** *
+ 396:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 397:.\Generated_Source\PSoC5/counterShift.c **** void counterShift_WritePeriod(uint8 period) 
+ 398:.\Generated_Source\PSoC5/counterShift.c **** {
+ 499              		.loc 1 398 0
+ 500              		.cfi_startproc
+ 501              		@ args = 0, pretend = 0, frame = 8
+ 502              		@ frame_needed = 1, uses_anonymous_args = 0
+ 503              		@ link register save eliminated.
+ 504 0000 80B4     		push	{r7}
+ 505              	.LCFI22:
+ 506              		.cfi_def_cfa_offset 4
+ 507 0002 83B0     		sub	sp, sp, #12
+ 508              	.LCFI23:
+ 509              		.cfi_def_cfa_offset 16
+ 510 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 17
+
+
+ 511              		.cfi_offset 7, -4
+ 512              	.LCFI24:
+ 513              		.cfi_def_cfa_register 7
+ 514 0006 0346     		mov	r3, r0
+ 515 0008 FB71     		strb	r3, [r7, #7]
+ 399:.\Generated_Source\PSoC5/counterShift.c ****     #if(counterShift_UsingFixedFunction)
+ 400:.\Generated_Source\PSoC5/counterShift.c ****         CY_SET_REG16(counterShift_PERIOD_LSB_PTR,(uint16)period);
+ 516              		.loc 1 400 0
+ 517 000a 44F60273 		movw	r3, #:lower16:1073762050
+ 518 000e C4F20003 		movt	r3, #:upper16:1073762050
+ 519 0012 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 520 0014 1A80     		strh	r2, [r3, #0]	@ movhi
+ 401:.\Generated_Source\PSoC5/counterShift.c ****     #else
+ 402:.\Generated_Source\PSoC5/counterShift.c ****         CY_SET_REG8(counterShift_PERIOD_LSB_PTR,period);
+ 403:.\Generated_Source\PSoC5/counterShift.c ****     #endif /* (counterShift_UsingFixedFunction) */
+ 404:.\Generated_Source\PSoC5/counterShift.c **** }
+ 521              		.loc 1 404 0
+ 522 0016 07F10C07 		add	r7, r7, #12
+ 523 001a BD46     		mov	sp, r7
+ 524 001c 80BC     		pop	{r7}
+ 525 001e 7047     		bx	lr
+ 526              		.cfi_endproc
+ 527              	.LFE10:
+ 528              		.size	counterShift_WritePeriod, .-counterShift_WritePeriod
+ 529              		.section	.text.counterShift_ReadPeriod,"ax",%progbits
+ 530              		.align	2
+ 531              		.global	counterShift_ReadPeriod
+ 532              		.thumb
+ 533              		.thumb_func
+ 534              		.type	counterShift_ReadPeriod, %function
+ 535              	counterShift_ReadPeriod:
+ 536              	.LFB11:
+ 405:.\Generated_Source\PSoC5/counterShift.c **** 
+ 406:.\Generated_Source\PSoC5/counterShift.c **** 
+ 407:.\Generated_Source\PSoC5/counterShift.c **** /*******************************************************************************
+ 408:.\Generated_Source\PSoC5/counterShift.c **** * Function Name: counterShift_ReadPeriod
+ 409:.\Generated_Source\PSoC5/counterShift.c **** ********************************************************************************
+ 410:.\Generated_Source\PSoC5/counterShift.c **** * Summary:
+ 411:.\Generated_Source\PSoC5/counterShift.c **** * Reads the current period value without affecting counter operation.
+ 412:.\Generated_Source\PSoC5/counterShift.c **** *
+ 413:.\Generated_Source\PSoC5/counterShift.c **** * Parameters:  
+ 414:.\Generated_Source\PSoC5/counterShift.c **** *  void:  
+ 415:.\Generated_Source\PSoC5/counterShift.c **** *
+ 416:.\Generated_Source\PSoC5/counterShift.c **** * Return: 
+ 417:.\Generated_Source\PSoC5/counterShift.c **** *  (uint8) Present period value.
+ 418:.\Generated_Source\PSoC5/counterShift.c **** *
+ 419:.\Generated_Source\PSoC5/counterShift.c **** *******************************************************************************/
+ 420:.\Generated_Source\PSoC5/counterShift.c **** uint8 counterShift_ReadPeriod(void) 
+ 421:.\Generated_Source\PSoC5/counterShift.c **** {
+ 537              		.loc 1 421 0
+ 538              		.cfi_startproc
+ 539              		@ args = 0, pretend = 0, frame = 0
+ 540              		@ frame_needed = 1, uses_anonymous_args = 0
+ 541              		@ link register save eliminated.
+ 542 0000 80B4     		push	{r7}
+ 543              	.LCFI25:
+ 544              		.cfi_def_cfa_offset 4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 18
+
+
+ 545 0002 00AF     		add	r7, sp, #0
+ 546              		.cfi_offset 7, -4
+ 547              	.LCFI26:
+ 548              		.cfi_def_cfa_register 7
+ 422:.\Generated_Source\PSoC5/counterShift.c ****    return ( CY_GET_REG8(counterShift_PERIOD_LSB_PTR));
+ 549              		.loc 1 422 0
+ 550 0004 44F60273 		movw	r3, #:lower16:1073762050
+ 551 0008 C4F20003 		movt	r3, #:upper16:1073762050
+ 552 000c 1B78     		ldrb	r3, [r3, #0]
+ 553 000e DBB2     		uxtb	r3, r3
+ 423:.\Generated_Source\PSoC5/counterShift.c **** }
+ 554              		.loc 1 423 0
+ 555 0010 1846     		mov	r0, r3
+ 556 0012 BD46     		mov	sp, r7
+ 557 0014 80BC     		pop	{r7}
+ 558 0016 7047     		bx	lr
+ 559              		.cfi_endproc
+ 560              	.LFE11:
+ 561              		.size	counterShift_ReadPeriod, .-counterShift_ReadPeriod
+ 562              		.text
+ 563              	.Letext0:
+ 564              		.section	.debug_loc,"",%progbits
+ 565              	.Ldebug_loc0:
+ 566              	.LLST0:
+ 567 0000 00000000 		.4byte	.LFB0
+ 568 0004 02000000 		.4byte	.LCFI0
+ 569 0008 0100     		.2byte	0x1
+ 570 000a 5D       		.byte	0x5d
+ 571 000b 02000000 		.4byte	.LCFI0
+ 572 000f 04000000 		.4byte	.LCFI1
+ 573 0013 0200     		.2byte	0x2
+ 574 0015 7D       		.byte	0x7d
+ 575 0016 08       		.sleb128 8
+ 576 0017 04000000 		.4byte	.LCFI1
+ 577 001b D2000000 		.4byte	.LFE0
+ 578 001f 0200     		.2byte	0x2
+ 579 0021 77       		.byte	0x77
+ 580 0022 08       		.sleb128 8
+ 581 0023 00000000 		.4byte	0x0
+ 582 0027 00000000 		.4byte	0x0
+ 583              	.LLST1:
+ 584 002b 00000000 		.4byte	.LFB1
+ 585 002f 02000000 		.4byte	.LCFI2
+ 586 0033 0100     		.2byte	0x1
+ 587 0035 5D       		.byte	0x5d
+ 588 0036 02000000 		.4byte	.LCFI2
+ 589 003a 04000000 		.4byte	.LCFI3
+ 590 003e 0200     		.2byte	0x2
+ 591 0040 7D       		.byte	0x7d
+ 592 0041 04       		.sleb128 4
+ 593 0042 04000000 		.4byte	.LCFI3
+ 594 0046 5E000000 		.4byte	.LFE1
+ 595 004a 0200     		.2byte	0x2
+ 596 004c 77       		.byte	0x77
+ 597 004d 04       		.sleb128 4
+ 598 004e 00000000 		.4byte	0x0
+ 599 0052 00000000 		.4byte	0x0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 19
+
+
+ 600              	.LLST2:
+ 601 0056 00000000 		.4byte	.LFB2
+ 602 005a 02000000 		.4byte	.LCFI4
+ 603 005e 0100     		.2byte	0x1
+ 604 0060 5D       		.byte	0x5d
+ 605 0061 02000000 		.4byte	.LCFI4
+ 606 0065 04000000 		.4byte	.LCFI5
+ 607 0069 0200     		.2byte	0x2
+ 608 006b 7D       		.byte	0x7d
+ 609 006c 08       		.sleb128 8
+ 610 006d 04000000 		.4byte	.LCFI5
+ 611 0071 2A000000 		.4byte	.LFE2
+ 612 0075 0200     		.2byte	0x2
+ 613 0077 77       		.byte	0x77
+ 614 0078 08       		.sleb128 8
+ 615 0079 00000000 		.4byte	0x0
+ 616 007d 00000000 		.4byte	0x0
+ 617              	.LLST3:
+ 618 0081 00000000 		.4byte	.LFB3
+ 619 0085 02000000 		.4byte	.LCFI6
+ 620 0089 0100     		.2byte	0x1
+ 621 008b 5D       		.byte	0x5d
+ 622 008c 02000000 		.4byte	.LCFI6
+ 623 0090 04000000 		.4byte	.LCFI7
+ 624 0094 0200     		.2byte	0x2
+ 625 0096 7D       		.byte	0x7d
+ 626 0097 04       		.sleb128 4
+ 627 0098 04000000 		.4byte	.LCFI7
+ 628 009c 58000000 		.4byte	.LFE3
+ 629 00a0 0200     		.2byte	0x2
+ 630 00a2 77       		.byte	0x77
+ 631 00a3 04       		.sleb128 4
+ 632 00a4 00000000 		.4byte	0x0
+ 633 00a8 00000000 		.4byte	0x0
+ 634              	.LLST4:
+ 635 00ac 00000000 		.4byte	.LFB4
+ 636 00b0 02000000 		.4byte	.LCFI8
+ 637 00b4 0100     		.2byte	0x1
+ 638 00b6 5D       		.byte	0x5d
+ 639 00b7 02000000 		.4byte	.LCFI8
+ 640 00bb 04000000 		.4byte	.LCFI9
+ 641 00bf 0200     		.2byte	0x2
+ 642 00c1 7D       		.byte	0x7d
+ 643 00c2 04       		.sleb128 4
+ 644 00c3 04000000 		.4byte	.LCFI9
+ 645 00c7 06000000 		.4byte	.LCFI10
+ 646 00cb 0200     		.2byte	0x2
+ 647 00cd 7D       		.byte	0x7d
+ 648 00ce 10       		.sleb128 16
+ 649 00cf 06000000 		.4byte	.LCFI10
+ 650 00d3 20000000 		.4byte	.LFE4
+ 651 00d7 0200     		.2byte	0x2
+ 652 00d9 77       		.byte	0x77
+ 653 00da 10       		.sleb128 16
+ 654 00db 00000000 		.4byte	0x0
+ 655 00df 00000000 		.4byte	0x0
+ 656              	.LLST5:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 20
+
+
+ 657 00e3 00000000 		.4byte	.LFB5
+ 658 00e7 02000000 		.4byte	.LCFI11
+ 659 00eb 0100     		.2byte	0x1
+ 660 00ed 5D       		.byte	0x5d
+ 661 00ee 02000000 		.4byte	.LCFI11
+ 662 00f2 04000000 		.4byte	.LCFI12
+ 663 00f6 0200     		.2byte	0x2
+ 664 00f8 7D       		.byte	0x7d
+ 665 00f9 04       		.sleb128 4
+ 666 00fa 04000000 		.4byte	.LCFI12
+ 667 00fe 18000000 		.4byte	.LFE5
+ 668 0102 0200     		.2byte	0x2
+ 669 0104 77       		.byte	0x77
+ 670 0105 04       		.sleb128 4
+ 671 0106 00000000 		.4byte	0x0
+ 672 010a 00000000 		.4byte	0x0
+ 673              	.LLST6:
+ 674 010e 00000000 		.4byte	.LFB6
+ 675 0112 02000000 		.4byte	.LCFI13
+ 676 0116 0100     		.2byte	0x1
+ 677 0118 5D       		.byte	0x5d
+ 678 0119 02000000 		.4byte	.LCFI13
+ 679 011d 04000000 		.4byte	.LCFI14
+ 680 0121 0200     		.2byte	0x2
+ 681 0123 7D       		.byte	0x7d
+ 682 0124 04       		.sleb128 4
+ 683 0125 04000000 		.4byte	.LCFI14
+ 684 0129 18000000 		.4byte	.LFE6
+ 685 012d 0200     		.2byte	0x2
+ 686 012f 77       		.byte	0x77
+ 687 0130 04       		.sleb128 4
+ 688 0131 00000000 		.4byte	0x0
+ 689 0135 00000000 		.4byte	0x0
+ 690              	.LLST7:
+ 691 0139 00000000 		.4byte	.LFB7
+ 692 013d 02000000 		.4byte	.LCFI15
+ 693 0141 0100     		.2byte	0x1
+ 694 0143 5D       		.byte	0x5d
+ 695 0144 02000000 		.4byte	.LCFI15
+ 696 0148 04000000 		.4byte	.LCFI16
+ 697 014c 0200     		.2byte	0x2
+ 698 014e 7D       		.byte	0x7d
+ 699 014f 04       		.sleb128 4
+ 700 0150 04000000 		.4byte	.LCFI16
+ 701 0154 06000000 		.4byte	.LCFI17
+ 702 0158 0200     		.2byte	0x2
+ 703 015a 7D       		.byte	0x7d
+ 704 015b 10       		.sleb128 16
+ 705 015c 06000000 		.4byte	.LCFI17
+ 706 0160 20000000 		.4byte	.LFE7
+ 707 0164 0200     		.2byte	0x2
+ 708 0166 77       		.byte	0x77
+ 709 0167 10       		.sleb128 16
+ 710 0168 00000000 		.4byte	0x0
+ 711 016c 00000000 		.4byte	0x0
+ 712              	.LLST8:
+ 713 0170 00000000 		.4byte	.LFB8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 21
+
+
+ 714 0174 02000000 		.4byte	.LCFI18
+ 715 0178 0100     		.2byte	0x1
+ 716 017a 5D       		.byte	0x5d
+ 717 017b 02000000 		.4byte	.LCFI18
+ 718 017f 04000000 		.4byte	.LCFI19
+ 719 0183 0200     		.2byte	0x2
+ 720 0185 7D       		.byte	0x7d
+ 721 0186 04       		.sleb128 4
+ 722 0187 04000000 		.4byte	.LCFI19
+ 723 018b 22000000 		.4byte	.LFE8
+ 724 018f 0200     		.2byte	0x2
+ 725 0191 77       		.byte	0x77
+ 726 0192 04       		.sleb128 4
+ 727 0193 00000000 		.4byte	0x0
+ 728 0197 00000000 		.4byte	0x0
+ 729              	.LLST9:
+ 730 019b 00000000 		.4byte	.LFB9
+ 731 019f 02000000 		.4byte	.LCFI20
+ 732 01a3 0100     		.2byte	0x1
+ 733 01a5 5D       		.byte	0x5d
+ 734 01a6 02000000 		.4byte	.LCFI20
+ 735 01aa 04000000 		.4byte	.LCFI21
+ 736 01ae 0200     		.2byte	0x2
+ 737 01b0 7D       		.byte	0x7d
+ 738 01b1 04       		.sleb128 4
+ 739 01b2 04000000 		.4byte	.LCFI21
+ 740 01b6 18000000 		.4byte	.LFE9
+ 741 01ba 0200     		.2byte	0x2
+ 742 01bc 77       		.byte	0x77
+ 743 01bd 04       		.sleb128 4
+ 744 01be 00000000 		.4byte	0x0
+ 745 01c2 00000000 		.4byte	0x0
+ 746              	.LLST10:
+ 747 01c6 00000000 		.4byte	.LFB10
+ 748 01ca 02000000 		.4byte	.LCFI22
+ 749 01ce 0100     		.2byte	0x1
+ 750 01d0 5D       		.byte	0x5d
+ 751 01d1 02000000 		.4byte	.LCFI22
+ 752 01d5 04000000 		.4byte	.LCFI23
+ 753 01d9 0200     		.2byte	0x2
+ 754 01db 7D       		.byte	0x7d
+ 755 01dc 04       		.sleb128 4
+ 756 01dd 04000000 		.4byte	.LCFI23
+ 757 01e1 06000000 		.4byte	.LCFI24
+ 758 01e5 0200     		.2byte	0x2
+ 759 01e7 7D       		.byte	0x7d
+ 760 01e8 10       		.sleb128 16
+ 761 01e9 06000000 		.4byte	.LCFI24
+ 762 01ed 20000000 		.4byte	.LFE10
+ 763 01f1 0200     		.2byte	0x2
+ 764 01f3 77       		.byte	0x77
+ 765 01f4 10       		.sleb128 16
+ 766 01f5 00000000 		.4byte	0x0
+ 767 01f9 00000000 		.4byte	0x0
+ 768              	.LLST11:
+ 769 01fd 00000000 		.4byte	.LFB11
+ 770 0201 02000000 		.4byte	.LCFI25
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 22
+
+
+ 771 0205 0100     		.2byte	0x1
+ 772 0207 5D       		.byte	0x5d
+ 773 0208 02000000 		.4byte	.LCFI25
+ 774 020c 04000000 		.4byte	.LCFI26
+ 775 0210 0200     		.2byte	0x2
+ 776 0212 7D       		.byte	0x7d
+ 777 0213 04       		.sleb128 4
+ 778 0214 04000000 		.4byte	.LCFI26
+ 779 0218 18000000 		.4byte	.LFE11
+ 780 021c 0200     		.2byte	0x2
+ 781 021e 77       		.byte	0x77
+ 782 021f 04       		.sleb128 4
+ 783 0220 00000000 		.4byte	0x0
+ 784 0224 00000000 		.4byte	0x0
+ 785              		.file 2 ".\\Generated_Source\\PSoC5\\/cytypes.h"
+ 786              		.section	.debug_info
+ 787 0000 E4010000 		.4byte	0x1e4
+ 788 0004 0200     		.2byte	0x2
+ 789 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 790 000a 04       		.byte	0x4
+ 791 000b 01       		.uleb128 0x1
+ 792 000c FD010000 		.4byte	.LASF25
+ 793 0010 01       		.byte	0x1
+ 794 0011 7B000000 		.4byte	.LASF26
+ 795 0015 2F000000 		.4byte	.LASF27
+ 796 0019 00000000 		.4byte	0x0
+ 797 001d 00000000 		.4byte	0x0
+ 798 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 799 0025 00000000 		.4byte	.Ldebug_line0
+ 800 0029 02       		.uleb128 0x2
+ 801 002a 01       		.byte	0x1
+ 802 002b 06       		.byte	0x6
+ 803 002c 4C020000 		.4byte	.LASF0
+ 804 0030 02       		.uleb128 0x2
+ 805 0031 01       		.byte	0x1
+ 806 0032 08       		.byte	0x8
+ 807 0033 1F010000 		.4byte	.LASF1
+ 808 0037 02       		.uleb128 0x2
+ 809 0038 02       		.byte	0x2
+ 810 0039 05       		.byte	0x5
+ 811 003a 26020000 		.4byte	.LASF2
+ 812 003e 02       		.uleb128 0x2
+ 813 003f 02       		.byte	0x2
+ 814 0040 07       		.byte	0x7
+ 815 0041 AA000000 		.4byte	.LASF3
+ 816 0045 02       		.uleb128 0x2
+ 817 0046 04       		.byte	0x4
+ 818 0047 05       		.byte	0x5
+ 819 0048 30020000 		.4byte	.LASF4
+ 820 004c 02       		.uleb128 0x2
+ 821 004d 04       		.byte	0x4
+ 822 004e 07       		.byte	0x7
+ 823 004f 4D010000 		.4byte	.LASF5
+ 824 0053 02       		.uleb128 0x2
+ 825 0054 08       		.byte	0x8
+ 826 0055 05       		.byte	0x5
+ 827 0056 00000000 		.4byte	.LASF6
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 23
+
+
+ 828 005a 02       		.uleb128 0x2
+ 829 005b 08       		.byte	0x8
+ 830 005c 07       		.byte	0x7
+ 831 005d B4010000 		.4byte	.LASF7
+ 832 0061 03       		.uleb128 0x3
+ 833 0062 04       		.byte	0x4
+ 834 0063 05       		.byte	0x5
+ 835 0064 696E7400 		.ascii	"int\000"
+ 836 0068 02       		.uleb128 0x2
+ 837 0069 04       		.byte	0x4
+ 838 006a 07       		.byte	0x7
+ 839 006b A7010000 		.4byte	.LASF8
+ 840 006f 02       		.uleb128 0x2
+ 841 0070 01       		.byte	0x1
+ 842 0071 08       		.byte	0x8
+ 843 0072 09020000 		.4byte	.LASF9
+ 844 0076 04       		.uleb128 0x4
+ 845 0077 5F010000 		.4byte	.LASF28
+ 846 007b 02       		.byte	0x2
+ 847 007c 60       		.byte	0x60
+ 848 007d 30000000 		.4byte	0x30
+ 849 0081 05       		.uleb128 0x5
+ 850 0082 04       		.byte	0x4
+ 851 0083 07       		.byte	0x7
+ 852 0084 06       		.uleb128 0x6
+ 853 0085 01       		.byte	0x1
+ 854 0086 BD000000 		.4byte	.LASF10
+ 855 008a 01       		.byte	0x1
+ 856 008b 25       		.byte	0x25
+ 857 008c 01       		.byte	0x1
+ 858 008d 00000000 		.4byte	.LFB0
+ 859 0091 D2000000 		.4byte	.LFE0
+ 860 0095 00000000 		.4byte	.LLST0
+ 861 0099 06       		.uleb128 0x6
+ 862 009a 01       		.byte	0x1
+ 863 009b CB010000 		.4byte	.LASF11
+ 864 009f 01       		.byte	0x1
+ 865 00a0 89       		.byte	0x89
+ 866 00a1 01       		.byte	0x1
+ 867 00a2 00000000 		.4byte	.LFB1
+ 868 00a6 5E000000 		.4byte	.LFE1
+ 869 00aa 2B000000 		.4byte	.LLST1
+ 870 00ae 06       		.uleb128 0x6
+ 871 00af 01       		.byte	0x1
+ 872 00b0 39020000 		.4byte	.LASF12
+ 873 00b4 01       		.byte	0x1
+ 874 00b5 AC       		.byte	0xac
+ 875 00b6 01       		.byte	0x1
+ 876 00b7 00000000 		.4byte	.LFB2
+ 877 00bb 2A000000 		.4byte	.LFE2
+ 878 00bf 56000000 		.4byte	.LLST2
+ 879 00c3 06       		.uleb128 0x6
+ 880 00c4 01       		.byte	0x1
+ 881 00c5 95010000 		.4byte	.LASF13
+ 882 00c9 01       		.byte	0x1
+ 883 00ca CA       		.byte	0xca
+ 884 00cb 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 24
+
+
+ 885 00cc 00000000 		.4byte	.LFB3
+ 886 00d0 58000000 		.4byte	.LFE3
+ 887 00d4 81000000 		.4byte	.LLST3
+ 888 00d8 07       		.uleb128 0x7
+ 889 00d9 01       		.byte	0x1
+ 890 00da DF010000 		.4byte	.LASF16
+ 891 00de 01       		.byte	0x1
+ 892 00df E7       		.byte	0xe7
+ 893 00e0 01       		.byte	0x1
+ 894 00e1 00000000 		.4byte	.LFB4
+ 895 00e5 20000000 		.4byte	.LFE4
+ 896 00e9 AC000000 		.4byte	.LLST4
+ 897 00ed 00010000 		.4byte	0x100
+ 898 00f1 08       		.uleb128 0x8
+ 899 00f2 6D010000 		.4byte	.LASF18
+ 900 00f6 01       		.byte	0x1
+ 901 00f7 E7       		.byte	0xe7
+ 902 00f8 76000000 		.4byte	0x76
+ 903 00fc 02       		.byte	0x2
+ 904 00fd 91       		.byte	0x91
+ 905 00fe 77       		.sleb128 -9
+ 906 00ff 00       		.byte	0x0
+ 907 0100 09       		.uleb128 0x9
+ 908 0101 01       		.byte	0x1
+ 909 0102 2D010000 		.4byte	.LASF14
+ 910 0106 01       		.byte	0x1
+ 911 0107 FF       		.byte	0xff
+ 912 0108 01       		.byte	0x1
+ 913 0109 76000000 		.4byte	0x76
+ 914 010d 00000000 		.4byte	.LFB5
+ 915 0111 18000000 		.4byte	.LFE5
+ 916 0115 E3000000 		.4byte	.LLST5
+ 917 0119 0A       		.uleb128 0xa
+ 918 011a 01       		.byte	0x1
+ 919 011b 0E000000 		.4byte	.LASF15
+ 920 011f 01       		.byte	0x1
+ 921 0120 1501     		.2byte	0x115
+ 922 0122 01       		.byte	0x1
+ 923 0123 76000000 		.4byte	0x76
+ 924 0127 00000000 		.4byte	.LFB6
+ 925 012b 18000000 		.4byte	.LFE6
+ 926 012f 0E010000 		.4byte	.LLST6
+ 927 0133 0B       		.uleb128 0xb
+ 928 0134 01       		.byte	0x1
+ 929 0135 CF000000 		.4byte	.LASF17
+ 930 0139 01       		.byte	0x1
+ 931 013a 2A01     		.2byte	0x12a
+ 932 013c 01       		.byte	0x1
+ 933 013d 00000000 		.4byte	.LFB7
+ 934 0141 20000000 		.4byte	.LFE7
+ 935 0145 39010000 		.4byte	.LLST7
+ 936 0149 5D010000 		.4byte	0x15d
+ 937 014d 0C       		.uleb128 0xc
+ 938 014e 65010000 		.4byte	.LASF19
+ 939 0152 01       		.byte	0x1
+ 940 0153 2A01     		.2byte	0x12a
+ 941 0155 76000000 		.4byte	0x76
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 25
+
+
+ 942 0159 02       		.byte	0x2
+ 943 015a 91       		.byte	0x91
+ 944 015b 77       		.sleb128 -9
+ 945 015c 00       		.byte	0x0
+ 946 015d 0A       		.uleb128 0xa
+ 947 015e 01       		.byte	0x1
+ 948 015f F1000000 		.4byte	.LASF20
+ 949 0163 01       		.byte	0x1
+ 950 0164 5F01     		.2byte	0x15f
+ 951 0166 01       		.byte	0x1
+ 952 0167 76000000 		.4byte	0x76
+ 953 016b 00000000 		.4byte	.LFB8
+ 954 016f 22000000 		.4byte	.LFE8
+ 955 0173 70010000 		.4byte	.LLST8
+ 956 0177 0A       		.uleb128 0xa
+ 957 0178 01       		.byte	0x1
+ 958 0179 58020000 		.4byte	.LASF21
+ 959 017d 01       		.byte	0x1
+ 960 017e 7801     		.2byte	0x178
+ 961 0180 01       		.byte	0x1
+ 962 0181 76000000 		.4byte	0x76
+ 963 0185 00000000 		.4byte	.LFB9
+ 964 0189 18000000 		.4byte	.LFE9
+ 965 018d 9B010000 		.4byte	.LLST9
+ 966 0191 0B       		.uleb128 0xb
+ 967 0192 01       		.byte	0x1
+ 968 0193 7C010000 		.4byte	.LASF22
+ 969 0197 01       		.byte	0x1
+ 970 0198 8D01     		.2byte	0x18d
+ 971 019a 01       		.byte	0x1
+ 972 019b 00000000 		.4byte	.LFB10
+ 973 019f 20000000 		.4byte	.LFE10
+ 974 01a3 C6010000 		.4byte	.LLST10
+ 975 01a7 BB010000 		.4byte	0x1bb
+ 976 01ab 0C       		.uleb128 0xc
+ 977 01ac A3000000 		.4byte	.LASF23
+ 978 01b0 01       		.byte	0x1
+ 979 01b1 8D01     		.2byte	0x18d
+ 980 01b3 76000000 		.4byte	0x76
+ 981 01b7 02       		.byte	0x2
+ 982 01b8 91       		.byte	0x91
+ 983 01b9 77       		.sleb128 -9
+ 984 01ba 00       		.byte	0x0
+ 985 01bb 0A       		.uleb128 0xa
+ 986 01bc 01       		.byte	0x1
+ 987 01bd 0E020000 		.4byte	.LASF24
+ 988 01c1 01       		.byte	0x1
+ 989 01c2 A401     		.2byte	0x1a4
+ 990 01c4 01       		.byte	0x1
+ 991 01c5 76000000 		.4byte	0x76
+ 992 01c9 00000000 		.4byte	.LFB11
+ 993 01cd 18000000 		.4byte	.LFE11
+ 994 01d1 FD010000 		.4byte	.LLST11
+ 995 01d5 0D       		.uleb128 0xd
+ 996 01d6 0A010000 		.4byte	.LASF29
+ 997 01da 01       		.byte	0x1
+ 998 01db 15       		.byte	0x15
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 26
+
+
+ 999 01dc 76000000 		.4byte	0x76
+ 1000 01e0 01       		.byte	0x1
+ 1001 01e1 05       		.byte	0x5
+ 1002 01e2 03       		.byte	0x3
+ 1003 01e3 00000000 		.4byte	counterShift_initVar
+ 1004 01e7 00       		.byte	0x0
+ 1005              		.section	.debug_abbrev
+ 1006 0000 01       		.uleb128 0x1
+ 1007 0001 11       		.uleb128 0x11
+ 1008 0002 01       		.byte	0x1
+ 1009 0003 25       		.uleb128 0x25
+ 1010 0004 0E       		.uleb128 0xe
+ 1011 0005 13       		.uleb128 0x13
+ 1012 0006 0B       		.uleb128 0xb
+ 1013 0007 03       		.uleb128 0x3
+ 1014 0008 0E       		.uleb128 0xe
+ 1015 0009 1B       		.uleb128 0x1b
+ 1016 000a 0E       		.uleb128 0xe
+ 1017 000b 11       		.uleb128 0x11
+ 1018 000c 01       		.uleb128 0x1
+ 1019 000d 52       		.uleb128 0x52
+ 1020 000e 01       		.uleb128 0x1
+ 1021 000f 55       		.uleb128 0x55
+ 1022 0010 06       		.uleb128 0x6
+ 1023 0011 10       		.uleb128 0x10
+ 1024 0012 06       		.uleb128 0x6
+ 1025 0013 00       		.byte	0x0
+ 1026 0014 00       		.byte	0x0
+ 1027 0015 02       		.uleb128 0x2
+ 1028 0016 24       		.uleb128 0x24
+ 1029 0017 00       		.byte	0x0
+ 1030 0018 0B       		.uleb128 0xb
+ 1031 0019 0B       		.uleb128 0xb
+ 1032 001a 3E       		.uleb128 0x3e
+ 1033 001b 0B       		.uleb128 0xb
+ 1034 001c 03       		.uleb128 0x3
+ 1035 001d 0E       		.uleb128 0xe
+ 1036 001e 00       		.byte	0x0
+ 1037 001f 00       		.byte	0x0
+ 1038 0020 03       		.uleb128 0x3
+ 1039 0021 24       		.uleb128 0x24
+ 1040 0022 00       		.byte	0x0
+ 1041 0023 0B       		.uleb128 0xb
+ 1042 0024 0B       		.uleb128 0xb
+ 1043 0025 3E       		.uleb128 0x3e
+ 1044 0026 0B       		.uleb128 0xb
+ 1045 0027 03       		.uleb128 0x3
+ 1046 0028 08       		.uleb128 0x8
+ 1047 0029 00       		.byte	0x0
+ 1048 002a 00       		.byte	0x0
+ 1049 002b 04       		.uleb128 0x4
+ 1050 002c 16       		.uleb128 0x16
+ 1051 002d 00       		.byte	0x0
+ 1052 002e 03       		.uleb128 0x3
+ 1053 002f 0E       		.uleb128 0xe
+ 1054 0030 3A       		.uleb128 0x3a
+ 1055 0031 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 27
+
+
+ 1056 0032 3B       		.uleb128 0x3b
+ 1057 0033 0B       		.uleb128 0xb
+ 1058 0034 49       		.uleb128 0x49
+ 1059 0035 13       		.uleb128 0x13
+ 1060 0036 00       		.byte	0x0
+ 1061 0037 00       		.byte	0x0
+ 1062 0038 05       		.uleb128 0x5
+ 1063 0039 24       		.uleb128 0x24
+ 1064 003a 00       		.byte	0x0
+ 1065 003b 0B       		.uleb128 0xb
+ 1066 003c 0B       		.uleb128 0xb
+ 1067 003d 3E       		.uleb128 0x3e
+ 1068 003e 0B       		.uleb128 0xb
+ 1069 003f 00       		.byte	0x0
+ 1070 0040 00       		.byte	0x0
+ 1071 0041 06       		.uleb128 0x6
+ 1072 0042 2E       		.uleb128 0x2e
+ 1073 0043 00       		.byte	0x0
+ 1074 0044 3F       		.uleb128 0x3f
+ 1075 0045 0C       		.uleb128 0xc
+ 1076 0046 03       		.uleb128 0x3
+ 1077 0047 0E       		.uleb128 0xe
+ 1078 0048 3A       		.uleb128 0x3a
+ 1079 0049 0B       		.uleb128 0xb
+ 1080 004a 3B       		.uleb128 0x3b
+ 1081 004b 0B       		.uleb128 0xb
+ 1082 004c 27       		.uleb128 0x27
+ 1083 004d 0C       		.uleb128 0xc
+ 1084 004e 11       		.uleb128 0x11
+ 1085 004f 01       		.uleb128 0x1
+ 1086 0050 12       		.uleb128 0x12
+ 1087 0051 01       		.uleb128 0x1
+ 1088 0052 40       		.uleb128 0x40
+ 1089 0053 06       		.uleb128 0x6
+ 1090 0054 00       		.byte	0x0
+ 1091 0055 00       		.byte	0x0
+ 1092 0056 07       		.uleb128 0x7
+ 1093 0057 2E       		.uleb128 0x2e
+ 1094 0058 01       		.byte	0x1
+ 1095 0059 3F       		.uleb128 0x3f
+ 1096 005a 0C       		.uleb128 0xc
+ 1097 005b 03       		.uleb128 0x3
+ 1098 005c 0E       		.uleb128 0xe
+ 1099 005d 3A       		.uleb128 0x3a
+ 1100 005e 0B       		.uleb128 0xb
+ 1101 005f 3B       		.uleb128 0x3b
+ 1102 0060 0B       		.uleb128 0xb
+ 1103 0061 27       		.uleb128 0x27
+ 1104 0062 0C       		.uleb128 0xc
+ 1105 0063 11       		.uleb128 0x11
+ 1106 0064 01       		.uleb128 0x1
+ 1107 0065 12       		.uleb128 0x12
+ 1108 0066 01       		.uleb128 0x1
+ 1109 0067 40       		.uleb128 0x40
+ 1110 0068 06       		.uleb128 0x6
+ 1111 0069 01       		.uleb128 0x1
+ 1112 006a 13       		.uleb128 0x13
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 28
+
+
+ 1113 006b 00       		.byte	0x0
+ 1114 006c 00       		.byte	0x0
+ 1115 006d 08       		.uleb128 0x8
+ 1116 006e 05       		.uleb128 0x5
+ 1117 006f 00       		.byte	0x0
+ 1118 0070 03       		.uleb128 0x3
+ 1119 0071 0E       		.uleb128 0xe
+ 1120 0072 3A       		.uleb128 0x3a
+ 1121 0073 0B       		.uleb128 0xb
+ 1122 0074 3B       		.uleb128 0x3b
+ 1123 0075 0B       		.uleb128 0xb
+ 1124 0076 49       		.uleb128 0x49
+ 1125 0077 13       		.uleb128 0x13
+ 1126 0078 02       		.uleb128 0x2
+ 1127 0079 0A       		.uleb128 0xa
+ 1128 007a 00       		.byte	0x0
+ 1129 007b 00       		.byte	0x0
+ 1130 007c 09       		.uleb128 0x9
+ 1131 007d 2E       		.uleb128 0x2e
+ 1132 007e 00       		.byte	0x0
+ 1133 007f 3F       		.uleb128 0x3f
+ 1134 0080 0C       		.uleb128 0xc
+ 1135 0081 03       		.uleb128 0x3
+ 1136 0082 0E       		.uleb128 0xe
+ 1137 0083 3A       		.uleb128 0x3a
+ 1138 0084 0B       		.uleb128 0xb
+ 1139 0085 3B       		.uleb128 0x3b
+ 1140 0086 0B       		.uleb128 0xb
+ 1141 0087 27       		.uleb128 0x27
+ 1142 0088 0C       		.uleb128 0xc
+ 1143 0089 49       		.uleb128 0x49
+ 1144 008a 13       		.uleb128 0x13
+ 1145 008b 11       		.uleb128 0x11
+ 1146 008c 01       		.uleb128 0x1
+ 1147 008d 12       		.uleb128 0x12
+ 1148 008e 01       		.uleb128 0x1
+ 1149 008f 40       		.uleb128 0x40
+ 1150 0090 06       		.uleb128 0x6
+ 1151 0091 00       		.byte	0x0
+ 1152 0092 00       		.byte	0x0
+ 1153 0093 0A       		.uleb128 0xa
+ 1154 0094 2E       		.uleb128 0x2e
+ 1155 0095 00       		.byte	0x0
+ 1156 0096 3F       		.uleb128 0x3f
+ 1157 0097 0C       		.uleb128 0xc
+ 1158 0098 03       		.uleb128 0x3
+ 1159 0099 0E       		.uleb128 0xe
+ 1160 009a 3A       		.uleb128 0x3a
+ 1161 009b 0B       		.uleb128 0xb
+ 1162 009c 3B       		.uleb128 0x3b
+ 1163 009d 05       		.uleb128 0x5
+ 1164 009e 27       		.uleb128 0x27
+ 1165 009f 0C       		.uleb128 0xc
+ 1166 00a0 49       		.uleb128 0x49
+ 1167 00a1 13       		.uleb128 0x13
+ 1168 00a2 11       		.uleb128 0x11
+ 1169 00a3 01       		.uleb128 0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 29
+
+
+ 1170 00a4 12       		.uleb128 0x12
+ 1171 00a5 01       		.uleb128 0x1
+ 1172 00a6 40       		.uleb128 0x40
+ 1173 00a7 06       		.uleb128 0x6
+ 1174 00a8 00       		.byte	0x0
+ 1175 00a9 00       		.byte	0x0
+ 1176 00aa 0B       		.uleb128 0xb
+ 1177 00ab 2E       		.uleb128 0x2e
+ 1178 00ac 01       		.byte	0x1
+ 1179 00ad 3F       		.uleb128 0x3f
+ 1180 00ae 0C       		.uleb128 0xc
+ 1181 00af 03       		.uleb128 0x3
+ 1182 00b0 0E       		.uleb128 0xe
+ 1183 00b1 3A       		.uleb128 0x3a
+ 1184 00b2 0B       		.uleb128 0xb
+ 1185 00b3 3B       		.uleb128 0x3b
+ 1186 00b4 05       		.uleb128 0x5
+ 1187 00b5 27       		.uleb128 0x27
+ 1188 00b6 0C       		.uleb128 0xc
+ 1189 00b7 11       		.uleb128 0x11
+ 1190 00b8 01       		.uleb128 0x1
+ 1191 00b9 12       		.uleb128 0x12
+ 1192 00ba 01       		.uleb128 0x1
+ 1193 00bb 40       		.uleb128 0x40
+ 1194 00bc 06       		.uleb128 0x6
+ 1195 00bd 01       		.uleb128 0x1
+ 1196 00be 13       		.uleb128 0x13
+ 1197 00bf 00       		.byte	0x0
+ 1198 00c0 00       		.byte	0x0
+ 1199 00c1 0C       		.uleb128 0xc
+ 1200 00c2 05       		.uleb128 0x5
+ 1201 00c3 00       		.byte	0x0
+ 1202 00c4 03       		.uleb128 0x3
+ 1203 00c5 0E       		.uleb128 0xe
+ 1204 00c6 3A       		.uleb128 0x3a
+ 1205 00c7 0B       		.uleb128 0xb
+ 1206 00c8 3B       		.uleb128 0x3b
+ 1207 00c9 05       		.uleb128 0x5
+ 1208 00ca 49       		.uleb128 0x49
+ 1209 00cb 13       		.uleb128 0x13
+ 1210 00cc 02       		.uleb128 0x2
+ 1211 00cd 0A       		.uleb128 0xa
+ 1212 00ce 00       		.byte	0x0
+ 1213 00cf 00       		.byte	0x0
+ 1214 00d0 0D       		.uleb128 0xd
+ 1215 00d1 34       		.uleb128 0x34
+ 1216 00d2 00       		.byte	0x0
+ 1217 00d3 03       		.uleb128 0x3
+ 1218 00d4 0E       		.uleb128 0xe
+ 1219 00d5 3A       		.uleb128 0x3a
+ 1220 00d6 0B       		.uleb128 0xb
+ 1221 00d7 3B       		.uleb128 0x3b
+ 1222 00d8 0B       		.uleb128 0xb
+ 1223 00d9 49       		.uleb128 0x49
+ 1224 00da 13       		.uleb128 0x13
+ 1225 00db 3F       		.uleb128 0x3f
+ 1226 00dc 0C       		.uleb128 0xc
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 30
+
+
+ 1227 00dd 02       		.uleb128 0x2
+ 1228 00de 0A       		.uleb128 0xa
+ 1229 00df 00       		.byte	0x0
+ 1230 00e0 00       		.byte	0x0
+ 1231 00e1 00       		.byte	0x0
+ 1232              		.section	.debug_pubnames,"",%progbits
+ 1233 0000 86010000 		.4byte	0x186
+ 1234 0004 0200     		.2byte	0x2
+ 1235 0006 00000000 		.4byte	.Ldebug_info0
+ 1236 000a E8010000 		.4byte	0x1e8
+ 1237 000e 84000000 		.4byte	0x84
+ 1238 0012 636F756E 		.ascii	"counterShift_Init\000"
+ 1238      74657253 
+ 1238      68696674 
+ 1238      5F496E69 
+ 1238      7400
+ 1239 0024 99000000 		.4byte	0x99
+ 1240 0028 636F756E 		.ascii	"counterShift_Enable\000"
+ 1240      74657253 
+ 1240      68696674 
+ 1240      5F456E61 
+ 1240      626C6500 
+ 1241 003c AE000000 		.4byte	0xae
+ 1242 0040 636F756E 		.ascii	"counterShift_Start\000"
+ 1242      74657253 
+ 1242      68696674 
+ 1242      5F537461 
+ 1242      727400
+ 1243 0053 C3000000 		.4byte	0xc3
+ 1244 0057 636F756E 		.ascii	"counterShift_Stop\000"
+ 1244      74657253 
+ 1244      68696674 
+ 1244      5F53746F 
+ 1244      7000
+ 1245 0069 D8000000 		.4byte	0xd8
+ 1246 006d 636F756E 		.ascii	"counterShift_SetInterruptMode\000"
+ 1246      74657253 
+ 1246      68696674 
+ 1246      5F536574 
+ 1246      496E7465 
+ 1247 008b 00010000 		.4byte	0x100
+ 1248 008f 636F756E 		.ascii	"counterShift_ReadStatusRegister\000"
+ 1248      74657253 
+ 1248      68696674 
+ 1248      5F526561 
+ 1248      64537461 
+ 1249 00af 19010000 		.4byte	0x119
+ 1250 00b3 636F756E 		.ascii	"counterShift_ReadControlRegister\000"
+ 1250      74657253 
+ 1250      68696674 
+ 1250      5F526561 
+ 1250      64436F6E 
+ 1251 00d4 33010000 		.4byte	0x133
+ 1252 00d8 636F756E 		.ascii	"counterShift_WriteControlRegister\000"
+ 1252      74657253 
+ 1252      68696674 
+ 1252      5F577269 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 31
+
+
+ 1252      7465436F 
+ 1253 00fa 5D010000 		.4byte	0x15d
+ 1254 00fe 636F756E 		.ascii	"counterShift_ReadCounter\000"
+ 1254      74657253 
+ 1254      68696674 
+ 1254      5F526561 
+ 1254      64436F75 
+ 1255 0117 77010000 		.4byte	0x177
+ 1256 011b 636F756E 		.ascii	"counterShift_ReadCapture\000"
+ 1256      74657253 
+ 1256      68696674 
+ 1256      5F526561 
+ 1256      64436170 
+ 1257 0134 91010000 		.4byte	0x191
+ 1258 0138 636F756E 		.ascii	"counterShift_WritePeriod\000"
+ 1258      74657253 
+ 1258      68696674 
+ 1258      5F577269 
+ 1258      74655065 
+ 1259 0151 BB010000 		.4byte	0x1bb
+ 1260 0155 636F756E 		.ascii	"counterShift_ReadPeriod\000"
+ 1260      74657253 
+ 1260      68696674 
+ 1260      5F526561 
+ 1260      64506572 
+ 1261 016d D5010000 		.4byte	0x1d5
+ 1262 0171 636F756E 		.ascii	"counterShift_initVar\000"
+ 1262      74657253 
+ 1262      68696674 
+ 1262      5F696E69 
+ 1262      74566172 
+ 1263 0186 00000000 		.4byte	0x0
+ 1264              		.section	.debug_aranges,"",%progbits
+ 1265 0000 74000000 		.4byte	0x74
+ 1266 0004 0200     		.2byte	0x2
+ 1267 0006 00000000 		.4byte	.Ldebug_info0
+ 1268 000a 04       		.byte	0x4
+ 1269 000b 00       		.byte	0x0
+ 1270 000c 0000     		.2byte	0x0
+ 1271 000e 0000     		.2byte	0x0
+ 1272 0010 00000000 		.4byte	.LFB0
+ 1273 0014 D2000000 		.4byte	.LFE0-.LFB0
+ 1274 0018 00000000 		.4byte	.LFB1
+ 1275 001c 5E000000 		.4byte	.LFE1-.LFB1
+ 1276 0020 00000000 		.4byte	.LFB2
+ 1277 0024 2A000000 		.4byte	.LFE2-.LFB2
+ 1278 0028 00000000 		.4byte	.LFB3
+ 1279 002c 58000000 		.4byte	.LFE3-.LFB3
+ 1280 0030 00000000 		.4byte	.LFB4
+ 1281 0034 20000000 		.4byte	.LFE4-.LFB4
+ 1282 0038 00000000 		.4byte	.LFB5
+ 1283 003c 18000000 		.4byte	.LFE5-.LFB5
+ 1284 0040 00000000 		.4byte	.LFB6
+ 1285 0044 18000000 		.4byte	.LFE6-.LFB6
+ 1286 0048 00000000 		.4byte	.LFB7
+ 1287 004c 20000000 		.4byte	.LFE7-.LFB7
+ 1288 0050 00000000 		.4byte	.LFB8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 32
+
+
+ 1289 0054 22000000 		.4byte	.LFE8-.LFB8
+ 1290 0058 00000000 		.4byte	.LFB9
+ 1291 005c 18000000 		.4byte	.LFE9-.LFB9
+ 1292 0060 00000000 		.4byte	.LFB10
+ 1293 0064 20000000 		.4byte	.LFE10-.LFB10
+ 1294 0068 00000000 		.4byte	.LFB11
+ 1295 006c 18000000 		.4byte	.LFE11-.LFB11
+ 1296 0070 00000000 		.4byte	0x0
+ 1297 0074 00000000 		.4byte	0x0
+ 1298              		.section	.debug_ranges,"",%progbits
+ 1299              	.Ldebug_ranges0:
+ 1300 0000 00000000 		.4byte	.Ltext0
+ 1301 0004 00000000 		.4byte	.Letext0
+ 1302 0008 00000000 		.4byte	.LFB0
+ 1303 000c D2000000 		.4byte	.LFE0
+ 1304 0010 00000000 		.4byte	.LFB1
+ 1305 0014 5E000000 		.4byte	.LFE1
+ 1306 0018 00000000 		.4byte	.LFB2
+ 1307 001c 2A000000 		.4byte	.LFE2
+ 1308 0020 00000000 		.4byte	.LFB3
+ 1309 0024 58000000 		.4byte	.LFE3
+ 1310 0028 00000000 		.4byte	.LFB4
+ 1311 002c 20000000 		.4byte	.LFE4
+ 1312 0030 00000000 		.4byte	.LFB5
+ 1313 0034 18000000 		.4byte	.LFE5
+ 1314 0038 00000000 		.4byte	.LFB6
+ 1315 003c 18000000 		.4byte	.LFE6
+ 1316 0040 00000000 		.4byte	.LFB7
+ 1317 0044 20000000 		.4byte	.LFE7
+ 1318 0048 00000000 		.4byte	.LFB8
+ 1319 004c 22000000 		.4byte	.LFE8
+ 1320 0050 00000000 		.4byte	.LFB9
+ 1321 0054 18000000 		.4byte	.LFE9
+ 1322 0058 00000000 		.4byte	.LFB10
+ 1323 005c 20000000 		.4byte	.LFE10
+ 1324 0060 00000000 		.4byte	.LFB11
+ 1325 0064 18000000 		.4byte	.LFE11
+ 1326 0068 00000000 		.4byte	0x0
+ 1327 006c 00000000 		.4byte	0x0
+ 1328              		.section	.debug_str,"MS",%progbits,1
+ 1329              	.LASF6:
+ 1330 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1330      206C6F6E 
+ 1330      6720696E 
+ 1330      7400
+ 1331              	.LASF15:
+ 1332 000e 636F756E 		.ascii	"counterShift_ReadControlRegister\000"
+ 1332      74657253 
+ 1332      68696674 
+ 1332      5F526561 
+ 1332      64436F6E 
+ 1333              	.LASF27:
+ 1334 002f 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\PSoC Creator\\Puls"
+ 1334      73657273 
+ 1334      5C627279 
+ 1334      616E2E6C 
+ 1334      65655C44 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 33
+
+
+ 1335 005d 655F7073 		.ascii	"e_psoc5\\Combine\\Combine.cydsn\000"
+ 1335      6F63355C 
+ 1335      436F6D62 
+ 1335      696E655C 
+ 1335      436F6D62 
+ 1336              	.LASF26:
+ 1337 007b 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\counterShift.c\000"
+ 1337      6E657261 
+ 1337      7465645F 
+ 1337      536F7572 
+ 1337      63655C50 
+ 1338              	.LASF23:
+ 1339 00a3 70657269 		.ascii	"period\000"
+ 1339      6F6400
+ 1340              	.LASF3:
+ 1341 00aa 73686F72 		.ascii	"short unsigned int\000"
+ 1341      7420756E 
+ 1341      7369676E 
+ 1341      65642069 
+ 1341      6E7400
+ 1342              	.LASF10:
+ 1343 00bd 636F756E 		.ascii	"counterShift_Init\000"
+ 1343      74657253 
+ 1343      68696674 
+ 1343      5F496E69 
+ 1343      7400
+ 1344              	.LASF17:
+ 1345 00cf 636F756E 		.ascii	"counterShift_WriteControlRegister\000"
+ 1345      74657253 
+ 1345      68696674 
+ 1345      5F577269 
+ 1345      7465436F 
+ 1346              	.LASF20:
+ 1347 00f1 636F756E 		.ascii	"counterShift_ReadCounter\000"
+ 1347      74657253 
+ 1347      68696674 
+ 1347      5F526561 
+ 1347      64436F75 
+ 1348              	.LASF29:
+ 1349 010a 636F756E 		.ascii	"counterShift_initVar\000"
+ 1349      74657253 
+ 1349      68696674 
+ 1349      5F696E69 
+ 1349      74566172 
+ 1350              	.LASF1:
+ 1351 011f 756E7369 		.ascii	"unsigned char\000"
+ 1351      676E6564 
+ 1351      20636861 
+ 1351      7200
+ 1352              	.LASF14:
+ 1353 012d 636F756E 		.ascii	"counterShift_ReadStatusRegister\000"
+ 1353      74657253 
+ 1353      68696674 
+ 1353      5F526561 
+ 1353      64537461 
+ 1354              	.LASF5:
+ 1355 014d 6C6F6E67 		.ascii	"long unsigned int\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 34
+
+
+ 1355      20756E73 
+ 1355      69676E65 
+ 1355      6420696E 
+ 1355      7400
+ 1356              	.LASF28:
+ 1357 015f 75696E74 		.ascii	"uint8\000"
+ 1357      3800
+ 1358              	.LASF19:
+ 1359 0165 636F6E74 		.ascii	"control\000"
+ 1359      726F6C00 
+ 1360              	.LASF18:
+ 1361 016d 696E7465 		.ascii	"interruptsMask\000"
+ 1361      72727570 
+ 1361      74734D61 
+ 1361      736B00
+ 1362              	.LASF22:
+ 1363 017c 636F756E 		.ascii	"counterShift_WritePeriod\000"
+ 1363      74657253 
+ 1363      68696674 
+ 1363      5F577269 
+ 1363      74655065 
+ 1364              	.LASF13:
+ 1365 0195 636F756E 		.ascii	"counterShift_Stop\000"
+ 1365      74657253 
+ 1365      68696674 
+ 1365      5F53746F 
+ 1365      7000
+ 1366              	.LASF8:
+ 1367 01a7 756E7369 		.ascii	"unsigned int\000"
+ 1367      676E6564 
+ 1367      20696E74 
+ 1367      00
+ 1368              	.LASF7:
+ 1369 01b4 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1369      206C6F6E 
+ 1369      6720756E 
+ 1369      7369676E 
+ 1369      65642069 
+ 1370              	.LASF11:
+ 1371 01cb 636F756E 		.ascii	"counterShift_Enable\000"
+ 1371      74657253 
+ 1371      68696674 
+ 1371      5F456E61 
+ 1371      626C6500 
+ 1372              	.LASF16:
+ 1373 01df 636F756E 		.ascii	"counterShift_SetInterruptMode\000"
+ 1373      74657253 
+ 1373      68696674 
+ 1373      5F536574 
+ 1373      496E7465 
+ 1374              	.LASF25:
+ 1375 01fd 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1375      4320342E 
+ 1375      342E3100 
+ 1376              	.LASF9:
+ 1377 0209 63686172 		.ascii	"char\000"
+ 1377      00
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc8WMWxO.s 			page 35
+
+
+ 1378              	.LASF24:
+ 1379 020e 636F756E 		.ascii	"counterShift_ReadPeriod\000"
+ 1379      74657253 
+ 1379      68696674 
+ 1379      5F526561 
+ 1379      64506572 
+ 1380              	.LASF2:
+ 1381 0226 73686F72 		.ascii	"short int\000"
+ 1381      7420696E 
+ 1381      7400
+ 1382              	.LASF4:
+ 1383 0230 6C6F6E67 		.ascii	"long int\000"
+ 1383      20696E74 
+ 1383      00
+ 1384              	.LASF12:
+ 1385 0239 636F756E 		.ascii	"counterShift_Start\000"
+ 1385      74657253 
+ 1385      68696674 
+ 1385      5F537461 
+ 1385      727400
+ 1386              	.LASF0:
+ 1387 024c 7369676E 		.ascii	"signed char\000"
+ 1387      65642063 
+ 1387      68617200 
+ 1388              	.LASF21:
+ 1389 0258 636F756E 		.ascii	"counterShift_ReadCapture\000"
+ 1389      74657253 
+ 1389      68696674 
+ 1389      5F526561 
+ 1389      64436170 
+ 1390              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
