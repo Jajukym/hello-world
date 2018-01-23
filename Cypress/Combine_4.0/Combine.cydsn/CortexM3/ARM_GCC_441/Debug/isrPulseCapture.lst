@@ -1,0 +1,2016 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"isrPulseCapture.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 5F010000 		.text
+  20      02006700 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.section	.text.isrPulseCapture_Start,"ax",%progbits
+  24              		.align	2
+  25              		.global	isrPulseCapture_Start
+  26              		.thumb
+  27              		.thumb_func
+  28              		.type	isrPulseCapture_Start, %function
+  29              	isrPulseCapture_Start:
+  30              	.LFB0:
+  31              		.file 1 ".\\Generated_Source\\PSoC5\\isrPulseCapture.c"
+   1:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/isrPulseCapture.c **** * File Name: isrPulseCapture.c  
+   3:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Version 1.70
+   4:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+   5:.\Generated_Source\PSoC5/isrPulseCapture.c **** *  Description:
+   6:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   API for controlling the state of an interrupt.
+   7:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+   8:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+   9:.\Generated_Source\PSoC5/isrPulseCapture.c **** *  Note:
+  10:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+  11:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/isrPulseCapture.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/isrPulseCapture.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/isrPulseCapture.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  18:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  19:.\Generated_Source\PSoC5/isrPulseCapture.c **** #include <CYDEVICE_TRM.H>
+  20:.\Generated_Source\PSoC5/isrPulseCapture.c **** #include <CYLIB.H>
+  21:.\Generated_Source\PSoC5/isrPulseCapture.c **** #include <isrPulseCapture.H>
+  22:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 2
+
+
+  23:.\Generated_Source\PSoC5/isrPulseCapture.c **** #if !defined(isrPulseCapture__REMOVED) /* Check for removal by optimization */
+  24:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  25:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC5/isrPulseCapture.c **** *  Place your includes, defines and code here 
+  27:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************/
+  28:.\Generated_Source\PSoC5/isrPulseCapture.c **** /* `#START isrPulseCapture_intc` */
+  29:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  30:.\Generated_Source\PSoC5/isrPulseCapture.c **** /* `#END` */
+  31:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  32:.\Generated_Source\PSoC5/isrPulseCapture.c **** #ifndef CYINT_IRQ_BASE
+  33:.\Generated_Source\PSoC5/isrPulseCapture.c **** #define CYINT_IRQ_BASE      16
+  34:.\Generated_Source\PSoC5/isrPulseCapture.c **** #endif /* CYINT_IRQ_BASE */
+  35:.\Generated_Source\PSoC5/isrPulseCapture.c **** #ifndef CYINT_VECT_TABLE
+  36:.\Generated_Source\PSoC5/isrPulseCapture.c **** #define CYINT_VECT_TABLE    ((cyisraddress **) CYREG_NVIC_VECT_OFFSET)
+  37:.\Generated_Source\PSoC5/isrPulseCapture.c **** #endif /* CYINT_VECT_TABLE */
+  38:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  39:.\Generated_Source\PSoC5/isrPulseCapture.c **** /* Declared in startup, used to set unused interrupts to. */
+  40:.\Generated_Source\PSoC5/isrPulseCapture.c **** CY_ISR_PROTO(IntDefaultHandler);
+  41:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  42:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  43:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+  44:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_Start
+  45:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+  46:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+  47:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+  48:.\Generated_Source\PSoC5/isrPulseCapture.c **** *  Set up the interrupt and enable it.
+  49:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+  50:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:  
+  51:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+  52:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+  53:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+  54:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+  55:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+  56:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+  57:.\Generated_Source\PSoC5/isrPulseCapture.c **** void isrPulseCapture_Start(void)
+  58:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+  32              		.loc 1 58 0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+  36 0000 80B5     		push	{r7, lr}
+  37              	.LCFI0:
+  38              		.cfi_def_cfa_offset 8
+  39 0002 00AF     		add	r7, sp, #0
+  40              		.cfi_offset 14, -4
+  41              		.cfi_offset 7, -8
+  42              	.LCFI1:
+  43              		.cfi_def_cfa_register 7
+  59:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* For all we know the interrupt is active. */
+  60:.\Generated_Source\PSoC5/isrPulseCapture.c ****     isrPulseCapture_Disable();
+  44              		.loc 1 60 0
+  45 0004 FFF7FEFF 		bl	isrPulseCapture_Disable
+  61:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  62:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* Set the ISR to point to the isrPulseCapture Interrupt. */
+  63:.\Generated_Source\PSoC5/isrPulseCapture.c ****     isrPulseCapture_SetVector(&isrPulseCapture_Interrupt);
+  46              		.loc 1 63 0
+  47 0008 40F20000 		movw	r0, #:lower16:isrPulseCapture_Interrupt
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 3
+
+
+  48 000c C0F20000 		movt	r0, #:upper16:isrPulseCapture_Interrupt
+  49 0010 FFF7FEFF 		bl	isrPulseCapture_SetVector
+  64:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  65:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* Set the priority. */
+  66:.\Generated_Source\PSoC5/isrPulseCapture.c ****     isrPulseCapture_SetPriority((uint8)isrPulseCapture_INTC_PRIOR_NUMBER);
+  50              		.loc 1 66 0
+  51 0014 4FF00700 		mov	r0, #7
+  52 0018 FFF7FEFF 		bl	isrPulseCapture_SetPriority
+  67:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  68:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* Enable it. */
+  69:.\Generated_Source\PSoC5/isrPulseCapture.c ****     isrPulseCapture_Enable();
+  53              		.loc 1 69 0
+  54 001c FFF7FEFF 		bl	isrPulseCapture_Enable
+  70:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+  55              		.loc 1 70 0
+  56 0020 80BD     		pop	{r7, pc}
+  57              		.cfi_endproc
+  58              	.LFE0:
+  59              		.size	isrPulseCapture_Start, .-isrPulseCapture_Start
+  60 0022 00BF     		.section	.text.isrPulseCapture_StartEx,"ax",%progbits
+  61              		.align	2
+  62              		.global	isrPulseCapture_StartEx
+  63              		.thumb
+  64              		.thumb_func
+  65              		.type	isrPulseCapture_StartEx, %function
+  66              	isrPulseCapture_StartEx:
+  67              	.LFB1:
+  71:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  72:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  73:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+  74:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_StartEx
+  75:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+  76:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+  77:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+  78:.\Generated_Source\PSoC5/isrPulseCapture.c **** *  Set up the interrupt and enable it.
+  79:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+  80:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:  
+  81:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   address: Address of the ISR to set in the interrupt vector table.
+  82:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+  83:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+  84:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+  85:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+  86:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+  87:.\Generated_Source\PSoC5/isrPulseCapture.c **** void isrPulseCapture_StartEx(cyisraddress address)
+  88:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+  68              		.loc 1 88 0
+  69              		.cfi_startproc
+  70              		@ args = 0, pretend = 0, frame = 8
+  71              		@ frame_needed = 1, uses_anonymous_args = 0
+  72 0000 80B5     		push	{r7, lr}
+  73              	.LCFI2:
+  74              		.cfi_def_cfa_offset 8
+  75 0002 82B0     		sub	sp, sp, #8
+  76              	.LCFI3:
+  77              		.cfi_def_cfa_offset 16
+  78 0004 00AF     		add	r7, sp, #0
+  79              		.cfi_offset 14, -4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 4
+
+
+  80              		.cfi_offset 7, -8
+  81              	.LCFI4:
+  82              		.cfi_def_cfa_register 7
+  83 0006 7860     		str	r0, [r7, #4]
+  89:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* For all we know the interrupt is active. */
+  90:.\Generated_Source\PSoC5/isrPulseCapture.c ****     isrPulseCapture_Disable();
+  84              		.loc 1 90 0
+  85 0008 FFF7FEFF 		bl	isrPulseCapture_Disable
+  91:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  92:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* Set the ISR to point to the isrPulseCapture Interrupt. */
+  93:.\Generated_Source\PSoC5/isrPulseCapture.c ****     isrPulseCapture_SetVector(address);
+  86              		.loc 1 93 0
+  87 000c 7868     		ldr	r0, [r7, #4]
+  88 000e FFF7FEFF 		bl	isrPulseCapture_SetVector
+  94:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  95:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* Set the priority. */
+  96:.\Generated_Source\PSoC5/isrPulseCapture.c ****     isrPulseCapture_SetPriority((uint8)isrPulseCapture_INTC_PRIOR_NUMBER);
+  89              		.loc 1 96 0
+  90 0012 4FF00700 		mov	r0, #7
+  91 0016 FFF7FEFF 		bl	isrPulseCapture_SetPriority
+  97:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+  98:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* Enable it. */
+  99:.\Generated_Source\PSoC5/isrPulseCapture.c ****     isrPulseCapture_Enable();
+  92              		.loc 1 99 0
+  93 001a FFF7FEFF 		bl	isrPulseCapture_Enable
+ 100:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+  94              		.loc 1 100 0
+  95 001e 07F10807 		add	r7, r7, #8
+  96 0022 BD46     		mov	sp, r7
+  97 0024 80BD     		pop	{r7, pc}
+  98              		.cfi_endproc
+  99              	.LFE1:
+ 100              		.size	isrPulseCapture_StartEx, .-isrPulseCapture_StartEx
+ 101 0026 00BF     		.section	.text.isrPulseCapture_Stop,"ax",%progbits
+ 102              		.align	2
+ 103              		.global	isrPulseCapture_Stop
+ 104              		.thumb
+ 105              		.thumb_func
+ 106              		.type	isrPulseCapture_Stop, %function
+ 107              	isrPulseCapture_Stop:
+ 108              	.LFB2:
+ 101:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 102:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 103:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+ 104:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_Stop
+ 105:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+ 106:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 107:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+ 108:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Disables and removes the interrupt.
+ 109:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 110:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:  
+ 111:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 112:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+ 113:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 114:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 115:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+ 116:.\Generated_Source\PSoC5/isrPulseCapture.c **** void isrPulseCapture_Stop(void)
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 5
+
+
+ 117:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+ 109              		.loc 1 117 0
+ 110              		.cfi_startproc
+ 111              		@ args = 0, pretend = 0, frame = 0
+ 112              		@ frame_needed = 1, uses_anonymous_args = 0
+ 113 0000 80B5     		push	{r7, lr}
+ 114              	.LCFI5:
+ 115              		.cfi_def_cfa_offset 8
+ 116 0002 00AF     		add	r7, sp, #0
+ 117              		.cfi_offset 14, -4
+ 118              		.cfi_offset 7, -8
+ 119              	.LCFI6:
+ 120              		.cfi_def_cfa_register 7
+ 118:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* Disable this interrupt. */
+ 119:.\Generated_Source\PSoC5/isrPulseCapture.c ****     isrPulseCapture_Disable();
+ 121              		.loc 1 119 0
+ 122 0004 FFF7FEFF 		bl	isrPulseCapture_Disable
+ 120:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 121:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* Set the ISR to point to the passive one. */
+ 122:.\Generated_Source\PSoC5/isrPulseCapture.c ****     isrPulseCapture_SetVector(&IntDefaultHandler);
+ 123              		.loc 1 122 0
+ 124 0008 40F20000 		movw	r0, #:lower16:IntDefaultHandler
+ 125 000c C0F20000 		movt	r0, #:upper16:IntDefaultHandler
+ 126 0010 FFF7FEFF 		bl	isrPulseCapture_SetVector
+ 123:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+ 127              		.loc 1 123 0
+ 128 0014 80BD     		pop	{r7, pc}
+ 129              		.cfi_endproc
+ 130              	.LFE2:
+ 131              		.size	isrPulseCapture_Stop, .-isrPulseCapture_Stop
+ 132 0016 00BF     		.section	.text.isrPulseCapture_Interrupt,"ax",%progbits
+ 133              		.align	2
+ 134              		.global	isrPulseCapture_Interrupt
+ 135              		.thumb
+ 136              		.thumb_func
+ 137              		.type	isrPulseCapture_Interrupt, %function
+ 138              	isrPulseCapture_Interrupt:
+ 139              	.LFB3:
+ 124:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 125:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 126:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+ 127:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_Interrupt
+ 128:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+ 129:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 130:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+ 131:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   The default Interrupt Service Routine for isrPulseCapture.
+ 132:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 133:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Add custom code between the coments to keep the next version of this file
+ 134:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   from over writting your code.
+ 135:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 136:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:  
+ 137:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 138:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+ 139:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 140:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 141:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+ 142:.\Generated_Source\PSoC5/isrPulseCapture.c **** CY_ISR(isrPulseCapture_Interrupt)
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 6
+
+
+ 143:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+ 140              		.loc 1 143 0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 1, uses_anonymous_args = 0
+ 144              		@ link register save eliminated.
+ 145 0000 80B4     		push	{r7}
+ 146              	.LCFI7:
+ 147              		.cfi_def_cfa_offset 4
+ 148 0002 00AF     		add	r7, sp, #0
+ 149              		.cfi_offset 7, -4
+ 150              	.LCFI8:
+ 151              		.cfi_def_cfa_register 7
+ 144:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /*  Place your Interrupt code here. */
+ 145:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* `#START isrPulseCapture_Interrupt` */
+ 146:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 147:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* `#END` */
+ 148:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+ 152              		.loc 1 148 0
+ 153 0004 BD46     		mov	sp, r7
+ 154 0006 80BC     		pop	{r7}
+ 155 0008 7047     		bx	lr
+ 156              		.cfi_endproc
+ 157              	.LFE3:
+ 158              		.size	isrPulseCapture_Interrupt, .-isrPulseCapture_Interrupt
+ 159 000a 00BF     		.section	.text.isrPulseCapture_SetVector,"ax",%progbits
+ 160              		.align	2
+ 161              		.global	isrPulseCapture_SetVector
+ 162              		.thumb
+ 163              		.thumb_func
+ 164              		.type	isrPulseCapture_SetVector, %function
+ 165              	isrPulseCapture_SetVector:
+ 166              	.LFB4:
+ 149:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 150:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 151:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+ 152:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_SetVector
+ 153:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+ 154:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 155:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+ 156:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Change the ISR vector for the Interrupt. Note calling isrPulseCapture_Start
+ 157:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   will override any effect this method would have had. To set the vector 
+ 158:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   before the component has been started use isrPulseCapture_StartEx instead.
+ 159:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 160:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:
+ 161:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   address: Address of the ISR to set in the interrupt vector table.
+ 162:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 163:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+ 164:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 165:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 166:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+ 167:.\Generated_Source\PSoC5/isrPulseCapture.c **** void isrPulseCapture_SetVector(cyisraddress address)
+ 168:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+ 167              		.loc 1 168 0
+ 168              		.cfi_startproc
+ 169              		@ args = 0, pretend = 0, frame = 16
+ 170              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 7
+
+
+ 171              		@ link register save eliminated.
+ 172 0000 80B4     		push	{r7}
+ 173              	.LCFI9:
+ 174              		.cfi_def_cfa_offset 4
+ 175 0002 85B0     		sub	sp, sp, #20
+ 176              	.LCFI10:
+ 177              		.cfi_def_cfa_offset 24
+ 178 0004 00AF     		add	r7, sp, #0
+ 179              		.cfi_offset 7, -4
+ 180              	.LCFI11:
+ 181              		.cfi_def_cfa_register 7
+ 182 0006 7860     		str	r0, [r7, #4]
+ 169:.\Generated_Source\PSoC5/isrPulseCapture.c ****     cyisraddress * ramVectorTable;
+ 170:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 171:.\Generated_Source\PSoC5/isrPulseCapture.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 183              		.loc 1 171 0
+ 184 0008 4EF60853 		movw	r3, #:lower16:-536810232
+ 185 000c CEF20003 		movt	r3, #:upper16:-536810232
+ 186 0010 1B68     		ldr	r3, [r3, #0]
+ 187 0012 FB60     		str	r3, [r7, #12]
+ 172:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 173:.\Generated_Source\PSoC5/isrPulseCapture.c ****     ramVectorTable[CYINT_IRQ_BASE + (uint32)isrPulseCapture__INTC_NUMBER] = address;
+ 188              		.loc 1 173 0
+ 189 0014 FB68     		ldr	r3, [r7, #12]
+ 190 0016 03F14403 		add	r3, r3, #68
+ 191 001a 7A68     		ldr	r2, [r7, #4]
+ 192 001c 1A60     		str	r2, [r3, #0]
+ 174:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+ 193              		.loc 1 174 0
+ 194 001e 07F11407 		add	r7, r7, #20
+ 195 0022 BD46     		mov	sp, r7
+ 196 0024 80BC     		pop	{r7}
+ 197 0026 7047     		bx	lr
+ 198              		.cfi_endproc
+ 199              	.LFE4:
+ 200              		.size	isrPulseCapture_SetVector, .-isrPulseCapture_SetVector
+ 201              		.section	.text.isrPulseCapture_GetVector,"ax",%progbits
+ 202              		.align	2
+ 203              		.global	isrPulseCapture_GetVector
+ 204              		.thumb
+ 205              		.thumb_func
+ 206              		.type	isrPulseCapture_GetVector, %function
+ 207              	isrPulseCapture_GetVector:
+ 208              	.LFB5:
+ 175:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 176:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 177:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+ 178:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_GetVector
+ 179:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+ 180:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 181:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+ 182:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Gets the "address" of the current ISR vector for the Interrupt.
+ 183:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 184:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:
+ 185:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 186:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 187:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 8
+
+
+ 188:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Address of the ISR in the interrupt vector table.
+ 189:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 190:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+ 191:.\Generated_Source\PSoC5/isrPulseCapture.c **** cyisraddress isrPulseCapture_GetVector(void)
+ 192:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+ 209              		.loc 1 192 0
+ 210              		.cfi_startproc
+ 211              		@ args = 0, pretend = 0, frame = 8
+ 212              		@ frame_needed = 1, uses_anonymous_args = 0
+ 213              		@ link register save eliminated.
+ 214 0000 80B4     		push	{r7}
+ 215              	.LCFI12:
+ 216              		.cfi_def_cfa_offset 4
+ 217 0002 83B0     		sub	sp, sp, #12
+ 218              	.LCFI13:
+ 219              		.cfi_def_cfa_offset 16
+ 220 0004 00AF     		add	r7, sp, #0
+ 221              		.cfi_offset 7, -4
+ 222              	.LCFI14:
+ 223              		.cfi_def_cfa_register 7
+ 193:.\Generated_Source\PSoC5/isrPulseCapture.c ****     cyisraddress * ramVectorTable;
+ 194:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 195:.\Generated_Source\PSoC5/isrPulseCapture.c ****     ramVectorTable = (cyisraddress *) *CYINT_VECT_TABLE;
+ 224              		.loc 1 195 0
+ 225 0006 4EF60853 		movw	r3, #:lower16:-536810232
+ 226 000a CEF20003 		movt	r3, #:upper16:-536810232
+ 227 000e 1B68     		ldr	r3, [r3, #0]
+ 228 0010 7B60     		str	r3, [r7, #4]
+ 196:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 197:.\Generated_Source\PSoC5/isrPulseCapture.c ****     return ramVectorTable[CYINT_IRQ_BASE + (uint32)isrPulseCapture__INTC_NUMBER];
+ 229              		.loc 1 197 0
+ 230 0012 7B68     		ldr	r3, [r7, #4]
+ 231 0014 03F14403 		add	r3, r3, #68
+ 232 0018 1B68     		ldr	r3, [r3, #0]
+ 198:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+ 233              		.loc 1 198 0
+ 234 001a 1846     		mov	r0, r3
+ 235 001c 07F10C07 		add	r7, r7, #12
+ 236 0020 BD46     		mov	sp, r7
+ 237 0022 80BC     		pop	{r7}
+ 238 0024 7047     		bx	lr
+ 239              		.cfi_endproc
+ 240              	.LFE5:
+ 241              		.size	isrPulseCapture_GetVector, .-isrPulseCapture_GetVector
+ 242 0026 00BF     		.section	.text.isrPulseCapture_SetPriority,"ax",%progbits
+ 243              		.align	2
+ 244              		.global	isrPulseCapture_SetPriority
+ 245              		.thumb
+ 246              		.thumb_func
+ 247              		.type	isrPulseCapture_SetPriority, %function
+ 248              	isrPulseCapture_SetPriority:
+ 249              	.LFB6:
+ 199:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 200:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 201:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+ 202:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_SetPriority
+ 203:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 9
+
+
+ 204:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 205:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+ 206:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Sets the Priority of the Interrupt. Note calling isrPulseCapture_Start
+ 207:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   or isrPulseCapture_StartEx will override any effect this method 
+ 208:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   would have had. This method should only be called after 
+ 209:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   isrPulseCapture_Start or isrPulseCapture_StartEx has been called. To set 
+ 210:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   the initial priority for the component use the cydwr file in the tool.
+ 211:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 212:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:
+ 213:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   priority: Priority of the interrupt. 0 - 7, 0 being the highest.
+ 214:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 215:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+ 216:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 217:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 218:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+ 219:.\Generated_Source\PSoC5/isrPulseCapture.c **** void isrPulseCapture_SetPriority(uint8 priority)
+ 220:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+ 250              		.loc 1 220 0
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 8
+ 253              		@ frame_needed = 1, uses_anonymous_args = 0
+ 254              		@ link register save eliminated.
+ 255 0000 80B4     		push	{r7}
+ 256              	.LCFI15:
+ 257              		.cfi_def_cfa_offset 4
+ 258 0002 83B0     		sub	sp, sp, #12
+ 259              	.LCFI16:
+ 260              		.cfi_def_cfa_offset 16
+ 261 0004 00AF     		add	r7, sp, #0
+ 262              		.cfi_offset 7, -4
+ 263              	.LCFI17:
+ 264              		.cfi_def_cfa_register 7
+ 265 0006 0346     		mov	r3, r0
+ 266 0008 FB71     		strb	r3, [r7, #7]
+ 221:.\Generated_Source\PSoC5/isrPulseCapture.c ****     *isrPulseCapture_INTC_PRIOR = priority << 5;
+ 267              		.loc 1 221 0
+ 268 000a 4EF20143 		movw	r3, #:lower16:-536812543
+ 269 000e CEF20003 		movt	r3, #:upper16:-536812543
+ 270 0012 FA79     		ldrb	r2, [r7, #7]
+ 271 0014 4FEA4212 		lsl	r2, r2, #5
+ 272 0018 D2B2     		uxtb	r2, r2
+ 273 001a 1A70     		strb	r2, [r3, #0]
+ 222:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+ 274              		.loc 1 222 0
+ 275 001c 07F10C07 		add	r7, r7, #12
+ 276 0020 BD46     		mov	sp, r7
+ 277 0022 80BC     		pop	{r7}
+ 278 0024 7047     		bx	lr
+ 279              		.cfi_endproc
+ 280              	.LFE6:
+ 281              		.size	isrPulseCapture_SetPriority, .-isrPulseCapture_SetPriority
+ 282 0026 00BF     		.section	.text.isrPulseCapture_GetPriority,"ax",%progbits
+ 283              		.align	2
+ 284              		.global	isrPulseCapture_GetPriority
+ 285              		.thumb
+ 286              		.thumb_func
+ 287              		.type	isrPulseCapture_GetPriority, %function
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 10
+
+
+ 288              	isrPulseCapture_GetPriority:
+ 289              	.LFB7:
+ 223:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 224:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 225:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+ 226:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_GetPriority
+ 227:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+ 228:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 229:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+ 230:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Gets the Priority of the Interrupt.
+ 231:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 232:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:
+ 233:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 234:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 235:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+ 236:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Priority of the interrupt. 0 - 7, 0 being the highest.
+ 237:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 238:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+ 239:.\Generated_Source\PSoC5/isrPulseCapture.c **** uint8 isrPulseCapture_GetPriority(void)
+ 240:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+ 290              		.loc 1 240 0
+ 291              		.cfi_startproc
+ 292              		@ args = 0, pretend = 0, frame = 8
+ 293              		@ frame_needed = 1, uses_anonymous_args = 0
+ 294              		@ link register save eliminated.
+ 295 0000 80B4     		push	{r7}
+ 296              	.LCFI18:
+ 297              		.cfi_def_cfa_offset 4
+ 298 0002 83B0     		sub	sp, sp, #12
+ 299              	.LCFI19:
+ 300              		.cfi_def_cfa_offset 16
+ 301 0004 00AF     		add	r7, sp, #0
+ 302              		.cfi_offset 7, -4
+ 303              	.LCFI20:
+ 304              		.cfi_def_cfa_register 7
+ 241:.\Generated_Source\PSoC5/isrPulseCapture.c ****     uint8 priority;
+ 242:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 243:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 244:.\Generated_Source\PSoC5/isrPulseCapture.c ****     priority = *isrPulseCapture_INTC_PRIOR >> 5;
+ 305              		.loc 1 244 0
+ 306 0006 4EF20143 		movw	r3, #:lower16:-536812543
+ 307 000a CEF20003 		movt	r3, #:upper16:-536812543
+ 308 000e 1B78     		ldrb	r3, [r3, #0]
+ 309 0010 DBB2     		uxtb	r3, r3
+ 310 0012 4FEA5313 		lsr	r3, r3, #5
+ 311 0016 FB71     		strb	r3, [r7, #7]
+ 245:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 246:.\Generated_Source\PSoC5/isrPulseCapture.c ****     return priority;
+ 312              		.loc 1 246 0
+ 313 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 247:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+ 314              		.loc 1 247 0
+ 315 001a 1846     		mov	r0, r3
+ 316 001c 07F10C07 		add	r7, r7, #12
+ 317 0020 BD46     		mov	sp, r7
+ 318 0022 80BC     		pop	{r7}
+ 319 0024 7047     		bx	lr
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 11
+
+
+ 320              		.cfi_endproc
+ 321              	.LFE7:
+ 322              		.size	isrPulseCapture_GetPriority, .-isrPulseCapture_GetPriority
+ 323 0026 00BF     		.section	.text.isrPulseCapture_Enable,"ax",%progbits
+ 324              		.align	2
+ 325              		.global	isrPulseCapture_Enable
+ 326              		.thumb
+ 327              		.thumb_func
+ 328              		.type	isrPulseCapture_Enable, %function
+ 329              	isrPulseCapture_Enable:
+ 330              	.LFB8:
+ 248:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 249:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 250:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+ 251:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_Enable
+ 252:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+ 253:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 254:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+ 255:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Enables the interrupt.
+ 256:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 257:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:
+ 258:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 259:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 260:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+ 261:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 262:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 263:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+ 264:.\Generated_Source\PSoC5/isrPulseCapture.c **** void isrPulseCapture_Enable(void)
+ 265:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+ 331              		.loc 1 265 0
+ 332              		.cfi_startproc
+ 333              		@ args = 0, pretend = 0, frame = 0
+ 334              		@ frame_needed = 1, uses_anonymous_args = 0
+ 335              		@ link register save eliminated.
+ 336 0000 80B4     		push	{r7}
+ 337              	.LCFI21:
+ 338              		.cfi_def_cfa_offset 4
+ 339 0002 00AF     		add	r7, sp, #0
+ 340              		.cfi_offset 7, -4
+ 341              	.LCFI22:
+ 342              		.cfi_def_cfa_register 7
+ 266:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* Enable the general interrupt. */
+ 267:.\Generated_Source\PSoC5/isrPulseCapture.c ****     *isrPulseCapture_INTC_SET_EN = isrPulseCapture__INTC_MASK;
+ 343              		.loc 1 267 0
+ 344 0004 4EF20013 		movw	r3, #:lower16:-536813312
+ 345 0008 CEF20003 		movt	r3, #:upper16:-536813312
+ 346 000c 4FF00202 		mov	r2, #2
+ 347 0010 1A60     		str	r2, [r3, #0]
+ 268:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+ 348              		.loc 1 268 0
+ 349 0012 BD46     		mov	sp, r7
+ 350 0014 80BC     		pop	{r7}
+ 351 0016 7047     		bx	lr
+ 352              		.cfi_endproc
+ 353              	.LFE8:
+ 354              		.size	isrPulseCapture_Enable, .-isrPulseCapture_Enable
+ 355              		.section	.text.isrPulseCapture_GetState,"ax",%progbits
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 12
+
+
+ 356              		.align	2
+ 357              		.global	isrPulseCapture_GetState
+ 358              		.thumb
+ 359              		.thumb_func
+ 360              		.type	isrPulseCapture_GetState, %function
+ 361              	isrPulseCapture_GetState:
+ 362              	.LFB9:
+ 269:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 270:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 271:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+ 272:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_GetState
+ 273:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+ 274:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 275:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+ 276:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Gets the state (enabled, disabled) of the Interrupt.
+ 277:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 278:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:
+ 279:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 280:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 281:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+ 282:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   1 if enabled, 0 if disabled.
+ 283:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 284:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+ 285:.\Generated_Source\PSoC5/isrPulseCapture.c **** uint8 isrPulseCapture_GetState(void)
+ 286:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+ 363              		.loc 1 286 0
+ 364              		.cfi_startproc
+ 365              		@ args = 0, pretend = 0, frame = 0
+ 366              		@ frame_needed = 1, uses_anonymous_args = 0
+ 367              		@ link register save eliminated.
+ 368 0000 80B4     		push	{r7}
+ 369              	.LCFI23:
+ 370              		.cfi_def_cfa_offset 4
+ 371 0002 00AF     		add	r7, sp, #0
+ 372              		.cfi_offset 7, -4
+ 373              	.LCFI24:
+ 374              		.cfi_def_cfa_register 7
+ 287:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* Get the state of the general interrupt. */
+ 288:.\Generated_Source\PSoC5/isrPulseCapture.c ****     return ((*isrPulseCapture_INTC_SET_EN & (uint32)isrPulseCapture__INTC_MASK) != 0u) ? 1u:0u;
+ 375              		.loc 1 288 0
+ 376 0004 4EF20013 		movw	r3, #:lower16:-536813312
+ 377 0008 CEF20003 		movt	r3, #:upper16:-536813312
+ 378 000c 1B68     		ldr	r3, [r3, #0]
+ 379 000e 03F00203 		and	r3, r3, #2
+ 380 0012 002B     		cmp	r3, #0
+ 381 0014 02D0     		beq	.L20
+ 382 0016 4FF00103 		mov	r3, #1
+ 383 001a 01E0     		b	.L21
+ 384              	.L20:
+ 385 001c 4FF00003 		mov	r3, #0
+ 386              	.L21:
+ 289:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+ 387              		.loc 1 289 0
+ 388 0020 1846     		mov	r0, r3
+ 389 0022 BD46     		mov	sp, r7
+ 390 0024 80BC     		pop	{r7}
+ 391 0026 7047     		bx	lr
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 13
+
+
+ 392              		.cfi_endproc
+ 393              	.LFE9:
+ 394              		.size	isrPulseCapture_GetState, .-isrPulseCapture_GetState
+ 395              		.section	.text.isrPulseCapture_Disable,"ax",%progbits
+ 396              		.align	2
+ 397              		.global	isrPulseCapture_Disable
+ 398              		.thumb
+ 399              		.thumb_func
+ 400              		.type	isrPulseCapture_Disable, %function
+ 401              	isrPulseCapture_Disable:
+ 402              	.LFB10:
+ 290:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 291:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 292:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+ 293:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_Disable
+ 294:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+ 295:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 296:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+ 297:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Disables the Interrupt.
+ 298:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 299:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:
+ 300:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 301:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 302:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+ 303:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 304:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 305:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+ 306:.\Generated_Source\PSoC5/isrPulseCapture.c **** void isrPulseCapture_Disable(void)
+ 307:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+ 403              		.loc 1 307 0
+ 404              		.cfi_startproc
+ 405              		@ args = 0, pretend = 0, frame = 0
+ 406              		@ frame_needed = 1, uses_anonymous_args = 0
+ 407              		@ link register save eliminated.
+ 408 0000 80B4     		push	{r7}
+ 409              	.LCFI25:
+ 410              		.cfi_def_cfa_offset 4
+ 411 0002 00AF     		add	r7, sp, #0
+ 412              		.cfi_offset 7, -4
+ 413              	.LCFI26:
+ 414              		.cfi_def_cfa_register 7
+ 308:.\Generated_Source\PSoC5/isrPulseCapture.c ****     /* Disable the general interrupt. */
+ 309:.\Generated_Source\PSoC5/isrPulseCapture.c ****     *isrPulseCapture_INTC_CLR_EN = isrPulseCapture__INTC_MASK;
+ 415              		.loc 1 309 0
+ 416 0004 4EF28013 		movw	r3, #:lower16:-536813184
+ 417 0008 CEF20003 		movt	r3, #:upper16:-536813184
+ 418 000c 4FF00202 		mov	r2, #2
+ 419 0010 1A60     		str	r2, [r3, #0]
+ 310:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+ 420              		.loc 1 310 0
+ 421 0012 BD46     		mov	sp, r7
+ 422 0014 80BC     		pop	{r7}
+ 423 0016 7047     		bx	lr
+ 424              		.cfi_endproc
+ 425              	.LFE10:
+ 426              		.size	isrPulseCapture_Disable, .-isrPulseCapture_Disable
+ 427              		.section	.text.isrPulseCapture_SetPending,"ax",%progbits
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 14
+
+
+ 428              		.align	2
+ 429              		.global	isrPulseCapture_SetPending
+ 430              		.thumb
+ 431              		.thumb_func
+ 432              		.type	isrPulseCapture_SetPending, %function
+ 433              	isrPulseCapture_SetPending:
+ 434              	.LFB11:
+ 311:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 312:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 313:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+ 314:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_SetPending
+ 315:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+ 316:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 317:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+ 318:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Causes the Interrupt to enter the pending state, a software method of
+ 319:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   generating the interrupt.
+ 320:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 321:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:
+ 322:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 323:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 324:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+ 325:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 326:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 327:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+ 328:.\Generated_Source\PSoC5/isrPulseCapture.c **** void isrPulseCapture_SetPending(void)
+ 329:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+ 435              		.loc 1 329 0
+ 436              		.cfi_startproc
+ 437              		@ args = 0, pretend = 0, frame = 0
+ 438              		@ frame_needed = 1, uses_anonymous_args = 0
+ 439              		@ link register save eliminated.
+ 440 0000 80B4     		push	{r7}
+ 441              	.LCFI27:
+ 442              		.cfi_def_cfa_offset 4
+ 443 0002 00AF     		add	r7, sp, #0
+ 444              		.cfi_offset 7, -4
+ 445              	.LCFI28:
+ 446              		.cfi_def_cfa_register 7
+ 330:.\Generated_Source\PSoC5/isrPulseCapture.c ****     *isrPulseCapture_INTC_SET_PD = isrPulseCapture__INTC_MASK;
+ 447              		.loc 1 330 0
+ 448 0004 4EF20023 		movw	r3, #:lower16:-536813056
+ 449 0008 CEF20003 		movt	r3, #:upper16:-536813056
+ 450 000c 4FF00202 		mov	r2, #2
+ 451 0010 1A60     		str	r2, [r3, #0]
+ 331:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+ 452              		.loc 1 331 0
+ 453 0012 BD46     		mov	sp, r7
+ 454 0014 80BC     		pop	{r7}
+ 455 0016 7047     		bx	lr
+ 456              		.cfi_endproc
+ 457              	.LFE11:
+ 458              		.size	isrPulseCapture_SetPending, .-isrPulseCapture_SetPending
+ 459              		.section	.text.isrPulseCapture_ClearPending,"ax",%progbits
+ 460              		.align	2
+ 461              		.global	isrPulseCapture_ClearPending
+ 462              		.thumb
+ 463              		.thumb_func
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 15
+
+
+ 464              		.type	isrPulseCapture_ClearPending, %function
+ 465              	isrPulseCapture_ClearPending:
+ 466              	.LFB12:
+ 332:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 333:.\Generated_Source\PSoC5/isrPulseCapture.c **** 
+ 334:.\Generated_Source\PSoC5/isrPulseCapture.c **** /*******************************************************************************
+ 335:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Function Name: isrPulseCapture_ClearPending
+ 336:.\Generated_Source\PSoC5/isrPulseCapture.c **** ********************************************************************************
+ 337:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 338:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Summary:
+ 339:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   Clears a pending interrupt.
+ 340:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 341:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Parameters:
+ 342:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 343:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 344:.\Generated_Source\PSoC5/isrPulseCapture.c **** * Return:
+ 345:.\Generated_Source\PSoC5/isrPulseCapture.c **** *   None
+ 346:.\Generated_Source\PSoC5/isrPulseCapture.c **** *
+ 347:.\Generated_Source\PSoC5/isrPulseCapture.c **** *******************************************************************************/
+ 348:.\Generated_Source\PSoC5/isrPulseCapture.c **** void isrPulseCapture_ClearPending(void)
+ 349:.\Generated_Source\PSoC5/isrPulseCapture.c **** {
+ 467              		.loc 1 349 0
+ 468              		.cfi_startproc
+ 469              		@ args = 0, pretend = 0, frame = 0
+ 470              		@ frame_needed = 1, uses_anonymous_args = 0
+ 471              		@ link register save eliminated.
+ 472 0000 80B4     		push	{r7}
+ 473              	.LCFI29:
+ 474              		.cfi_def_cfa_offset 4
+ 475 0002 00AF     		add	r7, sp, #0
+ 476              		.cfi_offset 7, -4
+ 477              	.LCFI30:
+ 478              		.cfi_def_cfa_register 7
+ 350:.\Generated_Source\PSoC5/isrPulseCapture.c ****     *isrPulseCapture_INTC_CLR_PD = isrPulseCapture__INTC_MASK;
+ 479              		.loc 1 350 0
+ 480 0004 4EF28023 		movw	r3, #:lower16:-536812928
+ 481 0008 CEF20003 		movt	r3, #:upper16:-536812928
+ 482 000c 4FF00202 		mov	r2, #2
+ 483 0010 1A60     		str	r2, [r3, #0]
+ 351:.\Generated_Source\PSoC5/isrPulseCapture.c **** }
+ 484              		.loc 1 351 0
+ 485 0012 BD46     		mov	sp, r7
+ 486 0014 80BC     		pop	{r7}
+ 487 0016 7047     		bx	lr
+ 488              		.cfi_endproc
+ 489              	.LFE12:
+ 490              		.size	isrPulseCapture_ClearPending, .-isrPulseCapture_ClearPending
+ 491              		.text
+ 492              	.Letext0:
+ 493              		.section	.debug_loc,"",%progbits
+ 494              	.Ldebug_loc0:
+ 495              	.LLST0:
+ 496 0000 00000000 		.4byte	.LFB0
+ 497 0004 02000000 		.4byte	.LCFI0
+ 498 0008 0100     		.2byte	0x1
+ 499 000a 5D       		.byte	0x5d
+ 500 000b 02000000 		.4byte	.LCFI0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 16
+
+
+ 501 000f 04000000 		.4byte	.LCFI1
+ 502 0013 0200     		.2byte	0x2
+ 503 0015 7D       		.byte	0x7d
+ 504 0016 08       		.sleb128 8
+ 505 0017 04000000 		.4byte	.LCFI1
+ 506 001b 22000000 		.4byte	.LFE0
+ 507 001f 0200     		.2byte	0x2
+ 508 0021 77       		.byte	0x77
+ 509 0022 08       		.sleb128 8
+ 510 0023 00000000 		.4byte	0x0
+ 511 0027 00000000 		.4byte	0x0
+ 512              	.LLST1:
+ 513 002b 00000000 		.4byte	.LFB1
+ 514 002f 02000000 		.4byte	.LCFI2
+ 515 0033 0100     		.2byte	0x1
+ 516 0035 5D       		.byte	0x5d
+ 517 0036 02000000 		.4byte	.LCFI2
+ 518 003a 04000000 		.4byte	.LCFI3
+ 519 003e 0200     		.2byte	0x2
+ 520 0040 7D       		.byte	0x7d
+ 521 0041 08       		.sleb128 8
+ 522 0042 04000000 		.4byte	.LCFI3
+ 523 0046 06000000 		.4byte	.LCFI4
+ 524 004a 0200     		.2byte	0x2
+ 525 004c 7D       		.byte	0x7d
+ 526 004d 10       		.sleb128 16
+ 527 004e 06000000 		.4byte	.LCFI4
+ 528 0052 26000000 		.4byte	.LFE1
+ 529 0056 0200     		.2byte	0x2
+ 530 0058 77       		.byte	0x77
+ 531 0059 10       		.sleb128 16
+ 532 005a 00000000 		.4byte	0x0
+ 533 005e 00000000 		.4byte	0x0
+ 534              	.LLST2:
+ 535 0062 00000000 		.4byte	.LFB2
+ 536 0066 02000000 		.4byte	.LCFI5
+ 537 006a 0100     		.2byte	0x1
+ 538 006c 5D       		.byte	0x5d
+ 539 006d 02000000 		.4byte	.LCFI5
+ 540 0071 04000000 		.4byte	.LCFI6
+ 541 0075 0200     		.2byte	0x2
+ 542 0077 7D       		.byte	0x7d
+ 543 0078 08       		.sleb128 8
+ 544 0079 04000000 		.4byte	.LCFI6
+ 545 007d 16000000 		.4byte	.LFE2
+ 546 0081 0200     		.2byte	0x2
+ 547 0083 77       		.byte	0x77
+ 548 0084 08       		.sleb128 8
+ 549 0085 00000000 		.4byte	0x0
+ 550 0089 00000000 		.4byte	0x0
+ 551              	.LLST3:
+ 552 008d 00000000 		.4byte	.LFB3
+ 553 0091 02000000 		.4byte	.LCFI7
+ 554 0095 0100     		.2byte	0x1
+ 555 0097 5D       		.byte	0x5d
+ 556 0098 02000000 		.4byte	.LCFI7
+ 557 009c 04000000 		.4byte	.LCFI8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 17
+
+
+ 558 00a0 0200     		.2byte	0x2
+ 559 00a2 7D       		.byte	0x7d
+ 560 00a3 04       		.sleb128 4
+ 561 00a4 04000000 		.4byte	.LCFI8
+ 562 00a8 0A000000 		.4byte	.LFE3
+ 563 00ac 0200     		.2byte	0x2
+ 564 00ae 77       		.byte	0x77
+ 565 00af 04       		.sleb128 4
+ 566 00b0 00000000 		.4byte	0x0
+ 567 00b4 00000000 		.4byte	0x0
+ 568              	.LLST4:
+ 569 00b8 00000000 		.4byte	.LFB4
+ 570 00bc 02000000 		.4byte	.LCFI9
+ 571 00c0 0100     		.2byte	0x1
+ 572 00c2 5D       		.byte	0x5d
+ 573 00c3 02000000 		.4byte	.LCFI9
+ 574 00c7 04000000 		.4byte	.LCFI10
+ 575 00cb 0200     		.2byte	0x2
+ 576 00cd 7D       		.byte	0x7d
+ 577 00ce 04       		.sleb128 4
+ 578 00cf 04000000 		.4byte	.LCFI10
+ 579 00d3 06000000 		.4byte	.LCFI11
+ 580 00d7 0200     		.2byte	0x2
+ 581 00d9 7D       		.byte	0x7d
+ 582 00da 18       		.sleb128 24
+ 583 00db 06000000 		.4byte	.LCFI11
+ 584 00df 28000000 		.4byte	.LFE4
+ 585 00e3 0200     		.2byte	0x2
+ 586 00e5 77       		.byte	0x77
+ 587 00e6 18       		.sleb128 24
+ 588 00e7 00000000 		.4byte	0x0
+ 589 00eb 00000000 		.4byte	0x0
+ 590              	.LLST5:
+ 591 00ef 00000000 		.4byte	.LFB5
+ 592 00f3 02000000 		.4byte	.LCFI12
+ 593 00f7 0100     		.2byte	0x1
+ 594 00f9 5D       		.byte	0x5d
+ 595 00fa 02000000 		.4byte	.LCFI12
+ 596 00fe 04000000 		.4byte	.LCFI13
+ 597 0102 0200     		.2byte	0x2
+ 598 0104 7D       		.byte	0x7d
+ 599 0105 04       		.sleb128 4
+ 600 0106 04000000 		.4byte	.LCFI13
+ 601 010a 06000000 		.4byte	.LCFI14
+ 602 010e 0200     		.2byte	0x2
+ 603 0110 7D       		.byte	0x7d
+ 604 0111 10       		.sleb128 16
+ 605 0112 06000000 		.4byte	.LCFI14
+ 606 0116 26000000 		.4byte	.LFE5
+ 607 011a 0200     		.2byte	0x2
+ 608 011c 77       		.byte	0x77
+ 609 011d 10       		.sleb128 16
+ 610 011e 00000000 		.4byte	0x0
+ 611 0122 00000000 		.4byte	0x0
+ 612              	.LLST6:
+ 613 0126 00000000 		.4byte	.LFB6
+ 614 012a 02000000 		.4byte	.LCFI15
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 18
+
+
+ 615 012e 0100     		.2byte	0x1
+ 616 0130 5D       		.byte	0x5d
+ 617 0131 02000000 		.4byte	.LCFI15
+ 618 0135 04000000 		.4byte	.LCFI16
+ 619 0139 0200     		.2byte	0x2
+ 620 013b 7D       		.byte	0x7d
+ 621 013c 04       		.sleb128 4
+ 622 013d 04000000 		.4byte	.LCFI16
+ 623 0141 06000000 		.4byte	.LCFI17
+ 624 0145 0200     		.2byte	0x2
+ 625 0147 7D       		.byte	0x7d
+ 626 0148 10       		.sleb128 16
+ 627 0149 06000000 		.4byte	.LCFI17
+ 628 014d 26000000 		.4byte	.LFE6
+ 629 0151 0200     		.2byte	0x2
+ 630 0153 77       		.byte	0x77
+ 631 0154 10       		.sleb128 16
+ 632 0155 00000000 		.4byte	0x0
+ 633 0159 00000000 		.4byte	0x0
+ 634              	.LLST7:
+ 635 015d 00000000 		.4byte	.LFB7
+ 636 0161 02000000 		.4byte	.LCFI18
+ 637 0165 0100     		.2byte	0x1
+ 638 0167 5D       		.byte	0x5d
+ 639 0168 02000000 		.4byte	.LCFI18
+ 640 016c 04000000 		.4byte	.LCFI19
+ 641 0170 0200     		.2byte	0x2
+ 642 0172 7D       		.byte	0x7d
+ 643 0173 04       		.sleb128 4
+ 644 0174 04000000 		.4byte	.LCFI19
+ 645 0178 06000000 		.4byte	.LCFI20
+ 646 017c 0200     		.2byte	0x2
+ 647 017e 7D       		.byte	0x7d
+ 648 017f 10       		.sleb128 16
+ 649 0180 06000000 		.4byte	.LCFI20
+ 650 0184 26000000 		.4byte	.LFE7
+ 651 0188 0200     		.2byte	0x2
+ 652 018a 77       		.byte	0x77
+ 653 018b 10       		.sleb128 16
+ 654 018c 00000000 		.4byte	0x0
+ 655 0190 00000000 		.4byte	0x0
+ 656              	.LLST8:
+ 657 0194 00000000 		.4byte	.LFB8
+ 658 0198 02000000 		.4byte	.LCFI21
+ 659 019c 0100     		.2byte	0x1
+ 660 019e 5D       		.byte	0x5d
+ 661 019f 02000000 		.4byte	.LCFI21
+ 662 01a3 04000000 		.4byte	.LCFI22
+ 663 01a7 0200     		.2byte	0x2
+ 664 01a9 7D       		.byte	0x7d
+ 665 01aa 04       		.sleb128 4
+ 666 01ab 04000000 		.4byte	.LCFI22
+ 667 01af 18000000 		.4byte	.LFE8
+ 668 01b3 0200     		.2byte	0x2
+ 669 01b5 77       		.byte	0x77
+ 670 01b6 04       		.sleb128 4
+ 671 01b7 00000000 		.4byte	0x0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 19
+
+
+ 672 01bb 00000000 		.4byte	0x0
+ 673              	.LLST9:
+ 674 01bf 00000000 		.4byte	.LFB9
+ 675 01c3 02000000 		.4byte	.LCFI23
+ 676 01c7 0100     		.2byte	0x1
+ 677 01c9 5D       		.byte	0x5d
+ 678 01ca 02000000 		.4byte	.LCFI23
+ 679 01ce 04000000 		.4byte	.LCFI24
+ 680 01d2 0200     		.2byte	0x2
+ 681 01d4 7D       		.byte	0x7d
+ 682 01d5 04       		.sleb128 4
+ 683 01d6 04000000 		.4byte	.LCFI24
+ 684 01da 28000000 		.4byte	.LFE9
+ 685 01de 0200     		.2byte	0x2
+ 686 01e0 77       		.byte	0x77
+ 687 01e1 04       		.sleb128 4
+ 688 01e2 00000000 		.4byte	0x0
+ 689 01e6 00000000 		.4byte	0x0
+ 690              	.LLST10:
+ 691 01ea 00000000 		.4byte	.LFB10
+ 692 01ee 02000000 		.4byte	.LCFI25
+ 693 01f2 0100     		.2byte	0x1
+ 694 01f4 5D       		.byte	0x5d
+ 695 01f5 02000000 		.4byte	.LCFI25
+ 696 01f9 04000000 		.4byte	.LCFI26
+ 697 01fd 0200     		.2byte	0x2
+ 698 01ff 7D       		.byte	0x7d
+ 699 0200 04       		.sleb128 4
+ 700 0201 04000000 		.4byte	.LCFI26
+ 701 0205 18000000 		.4byte	.LFE10
+ 702 0209 0200     		.2byte	0x2
+ 703 020b 77       		.byte	0x77
+ 704 020c 04       		.sleb128 4
+ 705 020d 00000000 		.4byte	0x0
+ 706 0211 00000000 		.4byte	0x0
+ 707              	.LLST11:
+ 708 0215 00000000 		.4byte	.LFB11
+ 709 0219 02000000 		.4byte	.LCFI27
+ 710 021d 0100     		.2byte	0x1
+ 711 021f 5D       		.byte	0x5d
+ 712 0220 02000000 		.4byte	.LCFI27
+ 713 0224 04000000 		.4byte	.LCFI28
+ 714 0228 0200     		.2byte	0x2
+ 715 022a 7D       		.byte	0x7d
+ 716 022b 04       		.sleb128 4
+ 717 022c 04000000 		.4byte	.LCFI28
+ 718 0230 18000000 		.4byte	.LFE11
+ 719 0234 0200     		.2byte	0x2
+ 720 0236 77       		.byte	0x77
+ 721 0237 04       		.sleb128 4
+ 722 0238 00000000 		.4byte	0x0
+ 723 023c 00000000 		.4byte	0x0
+ 724              	.LLST12:
+ 725 0240 00000000 		.4byte	.LFB12
+ 726 0244 02000000 		.4byte	.LCFI29
+ 727 0248 0100     		.2byte	0x1
+ 728 024a 5D       		.byte	0x5d
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 20
+
+
+ 729 024b 02000000 		.4byte	.LCFI29
+ 730 024f 04000000 		.4byte	.LCFI30
+ 731 0253 0200     		.2byte	0x2
+ 732 0255 7D       		.byte	0x7d
+ 733 0256 04       		.sleb128 4
+ 734 0257 04000000 		.4byte	.LCFI30
+ 735 025b 18000000 		.4byte	.LFE12
+ 736 025f 0200     		.2byte	0x2
+ 737 0261 77       		.byte	0x77
+ 738 0262 04       		.sleb128 4
+ 739 0263 00000000 		.4byte	0x0
+ 740 0267 00000000 		.4byte	0x0
+ 741              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 742              		.section	.debug_info
+ 743 0000 2A020000 		.4byte	0x22a
+ 744 0004 0200     		.2byte	0x2
+ 745 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 746 000a 04       		.byte	0x4
+ 747 000b 01       		.uleb128 0x1
+ 748 000c F9010000 		.4byte	.LASF27
+ 749 0010 01       		.byte	0x1
+ 750 0011 03010000 		.4byte	.LASF28
+ 751 0015 3F000000 		.4byte	.LASF29
+ 752 0019 00000000 		.4byte	0x0
+ 753 001d 00000000 		.4byte	0x0
+ 754 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 755 0025 00000000 		.4byte	.Ldebug_line0
+ 756 0029 02       		.uleb128 0x2
+ 757 002a 01       		.byte	0x1
+ 758 002b 06       		.byte	0x6
+ 759 002c 62020000 		.4byte	.LASF0
+ 760 0030 02       		.uleb128 0x2
+ 761 0031 01       		.byte	0x1
+ 762 0032 08       		.byte	0x8
+ 763 0033 4A010000 		.4byte	.LASF1
+ 764 0037 02       		.uleb128 0x2
+ 765 0038 02       		.byte	0x2
+ 766 0039 05       		.byte	0x5
+ 767 003a 4F020000 		.4byte	.LASF2
+ 768 003e 02       		.uleb128 0x2
+ 769 003f 02       		.byte	0x2
+ 770 0040 07       		.byte	0x7
+ 771 0041 DA000000 		.4byte	.LASF3
+ 772 0045 03       		.uleb128 0x3
+ 773 0046 04       		.byte	0x4
+ 774 0047 05       		.byte	0x5
+ 775 0048 696E7400 		.ascii	"int\000"
+ 776 004c 02       		.uleb128 0x2
+ 777 004d 04       		.byte	0x4
+ 778 004e 07       		.byte	0x7
+ 779 004f A8010000 		.4byte	.LASF4
+ 780 0053 02       		.uleb128 0x2
+ 781 0054 08       		.byte	0x8
+ 782 0055 05       		.byte	0x5
+ 783 0056 00000000 		.4byte	.LASF5
+ 784 005a 02       		.uleb128 0x2
+ 785 005b 08       		.byte	0x8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 21
+
+
+ 786 005c 07       		.byte	0x7
+ 787 005d BD010000 		.4byte	.LASF6
+ 788 0061 02       		.uleb128 0x2
+ 789 0062 04       		.byte	0x4
+ 790 0063 05       		.byte	0x5
+ 791 0064 59020000 		.4byte	.LASF7
+ 792 0068 04       		.uleb128 0x4
+ 793 0069 04       		.byte	0x4
+ 794 006a 07       		.byte	0x7
+ 795 006b 02       		.uleb128 0x2
+ 796 006c 04       		.byte	0x4
+ 797 006d 07       		.byte	0x7
+ 798 006e 58010000 		.4byte	.LASF8
+ 799 0072 05       		.uleb128 0x5
+ 800 0073 01       		.byte	0x1
+ 801 0074 06       		.uleb128 0x6
+ 802 0075 04       		.byte	0x4
+ 803 0076 72000000 		.4byte	0x72
+ 804 007a 02       		.uleb128 0x2
+ 805 007b 01       		.byte	0x1
+ 806 007c 08       		.byte	0x8
+ 807 007d 05020000 		.4byte	.LASF9
+ 808 0081 07       		.uleb128 0x7
+ 809 0082 6A010000 		.4byte	.LASF10
+ 810 0086 02       		.byte	0x2
+ 811 0087 60       		.byte	0x60
+ 812 0088 30000000 		.4byte	0x30
+ 813 008c 08       		.uleb128 0x8
+ 814 008d D4010000 		.4byte	.LASF11
+ 815 0091 02       		.byte	0x2
+ 816 0092 2B01     		.2byte	0x12b
+ 817 0094 74000000 		.4byte	0x74
+ 818 0098 09       		.uleb128 0x9
+ 819 0099 01       		.byte	0x1
+ 820 009a ED000000 		.4byte	.LASF12
+ 821 009e 01       		.byte	0x1
+ 822 009f 39       		.byte	0x39
+ 823 00a0 01       		.byte	0x1
+ 824 00a1 00000000 		.4byte	.LFB0
+ 825 00a5 22000000 		.4byte	.LFE0
+ 826 00a9 00000000 		.4byte	.LLST0
+ 827 00ad 0A       		.uleb128 0xa
+ 828 00ae 01       		.byte	0x1
+ 829 00af 90010000 		.4byte	.LASF15
+ 830 00b3 01       		.byte	0x1
+ 831 00b4 57       		.byte	0x57
+ 832 00b5 01       		.byte	0x1
+ 833 00b6 00000000 		.4byte	.LFB1
+ 834 00ba 26000000 		.4byte	.LFE1
+ 835 00be 2B000000 		.4byte	.LLST1
+ 836 00c2 D5000000 		.4byte	0xd5
+ 837 00c6 0B       		.uleb128 0xb
+ 838 00c7 B5010000 		.4byte	.LASF17
+ 839 00cb 01       		.byte	0x1
+ 840 00cc 57       		.byte	0x57
+ 841 00cd 8C000000 		.4byte	0x8c
+ 842 00d1 02       		.byte	0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 22
+
+
+ 843 00d2 91       		.byte	0x91
+ 844 00d3 74       		.sleb128 -12
+ 845 00d4 00       		.byte	0x0
+ 846 00d5 09       		.uleb128 0x9
+ 847 00d6 01       		.byte	0x1
+ 848 00d7 0E000000 		.4byte	.LASF13
+ 849 00db 01       		.byte	0x1
+ 850 00dc 74       		.byte	0x74
+ 851 00dd 01       		.byte	0x1
+ 852 00de 00000000 		.4byte	.LFB2
+ 853 00e2 16000000 		.4byte	.LFE2
+ 854 00e6 62000000 		.4byte	.LLST2
+ 855 00ea 09       		.uleb128 0x9
+ 856 00eb 01       		.byte	0x1
+ 857 00ec C0000000 		.4byte	.LASF14
+ 858 00f0 01       		.byte	0x1
+ 859 00f1 8E       		.byte	0x8e
+ 860 00f2 01       		.byte	0x1
+ 861 00f3 00000000 		.4byte	.LFB3
+ 862 00f7 0A000000 		.4byte	.LFE3
+ 863 00fb 8D000000 		.4byte	.LLST3
+ 864 00ff 0A       		.uleb128 0xa
+ 865 0100 01       		.byte	0x1
+ 866 0101 6E020000 		.4byte	.LASF16
+ 867 0105 01       		.byte	0x1
+ 868 0106 A7       		.byte	0xa7
+ 869 0107 01       		.byte	0x1
+ 870 0108 00000000 		.4byte	.LFB4
+ 871 010c 28000000 		.4byte	.LFE4
+ 872 0110 B8000000 		.4byte	.LLST4
+ 873 0114 35010000 		.4byte	0x135
+ 874 0118 0B       		.uleb128 0xb
+ 875 0119 B5010000 		.4byte	.LASF17
+ 876 011d 01       		.byte	0x1
+ 877 011e A7       		.byte	0xa7
+ 878 011f 8C000000 		.4byte	0x8c
+ 879 0123 02       		.byte	0x2
+ 880 0124 91       		.byte	0x91
+ 881 0125 6C       		.sleb128 -20
+ 882 0126 0C       		.uleb128 0xc
+ 883 0127 0A020000 		.4byte	.LASF18
+ 884 012b 01       		.byte	0x1
+ 885 012c A9       		.byte	0xa9
+ 886 012d 35010000 		.4byte	0x135
+ 887 0131 02       		.byte	0x2
+ 888 0132 91       		.byte	0x91
+ 889 0133 74       		.sleb128 -12
+ 890 0134 00       		.byte	0x0
+ 891 0135 06       		.uleb128 0x6
+ 892 0136 04       		.byte	0x4
+ 893 0137 8C000000 		.4byte	0x8c
+ 894 013b 0D       		.uleb128 0xd
+ 895 013c 01       		.byte	0x1
+ 896 013d 8B000000 		.4byte	.LASF21
+ 897 0141 01       		.byte	0x1
+ 898 0142 BF       		.byte	0xbf
+ 899 0143 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 23
+
+
+ 900 0144 8C000000 		.4byte	0x8c
+ 901 0148 00000000 		.4byte	.LFB5
+ 902 014c 26000000 		.4byte	.LFE5
+ 903 0150 EF000000 		.4byte	.LLST5
+ 904 0154 67010000 		.4byte	0x167
+ 905 0158 0C       		.uleb128 0xc
+ 906 0159 0A020000 		.4byte	.LASF18
+ 907 015d 01       		.byte	0x1
+ 908 015e C1       		.byte	0xc1
+ 909 015f 35010000 		.4byte	0x135
+ 910 0163 02       		.byte	0x2
+ 911 0164 91       		.byte	0x91
+ 912 0165 74       		.sleb128 -12
+ 913 0166 00       		.byte	0x0
+ 914 0167 0A       		.uleb128 0xa
+ 915 0168 01       		.byte	0x1
+ 916 0169 2E010000 		.4byte	.LASF19
+ 917 016d 01       		.byte	0x1
+ 918 016e DB       		.byte	0xdb
+ 919 016f 01       		.byte	0x1
+ 920 0170 00000000 		.4byte	.LFB6
+ 921 0174 26000000 		.4byte	.LFE6
+ 922 0178 26010000 		.4byte	.LLST6
+ 923 017c 8F010000 		.4byte	0x18f
+ 924 0180 0B       		.uleb128 0xb
+ 925 0181 70010000 		.4byte	.LASF20
+ 926 0185 01       		.byte	0x1
+ 927 0186 DB       		.byte	0xdb
+ 928 0187 81000000 		.4byte	0x81
+ 929 018b 02       		.byte	0x2
+ 930 018c 91       		.byte	0x91
+ 931 018d 77       		.sleb128 -9
+ 932 018e 00       		.byte	0x0
+ 933 018f 0D       		.uleb128 0xd
+ 934 0190 01       		.byte	0x1
+ 935 0191 23000000 		.4byte	.LASF22
+ 936 0195 01       		.byte	0x1
+ 937 0196 EF       		.byte	0xef
+ 938 0197 01       		.byte	0x1
+ 939 0198 81000000 		.4byte	0x81
+ 940 019c 00000000 		.4byte	.LFB7
+ 941 01a0 26000000 		.4byte	.LFE7
+ 942 01a4 5D010000 		.4byte	.LLST7
+ 943 01a8 BB010000 		.4byte	0x1bb
+ 944 01ac 0C       		.uleb128 0xc
+ 945 01ad 70010000 		.4byte	.LASF20
+ 946 01b1 01       		.byte	0x1
+ 947 01b2 F1       		.byte	0xf1
+ 948 01b3 81000000 		.4byte	0x81
+ 949 01b7 02       		.byte	0x2
+ 950 01b8 91       		.byte	0x91
+ 951 01b9 77       		.sleb128 -9
+ 952 01ba 00       		.byte	0x0
+ 953 01bb 0E       		.uleb128 0xe
+ 954 01bc 01       		.byte	0x1
+ 955 01bd 79010000 		.4byte	.LASF23
+ 956 01c1 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 24
+
+
+ 957 01c2 0801     		.2byte	0x108
+ 958 01c4 01       		.byte	0x1
+ 959 01c5 00000000 		.4byte	.LFB8
+ 960 01c9 18000000 		.4byte	.LFE8
+ 961 01cd 94010000 		.4byte	.LLST8
+ 962 01d1 0F       		.uleb128 0xf
+ 963 01d2 01       		.byte	0x1
+ 964 01d3 19020000 		.4byte	.LASF30
+ 965 01d7 01       		.byte	0x1
+ 966 01d8 1D01     		.2byte	0x11d
+ 967 01da 01       		.byte	0x1
+ 968 01db 81000000 		.4byte	0x81
+ 969 01df 00000000 		.4byte	.LFB9
+ 970 01e3 28000000 		.4byte	.LFE9
+ 971 01e7 BF010000 		.4byte	.LLST9
+ 972 01eb 0E       		.uleb128 0xe
+ 973 01ec 01       		.byte	0x1
+ 974 01ed E1010000 		.4byte	.LASF24
+ 975 01f1 01       		.byte	0x1
+ 976 01f2 3201     		.2byte	0x132
+ 977 01f4 01       		.byte	0x1
+ 978 01f5 00000000 		.4byte	.LFB10
+ 979 01f9 18000000 		.4byte	.LFE10
+ 980 01fd EA010000 		.4byte	.LLST10
+ 981 0201 0E       		.uleb128 0xe
+ 982 0202 01       		.byte	0x1
+ 983 0203 A5000000 		.4byte	.LASF25
+ 984 0207 01       		.byte	0x1
+ 985 0208 4801     		.2byte	0x148
+ 986 020a 01       		.byte	0x1
+ 987 020b 00000000 		.4byte	.LFB11
+ 988 020f 18000000 		.4byte	.LFE11
+ 989 0213 15020000 		.4byte	.LLST11
+ 990 0217 0E       		.uleb128 0xe
+ 991 0218 01       		.byte	0x1
+ 992 0219 32020000 		.4byte	.LASF26
+ 993 021d 01       		.byte	0x1
+ 994 021e 5C01     		.2byte	0x15c
+ 995 0220 01       		.byte	0x1
+ 996 0221 00000000 		.4byte	.LFB12
+ 997 0225 18000000 		.4byte	.LFE12
+ 998 0229 40020000 		.4byte	.LLST12
+ 999 022d 00       		.byte	0x0
+ 1000              		.section	.debug_abbrev
+ 1001 0000 01       		.uleb128 0x1
+ 1002 0001 11       		.uleb128 0x11
+ 1003 0002 01       		.byte	0x1
+ 1004 0003 25       		.uleb128 0x25
+ 1005 0004 0E       		.uleb128 0xe
+ 1006 0005 13       		.uleb128 0x13
+ 1007 0006 0B       		.uleb128 0xb
+ 1008 0007 03       		.uleb128 0x3
+ 1009 0008 0E       		.uleb128 0xe
+ 1010 0009 1B       		.uleb128 0x1b
+ 1011 000a 0E       		.uleb128 0xe
+ 1012 000b 11       		.uleb128 0x11
+ 1013 000c 01       		.uleb128 0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 25
+
+
+ 1014 000d 52       		.uleb128 0x52
+ 1015 000e 01       		.uleb128 0x1
+ 1016 000f 55       		.uleb128 0x55
+ 1017 0010 06       		.uleb128 0x6
+ 1018 0011 10       		.uleb128 0x10
+ 1019 0012 06       		.uleb128 0x6
+ 1020 0013 00       		.byte	0x0
+ 1021 0014 00       		.byte	0x0
+ 1022 0015 02       		.uleb128 0x2
+ 1023 0016 24       		.uleb128 0x24
+ 1024 0017 00       		.byte	0x0
+ 1025 0018 0B       		.uleb128 0xb
+ 1026 0019 0B       		.uleb128 0xb
+ 1027 001a 3E       		.uleb128 0x3e
+ 1028 001b 0B       		.uleb128 0xb
+ 1029 001c 03       		.uleb128 0x3
+ 1030 001d 0E       		.uleb128 0xe
+ 1031 001e 00       		.byte	0x0
+ 1032 001f 00       		.byte	0x0
+ 1033 0020 03       		.uleb128 0x3
+ 1034 0021 24       		.uleb128 0x24
+ 1035 0022 00       		.byte	0x0
+ 1036 0023 0B       		.uleb128 0xb
+ 1037 0024 0B       		.uleb128 0xb
+ 1038 0025 3E       		.uleb128 0x3e
+ 1039 0026 0B       		.uleb128 0xb
+ 1040 0027 03       		.uleb128 0x3
+ 1041 0028 08       		.uleb128 0x8
+ 1042 0029 00       		.byte	0x0
+ 1043 002a 00       		.byte	0x0
+ 1044 002b 04       		.uleb128 0x4
+ 1045 002c 24       		.uleb128 0x24
+ 1046 002d 00       		.byte	0x0
+ 1047 002e 0B       		.uleb128 0xb
+ 1048 002f 0B       		.uleb128 0xb
+ 1049 0030 3E       		.uleb128 0x3e
+ 1050 0031 0B       		.uleb128 0xb
+ 1051 0032 00       		.byte	0x0
+ 1052 0033 00       		.byte	0x0
+ 1053 0034 05       		.uleb128 0x5
+ 1054 0035 15       		.uleb128 0x15
+ 1055 0036 00       		.byte	0x0
+ 1056 0037 27       		.uleb128 0x27
+ 1057 0038 0C       		.uleb128 0xc
+ 1058 0039 00       		.byte	0x0
+ 1059 003a 00       		.byte	0x0
+ 1060 003b 06       		.uleb128 0x6
+ 1061 003c 0F       		.uleb128 0xf
+ 1062 003d 00       		.byte	0x0
+ 1063 003e 0B       		.uleb128 0xb
+ 1064 003f 0B       		.uleb128 0xb
+ 1065 0040 49       		.uleb128 0x49
+ 1066 0041 13       		.uleb128 0x13
+ 1067 0042 00       		.byte	0x0
+ 1068 0043 00       		.byte	0x0
+ 1069 0044 07       		.uleb128 0x7
+ 1070 0045 16       		.uleb128 0x16
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 26
+
+
+ 1071 0046 00       		.byte	0x0
+ 1072 0047 03       		.uleb128 0x3
+ 1073 0048 0E       		.uleb128 0xe
+ 1074 0049 3A       		.uleb128 0x3a
+ 1075 004a 0B       		.uleb128 0xb
+ 1076 004b 3B       		.uleb128 0x3b
+ 1077 004c 0B       		.uleb128 0xb
+ 1078 004d 49       		.uleb128 0x49
+ 1079 004e 13       		.uleb128 0x13
+ 1080 004f 00       		.byte	0x0
+ 1081 0050 00       		.byte	0x0
+ 1082 0051 08       		.uleb128 0x8
+ 1083 0052 16       		.uleb128 0x16
+ 1084 0053 00       		.byte	0x0
+ 1085 0054 03       		.uleb128 0x3
+ 1086 0055 0E       		.uleb128 0xe
+ 1087 0056 3A       		.uleb128 0x3a
+ 1088 0057 0B       		.uleb128 0xb
+ 1089 0058 3B       		.uleb128 0x3b
+ 1090 0059 05       		.uleb128 0x5
+ 1091 005a 49       		.uleb128 0x49
+ 1092 005b 13       		.uleb128 0x13
+ 1093 005c 00       		.byte	0x0
+ 1094 005d 00       		.byte	0x0
+ 1095 005e 09       		.uleb128 0x9
+ 1096 005f 2E       		.uleb128 0x2e
+ 1097 0060 00       		.byte	0x0
+ 1098 0061 3F       		.uleb128 0x3f
+ 1099 0062 0C       		.uleb128 0xc
+ 1100 0063 03       		.uleb128 0x3
+ 1101 0064 0E       		.uleb128 0xe
+ 1102 0065 3A       		.uleb128 0x3a
+ 1103 0066 0B       		.uleb128 0xb
+ 1104 0067 3B       		.uleb128 0x3b
+ 1105 0068 0B       		.uleb128 0xb
+ 1106 0069 27       		.uleb128 0x27
+ 1107 006a 0C       		.uleb128 0xc
+ 1108 006b 11       		.uleb128 0x11
+ 1109 006c 01       		.uleb128 0x1
+ 1110 006d 12       		.uleb128 0x12
+ 1111 006e 01       		.uleb128 0x1
+ 1112 006f 40       		.uleb128 0x40
+ 1113 0070 06       		.uleb128 0x6
+ 1114 0071 00       		.byte	0x0
+ 1115 0072 00       		.byte	0x0
+ 1116 0073 0A       		.uleb128 0xa
+ 1117 0074 2E       		.uleb128 0x2e
+ 1118 0075 01       		.byte	0x1
+ 1119 0076 3F       		.uleb128 0x3f
+ 1120 0077 0C       		.uleb128 0xc
+ 1121 0078 03       		.uleb128 0x3
+ 1122 0079 0E       		.uleb128 0xe
+ 1123 007a 3A       		.uleb128 0x3a
+ 1124 007b 0B       		.uleb128 0xb
+ 1125 007c 3B       		.uleb128 0x3b
+ 1126 007d 0B       		.uleb128 0xb
+ 1127 007e 27       		.uleb128 0x27
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 27
+
+
+ 1128 007f 0C       		.uleb128 0xc
+ 1129 0080 11       		.uleb128 0x11
+ 1130 0081 01       		.uleb128 0x1
+ 1131 0082 12       		.uleb128 0x12
+ 1132 0083 01       		.uleb128 0x1
+ 1133 0084 40       		.uleb128 0x40
+ 1134 0085 06       		.uleb128 0x6
+ 1135 0086 01       		.uleb128 0x1
+ 1136 0087 13       		.uleb128 0x13
+ 1137 0088 00       		.byte	0x0
+ 1138 0089 00       		.byte	0x0
+ 1139 008a 0B       		.uleb128 0xb
+ 1140 008b 05       		.uleb128 0x5
+ 1141 008c 00       		.byte	0x0
+ 1142 008d 03       		.uleb128 0x3
+ 1143 008e 0E       		.uleb128 0xe
+ 1144 008f 3A       		.uleb128 0x3a
+ 1145 0090 0B       		.uleb128 0xb
+ 1146 0091 3B       		.uleb128 0x3b
+ 1147 0092 0B       		.uleb128 0xb
+ 1148 0093 49       		.uleb128 0x49
+ 1149 0094 13       		.uleb128 0x13
+ 1150 0095 02       		.uleb128 0x2
+ 1151 0096 0A       		.uleb128 0xa
+ 1152 0097 00       		.byte	0x0
+ 1153 0098 00       		.byte	0x0
+ 1154 0099 0C       		.uleb128 0xc
+ 1155 009a 34       		.uleb128 0x34
+ 1156 009b 00       		.byte	0x0
+ 1157 009c 03       		.uleb128 0x3
+ 1158 009d 0E       		.uleb128 0xe
+ 1159 009e 3A       		.uleb128 0x3a
+ 1160 009f 0B       		.uleb128 0xb
+ 1161 00a0 3B       		.uleb128 0x3b
+ 1162 00a1 0B       		.uleb128 0xb
+ 1163 00a2 49       		.uleb128 0x49
+ 1164 00a3 13       		.uleb128 0x13
+ 1165 00a4 02       		.uleb128 0x2
+ 1166 00a5 0A       		.uleb128 0xa
+ 1167 00a6 00       		.byte	0x0
+ 1168 00a7 00       		.byte	0x0
+ 1169 00a8 0D       		.uleb128 0xd
+ 1170 00a9 2E       		.uleb128 0x2e
+ 1171 00aa 01       		.byte	0x1
+ 1172 00ab 3F       		.uleb128 0x3f
+ 1173 00ac 0C       		.uleb128 0xc
+ 1174 00ad 03       		.uleb128 0x3
+ 1175 00ae 0E       		.uleb128 0xe
+ 1176 00af 3A       		.uleb128 0x3a
+ 1177 00b0 0B       		.uleb128 0xb
+ 1178 00b1 3B       		.uleb128 0x3b
+ 1179 00b2 0B       		.uleb128 0xb
+ 1180 00b3 27       		.uleb128 0x27
+ 1181 00b4 0C       		.uleb128 0xc
+ 1182 00b5 49       		.uleb128 0x49
+ 1183 00b6 13       		.uleb128 0x13
+ 1184 00b7 11       		.uleb128 0x11
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 28
+
+
+ 1185 00b8 01       		.uleb128 0x1
+ 1186 00b9 12       		.uleb128 0x12
+ 1187 00ba 01       		.uleb128 0x1
+ 1188 00bb 40       		.uleb128 0x40
+ 1189 00bc 06       		.uleb128 0x6
+ 1190 00bd 01       		.uleb128 0x1
+ 1191 00be 13       		.uleb128 0x13
+ 1192 00bf 00       		.byte	0x0
+ 1193 00c0 00       		.byte	0x0
+ 1194 00c1 0E       		.uleb128 0xe
+ 1195 00c2 2E       		.uleb128 0x2e
+ 1196 00c3 00       		.byte	0x0
+ 1197 00c4 3F       		.uleb128 0x3f
+ 1198 00c5 0C       		.uleb128 0xc
+ 1199 00c6 03       		.uleb128 0x3
+ 1200 00c7 0E       		.uleb128 0xe
+ 1201 00c8 3A       		.uleb128 0x3a
+ 1202 00c9 0B       		.uleb128 0xb
+ 1203 00ca 3B       		.uleb128 0x3b
+ 1204 00cb 05       		.uleb128 0x5
+ 1205 00cc 27       		.uleb128 0x27
+ 1206 00cd 0C       		.uleb128 0xc
+ 1207 00ce 11       		.uleb128 0x11
+ 1208 00cf 01       		.uleb128 0x1
+ 1209 00d0 12       		.uleb128 0x12
+ 1210 00d1 01       		.uleb128 0x1
+ 1211 00d2 40       		.uleb128 0x40
+ 1212 00d3 06       		.uleb128 0x6
+ 1213 00d4 00       		.byte	0x0
+ 1214 00d5 00       		.byte	0x0
+ 1215 00d6 0F       		.uleb128 0xf
+ 1216 00d7 2E       		.uleb128 0x2e
+ 1217 00d8 00       		.byte	0x0
+ 1218 00d9 3F       		.uleb128 0x3f
+ 1219 00da 0C       		.uleb128 0xc
+ 1220 00db 03       		.uleb128 0x3
+ 1221 00dc 0E       		.uleb128 0xe
+ 1222 00dd 3A       		.uleb128 0x3a
+ 1223 00de 0B       		.uleb128 0xb
+ 1224 00df 3B       		.uleb128 0x3b
+ 1225 00e0 05       		.uleb128 0x5
+ 1226 00e1 27       		.uleb128 0x27
+ 1227 00e2 0C       		.uleb128 0xc
+ 1228 00e3 49       		.uleb128 0x49
+ 1229 00e4 13       		.uleb128 0x13
+ 1230 00e5 11       		.uleb128 0x11
+ 1231 00e6 01       		.uleb128 0x1
+ 1232 00e7 12       		.uleb128 0x12
+ 1233 00e8 01       		.uleb128 0x1
+ 1234 00e9 40       		.uleb128 0x40
+ 1235 00ea 06       		.uleb128 0x6
+ 1236 00eb 00       		.byte	0x0
+ 1237 00ec 00       		.byte	0x0
+ 1238 00ed 00       		.byte	0x0
+ 1239              		.section	.debug_pubnames,"",%progbits
+ 1240 0000 8B010000 		.4byte	0x18b
+ 1241 0004 0200     		.2byte	0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 29
+
+
+ 1242 0006 00000000 		.4byte	.Ldebug_info0
+ 1243 000a 2E020000 		.4byte	0x22e
+ 1244 000e 98000000 		.4byte	0x98
+ 1245 0012 69737250 		.ascii	"isrPulseCapture_Start\000"
+ 1245      756C7365 
+ 1245      43617074 
+ 1245      7572655F 
+ 1245      53746172 
+ 1246 0028 AD000000 		.4byte	0xad
+ 1247 002c 69737250 		.ascii	"isrPulseCapture_StartEx\000"
+ 1247      756C7365 
+ 1247      43617074 
+ 1247      7572655F 
+ 1247      53746172 
+ 1248 0044 D5000000 		.4byte	0xd5
+ 1249 0048 69737250 		.ascii	"isrPulseCapture_Stop\000"
+ 1249      756C7365 
+ 1249      43617074 
+ 1249      7572655F 
+ 1249      53746F70 
+ 1250 005d EA000000 		.4byte	0xea
+ 1251 0061 69737250 		.ascii	"isrPulseCapture_Interrupt\000"
+ 1251      756C7365 
+ 1251      43617074 
+ 1251      7572655F 
+ 1251      496E7465 
+ 1252 007b FF000000 		.4byte	0xff
+ 1253 007f 69737250 		.ascii	"isrPulseCapture_SetVector\000"
+ 1253      756C7365 
+ 1253      43617074 
+ 1253      7572655F 
+ 1253      53657456 
+ 1254 0099 3B010000 		.4byte	0x13b
+ 1255 009d 69737250 		.ascii	"isrPulseCapture_GetVector\000"
+ 1255      756C7365 
+ 1255      43617074 
+ 1255      7572655F 
+ 1255      47657456 
+ 1256 00b7 67010000 		.4byte	0x167
+ 1257 00bb 69737250 		.ascii	"isrPulseCapture_SetPriority\000"
+ 1257      756C7365 
+ 1257      43617074 
+ 1257      7572655F 
+ 1257      53657450 
+ 1258 00d7 8F010000 		.4byte	0x18f
+ 1259 00db 69737250 		.ascii	"isrPulseCapture_GetPriority\000"
+ 1259      756C7365 
+ 1259      43617074 
+ 1259      7572655F 
+ 1259      47657450 
+ 1260 00f7 BB010000 		.4byte	0x1bb
+ 1261 00fb 69737250 		.ascii	"isrPulseCapture_Enable\000"
+ 1261      756C7365 
+ 1261      43617074 
+ 1261      7572655F 
+ 1261      456E6162 
+ 1262 0112 D1010000 		.4byte	0x1d1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 30
+
+
+ 1263 0116 69737250 		.ascii	"isrPulseCapture_GetState\000"
+ 1263      756C7365 
+ 1263      43617074 
+ 1263      7572655F 
+ 1263      47657453 
+ 1264 012f EB010000 		.4byte	0x1eb
+ 1265 0133 69737250 		.ascii	"isrPulseCapture_Disable\000"
+ 1265      756C7365 
+ 1265      43617074 
+ 1265      7572655F 
+ 1265      44697361 
+ 1266 014b 01020000 		.4byte	0x201
+ 1267 014f 69737250 		.ascii	"isrPulseCapture_SetPending\000"
+ 1267      756C7365 
+ 1267      43617074 
+ 1267      7572655F 
+ 1267      53657450 
+ 1268 016a 17020000 		.4byte	0x217
+ 1269 016e 69737250 		.ascii	"isrPulseCapture_ClearPending\000"
+ 1269      756C7365 
+ 1269      43617074 
+ 1269      7572655F 
+ 1269      436C6561 
+ 1270 018b 00000000 		.4byte	0x0
+ 1271              		.section	.debug_aranges,"",%progbits
+ 1272 0000 7C000000 		.4byte	0x7c
+ 1273 0004 0200     		.2byte	0x2
+ 1274 0006 00000000 		.4byte	.Ldebug_info0
+ 1275 000a 04       		.byte	0x4
+ 1276 000b 00       		.byte	0x0
+ 1277 000c 0000     		.2byte	0x0
+ 1278 000e 0000     		.2byte	0x0
+ 1279 0010 00000000 		.4byte	.LFB0
+ 1280 0014 22000000 		.4byte	.LFE0-.LFB0
+ 1281 0018 00000000 		.4byte	.LFB1
+ 1282 001c 26000000 		.4byte	.LFE1-.LFB1
+ 1283 0020 00000000 		.4byte	.LFB2
+ 1284 0024 16000000 		.4byte	.LFE2-.LFB2
+ 1285 0028 00000000 		.4byte	.LFB3
+ 1286 002c 0A000000 		.4byte	.LFE3-.LFB3
+ 1287 0030 00000000 		.4byte	.LFB4
+ 1288 0034 28000000 		.4byte	.LFE4-.LFB4
+ 1289 0038 00000000 		.4byte	.LFB5
+ 1290 003c 26000000 		.4byte	.LFE5-.LFB5
+ 1291 0040 00000000 		.4byte	.LFB6
+ 1292 0044 26000000 		.4byte	.LFE6-.LFB6
+ 1293 0048 00000000 		.4byte	.LFB7
+ 1294 004c 26000000 		.4byte	.LFE7-.LFB7
+ 1295 0050 00000000 		.4byte	.LFB8
+ 1296 0054 18000000 		.4byte	.LFE8-.LFB8
+ 1297 0058 00000000 		.4byte	.LFB9
+ 1298 005c 28000000 		.4byte	.LFE9-.LFB9
+ 1299 0060 00000000 		.4byte	.LFB10
+ 1300 0064 18000000 		.4byte	.LFE10-.LFB10
+ 1301 0068 00000000 		.4byte	.LFB11
+ 1302 006c 18000000 		.4byte	.LFE11-.LFB11
+ 1303 0070 00000000 		.4byte	.LFB12
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 31
+
+
+ 1304 0074 18000000 		.4byte	.LFE12-.LFB12
+ 1305 0078 00000000 		.4byte	0x0
+ 1306 007c 00000000 		.4byte	0x0
+ 1307              		.section	.debug_ranges,"",%progbits
+ 1308              	.Ldebug_ranges0:
+ 1309 0000 00000000 		.4byte	.Ltext0
+ 1310 0004 00000000 		.4byte	.Letext0
+ 1311 0008 00000000 		.4byte	.LFB0
+ 1312 000c 22000000 		.4byte	.LFE0
+ 1313 0010 00000000 		.4byte	.LFB1
+ 1314 0014 26000000 		.4byte	.LFE1
+ 1315 0018 00000000 		.4byte	.LFB2
+ 1316 001c 16000000 		.4byte	.LFE2
+ 1317 0020 00000000 		.4byte	.LFB3
+ 1318 0024 0A000000 		.4byte	.LFE3
+ 1319 0028 00000000 		.4byte	.LFB4
+ 1320 002c 28000000 		.4byte	.LFE4
+ 1321 0030 00000000 		.4byte	.LFB5
+ 1322 0034 26000000 		.4byte	.LFE5
+ 1323 0038 00000000 		.4byte	.LFB6
+ 1324 003c 26000000 		.4byte	.LFE6
+ 1325 0040 00000000 		.4byte	.LFB7
+ 1326 0044 26000000 		.4byte	.LFE7
+ 1327 0048 00000000 		.4byte	.LFB8
+ 1328 004c 18000000 		.4byte	.LFE8
+ 1329 0050 00000000 		.4byte	.LFB9
+ 1330 0054 28000000 		.4byte	.LFE9
+ 1331 0058 00000000 		.4byte	.LFB10
+ 1332 005c 18000000 		.4byte	.LFE10
+ 1333 0060 00000000 		.4byte	.LFB11
+ 1334 0064 18000000 		.4byte	.LFE11
+ 1335 0068 00000000 		.4byte	.LFB12
+ 1336 006c 18000000 		.4byte	.LFE12
+ 1337 0070 00000000 		.4byte	0x0
+ 1338 0074 00000000 		.4byte	0x0
+ 1339              		.section	.debug_str,"MS",%progbits,1
+ 1340              	.LASF5:
+ 1341 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1341      206C6F6E 
+ 1341      6720696E 
+ 1341      7400
+ 1342              	.LASF13:
+ 1343 000e 69737250 		.ascii	"isrPulseCapture_Stop\000"
+ 1343      756C7365 
+ 1343      43617074 
+ 1343      7572655F 
+ 1343      53746F70 
+ 1344              	.LASF22:
+ 1345 0023 69737250 		.ascii	"isrPulseCapture_GetPriority\000"
+ 1345      756C7365 
+ 1345      43617074 
+ 1345      7572655F 
+ 1345      47657450 
+ 1346              	.LASF29:
+ 1347 003f 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\PSoC Creator\\Puls"
+ 1347      73657273 
+ 1347      5C627279 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 32
+
+
+ 1347      616E2E6C 
+ 1347      65655C44 
+ 1348 006d 655F7073 		.ascii	"e_psoc5\\Combine\\Combine.cydsn\000"
+ 1348      6F63355C 
+ 1348      436F6D62 
+ 1348      696E655C 
+ 1348      436F6D62 
+ 1349              	.LASF21:
+ 1350 008b 69737250 		.ascii	"isrPulseCapture_GetVector\000"
+ 1350      756C7365 
+ 1350      43617074 
+ 1350      7572655F 
+ 1350      47657456 
+ 1351              	.LASF25:
+ 1352 00a5 69737250 		.ascii	"isrPulseCapture_SetPending\000"
+ 1352      756C7365 
+ 1352      43617074 
+ 1352      7572655F 
+ 1352      53657450 
+ 1353              	.LASF14:
+ 1354 00c0 69737250 		.ascii	"isrPulseCapture_Interrupt\000"
+ 1354      756C7365 
+ 1354      43617074 
+ 1354      7572655F 
+ 1354      496E7465 
+ 1355              	.LASF3:
+ 1356 00da 73686F72 		.ascii	"short unsigned int\000"
+ 1356      7420756E 
+ 1356      7369676E 
+ 1356      65642069 
+ 1356      6E7400
+ 1357              	.LASF12:
+ 1358 00ed 69737250 		.ascii	"isrPulseCapture_Start\000"
+ 1358      756C7365 
+ 1358      43617074 
+ 1358      7572655F 
+ 1358      53746172 
+ 1359              	.LASF28:
+ 1360 0103 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\isrPulseCapture.c\000"
+ 1360      6E657261 
+ 1360      7465645F 
+ 1360      536F7572 
+ 1360      63655C50 
+ 1361              	.LASF19:
+ 1362 012e 69737250 		.ascii	"isrPulseCapture_SetPriority\000"
+ 1362      756C7365 
+ 1362      43617074 
+ 1362      7572655F 
+ 1362      53657450 
+ 1363              	.LASF1:
+ 1364 014a 756E7369 		.ascii	"unsigned char\000"
+ 1364      676E6564 
+ 1364      20636861 
+ 1364      7200
+ 1365              	.LASF8:
+ 1366 0158 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1366      20756E73 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 33
+
+
+ 1366      69676E65 
+ 1366      6420696E 
+ 1366      7400
+ 1367              	.LASF10:
+ 1368 016a 75696E74 		.ascii	"uint8\000"
+ 1368      3800
+ 1369              	.LASF20:
+ 1370 0170 7072696F 		.ascii	"priority\000"
+ 1370      72697479 
+ 1370      00
+ 1371              	.LASF23:
+ 1372 0179 69737250 		.ascii	"isrPulseCapture_Enable\000"
+ 1372      756C7365 
+ 1372      43617074 
+ 1372      7572655F 
+ 1372      456E6162 
+ 1373              	.LASF15:
+ 1374 0190 69737250 		.ascii	"isrPulseCapture_StartEx\000"
+ 1374      756C7365 
+ 1374      43617074 
+ 1374      7572655F 
+ 1374      53746172 
+ 1375              	.LASF4:
+ 1376 01a8 756E7369 		.ascii	"unsigned int\000"
+ 1376      676E6564 
+ 1376      20696E74 
+ 1376      00
+ 1377              	.LASF17:
+ 1378 01b5 61646472 		.ascii	"address\000"
+ 1378      65737300 
+ 1379              	.LASF6:
+ 1380 01bd 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1380      206C6F6E 
+ 1380      6720756E 
+ 1380      7369676E 
+ 1380      65642069 
+ 1381              	.LASF11:
+ 1382 01d4 63796973 		.ascii	"cyisraddress\000"
+ 1382      72616464 
+ 1382      72657373 
+ 1382      00
+ 1383              	.LASF24:
+ 1384 01e1 69737250 		.ascii	"isrPulseCapture_Disable\000"
+ 1384      756C7365 
+ 1384      43617074 
+ 1384      7572655F 
+ 1384      44697361 
+ 1385              	.LASF27:
+ 1386 01f9 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1386      4320342E 
+ 1386      342E3100 
+ 1387              	.LASF9:
+ 1388 0205 63686172 		.ascii	"char\000"
+ 1388      00
+ 1389              	.LASF18:
+ 1390 020a 72616D56 		.ascii	"ramVectorTable\000"
+ 1390      6563746F 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccEk6njk.s 			page 34
+
+
+ 1390      72546162 
+ 1390      6C6500
+ 1391              	.LASF30:
+ 1392 0219 69737250 		.ascii	"isrPulseCapture_GetState\000"
+ 1392      756C7365 
+ 1392      43617074 
+ 1392      7572655F 
+ 1392      47657453 
+ 1393              	.LASF26:
+ 1394 0232 69737250 		.ascii	"isrPulseCapture_ClearPending\000"
+ 1394      756C7365 
+ 1394      43617074 
+ 1394      7572655F 
+ 1394      436C6561 
+ 1395              	.LASF2:
+ 1396 024f 73686F72 		.ascii	"short int\000"
+ 1396      7420696E 
+ 1396      7400
+ 1397              	.LASF7:
+ 1398 0259 6C6F6E67 		.ascii	"long int\000"
+ 1398      20696E74 
+ 1398      00
+ 1399              	.LASF0:
+ 1400 0262 7369676E 		.ascii	"signed char\000"
+ 1400      65642063 
+ 1400      68617200 
+ 1401              	.LASF16:
+ 1402 026e 69737250 		.ascii	"isrPulseCapture_SetVector\000"
+ 1402      756C7365 
+ 1402      43617074 
+ 1402      7572655F 
+ 1402      53657456 
+ 1403              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

@@ -1,0 +1,1197 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"main.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.comm	pinDMK,4,4
+  19              		.comm	CaptureFlag,4,4
+  20              		.comm	statusButtonRead,1,1
+  21              		.comm	Polar_C_Pulse_Count,1,1
+  22              		.comm	Polar_S_Pulse_Count,1,1
+  23              		.comm	ANTplus_Pulse_Count,1,1
+  24              		.comm	ShiftData,255,4
+  25              		.section	.text.InitializeHardware,"ax",%progbits
+  26              		.align	2
+  27              		.global	InitializeHardware
+  28              		.thumb
+  29              		.thumb_func
+  30              		.type	InitializeHardware, %function
+  31              	InitializeHardware:
+  32              	.LFB63:
+  33              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include <device.h>
+  13:main.c        **** 
+  14:main.c        **** #define forever 1
+  15:main.c        **** 
+  16:main.c        **** CY_ISR_PROTO(StoreISR);
+  17:main.c        **** CY_ISR(PulseCapture);
+  18:main.c        **** 
+  19:main.c        **** 
+  20:main.c        **** 
+  21:main.c        **** int pinDMK;
+  22:main.c        **** int CaptureFlag;
+  23:main.c        **** uint8 statusButtonRead; //0xFF starting point
+  24:main.c        **** uint8 Polar_C_Pulse_Count;
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 2
+
+
+  25:main.c        **** uint8 Polar_S_Pulse_Count;
+  26:main.c        **** uint8 ANTplus_Pulse_Count;
+  27:main.c        **** uint8 ShiftData[255];
+  28:main.c        **** 
+  29:main.c        **** 
+  30:main.c        **** 
+  31:main.c        **** void InitializeHardware()
+  32:main.c        **** {
+  34              		.loc 1 32 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 0
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38 0000 80B5     		push	{r7, lr}
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 00AF     		add	r7, sp, #0
+  43              		.cfi_def_cfa_register 7
+  33:main.c        **** 	CyGlobalIntEnable;                                   //ISR
+  44              		.loc 1 33 0
+  45              	@ 33 "main.c" 1
+  46 0004 62B6     		CPSIE   i
+  47              	@ 0 "" 2
+  34:main.c        **** 	isrStoreInt_StartEx(StoreISR);
+  48              		.loc 1 34 0
+  49              		.thumb
+  50 0006 1348     		ldr	r0, .L2
+  51 0008 FFF7FEFF 		bl	isrStoreInt_StartEx
+  35:main.c        ****     isrPulseCapture_StartEx(PulseCapture);
+  52              		.loc 1 35 0
+  53 000c 1248     		ldr	r0, .L2+4
+  54 000e FFF7FEFF 		bl	isrPulseCapture_StartEx
+  36:main.c        ****     
+  37:main.c        ****     
+  38:main.c        ****     lcdDisplay_Start();
+  55              		.loc 1 38 0
+  56 0012 FFF7FEFF 		bl	lcdDisplay_Start
+  39:main.c        ****     lcdDisplay_ClearDisplay();
+  57              		.loc 1 39 0
+  58 0016 0120     		movs	r0, #1
+  59 0018 FFF7FEFF 		bl	lcdDisplay_WriteControl
+  40:main.c        ****     pgaPolarC_Start();                                   //Polar Chest Pulse buffer
+  60              		.loc 1 40 0
+  61 001c FFF7FEFF 		bl	pgaPolarC_Start
+  41:main.c        ****     counterPolarC_Start();
+  62              		.loc 1 41 0
+  63 0020 FFF7FEFF 		bl	counterPolarC_Start
+  42:main.c        ****     pgaPolarS_Start();                                   //Polar Hand Pulse buffer
+  64              		.loc 1 42 0
+  65 0024 FFF7FEFF 		bl	pgaPolarS_Start
+  43:main.c        ****     counterPolarS_Start();
+  66              		.loc 1 43 0
+  67 0028 FFF7FEFF 		bl	counterPolarS_Start
+  44:main.c        ****     pgaANTPlus_Start();                                  //ANT+ Chest Pulse buffer
+  68              		.loc 1 44 0
+  69 002c FFF7FEFF 		bl	pgaANTPlus_Start
+  45:main.c        ****     counterANTPlus_Start();
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 3
+
+
+  70              		.loc 1 45 0
+  71 0030 FFF7FEFF 		bl	counterANTPlus_Start
+  46:main.c        ****     PWMPulseCapture_Start();                             //Capture Clock
+  72              		.loc 1 46 0
+  73 0034 FFF7FEFF 		bl	PWMPulseCapture_Start
+  47:main.c        **** 	counterShift_Start();                                //Membrane Button Read components
+  74              		.loc 1 47 0
+  75 0038 FFF7FEFF 		bl	counterShift_Start
+  48:main.c        ****     shiftregSender_Start();
+  76              		.loc 1 48 0
+  77 003c FFF7FEFF 		bl	shiftregSender_Start
+  49:main.c        ****     shiftregSender_WriteData(0x00);
+  78              		.loc 1 49 0
+  79 0040 0020     		movs	r0, #0
+  80 0042 FFF7FEFF 		bl	shiftregSender_WriteData
+  50:main.c        ****     CyDelay(250);
+  81              		.loc 1 50 0
+  82 0046 FA20     		movs	r0, #250
+  83 0048 FFF7FEFF 		bl	CyDelay
+  51:main.c        ****     shiftregReceiver_Start();	 
+  84              		.loc 1 51 0
+  85 004c FFF7FEFF 		bl	shiftregReceiver_Start
+  52:main.c        **** }
+  86              		.loc 1 52 0
+  87 0050 80BD     		pop	{r7, pc}
+  88              	.L3:
+  89 0052 00BF     		.align	2
+  90              	.L2:
+  91 0054 00000000 		.word	StoreISR
+  92 0058 00000000 		.word	PulseCapture
+  93              		.cfi_endproc
+  94              	.LFE63:
+  95              		.size	InitializeHardware, .-InitializeHardware
+  96              		.section	.rodata
+  97              		.align	2
+  98              	.LC0:
+  99 0000 42455441 		.ascii	"BETA\000"
+  99      00
+ 100 0005 000000   		.align	2
+ 101              	.LC1:
+ 102 0008 444D4B3A 		.ascii	"DMK:\000"
+ 102      00
+ 103 000d 000000   		.align	2
+ 104              	.LC2:
+ 105 0010 42757474 		.ascii	"Buttons:\000"
+ 105      6F6E733A 
+ 105      00
+ 106 0019 000000   		.align	2
+ 107              	.LC3:
+ 108 001c 50756C73 		.ascii	"Pulse:\000"
+ 108      653A00
+ 109 0023 00       		.align	2
+ 110              	.LC4:
+ 111 0024 4F4E2000 		.ascii	"ON \000"
+ 112              		.align	2
+ 113              	.LC5:
+ 114 0028 4F464600 		.ascii	"OFF\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 4
+
+
+ 115              		.align	2
+ 116              	.LC6:
+ 117 002c 43686573 		.ascii	"Chest\000"
+ 117      7400
+ 118 0032 0000     		.section	.text.main,"ax",%progbits
+ 119              		.align	2
+ 120              		.global	main
+ 121              		.thumb
+ 122              		.thumb_func
+ 123              		.type	main, %function
+ 124              	main:
+ 125              	.LFB64:
+  53:main.c        **** //***********************************************************************************
+  54:main.c        **** 
+  55:main.c        **** int main()
+  56:main.c        **** {
+ 126              		.loc 1 56 0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 8
+ 129              		@ frame_needed = 1, uses_anonymous_args = 0
+ 130 0000 80B5     		push	{r7, lr}
+ 131              		.cfi_def_cfa_offset 8
+ 132              		.cfi_offset 7, -8
+ 133              		.cfi_offset 14, -4
+ 134 0002 82B0     		sub	sp, sp, #8
+ 135              		.cfi_def_cfa_offset 16
+ 136 0004 00AF     		add	r7, sp, #0
+ 137              		.cfi_def_cfa_register 7
+  57:main.c        ****     //uint8 ii = 0x00;      //Calibration
+  58:main.c        ****     uint8 Status;
+  59:main.c        **** 	InitializeHardware();
+ 138              		.loc 1 59 0
+ 139 0006 FFF7FEFF 		bl	InitializeHardware
+  60:main.c        ****     clockShift_SetDivider(128);
+ 140              		.loc 1 60 0
+ 141 000a 8020     		movs	r0, #128
+ 142 000c 0121     		movs	r1, #1
+ 143 000e FFF7FEFF 		bl	clockShift_SetDividerRegister
+  61:main.c        ****     lcdDisplay_Position(0,8);
+ 144              		.loc 1 61 0
+ 145 0012 0020     		movs	r0, #0
+ 146 0014 0821     		movs	r1, #8
+ 147 0016 FFF7FEFF 		bl	lcdDisplay_Position
+  62:main.c        ****     lcdDisplay_PrintString("BETA");
+ 148              		.loc 1 62 0
+ 149 001a 2D48     		ldr	r0, .L10
+ 150 001c FFF7FEFF 		bl	lcdDisplay_PrintString
+  63:main.c        ****     lcdDisplay_Position(1,0);
+ 151              		.loc 1 63 0
+ 152 0020 0120     		movs	r0, #1
+ 153 0022 0021     		movs	r1, #0
+ 154 0024 FFF7FEFF 		bl	lcdDisplay_Position
+  64:main.c        ****     lcdDisplay_PrintString("DMK:");
+ 155              		.loc 1 64 0
+ 156 0028 2A48     		ldr	r0, .L10+4
+ 157 002a FFF7FEFF 		bl	lcdDisplay_PrintString
+  65:main.c        ****     lcdDisplay_Position(2,0);
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 5
+
+
+ 158              		.loc 1 65 0
+ 159 002e 0220     		movs	r0, #2
+ 160 0030 0021     		movs	r1, #0
+ 161 0032 FFF7FEFF 		bl	lcdDisplay_Position
+  66:main.c        ****     lcdDisplay_PrintString("Buttons:");
+ 162              		.loc 1 66 0
+ 163 0036 2848     		ldr	r0, .L10+8
+ 164 0038 FFF7FEFF 		bl	lcdDisplay_PrintString
+  67:main.c        ****     lcdDisplay_Position(3,0);
+ 165              		.loc 1 67 0
+ 166 003c 0320     		movs	r0, #3
+ 167 003e 0021     		movs	r1, #0
+ 168 0040 FFF7FEFF 		bl	lcdDisplay_Position
+  68:main.c        ****     lcdDisplay_PrintString("Pulse:");
+ 169              		.loc 1 68 0
+ 170 0044 2548     		ldr	r0, .L10+12
+ 171 0046 FFF7FEFF 		bl	lcdDisplay_PrintString
+ 172              	.L9:
+  69:main.c        ****     
+  70:main.c        ****     
+  71:main.c        ****     for(;;)
+  72:main.c        ****     {
+  73:main.c        ****         if (pinDMK_Read() == 0)                     //DMK function
+ 173              		.loc 1 73 0
+ 174 004a FFF7FEFF 		bl	pinDMK_Read
+ 175 004e 0346     		mov	r3, r0
+ 176 0050 002B     		cmp	r3, #0
+ 177 0052 07D1     		bne	.L5
+  74:main.c        ****         {
+  75:main.c        ****             lcdDisplay_Position(1,5);
+ 178              		.loc 1 75 0
+ 179 0054 0120     		movs	r0, #1
+ 180 0056 0521     		movs	r1, #5
+ 181 0058 FFF7FEFF 		bl	lcdDisplay_Position
+  76:main.c        ****             lcdDisplay_PrintString("ON ");
+ 182              		.loc 1 76 0
+ 183 005c 2048     		ldr	r0, .L10+16
+ 184 005e FFF7FEFF 		bl	lcdDisplay_PrintString
+ 185 0062 06E0     		b	.L6
+ 186              	.L5:
+  77:main.c        ****         }
+  78:main.c        ****         else
+  79:main.c        ****         {
+  80:main.c        ****             lcdDisplay_Position(1,5);
+ 187              		.loc 1 80 0
+ 188 0064 0120     		movs	r0, #1
+ 189 0066 0521     		movs	r1, #5
+ 190 0068 FFF7FEFF 		bl	lcdDisplay_Position
+  81:main.c        ****             lcdDisplay_PrintString("OFF");
+ 191              		.loc 1 81 0
+ 192 006c 1D48     		ldr	r0, .L10+20
+ 193 006e FFF7FEFF 		bl	lcdDisplay_PrintString
+ 194              	.L6:
+  82:main.c        ****         }
+  83:main.c        ****         if (CaptureFlag == 1)
+ 195              		.loc 1 83 0
+ 196 0072 1D4B     		ldr	r3, .L10+24
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 6
+
+
+ 197 0074 1B68     		ldr	r3, [r3]
+ 198 0076 012B     		cmp	r3, #1
+ 199 0078 0FD1     		bne	.L7
+  84:main.c        ****        {
+  85:main.c        ****             CaptureFlag = 0;
+ 200              		.loc 1 85 0
+ 201 007a 1B4B     		ldr	r3, .L10+24
+ 202 007c 0022     		movs	r2, #0
+ 203 007e 1A60     		str	r2, [r3]
+  86:main.c        ****             
+  87:main.c        ****             Polar_C_Pulse_Count = counterPolarC_ReadCapture();
+ 204              		.loc 1 87 0
+ 205 0080 FFF7FEFF 		bl	counterPolarC_ReadCapture
+ 206 0084 0346     		mov	r3, r0
+ 207 0086 1A46     		mov	r2, r3
+ 208 0088 184B     		ldr	r3, .L10+28
+ 209 008a 1A70     		strb	r2, [r3]
+  88:main.c        ****             lcdDisplay_Position (3,7);
+ 210              		.loc 1 88 0
+ 211 008c 0320     		movs	r0, #3
+ 212 008e 0721     		movs	r1, #7
+ 213 0090 FFF7FEFF 		bl	lcdDisplay_Position
+  89:main.c        ****             lcdDisplay_PrintString("Chest");
+ 214              		.loc 1 89 0
+ 215 0094 1648     		ldr	r0, .L10+32
+ 216 0096 FFF7FEFF 		bl	lcdDisplay_PrintString
+ 217              	.L7:
+  90:main.c        ****             
+  91:main.c        ****             
+  92:main.c        ****             /*Polar_S_Pulse_Count = counterPolarS_ReadCapture();
+  93:main.c        ****             lcdDisplay_Position (3,7);
+  94:main.c        ****             lcdDisplay_PrintString("Hand");
+  95:main.c        ****             
+  96:main.c        ****             
+  97:main.c        ****             ANTplus_Pulse_Count = counterANTPlus_ReadCapture();
+  98:main.c        ****             lcdDisplay_Position (3,7);
+  99:main.c        ****             lcdDisplay_PrintString("ANTplus");*/
+ 100:main.c        ****                         
+ 101:main.c        ****         }
+ 102:main.c        ****         
+ 103:main.c        ****         
+ 104:main.c        ****         
+ 105:main.c        ****         statusButton_Read();  //Button Hex strings...Left1:FE, Left2:FD, Rigth1:FB, and Right2:F7
+ 218              		.loc 1 105 0
+ 219 009a FFF7FEFF 		bl	statusButton_Read
+ 106:main.c        ****         {
+ 107:main.c        ****             /*lcdDisplay_Position(2,9);  //Button Hex Strings...InclineD:FE, InclineU:FD, Run:FB, S
+ 108:main.c        ****             lcdDisplay_PrintInt8(statusButton_Read());*/
+ 109:main.c        ****             shiftregReceiver_WriteRegValue(statusButton_Read());//Writes to the Shift Register
+ 220              		.loc 1 109 0
+ 221 009e FFF7FEFF 		bl	statusButton_Read
+ 222 00a2 0346     		mov	r3, r0
+ 223 00a4 1846     		mov	r0, r3
+ 224 00a6 FFF7FEFF 		bl	shiftregReceiver_WriteRegValue
+ 110:main.c        ****         }
+ 111:main.c        ****     	
+ 112:main.c        **** 		if(!((Status = shiftregSender_GetFIFOStatus(shiftregSender_IN_FIFO)) == shiftregSender_RET_FIFO_F
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 7
+
+
+ 225              		.loc 1 112 0
+ 226 00aa 0120     		movs	r0, #1
+ 227 00ac FFF7FEFF 		bl	shiftregSender_GetFIFOStatus
+ 228 00b0 0346     		mov	r3, r0
+ 229 00b2 FB71     		strb	r3, [r7, #7]
+ 230 00b4 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 231 00b6 002B     		cmp	r3, #0
+ 232 00b8 09D0     		beq	.L8
+ 113:main.c        **** 		{
+ 114:main.c        **** 			/*shiftregSender_WriteData(++ii);//FOR CALIBRATION ONLY. WILL COUNT UP FROM 0X00 TO 0XFF.*/
+ 115:main.c        ****             {
+ 116:main.c        ****                 lcdDisplay_Position(2,9);
+ 233              		.loc 1 116 0
+ 234 00ba 0220     		movs	r0, #2
+ 235 00bc 0921     		movs	r1, #9
+ 236 00be FFF7FEFF 		bl	lcdDisplay_Position
+ 117:main.c        ****                 lcdDisplay_PrintInt8(shiftregReceiver_ReadData());
+ 237              		.loc 1 117 0
+ 238 00c2 FFF7FEFF 		bl	shiftregReceiver_ReadData
+ 239 00c6 0346     		mov	r3, r0
+ 240 00c8 1846     		mov	r0, r3
+ 241 00ca FFF7FEFF 		bl	lcdDisplay_PrintInt8
+ 242              	.L8:
+ 118:main.c        ****             }
+ 119:main.c        **** 		}
+ 120:main.c        ****            
+ 121:main.c        ****       }      
+ 243              		.loc 1 121 0
+ 244 00ce BCE7     		b	.L9
+ 245              	.L11:
+ 246              		.align	2
+ 247              	.L10:
+ 248 00d0 00000000 		.word	.LC0
+ 249 00d4 08000000 		.word	.LC1
+ 250 00d8 10000000 		.word	.LC2
+ 251 00dc 1C000000 		.word	.LC3
+ 252 00e0 24000000 		.word	.LC4
+ 253 00e4 28000000 		.word	.LC5
+ 254 00e8 00000000 		.word	CaptureFlag
+ 255 00ec 00000000 		.word	Polar_C_Pulse_Count
+ 256 00f0 2C000000 		.word	.LC6
+ 257              		.cfi_endproc
+ 258              	.LFE64:
+ 259              		.size	main, .-main
+ 260              		.section	.text.StoreISR,"ax",%progbits
+ 261              		.align	2
+ 262              		.global	StoreISR
+ 263              		.thumb
+ 264              		.thumb_func
+ 265              		.type	StoreISR, %function
+ 266              	StoreISR:
+ 267              	.LFB65:
+ 122:main.c        **** }
+ 123:main.c        **** /*END OF FILE */
+ 124:main.c        **** 
+ 125:main.c        **** 
+ 126:main.c        **** /************************************************************************************/
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 8
+
+
+ 127:main.c        **** CY_ISR(StoreISR)
+ 128:main.c        **** {
+ 268              		.loc 1 128 0
+ 269              		.cfi_startproc
+ 270              		@ args = 0, pretend = 0, frame = 8
+ 271              		@ frame_needed = 1, uses_anonymous_args = 0
+ 272 0000 80B5     		push	{r7, lr}
+ 273              		.cfi_def_cfa_offset 8
+ 274              		.cfi_offset 7, -8
+ 275              		.cfi_offset 14, -4
+ 276 0002 82B0     		sub	sp, sp, #8
+ 277              		.cfi_def_cfa_offset 16
+ 278 0004 00AF     		add	r7, sp, #0
+ 279              		.cfi_def_cfa_register 7
+ 129:main.c        **** uint8 Status;
+ 130:main.c        **** 	while((Status = shiftregReceiver_GetFIFOStatus(shiftregReceiver_OUT_FIFO)) == shiftregReceiver_RET
+ 280              		.loc 1 130 0
+ 281 0006 01E0     		b	.L13
+ 282              	.L14:
+ 131:main.c        **** 	{
+ 132:main.c        **** 		shiftregReceiver_ReadData();   
+ 283              		.loc 1 132 0
+ 284 0008 FFF7FEFF 		bl	shiftregReceiver_ReadData
+ 285              	.L13:
+ 130:main.c        **** 	{
+ 286              		.loc 1 130 0
+ 287 000c 0220     		movs	r0, #2
+ 288 000e FFF7FEFF 		bl	shiftregReceiver_GetFIFOStatus
+ 289 0012 0346     		mov	r3, r0
+ 290 0014 FB71     		strb	r3, [r7, #7]
+ 291 0016 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 292 0018 012B     		cmp	r3, #1
+ 293 001a F5D0     		beq	.L14
+ 133:main.c        **** 	}
+ 134:main.c        **** }
+ 294              		.loc 1 134 0
+ 295 001c 0837     		adds	r7, r7, #8
+ 296              		.cfi_def_cfa_offset 8
+ 297 001e BD46     		mov	sp, r7
+ 298              		.cfi_def_cfa_register 13
+ 299              		@ sp needed
+ 300 0020 80BD     		pop	{r7, pc}
+ 301              		.cfi_endproc
+ 302              	.LFE65:
+ 303              		.size	StoreISR, .-StoreISR
+ 304 0022 00BF     		.section	.text.PulseCapture,"ax",%progbits
+ 305              		.align	2
+ 306              		.global	PulseCapture
+ 307              		.thumb
+ 308              		.thumb_func
+ 309              		.type	PulseCapture, %function
+ 310              	PulseCapture:
+ 311              	.LFB66:
+ 135:main.c        **** 
+ 136:main.c        **** /**********************************************************************************/
+ 137:main.c        **** CY_ISR(PulseCapture)
+ 138:main.c        **** {
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 9
+
+
+ 312              		.loc 1 138 0
+ 313              		.cfi_startproc
+ 314              		@ args = 0, pretend = 0, frame = 0
+ 315              		@ frame_needed = 1, uses_anonymous_args = 0
+ 316              		@ link register save eliminated.
+ 317 0000 80B4     		push	{r7}
+ 318              		.cfi_def_cfa_offset 4
+ 319              		.cfi_offset 7, -4
+ 320 0002 00AF     		add	r7, sp, #0
+ 321              		.cfi_def_cfa_register 7
+ 139:main.c        ****     CaptureFlag = 1;
+ 322              		.loc 1 139 0
+ 323 0004 034B     		ldr	r3, .L16
+ 324 0006 0122     		movs	r2, #1
+ 325 0008 1A60     		str	r2, [r3]
+ 140:main.c        **** }...
+ 326              		.loc 1 140 0
+ 327 000a BD46     		mov	sp, r7
+ 328              		.cfi_def_cfa_register 13
+ 329              		@ sp needed
+ 330 000c 5DF8047B 		ldr	r7, [sp], #4
+ 331              		.cfi_restore 7
+ 332              		.cfi_def_cfa_offset 0
+ 333 0010 7047     		bx	lr
+ 334              	.L17:
+ 335 0012 00BF     		.align	2
+ 336              	.L16:
+ 337 0014 00000000 		.word	CaptureFlag
+ 338              		.cfi_endproc
+ 339              	.LFE66:
+ 340              		.size	PulseCapture, .-PulseCapture
+ 341              		.text
+ 342              	.Letext0:
+ 343              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9.
+ 344              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.0\\psoc creator\\import\\gnu\\arm\\4.9.
+ 345              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 346              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 347              		.section	.debug_info,"",%progbits
+ 348              	.Ldebug_info0:
+ 349 0000 AC010000 		.4byte	0x1ac
+ 350 0004 0400     		.2byte	0x4
+ 351 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 352 000a 04       		.byte	0x4
+ 353 000b 01       		.uleb128 0x1
+ 354 000c 9C000000 		.4byte	.LASF27
+ 355 0010 01       		.byte	0x1
+ 356 0011 07020000 		.4byte	.LASF28
+ 357 0015 1E000000 		.4byte	.LASF29
+ 358 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 359 001d 00000000 		.4byte	0
+ 360 0021 00000000 		.4byte	.Ldebug_line0
+ 361 0025 02       		.uleb128 0x2
+ 362 0026 01       		.byte	0x1
+ 363 0027 06       		.byte	0x6
+ 364 0028 38020000 		.4byte	.LASF0
+ 365 002c 02       		.uleb128 0x2
+ 366 002d 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 10
+
+
+ 367 002e 08       		.byte	0x8
+ 368 002f 65010000 		.4byte	.LASF1
+ 369 0033 02       		.uleb128 0x2
+ 370 0034 02       		.byte	0x2
+ 371 0035 05       		.byte	0x5
+ 372 0036 13020000 		.4byte	.LASF2
+ 373 003a 02       		.uleb128 0x2
+ 374 003b 02       		.byte	0x2
+ 375 003c 07       		.byte	0x7
+ 376 003d 85010000 		.4byte	.LASF3
+ 377 0041 03       		.uleb128 0x3
+ 378 0042 8B000000 		.4byte	.LASF9
+ 379 0046 02       		.byte	0x2
+ 380 0047 3F       		.byte	0x3f
+ 381 0048 4C000000 		.4byte	0x4c
+ 382 004c 02       		.uleb128 0x2
+ 383 004d 04       		.byte	0x4
+ 384 004e 05       		.byte	0x5
+ 385 004f 2F020000 		.4byte	.LASF4
+ 386 0053 02       		.uleb128 0x2
+ 387 0054 04       		.byte	0x4
+ 388 0055 07       		.byte	0x7
+ 389 0056 73010000 		.4byte	.LASF5
+ 390 005a 02       		.uleb128 0x2
+ 391 005b 08       		.byte	0x8
+ 392 005c 05       		.byte	0x5
+ 393 005d E6010000 		.4byte	.LASF6
+ 394 0061 02       		.uleb128 0x2
+ 395 0062 08       		.byte	0x8
+ 396 0063 07       		.byte	0x7
+ 397 0064 BE010000 		.4byte	.LASF7
+ 398 0068 04       		.uleb128 0x4
+ 399 0069 04       		.byte	0x4
+ 400 006a 05       		.byte	0x5
+ 401 006b 696E7400 		.ascii	"int\000"
+ 402 006f 02       		.uleb128 0x2
+ 403 0070 04       		.byte	0x4
+ 404 0071 07       		.byte	0x7
+ 405 0072 B1010000 		.4byte	.LASF8
+ 406 0076 03       		.uleb128 0x3
+ 407 0077 D5010000 		.4byte	.LASF10
+ 408 007b 03       		.byte	0x3
+ 409 007c 2C       		.byte	0x2c
+ 410 007d 41000000 		.4byte	0x41
+ 411 0081 05       		.uleb128 0x5
+ 412 0082 1D020000 		.4byte	.LASF11
+ 413 0086 04       		.byte	0x4
+ 414 0087 9201     		.2byte	0x192
+ 415 0089 2C000000 		.4byte	0x2c
+ 416 008d 02       		.uleb128 0x2
+ 417 008e 04       		.byte	0x4
+ 418 008f 04       		.byte	0x4
+ 419 0090 58010000 		.4byte	.LASF12
+ 420 0094 02       		.uleb128 0x2
+ 421 0095 08       		.byte	0x8
+ 422 0096 04       		.byte	0x4
+ 423 0097 A5010000 		.4byte	.LASF13
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 11
+
+
+ 424 009b 02       		.uleb128 0x2
+ 425 009c 01       		.byte	0x1
+ 426 009d 08       		.byte	0x8
+ 427 009e 0E020000 		.4byte	.LASF14
+ 428 00a2 02       		.uleb128 0x2
+ 429 00a3 04       		.byte	0x4
+ 430 00a4 07       		.byte	0x7
+ 431 00a5 DD010000 		.4byte	.LASF15
+ 432 00a9 06       		.uleb128 0x6
+ 433 00aa F4010000 		.4byte	.LASF30
+ 434 00ae 01       		.byte	0x1
+ 435 00af 1F       		.byte	0x1f
+ 436 00b0 00000000 		.4byte	.LFB63
+ 437 00b4 5C000000 		.4byte	.LFE63-.LFB63
+ 438 00b8 01       		.uleb128 0x1
+ 439 00b9 9C       		.byte	0x9c
+ 440 00ba 07       		.uleb128 0x7
+ 441 00bb AC010000 		.4byte	.LASF16
+ 442 00bf 01       		.byte	0x1
+ 443 00c0 37       		.byte	0x37
+ 444 00c1 68000000 		.4byte	0x68
+ 445 00c5 00000000 		.4byte	.LFB64
+ 446 00c9 F4000000 		.4byte	.LFE64-.LFB64
+ 447 00cd 01       		.uleb128 0x1
+ 448 00ce 9C       		.byte	0x9c
+ 449 00cf E2000000 		.4byte	0xe2
+ 450 00d3 08       		.uleb128 0x8
+ 451 00d4 95000000 		.4byte	.LASF18
+ 452 00d8 01       		.byte	0x1
+ 453 00d9 3A       		.byte	0x3a
+ 454 00da 81000000 		.4byte	0x81
+ 455 00de 02       		.uleb128 0x2
+ 456 00df 91       		.byte	0x91
+ 457 00e0 77       		.sleb128 -9
+ 458 00e1 00       		.byte	0
+ 459 00e2 09       		.uleb128 0x9
+ 460 00e3 2A010000 		.4byte	.LASF17
+ 461 00e7 01       		.byte	0x1
+ 462 00e8 7F       		.byte	0x7f
+ 463 00e9 00000000 		.4byte	.LFB65
+ 464 00ed 22000000 		.4byte	.LFE65-.LFB65
+ 465 00f1 01       		.uleb128 0x1
+ 466 00f2 9C       		.byte	0x9c
+ 467 00f3 06010000 		.4byte	0x106
+ 468 00f7 08       		.uleb128 0x8
+ 469 00f8 95000000 		.4byte	.LASF18
+ 470 00fc 01       		.byte	0x1
+ 471 00fd 81       		.byte	0x81
+ 472 00fe 81000000 		.4byte	0x81
+ 473 0102 02       		.uleb128 0x2
+ 474 0103 91       		.byte	0x91
+ 475 0104 77       		.sleb128 -9
+ 476 0105 00       		.byte	0
+ 477 0106 0A       		.uleb128 0xa
+ 478 0107 6A000000 		.4byte	.LASF31
+ 479 010b 01       		.byte	0x1
+ 480 010c 89       		.byte	0x89
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 12
+
+
+ 481 010d 00000000 		.4byte	.LFB66
+ 482 0111 18000000 		.4byte	.LFE66-.LFB66
+ 483 0115 01       		.uleb128 0x1
+ 484 0116 9C       		.byte	0x9c
+ 485 0117 0B       		.uleb128 0xb
+ 486 0118 98010000 		.4byte	.LASF19
+ 487 011c 05       		.byte	0x5
+ 488 011d 9606     		.2byte	0x696
+ 489 011f 23010000 		.4byte	0x123
+ 490 0123 0C       		.uleb128 0xc
+ 491 0124 76000000 		.4byte	0x76
+ 492 0128 0D       		.uleb128 0xd
+ 493 0129 5E010000 		.4byte	.LASF20
+ 494 012d 01       		.byte	0x1
+ 495 012e 15       		.byte	0x15
+ 496 012f 68000000 		.4byte	0x68
+ 497 0133 05       		.uleb128 0x5
+ 498 0134 03       		.byte	0x3
+ 499 0135 00000000 		.4byte	pinDMK
+ 500 0139 0D       		.uleb128 0xd
+ 501 013a 23020000 		.4byte	.LASF21
+ 502 013e 01       		.byte	0x1
+ 503 013f 16       		.byte	0x16
+ 504 0140 68000000 		.4byte	0x68
+ 505 0144 05       		.uleb128 0x5
+ 506 0145 03       		.byte	0x3
+ 507 0146 00000000 		.4byte	CaptureFlag
+ 508 014a 0D       		.uleb128 0xd
+ 509 014b 33010000 		.4byte	.LASF22
+ 510 014f 01       		.byte	0x1
+ 511 0150 17       		.byte	0x17
+ 512 0151 81000000 		.4byte	0x81
+ 513 0155 05       		.uleb128 0x5
+ 514 0156 03       		.byte	0x3
+ 515 0157 00000000 		.4byte	statusButtonRead
+ 516 015b 0D       		.uleb128 0xd
+ 517 015c 44010000 		.4byte	.LASF23
+ 518 0160 01       		.byte	0x1
+ 519 0161 18       		.byte	0x18
+ 520 0162 81000000 		.4byte	0x81
+ 521 0166 05       		.uleb128 0x5
+ 522 0167 03       		.byte	0x3
+ 523 0168 00000000 		.4byte	Polar_C_Pulse_Count
+ 524 016c 0D       		.uleb128 0xd
+ 525 016d 0A000000 		.4byte	.LASF24
+ 526 0171 01       		.byte	0x1
+ 527 0172 19       		.byte	0x19
+ 528 0173 81000000 		.4byte	0x81
+ 529 0177 05       		.uleb128 0x5
+ 530 0178 03       		.byte	0x3
+ 531 0179 00000000 		.4byte	Polar_S_Pulse_Count
+ 532 017d 0D       		.uleb128 0xd
+ 533 017e 77000000 		.4byte	.LASF25
+ 534 0182 01       		.byte	0x1
+ 535 0183 1A       		.byte	0x1a
+ 536 0184 81000000 		.4byte	0x81
+ 537 0188 05       		.uleb128 0x5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 13
+
+
+ 538 0189 03       		.byte	0x3
+ 539 018a 00000000 		.4byte	ANTplus_Pulse_Count
+ 540 018e 0E       		.uleb128 0xe
+ 541 018f 81000000 		.4byte	0x81
+ 542 0193 9E010000 		.4byte	0x19e
+ 543 0197 0F       		.uleb128 0xf
+ 544 0198 A2000000 		.4byte	0xa2
+ 545 019c FE       		.byte	0xfe
+ 546 019d 00       		.byte	0
+ 547 019e 0D       		.uleb128 0xd
+ 548 019f 00000000 		.4byte	.LASF26
+ 549 01a3 01       		.byte	0x1
+ 550 01a4 1B       		.byte	0x1b
+ 551 01a5 8E010000 		.4byte	0x18e
+ 552 01a9 05       		.uleb128 0x5
+ 553 01aa 03       		.byte	0x3
+ 554 01ab 00000000 		.4byte	ShiftData
+ 555 01af 00       		.byte	0
+ 556              		.section	.debug_abbrev,"",%progbits
+ 557              	.Ldebug_abbrev0:
+ 558 0000 01       		.uleb128 0x1
+ 559 0001 11       		.uleb128 0x11
+ 560 0002 01       		.byte	0x1
+ 561 0003 25       		.uleb128 0x25
+ 562 0004 0E       		.uleb128 0xe
+ 563 0005 13       		.uleb128 0x13
+ 564 0006 0B       		.uleb128 0xb
+ 565 0007 03       		.uleb128 0x3
+ 566 0008 0E       		.uleb128 0xe
+ 567 0009 1B       		.uleb128 0x1b
+ 568 000a 0E       		.uleb128 0xe
+ 569 000b 55       		.uleb128 0x55
+ 570 000c 17       		.uleb128 0x17
+ 571 000d 11       		.uleb128 0x11
+ 572 000e 01       		.uleb128 0x1
+ 573 000f 10       		.uleb128 0x10
+ 574 0010 17       		.uleb128 0x17
+ 575 0011 00       		.byte	0
+ 576 0012 00       		.byte	0
+ 577 0013 02       		.uleb128 0x2
+ 578 0014 24       		.uleb128 0x24
+ 579 0015 00       		.byte	0
+ 580 0016 0B       		.uleb128 0xb
+ 581 0017 0B       		.uleb128 0xb
+ 582 0018 3E       		.uleb128 0x3e
+ 583 0019 0B       		.uleb128 0xb
+ 584 001a 03       		.uleb128 0x3
+ 585 001b 0E       		.uleb128 0xe
+ 586 001c 00       		.byte	0
+ 587 001d 00       		.byte	0
+ 588 001e 03       		.uleb128 0x3
+ 589 001f 16       		.uleb128 0x16
+ 590 0020 00       		.byte	0
+ 591 0021 03       		.uleb128 0x3
+ 592 0022 0E       		.uleb128 0xe
+ 593 0023 3A       		.uleb128 0x3a
+ 594 0024 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 14
+
+
+ 595 0025 3B       		.uleb128 0x3b
+ 596 0026 0B       		.uleb128 0xb
+ 597 0027 49       		.uleb128 0x49
+ 598 0028 13       		.uleb128 0x13
+ 599 0029 00       		.byte	0
+ 600 002a 00       		.byte	0
+ 601 002b 04       		.uleb128 0x4
+ 602 002c 24       		.uleb128 0x24
+ 603 002d 00       		.byte	0
+ 604 002e 0B       		.uleb128 0xb
+ 605 002f 0B       		.uleb128 0xb
+ 606 0030 3E       		.uleb128 0x3e
+ 607 0031 0B       		.uleb128 0xb
+ 608 0032 03       		.uleb128 0x3
+ 609 0033 08       		.uleb128 0x8
+ 610 0034 00       		.byte	0
+ 611 0035 00       		.byte	0
+ 612 0036 05       		.uleb128 0x5
+ 613 0037 16       		.uleb128 0x16
+ 614 0038 00       		.byte	0
+ 615 0039 03       		.uleb128 0x3
+ 616 003a 0E       		.uleb128 0xe
+ 617 003b 3A       		.uleb128 0x3a
+ 618 003c 0B       		.uleb128 0xb
+ 619 003d 3B       		.uleb128 0x3b
+ 620 003e 05       		.uleb128 0x5
+ 621 003f 49       		.uleb128 0x49
+ 622 0040 13       		.uleb128 0x13
+ 623 0041 00       		.byte	0
+ 624 0042 00       		.byte	0
+ 625 0043 06       		.uleb128 0x6
+ 626 0044 2E       		.uleb128 0x2e
+ 627 0045 00       		.byte	0
+ 628 0046 3F       		.uleb128 0x3f
+ 629 0047 19       		.uleb128 0x19
+ 630 0048 03       		.uleb128 0x3
+ 631 0049 0E       		.uleb128 0xe
+ 632 004a 3A       		.uleb128 0x3a
+ 633 004b 0B       		.uleb128 0xb
+ 634 004c 3B       		.uleb128 0x3b
+ 635 004d 0B       		.uleb128 0xb
+ 636 004e 11       		.uleb128 0x11
+ 637 004f 01       		.uleb128 0x1
+ 638 0050 12       		.uleb128 0x12
+ 639 0051 06       		.uleb128 0x6
+ 640 0052 40       		.uleb128 0x40
+ 641 0053 18       		.uleb128 0x18
+ 642 0054 9642     		.uleb128 0x2116
+ 643 0056 19       		.uleb128 0x19
+ 644 0057 00       		.byte	0
+ 645 0058 00       		.byte	0
+ 646 0059 07       		.uleb128 0x7
+ 647 005a 2E       		.uleb128 0x2e
+ 648 005b 01       		.byte	0x1
+ 649 005c 3F       		.uleb128 0x3f
+ 650 005d 19       		.uleb128 0x19
+ 651 005e 03       		.uleb128 0x3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 15
+
+
+ 652 005f 0E       		.uleb128 0xe
+ 653 0060 3A       		.uleb128 0x3a
+ 654 0061 0B       		.uleb128 0xb
+ 655 0062 3B       		.uleb128 0x3b
+ 656 0063 0B       		.uleb128 0xb
+ 657 0064 49       		.uleb128 0x49
+ 658 0065 13       		.uleb128 0x13
+ 659 0066 11       		.uleb128 0x11
+ 660 0067 01       		.uleb128 0x1
+ 661 0068 12       		.uleb128 0x12
+ 662 0069 06       		.uleb128 0x6
+ 663 006a 40       		.uleb128 0x40
+ 664 006b 18       		.uleb128 0x18
+ 665 006c 9642     		.uleb128 0x2116
+ 666 006e 19       		.uleb128 0x19
+ 667 006f 01       		.uleb128 0x1
+ 668 0070 13       		.uleb128 0x13
+ 669 0071 00       		.byte	0
+ 670 0072 00       		.byte	0
+ 671 0073 08       		.uleb128 0x8
+ 672 0074 34       		.uleb128 0x34
+ 673 0075 00       		.byte	0
+ 674 0076 03       		.uleb128 0x3
+ 675 0077 0E       		.uleb128 0xe
+ 676 0078 3A       		.uleb128 0x3a
+ 677 0079 0B       		.uleb128 0xb
+ 678 007a 3B       		.uleb128 0x3b
+ 679 007b 0B       		.uleb128 0xb
+ 680 007c 49       		.uleb128 0x49
+ 681 007d 13       		.uleb128 0x13
+ 682 007e 02       		.uleb128 0x2
+ 683 007f 18       		.uleb128 0x18
+ 684 0080 00       		.byte	0
+ 685 0081 00       		.byte	0
+ 686 0082 09       		.uleb128 0x9
+ 687 0083 2E       		.uleb128 0x2e
+ 688 0084 01       		.byte	0x1
+ 689 0085 3F       		.uleb128 0x3f
+ 690 0086 19       		.uleb128 0x19
+ 691 0087 03       		.uleb128 0x3
+ 692 0088 0E       		.uleb128 0xe
+ 693 0089 3A       		.uleb128 0x3a
+ 694 008a 0B       		.uleb128 0xb
+ 695 008b 3B       		.uleb128 0x3b
+ 696 008c 0B       		.uleb128 0xb
+ 697 008d 27       		.uleb128 0x27
+ 698 008e 19       		.uleb128 0x19
+ 699 008f 11       		.uleb128 0x11
+ 700 0090 01       		.uleb128 0x1
+ 701 0091 12       		.uleb128 0x12
+ 702 0092 06       		.uleb128 0x6
+ 703 0093 40       		.uleb128 0x40
+ 704 0094 18       		.uleb128 0x18
+ 705 0095 9642     		.uleb128 0x2116
+ 706 0097 19       		.uleb128 0x19
+ 707 0098 01       		.uleb128 0x1
+ 708 0099 13       		.uleb128 0x13
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 16
+
+
+ 709 009a 00       		.byte	0
+ 710 009b 00       		.byte	0
+ 711 009c 0A       		.uleb128 0xa
+ 712 009d 2E       		.uleb128 0x2e
+ 713 009e 00       		.byte	0
+ 714 009f 3F       		.uleb128 0x3f
+ 715 00a0 19       		.uleb128 0x19
+ 716 00a1 03       		.uleb128 0x3
+ 717 00a2 0E       		.uleb128 0xe
+ 718 00a3 3A       		.uleb128 0x3a
+ 719 00a4 0B       		.uleb128 0xb
+ 720 00a5 3B       		.uleb128 0x3b
+ 721 00a6 0B       		.uleb128 0xb
+ 722 00a7 27       		.uleb128 0x27
+ 723 00a8 19       		.uleb128 0x19
+ 724 00a9 11       		.uleb128 0x11
+ 725 00aa 01       		.uleb128 0x1
+ 726 00ab 12       		.uleb128 0x12
+ 727 00ac 06       		.uleb128 0x6
+ 728 00ad 40       		.uleb128 0x40
+ 729 00ae 18       		.uleb128 0x18
+ 730 00af 9742     		.uleb128 0x2117
+ 731 00b1 19       		.uleb128 0x19
+ 732 00b2 00       		.byte	0
+ 733 00b3 00       		.byte	0
+ 734 00b4 0B       		.uleb128 0xb
+ 735 00b5 34       		.uleb128 0x34
+ 736 00b6 00       		.byte	0
+ 737 00b7 03       		.uleb128 0x3
+ 738 00b8 0E       		.uleb128 0xe
+ 739 00b9 3A       		.uleb128 0x3a
+ 740 00ba 0B       		.uleb128 0xb
+ 741 00bb 3B       		.uleb128 0x3b
+ 742 00bc 05       		.uleb128 0x5
+ 743 00bd 49       		.uleb128 0x49
+ 744 00be 13       		.uleb128 0x13
+ 745 00bf 3F       		.uleb128 0x3f
+ 746 00c0 19       		.uleb128 0x19
+ 747 00c1 3C       		.uleb128 0x3c
+ 748 00c2 19       		.uleb128 0x19
+ 749 00c3 00       		.byte	0
+ 750 00c4 00       		.byte	0
+ 751 00c5 0C       		.uleb128 0xc
+ 752 00c6 35       		.uleb128 0x35
+ 753 00c7 00       		.byte	0
+ 754 00c8 49       		.uleb128 0x49
+ 755 00c9 13       		.uleb128 0x13
+ 756 00ca 00       		.byte	0
+ 757 00cb 00       		.byte	0
+ 758 00cc 0D       		.uleb128 0xd
+ 759 00cd 34       		.uleb128 0x34
+ 760 00ce 00       		.byte	0
+ 761 00cf 03       		.uleb128 0x3
+ 762 00d0 0E       		.uleb128 0xe
+ 763 00d1 3A       		.uleb128 0x3a
+ 764 00d2 0B       		.uleb128 0xb
+ 765 00d3 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 17
+
+
+ 766 00d4 0B       		.uleb128 0xb
+ 767 00d5 49       		.uleb128 0x49
+ 768 00d6 13       		.uleb128 0x13
+ 769 00d7 3F       		.uleb128 0x3f
+ 770 00d8 19       		.uleb128 0x19
+ 771 00d9 02       		.uleb128 0x2
+ 772 00da 18       		.uleb128 0x18
+ 773 00db 00       		.byte	0
+ 774 00dc 00       		.byte	0
+ 775 00dd 0E       		.uleb128 0xe
+ 776 00de 01       		.uleb128 0x1
+ 777 00df 01       		.byte	0x1
+ 778 00e0 49       		.uleb128 0x49
+ 779 00e1 13       		.uleb128 0x13
+ 780 00e2 01       		.uleb128 0x1
+ 781 00e3 13       		.uleb128 0x13
+ 782 00e4 00       		.byte	0
+ 783 00e5 00       		.byte	0
+ 784 00e6 0F       		.uleb128 0xf
+ 785 00e7 21       		.uleb128 0x21
+ 786 00e8 00       		.byte	0
+ 787 00e9 49       		.uleb128 0x49
+ 788 00ea 13       		.uleb128 0x13
+ 789 00eb 2F       		.uleb128 0x2f
+ 790 00ec 0B       		.uleb128 0xb
+ 791 00ed 00       		.byte	0
+ 792 00ee 00       		.byte	0
+ 793 00ef 00       		.byte	0
+ 794              		.section	.debug_aranges,"",%progbits
+ 795 0000 34000000 		.4byte	0x34
+ 796 0004 0200     		.2byte	0x2
+ 797 0006 00000000 		.4byte	.Ldebug_info0
+ 798 000a 04       		.byte	0x4
+ 799 000b 00       		.byte	0
+ 800 000c 0000     		.2byte	0
+ 801 000e 0000     		.2byte	0
+ 802 0010 00000000 		.4byte	.LFB63
+ 803 0014 5C000000 		.4byte	.LFE63-.LFB63
+ 804 0018 00000000 		.4byte	.LFB64
+ 805 001c F4000000 		.4byte	.LFE64-.LFB64
+ 806 0020 00000000 		.4byte	.LFB65
+ 807 0024 22000000 		.4byte	.LFE65-.LFB65
+ 808 0028 00000000 		.4byte	.LFB66
+ 809 002c 18000000 		.4byte	.LFE66-.LFB66
+ 810 0030 00000000 		.4byte	0
+ 811 0034 00000000 		.4byte	0
+ 812              		.section	.debug_ranges,"",%progbits
+ 813              	.Ldebug_ranges0:
+ 814 0000 00000000 		.4byte	.LFB63
+ 815 0004 5C000000 		.4byte	.LFE63
+ 816 0008 00000000 		.4byte	.LFB64
+ 817 000c F4000000 		.4byte	.LFE64
+ 818 0010 00000000 		.4byte	.LFB65
+ 819 0014 22000000 		.4byte	.LFE65
+ 820 0018 00000000 		.4byte	.LFB66
+ 821 001c 18000000 		.4byte	.LFE66
+ 822 0020 00000000 		.4byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 18
+
+
+ 823 0024 00000000 		.4byte	0
+ 824              		.section	.debug_line,"",%progbits
+ 825              	.Ldebug_line0:
+ 826 0000 BF010000 		.section	.debug_str,"MS",%progbits,1
+ 826      02004701 
+ 826      00000201 
+ 826      FB0E0D00 
+ 826      01010101 
+ 827              	.LASF26:
+ 828 0000 53686966 		.ascii	"ShiftData\000"
+ 828      74446174 
+ 828      6100
+ 829              	.LASF24:
+ 830 000a 506F6C61 		.ascii	"Polar_S_Pulse_Count\000"
+ 830      725F535F 
+ 830      50756C73 
+ 830      655F436F 
+ 830      756E7400 
+ 831              	.LASF29:
+ 832 001e 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\PSoC Creator\\Puls"
+ 832      73657273 
+ 832      5C627279 
+ 832      616E2E6C 
+ 832      65655C44 
+ 833 004c 655F7073 		.ascii	"e_psoc5\\Combine\\Combine.cydsn\000"
+ 833      6F63355C 
+ 833      436F6D62 
+ 833      696E655C 
+ 833      436F6D62 
+ 834              	.LASF31:
+ 835 006a 50756C73 		.ascii	"PulseCapture\000"
+ 835      65436170 
+ 835      74757265 
+ 835      00
+ 836              	.LASF25:
+ 837 0077 414E5470 		.ascii	"ANTplus_Pulse_Count\000"
+ 837      6C75735F 
+ 837      50756C73 
+ 837      655F436F 
+ 837      756E7400 
+ 838              	.LASF9:
+ 839 008b 5F5F696E 		.ascii	"__int32_t\000"
+ 839      7433325F 
+ 839      7400
+ 840              	.LASF18:
+ 841 0095 53746174 		.ascii	"Status\000"
+ 841      757300
+ 842              	.LASF27:
+ 843 009c 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 843      4320342E 
+ 843      392E3320 
+ 843      32303135 
+ 843      30333033 
+ 844 00cf 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 844      20726576 
+ 844      6973696F 
+ 844      6E203232 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 19
+
+
+ 844      31323230 
+ 845 0102 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 845      66756E63 
+ 845      74696F6E 
+ 845      2D736563 
+ 845      74696F6E 
+ 846              	.LASF17:
+ 847 012a 53746F72 		.ascii	"StoreISR\000"
+ 847      65495352 
+ 847      00
+ 848              	.LASF22:
+ 849 0133 73746174 		.ascii	"statusButtonRead\000"
+ 849      75734275 
+ 849      74746F6E 
+ 849      52656164 
+ 849      00
+ 850              	.LASF23:
+ 851 0144 506F6C61 		.ascii	"Polar_C_Pulse_Count\000"
+ 851      725F435F 
+ 851      50756C73 
+ 851      655F436F 
+ 851      756E7400 
+ 852              	.LASF12:
+ 853 0158 666C6F61 		.ascii	"float\000"
+ 853      7400
+ 854              	.LASF20:
+ 855 015e 70696E44 		.ascii	"pinDMK\000"
+ 855      4D4B00
+ 856              	.LASF1:
+ 857 0165 756E7369 		.ascii	"unsigned char\000"
+ 857      676E6564 
+ 857      20636861 
+ 857      7200
+ 858              	.LASF5:
+ 859 0173 6C6F6E67 		.ascii	"long unsigned int\000"
+ 859      20756E73 
+ 859      69676E65 
+ 859      6420696E 
+ 859      7400
+ 860              	.LASF3:
+ 861 0185 73686F72 		.ascii	"short unsigned int\000"
+ 861      7420756E 
+ 861      7369676E 
+ 861      65642069 
+ 861      6E7400
+ 862              	.LASF19:
+ 863 0198 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 863      52784275 
+ 863      66666572 
+ 863      00
+ 864              	.LASF13:
+ 865 01a5 646F7562 		.ascii	"double\000"
+ 865      6C6500
+ 866              	.LASF16:
+ 867 01ac 6D61696E 		.ascii	"main\000"
+ 867      00
+ 868              	.LASF8:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccA2Qg3r.s 			page 20
+
+
+ 869 01b1 756E7369 		.ascii	"unsigned int\000"
+ 869      676E6564 
+ 869      20696E74 
+ 869      00
+ 870              	.LASF7:
+ 871 01be 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 871      206C6F6E 
+ 871      6720756E 
+ 871      7369676E 
+ 871      65642069 
+ 872              	.LASF10:
+ 873 01d5 696E7433 		.ascii	"int32_t\000"
+ 873      325F7400 
+ 874              	.LASF15:
+ 875 01dd 73697A65 		.ascii	"sizetype\000"
+ 875      74797065 
+ 875      00
+ 876              	.LASF6:
+ 877 01e6 6C6F6E67 		.ascii	"long long int\000"
+ 877      206C6F6E 
+ 877      6720696E 
+ 877      7400
+ 878              	.LASF30:
+ 879 01f4 496E6974 		.ascii	"InitializeHardware\000"
+ 879      69616C69 
+ 879      7A654861 
+ 879      72647761 
+ 879      726500
+ 880              	.LASF28:
+ 881 0207 6D61696E 		.ascii	"main.c\000"
+ 881      2E6300
+ 882              	.LASF14:
+ 883 020e 63686172 		.ascii	"char\000"
+ 883      00
+ 884              	.LASF2:
+ 885 0213 73686F72 		.ascii	"short int\000"
+ 885      7420696E 
+ 885      7400
+ 886              	.LASF11:
+ 887 021d 75696E74 		.ascii	"uint8\000"
+ 887      3800
+ 888              	.LASF21:
+ 889 0223 43617074 		.ascii	"CaptureFlag\000"
+ 889      75726546 
+ 889      6C616700 
+ 890              	.LASF4:
+ 891 022f 6C6F6E67 		.ascii	"long int\000"
+ 891      20696E74 
+ 891      00
+ 892              	.LASF0:
+ 893 0238 7369676E 		.ascii	"signed char\000"
+ 893      65642063 
+ 893      68617200 
+ 894              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

@@ -1,0 +1,2596 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"counterANTPlus.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 A6010000 		.text
+  20      02006700 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.global	counterANTPlus_initVar
+  24              		.bss
+  25              		.type	counterANTPlus_initVar, %object
+  26              		.size	counterANTPlus_initVar, 1
+  27              	counterANTPlus_initVar:
+  28 0000 00       		.space	1
+  29              		.section	.text.counterANTPlus_Init,"ax",%progbits
+  30              		.align	2
+  31              		.global	counterANTPlus_Init
+  32              		.thumb
+  33              		.thumb_func
+  34              		.type	counterANTPlus_Init, %function
+  35              	counterANTPlus_Init:
+  36              	.LFB0:
+  37              		.file 1 ".\\Generated_Source\\PSoC5\\counterANTPlus.c"
+   1:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/counterANTPlus.c **** * File Name: counterANTPlus.c  
+   3:.\Generated_Source\PSoC5/counterANTPlus.c **** * Version 2.40
+   4:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+   5:.\Generated_Source\PSoC5/counterANTPlus.c **** *  Description:
+   6:.\Generated_Source\PSoC5/counterANTPlus.c **** *     The Counter component consists of a 8, 16, 24 or 32-bit counter with
+   7:.\Generated_Source\PSoC5/counterANTPlus.c **** *     a selectable period between 2 and 2^Width - 1.  
+   8:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+   9:.\Generated_Source\PSoC5/counterANTPlus.c **** *   Note:
+  10:.\Generated_Source\PSoC5/counterANTPlus.c **** *     None
+  11:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+  12:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************
+  13:.\Generated_Source\PSoC5/counterANTPlus.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:.\Generated_Source\PSoC5/counterANTPlus.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:.\Generated_Source\PSoC5/counterANTPlus.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:.\Generated_Source\PSoC5/counterANTPlus.c **** * the software package with which this file was provided.
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 2
+
+
+  17:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************/
+  18:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+  19:.\Generated_Source\PSoC5/counterANTPlus.c **** #include "counterANTPlus.h"
+  20:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+  21:.\Generated_Source\PSoC5/counterANTPlus.c **** uint8 counterANTPlus_initVar = 0u;
+  22:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+  23:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+  24:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+  25:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_Init
+  26:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+  27:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+  28:.\Generated_Source\PSoC5/counterANTPlus.c **** *     Initialize to the schematic state
+  29:.\Generated_Source\PSoC5/counterANTPlus.c **** * 
+  30:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+  31:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void  
+  32:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+  33:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+  34:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+  35:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+  36:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+  37:.\Generated_Source\PSoC5/counterANTPlus.c **** void counterANTPlus_Init(void) 
+  38:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+  38              		.loc 1 38 0
+  39              		.cfi_startproc
+  40              		@ args = 0, pretend = 0, frame = 8
+  41              		@ frame_needed = 1, uses_anonymous_args = 0
+  42 0000 80B5     		push	{r7, lr}
+  43              	.LCFI0:
+  44              		.cfi_def_cfa_offset 8
+  45 0002 82B0     		sub	sp, sp, #8
+  46              	.LCFI1:
+  47              		.cfi_def_cfa_offset 16
+  48 0004 00AF     		add	r7, sp, #0
+  49              		.cfi_offset 14, -4
+  50              		.cfi_offset 7, -8
+  51              	.LCFI2:
+  52              		.cfi_def_cfa_register 7
+  39:.\Generated_Source\PSoC5/counterANTPlus.c ****         #if (!counterANTPlus_UsingFixedFunction && !counterANTPlus_ControlRegRemoved)
+  40:.\Generated_Source\PSoC5/counterANTPlus.c ****             uint8 ctrl;
+  41:.\Generated_Source\PSoC5/counterANTPlus.c ****         #endif /* (!counterANTPlus_UsingFixedFunction && !counterANTPlus_ControlRegRemoved) */
+  42:.\Generated_Source\PSoC5/counterANTPlus.c ****         
+  43:.\Generated_Source\PSoC5/counterANTPlus.c ****         #if(!counterANTPlus_UsingFixedFunction) 
+  44:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Interrupt State Backup for Critical Region*/
+  45:.\Generated_Source\PSoC5/counterANTPlus.c ****             uint8 counterANTPlus_interruptState;
+  46:.\Generated_Source\PSoC5/counterANTPlus.c ****         #endif /* (!counterANTPlus_UsingFixedFunction) */
+  47:.\Generated_Source\PSoC5/counterANTPlus.c ****         
+  48:.\Generated_Source\PSoC5/counterANTPlus.c ****         #if (counterANTPlus_UsingFixedFunction)
+  49:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Clear all bits but the enable bit (if it's already set for Timer operation */
+  50:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_CONTROL &= counterANTPlus_CTRL_ENABLE;
+  51:.\Generated_Source\PSoC5/counterANTPlus.c ****             
+  52:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Clear the mode bits for continuous run mode */
+  53:.\Generated_Source\PSoC5/counterANTPlus.c ****             #if (CY_PSOC5A)
+  54:.\Generated_Source\PSoC5/counterANTPlus.c ****                 counterANTPlus_CONTROL2 &= ((uint8)(~counterANTPlus_CTRL_MODE_MASK));
+  55:.\Generated_Source\PSoC5/counterANTPlus.c ****             #endif /* (CY_PSOC5A) */
+  56:.\Generated_Source\PSoC5/counterANTPlus.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+  57:.\Generated_Source\PSoC5/counterANTPlus.c ****                 counterANTPlus_CONTROL3 &= ((uint8)(~counterANTPlus_CTRL_MODE_MASK));              
+  58:.\Generated_Source\PSoC5/counterANTPlus.c ****             #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 3
+
+
+  59:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Check if One Shot mode is enabled i.e. RunMode !=0*/
+  60:.\Generated_Source\PSoC5/counterANTPlus.c ****             #if (counterANTPlus_RunModeUsed != 0x0u)
+  61:.\Generated_Source\PSoC5/counterANTPlus.c ****                 /* Set 3rd bit of Control register to enable one shot mode */
+  62:.\Generated_Source\PSoC5/counterANTPlus.c ****                 counterANTPlus_CONTROL |= counterANTPlus_ONESHOT;
+  63:.\Generated_Source\PSoC5/counterANTPlus.c ****             #endif /* (counterANTPlus_RunModeUsed != 0x0u) */
+  64:.\Generated_Source\PSoC5/counterANTPlus.c ****             
+  65:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Set the IRQ to use the status register interrupts */
+  66:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_CONTROL2 |= counterANTPlus_CTRL2_IRQ_SEL;
+  67:.\Generated_Source\PSoC5/counterANTPlus.c ****             
+  68:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+  69:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_RT1 &= ((uint8)(~counterANTPlus_RT1_MASK));
+  70:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_RT1 |= counterANTPlus_SYNC;     
+  71:.\Generated_Source\PSoC5/counterANTPlus.c ****                     
+  72:.\Generated_Source\PSoC5/counterANTPlus.c ****             /*Enable DSI Sync all all inputs of the Timer*/
+  73:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_RT1 &= ((uint8)(~counterANTPlus_SYNCDSI_MASK));
+  74:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_RT1 |= counterANTPlus_SYNCDSI_EN;
+  75:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+  76:.\Generated_Source\PSoC5/counterANTPlus.c ****         #else
+  77:.\Generated_Source\PSoC5/counterANTPlus.c ****             #if(!counterANTPlus_ControlRegRemoved)
+  78:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Set the default compare mode defined in the parameter */
+  79:.\Generated_Source\PSoC5/counterANTPlus.c ****             ctrl = counterANTPlus_CONTROL & ((uint8)(~counterANTPlus_CTRL_CMPMODE_MASK));
+  53              		.loc 1 79 0
+  54 0006 46F27643 		movw	r3, #:lower16:1073767542
+  55 000a C4F20003 		movt	r3, #:upper16:1073767542
+  56 000e 1B78     		ldrb	r3, [r3, #0]
+  57 0010 DBB2     		uxtb	r3, r3
+  58 0012 23F00703 		bic	r3, r3, #7
+  59 0016 BB71     		strb	r3, [r7, #6]
+  80:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_CONTROL = ctrl | counterANTPlus_DEFAULT_COMPARE_MODE;
+  60              		.loc 1 80 0
+  61 0018 46F27643 		movw	r3, #:lower16:1073767542
+  62 001c C4F20003 		movt	r3, #:upper16:1073767542
+  63 0020 BA79     		ldrb	r2, [r7, #6]
+  64 0022 1A70     		strb	r2, [r3, #0]
+  81:.\Generated_Source\PSoC5/counterANTPlus.c ****             
+  82:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Set the default capture mode defined in the parameter */
+  83:.\Generated_Source\PSoC5/counterANTPlus.c ****             ctrl = counterANTPlus_CONTROL & ((uint8)(~counterANTPlus_CTRL_CAPMODE_MASK));
+  65              		.loc 1 83 0
+  66 0024 46F27643 		movw	r3, #:lower16:1073767542
+  67 0028 C4F20003 		movt	r3, #:upper16:1073767542
+  68 002c 1B78     		ldrb	r3, [r3, #0]
+  69 002e DBB2     		uxtb	r3, r3
+  70 0030 23F00303 		bic	r3, r3, #3
+  71 0034 BB71     		strb	r3, [r7, #6]
+  84:.\Generated_Source\PSoC5/counterANTPlus.c ****             
+  85:.\Generated_Source\PSoC5/counterANTPlus.c ****             #if( 0 != counterANTPlus_CAPTURE_MODE_CONF)
+  86:.\Generated_Source\PSoC5/counterANTPlus.c ****                 counterANTPlus_CONTROL = ctrl | counterANTPlus_DEFAULT_CAPTURE_MODE;
+  72              		.loc 1 86 0
+  73 0036 46F27643 		movw	r3, #:lower16:1073767542
+  74 003a C4F20003 		movt	r3, #:upper16:1073767542
+  75 003e BA79     		ldrb	r2, [r7, #6]
+  76 0040 42F00802 		orr	r2, r2, #8
+  77 0044 D2B2     		uxtb	r2, r2
+  78 0046 1A70     		strb	r2, [r3, #0]
+  87:.\Generated_Source\PSoC5/counterANTPlus.c ****             #else
+  88:.\Generated_Source\PSoC5/counterANTPlus.c ****                 counterANTPlus_CONTROL = ctrl;
+  89:.\Generated_Source\PSoC5/counterANTPlus.c ****             #endif /* 0 != counterANTPlus_CAPTURE_MODE */ 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 4
+
+
+  90:.\Generated_Source\PSoC5/counterANTPlus.c ****             
+  91:.\Generated_Source\PSoC5/counterANTPlus.c ****             #endif /* (!counterANTPlus_ControlRegRemoved) */
+  92:.\Generated_Source\PSoC5/counterANTPlus.c ****         #endif /* (counterANTPlus_UsingFixedFunction) */
+  93:.\Generated_Source\PSoC5/counterANTPlus.c ****         
+  94:.\Generated_Source\PSoC5/counterANTPlus.c ****         /* Clear all data in the FIFO's */
+  95:.\Generated_Source\PSoC5/counterANTPlus.c ****         #if (!counterANTPlus_UsingFixedFunction)
+  96:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_ClearFIFO();
+  79              		.loc 1 96 0
+  80 0048 FFF7FEFF 		bl	counterANTPlus_ClearFIFO
+  97:.\Generated_Source\PSoC5/counterANTPlus.c ****         #endif /* (!counterANTPlus_UsingFixedFunction) */
+  98:.\Generated_Source\PSoC5/counterANTPlus.c ****         
+  99:.\Generated_Source\PSoC5/counterANTPlus.c ****         /* Set Initial values from Configuration */
+ 100:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_WritePeriod(counterANTPlus_INIT_PERIOD_VALUE);
+  81              		.loc 1 100 0
+  82 004c 4FF0FF00 		mov	r0, #255
+  83 0050 FFF7FEFF 		bl	counterANTPlus_WritePeriod
+ 101:.\Generated_Source\PSoC5/counterANTPlus.c ****         #if (!(counterANTPlus_UsingFixedFunction && (CY_PSOC5A)))
+ 102:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_WriteCounter(counterANTPlus_INIT_COUNTER_VALUE);
+  84              		.loc 1 102 0
+  85 0054 4FF00000 		mov	r0, #0
+  86 0058 FFF7FEFF 		bl	counterANTPlus_WriteCounter
+ 103:.\Generated_Source\PSoC5/counterANTPlus.c ****         #endif /* (!(counterANTPlus_UsingFixedFunction && (CY_PSOC5A))) */
+ 104:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_SetInterruptMode(counterANTPlus_INIT_INTERRUPTS_MASK);
+  87              		.loc 1 104 0
+  88 005c 4FF00000 		mov	r0, #0
+  89 0060 FFF7FEFF 		bl	counterANTPlus_SetInterruptMode
+ 105:.\Generated_Source\PSoC5/counterANTPlus.c ****         
+ 106:.\Generated_Source\PSoC5/counterANTPlus.c ****         #if (!counterANTPlus_UsingFixedFunction)
+ 107:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Read the status register to clear the unwanted interrupts */
+ 108:.\Generated_Source\PSoC5/counterANTPlus.c ****             (void)counterANTPlus_ReadStatusRegister();
+  90              		.loc 1 108 0
+  91 0064 FFF7FEFF 		bl	counterANTPlus_ReadStatusRegister
+ 109:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Set the compare value (only available to non-fixed function implementation */
+ 110:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_WriteCompare(counterANTPlus_INIT_COMPARE_VALUE);
+  92              		.loc 1 110 0
+  93 0068 4FF0FF00 		mov	r0, #255
+  94 006c FFF7FEFF 		bl	counterANTPlus_WriteCompare
+ 111:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 112:.\Generated_Source\PSoC5/counterANTPlus.c ****             
+ 113:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 114:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Enter Critical Region*/
+ 115:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_interruptState = CyEnterCriticalSection();
+  95              		.loc 1 115 0
+  96 0070 FFF7FEFF 		bl	CyEnterCriticalSection
+  97 0074 0346     		mov	r3, r0
+  98 0076 FB71     		strb	r3, [r7, #7]
+ 116:.\Generated_Source\PSoC5/counterANTPlus.c ****             
+ 117:.\Generated_Source\PSoC5/counterANTPlus.c ****             counterANTPlus_STATUS_AUX_CTRL |= counterANTPlus_STATUS_ACTL_INT_EN_MASK;
+  99              		.loc 1 117 0
+ 100 0078 46F29643 		movw	r3, #:lower16:1073767574
+ 101 007c C4F20003 		movt	r3, #:upper16:1073767574
+ 102 0080 46F29642 		movw	r2, #:lower16:1073767574
+ 103 0084 C4F20002 		movt	r2, #:upper16:1073767574
+ 104 0088 1278     		ldrb	r2, [r2, #0]
+ 105 008a D2B2     		uxtb	r2, r2
+ 106 008c 42F01002 		orr	r2, r2, #16
+ 107 0090 D2B2     		uxtb	r2, r2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 5
+
+
+ 108 0092 1A70     		strb	r2, [r3, #0]
+ 118:.\Generated_Source\PSoC5/counterANTPlus.c ****             
+ 119:.\Generated_Source\PSoC5/counterANTPlus.c ****             /* Exit Critical Region*/
+ 120:.\Generated_Source\PSoC5/counterANTPlus.c ****             CyExitCriticalSection(counterANTPlus_interruptState);
+ 109              		.loc 1 120 0
+ 110 0094 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 111 0096 1846     		mov	r0, r3
+ 112 0098 FFF7FEFF 		bl	CyExitCriticalSection
+ 121:.\Generated_Source\PSoC5/counterANTPlus.c ****             
+ 122:.\Generated_Source\PSoC5/counterANTPlus.c ****         #endif /* (!counterANTPlus_UsingFixedFunction) */
+ 123:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 113              		.loc 1 123 0
+ 114 009c 07F10807 		add	r7, r7, #8
+ 115 00a0 BD46     		mov	sp, r7
+ 116 00a2 80BD     		pop	{r7, pc}
+ 117              		.cfi_endproc
+ 118              	.LFE0:
+ 119              		.size	counterANTPlus_Init, .-counterANTPlus_Init
+ 120              		.section	.text.counterANTPlus_Enable,"ax",%progbits
+ 121              		.align	2
+ 122              		.global	counterANTPlus_Enable
+ 123              		.thumb
+ 124              		.thumb_func
+ 125              		.type	counterANTPlus_Enable, %function
+ 126              	counterANTPlus_Enable:
+ 127              	.LFB1:
+ 124:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 125:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 126:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 127:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_Enable
+ 128:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 129:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 130:.\Generated_Source\PSoC5/counterANTPlus.c **** *     Enable the Counter
+ 131:.\Generated_Source\PSoC5/counterANTPlus.c **** * 
+ 132:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 133:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void  
+ 134:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 135:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 136:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 137:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 138:.\Generated_Source\PSoC5/counterANTPlus.c **** * Side Effects: 
+ 139:.\Generated_Source\PSoC5/counterANTPlus.c **** *   If the Enable mode is set to Hardware only then this function has no effect 
+ 140:.\Generated_Source\PSoC5/counterANTPlus.c **** *   on the operation of the counter.
+ 141:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 142:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 143:.\Generated_Source\PSoC5/counterANTPlus.c **** void counterANTPlus_Enable(void) 
+ 144:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 128              		.loc 1 144 0
+ 129              		.cfi_startproc
+ 130              		@ args = 0, pretend = 0, frame = 0
+ 131              		@ frame_needed = 1, uses_anonymous_args = 0
+ 132              		@ link register save eliminated.
+ 133 0000 80B4     		push	{r7}
+ 134              	.LCFI3:
+ 135              		.cfi_def_cfa_offset 4
+ 136 0002 00AF     		add	r7, sp, #0
+ 137              		.cfi_offset 7, -4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 6
+
+
+ 138              	.LCFI4:
+ 139              		.cfi_def_cfa_register 7
+ 145:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 146:.\Generated_Source\PSoC5/counterANTPlus.c ****     #if (counterANTPlus_UsingFixedFunction)
+ 147:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_GLOBAL_ENABLE |= counterANTPlus_BLOCK_EN_MASK;
+ 148:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_GLOBAL_STBY_ENABLE |= counterANTPlus_BLOCK_STBY_EN_MASK;
+ 149:.\Generated_Source\PSoC5/counterANTPlus.c ****     #endif /* (counterANTPlus_UsingFixedFunction) */  
+ 150:.\Generated_Source\PSoC5/counterANTPlus.c ****         
+ 151:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Enable the counter from the control register  */
+ 152:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* If Fixed Function then make sure Mode is set correctly */
+ 153:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* else make sure reset is clear */
+ 154:.\Generated_Source\PSoC5/counterANTPlus.c ****     #if(!counterANTPlus_ControlRegRemoved || counterANTPlus_UsingFixedFunction)
+ 155:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_CONTROL |= counterANTPlus_CTRL_ENABLE;                
+ 140              		.loc 1 155 0
+ 141 0004 46F27643 		movw	r3, #:lower16:1073767542
+ 142 0008 C4F20003 		movt	r3, #:upper16:1073767542
+ 143 000c 46F27642 		movw	r2, #:lower16:1073767542
+ 144 0010 C4F20002 		movt	r2, #:upper16:1073767542
+ 145 0014 1278     		ldrb	r2, [r2, #0]
+ 146 0016 D2B2     		uxtb	r2, r2
+ 147 0018 6FEA4262 		mvn	r2, r2, lsl #25
+ 148 001c 6FEA5262 		mvn	r2, r2, lsr #25
+ 149 0020 D2B2     		uxtb	r2, r2
+ 150 0022 1A70     		strb	r2, [r3, #0]
+ 156:.\Generated_Source\PSoC5/counterANTPlus.c ****     #endif /* (!counterANTPlus_ControlRegRemoved || counterANTPlus_UsingFixedFunction) */
+ 157:.\Generated_Source\PSoC5/counterANTPlus.c ****     
+ 158:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 151              		.loc 1 158 0
+ 152 0024 BD46     		mov	sp, r7
+ 153 0026 80BC     		pop	{r7}
+ 154 0028 7047     		bx	lr
+ 155              		.cfi_endproc
+ 156              	.LFE1:
+ 157              		.size	counterANTPlus_Enable, .-counterANTPlus_Enable
+ 158 002a 00BF     		.section	.text.counterANTPlus_Start,"ax",%progbits
+ 159              		.align	2
+ 160              		.global	counterANTPlus_Start
+ 161              		.thumb
+ 162              		.thumb_func
+ 163              		.type	counterANTPlus_Start, %function
+ 164              	counterANTPlus_Start:
+ 165              	.LFB2:
+ 159:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 160:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 161:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 162:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_Start
+ 163:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 164:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 165:.\Generated_Source\PSoC5/counterANTPlus.c **** *  Enables the counter for operation 
+ 166:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 167:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 168:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void  
+ 169:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 170:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 171:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 172:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 173:.\Generated_Source\PSoC5/counterANTPlus.c **** * Global variables:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 7
+
+
+ 174:.\Generated_Source\PSoC5/counterANTPlus.c **** *  counterANTPlus_initVar: Is modified when this function is called for the  
+ 175:.\Generated_Source\PSoC5/counterANTPlus.c **** *   first time. Is used to ensure that initialization happens only once.
+ 176:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 177:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 178:.\Generated_Source\PSoC5/counterANTPlus.c **** void counterANTPlus_Start(void) 
+ 179:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 166              		.loc 1 179 0
+ 167              		.cfi_startproc
+ 168              		@ args = 0, pretend = 0, frame = 0
+ 169              		@ frame_needed = 1, uses_anonymous_args = 0
+ 170 0000 80B5     		push	{r7, lr}
+ 171              	.LCFI5:
+ 172              		.cfi_def_cfa_offset 8
+ 173 0002 00AF     		add	r7, sp, #0
+ 174              		.cfi_offset 14, -4
+ 175              		.cfi_offset 7, -8
+ 176              	.LCFI6:
+ 177              		.cfi_def_cfa_register 7
+ 180:.\Generated_Source\PSoC5/counterANTPlus.c ****     if(counterANTPlus_initVar == 0u)
+ 178              		.loc 1 180 0
+ 179 0004 40F20003 		movw	r3, #:lower16:counterANTPlus_initVar
+ 180 0008 C0F20003 		movt	r3, #:upper16:counterANTPlus_initVar
+ 181 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 182 000e 002B     		cmp	r3, #0
+ 183 0010 08D1     		bne	.L6
+ 181:.\Generated_Source\PSoC5/counterANTPlus.c ****     {
+ 182:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_Init();
+ 184              		.loc 1 182 0
+ 185 0012 FFF7FEFF 		bl	counterANTPlus_Init
+ 183:.\Generated_Source\PSoC5/counterANTPlus.c ****         
+ 184:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_initVar = 1u; /* Clear this bit for Initialization */        
+ 186              		.loc 1 184 0
+ 187 0016 40F20003 		movw	r3, #:lower16:counterANTPlus_initVar
+ 188 001a C0F20003 		movt	r3, #:upper16:counterANTPlus_initVar
+ 189 001e 4FF00102 		mov	r2, #1
+ 190 0022 1A70     		strb	r2, [r3, #0]
+ 191              	.L6:
+ 185:.\Generated_Source\PSoC5/counterANTPlus.c ****     }
+ 186:.\Generated_Source\PSoC5/counterANTPlus.c ****     
+ 187:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Enable the Counter */
+ 188:.\Generated_Source\PSoC5/counterANTPlus.c ****     counterANTPlus_Enable();        
+ 192              		.loc 1 188 0
+ 193 0024 FFF7FEFF 		bl	counterANTPlus_Enable
+ 189:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 194              		.loc 1 189 0
+ 195 0028 80BD     		pop	{r7, pc}
+ 196              		.cfi_endproc
+ 197              	.LFE2:
+ 198              		.size	counterANTPlus_Start, .-counterANTPlus_Start
+ 199 002a 00BF     		.section	.text.counterANTPlus_Stop,"ax",%progbits
+ 200              		.align	2
+ 201              		.global	counterANTPlus_Stop
+ 202              		.thumb
+ 203              		.thumb_func
+ 204              		.type	counterANTPlus_Stop, %function
+ 205              	counterANTPlus_Stop:
+ 206              	.LFB3:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 8
+
+
+ 190:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 191:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 192:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 193:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_Stop
+ 194:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 195:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 196:.\Generated_Source\PSoC5/counterANTPlus.c **** * Halts the counter, but does not change any modes or disable interrupts.
+ 197:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 198:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 199:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void  
+ 200:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 201:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 202:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 203:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 204:.\Generated_Source\PSoC5/counterANTPlus.c **** * Side Effects: If the Enable mode is set to Hardware only then this function
+ 205:.\Generated_Source\PSoC5/counterANTPlus.c **** *               has no effect on the operation of the counter.
+ 206:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 207:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 208:.\Generated_Source\PSoC5/counterANTPlus.c **** void counterANTPlus_Stop(void) 
+ 209:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 207              		.loc 1 209 0
+ 208              		.cfi_startproc
+ 209              		@ args = 0, pretend = 0, frame = 0
+ 210              		@ frame_needed = 1, uses_anonymous_args = 0
+ 211              		@ link register save eliminated.
+ 212 0000 80B4     		push	{r7}
+ 213              	.LCFI7:
+ 214              		.cfi_def_cfa_offset 4
+ 215 0002 00AF     		add	r7, sp, #0
+ 216              		.cfi_offset 7, -4
+ 217              	.LCFI8:
+ 218              		.cfi_def_cfa_register 7
+ 210:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Disable Counter */
+ 211:.\Generated_Source\PSoC5/counterANTPlus.c ****     #if(!counterANTPlus_ControlRegRemoved || counterANTPlus_UsingFixedFunction)
+ 212:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_CONTROL &= ((uint8)(~counterANTPlus_CTRL_ENABLE));        
+ 219              		.loc 1 212 0
+ 220 0004 46F27643 		movw	r3, #:lower16:1073767542
+ 221 0008 C4F20003 		movt	r3, #:upper16:1073767542
+ 222 000c 46F27642 		movw	r2, #:lower16:1073767542
+ 223 0010 C4F20002 		movt	r2, #:upper16:1073767542
+ 224 0014 1278     		ldrb	r2, [r2, #0]
+ 225 0016 D2B2     		uxtb	r2, r2
+ 226 0018 02F07F02 		and	r2, r2, #127
+ 227 001c 1A70     		strb	r2, [r3, #0]
+ 213:.\Generated_Source\PSoC5/counterANTPlus.c ****     #endif /* (!counterANTPlus_ControlRegRemoved || counterANTPlus_UsingFixedFunction) */
+ 214:.\Generated_Source\PSoC5/counterANTPlus.c ****     
+ 215:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Globally disable the Fixed Function Block chosen */
+ 216:.\Generated_Source\PSoC5/counterANTPlus.c ****     #if (counterANTPlus_UsingFixedFunction)
+ 217:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_GLOBAL_ENABLE &= ((uint8)(~counterANTPlus_BLOCK_EN_MASK));
+ 218:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_GLOBAL_STBY_ENABLE &= ((uint8)(~counterANTPlus_BLOCK_STBY_EN_MASK));
+ 219:.\Generated_Source\PSoC5/counterANTPlus.c ****     #endif /* (counterANTPlus_UsingFixedFunction) */
+ 220:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 228              		.loc 1 220 0
+ 229 001e BD46     		mov	sp, r7
+ 230 0020 80BC     		pop	{r7}
+ 231 0022 7047     		bx	lr
+ 232              		.cfi_endproc
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 9
+
+
+ 233              	.LFE3:
+ 234              		.size	counterANTPlus_Stop, .-counterANTPlus_Stop
+ 235              		.section	.text.counterANTPlus_SetInterruptMode,"ax",%progbits
+ 236              		.align	2
+ 237              		.global	counterANTPlus_SetInterruptMode
+ 238              		.thumb
+ 239              		.thumb_func
+ 240              		.type	counterANTPlus_SetInterruptMode, %function
+ 241              	counterANTPlus_SetInterruptMode:
+ 242              	.LFB4:
+ 221:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 222:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 223:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 224:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_SetInterruptMode
+ 225:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 226:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 227:.\Generated_Source\PSoC5/counterANTPlus.c **** * Configures which interrupt sources are enabled to generate the final interrupt
+ 228:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 229:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 230:.\Generated_Source\PSoC5/counterANTPlus.c **** *  InterruptsMask: This parameter is an or'd collection of the status bits
+ 231:.\Generated_Source\PSoC5/counterANTPlus.c **** *                   which will be allowed to generate the counters interrupt.   
+ 232:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 233:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 234:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 235:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 236:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 237:.\Generated_Source\PSoC5/counterANTPlus.c **** void counterANTPlus_SetInterruptMode(uint8 interruptsMask) 
+ 238:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 243              		.loc 1 238 0
+ 244              		.cfi_startproc
+ 245              		@ args = 0, pretend = 0, frame = 8
+ 246              		@ frame_needed = 1, uses_anonymous_args = 0
+ 247              		@ link register save eliminated.
+ 248 0000 80B4     		push	{r7}
+ 249              	.LCFI9:
+ 250              		.cfi_def_cfa_offset 4
+ 251 0002 83B0     		sub	sp, sp, #12
+ 252              	.LCFI10:
+ 253              		.cfi_def_cfa_offset 16
+ 254 0004 00AF     		add	r7, sp, #0
+ 255              		.cfi_offset 7, -4
+ 256              	.LCFI11:
+ 257              		.cfi_def_cfa_register 7
+ 258 0006 0346     		mov	r3, r0
+ 259 0008 FB71     		strb	r3, [r7, #7]
+ 239:.\Generated_Source\PSoC5/counterANTPlus.c ****     counterANTPlus_STATUS_MASK = interruptsMask;
+ 260              		.loc 1 239 0
+ 261 000a 46F28643 		movw	r3, #:lower16:1073767558
+ 262 000e C4F20003 		movt	r3, #:upper16:1073767558
+ 263 0012 FA79     		ldrb	r2, [r7, #7]
+ 264 0014 1A70     		strb	r2, [r3, #0]
+ 240:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 265              		.loc 1 240 0
+ 266 0016 07F10C07 		add	r7, r7, #12
+ 267 001a BD46     		mov	sp, r7
+ 268 001c 80BC     		pop	{r7}
+ 269 001e 7047     		bx	lr
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 10
+
+
+ 270              		.cfi_endproc
+ 271              	.LFE4:
+ 272              		.size	counterANTPlus_SetInterruptMode, .-counterANTPlus_SetInterruptMode
+ 273              		.section	.text.counterANTPlus_ReadStatusRegister,"ax",%progbits
+ 274              		.align	2
+ 275              		.global	counterANTPlus_ReadStatusRegister
+ 276              		.thumb
+ 277              		.thumb_func
+ 278              		.type	counterANTPlus_ReadStatusRegister, %function
+ 279              	counterANTPlus_ReadStatusRegister:
+ 280              	.LFB5:
+ 241:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 242:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 243:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 244:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_ReadStatusRegister
+ 245:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 246:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 247:.\Generated_Source\PSoC5/counterANTPlus.c **** *   Reads the status register and returns it's state. This function should use
+ 248:.\Generated_Source\PSoC5/counterANTPlus.c **** *       defined types for the bit-field information as the bits in this
+ 249:.\Generated_Source\PSoC5/counterANTPlus.c **** *       register may be permuteable.
+ 250:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 251:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 252:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 253:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 254:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 255:.\Generated_Source\PSoC5/counterANTPlus.c **** *  (uint8) The contents of the status register
+ 256:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 257:.\Generated_Source\PSoC5/counterANTPlus.c **** * Side Effects:
+ 258:.\Generated_Source\PSoC5/counterANTPlus.c **** *   Status register bits may be clear on read. 
+ 259:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 260:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 261:.\Generated_Source\PSoC5/counterANTPlus.c **** uint8   counterANTPlus_ReadStatusRegister(void) 
+ 262:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 281              		.loc 1 262 0
+ 282              		.cfi_startproc
+ 283              		@ args = 0, pretend = 0, frame = 0
+ 284              		@ frame_needed = 1, uses_anonymous_args = 0
+ 285              		@ link register save eliminated.
+ 286 0000 80B4     		push	{r7}
+ 287              	.LCFI12:
+ 288              		.cfi_def_cfa_offset 4
+ 289 0002 00AF     		add	r7, sp, #0
+ 290              		.cfi_offset 7, -4
+ 291              	.LCFI13:
+ 292              		.cfi_def_cfa_register 7
+ 263:.\Generated_Source\PSoC5/counterANTPlus.c ****     return counterANTPlus_STATUS;
+ 293              		.loc 1 263 0
+ 294 0004 46F26643 		movw	r3, #:lower16:1073767526
+ 295 0008 C4F20003 		movt	r3, #:upper16:1073767526
+ 296 000c 1B78     		ldrb	r3, [r3, #0]
+ 297 000e DBB2     		uxtb	r3, r3
+ 264:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 298              		.loc 1 264 0
+ 299 0010 1846     		mov	r0, r3
+ 300 0012 BD46     		mov	sp, r7
+ 301 0014 80BC     		pop	{r7}
+ 302 0016 7047     		bx	lr
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 11
+
+
+ 303              		.cfi_endproc
+ 304              	.LFE5:
+ 305              		.size	counterANTPlus_ReadStatusRegister, .-counterANTPlus_ReadStatusRegister
+ 306              		.section	.text.counterANTPlus_ReadControlRegister,"ax",%progbits
+ 307              		.align	2
+ 308              		.global	counterANTPlus_ReadControlRegister
+ 309              		.thumb
+ 310              		.thumb_func
+ 311              		.type	counterANTPlus_ReadControlRegister, %function
+ 312              	counterANTPlus_ReadControlRegister:
+ 313              	.LFB6:
+ 265:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 266:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 267:.\Generated_Source\PSoC5/counterANTPlus.c **** #if(!counterANTPlus_ControlRegRemoved)
+ 268:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 269:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_ReadControlRegister
+ 270:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 271:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 272:.\Generated_Source\PSoC5/counterANTPlus.c **** *   Reads the control register and returns it's state. This function should use
+ 273:.\Generated_Source\PSoC5/counterANTPlus.c **** *       defined types for the bit-field information as the bits in this
+ 274:.\Generated_Source\PSoC5/counterANTPlus.c **** *       register may be permuteable.
+ 275:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 276:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 277:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 278:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 279:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 280:.\Generated_Source\PSoC5/counterANTPlus.c **** *  (uint8) The contents of the control register
+ 281:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 282:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 283:.\Generated_Source\PSoC5/counterANTPlus.c **** uint8   counterANTPlus_ReadControlRegister(void) 
+ 284:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 314              		.loc 1 284 0
+ 315              		.cfi_startproc
+ 316              		@ args = 0, pretend = 0, frame = 0
+ 317              		@ frame_needed = 1, uses_anonymous_args = 0
+ 318              		@ link register save eliminated.
+ 319 0000 80B4     		push	{r7}
+ 320              	.LCFI14:
+ 321              		.cfi_def_cfa_offset 4
+ 322 0002 00AF     		add	r7, sp, #0
+ 323              		.cfi_offset 7, -4
+ 324              	.LCFI15:
+ 325              		.cfi_def_cfa_register 7
+ 285:.\Generated_Source\PSoC5/counterANTPlus.c ****     return counterANTPlus_CONTROL;
+ 326              		.loc 1 285 0
+ 327 0004 46F27643 		movw	r3, #:lower16:1073767542
+ 328 0008 C4F20003 		movt	r3, #:upper16:1073767542
+ 329 000c 1B78     		ldrb	r3, [r3, #0]
+ 330 000e DBB2     		uxtb	r3, r3
+ 286:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 331              		.loc 1 286 0
+ 332 0010 1846     		mov	r0, r3
+ 333 0012 BD46     		mov	sp, r7
+ 334 0014 80BC     		pop	{r7}
+ 335 0016 7047     		bx	lr
+ 336              		.cfi_endproc
+ 337              	.LFE6:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 12
+
+
+ 338              		.size	counterANTPlus_ReadControlRegister, .-counterANTPlus_ReadControlRegister
+ 339              		.section	.text.counterANTPlus_WriteControlRegister,"ax",%progbits
+ 340              		.align	2
+ 341              		.global	counterANTPlus_WriteControlRegister
+ 342              		.thumb
+ 343              		.thumb_func
+ 344              		.type	counterANTPlus_WriteControlRegister, %function
+ 345              	counterANTPlus_WriteControlRegister:
+ 346              	.LFB7:
+ 287:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 288:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 289:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 290:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_WriteControlRegister
+ 291:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 292:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 293:.\Generated_Source\PSoC5/counterANTPlus.c **** *   Sets the bit-field of the control register.  This function should use
+ 294:.\Generated_Source\PSoC5/counterANTPlus.c **** *       defined types for the bit-field information as the bits in this
+ 295:.\Generated_Source\PSoC5/counterANTPlus.c **** *       register may be permuteable.
+ 296:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 297:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 298:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 299:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 300:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 301:.\Generated_Source\PSoC5/counterANTPlus.c **** *  (uint8) The contents of the control register
+ 302:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 303:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 304:.\Generated_Source\PSoC5/counterANTPlus.c **** void    counterANTPlus_WriteControlRegister(uint8 control) 
+ 305:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 347              		.loc 1 305 0
+ 348              		.cfi_startproc
+ 349              		@ args = 0, pretend = 0, frame = 8
+ 350              		@ frame_needed = 1, uses_anonymous_args = 0
+ 351              		@ link register save eliminated.
+ 352 0000 80B4     		push	{r7}
+ 353              	.LCFI16:
+ 354              		.cfi_def_cfa_offset 4
+ 355 0002 83B0     		sub	sp, sp, #12
+ 356              	.LCFI17:
+ 357              		.cfi_def_cfa_offset 16
+ 358 0004 00AF     		add	r7, sp, #0
+ 359              		.cfi_offset 7, -4
+ 360              	.LCFI18:
+ 361              		.cfi_def_cfa_register 7
+ 362 0006 0346     		mov	r3, r0
+ 363 0008 FB71     		strb	r3, [r7, #7]
+ 306:.\Generated_Source\PSoC5/counterANTPlus.c ****     counterANTPlus_CONTROL = control;
+ 364              		.loc 1 306 0
+ 365 000a 46F27643 		movw	r3, #:lower16:1073767542
+ 366 000e C4F20003 		movt	r3, #:upper16:1073767542
+ 367 0012 FA79     		ldrb	r2, [r7, #7]
+ 368 0014 1A70     		strb	r2, [r3, #0]
+ 307:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 369              		.loc 1 307 0
+ 370 0016 07F10C07 		add	r7, r7, #12
+ 371 001a BD46     		mov	sp, r7
+ 372 001c 80BC     		pop	{r7}
+ 373 001e 7047     		bx	lr
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 13
+
+
+ 374              		.cfi_endproc
+ 375              	.LFE7:
+ 376              		.size	counterANTPlus_WriteControlRegister, .-counterANTPlus_WriteControlRegister
+ 377              		.section	.text.counterANTPlus_WriteCounter,"ax",%progbits
+ 378              		.align	2
+ 379              		.global	counterANTPlus_WriteCounter
+ 380              		.thumb
+ 381              		.thumb_func
+ 382              		.type	counterANTPlus_WriteCounter, %function
+ 383              	counterANTPlus_WriteCounter:
+ 384              	.LFB8:
+ 308:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 309:.\Generated_Source\PSoC5/counterANTPlus.c **** #endif  /* (!counterANTPlus_ControlRegRemoved) */
+ 310:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 311:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 312:.\Generated_Source\PSoC5/counterANTPlus.c **** #if (!(counterANTPlus_UsingFixedFunction && (CY_PSOC5A)))
+ 313:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 314:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_WriteCounter
+ 315:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 316:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 317:.\Generated_Source\PSoC5/counterANTPlus.c **** *   This funtion is used to set the counter to a specific value
+ 318:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 319:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 320:.\Generated_Source\PSoC5/counterANTPlus.c **** *  counter:  New counter value. 
+ 321:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 322:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 323:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void 
+ 324:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 325:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 326:.\Generated_Source\PSoC5/counterANTPlus.c **** void counterANTPlus_WriteCounter(uint8 counter) \
+ 327:.\Generated_Source\PSoC5/counterANTPlus.c ****                                    
+ 328:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 385              		.loc 1 328 0
+ 386              		.cfi_startproc
+ 387              		@ args = 0, pretend = 0, frame = 8
+ 388              		@ frame_needed = 1, uses_anonymous_args = 0
+ 389              		@ link register save eliminated.
+ 390 0000 80B4     		push	{r7}
+ 391              	.LCFI19:
+ 392              		.cfi_def_cfa_offset 4
+ 393 0002 83B0     		sub	sp, sp, #12
+ 394              	.LCFI20:
+ 395              		.cfi_def_cfa_offset 16
+ 396 0004 00AF     		add	r7, sp, #0
+ 397              		.cfi_offset 7, -4
+ 398              	.LCFI21:
+ 399              		.cfi_def_cfa_register 7
+ 400 0006 0346     		mov	r3, r0
+ 401 0008 FB71     		strb	r3, [r7, #7]
+ 329:.\Generated_Source\PSoC5/counterANTPlus.c ****     #if(counterANTPlus_UsingFixedFunction)
+ 330:.\Generated_Source\PSoC5/counterANTPlus.c ****         /* assert if block is already enabled */
+ 331:.\Generated_Source\PSoC5/counterANTPlus.c ****         CYASSERT (0u == (counterANTPlus_GLOBAL_ENABLE & counterANTPlus_BLOCK_EN_MASK));
+ 332:.\Generated_Source\PSoC5/counterANTPlus.c ****         /* If block is disabled, enable it and then write the counter */
+ 333:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_GLOBAL_ENABLE |= counterANTPlus_BLOCK_EN_MASK;
+ 334:.\Generated_Source\PSoC5/counterANTPlus.c ****         CY_SET_REG16(counterANTPlus_COUNTER_LSB_PTR, (uint16)counter);
+ 335:.\Generated_Source\PSoC5/counterANTPlus.c ****         counterANTPlus_GLOBAL_ENABLE &= ((uint8)(~counterANTPlus_BLOCK_EN_MASK));
+ 336:.\Generated_Source\PSoC5/counterANTPlus.c ****     #else
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 14
+
+
+ 337:.\Generated_Source\PSoC5/counterANTPlus.c ****         CY_SET_REG8(counterANTPlus_COUNTER_LSB_PTR, counter);
+ 402              		.loc 1 337 0
+ 403 000a 46F20643 		movw	r3, #:lower16:1073767430
+ 404 000e C4F20003 		movt	r3, #:upper16:1073767430
+ 405 0012 FA79     		ldrb	r2, [r7, #7]
+ 406 0014 1A70     		strb	r2, [r3, #0]
+ 338:.\Generated_Source\PSoC5/counterANTPlus.c ****     #endif /* (counterANTPlus_UsingFixedFunction) */
+ 339:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 407              		.loc 1 339 0
+ 408 0016 07F10C07 		add	r7, r7, #12
+ 409 001a BD46     		mov	sp, r7
+ 410 001c 80BC     		pop	{r7}
+ 411 001e 7047     		bx	lr
+ 412              		.cfi_endproc
+ 413              	.LFE8:
+ 414              		.size	counterANTPlus_WriteCounter, .-counterANTPlus_WriteCounter
+ 415              		.section	.text.counterANTPlus_ReadCounter,"ax",%progbits
+ 416              		.align	2
+ 417              		.global	counterANTPlus_ReadCounter
+ 418              		.thumb
+ 419              		.thumb_func
+ 420              		.type	counterANTPlus_ReadCounter, %function
+ 421              	counterANTPlus_ReadCounter:
+ 422              	.LFB9:
+ 340:.\Generated_Source\PSoC5/counterANTPlus.c **** #endif /* (!(counterANTPlus_UsingFixedFunction && (CY_PSOC5A))) */
+ 341:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 342:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 343:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 344:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_ReadCounter
+ 345:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 346:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 347:.\Generated_Source\PSoC5/counterANTPlus.c **** * Returns the current value of the counter.  It doesn't matter
+ 348:.\Generated_Source\PSoC5/counterANTPlus.c **** * if the counter is enabled or running.
+ 349:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 350:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 351:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void:  
+ 352:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 353:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 354:.\Generated_Source\PSoC5/counterANTPlus.c **** *  (uint8) The present value of the counter.
+ 355:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 356:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 357:.\Generated_Source\PSoC5/counterANTPlus.c **** uint8 counterANTPlus_ReadCounter(void) 
+ 358:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 423              		.loc 1 358 0
+ 424              		.cfi_startproc
+ 425              		@ args = 0, pretend = 0, frame = 0
+ 426              		@ frame_needed = 1, uses_anonymous_args = 0
+ 427              		@ link register save eliminated.
+ 428 0000 80B4     		push	{r7}
+ 429              	.LCFI22:
+ 430              		.cfi_def_cfa_offset 4
+ 431 0002 00AF     		add	r7, sp, #0
+ 432              		.cfi_offset 7, -4
+ 433              	.LCFI23:
+ 434              		.cfi_def_cfa_register 7
+ 359:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Force capture by reading Accumulator */
+ 360:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Must first do a software capture to be able to read the counter */
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 15
+
+
+ 361:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 362:.\Generated_Source\PSoC5/counterANTPlus.c ****     #if(counterANTPlus_UsingFixedFunction)
+ 363:.\Generated_Source\PSoC5/counterANTPlus.c **** 		(void)CY_GET_REG16(counterANTPlus_COUNTER_LSB_PTR);
+ 364:.\Generated_Source\PSoC5/counterANTPlus.c **** 	#else
+ 365:.\Generated_Source\PSoC5/counterANTPlus.c **** 		(void)CY_GET_REG8(counterANTPlus_COUNTER_LSB_PTR_8BIT);
+ 435              		.loc 1 365 0
+ 436 0004 46F20643 		movw	r3, #:lower16:1073767430
+ 437 0008 C4F20003 		movt	r3, #:upper16:1073767430
+ 438 000c 1B78     		ldrb	r3, [r3, #0]
+ 366:.\Generated_Source\PSoC5/counterANTPlus.c **** 	#endif/* (counterANTPlus_UsingFixedFunction) */
+ 367:.\Generated_Source\PSoC5/counterANTPlus.c ****     
+ 368:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Read the data from the FIFO (or capture register for Fixed Function)*/
+ 369:.\Generated_Source\PSoC5/counterANTPlus.c ****     #if(counterANTPlus_UsingFixedFunction)
+ 370:.\Generated_Source\PSoC5/counterANTPlus.c ****         return ((uint8)CY_GET_REG16(counterANTPlus_STATICCOUNT_LSB_PTR));
+ 371:.\Generated_Source\PSoC5/counterANTPlus.c ****     #else
+ 372:.\Generated_Source\PSoC5/counterANTPlus.c ****         return (CY_GET_REG8(counterANTPlus_STATICCOUNT_LSB_PTR));
+ 439              		.loc 1 372 0
+ 440 000e 46F24643 		movw	r3, #:lower16:1073767494
+ 441 0012 C4F20003 		movt	r3, #:upper16:1073767494
+ 442 0016 1B78     		ldrb	r3, [r3, #0]
+ 443 0018 DBB2     		uxtb	r3, r3
+ 373:.\Generated_Source\PSoC5/counterANTPlus.c ****     #endif /* (counterANTPlus_UsingFixedFunction) */
+ 374:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 444              		.loc 1 374 0
+ 445 001a 1846     		mov	r0, r3
+ 446 001c BD46     		mov	sp, r7
+ 447 001e 80BC     		pop	{r7}
+ 448 0020 7047     		bx	lr
+ 449              		.cfi_endproc
+ 450              	.LFE9:
+ 451              		.size	counterANTPlus_ReadCounter, .-counterANTPlus_ReadCounter
+ 452 0022 00BF     		.section	.text.counterANTPlus_ReadCapture,"ax",%progbits
+ 453              		.align	2
+ 454              		.global	counterANTPlus_ReadCapture
+ 455              		.thumb
+ 456              		.thumb_func
+ 457              		.type	counterANTPlus_ReadCapture, %function
+ 458              	counterANTPlus_ReadCapture:
+ 459              	.LFB10:
+ 375:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 376:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 377:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 378:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_ReadCapture
+ 379:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 380:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 381:.\Generated_Source\PSoC5/counterANTPlus.c **** *   This function returns the last value captured.
+ 382:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 383:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 384:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 385:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 386:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 387:.\Generated_Source\PSoC5/counterANTPlus.c **** *  (uint8) Present Capture value.
+ 388:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 389:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 390:.\Generated_Source\PSoC5/counterANTPlus.c **** uint8 counterANTPlus_ReadCapture(void) 
+ 391:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 460              		.loc 1 391 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 16
+
+
+ 461              		.cfi_startproc
+ 462              		@ args = 0, pretend = 0, frame = 0
+ 463              		@ frame_needed = 1, uses_anonymous_args = 0
+ 464              		@ link register save eliminated.
+ 465 0000 80B4     		push	{r7}
+ 466              	.LCFI24:
+ 467              		.cfi_def_cfa_offset 4
+ 468 0002 00AF     		add	r7, sp, #0
+ 469              		.cfi_offset 7, -4
+ 470              	.LCFI25:
+ 471              		.cfi_def_cfa_register 7
+ 392:.\Generated_Source\PSoC5/counterANTPlus.c ****     #if(counterANTPlus_UsingFixedFunction)
+ 393:.\Generated_Source\PSoC5/counterANTPlus.c ****         return ((uint8)CY_GET_REG16(counterANTPlus_STATICCOUNT_LSB_PTR));
+ 394:.\Generated_Source\PSoC5/counterANTPlus.c ****     #else
+ 395:.\Generated_Source\PSoC5/counterANTPlus.c ****         return (CY_GET_REG8(counterANTPlus_STATICCOUNT_LSB_PTR));
+ 472              		.loc 1 395 0
+ 473 0004 46F24643 		movw	r3, #:lower16:1073767494
+ 474 0008 C4F20003 		movt	r3, #:upper16:1073767494
+ 475 000c 1B78     		ldrb	r3, [r3, #0]
+ 476 000e DBB2     		uxtb	r3, r3
+ 396:.\Generated_Source\PSoC5/counterANTPlus.c ****     #endif /* (counterANTPlus_UsingFixedFunction) */
+ 397:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 477              		.loc 1 397 0
+ 478 0010 1846     		mov	r0, r3
+ 479 0012 BD46     		mov	sp, r7
+ 480 0014 80BC     		pop	{r7}
+ 481 0016 7047     		bx	lr
+ 482              		.cfi_endproc
+ 483              	.LFE10:
+ 484              		.size	counterANTPlus_ReadCapture, .-counterANTPlus_ReadCapture
+ 485              		.section	.text.counterANTPlus_WritePeriod,"ax",%progbits
+ 486              		.align	2
+ 487              		.global	counterANTPlus_WritePeriod
+ 488              		.thumb
+ 489              		.thumb_func
+ 490              		.type	counterANTPlus_WritePeriod, %function
+ 491              	counterANTPlus_WritePeriod:
+ 492              	.LFB11:
+ 398:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 399:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 400:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 401:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_WritePeriod
+ 402:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 403:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 404:.\Generated_Source\PSoC5/counterANTPlus.c **** * Changes the period of the counter.  The new period 
+ 405:.\Generated_Source\PSoC5/counterANTPlus.c **** * will be loaded the next time terminal count is detected.
+ 406:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 407:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 408:.\Generated_Source\PSoC5/counterANTPlus.c **** *  period: (uint8) A value of 0 will result in
+ 409:.\Generated_Source\PSoC5/counterANTPlus.c **** *         the counter remaining at zero.  
+ 410:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 411:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 412:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 413:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 414:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 415:.\Generated_Source\PSoC5/counterANTPlus.c **** void counterANTPlus_WritePeriod(uint8 period) 
+ 416:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 17
+
+
+ 493              		.loc 1 416 0
+ 494              		.cfi_startproc
+ 495              		@ args = 0, pretend = 0, frame = 8
+ 496              		@ frame_needed = 1, uses_anonymous_args = 0
+ 497              		@ link register save eliminated.
+ 498 0000 80B4     		push	{r7}
+ 499              	.LCFI26:
+ 500              		.cfi_def_cfa_offset 4
+ 501 0002 83B0     		sub	sp, sp, #12
+ 502              	.LCFI27:
+ 503              		.cfi_def_cfa_offset 16
+ 504 0004 00AF     		add	r7, sp, #0
+ 505              		.cfi_offset 7, -4
+ 506              	.LCFI28:
+ 507              		.cfi_def_cfa_register 7
+ 508 0006 0346     		mov	r3, r0
+ 509 0008 FB71     		strb	r3, [r7, #7]
+ 417:.\Generated_Source\PSoC5/counterANTPlus.c ****     #if(counterANTPlus_UsingFixedFunction)
+ 418:.\Generated_Source\PSoC5/counterANTPlus.c ****         CY_SET_REG16(counterANTPlus_PERIOD_LSB_PTR,(uint16)period);
+ 419:.\Generated_Source\PSoC5/counterANTPlus.c ****     #else
+ 420:.\Generated_Source\PSoC5/counterANTPlus.c ****         CY_SET_REG8(counterANTPlus_PERIOD_LSB_PTR, period);
+ 510              		.loc 1 420 0
+ 511 000a 46F22643 		movw	r3, #:lower16:1073767462
+ 512 000e C4F20003 		movt	r3, #:upper16:1073767462
+ 513 0012 FA79     		ldrb	r2, [r7, #7]
+ 514 0014 1A70     		strb	r2, [r3, #0]
+ 421:.\Generated_Source\PSoC5/counterANTPlus.c ****     #endif /* (counterANTPlus_UsingFixedFunction) */
+ 422:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 515              		.loc 1 422 0
+ 516 0016 07F10C07 		add	r7, r7, #12
+ 517 001a BD46     		mov	sp, r7
+ 518 001c 80BC     		pop	{r7}
+ 519 001e 7047     		bx	lr
+ 520              		.cfi_endproc
+ 521              	.LFE11:
+ 522              		.size	counterANTPlus_WritePeriod, .-counterANTPlus_WritePeriod
+ 523              		.section	.text.counterANTPlus_ReadPeriod,"ax",%progbits
+ 524              		.align	2
+ 525              		.global	counterANTPlus_ReadPeriod
+ 526              		.thumb
+ 527              		.thumb_func
+ 528              		.type	counterANTPlus_ReadPeriod, %function
+ 529              	counterANTPlus_ReadPeriod:
+ 530              	.LFB12:
+ 423:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 424:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 425:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 426:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_ReadPeriod
+ 427:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 428:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 429:.\Generated_Source\PSoC5/counterANTPlus.c **** * Reads the current period value without affecting counter operation.
+ 430:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 431:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 432:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void:  
+ 433:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 434:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 435:.\Generated_Source\PSoC5/counterANTPlus.c **** *  (uint8) Present period value.
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 18
+
+
+ 436:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 437:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 438:.\Generated_Source\PSoC5/counterANTPlus.c **** uint8 counterANTPlus_ReadPeriod(void) 
+ 439:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 531              		.loc 1 439 0
+ 532              		.cfi_startproc
+ 533              		@ args = 0, pretend = 0, frame = 0
+ 534              		@ frame_needed = 1, uses_anonymous_args = 0
+ 535              		@ link register save eliminated.
+ 536 0000 80B4     		push	{r7}
+ 537              	.LCFI29:
+ 538              		.cfi_def_cfa_offset 4
+ 539 0002 00AF     		add	r7, sp, #0
+ 540              		.cfi_offset 7, -4
+ 541              	.LCFI30:
+ 542              		.cfi_def_cfa_register 7
+ 440:.\Generated_Source\PSoC5/counterANTPlus.c ****     #if(counterANTPlus_UsingFixedFunction)
+ 441:.\Generated_Source\PSoC5/counterANTPlus.c ****         return ((uint8)CY_GET_REG16(counterANTPlus_PERIOD_LSB_PTR));
+ 442:.\Generated_Source\PSoC5/counterANTPlus.c ****     #else
+ 443:.\Generated_Source\PSoC5/counterANTPlus.c ****         return (CY_GET_REG8(counterANTPlus_PERIOD_LSB_PTR));
+ 543              		.loc 1 443 0
+ 544 0004 46F22643 		movw	r3, #:lower16:1073767462
+ 545 0008 C4F20003 		movt	r3, #:upper16:1073767462
+ 546 000c 1B78     		ldrb	r3, [r3, #0]
+ 547 000e DBB2     		uxtb	r3, r3
+ 444:.\Generated_Source\PSoC5/counterANTPlus.c ****     #endif /* (counterANTPlus_UsingFixedFunction) */
+ 445:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 548              		.loc 1 445 0
+ 549 0010 1846     		mov	r0, r3
+ 550 0012 BD46     		mov	sp, r7
+ 551 0014 80BC     		pop	{r7}
+ 552 0016 7047     		bx	lr
+ 553              		.cfi_endproc
+ 554              	.LFE12:
+ 555              		.size	counterANTPlus_ReadPeriod, .-counterANTPlus_ReadPeriod
+ 556              		.section	.text.counterANTPlus_WriteCompare,"ax",%progbits
+ 557              		.align	2
+ 558              		.global	counterANTPlus_WriteCompare
+ 559              		.thumb
+ 560              		.thumb_func
+ 561              		.type	counterANTPlus_WriteCompare, %function
+ 562              	counterANTPlus_WriteCompare:
+ 563              	.LFB13:
+ 446:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 447:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 448:.\Generated_Source\PSoC5/counterANTPlus.c **** #if (!counterANTPlus_UsingFixedFunction)
+ 449:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 450:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_WriteCompare
+ 451:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 452:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 453:.\Generated_Source\PSoC5/counterANTPlus.c **** * Changes the compare value.  The compare output will 
+ 454:.\Generated_Source\PSoC5/counterANTPlus.c **** * reflect the new value on the next UDB clock.  The compare output will be 
+ 455:.\Generated_Source\PSoC5/counterANTPlus.c **** * driven high when the present counter value compares true based on the 
+ 456:.\Generated_Source\PSoC5/counterANTPlus.c **** * configured compare mode setting. 
+ 457:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 458:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 459:.\Generated_Source\PSoC5/counterANTPlus.c **** *  Compare:  New compare value. 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 19
+
+
+ 460:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 461:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 462:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 463:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 464:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 465:.\Generated_Source\PSoC5/counterANTPlus.c **** void counterANTPlus_WriteCompare(uint8 compare) \
+ 466:.\Generated_Source\PSoC5/counterANTPlus.c ****                                    
+ 467:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 564              		.loc 1 467 0
+ 565              		.cfi_startproc
+ 566              		@ args = 0, pretend = 0, frame = 8
+ 567              		@ frame_needed = 1, uses_anonymous_args = 0
+ 568              		@ link register save eliminated.
+ 569 0000 80B4     		push	{r7}
+ 570              	.LCFI31:
+ 571              		.cfi_def_cfa_offset 4
+ 572 0002 83B0     		sub	sp, sp, #12
+ 573              	.LCFI32:
+ 574              		.cfi_def_cfa_offset 16
+ 575 0004 00AF     		add	r7, sp, #0
+ 576              		.cfi_offset 7, -4
+ 577              	.LCFI33:
+ 578              		.cfi_def_cfa_register 7
+ 579 0006 0346     		mov	r3, r0
+ 580 0008 FB71     		strb	r3, [r7, #7]
+ 468:.\Generated_Source\PSoC5/counterANTPlus.c ****     #if(counterANTPlus_UsingFixedFunction)
+ 469:.\Generated_Source\PSoC5/counterANTPlus.c ****         CY_SET_REG16(counterANTPlus_COMPARE_LSB_PTR, (uint16)compare);
+ 470:.\Generated_Source\PSoC5/counterANTPlus.c ****     #else
+ 471:.\Generated_Source\PSoC5/counterANTPlus.c ****         CY_SET_REG8(counterANTPlus_COMPARE_LSB_PTR, compare);
+ 581              		.loc 1 471 0
+ 582 000a 46F23643 		movw	r3, #:lower16:1073767478
+ 583 000e C4F20003 		movt	r3, #:upper16:1073767478
+ 584 0012 FA79     		ldrb	r2, [r7, #7]
+ 585 0014 1A70     		strb	r2, [r3, #0]
+ 472:.\Generated_Source\PSoC5/counterANTPlus.c ****     #endif /* (counterANTPlus_UsingFixedFunction) */
+ 473:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 586              		.loc 1 473 0
+ 587 0016 07F10C07 		add	r7, r7, #12
+ 588 001a BD46     		mov	sp, r7
+ 589 001c 80BC     		pop	{r7}
+ 590 001e 7047     		bx	lr
+ 591              		.cfi_endproc
+ 592              	.LFE13:
+ 593              		.size	counterANTPlus_WriteCompare, .-counterANTPlus_WriteCompare
+ 594              		.section	.text.counterANTPlus_ReadCompare,"ax",%progbits
+ 595              		.align	2
+ 596              		.global	counterANTPlus_ReadCompare
+ 597              		.thumb
+ 598              		.thumb_func
+ 599              		.type	counterANTPlus_ReadCompare, %function
+ 600              	counterANTPlus_ReadCompare:
+ 601              	.LFB14:
+ 474:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 475:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 476:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 477:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_ReadCompare
+ 478:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 20
+
+
+ 479:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 480:.\Generated_Source\PSoC5/counterANTPlus.c **** * Returns the compare value.
+ 481:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 482:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 483:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void:
+ 484:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 485:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 486:.\Generated_Source\PSoC5/counterANTPlus.c **** *  (uint8) Present compare value.
+ 487:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 488:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 489:.\Generated_Source\PSoC5/counterANTPlus.c **** uint8 counterANTPlus_ReadCompare(void) 
+ 490:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 602              		.loc 1 490 0
+ 603              		.cfi_startproc
+ 604              		@ args = 0, pretend = 0, frame = 0
+ 605              		@ frame_needed = 1, uses_anonymous_args = 0
+ 606              		@ link register save eliminated.
+ 607 0000 80B4     		push	{r7}
+ 608              	.LCFI34:
+ 609              		.cfi_def_cfa_offset 4
+ 610 0002 00AF     		add	r7, sp, #0
+ 611              		.cfi_offset 7, -4
+ 612              	.LCFI35:
+ 613              		.cfi_def_cfa_register 7
+ 491:.\Generated_Source\PSoC5/counterANTPlus.c ****     return (CY_GET_REG8(counterANTPlus_COMPARE_LSB_PTR));
+ 614              		.loc 1 491 0
+ 615 0004 46F23643 		movw	r3, #:lower16:1073767478
+ 616 0008 C4F20003 		movt	r3, #:upper16:1073767478
+ 617 000c 1B78     		ldrb	r3, [r3, #0]
+ 618 000e DBB2     		uxtb	r3, r3
+ 492:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 619              		.loc 1 492 0
+ 620 0010 1846     		mov	r0, r3
+ 621 0012 BD46     		mov	sp, r7
+ 622 0014 80BC     		pop	{r7}
+ 623 0016 7047     		bx	lr
+ 624              		.cfi_endproc
+ 625              	.LFE14:
+ 626              		.size	counterANTPlus_ReadCompare, .-counterANTPlus_ReadCompare
+ 627              		.section	.text.counterANTPlus_ClearFIFO,"ax",%progbits
+ 628              		.align	2
+ 629              		.global	counterANTPlus_ClearFIFO
+ 630              		.thumb
+ 631              		.thumb_func
+ 632              		.type	counterANTPlus_ClearFIFO, %function
+ 633              	counterANTPlus_ClearFIFO:
+ 634              	.LFB15:
+ 493:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 494:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 495:.\Generated_Source\PSoC5/counterANTPlus.c **** #if (counterANTPlus_COMPARE_MODE_SOFTWARE)
+ 496:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 497:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_SetCompareMode
+ 498:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 499:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 500:.\Generated_Source\PSoC5/counterANTPlus.c **** *  Sets the software controlled Compare Mode.
+ 501:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 502:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 21
+
+
+ 503:.\Generated_Source\PSoC5/counterANTPlus.c **** *  compareMode:  Compare Mode Enumerated Type.
+ 504:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 505:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return:
+ 506:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 507:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 508:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 509:.\Generated_Source\PSoC5/counterANTPlus.c **** void counterANTPlus_SetCompareMode(uint8 compareMode) 
+ 510:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 511:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Clear the compare mode bits in the control register */
+ 512:.\Generated_Source\PSoC5/counterANTPlus.c ****     counterANTPlus_CONTROL &= ((uint8)(~counterANTPlus_CTRL_CMPMODE_MASK));
+ 513:.\Generated_Source\PSoC5/counterANTPlus.c ****     
+ 514:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Write the new setting */
+ 515:.\Generated_Source\PSoC5/counterANTPlus.c ****     counterANTPlus_CONTROL |= compareMode;
+ 516:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 517:.\Generated_Source\PSoC5/counterANTPlus.c **** #endif  /* (counterANTPlus_COMPARE_MODE_SOFTWARE) */
+ 518:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 519:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 520:.\Generated_Source\PSoC5/counterANTPlus.c **** #if (counterANTPlus_CAPTURE_MODE_SOFTWARE)
+ 521:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 522:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_SetCaptureMode
+ 523:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 524:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 525:.\Generated_Source\PSoC5/counterANTPlus.c **** *  Sets the software controlled Capture Mode.
+ 526:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 527:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:
+ 528:.\Generated_Source\PSoC5/counterANTPlus.c **** *  captureMode:  Capture Mode Enumerated Type.
+ 529:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 530:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return:
+ 531:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void
+ 532:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 533:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 534:.\Generated_Source\PSoC5/counterANTPlus.c **** void counterANTPlus_SetCaptureMode(uint8 captureMode) 
+ 535:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ 536:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Clear the capture mode bits in the control register */
+ 537:.\Generated_Source\PSoC5/counterANTPlus.c ****     counterANTPlus_CONTROL &= ((uint8)(~counterANTPlus_CTRL_CAPMODE_MASK));
+ 538:.\Generated_Source\PSoC5/counterANTPlus.c ****     
+ 539:.\Generated_Source\PSoC5/counterANTPlus.c ****     /* Write the new setting */
+ 540:.\Generated_Source\PSoC5/counterANTPlus.c ****     counterANTPlus_CONTROL |= ((uint8)((uint8)captureMode << counterANTPlus_CTRL_CAPMODE0_SHIFT));
+ 541:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 542:.\Generated_Source\PSoC5/counterANTPlus.c **** #endif  /* (counterANTPlus_CAPTURE_MODE_SOFTWARE) */
+ 543:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 544:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 545:.\Generated_Source\PSoC5/counterANTPlus.c **** /*******************************************************************************
+ 546:.\Generated_Source\PSoC5/counterANTPlus.c **** * Function Name: counterANTPlus_ClearFIFO
+ 547:.\Generated_Source\PSoC5/counterANTPlus.c **** ********************************************************************************
+ 548:.\Generated_Source\PSoC5/counterANTPlus.c **** * Summary:
+ 549:.\Generated_Source\PSoC5/counterANTPlus.c **** *   This function clears all capture data from the capture FIFO
+ 550:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 551:.\Generated_Source\PSoC5/counterANTPlus.c **** * Parameters:  
+ 552:.\Generated_Source\PSoC5/counterANTPlus.c **** *  void:
+ 553:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 554:.\Generated_Source\PSoC5/counterANTPlus.c **** * Return: 
+ 555:.\Generated_Source\PSoC5/counterANTPlus.c **** *  None
+ 556:.\Generated_Source\PSoC5/counterANTPlus.c **** *
+ 557:.\Generated_Source\PSoC5/counterANTPlus.c **** *******************************************************************************/
+ 558:.\Generated_Source\PSoC5/counterANTPlus.c **** void counterANTPlus_ClearFIFO(void) 
+ 559:.\Generated_Source\PSoC5/counterANTPlus.c **** {
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 22
+
+
+ 635              		.loc 1 559 0
+ 636              		.cfi_startproc
+ 637              		@ args = 0, pretend = 0, frame = 0
+ 638              		@ frame_needed = 1, uses_anonymous_args = 0
+ 639 0000 80B5     		push	{r7, lr}
+ 640              	.LCFI36:
+ 641              		.cfi_def_cfa_offset 8
+ 642 0002 00AF     		add	r7, sp, #0
+ 643              		.cfi_offset 14, -4
+ 644              		.cfi_offset 7, -8
+ 645              	.LCFI37:
+ 646              		.cfi_def_cfa_register 7
+ 560:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 561:.\Generated_Source\PSoC5/counterANTPlus.c ****     while(0u != (counterANTPlus_ReadStatusRegister() & counterANTPlus_STATUS_FIFONEMP))
+ 647              		.loc 1 561 0
+ 648 0004 01E0     		b	.L33
+ 649              	.L34:
+ 562:.\Generated_Source\PSoC5/counterANTPlus.c ****     {
+ 563:.\Generated_Source\PSoC5/counterANTPlus.c ****         (void)counterANTPlus_ReadCapture();
+ 650              		.loc 1 563 0
+ 651 0006 FFF7FEFF 		bl	counterANTPlus_ReadCapture
+ 652              	.L33:
+ 653              		.loc 1 561 0
+ 654 000a FFF7FEFF 		bl	counterANTPlus_ReadStatusRegister
+ 655 000e 0346     		mov	r3, r0
+ 656 0010 03F04003 		and	r3, r3, #64
+ 657 0014 002B     		cmp	r3, #0
+ 658 0016 F6D1     		bne	.L34
+ 564:.\Generated_Source\PSoC5/counterANTPlus.c ****     }
+ 565:.\Generated_Source\PSoC5/counterANTPlus.c **** 
+ 566:.\Generated_Source\PSoC5/counterANTPlus.c **** }
+ 659              		.loc 1 566 0
+ 660 0018 80BD     		pop	{r7, pc}
+ 661              		.cfi_endproc
+ 662              	.LFE15:
+ 663              		.size	counterANTPlus_ClearFIFO, .-counterANTPlus_ClearFIFO
+ 664 001a 00BF     		.text
+ 665              	.Letext0:
+ 666              		.section	.debug_loc,"",%progbits
+ 667              	.Ldebug_loc0:
+ 668              	.LLST0:
+ 669 0000 00000000 		.4byte	.LFB0
+ 670 0004 02000000 		.4byte	.LCFI0
+ 671 0008 0100     		.2byte	0x1
+ 672 000a 5D       		.byte	0x5d
+ 673 000b 02000000 		.4byte	.LCFI0
+ 674 000f 04000000 		.4byte	.LCFI1
+ 675 0013 0200     		.2byte	0x2
+ 676 0015 7D       		.byte	0x7d
+ 677 0016 08       		.sleb128 8
+ 678 0017 04000000 		.4byte	.LCFI1
+ 679 001b 06000000 		.4byte	.LCFI2
+ 680 001f 0200     		.2byte	0x2
+ 681 0021 7D       		.byte	0x7d
+ 682 0022 10       		.sleb128 16
+ 683 0023 06000000 		.4byte	.LCFI2
+ 684 0027 A4000000 		.4byte	.LFE0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 23
+
+
+ 685 002b 0200     		.2byte	0x2
+ 686 002d 77       		.byte	0x77
+ 687 002e 10       		.sleb128 16
+ 688 002f 00000000 		.4byte	0x0
+ 689 0033 00000000 		.4byte	0x0
+ 690              	.LLST1:
+ 691 0037 00000000 		.4byte	.LFB1
+ 692 003b 02000000 		.4byte	.LCFI3
+ 693 003f 0100     		.2byte	0x1
+ 694 0041 5D       		.byte	0x5d
+ 695 0042 02000000 		.4byte	.LCFI3
+ 696 0046 04000000 		.4byte	.LCFI4
+ 697 004a 0200     		.2byte	0x2
+ 698 004c 7D       		.byte	0x7d
+ 699 004d 04       		.sleb128 4
+ 700 004e 04000000 		.4byte	.LCFI4
+ 701 0052 2A000000 		.4byte	.LFE1
+ 702 0056 0200     		.2byte	0x2
+ 703 0058 77       		.byte	0x77
+ 704 0059 04       		.sleb128 4
+ 705 005a 00000000 		.4byte	0x0
+ 706 005e 00000000 		.4byte	0x0
+ 707              	.LLST2:
+ 708 0062 00000000 		.4byte	.LFB2
+ 709 0066 02000000 		.4byte	.LCFI5
+ 710 006a 0100     		.2byte	0x1
+ 711 006c 5D       		.byte	0x5d
+ 712 006d 02000000 		.4byte	.LCFI5
+ 713 0071 04000000 		.4byte	.LCFI6
+ 714 0075 0200     		.2byte	0x2
+ 715 0077 7D       		.byte	0x7d
+ 716 0078 08       		.sleb128 8
+ 717 0079 04000000 		.4byte	.LCFI6
+ 718 007d 2A000000 		.4byte	.LFE2
+ 719 0081 0200     		.2byte	0x2
+ 720 0083 77       		.byte	0x77
+ 721 0084 08       		.sleb128 8
+ 722 0085 00000000 		.4byte	0x0
+ 723 0089 00000000 		.4byte	0x0
+ 724              	.LLST3:
+ 725 008d 00000000 		.4byte	.LFB3
+ 726 0091 02000000 		.4byte	.LCFI7
+ 727 0095 0100     		.2byte	0x1
+ 728 0097 5D       		.byte	0x5d
+ 729 0098 02000000 		.4byte	.LCFI7
+ 730 009c 04000000 		.4byte	.LCFI8
+ 731 00a0 0200     		.2byte	0x2
+ 732 00a2 7D       		.byte	0x7d
+ 733 00a3 04       		.sleb128 4
+ 734 00a4 04000000 		.4byte	.LCFI8
+ 735 00a8 24000000 		.4byte	.LFE3
+ 736 00ac 0200     		.2byte	0x2
+ 737 00ae 77       		.byte	0x77
+ 738 00af 04       		.sleb128 4
+ 739 00b0 00000000 		.4byte	0x0
+ 740 00b4 00000000 		.4byte	0x0
+ 741              	.LLST4:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 24
+
+
+ 742 00b8 00000000 		.4byte	.LFB4
+ 743 00bc 02000000 		.4byte	.LCFI9
+ 744 00c0 0100     		.2byte	0x1
+ 745 00c2 5D       		.byte	0x5d
+ 746 00c3 02000000 		.4byte	.LCFI9
+ 747 00c7 04000000 		.4byte	.LCFI10
+ 748 00cb 0200     		.2byte	0x2
+ 749 00cd 7D       		.byte	0x7d
+ 750 00ce 04       		.sleb128 4
+ 751 00cf 04000000 		.4byte	.LCFI10
+ 752 00d3 06000000 		.4byte	.LCFI11
+ 753 00d7 0200     		.2byte	0x2
+ 754 00d9 7D       		.byte	0x7d
+ 755 00da 10       		.sleb128 16
+ 756 00db 06000000 		.4byte	.LCFI11
+ 757 00df 20000000 		.4byte	.LFE4
+ 758 00e3 0200     		.2byte	0x2
+ 759 00e5 77       		.byte	0x77
+ 760 00e6 10       		.sleb128 16
+ 761 00e7 00000000 		.4byte	0x0
+ 762 00eb 00000000 		.4byte	0x0
+ 763              	.LLST5:
+ 764 00ef 00000000 		.4byte	.LFB5
+ 765 00f3 02000000 		.4byte	.LCFI12
+ 766 00f7 0100     		.2byte	0x1
+ 767 00f9 5D       		.byte	0x5d
+ 768 00fa 02000000 		.4byte	.LCFI12
+ 769 00fe 04000000 		.4byte	.LCFI13
+ 770 0102 0200     		.2byte	0x2
+ 771 0104 7D       		.byte	0x7d
+ 772 0105 04       		.sleb128 4
+ 773 0106 04000000 		.4byte	.LCFI13
+ 774 010a 18000000 		.4byte	.LFE5
+ 775 010e 0200     		.2byte	0x2
+ 776 0110 77       		.byte	0x77
+ 777 0111 04       		.sleb128 4
+ 778 0112 00000000 		.4byte	0x0
+ 779 0116 00000000 		.4byte	0x0
+ 780              	.LLST6:
+ 781 011a 00000000 		.4byte	.LFB6
+ 782 011e 02000000 		.4byte	.LCFI14
+ 783 0122 0100     		.2byte	0x1
+ 784 0124 5D       		.byte	0x5d
+ 785 0125 02000000 		.4byte	.LCFI14
+ 786 0129 04000000 		.4byte	.LCFI15
+ 787 012d 0200     		.2byte	0x2
+ 788 012f 7D       		.byte	0x7d
+ 789 0130 04       		.sleb128 4
+ 790 0131 04000000 		.4byte	.LCFI15
+ 791 0135 18000000 		.4byte	.LFE6
+ 792 0139 0200     		.2byte	0x2
+ 793 013b 77       		.byte	0x77
+ 794 013c 04       		.sleb128 4
+ 795 013d 00000000 		.4byte	0x0
+ 796 0141 00000000 		.4byte	0x0
+ 797              	.LLST7:
+ 798 0145 00000000 		.4byte	.LFB7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 25
+
+
+ 799 0149 02000000 		.4byte	.LCFI16
+ 800 014d 0100     		.2byte	0x1
+ 801 014f 5D       		.byte	0x5d
+ 802 0150 02000000 		.4byte	.LCFI16
+ 803 0154 04000000 		.4byte	.LCFI17
+ 804 0158 0200     		.2byte	0x2
+ 805 015a 7D       		.byte	0x7d
+ 806 015b 04       		.sleb128 4
+ 807 015c 04000000 		.4byte	.LCFI17
+ 808 0160 06000000 		.4byte	.LCFI18
+ 809 0164 0200     		.2byte	0x2
+ 810 0166 7D       		.byte	0x7d
+ 811 0167 10       		.sleb128 16
+ 812 0168 06000000 		.4byte	.LCFI18
+ 813 016c 20000000 		.4byte	.LFE7
+ 814 0170 0200     		.2byte	0x2
+ 815 0172 77       		.byte	0x77
+ 816 0173 10       		.sleb128 16
+ 817 0174 00000000 		.4byte	0x0
+ 818 0178 00000000 		.4byte	0x0
+ 819              	.LLST8:
+ 820 017c 00000000 		.4byte	.LFB8
+ 821 0180 02000000 		.4byte	.LCFI19
+ 822 0184 0100     		.2byte	0x1
+ 823 0186 5D       		.byte	0x5d
+ 824 0187 02000000 		.4byte	.LCFI19
+ 825 018b 04000000 		.4byte	.LCFI20
+ 826 018f 0200     		.2byte	0x2
+ 827 0191 7D       		.byte	0x7d
+ 828 0192 04       		.sleb128 4
+ 829 0193 04000000 		.4byte	.LCFI20
+ 830 0197 06000000 		.4byte	.LCFI21
+ 831 019b 0200     		.2byte	0x2
+ 832 019d 7D       		.byte	0x7d
+ 833 019e 10       		.sleb128 16
+ 834 019f 06000000 		.4byte	.LCFI21
+ 835 01a3 20000000 		.4byte	.LFE8
+ 836 01a7 0200     		.2byte	0x2
+ 837 01a9 77       		.byte	0x77
+ 838 01aa 10       		.sleb128 16
+ 839 01ab 00000000 		.4byte	0x0
+ 840 01af 00000000 		.4byte	0x0
+ 841              	.LLST9:
+ 842 01b3 00000000 		.4byte	.LFB9
+ 843 01b7 02000000 		.4byte	.LCFI22
+ 844 01bb 0100     		.2byte	0x1
+ 845 01bd 5D       		.byte	0x5d
+ 846 01be 02000000 		.4byte	.LCFI22
+ 847 01c2 04000000 		.4byte	.LCFI23
+ 848 01c6 0200     		.2byte	0x2
+ 849 01c8 7D       		.byte	0x7d
+ 850 01c9 04       		.sleb128 4
+ 851 01ca 04000000 		.4byte	.LCFI23
+ 852 01ce 22000000 		.4byte	.LFE9
+ 853 01d2 0200     		.2byte	0x2
+ 854 01d4 77       		.byte	0x77
+ 855 01d5 04       		.sleb128 4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 26
+
+
+ 856 01d6 00000000 		.4byte	0x0
+ 857 01da 00000000 		.4byte	0x0
+ 858              	.LLST10:
+ 859 01de 00000000 		.4byte	.LFB10
+ 860 01e2 02000000 		.4byte	.LCFI24
+ 861 01e6 0100     		.2byte	0x1
+ 862 01e8 5D       		.byte	0x5d
+ 863 01e9 02000000 		.4byte	.LCFI24
+ 864 01ed 04000000 		.4byte	.LCFI25
+ 865 01f1 0200     		.2byte	0x2
+ 866 01f3 7D       		.byte	0x7d
+ 867 01f4 04       		.sleb128 4
+ 868 01f5 04000000 		.4byte	.LCFI25
+ 869 01f9 18000000 		.4byte	.LFE10
+ 870 01fd 0200     		.2byte	0x2
+ 871 01ff 77       		.byte	0x77
+ 872 0200 04       		.sleb128 4
+ 873 0201 00000000 		.4byte	0x0
+ 874 0205 00000000 		.4byte	0x0
+ 875              	.LLST11:
+ 876 0209 00000000 		.4byte	.LFB11
+ 877 020d 02000000 		.4byte	.LCFI26
+ 878 0211 0100     		.2byte	0x1
+ 879 0213 5D       		.byte	0x5d
+ 880 0214 02000000 		.4byte	.LCFI26
+ 881 0218 04000000 		.4byte	.LCFI27
+ 882 021c 0200     		.2byte	0x2
+ 883 021e 7D       		.byte	0x7d
+ 884 021f 04       		.sleb128 4
+ 885 0220 04000000 		.4byte	.LCFI27
+ 886 0224 06000000 		.4byte	.LCFI28
+ 887 0228 0200     		.2byte	0x2
+ 888 022a 7D       		.byte	0x7d
+ 889 022b 10       		.sleb128 16
+ 890 022c 06000000 		.4byte	.LCFI28
+ 891 0230 20000000 		.4byte	.LFE11
+ 892 0234 0200     		.2byte	0x2
+ 893 0236 77       		.byte	0x77
+ 894 0237 10       		.sleb128 16
+ 895 0238 00000000 		.4byte	0x0
+ 896 023c 00000000 		.4byte	0x0
+ 897              	.LLST12:
+ 898 0240 00000000 		.4byte	.LFB12
+ 899 0244 02000000 		.4byte	.LCFI29
+ 900 0248 0100     		.2byte	0x1
+ 901 024a 5D       		.byte	0x5d
+ 902 024b 02000000 		.4byte	.LCFI29
+ 903 024f 04000000 		.4byte	.LCFI30
+ 904 0253 0200     		.2byte	0x2
+ 905 0255 7D       		.byte	0x7d
+ 906 0256 04       		.sleb128 4
+ 907 0257 04000000 		.4byte	.LCFI30
+ 908 025b 18000000 		.4byte	.LFE12
+ 909 025f 0200     		.2byte	0x2
+ 910 0261 77       		.byte	0x77
+ 911 0262 04       		.sleb128 4
+ 912 0263 00000000 		.4byte	0x0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 27
+
+
+ 913 0267 00000000 		.4byte	0x0
+ 914              	.LLST13:
+ 915 026b 00000000 		.4byte	.LFB13
+ 916 026f 02000000 		.4byte	.LCFI31
+ 917 0273 0100     		.2byte	0x1
+ 918 0275 5D       		.byte	0x5d
+ 919 0276 02000000 		.4byte	.LCFI31
+ 920 027a 04000000 		.4byte	.LCFI32
+ 921 027e 0200     		.2byte	0x2
+ 922 0280 7D       		.byte	0x7d
+ 923 0281 04       		.sleb128 4
+ 924 0282 04000000 		.4byte	.LCFI32
+ 925 0286 06000000 		.4byte	.LCFI33
+ 926 028a 0200     		.2byte	0x2
+ 927 028c 7D       		.byte	0x7d
+ 928 028d 10       		.sleb128 16
+ 929 028e 06000000 		.4byte	.LCFI33
+ 930 0292 20000000 		.4byte	.LFE13
+ 931 0296 0200     		.2byte	0x2
+ 932 0298 77       		.byte	0x77
+ 933 0299 10       		.sleb128 16
+ 934 029a 00000000 		.4byte	0x0
+ 935 029e 00000000 		.4byte	0x0
+ 936              	.LLST14:
+ 937 02a2 00000000 		.4byte	.LFB14
+ 938 02a6 02000000 		.4byte	.LCFI34
+ 939 02aa 0100     		.2byte	0x1
+ 940 02ac 5D       		.byte	0x5d
+ 941 02ad 02000000 		.4byte	.LCFI34
+ 942 02b1 04000000 		.4byte	.LCFI35
+ 943 02b5 0200     		.2byte	0x2
+ 944 02b7 7D       		.byte	0x7d
+ 945 02b8 04       		.sleb128 4
+ 946 02b9 04000000 		.4byte	.LCFI35
+ 947 02bd 18000000 		.4byte	.LFE14
+ 948 02c1 0200     		.2byte	0x2
+ 949 02c3 77       		.byte	0x77
+ 950 02c4 04       		.sleb128 4
+ 951 02c5 00000000 		.4byte	0x0
+ 952 02c9 00000000 		.4byte	0x0
+ 953              	.LLST15:
+ 954 02cd 00000000 		.4byte	.LFB15
+ 955 02d1 02000000 		.4byte	.LCFI36
+ 956 02d5 0100     		.2byte	0x1
+ 957 02d7 5D       		.byte	0x5d
+ 958 02d8 02000000 		.4byte	.LCFI36
+ 959 02dc 04000000 		.4byte	.LCFI37
+ 960 02e0 0200     		.2byte	0x2
+ 961 02e2 7D       		.byte	0x7d
+ 962 02e3 08       		.sleb128 8
+ 963 02e4 04000000 		.4byte	.LCFI37
+ 964 02e8 1A000000 		.4byte	.LFE15
+ 965 02ec 0200     		.2byte	0x2
+ 966 02ee 77       		.byte	0x77
+ 967 02ef 08       		.sleb128 8
+ 968 02f0 00000000 		.4byte	0x0
+ 969 02f4 00000000 		.4byte	0x0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 28
+
+
+ 970              		.file 2 ".\\Generated_Source\\PSoC5\\/cytypes.h"
+ 971              		.section	.debug_info
+ 972 0000 8A020000 		.4byte	0x28a
+ 973 0004 0200     		.2byte	0x2
+ 974 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 975 000a 04       		.byte	0x4
+ 976 000b 01       		.uleb128 0x1
+ 977 000c 64020000 		.4byte	.LASF33
+ 978 0010 01       		.byte	0x1
+ 979 0011 C5000000 		.4byte	.LASF34
+ 980 0015 27000000 		.4byte	.LASF35
+ 981 0019 00000000 		.4byte	0x0
+ 982 001d 00000000 		.4byte	0x0
+ 983 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 984 0025 00000000 		.4byte	.Ldebug_line0
+ 985 0029 02       		.uleb128 0x2
+ 986 002a 01       		.byte	0x1
+ 987 002b 06       		.byte	0x6
+ 988 002c FC020000 		.4byte	.LASF0
+ 989 0030 02       		.uleb128 0x2
+ 990 0031 01       		.byte	0x1
+ 991 0032 08       		.byte	0x8
+ 992 0033 3C010000 		.4byte	.LASF1
+ 993 0037 02       		.uleb128 0x2
+ 994 0038 02       		.byte	0x2
+ 995 0039 05       		.byte	0x5
+ 996 003a 75020000 		.4byte	.LASF2
+ 997 003e 02       		.uleb128 0x2
+ 998 003f 02       		.byte	0x2
+ 999 0040 07       		.byte	0x7
+ 1000 0041 9E000000 		.4byte	.LASF3
+ 1001 0045 02       		.uleb128 0x2
+ 1002 0046 04       		.byte	0x4
+ 1003 0047 05       		.byte	0x5
+ 1004 0048 D8020000 		.4byte	.LASF4
+ 1005 004c 02       		.uleb128 0x2
+ 1006 004d 04       		.byte	0x4
+ 1007 004e 07       		.byte	0x7
+ 1008 004f 4A010000 		.4byte	.LASF5
+ 1009 0053 02       		.uleb128 0x2
+ 1010 0054 08       		.byte	0x8
+ 1011 0055 05       		.byte	0x5
+ 1012 0056 00000000 		.4byte	.LASF6
+ 1013 005a 02       		.uleb128 0x2
+ 1014 005b 08       		.byte	0x8
+ 1015 005c 07       		.byte	0x7
+ 1016 005d ED010000 		.4byte	.LASF7
+ 1017 0061 03       		.uleb128 0x3
+ 1018 0062 04       		.byte	0x4
+ 1019 0063 05       		.byte	0x5
+ 1020 0064 696E7400 		.ascii	"int\000"
+ 1021 0068 02       		.uleb128 0x2
+ 1022 0069 04       		.byte	0x4
+ 1023 006a 07       		.byte	0x7
+ 1024 006b A9010000 		.4byte	.LASF8
+ 1025 006f 02       		.uleb128 0x2
+ 1026 0070 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 29
+
+
+ 1027 0071 08       		.byte	0x8
+ 1028 0072 70020000 		.4byte	.LASF9
+ 1029 0076 04       		.uleb128 0x4
+ 1030 0077 5C010000 		.4byte	.LASF36
+ 1031 007b 02       		.byte	0x2
+ 1032 007c 60       		.byte	0x60
+ 1033 007d 30000000 		.4byte	0x30
+ 1034 0081 05       		.uleb128 0x5
+ 1035 0082 04       		.byte	0x4
+ 1036 0083 07       		.byte	0x7
+ 1037 0084 06       		.uleb128 0x6
+ 1038 0085 01       		.byte	0x1
+ 1039 0086 B1000000 		.4byte	.LASF15
+ 1040 008a 01       		.byte	0x1
+ 1041 008b 25       		.byte	0x25
+ 1042 008c 01       		.byte	0x1
+ 1043 008d 00000000 		.4byte	.LFB0
+ 1044 0091 A4000000 		.4byte	.LFE0
+ 1045 0095 00000000 		.4byte	.LLST0
+ 1046 0099 BA000000 		.4byte	0xba
+ 1047 009d 07       		.uleb128 0x7
+ 1048 009e 45020000 		.4byte	.LASF10
+ 1049 00a2 01       		.byte	0x1
+ 1050 00a3 28       		.byte	0x28
+ 1051 00a4 76000000 		.4byte	0x76
+ 1052 00a8 02       		.byte	0x2
+ 1053 00a9 91       		.byte	0x91
+ 1054 00aa 76       		.sleb128 -10
+ 1055 00ab 07       		.uleb128 0x7
+ 1056 00ac 27020000 		.4byte	.LASF11
+ 1057 00b0 01       		.byte	0x1
+ 1058 00b1 2D       		.byte	0x2d
+ 1059 00b2 76000000 		.4byte	0x76
+ 1060 00b6 02       		.byte	0x2
+ 1061 00b7 91       		.byte	0x91
+ 1062 00b8 77       		.sleb128 -9
+ 1063 00b9 00       		.byte	0x0
+ 1064 00ba 08       		.uleb128 0x8
+ 1065 00bb 01       		.byte	0x1
+ 1066 00bc 1E010000 		.4byte	.LASF12
+ 1067 00c0 01       		.byte	0x1
+ 1068 00c1 8F       		.byte	0x8f
+ 1069 00c2 01       		.byte	0x1
+ 1070 00c3 00000000 		.4byte	.LFB1
+ 1071 00c7 2A000000 		.4byte	.LFE1
+ 1072 00cb 37000000 		.4byte	.LLST1
+ 1073 00cf 08       		.uleb128 0x8
+ 1074 00d0 01       		.byte	0x1
+ 1075 00d1 94010000 		.4byte	.LASF13
+ 1076 00d5 01       		.byte	0x1
+ 1077 00d6 B2       		.byte	0xb2
+ 1078 00d7 01       		.byte	0x1
+ 1079 00d8 00000000 		.4byte	.LFB2
+ 1080 00dc 2A000000 		.4byte	.LFE2
+ 1081 00e0 62000000 		.4byte	.LLST2
+ 1082 00e4 08       		.uleb128 0x8
+ 1083 00e5 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 30
+
+
+ 1084 00e6 0A010000 		.4byte	.LASF14
+ 1085 00ea 01       		.byte	0x1
+ 1086 00eb D0       		.byte	0xd0
+ 1087 00ec 01       		.byte	0x1
+ 1088 00ed 00000000 		.4byte	.LFB3
+ 1089 00f1 24000000 		.4byte	.LFE3
+ 1090 00f5 8D000000 		.4byte	.LLST3
+ 1091 00f9 06       		.uleb128 0x6
+ 1092 00fa 01       		.byte	0x1
+ 1093 00fb A1020000 		.4byte	.LASF16
+ 1094 00ff 01       		.byte	0x1
+ 1095 0100 ED       		.byte	0xed
+ 1096 0101 01       		.byte	0x1
+ 1097 0102 00000000 		.4byte	.LFB4
+ 1098 0106 20000000 		.4byte	.LFE4
+ 1099 010a B8000000 		.4byte	.LLST4
+ 1100 010e 21010000 		.4byte	0x121
+ 1101 0112 09       		.uleb128 0x9
+ 1102 0113 6A010000 		.4byte	.LASF20
+ 1103 0117 01       		.byte	0x1
+ 1104 0118 ED       		.byte	0xed
+ 1105 0119 76000000 		.4byte	0x76
+ 1106 011d 02       		.byte	0x2
+ 1107 011e 91       		.byte	0x91
+ 1108 011f 77       		.sleb128 -9
+ 1109 0120 00       		.byte	0x0
+ 1110 0121 0A       		.uleb128 0xa
+ 1111 0122 01       		.byte	0x1
+ 1112 0123 7F020000 		.4byte	.LASF17
+ 1113 0127 01       		.byte	0x1
+ 1114 0128 0501     		.2byte	0x105
+ 1115 012a 01       		.byte	0x1
+ 1116 012b 76000000 		.4byte	0x76
+ 1117 012f 00000000 		.4byte	.LFB5
+ 1118 0133 18000000 		.4byte	.LFE5
+ 1119 0137 EF000000 		.4byte	.LLST5
+ 1120 013b 0A       		.uleb128 0xa
+ 1121 013c 01       		.byte	0x1
+ 1122 013d 04020000 		.4byte	.LASF18
+ 1123 0141 01       		.byte	0x1
+ 1124 0142 1B01     		.2byte	0x11b
+ 1125 0144 01       		.byte	0x1
+ 1126 0145 76000000 		.4byte	0x76
+ 1127 0149 00000000 		.4byte	.LFB6
+ 1128 014d 18000000 		.4byte	.LFE6
+ 1129 0151 1A010000 		.4byte	.LLST6
+ 1130 0155 0B       		.uleb128 0xb
+ 1131 0156 01       		.byte	0x1
+ 1132 0157 73000000 		.4byte	.LASF19
+ 1133 015b 01       		.byte	0x1
+ 1134 015c 3001     		.2byte	0x130
+ 1135 015e 01       		.byte	0x1
+ 1136 015f 00000000 		.4byte	.LFB7
+ 1137 0163 20000000 		.4byte	.LFE7
+ 1138 0167 45010000 		.4byte	.LLST7
+ 1139 016b 7F010000 		.4byte	0x17f
+ 1140 016f 0C       		.uleb128 0xc
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 31
+
+
+ 1141 0170 62010000 		.4byte	.LASF21
+ 1142 0174 01       		.byte	0x1
+ 1143 0175 3001     		.2byte	0x130
+ 1144 0177 76000000 		.4byte	0x76
+ 1145 017b 02       		.byte	0x2
+ 1146 017c 91       		.byte	0x91
+ 1147 017d 77       		.sleb128 -9
+ 1148 017e 00       		.byte	0x0
+ 1149 017f 0B       		.uleb128 0xb
+ 1150 0180 01       		.byte	0x1
+ 1151 0181 10030000 		.4byte	.LASF22
+ 1152 0185 01       		.byte	0x1
+ 1153 0186 4601     		.2byte	0x146
+ 1154 0188 01       		.byte	0x1
+ 1155 0189 00000000 		.4byte	.LFB8
+ 1156 018d 20000000 		.4byte	.LFE8
+ 1157 0191 7C010000 		.4byte	.LLST8
+ 1158 0195 A9010000 		.4byte	0x1a9
+ 1159 0199 0C       		.uleb128 0xc
+ 1160 019a 34010000 		.4byte	.LASF23
+ 1161 019e 01       		.byte	0x1
+ 1162 019f 4601     		.2byte	0x146
+ 1163 01a1 76000000 		.4byte	0x76
+ 1164 01a5 02       		.byte	0x2
+ 1165 01a6 91       		.byte	0x91
+ 1166 01a7 77       		.sleb128 -9
+ 1167 01a8 00       		.byte	0x0
+ 1168 01a9 0A       		.uleb128 0xa
+ 1169 01aa 01       		.byte	0x1
+ 1170 01ab B6010000 		.4byte	.LASF24
+ 1171 01af 01       		.byte	0x1
+ 1172 01b0 6501     		.2byte	0x165
+ 1173 01b2 01       		.byte	0x1
+ 1174 01b3 76000000 		.4byte	0x76
+ 1175 01b7 00000000 		.4byte	.LFB9
+ 1176 01bb 22000000 		.4byte	.LFE9
+ 1177 01bf B3010000 		.4byte	.LLST9
+ 1178 01c3 0A       		.uleb128 0xa
+ 1179 01c4 01       		.byte	0x1
+ 1180 01c5 79010000 		.4byte	.LASF25
+ 1181 01c9 01       		.byte	0x1
+ 1182 01ca 8601     		.2byte	0x186
+ 1183 01cc 01       		.byte	0x1
+ 1184 01cd 76000000 		.4byte	0x76
+ 1185 01d1 00000000 		.4byte	.LFB10
+ 1186 01d5 18000000 		.4byte	.LFE10
+ 1187 01d9 DE010000 		.4byte	.LLST10
+ 1188 01dd 0B       		.uleb128 0xb
+ 1189 01de 01       		.byte	0x1
+ 1190 01df E1020000 		.4byte	.LASF26
+ 1191 01e3 01       		.byte	0x1
+ 1192 01e4 9F01     		.2byte	0x19f
+ 1193 01e6 01       		.byte	0x1
+ 1194 01e7 00000000 		.4byte	.LFB11
+ 1195 01eb 20000000 		.4byte	.LFE11
+ 1196 01ef 09020000 		.4byte	.LLST11
+ 1197 01f3 07020000 		.4byte	0x207
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 32
+
+
+ 1198 01f7 0C       		.uleb128 0xc
+ 1199 01f8 97000000 		.4byte	.LASF27
+ 1200 01fc 01       		.byte	0x1
+ 1201 01fd 9F01     		.2byte	0x19f
+ 1202 01ff 76000000 		.4byte	0x76
+ 1203 0203 02       		.byte	0x2
+ 1204 0204 91       		.byte	0x91
+ 1205 0205 77       		.sleb128 -9
+ 1206 0206 00       		.byte	0x0
+ 1207 0207 0A       		.uleb128 0xa
+ 1208 0208 01       		.byte	0x1
+ 1209 0209 4A020000 		.4byte	.LASF28
+ 1210 020d 01       		.byte	0x1
+ 1211 020e B601     		.2byte	0x1b6
+ 1212 0210 01       		.byte	0x1
+ 1213 0211 76000000 		.4byte	0x76
+ 1214 0215 00000000 		.4byte	.LFB12
+ 1215 0219 18000000 		.4byte	.LFE12
+ 1216 021d 40020000 		.4byte	.LLST12
+ 1217 0221 0B       		.uleb128 0xb
+ 1218 0222 01       		.byte	0x1
+ 1219 0223 D1010000 		.4byte	.LASF29
+ 1220 0227 01       		.byte	0x1
+ 1221 0228 D101     		.2byte	0x1d1
+ 1222 022a 01       		.byte	0x1
+ 1223 022b 00000000 		.4byte	.LFB13
+ 1224 022f 20000000 		.4byte	.LFE13
+ 1225 0233 6B020000 		.4byte	.LLST13
+ 1226 0237 4B020000 		.4byte	0x24b
+ 1227 023b 0C       		.uleb128 0xc
+ 1228 023c 08030000 		.4byte	.LASF30
+ 1229 0240 01       		.byte	0x1
+ 1230 0241 D101     		.2byte	0x1d1
+ 1231 0243 76000000 		.4byte	0x76
+ 1232 0247 02       		.byte	0x2
+ 1233 0248 91       		.byte	0x91
+ 1234 0249 77       		.sleb128 -9
+ 1235 024a 00       		.byte	0x0
+ 1236 024b 0A       		.uleb128 0xa
+ 1237 024c 01       		.byte	0x1
+ 1238 024d EF000000 		.4byte	.LASF31
+ 1239 0251 01       		.byte	0x1
+ 1240 0252 E901     		.2byte	0x1e9
+ 1241 0254 01       		.byte	0x1
+ 1242 0255 76000000 		.4byte	0x76
+ 1243 0259 00000000 		.4byte	.LFB14
+ 1244 025d 18000000 		.4byte	.LFE14
+ 1245 0261 A2020000 		.4byte	.LLST14
+ 1246 0265 0D       		.uleb128 0xd
+ 1247 0266 01       		.byte	0x1
+ 1248 0267 0E000000 		.4byte	.LASF32
+ 1249 026b 01       		.byte	0x1
+ 1250 026c 2E02     		.2byte	0x22e
+ 1251 026e 01       		.byte	0x1
+ 1252 026f 00000000 		.4byte	.LFB15
+ 1253 0273 1A000000 		.4byte	.LFE15
+ 1254 0277 CD020000 		.4byte	.LLST15
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 33
+
+
+ 1255 027b 0E       		.uleb128 0xe
+ 1256 027c C1020000 		.4byte	.LASF37
+ 1257 0280 01       		.byte	0x1
+ 1258 0281 15       		.byte	0x15
+ 1259 0282 76000000 		.4byte	0x76
+ 1260 0286 01       		.byte	0x1
+ 1261 0287 05       		.byte	0x5
+ 1262 0288 03       		.byte	0x3
+ 1263 0289 00000000 		.4byte	counterANTPlus_initVar
+ 1264 028d 00       		.byte	0x0
+ 1265              		.section	.debug_abbrev
+ 1266 0000 01       		.uleb128 0x1
+ 1267 0001 11       		.uleb128 0x11
+ 1268 0002 01       		.byte	0x1
+ 1269 0003 25       		.uleb128 0x25
+ 1270 0004 0E       		.uleb128 0xe
+ 1271 0005 13       		.uleb128 0x13
+ 1272 0006 0B       		.uleb128 0xb
+ 1273 0007 03       		.uleb128 0x3
+ 1274 0008 0E       		.uleb128 0xe
+ 1275 0009 1B       		.uleb128 0x1b
+ 1276 000a 0E       		.uleb128 0xe
+ 1277 000b 11       		.uleb128 0x11
+ 1278 000c 01       		.uleb128 0x1
+ 1279 000d 52       		.uleb128 0x52
+ 1280 000e 01       		.uleb128 0x1
+ 1281 000f 55       		.uleb128 0x55
+ 1282 0010 06       		.uleb128 0x6
+ 1283 0011 10       		.uleb128 0x10
+ 1284 0012 06       		.uleb128 0x6
+ 1285 0013 00       		.byte	0x0
+ 1286 0014 00       		.byte	0x0
+ 1287 0015 02       		.uleb128 0x2
+ 1288 0016 24       		.uleb128 0x24
+ 1289 0017 00       		.byte	0x0
+ 1290 0018 0B       		.uleb128 0xb
+ 1291 0019 0B       		.uleb128 0xb
+ 1292 001a 3E       		.uleb128 0x3e
+ 1293 001b 0B       		.uleb128 0xb
+ 1294 001c 03       		.uleb128 0x3
+ 1295 001d 0E       		.uleb128 0xe
+ 1296 001e 00       		.byte	0x0
+ 1297 001f 00       		.byte	0x0
+ 1298 0020 03       		.uleb128 0x3
+ 1299 0021 24       		.uleb128 0x24
+ 1300 0022 00       		.byte	0x0
+ 1301 0023 0B       		.uleb128 0xb
+ 1302 0024 0B       		.uleb128 0xb
+ 1303 0025 3E       		.uleb128 0x3e
+ 1304 0026 0B       		.uleb128 0xb
+ 1305 0027 03       		.uleb128 0x3
+ 1306 0028 08       		.uleb128 0x8
+ 1307 0029 00       		.byte	0x0
+ 1308 002a 00       		.byte	0x0
+ 1309 002b 04       		.uleb128 0x4
+ 1310 002c 16       		.uleb128 0x16
+ 1311 002d 00       		.byte	0x0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 34
+
+
+ 1312 002e 03       		.uleb128 0x3
+ 1313 002f 0E       		.uleb128 0xe
+ 1314 0030 3A       		.uleb128 0x3a
+ 1315 0031 0B       		.uleb128 0xb
+ 1316 0032 3B       		.uleb128 0x3b
+ 1317 0033 0B       		.uleb128 0xb
+ 1318 0034 49       		.uleb128 0x49
+ 1319 0035 13       		.uleb128 0x13
+ 1320 0036 00       		.byte	0x0
+ 1321 0037 00       		.byte	0x0
+ 1322 0038 05       		.uleb128 0x5
+ 1323 0039 24       		.uleb128 0x24
+ 1324 003a 00       		.byte	0x0
+ 1325 003b 0B       		.uleb128 0xb
+ 1326 003c 0B       		.uleb128 0xb
+ 1327 003d 3E       		.uleb128 0x3e
+ 1328 003e 0B       		.uleb128 0xb
+ 1329 003f 00       		.byte	0x0
+ 1330 0040 00       		.byte	0x0
+ 1331 0041 06       		.uleb128 0x6
+ 1332 0042 2E       		.uleb128 0x2e
+ 1333 0043 01       		.byte	0x1
+ 1334 0044 3F       		.uleb128 0x3f
+ 1335 0045 0C       		.uleb128 0xc
+ 1336 0046 03       		.uleb128 0x3
+ 1337 0047 0E       		.uleb128 0xe
+ 1338 0048 3A       		.uleb128 0x3a
+ 1339 0049 0B       		.uleb128 0xb
+ 1340 004a 3B       		.uleb128 0x3b
+ 1341 004b 0B       		.uleb128 0xb
+ 1342 004c 27       		.uleb128 0x27
+ 1343 004d 0C       		.uleb128 0xc
+ 1344 004e 11       		.uleb128 0x11
+ 1345 004f 01       		.uleb128 0x1
+ 1346 0050 12       		.uleb128 0x12
+ 1347 0051 01       		.uleb128 0x1
+ 1348 0052 40       		.uleb128 0x40
+ 1349 0053 06       		.uleb128 0x6
+ 1350 0054 01       		.uleb128 0x1
+ 1351 0055 13       		.uleb128 0x13
+ 1352 0056 00       		.byte	0x0
+ 1353 0057 00       		.byte	0x0
+ 1354 0058 07       		.uleb128 0x7
+ 1355 0059 34       		.uleb128 0x34
+ 1356 005a 00       		.byte	0x0
+ 1357 005b 03       		.uleb128 0x3
+ 1358 005c 0E       		.uleb128 0xe
+ 1359 005d 3A       		.uleb128 0x3a
+ 1360 005e 0B       		.uleb128 0xb
+ 1361 005f 3B       		.uleb128 0x3b
+ 1362 0060 0B       		.uleb128 0xb
+ 1363 0061 49       		.uleb128 0x49
+ 1364 0062 13       		.uleb128 0x13
+ 1365 0063 02       		.uleb128 0x2
+ 1366 0064 0A       		.uleb128 0xa
+ 1367 0065 00       		.byte	0x0
+ 1368 0066 00       		.byte	0x0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 35
+
+
+ 1369 0067 08       		.uleb128 0x8
+ 1370 0068 2E       		.uleb128 0x2e
+ 1371 0069 00       		.byte	0x0
+ 1372 006a 3F       		.uleb128 0x3f
+ 1373 006b 0C       		.uleb128 0xc
+ 1374 006c 03       		.uleb128 0x3
+ 1375 006d 0E       		.uleb128 0xe
+ 1376 006e 3A       		.uleb128 0x3a
+ 1377 006f 0B       		.uleb128 0xb
+ 1378 0070 3B       		.uleb128 0x3b
+ 1379 0071 0B       		.uleb128 0xb
+ 1380 0072 27       		.uleb128 0x27
+ 1381 0073 0C       		.uleb128 0xc
+ 1382 0074 11       		.uleb128 0x11
+ 1383 0075 01       		.uleb128 0x1
+ 1384 0076 12       		.uleb128 0x12
+ 1385 0077 01       		.uleb128 0x1
+ 1386 0078 40       		.uleb128 0x40
+ 1387 0079 06       		.uleb128 0x6
+ 1388 007a 00       		.byte	0x0
+ 1389 007b 00       		.byte	0x0
+ 1390 007c 09       		.uleb128 0x9
+ 1391 007d 05       		.uleb128 0x5
+ 1392 007e 00       		.byte	0x0
+ 1393 007f 03       		.uleb128 0x3
+ 1394 0080 0E       		.uleb128 0xe
+ 1395 0081 3A       		.uleb128 0x3a
+ 1396 0082 0B       		.uleb128 0xb
+ 1397 0083 3B       		.uleb128 0x3b
+ 1398 0084 0B       		.uleb128 0xb
+ 1399 0085 49       		.uleb128 0x49
+ 1400 0086 13       		.uleb128 0x13
+ 1401 0087 02       		.uleb128 0x2
+ 1402 0088 0A       		.uleb128 0xa
+ 1403 0089 00       		.byte	0x0
+ 1404 008a 00       		.byte	0x0
+ 1405 008b 0A       		.uleb128 0xa
+ 1406 008c 2E       		.uleb128 0x2e
+ 1407 008d 00       		.byte	0x0
+ 1408 008e 3F       		.uleb128 0x3f
+ 1409 008f 0C       		.uleb128 0xc
+ 1410 0090 03       		.uleb128 0x3
+ 1411 0091 0E       		.uleb128 0xe
+ 1412 0092 3A       		.uleb128 0x3a
+ 1413 0093 0B       		.uleb128 0xb
+ 1414 0094 3B       		.uleb128 0x3b
+ 1415 0095 05       		.uleb128 0x5
+ 1416 0096 27       		.uleb128 0x27
+ 1417 0097 0C       		.uleb128 0xc
+ 1418 0098 49       		.uleb128 0x49
+ 1419 0099 13       		.uleb128 0x13
+ 1420 009a 11       		.uleb128 0x11
+ 1421 009b 01       		.uleb128 0x1
+ 1422 009c 12       		.uleb128 0x12
+ 1423 009d 01       		.uleb128 0x1
+ 1424 009e 40       		.uleb128 0x40
+ 1425 009f 06       		.uleb128 0x6
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 36
+
+
+ 1426 00a0 00       		.byte	0x0
+ 1427 00a1 00       		.byte	0x0
+ 1428 00a2 0B       		.uleb128 0xb
+ 1429 00a3 2E       		.uleb128 0x2e
+ 1430 00a4 01       		.byte	0x1
+ 1431 00a5 3F       		.uleb128 0x3f
+ 1432 00a6 0C       		.uleb128 0xc
+ 1433 00a7 03       		.uleb128 0x3
+ 1434 00a8 0E       		.uleb128 0xe
+ 1435 00a9 3A       		.uleb128 0x3a
+ 1436 00aa 0B       		.uleb128 0xb
+ 1437 00ab 3B       		.uleb128 0x3b
+ 1438 00ac 05       		.uleb128 0x5
+ 1439 00ad 27       		.uleb128 0x27
+ 1440 00ae 0C       		.uleb128 0xc
+ 1441 00af 11       		.uleb128 0x11
+ 1442 00b0 01       		.uleb128 0x1
+ 1443 00b1 12       		.uleb128 0x12
+ 1444 00b2 01       		.uleb128 0x1
+ 1445 00b3 40       		.uleb128 0x40
+ 1446 00b4 06       		.uleb128 0x6
+ 1447 00b5 01       		.uleb128 0x1
+ 1448 00b6 13       		.uleb128 0x13
+ 1449 00b7 00       		.byte	0x0
+ 1450 00b8 00       		.byte	0x0
+ 1451 00b9 0C       		.uleb128 0xc
+ 1452 00ba 05       		.uleb128 0x5
+ 1453 00bb 00       		.byte	0x0
+ 1454 00bc 03       		.uleb128 0x3
+ 1455 00bd 0E       		.uleb128 0xe
+ 1456 00be 3A       		.uleb128 0x3a
+ 1457 00bf 0B       		.uleb128 0xb
+ 1458 00c0 3B       		.uleb128 0x3b
+ 1459 00c1 05       		.uleb128 0x5
+ 1460 00c2 49       		.uleb128 0x49
+ 1461 00c3 13       		.uleb128 0x13
+ 1462 00c4 02       		.uleb128 0x2
+ 1463 00c5 0A       		.uleb128 0xa
+ 1464 00c6 00       		.byte	0x0
+ 1465 00c7 00       		.byte	0x0
+ 1466 00c8 0D       		.uleb128 0xd
+ 1467 00c9 2E       		.uleb128 0x2e
+ 1468 00ca 00       		.byte	0x0
+ 1469 00cb 3F       		.uleb128 0x3f
+ 1470 00cc 0C       		.uleb128 0xc
+ 1471 00cd 03       		.uleb128 0x3
+ 1472 00ce 0E       		.uleb128 0xe
+ 1473 00cf 3A       		.uleb128 0x3a
+ 1474 00d0 0B       		.uleb128 0xb
+ 1475 00d1 3B       		.uleb128 0x3b
+ 1476 00d2 05       		.uleb128 0x5
+ 1477 00d3 27       		.uleb128 0x27
+ 1478 00d4 0C       		.uleb128 0xc
+ 1479 00d5 11       		.uleb128 0x11
+ 1480 00d6 01       		.uleb128 0x1
+ 1481 00d7 12       		.uleb128 0x12
+ 1482 00d8 01       		.uleb128 0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 37
+
+
+ 1483 00d9 40       		.uleb128 0x40
+ 1484 00da 06       		.uleb128 0x6
+ 1485 00db 00       		.byte	0x0
+ 1486 00dc 00       		.byte	0x0
+ 1487 00dd 0E       		.uleb128 0xe
+ 1488 00de 34       		.uleb128 0x34
+ 1489 00df 00       		.byte	0x0
+ 1490 00e0 03       		.uleb128 0x3
+ 1491 00e1 0E       		.uleb128 0xe
+ 1492 00e2 3A       		.uleb128 0x3a
+ 1493 00e3 0B       		.uleb128 0xb
+ 1494 00e4 3B       		.uleb128 0x3b
+ 1495 00e5 0B       		.uleb128 0xb
+ 1496 00e6 49       		.uleb128 0x49
+ 1497 00e7 13       		.uleb128 0x13
+ 1498 00e8 3F       		.uleb128 0x3f
+ 1499 00e9 0C       		.uleb128 0xc
+ 1500 00ea 02       		.uleb128 0x2
+ 1501 00eb 0A       		.uleb128 0xa
+ 1502 00ec 00       		.byte	0x0
+ 1503 00ed 00       		.byte	0x0
+ 1504 00ee 00       		.byte	0x0
+ 1505              		.section	.debug_pubnames,"",%progbits
+ 1506 0000 1C020000 		.4byte	0x21c
+ 1507 0004 0200     		.2byte	0x2
+ 1508 0006 00000000 		.4byte	.Ldebug_info0
+ 1509 000a 8E020000 		.4byte	0x28e
+ 1510 000e 84000000 		.4byte	0x84
+ 1511 0012 636F756E 		.ascii	"counterANTPlus_Init\000"
+ 1511      74657241 
+ 1511      4E54506C 
+ 1511      75735F49 
+ 1511      6E697400 
+ 1512 0026 BA000000 		.4byte	0xba
+ 1513 002a 636F756E 		.ascii	"counterANTPlus_Enable\000"
+ 1513      74657241 
+ 1513      4E54506C 
+ 1513      75735F45 
+ 1513      6E61626C 
+ 1514 0040 CF000000 		.4byte	0xcf
+ 1515 0044 636F756E 		.ascii	"counterANTPlus_Start\000"
+ 1515      74657241 
+ 1515      4E54506C 
+ 1515      75735F53 
+ 1515      74617274 
+ 1516 0059 E4000000 		.4byte	0xe4
+ 1517 005d 636F756E 		.ascii	"counterANTPlus_Stop\000"
+ 1517      74657241 
+ 1517      4E54506C 
+ 1517      75735F53 
+ 1517      746F7000 
+ 1518 0071 F9000000 		.4byte	0xf9
+ 1519 0075 636F756E 		.ascii	"counterANTPlus_SetInterruptMode\000"
+ 1519      74657241 
+ 1519      4E54506C 
+ 1519      75735F53 
+ 1519      6574496E 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 38
+
+
+ 1520 0095 21010000 		.4byte	0x121
+ 1521 0099 636F756E 		.ascii	"counterANTPlus_ReadStatusRegister\000"
+ 1521      74657241 
+ 1521      4E54506C 
+ 1521      75735F52 
+ 1521      65616453 
+ 1522 00bb 3B010000 		.4byte	0x13b
+ 1523 00bf 636F756E 		.ascii	"counterANTPlus_ReadControlRegister\000"
+ 1523      74657241 
+ 1523      4E54506C 
+ 1523      75735F52 
+ 1523      65616443 
+ 1524 00e2 55010000 		.4byte	0x155
+ 1525 00e6 636F756E 		.ascii	"counterANTPlus_WriteControlRegister\000"
+ 1525      74657241 
+ 1525      4E54506C 
+ 1525      75735F57 
+ 1525      72697465 
+ 1526 010a 7F010000 		.4byte	0x17f
+ 1527 010e 636F756E 		.ascii	"counterANTPlus_WriteCounter\000"
+ 1527      74657241 
+ 1527      4E54506C 
+ 1527      75735F57 
+ 1527      72697465 
+ 1528 012a A9010000 		.4byte	0x1a9
+ 1529 012e 636F756E 		.ascii	"counterANTPlus_ReadCounter\000"
+ 1529      74657241 
+ 1529      4E54506C 
+ 1529      75735F52 
+ 1529      65616443 
+ 1530 0149 C3010000 		.4byte	0x1c3
+ 1531 014d 636F756E 		.ascii	"counterANTPlus_ReadCapture\000"
+ 1531      74657241 
+ 1531      4E54506C 
+ 1531      75735F52 
+ 1531      65616443 
+ 1532 0168 DD010000 		.4byte	0x1dd
+ 1533 016c 636F756E 		.ascii	"counterANTPlus_WritePeriod\000"
+ 1533      74657241 
+ 1533      4E54506C 
+ 1533      75735F57 
+ 1533      72697465 
+ 1534 0187 07020000 		.4byte	0x207
+ 1535 018b 636F756E 		.ascii	"counterANTPlus_ReadPeriod\000"
+ 1535      74657241 
+ 1535      4E54506C 
+ 1535      75735F52 
+ 1535      65616450 
+ 1536 01a5 21020000 		.4byte	0x221
+ 1537 01a9 636F756E 		.ascii	"counterANTPlus_WriteCompare\000"
+ 1537      74657241 
+ 1537      4E54506C 
+ 1537      75735F57 
+ 1537      72697465 
+ 1538 01c5 4B020000 		.4byte	0x24b
+ 1539 01c9 636F756E 		.ascii	"counterANTPlus_ReadCompare\000"
+ 1539      74657241 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 39
+
+
+ 1539      4E54506C 
+ 1539      75735F52 
+ 1539      65616443 
+ 1540 01e4 65020000 		.4byte	0x265
+ 1541 01e8 636F756E 		.ascii	"counterANTPlus_ClearFIFO\000"
+ 1541      74657241 
+ 1541      4E54506C 
+ 1541      75735F43 
+ 1541      6C656172 
+ 1542 0201 7B020000 		.4byte	0x27b
+ 1543 0205 636F756E 		.ascii	"counterANTPlus_initVar\000"
+ 1543      74657241 
+ 1543      4E54506C 
+ 1543      75735F69 
+ 1543      6E697456 
+ 1544 021c 00000000 		.4byte	0x0
+ 1545              		.section	.debug_aranges,"",%progbits
+ 1546 0000 94000000 		.4byte	0x94
+ 1547 0004 0200     		.2byte	0x2
+ 1548 0006 00000000 		.4byte	.Ldebug_info0
+ 1549 000a 04       		.byte	0x4
+ 1550 000b 00       		.byte	0x0
+ 1551 000c 0000     		.2byte	0x0
+ 1552 000e 0000     		.2byte	0x0
+ 1553 0010 00000000 		.4byte	.LFB0
+ 1554 0014 A4000000 		.4byte	.LFE0-.LFB0
+ 1555 0018 00000000 		.4byte	.LFB1
+ 1556 001c 2A000000 		.4byte	.LFE1-.LFB1
+ 1557 0020 00000000 		.4byte	.LFB2
+ 1558 0024 2A000000 		.4byte	.LFE2-.LFB2
+ 1559 0028 00000000 		.4byte	.LFB3
+ 1560 002c 24000000 		.4byte	.LFE3-.LFB3
+ 1561 0030 00000000 		.4byte	.LFB4
+ 1562 0034 20000000 		.4byte	.LFE4-.LFB4
+ 1563 0038 00000000 		.4byte	.LFB5
+ 1564 003c 18000000 		.4byte	.LFE5-.LFB5
+ 1565 0040 00000000 		.4byte	.LFB6
+ 1566 0044 18000000 		.4byte	.LFE6-.LFB6
+ 1567 0048 00000000 		.4byte	.LFB7
+ 1568 004c 20000000 		.4byte	.LFE7-.LFB7
+ 1569 0050 00000000 		.4byte	.LFB8
+ 1570 0054 20000000 		.4byte	.LFE8-.LFB8
+ 1571 0058 00000000 		.4byte	.LFB9
+ 1572 005c 22000000 		.4byte	.LFE9-.LFB9
+ 1573 0060 00000000 		.4byte	.LFB10
+ 1574 0064 18000000 		.4byte	.LFE10-.LFB10
+ 1575 0068 00000000 		.4byte	.LFB11
+ 1576 006c 20000000 		.4byte	.LFE11-.LFB11
+ 1577 0070 00000000 		.4byte	.LFB12
+ 1578 0074 18000000 		.4byte	.LFE12-.LFB12
+ 1579 0078 00000000 		.4byte	.LFB13
+ 1580 007c 20000000 		.4byte	.LFE13-.LFB13
+ 1581 0080 00000000 		.4byte	.LFB14
+ 1582 0084 18000000 		.4byte	.LFE14-.LFB14
+ 1583 0088 00000000 		.4byte	.LFB15
+ 1584 008c 1A000000 		.4byte	.LFE15-.LFB15
+ 1585 0090 00000000 		.4byte	0x0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 40
+
+
+ 1586 0094 00000000 		.4byte	0x0
+ 1587              		.section	.debug_ranges,"",%progbits
+ 1588              	.Ldebug_ranges0:
+ 1589 0000 00000000 		.4byte	.Ltext0
+ 1590 0004 00000000 		.4byte	.Letext0
+ 1591 0008 00000000 		.4byte	.LFB0
+ 1592 000c A4000000 		.4byte	.LFE0
+ 1593 0010 00000000 		.4byte	.LFB1
+ 1594 0014 2A000000 		.4byte	.LFE1
+ 1595 0018 00000000 		.4byte	.LFB2
+ 1596 001c 2A000000 		.4byte	.LFE2
+ 1597 0020 00000000 		.4byte	.LFB3
+ 1598 0024 24000000 		.4byte	.LFE3
+ 1599 0028 00000000 		.4byte	.LFB4
+ 1600 002c 20000000 		.4byte	.LFE4
+ 1601 0030 00000000 		.4byte	.LFB5
+ 1602 0034 18000000 		.4byte	.LFE5
+ 1603 0038 00000000 		.4byte	.LFB6
+ 1604 003c 18000000 		.4byte	.LFE6
+ 1605 0040 00000000 		.4byte	.LFB7
+ 1606 0044 20000000 		.4byte	.LFE7
+ 1607 0048 00000000 		.4byte	.LFB8
+ 1608 004c 20000000 		.4byte	.LFE8
+ 1609 0050 00000000 		.4byte	.LFB9
+ 1610 0054 22000000 		.4byte	.LFE9
+ 1611 0058 00000000 		.4byte	.LFB10
+ 1612 005c 18000000 		.4byte	.LFE10
+ 1613 0060 00000000 		.4byte	.LFB11
+ 1614 0064 20000000 		.4byte	.LFE11
+ 1615 0068 00000000 		.4byte	.LFB12
+ 1616 006c 18000000 		.4byte	.LFE12
+ 1617 0070 00000000 		.4byte	.LFB13
+ 1618 0074 20000000 		.4byte	.LFE13
+ 1619 0078 00000000 		.4byte	.LFB14
+ 1620 007c 18000000 		.4byte	.LFE14
+ 1621 0080 00000000 		.4byte	.LFB15
+ 1622 0084 1A000000 		.4byte	.LFE15
+ 1623 0088 00000000 		.4byte	0x0
+ 1624 008c 00000000 		.4byte	0x0
+ 1625              		.section	.debug_str,"MS",%progbits,1
+ 1626              	.LASF6:
+ 1627 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1627      206C6F6E 
+ 1627      6720696E 
+ 1627      7400
+ 1628              	.LASF32:
+ 1629 000e 636F756E 		.ascii	"counterANTPlus_ClearFIFO\000"
+ 1629      74657241 
+ 1629      4E54506C 
+ 1629      75735F43 
+ 1629      6C656172 
+ 1630              	.LASF35:
+ 1631 0027 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\PSoC Creator\\Puls"
+ 1631      73657273 
+ 1631      5C627279 
+ 1631      616E2E6C 
+ 1631      65655C44 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 41
+
+
+ 1632 0055 655F7073 		.ascii	"e_psoc5\\Combine\\Combine.cydsn\000"
+ 1632      6F63355C 
+ 1632      436F6D62 
+ 1632      696E655C 
+ 1632      436F6D62 
+ 1633              	.LASF19:
+ 1634 0073 636F756E 		.ascii	"counterANTPlus_WriteControlRegister\000"
+ 1634      74657241 
+ 1634      4E54506C 
+ 1634      75735F57 
+ 1634      72697465 
+ 1635              	.LASF27:
+ 1636 0097 70657269 		.ascii	"period\000"
+ 1636      6F6400
+ 1637              	.LASF3:
+ 1638 009e 73686F72 		.ascii	"short unsigned int\000"
+ 1638      7420756E 
+ 1638      7369676E 
+ 1638      65642069 
+ 1638      6E7400
+ 1639              	.LASF15:
+ 1640 00b1 636F756E 		.ascii	"counterANTPlus_Init\000"
+ 1640      74657241 
+ 1640      4E54506C 
+ 1640      75735F49 
+ 1640      6E697400 
+ 1641              	.LASF34:
+ 1642 00c5 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\counterANTPlus.c\000"
+ 1642      6E657261 
+ 1642      7465645F 
+ 1642      536F7572 
+ 1642      63655C50 
+ 1643              	.LASF31:
+ 1644 00ef 636F756E 		.ascii	"counterANTPlus_ReadCompare\000"
+ 1644      74657241 
+ 1644      4E54506C 
+ 1644      75735F52 
+ 1644      65616443 
+ 1645              	.LASF14:
+ 1646 010a 636F756E 		.ascii	"counterANTPlus_Stop\000"
+ 1646      74657241 
+ 1646      4E54506C 
+ 1646      75735F53 
+ 1646      746F7000 
+ 1647              	.LASF12:
+ 1648 011e 636F756E 		.ascii	"counterANTPlus_Enable\000"
+ 1648      74657241 
+ 1648      4E54506C 
+ 1648      75735F45 
+ 1648      6E61626C 
+ 1649              	.LASF23:
+ 1650 0134 636F756E 		.ascii	"counter\000"
+ 1650      74657200 
+ 1651              	.LASF1:
+ 1652 013c 756E7369 		.ascii	"unsigned char\000"
+ 1652      676E6564 
+ 1652      20636861 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 42
+
+
+ 1652      7200
+ 1653              	.LASF5:
+ 1654 014a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1654      20756E73 
+ 1654      69676E65 
+ 1654      6420696E 
+ 1654      7400
+ 1655              	.LASF36:
+ 1656 015c 75696E74 		.ascii	"uint8\000"
+ 1656      3800
+ 1657              	.LASF21:
+ 1658 0162 636F6E74 		.ascii	"control\000"
+ 1658      726F6C00 
+ 1659              	.LASF20:
+ 1660 016a 696E7465 		.ascii	"interruptsMask\000"
+ 1660      72727570 
+ 1660      74734D61 
+ 1660      736B00
+ 1661              	.LASF25:
+ 1662 0179 636F756E 		.ascii	"counterANTPlus_ReadCapture\000"
+ 1662      74657241 
+ 1662      4E54506C 
+ 1662      75735F52 
+ 1662      65616443 
+ 1663              	.LASF13:
+ 1664 0194 636F756E 		.ascii	"counterANTPlus_Start\000"
+ 1664      74657241 
+ 1664      4E54506C 
+ 1664      75735F53 
+ 1664      74617274 
+ 1665              	.LASF8:
+ 1666 01a9 756E7369 		.ascii	"unsigned int\000"
+ 1666      676E6564 
+ 1666      20696E74 
+ 1666      00
+ 1667              	.LASF24:
+ 1668 01b6 636F756E 		.ascii	"counterANTPlus_ReadCounter\000"
+ 1668      74657241 
+ 1668      4E54506C 
+ 1668      75735F52 
+ 1668      65616443 
+ 1669              	.LASF29:
+ 1670 01d1 636F756E 		.ascii	"counterANTPlus_WriteCompare\000"
+ 1670      74657241 
+ 1670      4E54506C 
+ 1670      75735F57 
+ 1670      72697465 
+ 1671              	.LASF7:
+ 1672 01ed 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1672      206C6F6E 
+ 1672      6720756E 
+ 1672      7369676E 
+ 1672      65642069 
+ 1673              	.LASF18:
+ 1674 0204 636F756E 		.ascii	"counterANTPlus_ReadControlRegister\000"
+ 1674      74657241 
+ 1674      4E54506C 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 43
+
+
+ 1674      75735F52 
+ 1674      65616443 
+ 1675              	.LASF11:
+ 1676 0227 636F756E 		.ascii	"counterANTPlus_interruptState\000"
+ 1676      74657241 
+ 1676      4E54506C 
+ 1676      75735F69 
+ 1676      6E746572 
+ 1677              	.LASF10:
+ 1678 0245 6374726C 		.ascii	"ctrl\000"
+ 1678      00
+ 1679              	.LASF28:
+ 1680 024a 636F756E 		.ascii	"counterANTPlus_ReadPeriod\000"
+ 1680      74657241 
+ 1680      4E54506C 
+ 1680      75735F52 
+ 1680      65616450 
+ 1681              	.LASF33:
+ 1682 0264 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1682      4320342E 
+ 1682      342E3100 
+ 1683              	.LASF9:
+ 1684 0270 63686172 		.ascii	"char\000"
+ 1684      00
+ 1685              	.LASF2:
+ 1686 0275 73686F72 		.ascii	"short int\000"
+ 1686      7420696E 
+ 1686      7400
+ 1687              	.LASF17:
+ 1688 027f 636F756E 		.ascii	"counterANTPlus_ReadStatusRegister\000"
+ 1688      74657241 
+ 1688      4E54506C 
+ 1688      75735F52 
+ 1688      65616453 
+ 1689              	.LASF16:
+ 1690 02a1 636F756E 		.ascii	"counterANTPlus_SetInterruptMode\000"
+ 1690      74657241 
+ 1690      4E54506C 
+ 1690      75735F53 
+ 1690      6574496E 
+ 1691              	.LASF37:
+ 1692 02c1 636F756E 		.ascii	"counterANTPlus_initVar\000"
+ 1692      74657241 
+ 1692      4E54506C 
+ 1692      75735F69 
+ 1692      6E697456 
+ 1693              	.LASF4:
+ 1694 02d8 6C6F6E67 		.ascii	"long int\000"
+ 1694      20696E74 
+ 1694      00
+ 1695              	.LASF26:
+ 1696 02e1 636F756E 		.ascii	"counterANTPlus_WritePeriod\000"
+ 1696      74657241 
+ 1696      4E54506C 
+ 1696      75735F57 
+ 1696      72697465 
+ 1697              	.LASF0:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccAa811j.s 			page 44
+
+
+ 1698 02fc 7369676E 		.ascii	"signed char\000"
+ 1698      65642063 
+ 1698      68617200 
+ 1699              	.LASF30:
+ 1700 0308 636F6D70 		.ascii	"compare\000"
+ 1700      61726500 
+ 1701              	.LASF22:
+ 1702 0310 636F756E 		.ascii	"counterANTPlus_WriteCounter\000"
+ 1702      74657241 
+ 1702      4E54506C 
+ 1702      75735F57 
+ 1702      72697465 
+ 1703              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

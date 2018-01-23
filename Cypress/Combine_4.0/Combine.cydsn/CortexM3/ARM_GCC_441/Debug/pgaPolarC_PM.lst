@@ -1,0 +1,891 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"pgaPolarC_PM.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 C4000000 		.text
+  20      02007400 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.bss
+  24              		.align	2
+  25              	pgaPolarC_backup:
+  26 0000 00000000 		.space	4
+  27              		.section	.text.pgaPolarC_SaveConfig,"ax",%progbits
+  28              		.align	2
+  29              		.global	pgaPolarC_SaveConfig
+  30              		.thumb
+  31              		.thumb_func
+  32              		.type	pgaPolarC_SaveConfig, %function
+  33              	pgaPolarC_SaveConfig:
+  34              	.LFB0:
+  35              		.file 1 ".\\Generated_Source\\PSoC5\\pgaPolarC_PM.c"
+   1:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * File Name: pgaPolarC_PM.c  
+   3:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Version 2.0
+   4:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+   5:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Description:
+   6:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  This file provides the power manager source code to the API for PGA 
+   7:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  Component.
+   8:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+   9:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Note:
+  10:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  11:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** 
+  18:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** #include "pgaPolarC.h"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 2
+
+
+  19:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** 
+  20:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** static pgaPolarC_BACKUP_STRUCT  pgaPolarC_backup;
+  21:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** 
+  22:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** 
+  23:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** /*******************************************************************************
+  24:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Function Name: pgaPolarC_SaveConfig
+  25:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** ********************************************************************************
+  26:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  27:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Summary:
+  28:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  Save the current user register configuration.
+  29:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  30:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Parameters:
+  31:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  void
+  32:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  33:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Return:
+  34:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  void
+  35:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  36:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *******************************************************************************/
+  37:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** void pgaPolarC_SaveConfig(void) 
+  38:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** {
+  36              		.loc 1 38 0
+  37              		.cfi_startproc
+  38              		@ args = 0, pretend = 0, frame = 0
+  39              		@ frame_needed = 1, uses_anonymous_args = 0
+  40              		@ link register save eliminated.
+  41 0000 80B4     		push	{r7}
+  42              	.LCFI0:
+  43              		.cfi_def_cfa_offset 4
+  44 0002 00AF     		add	r7, sp, #0
+  45              		.cfi_offset 7, -4
+  46              	.LCFI1:
+  47              		.cfi_def_cfa_register 7
+  39:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     /* Nothing to save as registers are System reset on retention flops */
+  40:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** }
+  48              		.loc 1 40 0
+  49 0004 BD46     		mov	sp, r7
+  50 0006 80BC     		pop	{r7}
+  51 0008 7047     		bx	lr
+  52              		.cfi_endproc
+  53              	.LFE0:
+  54              		.size	pgaPolarC_SaveConfig, .-pgaPolarC_SaveConfig
+  55 000a 00BF     		.section	.text.pgaPolarC_RestoreConfig,"ax",%progbits
+  56              		.align	2
+  57              		.global	pgaPolarC_RestoreConfig
+  58              		.thumb
+  59              		.thumb_func
+  60              		.type	pgaPolarC_RestoreConfig, %function
+  61              	pgaPolarC_RestoreConfig:
+  62              	.LFB1:
+  41:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** 
+  42:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** 
+  43:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** /*******************************************************************************  
+  44:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Function Name: pgaPolarC_RestoreConfig
+  45:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** ********************************************************************************
+  46:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  47:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Summary:
+  48:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  Restore the register configurations.
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 3
+
+
+  49:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  50:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Parameters:
+  51:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  void
+  52:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  53:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Return:
+  54:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  void
+  55:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  56:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *******************************************************************************/
+  57:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** void pgaPolarC_RestoreConfig(void) 
+  58:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** {
+  63              		.loc 1 58 0
+  64              		.cfi_startproc
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 1, uses_anonymous_args = 0
+  67              		@ link register save eliminated.
+  68 0000 80B4     		push	{r7}
+  69              	.LCFI2:
+  70              		.cfi_def_cfa_offset 4
+  71 0002 00AF     		add	r7, sp, #0
+  72              		.cfi_offset 7, -4
+  73              	.LCFI3:
+  74              		.cfi_def_cfa_register 7
+  59:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     /* Nothing to restore */
+  60:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** }
+  75              		.loc 1 60 0
+  76 0004 BD46     		mov	sp, r7
+  77 0006 80BC     		pop	{r7}
+  78 0008 7047     		bx	lr
+  79              		.cfi_endproc
+  80              	.LFE1:
+  81              		.size	pgaPolarC_RestoreConfig, .-pgaPolarC_RestoreConfig
+  82 000a 00BF     		.section	.text.pgaPolarC_Sleep,"ax",%progbits
+  83              		.align	2
+  84              		.global	pgaPolarC_Sleep
+  85              		.thumb
+  86              		.thumb_func
+  87              		.type	pgaPolarC_Sleep, %function
+  88              	pgaPolarC_Sleep:
+  89              	.LFB2:
+  61:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** 
+  62:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** 
+  63:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** /*******************************************************************************   
+  64:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Function Name: pgaPolarC_Sleep
+  65:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** ********************************************************************************
+  66:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  67:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Summary:
+  68:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  Disables block's operation and saves its configuration. Should be called 
+  69:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  just prior to entering sleep.
+  70:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  71:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Parameters:
+  72:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  None
+  73:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  74:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Return:
+  75:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  None
+  76:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  77:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Global variables:
+  78:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  pgaPolarC_backup: The structure field 'enableState' is modified 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 4
+
+
+  79:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  depending on the enable state of the block before entering to sleep mode.
+  80:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+  81:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *******************************************************************************/
+  82:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** void pgaPolarC_Sleep(void) 
+  83:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** {
+  90              		.loc 1 83 0
+  91              		.cfi_startproc
+  92              		@ args = 0, pretend = 0, frame = 0
+  93              		@ frame_needed = 1, uses_anonymous_args = 0
+  94 0000 80B5     		push	{r7, lr}
+  95              	.LCFI4:
+  96              		.cfi_def_cfa_offset 8
+  97 0002 00AF     		add	r7, sp, #0
+  98              		.cfi_offset 14, -4
+  99              		.cfi_offset 7, -8
+ 100              	.LCFI5:
+ 101              		.cfi_def_cfa_register 7
+  84:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     /* Save PGA enable state */
+  85:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     if((pgaPolarC_PM_ACT_CFG_REG & pgaPolarC_ACT_PWR_EN) != 0u)
+ 102              		.loc 1 85 0
+ 103 0004 44F2A933 		movw	r3, #:lower16:1073759145
+ 104 0008 C4F20003 		movt	r3, #:upper16:1073759145
+ 105 000c 1B78     		ldrb	r3, [r3, #0]
+ 106 000e DBB2     		uxtb	r3, r3
+ 107 0010 03F00203 		and	r3, r3, #2
+ 108 0014 002B     		cmp	r3, #0
+ 109 0016 09D0     		beq	.L6
+  86:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     {
+  87:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****         /* Component is enabled */
+  88:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****         pgaPolarC_backup.enableState = 1u;
+ 110              		.loc 1 88 0
+ 111 0018 40F20003 		movw	r3, #:lower16:pgaPolarC_backup
+ 112 001c C0F20003 		movt	r3, #:upper16:pgaPolarC_backup
+ 113 0020 4FF00102 		mov	r2, #1
+ 114 0024 1A70     		strb	r2, [r3, #0]
+  89:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****         /* Stop the configuration */
+  90:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****         pgaPolarC_Stop();
+ 115              		.loc 1 90 0
+ 116 0026 FFF7FEFF 		bl	pgaPolarC_Stop
+ 117 002a 06E0     		b	.L7
+ 118              	.L6:
+  91:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     }
+  92:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     else
+  93:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     {
+  94:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****         /* Component is disabled */
+  95:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****         pgaPolarC_backup.enableState = 0u;
+ 119              		.loc 1 95 0
+ 120 002c 40F20003 		movw	r3, #:lower16:pgaPolarC_backup
+ 121 0030 C0F20003 		movt	r3, #:upper16:pgaPolarC_backup
+ 122 0034 4FF00002 		mov	r2, #0
+ 123 0038 1A70     		strb	r2, [r3, #0]
+ 124              	.L7:
+  96:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     }
+  97:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     /* Save the configuration */
+  98:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     pgaPolarC_SaveConfig();
+ 125              		.loc 1 98 0
+ 126 003a FFF7FEFF 		bl	pgaPolarC_SaveConfig
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 5
+
+
+  99:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** }
+ 127              		.loc 1 99 0
+ 128 003e 80BD     		pop	{r7, pc}
+ 129              		.cfi_endproc
+ 130              	.LFE2:
+ 131              		.size	pgaPolarC_Sleep, .-pgaPolarC_Sleep
+ 132              		.section	.text.pgaPolarC_Wakeup,"ax",%progbits
+ 133              		.align	2
+ 134              		.global	pgaPolarC_Wakeup
+ 135              		.thumb
+ 136              		.thumb_func
+ 137              		.type	pgaPolarC_Wakeup, %function
+ 138              	pgaPolarC_Wakeup:
+ 139              	.LFB3:
+ 100:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** 
+ 101:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** 
+ 102:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** /*******************************************************************************
+ 103:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Function Name: pgaPolarC_Wakeup
+ 104:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** ********************************************************************************
+ 105:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+ 106:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Summary:
+ 107:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  Enables block's operation and restores its configuration. Should be called
+ 108:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  just after awaking from sleep.
+ 109:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+ 110:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Parameters:
+ 111:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  None
+ 112:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+ 113:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Return:
+ 114:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  void
+ 115:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *
+ 116:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * Global variables:
+ 117:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  pgaPolarC_backup: The structure field 'enableState' is used to 
+ 118:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *  restore the enable state of block after wakeup from sleep mode.
+ 119:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** * 
+ 120:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** *******************************************************************************/
+ 121:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** void pgaPolarC_Wakeup(void) 
+ 122:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** {
+ 140              		.loc 1 122 0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 1, uses_anonymous_args = 0
+ 144 0000 80B5     		push	{r7, lr}
+ 145              	.LCFI6:
+ 146              		.cfi_def_cfa_offset 8
+ 147 0002 00AF     		add	r7, sp, #0
+ 148              		.cfi_offset 14, -4
+ 149              		.cfi_offset 7, -8
+ 150              	.LCFI7:
+ 151              		.cfi_def_cfa_register 7
+ 123:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     /* Restore the configurations */
+ 124:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     pgaPolarC_RestoreConfig();
+ 152              		.loc 1 124 0
+ 153 0004 FFF7FEFF 		bl	pgaPolarC_RestoreConfig
+ 125:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****      /* Enables the component operation */
+ 126:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     if(pgaPolarC_backup.enableState == 1u)
+ 154              		.loc 1 126 0
+ 155 0008 40F20003 		movw	r3, #:lower16:pgaPolarC_backup
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 6
+
+
+ 156 000c C0F20003 		movt	r3, #:upper16:pgaPolarC_backup
+ 157 0010 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+ 158 0012 012B     		cmp	r3, #1
+ 159 0014 01D1     		bne	.L11
+ 127:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     {
+ 128:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****         pgaPolarC_Enable();
+ 160              		.loc 1 128 0
+ 161 0016 FFF7FEFF 		bl	pgaPolarC_Enable
+ 162              	.L11:
+ 129:.\Generated_Source\PSoC5/pgaPolarC_PM.c ****     } /* Do nothing if component was disable before */
+ 130:.\Generated_Source\PSoC5/pgaPolarC_PM.c **** }
+ 163              		.loc 1 130 0
+ 164 001a 80BD     		pop	{r7, pc}
+ 165              		.cfi_endproc
+ 166              	.LFE3:
+ 167              		.size	pgaPolarC_Wakeup, .-pgaPolarC_Wakeup
+ 168              		.text
+ 169              	.Letext0:
+ 170              		.section	.debug_loc,"",%progbits
+ 171              	.Ldebug_loc0:
+ 172              	.LLST0:
+ 173 0000 00000000 		.4byte	.LFB0
+ 174 0004 02000000 		.4byte	.LCFI0
+ 175 0008 0100     		.2byte	0x1
+ 176 000a 5D       		.byte	0x5d
+ 177 000b 02000000 		.4byte	.LCFI0
+ 178 000f 04000000 		.4byte	.LCFI1
+ 179 0013 0200     		.2byte	0x2
+ 180 0015 7D       		.byte	0x7d
+ 181 0016 04       		.sleb128 4
+ 182 0017 04000000 		.4byte	.LCFI1
+ 183 001b 0A000000 		.4byte	.LFE0
+ 184 001f 0200     		.2byte	0x2
+ 185 0021 77       		.byte	0x77
+ 186 0022 04       		.sleb128 4
+ 187 0023 00000000 		.4byte	0x0
+ 188 0027 00000000 		.4byte	0x0
+ 189              	.LLST1:
+ 190 002b 00000000 		.4byte	.LFB1
+ 191 002f 02000000 		.4byte	.LCFI2
+ 192 0033 0100     		.2byte	0x1
+ 193 0035 5D       		.byte	0x5d
+ 194 0036 02000000 		.4byte	.LCFI2
+ 195 003a 04000000 		.4byte	.LCFI3
+ 196 003e 0200     		.2byte	0x2
+ 197 0040 7D       		.byte	0x7d
+ 198 0041 04       		.sleb128 4
+ 199 0042 04000000 		.4byte	.LCFI3
+ 200 0046 0A000000 		.4byte	.LFE1
+ 201 004a 0200     		.2byte	0x2
+ 202 004c 77       		.byte	0x77
+ 203 004d 04       		.sleb128 4
+ 204 004e 00000000 		.4byte	0x0
+ 205 0052 00000000 		.4byte	0x0
+ 206              	.LLST2:
+ 207 0056 00000000 		.4byte	.LFB2
+ 208 005a 02000000 		.4byte	.LCFI4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 7
+
+
+ 209 005e 0100     		.2byte	0x1
+ 210 0060 5D       		.byte	0x5d
+ 211 0061 02000000 		.4byte	.LCFI4
+ 212 0065 04000000 		.4byte	.LCFI5
+ 213 0069 0200     		.2byte	0x2
+ 214 006b 7D       		.byte	0x7d
+ 215 006c 08       		.sleb128 8
+ 216 006d 04000000 		.4byte	.LCFI5
+ 217 0071 40000000 		.4byte	.LFE2
+ 218 0075 0200     		.2byte	0x2
+ 219 0077 77       		.byte	0x77
+ 220 0078 08       		.sleb128 8
+ 221 0079 00000000 		.4byte	0x0
+ 222 007d 00000000 		.4byte	0x0
+ 223              	.LLST3:
+ 224 0081 00000000 		.4byte	.LFB3
+ 225 0085 02000000 		.4byte	.LCFI6
+ 226 0089 0100     		.2byte	0x1
+ 227 008b 5D       		.byte	0x5d
+ 228 008c 02000000 		.4byte	.LCFI6
+ 229 0090 04000000 		.4byte	.LCFI7
+ 230 0094 0200     		.2byte	0x2
+ 231 0096 7D       		.byte	0x7d
+ 232 0097 08       		.sleb128 8
+ 233 0098 04000000 		.4byte	.LCFI7
+ 234 009c 1C000000 		.4byte	.LFE3
+ 235 00a0 0200     		.2byte	0x2
+ 236 00a2 77       		.byte	0x77
+ 237 00a3 08       		.sleb128 8
+ 238 00a4 00000000 		.4byte	0x0
+ 239 00a8 00000000 		.4byte	0x0
+ 240              		.file 2 ".\\Generated_Source\\PSoC5\\/pgaPolarC.h"
+ 241              		.file 3 ".\\Generated_Source\\PSoC5\\/cytypes.h"
+ 242              		.section	.debug_info
+ 243 0000 32010000 		.4byte	0x132
+ 244 0004 0200     		.2byte	0x2
+ 245 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 246 000a 04       		.byte	0x4
+ 247 000b 01       		.uleb128 0x1
+ 248 000c 7E000000 		.4byte	.LASF20
+ 249 0010 01       		.byte	0x1
+ 250 0011 39010000 		.4byte	.LASF21
+ 251 0015 61010000 		.4byte	.LASF22
+ 252 0019 00000000 		.4byte	0x0
+ 253 001d 00000000 		.4byte	0x0
+ 254 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 255 0025 00000000 		.4byte	.Ldebug_line0
+ 256 0029 02       		.uleb128 0x2
+ 257 002a 01       		.byte	0x1
+ 258 002b 06       		.byte	0x6
+ 259 002c 09010000 		.4byte	.LASF0
+ 260 0030 02       		.uleb128 0x2
+ 261 0031 01       		.byte	0x1
+ 262 0032 08       		.byte	0x8
+ 263 0033 8A000000 		.4byte	.LASF1
+ 264 0037 02       		.uleb128 0x2
+ 265 0038 02       		.byte	0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 8
+
+
+ 266 0039 05       		.byte	0x5
+ 267 003a 1E010000 		.4byte	.LASF2
+ 268 003e 02       		.uleb128 0x2
+ 269 003f 02       		.byte	0x2
+ 270 0040 07       		.byte	0x7
+ 271 0041 F6000000 		.4byte	.LASF3
+ 272 0045 02       		.uleb128 0x2
+ 273 0046 04       		.byte	0x4
+ 274 0047 05       		.byte	0x5
+ 275 0048 9D000000 		.4byte	.LASF4
+ 276 004c 02       		.uleb128 0x2
+ 277 004d 04       		.byte	0x4
+ 278 004e 07       		.byte	0x7
+ 279 004f E4000000 		.4byte	.LASF5
+ 280 0053 02       		.uleb128 0x2
+ 281 0054 08       		.byte	0x8
+ 282 0055 05       		.byte	0x5
+ 283 0056 00000000 		.4byte	.LASF6
+ 284 005a 02       		.uleb128 0x2
+ 285 005b 08       		.byte	0x8
+ 286 005c 07       		.byte	0x7
+ 287 005d 5E000000 		.4byte	.LASF7
+ 288 0061 03       		.uleb128 0x3
+ 289 0062 04       		.byte	0x4
+ 290 0063 05       		.byte	0x5
+ 291 0064 696E7400 		.ascii	"int\000"
+ 292 0068 02       		.uleb128 0x2
+ 293 0069 04       		.byte	0x4
+ 294 006a 07       		.byte	0x7
+ 295 006b 1A000000 		.4byte	.LASF8
+ 296 006f 02       		.uleb128 0x2
+ 297 0070 01       		.byte	0x1
+ 298 0071 08       		.byte	0x8
+ 299 0072 98000000 		.4byte	.LASF9
+ 300 0076 04       		.uleb128 0x4
+ 301 0077 3F000000 		.4byte	.LASF14
+ 302 007b 03       		.byte	0x3
+ 303 007c 60       		.byte	0x60
+ 304 007d 30000000 		.4byte	0x30
+ 305 0081 05       		.uleb128 0x5
+ 306 0082 04       		.byte	0x4
+ 307 0083 07       		.byte	0x7
+ 308 0084 06       		.uleb128 0x6
+ 309 0085 04       		.byte	0x4
+ 310 0086 02       		.byte	0x2
+ 311 0087 2E       		.byte	0x2e
+ 312 0088 C5000000 		.4byte	0xc5
+ 313 008c 07       		.uleb128 0x7
+ 314 008d 0E000000 		.4byte	.LASF10
+ 315 0091 02       		.byte	0x2
+ 316 0092 2F       		.byte	0x2f
+ 317 0093 76000000 		.4byte	0x76
+ 318 0097 02       		.byte	0x2
+ 319 0098 23       		.byte	0x23
+ 320 0099 00       		.uleb128 0x0
+ 321 009a 07       		.uleb128 0x7
+ 322 009b 45000000 		.4byte	.LASF11
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 9
+
+
+ 323 009f 02       		.byte	0x2
+ 324 00a0 30       		.byte	0x30
+ 325 00a1 76000000 		.4byte	0x76
+ 326 00a5 02       		.byte	0x2
+ 327 00a6 23       		.byte	0x23
+ 328 00a7 01       		.uleb128 0x1
+ 329 00a8 07       		.uleb128 0x7
+ 330 00a9 15010000 		.4byte	.LASF12
+ 331 00ad 02       		.byte	0x2
+ 332 00ae 31       		.byte	0x31
+ 333 00af 76000000 		.4byte	0x76
+ 334 00b3 02       		.byte	0x2
+ 335 00b4 23       		.byte	0x23
+ 336 00b5 02       		.uleb128 0x2
+ 337 00b6 07       		.uleb128 0x7
+ 338 00b7 75000000 		.4byte	.LASF13
+ 339 00bb 02       		.byte	0x2
+ 340 00bc 32       		.byte	0x32
+ 341 00bd 76000000 		.4byte	0x76
+ 342 00c1 02       		.byte	0x2
+ 343 00c2 23       		.byte	0x23
+ 344 00c3 03       		.uleb128 0x3
+ 345 00c4 00       		.byte	0x0
+ 346 00c5 04       		.uleb128 0x4
+ 347 00c6 CC000000 		.4byte	.LASF15
+ 348 00ca 02       		.byte	0x2
+ 349 00cb 33       		.byte	0x33
+ 350 00cc 84000000 		.4byte	0x84
+ 351 00d0 08       		.uleb128 0x8
+ 352 00d1 01       		.byte	0x1
+ 353 00d2 B7000000 		.4byte	.LASF16
+ 354 00d6 01       		.byte	0x1
+ 355 00d7 25       		.byte	0x25
+ 356 00d8 01       		.byte	0x1
+ 357 00d9 00000000 		.4byte	.LFB0
+ 358 00dd 0A000000 		.4byte	.LFE0
+ 359 00e1 00000000 		.4byte	.LLST0
+ 360 00e5 08       		.uleb128 0x8
+ 361 00e6 01       		.byte	0x1
+ 362 00e7 27000000 		.4byte	.LASF17
+ 363 00eb 01       		.byte	0x1
+ 364 00ec 39       		.byte	0x39
+ 365 00ed 01       		.byte	0x1
+ 366 00ee 00000000 		.4byte	.LFB1
+ 367 00f2 0A000000 		.4byte	.LFE1
+ 368 00f6 2B000000 		.4byte	.LLST1
+ 369 00fa 08       		.uleb128 0x8
+ 370 00fb 01       		.byte	0x1
+ 371 00fc 4E000000 		.4byte	.LASF18
+ 372 0100 01       		.byte	0x1
+ 373 0101 52       		.byte	0x52
+ 374 0102 01       		.byte	0x1
+ 375 0103 00000000 		.4byte	.LFB2
+ 376 0107 40000000 		.4byte	.LFE2
+ 377 010b 56000000 		.4byte	.LLST2
+ 378 010f 08       		.uleb128 0x8
+ 379 0110 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 10
+
+
+ 380 0111 28010000 		.4byte	.LASF19
+ 381 0115 01       		.byte	0x1
+ 382 0116 79       		.byte	0x79
+ 383 0117 01       		.byte	0x1
+ 384 0118 00000000 		.4byte	.LFB3
+ 385 011c 1C000000 		.4byte	.LFE3
+ 386 0120 81000000 		.4byte	.LLST3
+ 387 0124 09       		.uleb128 0x9
+ 388 0125 A6000000 		.4byte	.LASF23
+ 389 0129 01       		.byte	0x1
+ 390 012a 14       		.byte	0x14
+ 391 012b C5000000 		.4byte	0xc5
+ 392 012f 05       		.byte	0x5
+ 393 0130 03       		.byte	0x3
+ 394 0131 00000000 		.4byte	pgaPolarC_backup
+ 395 0135 00       		.byte	0x0
+ 396              		.section	.debug_abbrev
+ 397 0000 01       		.uleb128 0x1
+ 398 0001 11       		.uleb128 0x11
+ 399 0002 01       		.byte	0x1
+ 400 0003 25       		.uleb128 0x25
+ 401 0004 0E       		.uleb128 0xe
+ 402 0005 13       		.uleb128 0x13
+ 403 0006 0B       		.uleb128 0xb
+ 404 0007 03       		.uleb128 0x3
+ 405 0008 0E       		.uleb128 0xe
+ 406 0009 1B       		.uleb128 0x1b
+ 407 000a 0E       		.uleb128 0xe
+ 408 000b 11       		.uleb128 0x11
+ 409 000c 01       		.uleb128 0x1
+ 410 000d 52       		.uleb128 0x52
+ 411 000e 01       		.uleb128 0x1
+ 412 000f 55       		.uleb128 0x55
+ 413 0010 06       		.uleb128 0x6
+ 414 0011 10       		.uleb128 0x10
+ 415 0012 06       		.uleb128 0x6
+ 416 0013 00       		.byte	0x0
+ 417 0014 00       		.byte	0x0
+ 418 0015 02       		.uleb128 0x2
+ 419 0016 24       		.uleb128 0x24
+ 420 0017 00       		.byte	0x0
+ 421 0018 0B       		.uleb128 0xb
+ 422 0019 0B       		.uleb128 0xb
+ 423 001a 3E       		.uleb128 0x3e
+ 424 001b 0B       		.uleb128 0xb
+ 425 001c 03       		.uleb128 0x3
+ 426 001d 0E       		.uleb128 0xe
+ 427 001e 00       		.byte	0x0
+ 428 001f 00       		.byte	0x0
+ 429 0020 03       		.uleb128 0x3
+ 430 0021 24       		.uleb128 0x24
+ 431 0022 00       		.byte	0x0
+ 432 0023 0B       		.uleb128 0xb
+ 433 0024 0B       		.uleb128 0xb
+ 434 0025 3E       		.uleb128 0x3e
+ 435 0026 0B       		.uleb128 0xb
+ 436 0027 03       		.uleb128 0x3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 11
+
+
+ 437 0028 08       		.uleb128 0x8
+ 438 0029 00       		.byte	0x0
+ 439 002a 00       		.byte	0x0
+ 440 002b 04       		.uleb128 0x4
+ 441 002c 16       		.uleb128 0x16
+ 442 002d 00       		.byte	0x0
+ 443 002e 03       		.uleb128 0x3
+ 444 002f 0E       		.uleb128 0xe
+ 445 0030 3A       		.uleb128 0x3a
+ 446 0031 0B       		.uleb128 0xb
+ 447 0032 3B       		.uleb128 0x3b
+ 448 0033 0B       		.uleb128 0xb
+ 449 0034 49       		.uleb128 0x49
+ 450 0035 13       		.uleb128 0x13
+ 451 0036 00       		.byte	0x0
+ 452 0037 00       		.byte	0x0
+ 453 0038 05       		.uleb128 0x5
+ 454 0039 24       		.uleb128 0x24
+ 455 003a 00       		.byte	0x0
+ 456 003b 0B       		.uleb128 0xb
+ 457 003c 0B       		.uleb128 0xb
+ 458 003d 3E       		.uleb128 0x3e
+ 459 003e 0B       		.uleb128 0xb
+ 460 003f 00       		.byte	0x0
+ 461 0040 00       		.byte	0x0
+ 462 0041 06       		.uleb128 0x6
+ 463 0042 13       		.uleb128 0x13
+ 464 0043 01       		.byte	0x1
+ 465 0044 0B       		.uleb128 0xb
+ 466 0045 0B       		.uleb128 0xb
+ 467 0046 3A       		.uleb128 0x3a
+ 468 0047 0B       		.uleb128 0xb
+ 469 0048 3B       		.uleb128 0x3b
+ 470 0049 0B       		.uleb128 0xb
+ 471 004a 01       		.uleb128 0x1
+ 472 004b 13       		.uleb128 0x13
+ 473 004c 00       		.byte	0x0
+ 474 004d 00       		.byte	0x0
+ 475 004e 07       		.uleb128 0x7
+ 476 004f 0D       		.uleb128 0xd
+ 477 0050 00       		.byte	0x0
+ 478 0051 03       		.uleb128 0x3
+ 479 0052 0E       		.uleb128 0xe
+ 480 0053 3A       		.uleb128 0x3a
+ 481 0054 0B       		.uleb128 0xb
+ 482 0055 3B       		.uleb128 0x3b
+ 483 0056 0B       		.uleb128 0xb
+ 484 0057 49       		.uleb128 0x49
+ 485 0058 13       		.uleb128 0x13
+ 486 0059 38       		.uleb128 0x38
+ 487 005a 0A       		.uleb128 0xa
+ 488 005b 00       		.byte	0x0
+ 489 005c 00       		.byte	0x0
+ 490 005d 08       		.uleb128 0x8
+ 491 005e 2E       		.uleb128 0x2e
+ 492 005f 00       		.byte	0x0
+ 493 0060 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 12
+
+
+ 494 0061 0C       		.uleb128 0xc
+ 495 0062 03       		.uleb128 0x3
+ 496 0063 0E       		.uleb128 0xe
+ 497 0064 3A       		.uleb128 0x3a
+ 498 0065 0B       		.uleb128 0xb
+ 499 0066 3B       		.uleb128 0x3b
+ 500 0067 0B       		.uleb128 0xb
+ 501 0068 27       		.uleb128 0x27
+ 502 0069 0C       		.uleb128 0xc
+ 503 006a 11       		.uleb128 0x11
+ 504 006b 01       		.uleb128 0x1
+ 505 006c 12       		.uleb128 0x12
+ 506 006d 01       		.uleb128 0x1
+ 507 006e 40       		.uleb128 0x40
+ 508 006f 06       		.uleb128 0x6
+ 509 0070 00       		.byte	0x0
+ 510 0071 00       		.byte	0x0
+ 511 0072 09       		.uleb128 0x9
+ 512 0073 34       		.uleb128 0x34
+ 513 0074 00       		.byte	0x0
+ 514 0075 03       		.uleb128 0x3
+ 515 0076 0E       		.uleb128 0xe
+ 516 0077 3A       		.uleb128 0x3a
+ 517 0078 0B       		.uleb128 0xb
+ 518 0079 3B       		.uleb128 0x3b
+ 519 007a 0B       		.uleb128 0xb
+ 520 007b 49       		.uleb128 0x49
+ 521 007c 13       		.uleb128 0x13
+ 522 007d 02       		.uleb128 0x2
+ 523 007e 0A       		.uleb128 0xa
+ 524 007f 00       		.byte	0x0
+ 525 0080 00       		.byte	0x0
+ 526 0081 00       		.byte	0x0
+ 527              		.section	.debug_pubnames,"",%progbits
+ 528 0000 6C000000 		.4byte	0x6c
+ 529 0004 0200     		.2byte	0x2
+ 530 0006 00000000 		.4byte	.Ldebug_info0
+ 531 000a 36010000 		.4byte	0x136
+ 532 000e D0000000 		.4byte	0xd0
+ 533 0012 70676150 		.ascii	"pgaPolarC_SaveConfig\000"
+ 533      6F6C6172 
+ 533      435F5361 
+ 533      7665436F 
+ 533      6E666967 
+ 534 0027 E5000000 		.4byte	0xe5
+ 535 002b 70676150 		.ascii	"pgaPolarC_RestoreConfig\000"
+ 535      6F6C6172 
+ 535      435F5265 
+ 535      73746F72 
+ 535      65436F6E 
+ 536 0043 FA000000 		.4byte	0xfa
+ 537 0047 70676150 		.ascii	"pgaPolarC_Sleep\000"
+ 537      6F6C6172 
+ 537      435F536C 
+ 537      65657000 
+ 538 0057 0F010000 		.4byte	0x10f
+ 539 005b 70676150 		.ascii	"pgaPolarC_Wakeup\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 13
+
+
+ 539      6F6C6172 
+ 539      435F5761 
+ 539      6B657570 
+ 539      00
+ 540 006c 00000000 		.4byte	0x0
+ 541              		.section	.debug_aranges,"",%progbits
+ 542 0000 34000000 		.4byte	0x34
+ 543 0004 0200     		.2byte	0x2
+ 544 0006 00000000 		.4byte	.Ldebug_info0
+ 545 000a 04       		.byte	0x4
+ 546 000b 00       		.byte	0x0
+ 547 000c 0000     		.2byte	0x0
+ 548 000e 0000     		.2byte	0x0
+ 549 0010 00000000 		.4byte	.LFB0
+ 550 0014 0A000000 		.4byte	.LFE0-.LFB0
+ 551 0018 00000000 		.4byte	.LFB1
+ 552 001c 0A000000 		.4byte	.LFE1-.LFB1
+ 553 0020 00000000 		.4byte	.LFB2
+ 554 0024 40000000 		.4byte	.LFE2-.LFB2
+ 555 0028 00000000 		.4byte	.LFB3
+ 556 002c 1C000000 		.4byte	.LFE3-.LFB3
+ 557 0030 00000000 		.4byte	0x0
+ 558 0034 00000000 		.4byte	0x0
+ 559              		.section	.debug_ranges,"",%progbits
+ 560              	.Ldebug_ranges0:
+ 561 0000 00000000 		.4byte	.Ltext0
+ 562 0004 00000000 		.4byte	.Letext0
+ 563 0008 00000000 		.4byte	.LFB0
+ 564 000c 0A000000 		.4byte	.LFE0
+ 565 0010 00000000 		.4byte	.LFB1
+ 566 0014 0A000000 		.4byte	.LFE1
+ 567 0018 00000000 		.4byte	.LFB2
+ 568 001c 40000000 		.4byte	.LFE2
+ 569 0020 00000000 		.4byte	.LFB3
+ 570 0024 1C000000 		.4byte	.LFE3
+ 571 0028 00000000 		.4byte	0x0
+ 572 002c 00000000 		.4byte	0x0
+ 573              		.section	.debug_str,"MS",%progbits,1
+ 574              	.LASF6:
+ 575 0000 6C6F6E67 		.ascii	"long long int\000"
+ 575      206C6F6E 
+ 575      6720696E 
+ 575      7400
+ 576              	.LASF10:
+ 577 000e 656E6162 		.ascii	"enableState\000"
+ 577      6C655374 
+ 577      61746500 
+ 578              	.LASF8:
+ 579 001a 756E7369 		.ascii	"unsigned int\000"
+ 579      676E6564 
+ 579      20696E74 
+ 579      00
+ 580              	.LASF17:
+ 581 0027 70676150 		.ascii	"pgaPolarC_RestoreConfig\000"
+ 581      6F6C6172 
+ 581      435F5265 
+ 581      73746F72 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 14
+
+
+ 581      65436F6E 
+ 582              	.LASF14:
+ 583 003f 75696E74 		.ascii	"uint8\000"
+ 583      3800
+ 584              	.LASF11:
+ 585 0045 73634352 		.ascii	"scCR1Reg\000"
+ 585      31526567 
+ 585      00
+ 586              	.LASF18:
+ 587 004e 70676150 		.ascii	"pgaPolarC_Sleep\000"
+ 587      6F6C6172 
+ 587      435F536C 
+ 587      65657000 
+ 588              	.LASF7:
+ 589 005e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 589      206C6F6E 
+ 589      6720756E 
+ 589      7369676E 
+ 589      65642069 
+ 590              	.LASF13:
+ 591 0075 73634352 		.ascii	"scCR3Reg\000"
+ 591      33526567 
+ 591      00
+ 592              	.LASF20:
+ 593 007e 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 593      4320342E 
+ 593      342E3100 
+ 594              	.LASF1:
+ 595 008a 756E7369 		.ascii	"unsigned char\000"
+ 595      676E6564 
+ 595      20636861 
+ 595      7200
+ 596              	.LASF9:
+ 597 0098 63686172 		.ascii	"char\000"
+ 597      00
+ 598              	.LASF4:
+ 599 009d 6C6F6E67 		.ascii	"long int\000"
+ 599      20696E74 
+ 599      00
+ 600              	.LASF23:
+ 601 00a6 70676150 		.ascii	"pgaPolarC_backup\000"
+ 601      6F6C6172 
+ 601      435F6261 
+ 601      636B7570 
+ 601      00
+ 602              	.LASF16:
+ 603 00b7 70676150 		.ascii	"pgaPolarC_SaveConfig\000"
+ 603      6F6C6172 
+ 603      435F5361 
+ 603      7665436F 
+ 603      6E666967 
+ 604              	.LASF15:
+ 605 00cc 70676150 		.ascii	"pgaPolarC_BACKUP_STRUCT\000"
+ 605      6F6C6172 
+ 605      435F4241 
+ 605      434B5550 
+ 605      5F535452 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc9TASdV.s 			page 15
+
+
+ 606              	.LASF5:
+ 607 00e4 6C6F6E67 		.ascii	"long unsigned int\000"
+ 607      20756E73 
+ 607      69676E65 
+ 607      6420696E 
+ 607      7400
+ 608              	.LASF3:
+ 609 00f6 73686F72 		.ascii	"short unsigned int\000"
+ 609      7420756E 
+ 609      7369676E 
+ 609      65642069 
+ 609      6E7400
+ 610              	.LASF0:
+ 611 0109 7369676E 		.ascii	"signed char\000"
+ 611      65642063 
+ 611      68617200 
+ 612              	.LASF12:
+ 613 0115 73634352 		.ascii	"scCR2Reg\000"
+ 613      32526567 
+ 613      00
+ 614              	.LASF2:
+ 615 011e 73686F72 		.ascii	"short int\000"
+ 615      7420696E 
+ 615      7400
+ 616              	.LASF19:
+ 617 0128 70676150 		.ascii	"pgaPolarC_Wakeup\000"
+ 617      6F6C6172 
+ 617      435F5761 
+ 617      6B657570 
+ 617      00
+ 618              	.LASF21:
+ 619 0139 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\pgaPolarC_PM.c\000"
+ 619      6E657261 
+ 619      7465645F 
+ 619      536F7572 
+ 619      63655C50 
+ 620              	.LASF22:
+ 621 0161 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\PSoC Creator\\Puls"
+ 621      73657273 
+ 621      5C627279 
+ 621      616E2E6C 
+ 621      65655C44 
+ 622 018f 655F7073 		.ascii	"e_psoc5\\Combine\\Combine.cydsn\000"
+ 622      6F63355C 
+ 622      436F6D62 
+ 622      696E655C 
+ 622      436F6D62 
+ 623              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

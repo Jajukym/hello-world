@@ -1,0 +1,2175 @@
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"Receiver.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 5A010000 		.text
+  20      02006100 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.global	Receiver_initVar
+  24              		.bss
+  25              		.type	Receiver_initVar, %object
+  26              		.size	Receiver_initVar, 1
+  27              	Receiver_initVar:
+  28 0000 00       		.space	1
+  29              		.section	.text.Receiver_Start,"ax",%progbits
+  30              		.align	2
+  31              		.global	Receiver_Start
+  32              		.thumb
+  33              		.thumb_func
+  34              		.type	Receiver_Start, %function
+  35              	Receiver_Start:
+  36              	.LFB0:
+  37              		.file 1 ".\\Generated_Source\\PSoC5\\Receiver.c"
+   1:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/Receiver.c **** * File Name: Receiver.c
+   3:.\Generated_Source\PSoC5/Receiver.c **** * Version 2.10
+   4:.\Generated_Source\PSoC5/Receiver.c **** *
+   5:.\Generated_Source\PSoC5/Receiver.c **** * Description:
+   6:.\Generated_Source\PSoC5/Receiver.c **** *  This file provides the API source code for the Shift Register component.
+   7:.\Generated_Source\PSoC5/Receiver.c **** *
+   8:.\Generated_Source\PSoC5/Receiver.c **** * Note: none
+   9:.\Generated_Source\PSoC5/Receiver.c **** *
+  10:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+  11:.\Generated_Source\PSoC5/Receiver.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  12:.\Generated_Source\PSoC5/Receiver.c **** * You may use this file only in accordance with the license, terms, conditions,
+  13:.\Generated_Source\PSoC5/Receiver.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  14:.\Generated_Source\PSoC5/Receiver.c **** * the software package with which this file was provided.
+  15:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************/
+  16:.\Generated_Source\PSoC5/Receiver.c **** 
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 2
+
+
+  17:.\Generated_Source\PSoC5/Receiver.c **** 
+  18:.\Generated_Source\PSoC5/Receiver.c **** #include "Receiver.h"
+  19:.\Generated_Source\PSoC5/Receiver.c **** #include "CyLib.h"
+  20:.\Generated_Source\PSoC5/Receiver.c **** 
+  21:.\Generated_Source\PSoC5/Receiver.c **** 
+  22:.\Generated_Source\PSoC5/Receiver.c **** uint8 Receiver_initVar = 0u;
+  23:.\Generated_Source\PSoC5/Receiver.c **** 
+  24:.\Generated_Source\PSoC5/Receiver.c **** 
+  25:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+  26:.\Generated_Source\PSoC5/Receiver.c **** * Function Name: Receiver_Start
+  27:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+  28:.\Generated_Source\PSoC5/Receiver.c **** *
+  29:.\Generated_Source\PSoC5/Receiver.c **** * Summary:
+  30:.\Generated_Source\PSoC5/Receiver.c **** *  Starts the Shift Register.
+  31:.\Generated_Source\PSoC5/Receiver.c **** *
+  32:.\Generated_Source\PSoC5/Receiver.c **** * Parameters:
+  33:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+  34:.\Generated_Source\PSoC5/Receiver.c **** *
+  35:.\Generated_Source\PSoC5/Receiver.c **** * Return:
+  36:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+  37:.\Generated_Source\PSoC5/Receiver.c **** *
+  38:.\Generated_Source\PSoC5/Receiver.c **** * Global Variables:
+  39:.\Generated_Source\PSoC5/Receiver.c **** *  Receiver_initVar - used to check initial configuration, modified on 
+  40:.\Generated_Source\PSoC5/Receiver.c **** *  first function call.
+  41:.\Generated_Source\PSoC5/Receiver.c **** *
+  42:.\Generated_Source\PSoC5/Receiver.c **** * Reentrant:
+  43:.\Generated_Source\PSoC5/Receiver.c **** *  No.
+  44:.\Generated_Source\PSoC5/Receiver.c **** *
+  45:.\Generated_Source\PSoC5/Receiver.c **** *******************************************************************************/
+  46:.\Generated_Source\PSoC5/Receiver.c **** void Receiver_Start(void) 
+  47:.\Generated_Source\PSoC5/Receiver.c **** {
+  38              		.loc 1 47 0
+  39              		.cfi_startproc
+  40              		@ args = 0, pretend = 0, frame = 0
+  41              		@ frame_needed = 1, uses_anonymous_args = 0
+  42 0000 80B5     		push	{r7, lr}
+  43              	.LCFI0:
+  44              		.cfi_def_cfa_offset 8
+  45 0002 00AF     		add	r7, sp, #0
+  46              		.cfi_offset 14, -4
+  47              		.cfi_offset 7, -8
+  48              	.LCFI1:
+  49              		.cfi_def_cfa_register 7
+  48:.\Generated_Source\PSoC5/Receiver.c ****     if (Receiver_initVar == 0u)
+  50              		.loc 1 48 0
+  51 0004 40F20003 		movw	r3, #:lower16:Receiver_initVar
+  52 0008 C0F20003 		movt	r3, #:upper16:Receiver_initVar
+  53 000c 1B78     		ldrb	r3, [r3, #0]	@ zero_extendqisi2
+  54 000e 002B     		cmp	r3, #0
+  55 0010 08D1     		bne	.L2
+  49:.\Generated_Source\PSoC5/Receiver.c ****     {
+  50:.\Generated_Source\PSoC5/Receiver.c ****         Receiver_Init();
+  56              		.loc 1 50 0
+  57 0012 FFF7FEFF 		bl	Receiver_Init
+  51:.\Generated_Source\PSoC5/Receiver.c ****         /* variable _initVar is set to indicate the fact of initialization */
+  52:.\Generated_Source\PSoC5/Receiver.c ****         Receiver_initVar = 1u; 
+  58              		.loc 1 52 0
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 3
+
+
+  59 0016 40F20003 		movw	r3, #:lower16:Receiver_initVar
+  60 001a C0F20003 		movt	r3, #:upper16:Receiver_initVar
+  61 001e 4FF00102 		mov	r2, #1
+  62 0022 1A70     		strb	r2, [r3, #0]
+  63              	.L2:
+  53:.\Generated_Source\PSoC5/Receiver.c ****     }
+  54:.\Generated_Source\PSoC5/Receiver.c **** 
+  55:.\Generated_Source\PSoC5/Receiver.c ****     Receiver_Enable();
+  64              		.loc 1 55 0
+  65 0024 FFF7FEFF 		bl	Receiver_Enable
+  56:.\Generated_Source\PSoC5/Receiver.c **** }
+  66              		.loc 1 56 0
+  67 0028 80BD     		pop	{r7, pc}
+  68              		.cfi_endproc
+  69              	.LFE0:
+  70              		.size	Receiver_Start, .-Receiver_Start
+  71 002a 00BF     		.section	.text.Receiver_Enable,"ax",%progbits
+  72              		.align	2
+  73              		.global	Receiver_Enable
+  74              		.thumb
+  75              		.thumb_func
+  76              		.type	Receiver_Enable, %function
+  77              	Receiver_Enable:
+  78              	.LFB1:
+  57:.\Generated_Source\PSoC5/Receiver.c **** 
+  58:.\Generated_Source\PSoC5/Receiver.c **** 
+  59:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+  60:.\Generated_Source\PSoC5/Receiver.c **** * Function Name: Receiver_Enable
+  61:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+  62:.\Generated_Source\PSoC5/Receiver.c **** *
+  63:.\Generated_Source\PSoC5/Receiver.c **** * Summary:
+  64:.\Generated_Source\PSoC5/Receiver.c **** *  Enables the Shift Register.
+  65:.\Generated_Source\PSoC5/Receiver.c **** *
+  66:.\Generated_Source\PSoC5/Receiver.c **** * Parameters:
+  67:.\Generated_Source\PSoC5/Receiver.c **** *  void.
+  68:.\Generated_Source\PSoC5/Receiver.c **** *
+  69:.\Generated_Source\PSoC5/Receiver.c **** * Return:
+  70:.\Generated_Source\PSoC5/Receiver.c **** *  void.
+  71:.\Generated_Source\PSoC5/Receiver.c **** *
+  72:.\Generated_Source\PSoC5/Receiver.c **** *******************************************************************************/
+  73:.\Generated_Source\PSoC5/Receiver.c **** void Receiver_Enable(void) 
+  74:.\Generated_Source\PSoC5/Receiver.c **** {
+  79              		.loc 1 74 0
+  80              		.cfi_startproc
+  81              		@ args = 0, pretend = 0, frame = 0
+  82              		@ frame_needed = 1, uses_anonymous_args = 0
+  83 0000 80B5     		push	{r7, lr}
+  84              	.LCFI2:
+  85              		.cfi_def_cfa_offset 8
+  86 0002 00AF     		add	r7, sp, #0
+  87              		.cfi_offset 14, -4
+  88              		.cfi_offset 7, -8
+  89              	.LCFI3:
+  90              		.cfi_def_cfa_register 7
+  75:.\Generated_Source\PSoC5/Receiver.c ****     /* changing address in Datapath Control Store
+  76:.\Generated_Source\PSoC5/Receiver.c ****        from NOP to component state machine commands space */
+  77:.\Generated_Source\PSoC5/Receiver.c ****     Receiver_SR_CONTROL |= Receiver_CLK_EN; 
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 4
+
+
+  91              		.loc 1 77 0
+  92 0004 46F27D43 		movw	r3, #:lower16:1073767549
+  93 0008 C4F20003 		movt	r3, #:upper16:1073767549
+  94 000c 46F27D42 		movw	r2, #:lower16:1073767549
+  95 0010 C4F20002 		movt	r2, #:upper16:1073767549
+  96 0014 1278     		ldrb	r2, [r2, #0]
+  97 0016 D2B2     		uxtb	r2, r2
+  98 0018 42F00102 		orr	r2, r2, #1
+  99 001c D2B2     		uxtb	r2, r2
+ 100 001e 1A70     		strb	r2, [r3, #0]
+  78:.\Generated_Source\PSoC5/Receiver.c ****     
+  79:.\Generated_Source\PSoC5/Receiver.c ****     Receiver_EnableInt();
+ 101              		.loc 1 79 0
+ 102 0020 FFF7FEFF 		bl	Receiver_EnableInt
+  80:.\Generated_Source\PSoC5/Receiver.c **** }
+ 103              		.loc 1 80 0
+ 104 0024 80BD     		pop	{r7, pc}
+ 105              		.cfi_endproc
+ 106              	.LFE1:
+ 107              		.size	Receiver_Enable, .-Receiver_Enable
+ 108 0026 00BF     		.section	.text.Receiver_Init,"ax",%progbits
+ 109              		.align	2
+ 110              		.global	Receiver_Init
+ 111              		.thumb
+ 112              		.thumb_func
+ 113              		.type	Receiver_Init, %function
+ 114              	Receiver_Init:
+ 115              	.LFB2:
+  81:.\Generated_Source\PSoC5/Receiver.c **** 
+  82:.\Generated_Source\PSoC5/Receiver.c **** 
+  83:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+  84:.\Generated_Source\PSoC5/Receiver.c **** * Function Name: Receiver_Init
+  85:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+  86:.\Generated_Source\PSoC5/Receiver.c **** *
+  87:.\Generated_Source\PSoC5/Receiver.c **** * Summary:
+  88:.\Generated_Source\PSoC5/Receiver.c **** *  Initializes Tx and/or Rx interrupt sources with initial values.
+  89:.\Generated_Source\PSoC5/Receiver.c **** *
+  90:.\Generated_Source\PSoC5/Receiver.c **** * Parameters:
+  91:.\Generated_Source\PSoC5/Receiver.c **** *  void.
+  92:.\Generated_Source\PSoC5/Receiver.c **** *
+  93:.\Generated_Source\PSoC5/Receiver.c **** * Return:
+  94:.\Generated_Source\PSoC5/Receiver.c **** *  void.
+  95:.\Generated_Source\PSoC5/Receiver.c **** *
+  96:.\Generated_Source\PSoC5/Receiver.c **** *******************************************************************************/
+  97:.\Generated_Source\PSoC5/Receiver.c **** void Receiver_Init(void) 
+  98:.\Generated_Source\PSoC5/Receiver.c **** {
+ 116              		.loc 1 98 0
+ 117              		.cfi_startproc
+ 118              		@ args = 0, pretend = 0, frame = 0
+ 119              		@ frame_needed = 1, uses_anonymous_args = 0
+ 120 0000 80B5     		push	{r7, lr}
+ 121              	.LCFI4:
+ 122              		.cfi_def_cfa_offset 8
+ 123 0002 00AF     		add	r7, sp, #0
+ 124              		.cfi_offset 14, -4
+ 125              		.cfi_offset 7, -8
+ 126              	.LCFI5:
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 5
+
+
+ 127              		.cfi_def_cfa_register 7
+  99:.\Generated_Source\PSoC5/Receiver.c ****     Receiver_SetIntMode(Receiver_INT_SRC);
+ 128              		.loc 1 99 0
+ 129 0004 4FF00200 		mov	r0, #2
+ 130 0008 FFF7FEFF 		bl	Receiver_SetIntMode
+ 100:.\Generated_Source\PSoC5/Receiver.c **** }
+ 131              		.loc 1 100 0
+ 132 000c 80BD     		pop	{r7, pc}
+ 133              		.cfi_endproc
+ 134              	.LFE2:
+ 135              		.size	Receiver_Init, .-Receiver_Init
+ 136 000e 00BF     		.section	.text.Receiver_Stop,"ax",%progbits
+ 137              		.align	2
+ 138              		.global	Receiver_Stop
+ 139              		.thumb
+ 140              		.thumb_func
+ 141              		.type	Receiver_Stop, %function
+ 142              	Receiver_Stop:
+ 143              	.LFB3:
+ 101:.\Generated_Source\PSoC5/Receiver.c **** 
+ 102:.\Generated_Source\PSoC5/Receiver.c **** 
+ 103:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+ 104:.\Generated_Source\PSoC5/Receiver.c **** * Function Name: Receiver_Stop
+ 105:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+ 106:.\Generated_Source\PSoC5/Receiver.c **** *
+ 107:.\Generated_Source\PSoC5/Receiver.c **** * Summary:
+ 108:.\Generated_Source\PSoC5/Receiver.c **** *  Disables the Shift Register
+ 109:.\Generated_Source\PSoC5/Receiver.c **** *
+ 110:.\Generated_Source\PSoC5/Receiver.c **** * Parameters:
+ 111:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+ 112:.\Generated_Source\PSoC5/Receiver.c **** *
+ 113:.\Generated_Source\PSoC5/Receiver.c **** * Return:
+ 114:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+ 115:.\Generated_Source\PSoC5/Receiver.c **** *
+ 116:.\Generated_Source\PSoC5/Receiver.c **** *******************************************************************************/
+ 117:.\Generated_Source\PSoC5/Receiver.c **** void Receiver_Stop(void) 
+ 118:.\Generated_Source\PSoC5/Receiver.c **** {
+ 144              		.loc 1 118 0
+ 145              		.cfi_startproc
+ 146              		@ args = 0, pretend = 0, frame = 0
+ 147              		@ frame_needed = 1, uses_anonymous_args = 0
+ 148 0000 80B5     		push	{r7, lr}
+ 149              	.LCFI6:
+ 150              		.cfi_def_cfa_offset 8
+ 151 0002 00AF     		add	r7, sp, #0
+ 152              		.cfi_offset 14, -4
+ 153              		.cfi_offset 7, -8
+ 154              	.LCFI7:
+ 155              		.cfi_def_cfa_register 7
+ 119:.\Generated_Source\PSoC5/Receiver.c ****     /*changing Datapath Control Store address to NOP space*/
+ 120:.\Generated_Source\PSoC5/Receiver.c ****     Receiver_SR_CONTROL &= ~Receiver_CLK_EN; 
+ 156              		.loc 1 120 0
+ 157 0004 46F27D43 		movw	r3, #:lower16:1073767549
+ 158 0008 C4F20003 		movt	r3, #:upper16:1073767549
+ 159 000c 46F27D42 		movw	r2, #:lower16:1073767549
+ 160 0010 C4F20002 		movt	r2, #:upper16:1073767549
+ 161 0014 1278     		ldrb	r2, [r2, #0]
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 6
+
+
+ 162 0016 D2B2     		uxtb	r2, r2
+ 163 0018 02F0FE02 		and	r2, r2, #254
+ 164 001c 1A70     		strb	r2, [r3, #0]
+ 121:.\Generated_Source\PSoC5/Receiver.c ****     Receiver_DisableInt();
+ 165              		.loc 1 121 0
+ 166 001e FFF7FEFF 		bl	Receiver_DisableInt
+ 122:.\Generated_Source\PSoC5/Receiver.c **** }
+ 167              		.loc 1 122 0
+ 168 0022 80BD     		pop	{r7, pc}
+ 169              		.cfi_endproc
+ 170              	.LFE3:
+ 171              		.size	Receiver_Stop, .-Receiver_Stop
+ 172              		.section	.text.Receiver_EnableInt,"ax",%progbits
+ 173              		.align	2
+ 174              		.global	Receiver_EnableInt
+ 175              		.thumb
+ 176              		.thumb_func
+ 177              		.type	Receiver_EnableInt, %function
+ 178              	Receiver_EnableInt:
+ 179              	.LFB4:
+ 123:.\Generated_Source\PSoC5/Receiver.c **** 
+ 124:.\Generated_Source\PSoC5/Receiver.c **** 
+ 125:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+ 126:.\Generated_Source\PSoC5/Receiver.c **** * Function Name: Receiver_EnableInt
+ 127:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+ 128:.\Generated_Source\PSoC5/Receiver.c **** *
+ 129:.\Generated_Source\PSoC5/Receiver.c **** * Summary:
+ 130:.\Generated_Source\PSoC5/Receiver.c **** *  Enables the Shift Register interrupt.
+ 131:.\Generated_Source\PSoC5/Receiver.c **** *
+ 132:.\Generated_Source\PSoC5/Receiver.c **** * Parameters:
+ 133:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+ 134:.\Generated_Source\PSoC5/Receiver.c **** *
+ 135:.\Generated_Source\PSoC5/Receiver.c **** * Return:
+ 136:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+ 137:.\Generated_Source\PSoC5/Receiver.c **** *
+ 138:.\Generated_Source\PSoC5/Receiver.c **** *******************************************************************************/
+ 139:.\Generated_Source\PSoC5/Receiver.c **** void Receiver_EnableInt(void) 
+ 140:.\Generated_Source\PSoC5/Receiver.c **** {
+ 180              		.loc 1 140 0
+ 181              		.cfi_startproc
+ 182              		@ args = 0, pretend = 0, frame = 8
+ 183              		@ frame_needed = 1, uses_anonymous_args = 0
+ 184 0000 80B5     		push	{r7, lr}
+ 185              	.LCFI8:
+ 186              		.cfi_def_cfa_offset 8
+ 187 0002 82B0     		sub	sp, sp, #8
+ 188              	.LCFI9:
+ 189              		.cfi_def_cfa_offset 16
+ 190 0004 00AF     		add	r7, sp, #0
+ 191              		.cfi_offset 14, -4
+ 192              		.cfi_offset 7, -8
+ 193              	.LCFI10:
+ 194              		.cfi_def_cfa_register 7
+ 141:.\Generated_Source\PSoC5/Receiver.c ****     uint8 interruptState = CyEnterCriticalSection();
+ 195              		.loc 1 141 0
+ 196 0006 FFF7FEFF 		bl	CyEnterCriticalSection
+ 197 000a 0346     		mov	r3, r0
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 7
+
+
+ 198 000c FB71     		strb	r3, [r7, #7]
+ 142:.\Generated_Source\PSoC5/Receiver.c ****     Receiver_SR_AUX_CONTROL |= Receiver_INTERRUPTS_ENABLE;
+ 199              		.loc 1 142 0
+ 200 000e 46F29D43 		movw	r3, #:lower16:1073767581
+ 201 0012 C4F20003 		movt	r3, #:upper16:1073767581
+ 202 0016 46F29D42 		movw	r2, #:lower16:1073767581
+ 203 001a C4F20002 		movt	r2, #:upper16:1073767581
+ 204 001e 1278     		ldrb	r2, [r2, #0]
+ 205 0020 D2B2     		uxtb	r2, r2
+ 206 0022 42F01002 		orr	r2, r2, #16
+ 207 0026 D2B2     		uxtb	r2, r2
+ 208 0028 1A70     		strb	r2, [r3, #0]
+ 143:.\Generated_Source\PSoC5/Receiver.c ****     CyExitCriticalSection(interruptState);
+ 209              		.loc 1 143 0
+ 210 002a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 211 002c 1846     		mov	r0, r3
+ 212 002e FFF7FEFF 		bl	CyExitCriticalSection
+ 144:.\Generated_Source\PSoC5/Receiver.c **** }
+ 213              		.loc 1 144 0
+ 214 0032 07F10807 		add	r7, r7, #8
+ 215 0036 BD46     		mov	sp, r7
+ 216 0038 80BD     		pop	{r7, pc}
+ 217              		.cfi_endproc
+ 218              	.LFE4:
+ 219              		.size	Receiver_EnableInt, .-Receiver_EnableInt
+ 220 003a 00BF     		.section	.text.Receiver_DisableInt,"ax",%progbits
+ 221              		.align	2
+ 222              		.global	Receiver_DisableInt
+ 223              		.thumb
+ 224              		.thumb_func
+ 225              		.type	Receiver_DisableInt, %function
+ 226              	Receiver_DisableInt:
+ 227              	.LFB5:
+ 145:.\Generated_Source\PSoC5/Receiver.c **** 
+ 146:.\Generated_Source\PSoC5/Receiver.c **** 
+ 147:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+ 148:.\Generated_Source\PSoC5/Receiver.c **** * Function Name: Receiver_DisableInt
+ 149:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+ 150:.\Generated_Source\PSoC5/Receiver.c **** *
+ 151:.\Generated_Source\PSoC5/Receiver.c **** * Summary:
+ 152:.\Generated_Source\PSoC5/Receiver.c **** *  Disables the Shift Register interrupt.
+ 153:.\Generated_Source\PSoC5/Receiver.c **** *
+ 154:.\Generated_Source\PSoC5/Receiver.c **** * Parameters:
+ 155:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+ 156:.\Generated_Source\PSoC5/Receiver.c **** *
+ 157:.\Generated_Source\PSoC5/Receiver.c **** * Return:
+ 158:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+ 159:.\Generated_Source\PSoC5/Receiver.c **** *
+ 160:.\Generated_Source\PSoC5/Receiver.c **** *******************************************************************************/
+ 161:.\Generated_Source\PSoC5/Receiver.c **** void Receiver_DisableInt(void) 
+ 162:.\Generated_Source\PSoC5/Receiver.c **** {
+ 228              		.loc 1 162 0
+ 229              		.cfi_startproc
+ 230              		@ args = 0, pretend = 0, frame = 8
+ 231              		@ frame_needed = 1, uses_anonymous_args = 0
+ 232 0000 80B5     		push	{r7, lr}
+ 233              	.LCFI11:
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 8
+
+
+ 234              		.cfi_def_cfa_offset 8
+ 235 0002 82B0     		sub	sp, sp, #8
+ 236              	.LCFI12:
+ 237              		.cfi_def_cfa_offset 16
+ 238 0004 00AF     		add	r7, sp, #0
+ 239              		.cfi_offset 14, -4
+ 240              		.cfi_offset 7, -8
+ 241              	.LCFI13:
+ 242              		.cfi_def_cfa_register 7
+ 163:.\Generated_Source\PSoC5/Receiver.c ****     uint8 interruptState = CyEnterCriticalSection();
+ 243              		.loc 1 163 0
+ 244 0006 FFF7FEFF 		bl	CyEnterCriticalSection
+ 245 000a 0346     		mov	r3, r0
+ 246 000c FB71     		strb	r3, [r7, #7]
+ 164:.\Generated_Source\PSoC5/Receiver.c ****     Receiver_SR_AUX_CONTROL &= ~Receiver_INTERRUPTS_ENABLE;
+ 247              		.loc 1 164 0
+ 248 000e 46F29D43 		movw	r3, #:lower16:1073767581
+ 249 0012 C4F20003 		movt	r3, #:upper16:1073767581
+ 250 0016 46F29D42 		movw	r2, #:lower16:1073767581
+ 251 001a C4F20002 		movt	r2, #:upper16:1073767581
+ 252 001e 1278     		ldrb	r2, [r2, #0]
+ 253 0020 D2B2     		uxtb	r2, r2
+ 254 0022 02F0EF02 		and	r2, r2, #239
+ 255 0026 1A70     		strb	r2, [r3, #0]
+ 165:.\Generated_Source\PSoC5/Receiver.c ****     CyExitCriticalSection(interruptState);
+ 256              		.loc 1 165 0
+ 257 0028 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 258 002a 1846     		mov	r0, r3
+ 259 002c FFF7FEFF 		bl	CyExitCriticalSection
+ 166:.\Generated_Source\PSoC5/Receiver.c **** }
+ 260              		.loc 1 166 0
+ 261 0030 07F10807 		add	r7, r7, #8
+ 262 0034 BD46     		mov	sp, r7
+ 263 0036 80BD     		pop	{r7, pc}
+ 264              		.cfi_endproc
+ 265              	.LFE5:
+ 266              		.size	Receiver_DisableInt, .-Receiver_DisableInt
+ 267              		.section	.text.Receiver_GetFIFOStatus,"ax",%progbits
+ 268              		.align	2
+ 269              		.global	Receiver_GetFIFOStatus
+ 270              		.thumb
+ 271              		.thumb_func
+ 272              		.type	Receiver_GetFIFOStatus, %function
+ 273              	Receiver_GetFIFOStatus:
+ 274              	.LFB6:
+ 167:.\Generated_Source\PSoC5/Receiver.c **** 
+ 168:.\Generated_Source\PSoC5/Receiver.c **** 
+ 169:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+ 170:.\Generated_Source\PSoC5/Receiver.c **** * Function Name: Receiver_GetFIFOStatus
+ 171:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+ 172:.\Generated_Source\PSoC5/Receiver.c **** *
+ 173:.\Generated_Source\PSoC5/Receiver.c **** * Summary:
+ 174:.\Generated_Source\PSoC5/Receiver.c **** *  Returns current status of input or output FIFO.
+ 175:.\Generated_Source\PSoC5/Receiver.c **** *
+ 176:.\Generated_Source\PSoC5/Receiver.c **** * Parameters:
+ 177:.\Generated_Source\PSoC5/Receiver.c **** *  fifoId.
+ 178:.\Generated_Source\PSoC5/Receiver.c **** *
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 9
+
+
+ 179:.\Generated_Source\PSoC5/Receiver.c **** * Return:
+ 180:.\Generated_Source\PSoC5/Receiver.c **** *  FIFO status.
+ 181:.\Generated_Source\PSoC5/Receiver.c **** *
+ 182:.\Generated_Source\PSoC5/Receiver.c **** *******************************************************************************/
+ 183:.\Generated_Source\PSoC5/Receiver.c **** uint8 Receiver_GetFIFOStatus(uint8 fifoId) 
+ 184:.\Generated_Source\PSoC5/Receiver.c **** {
+ 275              		.loc 1 184 0
+ 276              		.cfi_startproc
+ 277              		@ args = 0, pretend = 0, frame = 16
+ 278              		@ frame_needed = 1, uses_anonymous_args = 0
+ 279              		@ link register save eliminated.
+ 280 0000 80B4     		push	{r7}
+ 281              	.LCFI14:
+ 282              		.cfi_def_cfa_offset 4
+ 283 0002 85B0     		sub	sp, sp, #20
+ 284              	.LCFI15:
+ 285              		.cfi_def_cfa_offset 24
+ 286 0004 00AF     		add	r7, sp, #0
+ 287              		.cfi_offset 7, -4
+ 288              	.LCFI16:
+ 289              		.cfi_def_cfa_register 7
+ 290 0006 0346     		mov	r3, r0
+ 291 0008 FB71     		strb	r3, [r7, #7]
+ 185:.\Generated_Source\PSoC5/Receiver.c ****     uint8 result;
+ 186:.\Generated_Source\PSoC5/Receiver.c **** 
+ 187:.\Generated_Source\PSoC5/Receiver.c ****     result = Receiver_RET_FIFO_NOT_DEFINED; /*default status value*/
+ 292              		.loc 1 187 0
+ 293 000a 6FF00103 		mvn	r3, #1
+ 294 000e FB73     		strb	r3, [r7, #15]
+ 188:.\Generated_Source\PSoC5/Receiver.c **** 
+ 189:.\Generated_Source\PSoC5/Receiver.c ****     #if (Receiver_USE_INPUT_FIFO == 1u)
+ 190:.\Generated_Source\PSoC5/Receiver.c ****         
+ 191:.\Generated_Source\PSoC5/Receiver.c ****         if(fifoId == Receiver_IN_FIFO)
+ 192:.\Generated_Source\PSoC5/Receiver.c ****         {    
+ 193:.\Generated_Source\PSoC5/Receiver.c ****             switch((Receiver_SR_STATUS & Receiver_IN_FIFO_MASK) >> 
+ 194:.\Generated_Source\PSoC5/Receiver.c ****                     Receiver_IN_FIFO_SHFT_MASK)
+ 195:.\Generated_Source\PSoC5/Receiver.c ****             {
+ 196:.\Generated_Source\PSoC5/Receiver.c ****                 case Receiver_IN_FIFO_FULL :
+ 197:.\Generated_Source\PSoC5/Receiver.c ****                     result = Receiver_RET_FIFO_FULL;
+ 198:.\Generated_Source\PSoC5/Receiver.c ****                     break;
+ 199:.\Generated_Source\PSoC5/Receiver.c **** 
+ 200:.\Generated_Source\PSoC5/Receiver.c ****                 case Receiver_IN_FIFO_EMPTY :
+ 201:.\Generated_Source\PSoC5/Receiver.c ****                     result = Receiver_RET_FIFO_EMPTY;
+ 202:.\Generated_Source\PSoC5/Receiver.c ****                     break;
+ 203:.\Generated_Source\PSoC5/Receiver.c **** 
+ 204:.\Generated_Source\PSoC5/Receiver.c ****                 case Receiver_IN_FIFO_NOT_EMPTY :
+ 205:.\Generated_Source\PSoC5/Receiver.c ****                     result = Receiver_RET_FIFO_NOT_EMPTY;
+ 206:.\Generated_Source\PSoC5/Receiver.c ****                     break;
+ 207:.\Generated_Source\PSoC5/Receiver.c ****                 default:
+ 208:.\Generated_Source\PSoC5/Receiver.c ****                     result = Receiver_RET_FIFO_EMPTY;
+ 209:.\Generated_Source\PSoC5/Receiver.c ****             }
+ 210:.\Generated_Source\PSoC5/Receiver.c ****         }
+ 211:.\Generated_Source\PSoC5/Receiver.c ****     #endif/*(Receiver_USE_INPUT_FIFO == 1u)*/
+ 212:.\Generated_Source\PSoC5/Receiver.c ****     
+ 213:.\Generated_Source\PSoC5/Receiver.c ****     if(fifoId == Receiver_OUT_FIFO)
+ 295              		.loc 1 213 0
+ 296 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 10
+
+
+ 297 0012 022B     		cmp	r3, #2
+ 298 0014 1FD1     		bne	.L15
+ 214:.\Generated_Source\PSoC5/Receiver.c ****     {
+ 215:.\Generated_Source\PSoC5/Receiver.c ****         switch((Receiver_SR_STATUS & Receiver_OUT_FIFO_MASK) >> 
+ 299              		.loc 1 215 0
+ 300 0016 46F26D43 		movw	r3, #:lower16:1073767533
+ 301 001a C4F20003 		movt	r3, #:upper16:1073767533
+ 302 001e 1B78     		ldrb	r3, [r3, #0]
+ 303 0020 DBB2     		uxtb	r3, r3
+ 304 0022 03F06003 		and	r3, r3, #96
+ 305 0026 4FEA5313 		lsr	r3, r3, #5
+ 216:.\Generated_Source\PSoC5/Receiver.c ****                 Receiver_OUT_FIFO_SHFT_MASK)
+ 306              		.loc 1 216 0
+ 307 002a 012B     		cmp	r3, #1
+ 308 002c 04D0     		beq	.L18
+ 309 002e 012B     		cmp	r3, #1
+ 310 0030 06D3     		bcc	.L17
+ 311 0032 022B     		cmp	r3, #2
+ 312 0034 08D0     		beq	.L19
+ 313 0036 0BE0     		b	.L21
+ 314              	.L18:
+ 217:.\Generated_Source\PSoC5/Receiver.c ****         {
+ 218:.\Generated_Source\PSoC5/Receiver.c ****             case Receiver_OUT_FIFO_FULL :
+ 219:.\Generated_Source\PSoC5/Receiver.c ****                 result = Receiver_RET_FIFO_FULL;
+ 315              		.loc 1 219 0
+ 316 0038 4FF00003 		mov	r3, #0
+ 317 003c FB73     		strb	r3, [r7, #15]
+ 220:.\Generated_Source\PSoC5/Receiver.c ****                 break;
+ 318              		.loc 1 220 0
+ 319 003e 0AE0     		b	.L15
+ 320              	.L17:
+ 221:.\Generated_Source\PSoC5/Receiver.c **** 
+ 222:.\Generated_Source\PSoC5/Receiver.c ****             case Receiver_OUT_FIFO_EMPTY :
+ 223:.\Generated_Source\PSoC5/Receiver.c ****                 result = Receiver_RET_FIFO_EMPTY;
+ 321              		.loc 1 223 0
+ 322 0040 4FF00203 		mov	r3, #2
+ 323 0044 FB73     		strb	r3, [r7, #15]
+ 224:.\Generated_Source\PSoC5/Receiver.c ****                 break;
+ 324              		.loc 1 224 0
+ 325 0046 06E0     		b	.L15
+ 326              	.L19:
+ 225:.\Generated_Source\PSoC5/Receiver.c **** 
+ 226:.\Generated_Source\PSoC5/Receiver.c ****             case Receiver_OUT_FIFO_NOT_EMPTY :
+ 227:.\Generated_Source\PSoC5/Receiver.c ****                 result = Receiver_RET_FIFO_NOT_EMPTY;
+ 327              		.loc 1 227 0
+ 328 0048 4FF00103 		mov	r3, #1
+ 329 004c FB73     		strb	r3, [r7, #15]
+ 228:.\Generated_Source\PSoC5/Receiver.c ****                 break;
+ 330              		.loc 1 228 0
+ 331 004e 02E0     		b	.L15
+ 332              	.L21:
+ 229:.\Generated_Source\PSoC5/Receiver.c **** 
+ 230:.\Generated_Source\PSoC5/Receiver.c ****             default:
+ 231:.\Generated_Source\PSoC5/Receiver.c ****                 result = Receiver_RET_FIFO_FULL;
+ 333              		.loc 1 231 0
+ 334 0050 4FF00003 		mov	r3, #0
+ 335 0054 FB73     		strb	r3, [r7, #15]
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 11
+
+
+ 336              	.L15:
+ 232:.\Generated_Source\PSoC5/Receiver.c ****         }
+ 233:.\Generated_Source\PSoC5/Receiver.c ****     }
+ 234:.\Generated_Source\PSoC5/Receiver.c **** 
+ 235:.\Generated_Source\PSoC5/Receiver.c ****     return (result);
+ 337              		.loc 1 235 0
+ 338 0056 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 236:.\Generated_Source\PSoC5/Receiver.c **** }
+ 339              		.loc 1 236 0
+ 340 0058 1846     		mov	r0, r3
+ 341 005a 07F11407 		add	r7, r7, #20
+ 342 005e BD46     		mov	sp, r7
+ 343 0060 80BC     		pop	{r7}
+ 344 0062 7047     		bx	lr
+ 345              		.cfi_endproc
+ 346              	.LFE6:
+ 347              		.size	Receiver_GetFIFOStatus, .-Receiver_GetFIFOStatus
+ 348              		.section	.text.Receiver_SetIntMode,"ax",%progbits
+ 349              		.align	2
+ 350              		.global	Receiver_SetIntMode
+ 351              		.thumb
+ 352              		.thumb_func
+ 353              		.type	Receiver_SetIntMode, %function
+ 354              	Receiver_SetIntMode:
+ 355              	.LFB7:
+ 237:.\Generated_Source\PSoC5/Receiver.c **** 
+ 238:.\Generated_Source\PSoC5/Receiver.c **** 
+ 239:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+ 240:.\Generated_Source\PSoC5/Receiver.c **** * Function Name: Receiver_SetIntMode
+ 241:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+ 242:.\Generated_Source\PSoC5/Receiver.c **** *
+ 243:.\Generated_Source\PSoC5/Receiver.c **** * Summary:
+ 244:.\Generated_Source\PSoC5/Receiver.c **** *  Sets the Interrupt Source for the Shift Register interrupt. Multiple
+ 245:.\Generated_Source\PSoC5/Receiver.c **** *  sources may be ORed together
+ 246:.\Generated_Source\PSoC5/Receiver.c **** *
+ 247:.\Generated_Source\PSoC5/Receiver.c **** * Parameters:
+ 248:.\Generated_Source\PSoC5/Receiver.c **** *  interruptSource: Byte containing the constant for the selected interrupt
+ 249:.\Generated_Source\PSoC5/Receiver.c **** *  source/s.
+ 250:.\Generated_Source\PSoC5/Receiver.c **** *
+ 251:.\Generated_Source\PSoC5/Receiver.c **** * Return:
+ 252:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+ 253:.\Generated_Source\PSoC5/Receiver.c **** *
+ 254:.\Generated_Source\PSoC5/Receiver.c **** *******************************************************************************/
+ 255:.\Generated_Source\PSoC5/Receiver.c **** void Receiver_SetIntMode(uint8 interruptSource) 
+ 256:.\Generated_Source\PSoC5/Receiver.c **** {
+ 356              		.loc 1 256 0
+ 357              		.cfi_startproc
+ 358              		@ args = 0, pretend = 0, frame = 8
+ 359              		@ frame_needed = 1, uses_anonymous_args = 0
+ 360              		@ link register save eliminated.
+ 361 0000 80B4     		push	{r7}
+ 362              	.LCFI17:
+ 363              		.cfi_def_cfa_offset 4
+ 364 0002 83B0     		sub	sp, sp, #12
+ 365              	.LCFI18:
+ 366              		.cfi_def_cfa_offset 16
+ 367 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 12
+
+
+ 368              		.cfi_offset 7, -4
+ 369              	.LCFI19:
+ 370              		.cfi_def_cfa_register 7
+ 371 0006 0346     		mov	r3, r0
+ 372 0008 FB71     		strb	r3, [r7, #7]
+ 257:.\Generated_Source\PSoC5/Receiver.c ****     Receiver_SR_STATUS_MASK = (Receiver_SR_STATUS_MASK & ~Receiver_INTS_EN_MASK) | \
+ 373              		.loc 1 257 0
+ 374 000a 46F28D43 		movw	r3, #:lower16:1073767565
+ 375 000e C4F20003 		movt	r3, #:upper16:1073767565
+ 376 0012 46F28D42 		movw	r2, #:lower16:1073767565
+ 377 0016 C4F20002 		movt	r2, #:upper16:1073767565
+ 378 001a 1278     		ldrb	r2, [r2, #0]
+ 379 001c D2B2     		uxtb	r2, r2
+ 380 001e 1146     		mov	r1, r2
+ 381 0020 01F0F801 		and	r1, r1, #248
+ 382 0024 FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2
+ 383 0026 02F00702 		and	r2, r2, #7
+ 384 002a 41EA0202 		orr	r2, r1, r2
+ 385 002e D2B2     		uxtb	r2, r2
+ 386 0030 1A70     		strb	r2, [r3, #0]
+ 258:.\Generated_Source\PSoC5/Receiver.c ****                                       (interruptSource & Receiver_INTS_EN_MASK);
+ 259:.\Generated_Source\PSoC5/Receiver.c **** }
+ 387              		.loc 1 259 0
+ 388 0032 07F10C07 		add	r7, r7, #12
+ 389 0036 BD46     		mov	sp, r7
+ 390 0038 80BC     		pop	{r7}
+ 391 003a 7047     		bx	lr
+ 392              		.cfi_endproc
+ 393              	.LFE7:
+ 394              		.size	Receiver_SetIntMode, .-Receiver_SetIntMode
+ 395              		.section	.text.Receiver_GetIntStatus,"ax",%progbits
+ 396              		.align	2
+ 397              		.global	Receiver_GetIntStatus
+ 398              		.thumb
+ 399              		.thumb_func
+ 400              		.type	Receiver_GetIntStatus, %function
+ 401              	Receiver_GetIntStatus:
+ 402              	.LFB8:
+ 260:.\Generated_Source\PSoC5/Receiver.c **** 
+ 261:.\Generated_Source\PSoC5/Receiver.c **** 
+ 262:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+ 263:.\Generated_Source\PSoC5/Receiver.c **** * Function Name: Receiver_GetIntStatus
+ 264:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+ 265:.\Generated_Source\PSoC5/Receiver.c **** *
+ 266:.\Generated_Source\PSoC5/Receiver.c **** * Summary:
+ 267:.\Generated_Source\PSoC5/Receiver.c **** *  Gets the Shift Register Interrupt status.
+ 268:.\Generated_Source\PSoC5/Receiver.c **** *
+ 269:.\Generated_Source\PSoC5/Receiver.c **** * Parameters:
+ 270:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+ 271:.\Generated_Source\PSoC5/Receiver.c **** *
+ 272:.\Generated_Source\PSoC5/Receiver.c **** * Return:
+ 273:.\Generated_Source\PSoC5/Receiver.c **** *  Byte containing the constant for the selected interrupt source/s.
+ 274:.\Generated_Source\PSoC5/Receiver.c **** *
+ 275:.\Generated_Source\PSoC5/Receiver.c **** *******************************************************************************/
+ 276:.\Generated_Source\PSoC5/Receiver.c **** uint8 Receiver_GetIntStatus(void) 
+ 277:.\Generated_Source\PSoC5/Receiver.c **** {
+ 403              		.loc 1 277 0
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 13
+
+
+ 404              		.cfi_startproc
+ 405              		@ args = 0, pretend = 0, frame = 0
+ 406              		@ frame_needed = 1, uses_anonymous_args = 0
+ 407              		@ link register save eliminated.
+ 408 0000 80B4     		push	{r7}
+ 409              	.LCFI20:
+ 410              		.cfi_def_cfa_offset 4
+ 411 0002 00AF     		add	r7, sp, #0
+ 412              		.cfi_offset 7, -4
+ 413              	.LCFI21:
+ 414              		.cfi_def_cfa_register 7
+ 278:.\Generated_Source\PSoC5/Receiver.c ****     return(Receiver_SR_STATUS & Receiver_INTS_EN_MASK);
+ 415              		.loc 1 278 0
+ 416 0004 46F26D43 		movw	r3, #:lower16:1073767533
+ 417 0008 C4F20003 		movt	r3, #:upper16:1073767533
+ 418 000c 1B78     		ldrb	r3, [r3, #0]
+ 419 000e DBB2     		uxtb	r3, r3
+ 420 0010 03F00703 		and	r3, r3, #7
+ 279:.\Generated_Source\PSoC5/Receiver.c **** }
+ 421              		.loc 1 279 0
+ 422 0014 1846     		mov	r0, r3
+ 423 0016 BD46     		mov	sp, r7
+ 424 0018 80BC     		pop	{r7}
+ 425 001a 7047     		bx	lr
+ 426              		.cfi_endproc
+ 427              	.LFE8:
+ 428              		.size	Receiver_GetIntStatus, .-Receiver_GetIntStatus
+ 429              		.section	.text.Receiver_WriteRegValue,"ax",%progbits
+ 430              		.align	2
+ 431              		.global	Receiver_WriteRegValue
+ 432              		.thumb
+ 433              		.thumb_func
+ 434              		.type	Receiver_WriteRegValue, %function
+ 435              	Receiver_WriteRegValue:
+ 436              	.LFB9:
+ 280:.\Generated_Source\PSoC5/Receiver.c **** 
+ 281:.\Generated_Source\PSoC5/Receiver.c **** 
+ 282:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+ 283:.\Generated_Source\PSoC5/Receiver.c **** * Function Name: Receiver_WriteRegValue
+ 284:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+ 285:.\Generated_Source\PSoC5/Receiver.c **** *
+ 286:.\Generated_Source\PSoC5/Receiver.c **** * Summary:
+ 287:.\Generated_Source\PSoC5/Receiver.c **** *  Send state directly to shift register
+ 288:.\Generated_Source\PSoC5/Receiver.c **** *
+ 289:.\Generated_Source\PSoC5/Receiver.c **** * Parameters:
+ 290:.\Generated_Source\PSoC5/Receiver.c **** *  shiftData: containing shift register state.
+ 291:.\Generated_Source\PSoC5/Receiver.c **** *
+ 292:.\Generated_Source\PSoC5/Receiver.c **** * Return:
+ 293:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+ 294:.\Generated_Source\PSoC5/Receiver.c **** *
+ 295:.\Generated_Source\PSoC5/Receiver.c **** *******************************************************************************/
+ 296:.\Generated_Source\PSoC5/Receiver.c **** void Receiver_WriteRegValue(uint8 shiftData) \
+ 297:.\Generated_Source\PSoC5/Receiver.c ****                 
+ 298:.\Generated_Source\PSoC5/Receiver.c **** {
+ 437              		.loc 1 298 0
+ 438              		.cfi_startproc
+ 439              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 14
+
+
+ 440              		@ frame_needed = 1, uses_anonymous_args = 0
+ 441              		@ link register save eliminated.
+ 442 0000 80B4     		push	{r7}
+ 443              	.LCFI22:
+ 444              		.cfi_def_cfa_offset 4
+ 445 0002 83B0     		sub	sp, sp, #12
+ 446              	.LCFI23:
+ 447              		.cfi_def_cfa_offset 16
+ 448 0004 00AF     		add	r7, sp, #0
+ 449              		.cfi_offset 7, -4
+ 450              	.LCFI24:
+ 451              		.cfi_def_cfa_register 7
+ 452 0006 0346     		mov	r3, r0
+ 453 0008 FB71     		strb	r3, [r7, #7]
+ 299:.\Generated_Source\PSoC5/Receiver.c ****     CY_SET_REG8(Receiver_SHIFT_REG_LSB_PTR, shiftData);
+ 454              		.loc 1 299 0
+ 455 000a 46F20D43 		movw	r3, #:lower16:1073767437
+ 456 000e C4F20003 		movt	r3, #:upper16:1073767437
+ 457 0012 FA79     		ldrb	r2, [r7, #7]
+ 458 0014 1A70     		strb	r2, [r3, #0]
+ 300:.\Generated_Source\PSoC5/Receiver.c **** }
+ 459              		.loc 1 300 0
+ 460 0016 07F10C07 		add	r7, r7, #12
+ 461 001a BD46     		mov	sp, r7
+ 462 001c 80BC     		pop	{r7}
+ 463 001e 7047     		bx	lr
+ 464              		.cfi_endproc
+ 465              	.LFE9:
+ 466              		.size	Receiver_WriteRegValue, .-Receiver_WriteRegValue
+ 467              		.section	.text.Receiver_ReadData,"ax",%progbits
+ 468              		.align	2
+ 469              		.global	Receiver_ReadData
+ 470              		.thumb
+ 471              		.thumb_func
+ 472              		.type	Receiver_ReadData, %function
+ 473              	Receiver_ReadData:
+ 474              	.LFB10:
+ 301:.\Generated_Source\PSoC5/Receiver.c **** 
+ 302:.\Generated_Source\PSoC5/Receiver.c **** 
+ 303:.\Generated_Source\PSoC5/Receiver.c **** #if (Receiver_USE_INPUT_FIFO == 1u) /* if input FIFO is used */
+ 304:.\Generated_Source\PSoC5/Receiver.c **** 
+ 305:.\Generated_Source\PSoC5/Receiver.c ****     /*******************************************************************************
+ 306:.\Generated_Source\PSoC5/Receiver.c ****     * Function Name: Receiver_WriteData
+ 307:.\Generated_Source\PSoC5/Receiver.c ****     ********************************************************************************
+ 308:.\Generated_Source\PSoC5/Receiver.c ****     *
+ 309:.\Generated_Source\PSoC5/Receiver.c ****     * Summary:
+ 310:.\Generated_Source\PSoC5/Receiver.c ****     *  Send state to FIFO for later transfer to shift register based on the Load
+ 311:.\Generated_Source\PSoC5/Receiver.c ****     *  input
+ 312:.\Generated_Source\PSoC5/Receiver.c ****     *
+ 313:.\Generated_Source\PSoC5/Receiver.c ****     * Parameters:
+ 314:.\Generated_Source\PSoC5/Receiver.c ****     *  shiftData: containing shift register state.
+ 315:.\Generated_Source\PSoC5/Receiver.c ****     *
+ 316:.\Generated_Source\PSoC5/Receiver.c ****     * Return:
+ 317:.\Generated_Source\PSoC5/Receiver.c ****     *  Indicates: successful execution of function
+ 318:.\Generated_Source\PSoC5/Receiver.c ****     *  when FIFO is empty; and error when
+ 319:.\Generated_Source\PSoC5/Receiver.c ****     *  FIFO is full.
+ 320:.\Generated_Source\PSoC5/Receiver.c ****     *
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 15
+
+
+ 321:.\Generated_Source\PSoC5/Receiver.c ****     * Reentrant:
+ 322:.\Generated_Source\PSoC5/Receiver.c ****     *  No.
+ 323:.\Generated_Source\PSoC5/Receiver.c ****     *
+ 324:.\Generated_Source\PSoC5/Receiver.c ****     *******************************************************************************/
+ 325:.\Generated_Source\PSoC5/Receiver.c ****     uint8 Receiver_WriteData(uint8 shiftData) \
+ 326:.\Generated_Source\PSoC5/Receiver.c ****                     
+ 327:.\Generated_Source\PSoC5/Receiver.c ****     {
+ 328:.\Generated_Source\PSoC5/Receiver.c ****         uint8 result;
+ 329:.\Generated_Source\PSoC5/Receiver.c ****     
+ 330:.\Generated_Source\PSoC5/Receiver.c ****         result = CYRET_INVALID_STATE;/*default result state*/
+ 331:.\Generated_Source\PSoC5/Receiver.c ****     
+ 332:.\Generated_Source\PSoC5/Receiver.c ****         /*write data to input FIFO if FIFO is not full*/
+ 333:.\Generated_Source\PSoC5/Receiver.c ****         if((Receiver_GetFIFOStatus(Receiver_IN_FIFO)) != Receiver_RET_FIFO_FULL)
+ 334:.\Generated_Source\PSoC5/Receiver.c ****         {
+ 335:.\Generated_Source\PSoC5/Receiver.c ****             CY_SET_REG8(Receiver_IN_FIFO_VAL_LSB_PTR, shiftData);
+ 336:.\Generated_Source\PSoC5/Receiver.c ****             result = CYRET_SUCCESS; /*return 'success' status*/
+ 337:.\Generated_Source\PSoC5/Receiver.c ****         }
+ 338:.\Generated_Source\PSoC5/Receiver.c ****         return(result);
+ 339:.\Generated_Source\PSoC5/Receiver.c ****     }
+ 340:.\Generated_Source\PSoC5/Receiver.c **** 
+ 341:.\Generated_Source\PSoC5/Receiver.c **** 
+ 342:.\Generated_Source\PSoC5/Receiver.c **** #endif/*(Receiver_USE_INPUT_FIFO == 1u)*/
+ 343:.\Generated_Source\PSoC5/Receiver.c **** 
+ 344:.\Generated_Source\PSoC5/Receiver.c **** #if (Receiver_USE_OUTPUT_FIFO == 1u)/*if output FIFO is used*/
+ 345:.\Generated_Source\PSoC5/Receiver.c **** 
+ 346:.\Generated_Source\PSoC5/Receiver.c ****     /*******************************************************************************
+ 347:.\Generated_Source\PSoC5/Receiver.c ****     * Function Name: Receiver_ReadData
+ 348:.\Generated_Source\PSoC5/Receiver.c ****     ********************************************************************************
+ 349:.\Generated_Source\PSoC5/Receiver.c ****     *
+ 350:.\Generated_Source\PSoC5/Receiver.c ****     * Summary:
+ 351:.\Generated_Source\PSoC5/Receiver.c ****     *  Returns state in FIFO due to Store input.
+ 352:.\Generated_Source\PSoC5/Receiver.c ****     *
+ 353:.\Generated_Source\PSoC5/Receiver.c ****     * Parameters:
+ 354:.\Generated_Source\PSoC5/Receiver.c ****     *  None.
+ 355:.\Generated_Source\PSoC5/Receiver.c ****     *
+ 356:.\Generated_Source\PSoC5/Receiver.c ****     * Return:
+ 357:.\Generated_Source\PSoC5/Receiver.c ****     *  Shift Register state
+ 358:.\Generated_Source\PSoC5/Receiver.c ****     *
+ 359:.\Generated_Source\PSoC5/Receiver.c ****     * Reentrant:
+ 360:.\Generated_Source\PSoC5/Receiver.c ****     *  No.
+ 361:.\Generated_Source\PSoC5/Receiver.c ****     *
+ 362:.\Generated_Source\PSoC5/Receiver.c ****     *******************************************************************************/
+ 363:.\Generated_Source\PSoC5/Receiver.c ****     uint8 Receiver_ReadData(void) \
+ 364:.\Generated_Source\PSoC5/Receiver.c ****             
+ 365:.\Generated_Source\PSoC5/Receiver.c ****     {
+ 475              		.loc 1 365 0
+ 476              		.cfi_startproc
+ 477              		@ args = 0, pretend = 0, frame = 0
+ 478              		@ frame_needed = 1, uses_anonymous_args = 0
+ 479              		@ link register save eliminated.
+ 480 0000 80B4     		push	{r7}
+ 481              	.LCFI25:
+ 482              		.cfi_def_cfa_offset 4
+ 483 0002 00AF     		add	r7, sp, #0
+ 484              		.cfi_offset 7, -4
+ 485              	.LCFI26:
+ 486              		.cfi_def_cfa_register 7
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 16
+
+
+ 366:.\Generated_Source\PSoC5/Receiver.c ****         return(CY_GET_REG8(Receiver_OUT_FIFO_VAL_LSB_PTR));
+ 487              		.loc 1 366 0
+ 488 0004 46F25D43 		movw	r3, #:lower16:1073767517
+ 489 0008 C4F20003 		movt	r3, #:upper16:1073767517
+ 490 000c 1B78     		ldrb	r3, [r3, #0]
+ 491 000e DBB2     		uxtb	r3, r3
+ 367:.\Generated_Source\PSoC5/Receiver.c ****     }
+ 492              		.loc 1 367 0
+ 493 0010 1846     		mov	r0, r3
+ 494 0012 BD46     		mov	sp, r7
+ 495 0014 80BC     		pop	{r7}
+ 496 0016 7047     		bx	lr
+ 497              		.cfi_endproc
+ 498              	.LFE10:
+ 499              		.size	Receiver_ReadData, .-Receiver_ReadData
+ 500              		.section	.text.Receiver_ReadRegValue,"ax",%progbits
+ 501              		.align	2
+ 502              		.global	Receiver_ReadRegValue
+ 503              		.thumb
+ 504              		.thumb_func
+ 505              		.type	Receiver_ReadRegValue, %function
+ 506              	Receiver_ReadRegValue:
+ 507              	.LFB11:
+ 368:.\Generated_Source\PSoC5/Receiver.c **** 
+ 369:.\Generated_Source\PSoC5/Receiver.c **** #endif/*(Receiver_USE_OUTPUT_FIFO == 1u)*/
+ 370:.\Generated_Source\PSoC5/Receiver.c **** 
+ 371:.\Generated_Source\PSoC5/Receiver.c **** 
+ 372:.\Generated_Source\PSoC5/Receiver.c **** /*******************************************************************************
+ 373:.\Generated_Source\PSoC5/Receiver.c **** * Function Name: Receiver_ReadRegValue
+ 374:.\Generated_Source\PSoC5/Receiver.c **** ********************************************************************************
+ 375:.\Generated_Source\PSoC5/Receiver.c **** *
+ 376:.\Generated_Source\PSoC5/Receiver.c **** * Summary:
+ 377:.\Generated_Source\PSoC5/Receiver.c **** *  Directly returns current state in shift register, not data in FIFO due
+ 378:.\Generated_Source\PSoC5/Receiver.c **** *  to Store input.
+ 379:.\Generated_Source\PSoC5/Receiver.c **** *
+ 380:.\Generated_Source\PSoC5/Receiver.c **** * Parameters:
+ 381:.\Generated_Source\PSoC5/Receiver.c **** *  None.
+ 382:.\Generated_Source\PSoC5/Receiver.c **** *
+ 383:.\Generated_Source\PSoC5/Receiver.c **** * Return:
+ 384:.\Generated_Source\PSoC5/Receiver.c **** *  Shift Register state
+ 385:.\Generated_Source\PSoC5/Receiver.c **** *
+ 386:.\Generated_Source\PSoC5/Receiver.c **** *  Clears output FIFO.
+ 387:.\Generated_Source\PSoC5/Receiver.c **** *
+ 388:.\Generated_Source\PSoC5/Receiver.c **** * Reentrant:
+ 389:.\Generated_Source\PSoC5/Receiver.c **** *  No.
+ 390:.\Generated_Source\PSoC5/Receiver.c **** *
+ 391:.\Generated_Source\PSoC5/Receiver.c **** *******************************************************************************/
+ 392:.\Generated_Source\PSoC5/Receiver.c **** uint8 Receiver_ReadRegValue(void) 
+ 393:.\Generated_Source\PSoC5/Receiver.c **** {
+ 508              		.loc 1 393 0
+ 509              		.cfi_startproc
+ 510              		@ args = 0, pretend = 0, frame = 8
+ 511              		@ frame_needed = 1, uses_anonymous_args = 0
+ 512 0000 80B5     		push	{r7, lr}
+ 513              	.LCFI27:
+ 514              		.cfi_def_cfa_offset 8
+ 515 0002 82B0     		sub	sp, sp, #8
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 17
+
+
+ 516              	.LCFI28:
+ 517              		.cfi_def_cfa_offset 16
+ 518 0004 00AF     		add	r7, sp, #0
+ 519              		.cfi_offset 14, -4
+ 520              		.cfi_offset 7, -8
+ 521              	.LCFI29:
+ 522              		.cfi_def_cfa_register 7
+ 394:.\Generated_Source\PSoC5/Receiver.c ****     uint8 result;
+ 395:.\Generated_Source\PSoC5/Receiver.c **** 
+ 396:.\Generated_Source\PSoC5/Receiver.c ****     /* Clear FIFO before software capture */
+ 397:.\Generated_Source\PSoC5/Receiver.c **** 
+ 398:.\Generated_Source\PSoC5/Receiver.c ****     while(Receiver_GetFIFOStatus(Receiver_OUT_FIFO) != Receiver_RET_FIFO_EMPTY)
+ 523              		.loc 1 398 0
+ 524 0006 05E0     		b	.L31
+ 525              	.L32:
+ 399:.\Generated_Source\PSoC5/Receiver.c ****     {
+ 400:.\Generated_Source\PSoC5/Receiver.c ****         result = CY_GET_REG8(Receiver_OUT_FIFO_VAL_LSB_PTR);
+ 526              		.loc 1 400 0
+ 527 0008 46F25D43 		movw	r3, #:lower16:1073767517
+ 528 000c C4F20003 		movt	r3, #:upper16:1073767517
+ 529 0010 1B78     		ldrb	r3, [r3, #0]
+ 530 0012 FB71     		strb	r3, [r7, #7]
+ 531              	.L31:
+ 532              		.loc 1 398 0
+ 533 0014 4FF00200 		mov	r0, #2
+ 534 0018 FFF7FEFF 		bl	Receiver_GetFIFOStatus
+ 535 001c 0346     		mov	r3, r0
+ 536 001e 022B     		cmp	r3, #2
+ 537 0020 F2D1     		bne	.L32
+ 401:.\Generated_Source\PSoC5/Receiver.c ****     }
+ 402:.\Generated_Source\PSoC5/Receiver.c ****     
+ 403:.\Generated_Source\PSoC5/Receiver.c ****     /* Capture A1 to output FIFO */
+ 404:.\Generated_Source\PSoC5/Receiver.c ****     result = CY_GET_REG8(Receiver_SHIFT_REG_VALUE_LSB_PTR);
+ 538              		.loc 1 404 0
+ 539 0022 46F21D43 		movw	r3, #:lower16:1073767453
+ 540 0026 C4F20003 		movt	r3, #:upper16:1073767453
+ 541 002a 1B78     		ldrb	r3, [r3, #0]
+ 542 002c FB71     		strb	r3, [r7, #7]
+ 405:.\Generated_Source\PSoC5/Receiver.c ****     
+ 406:.\Generated_Source\PSoC5/Receiver.c ****     /* Read output FIFO */
+ 407:.\Generated_Source\PSoC5/Receiver.c ****     result = CY_GET_REG8(Receiver_OUT_FIFO_VAL_LSB_PTR);
+ 543              		.loc 1 407 0
+ 544 002e 46F25D43 		movw	r3, #:lower16:1073767517
+ 545 0032 C4F20003 		movt	r3, #:upper16:1073767517
+ 546 0036 1B78     		ldrb	r3, [r3, #0]
+ 547 0038 FB71     		strb	r3, [r7, #7]
+ 408:.\Generated_Source\PSoC5/Receiver.c ****     result = result & Receiver_SR_MASK;
+ 409:.\Generated_Source\PSoC5/Receiver.c **** 
+ 410:.\Generated_Source\PSoC5/Receiver.c ****     return(result);
+ 548              		.loc 1 410 0
+ 549 003a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 411:.\Generated_Source\PSoC5/Receiver.c **** }
+ 550              		.loc 1 411 0
+ 551 003c 1846     		mov	r0, r3
+ 552 003e 07F10807 		add	r7, r7, #8
+ 553 0042 BD46     		mov	sp, r7
+ 554 0044 80BD     		pop	{r7, pc}
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 18
+
+
+ 555              		.cfi_endproc
+ 556              	.LFE11:
+ 557              		.size	Receiver_ReadRegValue, .-Receiver_ReadRegValue
+ 558 0046 00BF     		.text
+ 559              	.Letext0:
+ 560              		.section	.debug_loc,"",%progbits
+ 561              	.Ldebug_loc0:
+ 562              	.LLST0:
+ 563 0000 00000000 		.4byte	.LFB0
+ 564 0004 02000000 		.4byte	.LCFI0
+ 565 0008 0100     		.2byte	0x1
+ 566 000a 5D       		.byte	0x5d
+ 567 000b 02000000 		.4byte	.LCFI0
+ 568 000f 04000000 		.4byte	.LCFI1
+ 569 0013 0200     		.2byte	0x2
+ 570 0015 7D       		.byte	0x7d
+ 571 0016 08       		.sleb128 8
+ 572 0017 04000000 		.4byte	.LCFI1
+ 573 001b 2A000000 		.4byte	.LFE0
+ 574 001f 0200     		.2byte	0x2
+ 575 0021 77       		.byte	0x77
+ 576 0022 08       		.sleb128 8
+ 577 0023 00000000 		.4byte	0x0
+ 578 0027 00000000 		.4byte	0x0
+ 579              	.LLST1:
+ 580 002b 00000000 		.4byte	.LFB1
+ 581 002f 02000000 		.4byte	.LCFI2
+ 582 0033 0100     		.2byte	0x1
+ 583 0035 5D       		.byte	0x5d
+ 584 0036 02000000 		.4byte	.LCFI2
+ 585 003a 04000000 		.4byte	.LCFI3
+ 586 003e 0200     		.2byte	0x2
+ 587 0040 7D       		.byte	0x7d
+ 588 0041 08       		.sleb128 8
+ 589 0042 04000000 		.4byte	.LCFI3
+ 590 0046 26000000 		.4byte	.LFE1
+ 591 004a 0200     		.2byte	0x2
+ 592 004c 77       		.byte	0x77
+ 593 004d 08       		.sleb128 8
+ 594 004e 00000000 		.4byte	0x0
+ 595 0052 00000000 		.4byte	0x0
+ 596              	.LLST2:
+ 597 0056 00000000 		.4byte	.LFB2
+ 598 005a 02000000 		.4byte	.LCFI4
+ 599 005e 0100     		.2byte	0x1
+ 600 0060 5D       		.byte	0x5d
+ 601 0061 02000000 		.4byte	.LCFI4
+ 602 0065 04000000 		.4byte	.LCFI5
+ 603 0069 0200     		.2byte	0x2
+ 604 006b 7D       		.byte	0x7d
+ 605 006c 08       		.sleb128 8
+ 606 006d 04000000 		.4byte	.LCFI5
+ 607 0071 0E000000 		.4byte	.LFE2
+ 608 0075 0200     		.2byte	0x2
+ 609 0077 77       		.byte	0x77
+ 610 0078 08       		.sleb128 8
+ 611 0079 00000000 		.4byte	0x0
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 19
+
+
+ 612 007d 00000000 		.4byte	0x0
+ 613              	.LLST3:
+ 614 0081 00000000 		.4byte	.LFB3
+ 615 0085 02000000 		.4byte	.LCFI6
+ 616 0089 0100     		.2byte	0x1
+ 617 008b 5D       		.byte	0x5d
+ 618 008c 02000000 		.4byte	.LCFI6
+ 619 0090 04000000 		.4byte	.LCFI7
+ 620 0094 0200     		.2byte	0x2
+ 621 0096 7D       		.byte	0x7d
+ 622 0097 08       		.sleb128 8
+ 623 0098 04000000 		.4byte	.LCFI7
+ 624 009c 24000000 		.4byte	.LFE3
+ 625 00a0 0200     		.2byte	0x2
+ 626 00a2 77       		.byte	0x77
+ 627 00a3 08       		.sleb128 8
+ 628 00a4 00000000 		.4byte	0x0
+ 629 00a8 00000000 		.4byte	0x0
+ 630              	.LLST4:
+ 631 00ac 00000000 		.4byte	.LFB4
+ 632 00b0 02000000 		.4byte	.LCFI8
+ 633 00b4 0100     		.2byte	0x1
+ 634 00b6 5D       		.byte	0x5d
+ 635 00b7 02000000 		.4byte	.LCFI8
+ 636 00bb 04000000 		.4byte	.LCFI9
+ 637 00bf 0200     		.2byte	0x2
+ 638 00c1 7D       		.byte	0x7d
+ 639 00c2 08       		.sleb128 8
+ 640 00c3 04000000 		.4byte	.LCFI9
+ 641 00c7 06000000 		.4byte	.LCFI10
+ 642 00cb 0200     		.2byte	0x2
+ 643 00cd 7D       		.byte	0x7d
+ 644 00ce 10       		.sleb128 16
+ 645 00cf 06000000 		.4byte	.LCFI10
+ 646 00d3 3A000000 		.4byte	.LFE4
+ 647 00d7 0200     		.2byte	0x2
+ 648 00d9 77       		.byte	0x77
+ 649 00da 10       		.sleb128 16
+ 650 00db 00000000 		.4byte	0x0
+ 651 00df 00000000 		.4byte	0x0
+ 652              	.LLST5:
+ 653 00e3 00000000 		.4byte	.LFB5
+ 654 00e7 02000000 		.4byte	.LCFI11
+ 655 00eb 0100     		.2byte	0x1
+ 656 00ed 5D       		.byte	0x5d
+ 657 00ee 02000000 		.4byte	.LCFI11
+ 658 00f2 04000000 		.4byte	.LCFI12
+ 659 00f6 0200     		.2byte	0x2
+ 660 00f8 7D       		.byte	0x7d
+ 661 00f9 08       		.sleb128 8
+ 662 00fa 04000000 		.4byte	.LCFI12
+ 663 00fe 06000000 		.4byte	.LCFI13
+ 664 0102 0200     		.2byte	0x2
+ 665 0104 7D       		.byte	0x7d
+ 666 0105 10       		.sleb128 16
+ 667 0106 06000000 		.4byte	.LCFI13
+ 668 010a 38000000 		.4byte	.LFE5
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 20
+
+
+ 669 010e 0200     		.2byte	0x2
+ 670 0110 77       		.byte	0x77
+ 671 0111 10       		.sleb128 16
+ 672 0112 00000000 		.4byte	0x0
+ 673 0116 00000000 		.4byte	0x0
+ 674              	.LLST6:
+ 675 011a 00000000 		.4byte	.LFB6
+ 676 011e 02000000 		.4byte	.LCFI14
+ 677 0122 0100     		.2byte	0x1
+ 678 0124 5D       		.byte	0x5d
+ 679 0125 02000000 		.4byte	.LCFI14
+ 680 0129 04000000 		.4byte	.LCFI15
+ 681 012d 0200     		.2byte	0x2
+ 682 012f 7D       		.byte	0x7d
+ 683 0130 04       		.sleb128 4
+ 684 0131 04000000 		.4byte	.LCFI15
+ 685 0135 06000000 		.4byte	.LCFI16
+ 686 0139 0200     		.2byte	0x2
+ 687 013b 7D       		.byte	0x7d
+ 688 013c 18       		.sleb128 24
+ 689 013d 06000000 		.4byte	.LCFI16
+ 690 0141 64000000 		.4byte	.LFE6
+ 691 0145 0200     		.2byte	0x2
+ 692 0147 77       		.byte	0x77
+ 693 0148 18       		.sleb128 24
+ 694 0149 00000000 		.4byte	0x0
+ 695 014d 00000000 		.4byte	0x0
+ 696              	.LLST7:
+ 697 0151 00000000 		.4byte	.LFB7
+ 698 0155 02000000 		.4byte	.LCFI17
+ 699 0159 0100     		.2byte	0x1
+ 700 015b 5D       		.byte	0x5d
+ 701 015c 02000000 		.4byte	.LCFI17
+ 702 0160 04000000 		.4byte	.LCFI18
+ 703 0164 0200     		.2byte	0x2
+ 704 0166 7D       		.byte	0x7d
+ 705 0167 04       		.sleb128 4
+ 706 0168 04000000 		.4byte	.LCFI18
+ 707 016c 06000000 		.4byte	.LCFI19
+ 708 0170 0200     		.2byte	0x2
+ 709 0172 7D       		.byte	0x7d
+ 710 0173 10       		.sleb128 16
+ 711 0174 06000000 		.4byte	.LCFI19
+ 712 0178 3C000000 		.4byte	.LFE7
+ 713 017c 0200     		.2byte	0x2
+ 714 017e 77       		.byte	0x77
+ 715 017f 10       		.sleb128 16
+ 716 0180 00000000 		.4byte	0x0
+ 717 0184 00000000 		.4byte	0x0
+ 718              	.LLST8:
+ 719 0188 00000000 		.4byte	.LFB8
+ 720 018c 02000000 		.4byte	.LCFI20
+ 721 0190 0100     		.2byte	0x1
+ 722 0192 5D       		.byte	0x5d
+ 723 0193 02000000 		.4byte	.LCFI20
+ 724 0197 04000000 		.4byte	.LCFI21
+ 725 019b 0200     		.2byte	0x2
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 21
+
+
+ 726 019d 7D       		.byte	0x7d
+ 727 019e 04       		.sleb128 4
+ 728 019f 04000000 		.4byte	.LCFI21
+ 729 01a3 1C000000 		.4byte	.LFE8
+ 730 01a7 0200     		.2byte	0x2
+ 731 01a9 77       		.byte	0x77
+ 732 01aa 04       		.sleb128 4
+ 733 01ab 00000000 		.4byte	0x0
+ 734 01af 00000000 		.4byte	0x0
+ 735              	.LLST9:
+ 736 01b3 00000000 		.4byte	.LFB9
+ 737 01b7 02000000 		.4byte	.LCFI22
+ 738 01bb 0100     		.2byte	0x1
+ 739 01bd 5D       		.byte	0x5d
+ 740 01be 02000000 		.4byte	.LCFI22
+ 741 01c2 04000000 		.4byte	.LCFI23
+ 742 01c6 0200     		.2byte	0x2
+ 743 01c8 7D       		.byte	0x7d
+ 744 01c9 04       		.sleb128 4
+ 745 01ca 04000000 		.4byte	.LCFI23
+ 746 01ce 06000000 		.4byte	.LCFI24
+ 747 01d2 0200     		.2byte	0x2
+ 748 01d4 7D       		.byte	0x7d
+ 749 01d5 10       		.sleb128 16
+ 750 01d6 06000000 		.4byte	.LCFI24
+ 751 01da 20000000 		.4byte	.LFE9
+ 752 01de 0200     		.2byte	0x2
+ 753 01e0 77       		.byte	0x77
+ 754 01e1 10       		.sleb128 16
+ 755 01e2 00000000 		.4byte	0x0
+ 756 01e6 00000000 		.4byte	0x0
+ 757              	.LLST10:
+ 758 01ea 00000000 		.4byte	.LFB10
+ 759 01ee 02000000 		.4byte	.LCFI25
+ 760 01f2 0100     		.2byte	0x1
+ 761 01f4 5D       		.byte	0x5d
+ 762 01f5 02000000 		.4byte	.LCFI25
+ 763 01f9 04000000 		.4byte	.LCFI26
+ 764 01fd 0200     		.2byte	0x2
+ 765 01ff 7D       		.byte	0x7d
+ 766 0200 04       		.sleb128 4
+ 767 0201 04000000 		.4byte	.LCFI26
+ 768 0205 18000000 		.4byte	.LFE10
+ 769 0209 0200     		.2byte	0x2
+ 770 020b 77       		.byte	0x77
+ 771 020c 04       		.sleb128 4
+ 772 020d 00000000 		.4byte	0x0
+ 773 0211 00000000 		.4byte	0x0
+ 774              	.LLST11:
+ 775 0215 00000000 		.4byte	.LFB11
+ 776 0219 02000000 		.4byte	.LCFI27
+ 777 021d 0100     		.2byte	0x1
+ 778 021f 5D       		.byte	0x5d
+ 779 0220 02000000 		.4byte	.LCFI27
+ 780 0224 04000000 		.4byte	.LCFI28
+ 781 0228 0200     		.2byte	0x2
+ 782 022a 7D       		.byte	0x7d
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 22
+
+
+ 783 022b 08       		.sleb128 8
+ 784 022c 04000000 		.4byte	.LCFI28
+ 785 0230 06000000 		.4byte	.LCFI29
+ 786 0234 0200     		.2byte	0x2
+ 787 0236 7D       		.byte	0x7d
+ 788 0237 10       		.sleb128 16
+ 789 0238 06000000 		.4byte	.LCFI29
+ 790 023c 46000000 		.4byte	.LFE11
+ 791 0240 0200     		.2byte	0x2
+ 792 0242 77       		.byte	0x77
+ 793 0243 10       		.sleb128 16
+ 794 0244 00000000 		.4byte	0x0
+ 795 0248 00000000 		.4byte	0x0
+ 796              		.file 2 ".\\Generated_Source\\PSoC5\\/cytypes.h"
+ 797              		.section	.debug_info
+ 798 0000 25020000 		.4byte	0x225
+ 799 0004 0200     		.2byte	0x2
+ 800 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 801 000a 04       		.byte	0x4
+ 802 000b 01       		.uleb128 0x1
+ 803 000c A6010000 		.4byte	.LASF27
+ 804 0010 01       		.byte	0x1
+ 805 0011 41010000 		.4byte	.LASF28
+ 806 0015 BB000000 		.4byte	.LASF29
+ 807 0019 00000000 		.4byte	0x0
+ 808 001d 00000000 		.4byte	0x0
+ 809 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 810 0025 00000000 		.4byte	.Ldebug_line0
+ 811 0029 02       		.uleb128 0x2
+ 812 002a 01       		.byte	0x1
+ 813 002b 06       		.byte	0x6
+ 814 002c 15020000 		.4byte	.LASF0
+ 815 0030 02       		.uleb128 0x2
+ 816 0031 01       		.byte	0x1
+ 817 0032 08       		.byte	0x8
+ 818 0033 3F000000 		.4byte	.LASF1
+ 819 0037 02       		.uleb128 0x2
+ 820 0038 02       		.byte	0x2
+ 821 0039 05       		.byte	0x5
+ 822 003a F3010000 		.4byte	.LASF2
+ 823 003e 02       		.uleb128 0x2
+ 824 003f 02       		.byte	0x2
+ 825 0040 07       		.byte	0x7
+ 826 0041 2C000000 		.4byte	.LASF3
+ 827 0045 02       		.uleb128 0x2
+ 828 0046 04       		.byte	0x4
+ 829 0047 05       		.byte	0x5
+ 830 0048 0C020000 		.4byte	.LASF4
+ 831 004c 02       		.uleb128 0x2
+ 832 004d 04       		.byte	0x4
+ 833 004e 07       		.byte	0x7
+ 834 004f 5C000000 		.4byte	.LASF5
+ 835 0053 02       		.uleb128 0x2
+ 836 0054 08       		.byte	0x8
+ 837 0055 05       		.byte	0x5
+ 838 0056 00000000 		.4byte	.LASF6
+ 839 005a 02       		.uleb128 0x2
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 23
+
+
+ 840 005b 08       		.byte	0x8
+ 841 005c 07       		.byte	0x7
+ 842 005d 77010000 		.4byte	.LASF7
+ 843 0061 03       		.uleb128 0x3
+ 844 0062 04       		.byte	0x4
+ 845 0063 05       		.byte	0x5
+ 846 0064 696E7400 		.ascii	"int\000"
+ 847 0068 02       		.uleb128 0x2
+ 848 0069 04       		.byte	0x4
+ 849 006a 07       		.byte	0x7
+ 850 006b 34010000 		.4byte	.LASF8
+ 851 006f 02       		.uleb128 0x2
+ 852 0070 01       		.byte	0x1
+ 853 0071 08       		.byte	0x8
+ 854 0072 C0010000 		.4byte	.LASF9
+ 855 0076 04       		.uleb128 0x4
+ 856 0077 84000000 		.4byte	.LASF30
+ 857 007b 02       		.byte	0x2
+ 858 007c 60       		.byte	0x60
+ 859 007d 30000000 		.4byte	0x30
+ 860 0081 05       		.uleb128 0x5
+ 861 0082 04       		.byte	0x4
+ 862 0083 07       		.byte	0x7
+ 863 0084 06       		.uleb128 0x6
+ 864 0085 01       		.byte	0x1
+ 865 0086 FD010000 		.4byte	.LASF10
+ 866 008a 01       		.byte	0x1
+ 867 008b 2E       		.byte	0x2e
+ 868 008c 01       		.byte	0x1
+ 869 008d 00000000 		.4byte	.LFB0
+ 870 0091 2A000000 		.4byte	.LFE0
+ 871 0095 00000000 		.4byte	.LLST0
+ 872 0099 06       		.uleb128 0x6
+ 873 009a 01       		.byte	0x1
+ 874 009b 1C000000 		.4byte	.LASF11
+ 875 009f 01       		.byte	0x1
+ 876 00a0 49       		.byte	0x49
+ 877 00a1 01       		.byte	0x1
+ 878 00a2 00000000 		.4byte	.LFB1
+ 879 00a6 26000000 		.4byte	.LFE1
+ 880 00aa 2B000000 		.4byte	.LLST1
+ 881 00ae 06       		.uleb128 0x6
+ 882 00af 01       		.byte	0x1
+ 883 00b0 B2010000 		.4byte	.LASF12
+ 884 00b4 01       		.byte	0x1
+ 885 00b5 61       		.byte	0x61
+ 886 00b6 01       		.byte	0x1
+ 887 00b7 00000000 		.4byte	.LFB2
+ 888 00bb 0E000000 		.4byte	.LFE2
+ 889 00bf 56000000 		.4byte	.LLST2
+ 890 00c3 06       		.uleb128 0x6
+ 891 00c4 01       		.byte	0x1
+ 892 00c5 0E000000 		.4byte	.LASF13
+ 893 00c9 01       		.byte	0x1
+ 894 00ca 75       		.byte	0x75
+ 895 00cb 01       		.byte	0x1
+ 896 00cc 00000000 		.4byte	.LFB3
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 24
+
+
+ 897 00d0 24000000 		.4byte	.LFE3
+ 898 00d4 81000000 		.4byte	.LLST3
+ 899 00d8 07       		.uleb128 0x7
+ 900 00d9 01       		.byte	0x1
+ 901 00da 35020000 		.4byte	.LASF14
+ 902 00de 01       		.byte	0x1
+ 903 00df 8B       		.byte	0x8b
+ 904 00e0 01       		.byte	0x1
+ 905 00e1 00000000 		.4byte	.LFB4
+ 906 00e5 3A000000 		.4byte	.LFE4
+ 907 00e9 AC000000 		.4byte	.LLST4
+ 908 00ed 00010000 		.4byte	0x100
+ 909 00f1 08       		.uleb128 0x8
+ 910 00f2 4D000000 		.4byte	.LASF16
+ 911 00f6 01       		.byte	0x1
+ 912 00f7 8D       		.byte	0x8d
+ 913 00f8 76000000 		.4byte	0x76
+ 914 00fc 02       		.byte	0x2
+ 915 00fd 91       		.byte	0x91
+ 916 00fe 77       		.sleb128 -9
+ 917 00ff 00       		.byte	0x0
+ 918 0100 07       		.uleb128 0x7
+ 919 0101 01       		.byte	0x1
+ 920 0102 21020000 		.4byte	.LASF15
+ 921 0106 01       		.byte	0x1
+ 922 0107 A1       		.byte	0xa1
+ 923 0108 01       		.byte	0x1
+ 924 0109 00000000 		.4byte	.LFB5
+ 925 010d 38000000 		.4byte	.LFE5
+ 926 0111 E3000000 		.4byte	.LLST5
+ 927 0115 28010000 		.4byte	0x128
+ 928 0119 08       		.uleb128 0x8
+ 929 011a 4D000000 		.4byte	.LASF16
+ 930 011e 01       		.byte	0x1
+ 931 011f A3       		.byte	0xa3
+ 932 0120 76000000 		.4byte	0x76
+ 933 0124 02       		.byte	0x2
+ 934 0125 91       		.byte	0x91
+ 935 0126 77       		.sleb128 -9
+ 936 0127 00       		.byte	0x0
+ 937 0128 09       		.uleb128 0x9
+ 938 0129 01       		.byte	0x1
+ 939 012a C5010000 		.4byte	.LASF25
+ 940 012e 01       		.byte	0x1
+ 941 012f B7       		.byte	0xb7
+ 942 0130 01       		.byte	0x1
+ 943 0131 76000000 		.4byte	0x76
+ 944 0135 00000000 		.4byte	.LFB6
+ 945 0139 64000000 		.4byte	.LFE6
+ 946 013d 1A010000 		.4byte	.LLST6
+ 947 0141 62010000 		.4byte	0x162
+ 948 0145 0A       		.uleb128 0xa
+ 949 0146 A0000000 		.4byte	.LASF19
+ 950 014a 01       		.byte	0x1
+ 951 014b B7       		.byte	0xb7
+ 952 014c 76000000 		.4byte	0x76
+ 953 0150 02       		.byte	0x2
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 25
+
+
+ 954 0151 91       		.byte	0x91
+ 955 0152 6F       		.sleb128 -17
+ 956 0153 08       		.uleb128 0x8
+ 957 0154 8E010000 		.4byte	.LASF17
+ 958 0158 01       		.byte	0x1
+ 959 0159 B9       		.byte	0xb9
+ 960 015a 76000000 		.4byte	0x76
+ 961 015e 02       		.byte	0x2
+ 962 015f 91       		.byte	0x91
+ 963 0160 77       		.sleb128 -9
+ 964 0161 00       		.byte	0x0
+ 965 0162 07       		.uleb128 0x7
+ 966 0163 01       		.byte	0x1
+ 967 0164 A7000000 		.4byte	.LASF18
+ 968 0168 01       		.byte	0x1
+ 969 0169 FF       		.byte	0xff
+ 970 016a 01       		.byte	0x1
+ 971 016b 00000000 		.4byte	.LFB7
+ 972 016f 3C000000 		.4byte	.LFE7
+ 973 0173 51010000 		.4byte	.LLST7
+ 974 0177 8A010000 		.4byte	0x18a
+ 975 017b 0A       		.uleb128 0xa
+ 976 017c 1A010000 		.4byte	.LASF20
+ 977 0180 01       		.byte	0x1
+ 978 0181 FF       		.byte	0xff
+ 979 0182 76000000 		.4byte	0x76
+ 980 0186 02       		.byte	0x2
+ 981 0187 91       		.byte	0x91
+ 982 0188 77       		.sleb128 -9
+ 983 0189 00       		.byte	0x0
+ 984 018a 0B       		.uleb128 0xb
+ 985 018b 01       		.byte	0x1
+ 986 018c 6E000000 		.4byte	.LASF23
+ 987 0190 01       		.byte	0x1
+ 988 0191 1401     		.2byte	0x114
+ 989 0193 01       		.byte	0x1
+ 990 0194 76000000 		.4byte	0x76
+ 991 0198 00000000 		.4byte	.LFB8
+ 992 019c 1C000000 		.4byte	.LFE8
+ 993 01a0 88010000 		.4byte	.LLST8
+ 994 01a4 0C       		.uleb128 0xc
+ 995 01a5 01       		.byte	0x1
+ 996 01a6 DC010000 		.4byte	.LASF21
+ 997 01aa 01       		.byte	0x1
+ 998 01ab 2801     		.2byte	0x128
+ 999 01ad 01       		.byte	0x1
+ 1000 01ae 00000000 		.4byte	.LFB9
+ 1001 01b2 20000000 		.4byte	.LFE9
+ 1002 01b6 B3010000 		.4byte	.LLST9
+ 1003 01ba CE010000 		.4byte	0x1ce
+ 1004 01be 0D       		.uleb128 0xd
+ 1005 01bf 2A010000 		.4byte	.LASF22
+ 1006 01c3 01       		.byte	0x1
+ 1007 01c4 2801     		.2byte	0x128
+ 1008 01c6 76000000 		.4byte	0x76
+ 1009 01ca 02       		.byte	0x2
+ 1010 01cb 91       		.byte	0x91
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 26
+
+
+ 1011 01cc 77       		.sleb128 -9
+ 1012 01cd 00       		.byte	0x0
+ 1013 01ce 0B       		.uleb128 0xb
+ 1014 01cf 01       		.byte	0x1
+ 1015 01d0 65010000 		.4byte	.LASF24
+ 1016 01d4 01       		.byte	0x1
+ 1017 01d5 6B01     		.2byte	0x16b
+ 1018 01d7 01       		.byte	0x1
+ 1019 01d8 76000000 		.4byte	0x76
+ 1020 01dc 00000000 		.4byte	.LFB10
+ 1021 01e0 18000000 		.4byte	.LFE10
+ 1022 01e4 EA010000 		.4byte	.LLST10
+ 1023 01e8 0E       		.uleb128 0xe
+ 1024 01e9 01       		.byte	0x1
+ 1025 01ea 8A000000 		.4byte	.LASF26
+ 1026 01ee 01       		.byte	0x1
+ 1027 01ef 8801     		.2byte	0x188
+ 1028 01f1 01       		.byte	0x1
+ 1029 01f2 76000000 		.4byte	0x76
+ 1030 01f6 00000000 		.4byte	.LFB11
+ 1031 01fa 46000000 		.4byte	.LFE11
+ 1032 01fe 15020000 		.4byte	.LLST11
+ 1033 0202 16020000 		.4byte	0x216
+ 1034 0206 0F       		.uleb128 0xf
+ 1035 0207 8E010000 		.4byte	.LASF17
+ 1036 020b 01       		.byte	0x1
+ 1037 020c 8A01     		.2byte	0x18a
+ 1038 020e 76000000 		.4byte	0x76
+ 1039 0212 02       		.byte	0x2
+ 1040 0213 91       		.byte	0x91
+ 1041 0214 77       		.sleb128 -9
+ 1042 0215 00       		.byte	0x0
+ 1043 0216 10       		.uleb128 0x10
+ 1044 0217 95010000 		.4byte	.LASF31
+ 1045 021b 01       		.byte	0x1
+ 1046 021c 16       		.byte	0x16
+ 1047 021d 76000000 		.4byte	0x76
+ 1048 0221 01       		.byte	0x1
+ 1049 0222 05       		.byte	0x5
+ 1050 0223 03       		.byte	0x3
+ 1051 0224 00000000 		.4byte	Receiver_initVar
+ 1052 0228 00       		.byte	0x0
+ 1053              		.section	.debug_abbrev
+ 1054 0000 01       		.uleb128 0x1
+ 1055 0001 11       		.uleb128 0x11
+ 1056 0002 01       		.byte	0x1
+ 1057 0003 25       		.uleb128 0x25
+ 1058 0004 0E       		.uleb128 0xe
+ 1059 0005 13       		.uleb128 0x13
+ 1060 0006 0B       		.uleb128 0xb
+ 1061 0007 03       		.uleb128 0x3
+ 1062 0008 0E       		.uleb128 0xe
+ 1063 0009 1B       		.uleb128 0x1b
+ 1064 000a 0E       		.uleb128 0xe
+ 1065 000b 11       		.uleb128 0x11
+ 1066 000c 01       		.uleb128 0x1
+ 1067 000d 52       		.uleb128 0x52
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 27
+
+
+ 1068 000e 01       		.uleb128 0x1
+ 1069 000f 55       		.uleb128 0x55
+ 1070 0010 06       		.uleb128 0x6
+ 1071 0011 10       		.uleb128 0x10
+ 1072 0012 06       		.uleb128 0x6
+ 1073 0013 00       		.byte	0x0
+ 1074 0014 00       		.byte	0x0
+ 1075 0015 02       		.uleb128 0x2
+ 1076 0016 24       		.uleb128 0x24
+ 1077 0017 00       		.byte	0x0
+ 1078 0018 0B       		.uleb128 0xb
+ 1079 0019 0B       		.uleb128 0xb
+ 1080 001a 3E       		.uleb128 0x3e
+ 1081 001b 0B       		.uleb128 0xb
+ 1082 001c 03       		.uleb128 0x3
+ 1083 001d 0E       		.uleb128 0xe
+ 1084 001e 00       		.byte	0x0
+ 1085 001f 00       		.byte	0x0
+ 1086 0020 03       		.uleb128 0x3
+ 1087 0021 24       		.uleb128 0x24
+ 1088 0022 00       		.byte	0x0
+ 1089 0023 0B       		.uleb128 0xb
+ 1090 0024 0B       		.uleb128 0xb
+ 1091 0025 3E       		.uleb128 0x3e
+ 1092 0026 0B       		.uleb128 0xb
+ 1093 0027 03       		.uleb128 0x3
+ 1094 0028 08       		.uleb128 0x8
+ 1095 0029 00       		.byte	0x0
+ 1096 002a 00       		.byte	0x0
+ 1097 002b 04       		.uleb128 0x4
+ 1098 002c 16       		.uleb128 0x16
+ 1099 002d 00       		.byte	0x0
+ 1100 002e 03       		.uleb128 0x3
+ 1101 002f 0E       		.uleb128 0xe
+ 1102 0030 3A       		.uleb128 0x3a
+ 1103 0031 0B       		.uleb128 0xb
+ 1104 0032 3B       		.uleb128 0x3b
+ 1105 0033 0B       		.uleb128 0xb
+ 1106 0034 49       		.uleb128 0x49
+ 1107 0035 13       		.uleb128 0x13
+ 1108 0036 00       		.byte	0x0
+ 1109 0037 00       		.byte	0x0
+ 1110 0038 05       		.uleb128 0x5
+ 1111 0039 24       		.uleb128 0x24
+ 1112 003a 00       		.byte	0x0
+ 1113 003b 0B       		.uleb128 0xb
+ 1114 003c 0B       		.uleb128 0xb
+ 1115 003d 3E       		.uleb128 0x3e
+ 1116 003e 0B       		.uleb128 0xb
+ 1117 003f 00       		.byte	0x0
+ 1118 0040 00       		.byte	0x0
+ 1119 0041 06       		.uleb128 0x6
+ 1120 0042 2E       		.uleb128 0x2e
+ 1121 0043 00       		.byte	0x0
+ 1122 0044 3F       		.uleb128 0x3f
+ 1123 0045 0C       		.uleb128 0xc
+ 1124 0046 03       		.uleb128 0x3
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 28
+
+
+ 1125 0047 0E       		.uleb128 0xe
+ 1126 0048 3A       		.uleb128 0x3a
+ 1127 0049 0B       		.uleb128 0xb
+ 1128 004a 3B       		.uleb128 0x3b
+ 1129 004b 0B       		.uleb128 0xb
+ 1130 004c 27       		.uleb128 0x27
+ 1131 004d 0C       		.uleb128 0xc
+ 1132 004e 11       		.uleb128 0x11
+ 1133 004f 01       		.uleb128 0x1
+ 1134 0050 12       		.uleb128 0x12
+ 1135 0051 01       		.uleb128 0x1
+ 1136 0052 40       		.uleb128 0x40
+ 1137 0053 06       		.uleb128 0x6
+ 1138 0054 00       		.byte	0x0
+ 1139 0055 00       		.byte	0x0
+ 1140 0056 07       		.uleb128 0x7
+ 1141 0057 2E       		.uleb128 0x2e
+ 1142 0058 01       		.byte	0x1
+ 1143 0059 3F       		.uleb128 0x3f
+ 1144 005a 0C       		.uleb128 0xc
+ 1145 005b 03       		.uleb128 0x3
+ 1146 005c 0E       		.uleb128 0xe
+ 1147 005d 3A       		.uleb128 0x3a
+ 1148 005e 0B       		.uleb128 0xb
+ 1149 005f 3B       		.uleb128 0x3b
+ 1150 0060 0B       		.uleb128 0xb
+ 1151 0061 27       		.uleb128 0x27
+ 1152 0062 0C       		.uleb128 0xc
+ 1153 0063 11       		.uleb128 0x11
+ 1154 0064 01       		.uleb128 0x1
+ 1155 0065 12       		.uleb128 0x12
+ 1156 0066 01       		.uleb128 0x1
+ 1157 0067 40       		.uleb128 0x40
+ 1158 0068 06       		.uleb128 0x6
+ 1159 0069 01       		.uleb128 0x1
+ 1160 006a 13       		.uleb128 0x13
+ 1161 006b 00       		.byte	0x0
+ 1162 006c 00       		.byte	0x0
+ 1163 006d 08       		.uleb128 0x8
+ 1164 006e 34       		.uleb128 0x34
+ 1165 006f 00       		.byte	0x0
+ 1166 0070 03       		.uleb128 0x3
+ 1167 0071 0E       		.uleb128 0xe
+ 1168 0072 3A       		.uleb128 0x3a
+ 1169 0073 0B       		.uleb128 0xb
+ 1170 0074 3B       		.uleb128 0x3b
+ 1171 0075 0B       		.uleb128 0xb
+ 1172 0076 49       		.uleb128 0x49
+ 1173 0077 13       		.uleb128 0x13
+ 1174 0078 02       		.uleb128 0x2
+ 1175 0079 0A       		.uleb128 0xa
+ 1176 007a 00       		.byte	0x0
+ 1177 007b 00       		.byte	0x0
+ 1178 007c 09       		.uleb128 0x9
+ 1179 007d 2E       		.uleb128 0x2e
+ 1180 007e 01       		.byte	0x1
+ 1181 007f 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 29
+
+
+ 1182 0080 0C       		.uleb128 0xc
+ 1183 0081 03       		.uleb128 0x3
+ 1184 0082 0E       		.uleb128 0xe
+ 1185 0083 3A       		.uleb128 0x3a
+ 1186 0084 0B       		.uleb128 0xb
+ 1187 0085 3B       		.uleb128 0x3b
+ 1188 0086 0B       		.uleb128 0xb
+ 1189 0087 27       		.uleb128 0x27
+ 1190 0088 0C       		.uleb128 0xc
+ 1191 0089 49       		.uleb128 0x49
+ 1192 008a 13       		.uleb128 0x13
+ 1193 008b 11       		.uleb128 0x11
+ 1194 008c 01       		.uleb128 0x1
+ 1195 008d 12       		.uleb128 0x12
+ 1196 008e 01       		.uleb128 0x1
+ 1197 008f 40       		.uleb128 0x40
+ 1198 0090 06       		.uleb128 0x6
+ 1199 0091 01       		.uleb128 0x1
+ 1200 0092 13       		.uleb128 0x13
+ 1201 0093 00       		.byte	0x0
+ 1202 0094 00       		.byte	0x0
+ 1203 0095 0A       		.uleb128 0xa
+ 1204 0096 05       		.uleb128 0x5
+ 1205 0097 00       		.byte	0x0
+ 1206 0098 03       		.uleb128 0x3
+ 1207 0099 0E       		.uleb128 0xe
+ 1208 009a 3A       		.uleb128 0x3a
+ 1209 009b 0B       		.uleb128 0xb
+ 1210 009c 3B       		.uleb128 0x3b
+ 1211 009d 0B       		.uleb128 0xb
+ 1212 009e 49       		.uleb128 0x49
+ 1213 009f 13       		.uleb128 0x13
+ 1214 00a0 02       		.uleb128 0x2
+ 1215 00a1 0A       		.uleb128 0xa
+ 1216 00a2 00       		.byte	0x0
+ 1217 00a3 00       		.byte	0x0
+ 1218 00a4 0B       		.uleb128 0xb
+ 1219 00a5 2E       		.uleb128 0x2e
+ 1220 00a6 00       		.byte	0x0
+ 1221 00a7 3F       		.uleb128 0x3f
+ 1222 00a8 0C       		.uleb128 0xc
+ 1223 00a9 03       		.uleb128 0x3
+ 1224 00aa 0E       		.uleb128 0xe
+ 1225 00ab 3A       		.uleb128 0x3a
+ 1226 00ac 0B       		.uleb128 0xb
+ 1227 00ad 3B       		.uleb128 0x3b
+ 1228 00ae 05       		.uleb128 0x5
+ 1229 00af 27       		.uleb128 0x27
+ 1230 00b0 0C       		.uleb128 0xc
+ 1231 00b1 49       		.uleb128 0x49
+ 1232 00b2 13       		.uleb128 0x13
+ 1233 00b3 11       		.uleb128 0x11
+ 1234 00b4 01       		.uleb128 0x1
+ 1235 00b5 12       		.uleb128 0x12
+ 1236 00b6 01       		.uleb128 0x1
+ 1237 00b7 40       		.uleb128 0x40
+ 1238 00b8 06       		.uleb128 0x6
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 30
+
+
+ 1239 00b9 00       		.byte	0x0
+ 1240 00ba 00       		.byte	0x0
+ 1241 00bb 0C       		.uleb128 0xc
+ 1242 00bc 2E       		.uleb128 0x2e
+ 1243 00bd 01       		.byte	0x1
+ 1244 00be 3F       		.uleb128 0x3f
+ 1245 00bf 0C       		.uleb128 0xc
+ 1246 00c0 03       		.uleb128 0x3
+ 1247 00c1 0E       		.uleb128 0xe
+ 1248 00c2 3A       		.uleb128 0x3a
+ 1249 00c3 0B       		.uleb128 0xb
+ 1250 00c4 3B       		.uleb128 0x3b
+ 1251 00c5 05       		.uleb128 0x5
+ 1252 00c6 27       		.uleb128 0x27
+ 1253 00c7 0C       		.uleb128 0xc
+ 1254 00c8 11       		.uleb128 0x11
+ 1255 00c9 01       		.uleb128 0x1
+ 1256 00ca 12       		.uleb128 0x12
+ 1257 00cb 01       		.uleb128 0x1
+ 1258 00cc 40       		.uleb128 0x40
+ 1259 00cd 06       		.uleb128 0x6
+ 1260 00ce 01       		.uleb128 0x1
+ 1261 00cf 13       		.uleb128 0x13
+ 1262 00d0 00       		.byte	0x0
+ 1263 00d1 00       		.byte	0x0
+ 1264 00d2 0D       		.uleb128 0xd
+ 1265 00d3 05       		.uleb128 0x5
+ 1266 00d4 00       		.byte	0x0
+ 1267 00d5 03       		.uleb128 0x3
+ 1268 00d6 0E       		.uleb128 0xe
+ 1269 00d7 3A       		.uleb128 0x3a
+ 1270 00d8 0B       		.uleb128 0xb
+ 1271 00d9 3B       		.uleb128 0x3b
+ 1272 00da 05       		.uleb128 0x5
+ 1273 00db 49       		.uleb128 0x49
+ 1274 00dc 13       		.uleb128 0x13
+ 1275 00dd 02       		.uleb128 0x2
+ 1276 00de 0A       		.uleb128 0xa
+ 1277 00df 00       		.byte	0x0
+ 1278 00e0 00       		.byte	0x0
+ 1279 00e1 0E       		.uleb128 0xe
+ 1280 00e2 2E       		.uleb128 0x2e
+ 1281 00e3 01       		.byte	0x1
+ 1282 00e4 3F       		.uleb128 0x3f
+ 1283 00e5 0C       		.uleb128 0xc
+ 1284 00e6 03       		.uleb128 0x3
+ 1285 00e7 0E       		.uleb128 0xe
+ 1286 00e8 3A       		.uleb128 0x3a
+ 1287 00e9 0B       		.uleb128 0xb
+ 1288 00ea 3B       		.uleb128 0x3b
+ 1289 00eb 05       		.uleb128 0x5
+ 1290 00ec 27       		.uleb128 0x27
+ 1291 00ed 0C       		.uleb128 0xc
+ 1292 00ee 49       		.uleb128 0x49
+ 1293 00ef 13       		.uleb128 0x13
+ 1294 00f0 11       		.uleb128 0x11
+ 1295 00f1 01       		.uleb128 0x1
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 31
+
+
+ 1296 00f2 12       		.uleb128 0x12
+ 1297 00f3 01       		.uleb128 0x1
+ 1298 00f4 40       		.uleb128 0x40
+ 1299 00f5 06       		.uleb128 0x6
+ 1300 00f6 01       		.uleb128 0x1
+ 1301 00f7 13       		.uleb128 0x13
+ 1302 00f8 00       		.byte	0x0
+ 1303 00f9 00       		.byte	0x0
+ 1304 00fa 0F       		.uleb128 0xf
+ 1305 00fb 34       		.uleb128 0x34
+ 1306 00fc 00       		.byte	0x0
+ 1307 00fd 03       		.uleb128 0x3
+ 1308 00fe 0E       		.uleb128 0xe
+ 1309 00ff 3A       		.uleb128 0x3a
+ 1310 0100 0B       		.uleb128 0xb
+ 1311 0101 3B       		.uleb128 0x3b
+ 1312 0102 05       		.uleb128 0x5
+ 1313 0103 49       		.uleb128 0x49
+ 1314 0104 13       		.uleb128 0x13
+ 1315 0105 02       		.uleb128 0x2
+ 1316 0106 0A       		.uleb128 0xa
+ 1317 0107 00       		.byte	0x0
+ 1318 0108 00       		.byte	0x0
+ 1319 0109 10       		.uleb128 0x10
+ 1320 010a 34       		.uleb128 0x34
+ 1321 010b 00       		.byte	0x0
+ 1322 010c 03       		.uleb128 0x3
+ 1323 010d 0E       		.uleb128 0xe
+ 1324 010e 3A       		.uleb128 0x3a
+ 1325 010f 0B       		.uleb128 0xb
+ 1326 0110 3B       		.uleb128 0x3b
+ 1327 0111 0B       		.uleb128 0xb
+ 1328 0112 49       		.uleb128 0x49
+ 1329 0113 13       		.uleb128 0x13
+ 1330 0114 3F       		.uleb128 0x3f
+ 1331 0115 0C       		.uleb128 0xc
+ 1332 0116 02       		.uleb128 0x2
+ 1333 0117 0A       		.uleb128 0xa
+ 1334 0118 00       		.byte	0x0
+ 1335 0119 00       		.byte	0x0
+ 1336 011a 00       		.byte	0x0
+ 1337              		.section	.debug_pubnames,"",%progbits
+ 1338 0000 35010000 		.4byte	0x135
+ 1339 0004 0200     		.2byte	0x2
+ 1340 0006 00000000 		.4byte	.Ldebug_info0
+ 1341 000a 29020000 		.4byte	0x229
+ 1342 000e 84000000 		.4byte	0x84
+ 1343 0012 52656365 		.ascii	"Receiver_Start\000"
+ 1343      69766572 
+ 1343      5F537461 
+ 1343      727400
+ 1344 0021 99000000 		.4byte	0x99
+ 1345 0025 52656365 		.ascii	"Receiver_Enable\000"
+ 1345      69766572 
+ 1345      5F456E61 
+ 1345      626C6500 
+ 1346 0035 AE000000 		.4byte	0xae
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 32
+
+
+ 1347 0039 52656365 		.ascii	"Receiver_Init\000"
+ 1347      69766572 
+ 1347      5F496E69 
+ 1347      7400
+ 1348 0047 C3000000 		.4byte	0xc3
+ 1349 004b 52656365 		.ascii	"Receiver_Stop\000"
+ 1349      69766572 
+ 1349      5F53746F 
+ 1349      7000
+ 1350 0059 D8000000 		.4byte	0xd8
+ 1351 005d 52656365 		.ascii	"Receiver_EnableInt\000"
+ 1351      69766572 
+ 1351      5F456E61 
+ 1351      626C6549 
+ 1351      6E7400
+ 1352 0070 00010000 		.4byte	0x100
+ 1353 0074 52656365 		.ascii	"Receiver_DisableInt\000"
+ 1353      69766572 
+ 1353      5F446973 
+ 1353      61626C65 
+ 1353      496E7400 
+ 1354 0088 28010000 		.4byte	0x128
+ 1355 008c 52656365 		.ascii	"Receiver_GetFIFOStatus\000"
+ 1355      69766572 
+ 1355      5F476574 
+ 1355      4649464F 
+ 1355      53746174 
+ 1356 00a3 62010000 		.4byte	0x162
+ 1357 00a7 52656365 		.ascii	"Receiver_SetIntMode\000"
+ 1357      69766572 
+ 1357      5F536574 
+ 1357      496E744D 
+ 1357      6F646500 
+ 1358 00bb 8A010000 		.4byte	0x18a
+ 1359 00bf 52656365 		.ascii	"Receiver_GetIntStatus\000"
+ 1359      69766572 
+ 1359      5F476574 
+ 1359      496E7453 
+ 1359      74617475 
+ 1360 00d5 A4010000 		.4byte	0x1a4
+ 1361 00d9 52656365 		.ascii	"Receiver_WriteRegValue\000"
+ 1361      69766572 
+ 1361      5F577269 
+ 1361      74655265 
+ 1361      6756616C 
+ 1362 00f0 CE010000 		.4byte	0x1ce
+ 1363 00f4 52656365 		.ascii	"Receiver_ReadData\000"
+ 1363      69766572 
+ 1363      5F526561 
+ 1363      64446174 
+ 1363      6100
+ 1364 0106 E8010000 		.4byte	0x1e8
+ 1365 010a 52656365 		.ascii	"Receiver_ReadRegValue\000"
+ 1365      69766572 
+ 1365      5F526561 
+ 1365      64526567 
+ 1365      56616C75 
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 33
+
+
+ 1366 0120 16020000 		.4byte	0x216
+ 1367 0124 52656365 		.ascii	"Receiver_initVar\000"
+ 1367      69766572 
+ 1367      5F696E69 
+ 1367      74566172 
+ 1367      00
+ 1368 0135 00000000 		.4byte	0x0
+ 1369              		.section	.debug_aranges,"",%progbits
+ 1370 0000 74000000 		.4byte	0x74
+ 1371 0004 0200     		.2byte	0x2
+ 1372 0006 00000000 		.4byte	.Ldebug_info0
+ 1373 000a 04       		.byte	0x4
+ 1374 000b 00       		.byte	0x0
+ 1375 000c 0000     		.2byte	0x0
+ 1376 000e 0000     		.2byte	0x0
+ 1377 0010 00000000 		.4byte	.LFB0
+ 1378 0014 2A000000 		.4byte	.LFE0-.LFB0
+ 1379 0018 00000000 		.4byte	.LFB1
+ 1380 001c 26000000 		.4byte	.LFE1-.LFB1
+ 1381 0020 00000000 		.4byte	.LFB2
+ 1382 0024 0E000000 		.4byte	.LFE2-.LFB2
+ 1383 0028 00000000 		.4byte	.LFB3
+ 1384 002c 24000000 		.4byte	.LFE3-.LFB3
+ 1385 0030 00000000 		.4byte	.LFB4
+ 1386 0034 3A000000 		.4byte	.LFE4-.LFB4
+ 1387 0038 00000000 		.4byte	.LFB5
+ 1388 003c 38000000 		.4byte	.LFE5-.LFB5
+ 1389 0040 00000000 		.4byte	.LFB6
+ 1390 0044 64000000 		.4byte	.LFE6-.LFB6
+ 1391 0048 00000000 		.4byte	.LFB7
+ 1392 004c 3C000000 		.4byte	.LFE7-.LFB7
+ 1393 0050 00000000 		.4byte	.LFB8
+ 1394 0054 1C000000 		.4byte	.LFE8-.LFB8
+ 1395 0058 00000000 		.4byte	.LFB9
+ 1396 005c 20000000 		.4byte	.LFE9-.LFB9
+ 1397 0060 00000000 		.4byte	.LFB10
+ 1398 0064 18000000 		.4byte	.LFE10-.LFB10
+ 1399 0068 00000000 		.4byte	.LFB11
+ 1400 006c 46000000 		.4byte	.LFE11-.LFB11
+ 1401 0070 00000000 		.4byte	0x0
+ 1402 0074 00000000 		.4byte	0x0
+ 1403              		.section	.debug_ranges,"",%progbits
+ 1404              	.Ldebug_ranges0:
+ 1405 0000 00000000 		.4byte	.Ltext0
+ 1406 0004 00000000 		.4byte	.Letext0
+ 1407 0008 00000000 		.4byte	.LFB0
+ 1408 000c 2A000000 		.4byte	.LFE0
+ 1409 0010 00000000 		.4byte	.LFB1
+ 1410 0014 26000000 		.4byte	.LFE1
+ 1411 0018 00000000 		.4byte	.LFB2
+ 1412 001c 0E000000 		.4byte	.LFE2
+ 1413 0020 00000000 		.4byte	.LFB3
+ 1414 0024 24000000 		.4byte	.LFE3
+ 1415 0028 00000000 		.4byte	.LFB4
+ 1416 002c 3A000000 		.4byte	.LFE4
+ 1417 0030 00000000 		.4byte	.LFB5
+ 1418 0034 38000000 		.4byte	.LFE5
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 34
+
+
+ 1419 0038 00000000 		.4byte	.LFB6
+ 1420 003c 64000000 		.4byte	.LFE6
+ 1421 0040 00000000 		.4byte	.LFB7
+ 1422 0044 3C000000 		.4byte	.LFE7
+ 1423 0048 00000000 		.4byte	.LFB8
+ 1424 004c 1C000000 		.4byte	.LFE8
+ 1425 0050 00000000 		.4byte	.LFB9
+ 1426 0054 20000000 		.4byte	.LFE9
+ 1427 0058 00000000 		.4byte	.LFB10
+ 1428 005c 18000000 		.4byte	.LFE10
+ 1429 0060 00000000 		.4byte	.LFB11
+ 1430 0064 46000000 		.4byte	.LFE11
+ 1431 0068 00000000 		.4byte	0x0
+ 1432 006c 00000000 		.4byte	0x0
+ 1433              		.section	.debug_str,"MS",%progbits,1
+ 1434              	.LASF6:
+ 1435 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1435      206C6F6E 
+ 1435      6720696E 
+ 1435      7400
+ 1436              	.LASF13:
+ 1437 000e 52656365 		.ascii	"Receiver_Stop\000"
+ 1437      69766572 
+ 1437      5F53746F 
+ 1437      7000
+ 1438              	.LASF11:
+ 1439 001c 52656365 		.ascii	"Receiver_Enable\000"
+ 1439      69766572 
+ 1439      5F456E61 
+ 1439      626C6500 
+ 1440              	.LASF3:
+ 1441 002c 73686F72 		.ascii	"short unsigned int\000"
+ 1441      7420756E 
+ 1441      7369676E 
+ 1441      65642069 
+ 1441      6E7400
+ 1442              	.LASF1:
+ 1443 003f 756E7369 		.ascii	"unsigned char\000"
+ 1443      676E6564 
+ 1443      20636861 
+ 1443      7200
+ 1444              	.LASF16:
+ 1445 004d 696E7465 		.ascii	"interruptState\000"
+ 1445      72727570 
+ 1445      74537461 
+ 1445      746500
+ 1446              	.LASF5:
+ 1447 005c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1447      20756E73 
+ 1447      69676E65 
+ 1447      6420696E 
+ 1447      7400
+ 1448              	.LASF23:
+ 1449 006e 52656365 		.ascii	"Receiver_GetIntStatus\000"
+ 1449      69766572 
+ 1449      5F476574 
+ 1449      496E7453 
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 35
+
+
+ 1449      74617475 
+ 1450              	.LASF30:
+ 1451 0084 75696E74 		.ascii	"uint8\000"
+ 1451      3800
+ 1452              	.LASF26:
+ 1453 008a 52656365 		.ascii	"Receiver_ReadRegValue\000"
+ 1453      69766572 
+ 1453      5F526561 
+ 1453      64526567 
+ 1453      56616C75 
+ 1454              	.LASF19:
+ 1455 00a0 6669666F 		.ascii	"fifoId\000"
+ 1455      496400
+ 1456              	.LASF18:
+ 1457 00a7 52656365 		.ascii	"Receiver_SetIntMode\000"
+ 1457      69766572 
+ 1457      5F536574 
+ 1457      496E744D 
+ 1457      6F646500 
+ 1458              	.LASF29:
+ 1459 00bb 433A5C55 		.ascii	"C:\\Users\\Bryan.Lee\\OneDrive\\Cypress\\PSoC Creat"
+ 1459      73657273 
+ 1459      5C427279 
+ 1459      616E2E4C 
+ 1459      65655C4F 
+ 1460 00e9 6F722032 		.ascii	"or 2.2\\Pulse_psoc5\\Shift Register\\Design01.cydsn"
+ 1460      2E325C50 
+ 1460      756C7365 
+ 1460      5F70736F 
+ 1460      63355C53 
+ 1461 0119 00       		.ascii	"\000"
+ 1462              	.LASF20:
+ 1463 011a 696E7465 		.ascii	"interruptSource\000"
+ 1463      72727570 
+ 1463      74536F75 
+ 1463      72636500 
+ 1464              	.LASF22:
+ 1465 012a 73686966 		.ascii	"shiftData\000"
+ 1465      74446174 
+ 1465      6100
+ 1466              	.LASF8:
+ 1467 0134 756E7369 		.ascii	"unsigned int\000"
+ 1467      676E6564 
+ 1467      20696E74 
+ 1467      00
+ 1468              	.LASF28:
+ 1469 0141 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\Receiver.c\000"
+ 1469      6E657261 
+ 1469      7465645F 
+ 1469      536F7572 
+ 1469      63655C50 
+ 1470              	.LASF24:
+ 1471 0165 52656365 		.ascii	"Receiver_ReadData\000"
+ 1471      69766572 
+ 1471      5F526561 
+ 1471      64446174 
+ 1471      6100
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 36
+
+
+ 1472              	.LASF7:
+ 1473 0177 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1473      206C6F6E 
+ 1473      6720756E 
+ 1473      7369676E 
+ 1473      65642069 
+ 1474              	.LASF17:
+ 1475 018e 72657375 		.ascii	"result\000"
+ 1475      6C7400
+ 1476              	.LASF31:
+ 1477 0195 52656365 		.ascii	"Receiver_initVar\000"
+ 1477      69766572 
+ 1477      5F696E69 
+ 1477      74566172 
+ 1477      00
+ 1478              	.LASF27:
+ 1479 01a6 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 1479      4320342E 
+ 1479      342E3100 
+ 1480              	.LASF12:
+ 1481 01b2 52656365 		.ascii	"Receiver_Init\000"
+ 1481      69766572 
+ 1481      5F496E69 
+ 1481      7400
+ 1482              	.LASF9:
+ 1483 01c0 63686172 		.ascii	"char\000"
+ 1483      00
+ 1484              	.LASF25:
+ 1485 01c5 52656365 		.ascii	"Receiver_GetFIFOStatus\000"
+ 1485      69766572 
+ 1485      5F476574 
+ 1485      4649464F 
+ 1485      53746174 
+ 1486              	.LASF21:
+ 1487 01dc 52656365 		.ascii	"Receiver_WriteRegValue\000"
+ 1487      69766572 
+ 1487      5F577269 
+ 1487      74655265 
+ 1487      6756616C 
+ 1488              	.LASF2:
+ 1489 01f3 73686F72 		.ascii	"short int\000"
+ 1489      7420696E 
+ 1489      7400
+ 1490              	.LASF10:
+ 1491 01fd 52656365 		.ascii	"Receiver_Start\000"
+ 1491      69766572 
+ 1491      5F537461 
+ 1491      727400
+ 1492              	.LASF4:
+ 1493 020c 6C6F6E67 		.ascii	"long int\000"
+ 1493      20696E74 
+ 1493      00
+ 1494              	.LASF0:
+ 1495 0215 7369676E 		.ascii	"signed char\000"
+ 1495      65642063 
+ 1495      68617200 
+ 1496              	.LASF15:
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\ccsw8nsd.s 			page 37
+
+
+ 1497 0221 52656365 		.ascii	"Receiver_DisableInt\000"
+ 1497      69766572 
+ 1497      5F446973 
+ 1497      61626C65 
+ 1497      496E7400 
+ 1498              	.LASF14:
+ 1499 0235 52656365 		.ascii	"Receiver_EnableInt\000"
+ 1499      69766572 
+ 1499      5F456E61 
+ 1499      626C6549 
+ 1499      6E7400
+ 1500              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

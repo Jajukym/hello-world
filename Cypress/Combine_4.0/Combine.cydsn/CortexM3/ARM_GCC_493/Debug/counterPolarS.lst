@@ -1,0 +1,2306 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"counterPolarS.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.global	counterPolarS_initVar
+  19              		.bss
+  20              		.type	counterPolarS_initVar, %object
+  21              		.size	counterPolarS_initVar, 1
+  22              	counterPolarS_initVar:
+  23 0000 00       		.space	1
+  24              		.section	.text.counterPolarS_Init,"ax",%progbits
+  25              		.align	2
+  26              		.global	counterPolarS_Init
+  27              		.thumb
+  28              		.thumb_func
+  29              		.type	counterPolarS_Init, %function
+  30              	counterPolarS_Init:
+  31              	.LFB0:
+  32              		.file 1 "Generated_Source\\PSoC5\\counterPolarS.c"
+   1:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/counterPolarS.c **** * File Name: counterPolarS.c  
+   3:Generated_Source\PSoC5/counterPolarS.c **** * Version 3.0
+   4:Generated_Source\PSoC5/counterPolarS.c **** *
+   5:Generated_Source\PSoC5/counterPolarS.c **** *  Description:
+   6:Generated_Source\PSoC5/counterPolarS.c **** *     The Counter component consists of a 8, 16, 24 or 32-bit counter with
+   7:Generated_Source\PSoC5/counterPolarS.c **** *     a selectable period between 2 and 2^Width - 1.  
+   8:Generated_Source\PSoC5/counterPolarS.c **** *
+   9:Generated_Source\PSoC5/counterPolarS.c **** *   Note:
+  10:Generated_Source\PSoC5/counterPolarS.c **** *     None
+  11:Generated_Source\PSoC5/counterPolarS.c **** *
+  12:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+  13:Generated_Source\PSoC5/counterPolarS.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC5/counterPolarS.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:Generated_Source\PSoC5/counterPolarS.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:Generated_Source\PSoC5/counterPolarS.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+  18:Generated_Source\PSoC5/counterPolarS.c **** 
+  19:Generated_Source\PSoC5/counterPolarS.c **** #include "counterPolarS.h"
+  20:Generated_Source\PSoC5/counterPolarS.c **** 
+  21:Generated_Source\PSoC5/counterPolarS.c **** uint8 counterPolarS_initVar = 0u;
+  22:Generated_Source\PSoC5/counterPolarS.c **** 
+  23:Generated_Source\PSoC5/counterPolarS.c **** 
+  24:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+  25:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_Init
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 2
+
+
+  26:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+  27:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+  28:Generated_Source\PSoC5/counterPolarS.c **** *     Initialize to the schematic state
+  29:Generated_Source\PSoC5/counterPolarS.c **** * 
+  30:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+  31:Generated_Source\PSoC5/counterPolarS.c **** *  void  
+  32:Generated_Source\PSoC5/counterPolarS.c **** *
+  33:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+  34:Generated_Source\PSoC5/counterPolarS.c **** *  void
+  35:Generated_Source\PSoC5/counterPolarS.c **** *
+  36:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+  37:Generated_Source\PSoC5/counterPolarS.c **** void counterPolarS_Init(void) 
+  38:Generated_Source\PSoC5/counterPolarS.c **** {
+  33              		.loc 1 38 0
+  34              		.cfi_startproc
+  35              		@ args = 0, pretend = 0, frame = 8
+  36              		@ frame_needed = 1, uses_anonymous_args = 0
+  37 0000 80B5     		push	{r7, lr}
+  38              		.cfi_def_cfa_offset 8
+  39              		.cfi_offset 7, -8
+  40              		.cfi_offset 14, -4
+  41 0002 82B0     		sub	sp, sp, #8
+  42              		.cfi_def_cfa_offset 16
+  43 0004 00AF     		add	r7, sp, #0
+  44              		.cfi_def_cfa_register 7
+  39:Generated_Source\PSoC5/counterPolarS.c ****         #if (!counterPolarS_UsingFixedFunction && !counterPolarS_ControlRegRemoved)
+  40:Generated_Source\PSoC5/counterPolarS.c ****             uint8 ctrl;
+  41:Generated_Source\PSoC5/counterPolarS.c ****         #endif /* (!counterPolarS_UsingFixedFunction && !counterPolarS_ControlRegRemoved) */
+  42:Generated_Source\PSoC5/counterPolarS.c ****         
+  43:Generated_Source\PSoC5/counterPolarS.c ****         #if(!counterPolarS_UsingFixedFunction) 
+  44:Generated_Source\PSoC5/counterPolarS.c ****             /* Interrupt State Backup for Critical Region*/
+  45:Generated_Source\PSoC5/counterPolarS.c ****             uint8 counterPolarS_interruptState;
+  46:Generated_Source\PSoC5/counterPolarS.c ****         #endif /* (!counterPolarS_UsingFixedFunction) */
+  47:Generated_Source\PSoC5/counterPolarS.c ****         
+  48:Generated_Source\PSoC5/counterPolarS.c ****         #if (counterPolarS_UsingFixedFunction)
+  49:Generated_Source\PSoC5/counterPolarS.c ****             /* Clear all bits but the enable bit (if it's already set for Timer operation */
+  50:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_CONTROL &= counterPolarS_CTRL_ENABLE;
+  51:Generated_Source\PSoC5/counterPolarS.c ****             
+  52:Generated_Source\PSoC5/counterPolarS.c ****             /* Clear the mode bits for continuous run mode */
+  53:Generated_Source\PSoC5/counterPolarS.c ****             #if (CY_PSOC5A)
+  54:Generated_Source\PSoC5/counterPolarS.c ****                 counterPolarS_CONTROL2 &= ((uint8)(~counterPolarS_CTRL_MODE_MASK));
+  55:Generated_Source\PSoC5/counterPolarS.c ****             #endif /* (CY_PSOC5A) */
+  56:Generated_Source\PSoC5/counterPolarS.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+  57:Generated_Source\PSoC5/counterPolarS.c ****                 counterPolarS_CONTROL3 &= ((uint8)(~counterPolarS_CTRL_MODE_MASK));                
+  58:Generated_Source\PSoC5/counterPolarS.c ****             #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+  59:Generated_Source\PSoC5/counterPolarS.c ****             /* Check if One Shot mode is enabled i.e. RunMode !=0*/
+  60:Generated_Source\PSoC5/counterPolarS.c ****             #if (counterPolarS_RunModeUsed != 0x0u)
+  61:Generated_Source\PSoC5/counterPolarS.c ****                 /* Set 3rd bit of Control register to enable one shot mode */
+  62:Generated_Source\PSoC5/counterPolarS.c ****                 counterPolarS_CONTROL |= counterPolarS_ONESHOT;
+  63:Generated_Source\PSoC5/counterPolarS.c ****             #endif /* (counterPolarS_RunModeUsed != 0x0u) */
+  64:Generated_Source\PSoC5/counterPolarS.c ****             
+  65:Generated_Source\PSoC5/counterPolarS.c ****             /* Set the IRQ to use the status register interrupts */
+  66:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_CONTROL2 |= counterPolarS_CTRL2_IRQ_SEL;
+  67:Generated_Source\PSoC5/counterPolarS.c ****             
+  68:Generated_Source\PSoC5/counterPolarS.c ****             /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+  69:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_RT1 &= ((uint8)(~counterPolarS_RT1_MASK));
+  70:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_RT1 |= counterPolarS_SYNC;     
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 3
+
+
+  71:Generated_Source\PSoC5/counterPolarS.c ****                     
+  72:Generated_Source\PSoC5/counterPolarS.c ****             /*Enable DSI Sync all all inputs of the Timer*/
+  73:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_RT1 &= ((uint8)(~counterPolarS_SYNCDSI_MASK));
+  74:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_RT1 |= counterPolarS_SYNCDSI_EN;
+  75:Generated_Source\PSoC5/counterPolarS.c **** 
+  76:Generated_Source\PSoC5/counterPolarS.c ****         #else
+  77:Generated_Source\PSoC5/counterPolarS.c ****             #if(!counterPolarS_ControlRegRemoved)
+  78:Generated_Source\PSoC5/counterPolarS.c ****             /* Set the default compare mode defined in the parameter */
+  79:Generated_Source\PSoC5/counterPolarS.c ****             ctrl = counterPolarS_CONTROL & ((uint8)(~counterPolarS_CTRL_CMPMODE_MASK));
+  45              		.loc 1 79 0
+  46 0006 1D4B     		ldr	r3, .L2
+  47 0008 1B78     		ldrb	r3, [r3]
+  48 000a DBB2     		uxtb	r3, r3
+  49 000c 23F00703 		bic	r3, r3, #7
+  50 0010 FB71     		strb	r3, [r7, #7]
+  80:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_CONTROL = ctrl | counterPolarS_DEFAULT_COMPARE_MODE;
+  51              		.loc 1 80 0
+  52 0012 1A4A     		ldr	r2, .L2
+  53 0014 FB79     		ldrb	r3, [r7, #7]
+  54 0016 43F00403 		orr	r3, r3, #4
+  55 001a DBB2     		uxtb	r3, r3
+  56 001c 1370     		strb	r3, [r2]
+  81:Generated_Source\PSoC5/counterPolarS.c ****             
+  82:Generated_Source\PSoC5/counterPolarS.c ****             /* Set the default capture mode defined in the parameter */
+  83:Generated_Source\PSoC5/counterPolarS.c ****             ctrl = counterPolarS_CONTROL & ((uint8)(~counterPolarS_CTRL_CAPMODE_MASK));
+  57              		.loc 1 83 0
+  58 001e 174B     		ldr	r3, .L2
+  59 0020 1B78     		ldrb	r3, [r3]
+  60 0022 DBB2     		uxtb	r3, r3
+  61 0024 23F00303 		bic	r3, r3, #3
+  62 0028 FB71     		strb	r3, [r7, #7]
+  84:Generated_Source\PSoC5/counterPolarS.c ****             
+  85:Generated_Source\PSoC5/counterPolarS.c ****             #if( 0 != counterPolarS_CAPTURE_MODE_CONF)
+  86:Generated_Source\PSoC5/counterPolarS.c ****                 counterPolarS_CONTROL = ctrl | counterPolarS_DEFAULT_CAPTURE_MODE;
+  63              		.loc 1 86 0
+  64 002a 144A     		ldr	r2, .L2
+  65 002c FB79     		ldrb	r3, [r7, #7]
+  66 002e 43F00803 		orr	r3, r3, #8
+  67 0032 DBB2     		uxtb	r3, r3
+  68 0034 1370     		strb	r3, [r2]
+  87:Generated_Source\PSoC5/counterPolarS.c ****             #else
+  88:Generated_Source\PSoC5/counterPolarS.c ****                 counterPolarS_CONTROL = ctrl;
+  89:Generated_Source\PSoC5/counterPolarS.c ****             #endif /* 0 != counterPolarS_CAPTURE_MODE */ 
+  90:Generated_Source\PSoC5/counterPolarS.c ****             
+  91:Generated_Source\PSoC5/counterPolarS.c ****             #endif /* (!counterPolarS_ControlRegRemoved) */
+  92:Generated_Source\PSoC5/counterPolarS.c ****         #endif /* (counterPolarS_UsingFixedFunction) */
+  93:Generated_Source\PSoC5/counterPolarS.c ****         
+  94:Generated_Source\PSoC5/counterPolarS.c ****         /* Clear all data in the FIFO's */
+  95:Generated_Source\PSoC5/counterPolarS.c ****         #if (!counterPolarS_UsingFixedFunction)
+  96:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_ClearFIFO();
+  69              		.loc 1 96 0
+  70 0036 FFF7FEFF 		bl	counterPolarS_ClearFIFO
+  97:Generated_Source\PSoC5/counterPolarS.c ****         #endif /* (!counterPolarS_UsingFixedFunction) */
+  98:Generated_Source\PSoC5/counterPolarS.c ****         
+  99:Generated_Source\PSoC5/counterPolarS.c ****         /* Set Initial values from Configuration */
+ 100:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_WritePeriod(counterPolarS_INIT_PERIOD_VALUE);
+  71              		.loc 1 100 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 4
+
+
+  72 003a FF20     		movs	r0, #255
+  73 003c FFF7FEFF 		bl	counterPolarS_WritePeriod
+ 101:Generated_Source\PSoC5/counterPolarS.c ****         #if (!(counterPolarS_UsingFixedFunction && (CY_PSOC5A)))
+ 102:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_WriteCounter(counterPolarS_INIT_COUNTER_VALUE);
+  74              		.loc 1 102 0
+  75 0040 0020     		movs	r0, #0
+  76 0042 FFF7FEFF 		bl	counterPolarS_WriteCounter
+ 103:Generated_Source\PSoC5/counterPolarS.c ****         #endif /* (!(counterPolarS_UsingFixedFunction && (CY_PSOC5A))) */
+ 104:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_SetInterruptMode(counterPolarS_INIT_INTERRUPTS_MASK);
+  77              		.loc 1 104 0
+  78 0046 0020     		movs	r0, #0
+  79 0048 FFF7FEFF 		bl	counterPolarS_SetInterruptMode
+ 105:Generated_Source\PSoC5/counterPolarS.c ****         
+ 106:Generated_Source\PSoC5/counterPolarS.c ****         #if (!counterPolarS_UsingFixedFunction)
+ 107:Generated_Source\PSoC5/counterPolarS.c ****             /* Read the status register to clear the unwanted interrupts */
+ 108:Generated_Source\PSoC5/counterPolarS.c ****             (void)counterPolarS_ReadStatusRegister();
+  80              		.loc 1 108 0
+  81 004c FFF7FEFF 		bl	counterPolarS_ReadStatusRegister
+ 109:Generated_Source\PSoC5/counterPolarS.c ****             /* Set the compare value (only available to non-fixed function implementation */
+ 110:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_WriteCompare(counterPolarS_INIT_COMPARE_VALUE);
+  82              		.loc 1 110 0
+  83 0050 FF20     		movs	r0, #255
+  84 0052 FFF7FEFF 		bl	counterPolarS_WriteCompare
+ 111:Generated_Source\PSoC5/counterPolarS.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 112:Generated_Source\PSoC5/counterPolarS.c ****             
+ 113:Generated_Source\PSoC5/counterPolarS.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 114:Generated_Source\PSoC5/counterPolarS.c ****             /* Enter Critical Region*/
+ 115:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_interruptState = CyEnterCriticalSection();
+  85              		.loc 1 115 0
+  86 0056 FFF7FEFF 		bl	CyEnterCriticalSection
+  87 005a 0346     		mov	r3, r0
+  88 005c BB71     		strb	r3, [r7, #6]
+ 116:Generated_Source\PSoC5/counterPolarS.c ****             
+ 117:Generated_Source\PSoC5/counterPolarS.c ****             counterPolarS_STATUS_AUX_CTRL |= counterPolarS_STATUS_ACTL_INT_EN_MASK;
+  89              		.loc 1 117 0
+  90 005e 084A     		ldr	r2, .L2+4
+  91 0060 074B     		ldr	r3, .L2+4
+  92 0062 1B78     		ldrb	r3, [r3]
+  93 0064 DBB2     		uxtb	r3, r3
+  94 0066 43F01003 		orr	r3, r3, #16
+  95 006a DBB2     		uxtb	r3, r3
+  96 006c 1370     		strb	r3, [r2]
+ 118:Generated_Source\PSoC5/counterPolarS.c ****             
+ 119:Generated_Source\PSoC5/counterPolarS.c ****             /* Exit Critical Region*/
+ 120:Generated_Source\PSoC5/counterPolarS.c ****             CyExitCriticalSection(counterPolarS_interruptState);
+  97              		.loc 1 120 0
+  98 006e BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+  99 0070 1846     		mov	r0, r3
+ 100 0072 FFF7FEFF 		bl	CyExitCriticalSection
+ 121:Generated_Source\PSoC5/counterPolarS.c ****             
+ 122:Generated_Source\PSoC5/counterPolarS.c ****         #endif /* (!counterPolarS_UsingFixedFunction) */
+ 123:Generated_Source\PSoC5/counterPolarS.c **** }
+ 101              		.loc 1 123 0
+ 102 0076 0837     		adds	r7, r7, #8
+ 103              		.cfi_def_cfa_offset 8
+ 104 0078 BD46     		mov	sp, r7
+ 105              		.cfi_def_cfa_register 13
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 5
+
+
+ 106              		@ sp needed
+ 107 007a 80BD     		pop	{r7, pc}
+ 108              	.L3:
+ 109              		.align	2
+ 110              	.L2:
+ 111 007c 77640040 		.word	1073767543
+ 112 0080 97640040 		.word	1073767575
+ 113              		.cfi_endproc
+ 114              	.LFE0:
+ 115              		.size	counterPolarS_Init, .-counterPolarS_Init
+ 116              		.section	.text.counterPolarS_Enable,"ax",%progbits
+ 117              		.align	2
+ 118              		.global	counterPolarS_Enable
+ 119              		.thumb
+ 120              		.thumb_func
+ 121              		.type	counterPolarS_Enable, %function
+ 122              	counterPolarS_Enable:
+ 123              	.LFB1:
+ 124:Generated_Source\PSoC5/counterPolarS.c **** 
+ 125:Generated_Source\PSoC5/counterPolarS.c **** 
+ 126:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 127:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_Enable
+ 128:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 129:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 130:Generated_Source\PSoC5/counterPolarS.c **** *     Enable the Counter
+ 131:Generated_Source\PSoC5/counterPolarS.c **** * 
+ 132:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 133:Generated_Source\PSoC5/counterPolarS.c **** *  void  
+ 134:Generated_Source\PSoC5/counterPolarS.c **** *
+ 135:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 136:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 137:Generated_Source\PSoC5/counterPolarS.c **** *
+ 138:Generated_Source\PSoC5/counterPolarS.c **** * Side Effects: 
+ 139:Generated_Source\PSoC5/counterPolarS.c **** *   If the Enable mode is set to Hardware only then this function has no effect 
+ 140:Generated_Source\PSoC5/counterPolarS.c **** *   on the operation of the counter.
+ 141:Generated_Source\PSoC5/counterPolarS.c **** *
+ 142:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 143:Generated_Source\PSoC5/counterPolarS.c **** void counterPolarS_Enable(void) 
+ 144:Generated_Source\PSoC5/counterPolarS.c **** {
+ 124              		.loc 1 144 0
+ 125              		.cfi_startproc
+ 126              		@ args = 0, pretend = 0, frame = 0
+ 127              		@ frame_needed = 1, uses_anonymous_args = 0
+ 128              		@ link register save eliminated.
+ 129 0000 80B4     		push	{r7}
+ 130              		.cfi_def_cfa_offset 4
+ 131              		.cfi_offset 7, -4
+ 132 0002 00AF     		add	r7, sp, #0
+ 133              		.cfi_def_cfa_register 7
+ 145:Generated_Source\PSoC5/counterPolarS.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 146:Generated_Source\PSoC5/counterPolarS.c ****     #if (counterPolarS_UsingFixedFunction)
+ 147:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_GLOBAL_ENABLE |= counterPolarS_BLOCK_EN_MASK;
+ 148:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_GLOBAL_STBY_ENABLE |= counterPolarS_BLOCK_STBY_EN_MASK;
+ 149:Generated_Source\PSoC5/counterPolarS.c ****     #endif /* (counterPolarS_UsingFixedFunction) */  
+ 150:Generated_Source\PSoC5/counterPolarS.c ****         
+ 151:Generated_Source\PSoC5/counterPolarS.c ****     /* Enable the counter from the control register  */
+ 152:Generated_Source\PSoC5/counterPolarS.c ****     /* If Fixed Function then make sure Mode is set correctly */
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 6
+
+
+ 153:Generated_Source\PSoC5/counterPolarS.c ****     /* else make sure reset is clear */
+ 154:Generated_Source\PSoC5/counterPolarS.c ****     #if(!counterPolarS_ControlRegRemoved || counterPolarS_UsingFixedFunction)
+ 155:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_CONTROL |= counterPolarS_CTRL_ENABLE;                
+ 134              		.loc 1 155 0
+ 135 0004 054A     		ldr	r2, .L5
+ 136 0006 054B     		ldr	r3, .L5
+ 137 0008 1B78     		ldrb	r3, [r3]
+ 138 000a DBB2     		uxtb	r3, r3
+ 139 000c 63F07F03 		orn	r3, r3, #127
+ 140 0010 DBB2     		uxtb	r3, r3
+ 141 0012 1370     		strb	r3, [r2]
+ 156:Generated_Source\PSoC5/counterPolarS.c ****     #endif /* (!counterPolarS_ControlRegRemoved || counterPolarS_UsingFixedFunction) */
+ 157:Generated_Source\PSoC5/counterPolarS.c ****     
+ 158:Generated_Source\PSoC5/counterPolarS.c **** }
+ 142              		.loc 1 158 0
+ 143 0014 BD46     		mov	sp, r7
+ 144              		.cfi_def_cfa_register 13
+ 145              		@ sp needed
+ 146 0016 5DF8047B 		ldr	r7, [sp], #4
+ 147              		.cfi_restore 7
+ 148              		.cfi_def_cfa_offset 0
+ 149 001a 7047     		bx	lr
+ 150              	.L6:
+ 151              		.align	2
+ 152              	.L5:
+ 153 001c 77640040 		.word	1073767543
+ 154              		.cfi_endproc
+ 155              	.LFE1:
+ 156              		.size	counterPolarS_Enable, .-counterPolarS_Enable
+ 157              		.section	.text.counterPolarS_Start,"ax",%progbits
+ 158              		.align	2
+ 159              		.global	counterPolarS_Start
+ 160              		.thumb
+ 161              		.thumb_func
+ 162              		.type	counterPolarS_Start, %function
+ 163              	counterPolarS_Start:
+ 164              	.LFB2:
+ 159:Generated_Source\PSoC5/counterPolarS.c **** 
+ 160:Generated_Source\PSoC5/counterPolarS.c **** 
+ 161:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 162:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_Start
+ 163:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 164:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 165:Generated_Source\PSoC5/counterPolarS.c **** *  Enables the counter for operation 
+ 166:Generated_Source\PSoC5/counterPolarS.c **** *
+ 167:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 168:Generated_Source\PSoC5/counterPolarS.c **** *  void  
+ 169:Generated_Source\PSoC5/counterPolarS.c **** *
+ 170:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 171:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 172:Generated_Source\PSoC5/counterPolarS.c **** *
+ 173:Generated_Source\PSoC5/counterPolarS.c **** * Global variables:
+ 174:Generated_Source\PSoC5/counterPolarS.c **** *  counterPolarS_initVar: Is modified when this function is called for the  
+ 175:Generated_Source\PSoC5/counterPolarS.c **** *   first time. Is used to ensure that initialization happens only once.
+ 176:Generated_Source\PSoC5/counterPolarS.c **** *
+ 177:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 178:Generated_Source\PSoC5/counterPolarS.c **** void counterPolarS_Start(void) 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 7
+
+
+ 179:Generated_Source\PSoC5/counterPolarS.c **** {
+ 165              		.loc 1 179 0
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 0
+ 168              		@ frame_needed = 1, uses_anonymous_args = 0
+ 169 0000 80B5     		push	{r7, lr}
+ 170              		.cfi_def_cfa_offset 8
+ 171              		.cfi_offset 7, -8
+ 172              		.cfi_offset 14, -4
+ 173 0002 00AF     		add	r7, sp, #0
+ 174              		.cfi_def_cfa_register 7
+ 180:Generated_Source\PSoC5/counterPolarS.c ****     if(counterPolarS_initVar == 0u)
+ 175              		.loc 1 180 0
+ 176 0004 054B     		ldr	r3, .L9
+ 177 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 178 0008 002B     		cmp	r3, #0
+ 179 000a 04D1     		bne	.L8
+ 181:Generated_Source\PSoC5/counterPolarS.c ****     {
+ 182:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_Init();
+ 180              		.loc 1 182 0
+ 181 000c FFF7FEFF 		bl	counterPolarS_Init
+ 183:Generated_Source\PSoC5/counterPolarS.c ****         
+ 184:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_initVar = 1u; /* Clear this bit for Initialization */        
+ 182              		.loc 1 184 0
+ 183 0010 024B     		ldr	r3, .L9
+ 184 0012 0122     		movs	r2, #1
+ 185 0014 1A70     		strb	r2, [r3]
+ 186              	.L8:
+ 185:Generated_Source\PSoC5/counterPolarS.c ****     }
+ 186:Generated_Source\PSoC5/counterPolarS.c ****     
+ 187:Generated_Source\PSoC5/counterPolarS.c ****     /* Enable the Counter */
+ 188:Generated_Source\PSoC5/counterPolarS.c ****     counterPolarS_Enable();        
+ 187              		.loc 1 188 0
+ 188 0016 FFF7FEFF 		bl	counterPolarS_Enable
+ 189:Generated_Source\PSoC5/counterPolarS.c **** }
+ 189              		.loc 1 189 0
+ 190 001a 80BD     		pop	{r7, pc}
+ 191              	.L10:
+ 192              		.align	2
+ 193              	.L9:
+ 194 001c 00000000 		.word	counterPolarS_initVar
+ 195              		.cfi_endproc
+ 196              	.LFE2:
+ 197              		.size	counterPolarS_Start, .-counterPolarS_Start
+ 198              		.section	.text.counterPolarS_Stop,"ax",%progbits
+ 199              		.align	2
+ 200              		.global	counterPolarS_Stop
+ 201              		.thumb
+ 202              		.thumb_func
+ 203              		.type	counterPolarS_Stop, %function
+ 204              	counterPolarS_Stop:
+ 205              	.LFB3:
+ 190:Generated_Source\PSoC5/counterPolarS.c **** 
+ 191:Generated_Source\PSoC5/counterPolarS.c **** 
+ 192:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 193:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_Stop
+ 194:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 8
+
+
+ 195:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 196:Generated_Source\PSoC5/counterPolarS.c **** * Halts the counter, but does not change any modes or disable interrupts.
+ 197:Generated_Source\PSoC5/counterPolarS.c **** *
+ 198:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 199:Generated_Source\PSoC5/counterPolarS.c **** *  void  
+ 200:Generated_Source\PSoC5/counterPolarS.c **** *
+ 201:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 202:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 203:Generated_Source\PSoC5/counterPolarS.c **** *
+ 204:Generated_Source\PSoC5/counterPolarS.c **** * Side Effects: If the Enable mode is set to Hardware only then this function
+ 205:Generated_Source\PSoC5/counterPolarS.c **** *               has no effect on the operation of the counter.
+ 206:Generated_Source\PSoC5/counterPolarS.c **** *
+ 207:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 208:Generated_Source\PSoC5/counterPolarS.c **** void counterPolarS_Stop(void) 
+ 209:Generated_Source\PSoC5/counterPolarS.c **** {
+ 206              		.loc 1 209 0
+ 207              		.cfi_startproc
+ 208              		@ args = 0, pretend = 0, frame = 0
+ 209              		@ frame_needed = 1, uses_anonymous_args = 0
+ 210              		@ link register save eliminated.
+ 211 0000 80B4     		push	{r7}
+ 212              		.cfi_def_cfa_offset 4
+ 213              		.cfi_offset 7, -4
+ 214 0002 00AF     		add	r7, sp, #0
+ 215              		.cfi_def_cfa_register 7
+ 210:Generated_Source\PSoC5/counterPolarS.c ****     /* Disable Counter */
+ 211:Generated_Source\PSoC5/counterPolarS.c ****     #if(!counterPolarS_ControlRegRemoved || counterPolarS_UsingFixedFunction)
+ 212:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_CONTROL &= ((uint8)(~counterPolarS_CTRL_ENABLE));        
+ 216              		.loc 1 212 0
+ 217 0004 054A     		ldr	r2, .L12
+ 218 0006 054B     		ldr	r3, .L12
+ 219 0008 1B78     		ldrb	r3, [r3]
+ 220 000a DBB2     		uxtb	r3, r3
+ 221 000c 03F07F03 		and	r3, r3, #127
+ 222 0010 DBB2     		uxtb	r3, r3
+ 223 0012 1370     		strb	r3, [r2]
+ 213:Generated_Source\PSoC5/counterPolarS.c ****     #endif /* (!counterPolarS_ControlRegRemoved || counterPolarS_UsingFixedFunction) */
+ 214:Generated_Source\PSoC5/counterPolarS.c ****     
+ 215:Generated_Source\PSoC5/counterPolarS.c ****     /* Globally disable the Fixed Function Block chosen */
+ 216:Generated_Source\PSoC5/counterPolarS.c ****     #if (counterPolarS_UsingFixedFunction)
+ 217:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_GLOBAL_ENABLE &= ((uint8)(~counterPolarS_BLOCK_EN_MASK));
+ 218:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_GLOBAL_STBY_ENABLE &= ((uint8)(~counterPolarS_BLOCK_STBY_EN_MASK));
+ 219:Generated_Source\PSoC5/counterPolarS.c ****     #endif /* (counterPolarS_UsingFixedFunction) */
+ 220:Generated_Source\PSoC5/counterPolarS.c **** }
+ 224              		.loc 1 220 0
+ 225 0014 BD46     		mov	sp, r7
+ 226              		.cfi_def_cfa_register 13
+ 227              		@ sp needed
+ 228 0016 5DF8047B 		ldr	r7, [sp], #4
+ 229              		.cfi_restore 7
+ 230              		.cfi_def_cfa_offset 0
+ 231 001a 7047     		bx	lr
+ 232              	.L13:
+ 233              		.align	2
+ 234              	.L12:
+ 235 001c 77640040 		.word	1073767543
+ 236              		.cfi_endproc
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 9
+
+
+ 237              	.LFE3:
+ 238              		.size	counterPolarS_Stop, .-counterPolarS_Stop
+ 239              		.section	.text.counterPolarS_SetInterruptMode,"ax",%progbits
+ 240              		.align	2
+ 241              		.global	counterPolarS_SetInterruptMode
+ 242              		.thumb
+ 243              		.thumb_func
+ 244              		.type	counterPolarS_SetInterruptMode, %function
+ 245              	counterPolarS_SetInterruptMode:
+ 246              	.LFB4:
+ 221:Generated_Source\PSoC5/counterPolarS.c **** 
+ 222:Generated_Source\PSoC5/counterPolarS.c **** 
+ 223:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 224:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_SetInterruptMode
+ 225:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 226:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 227:Generated_Source\PSoC5/counterPolarS.c **** * Configures which interrupt sources are enabled to generate the final interrupt
+ 228:Generated_Source\PSoC5/counterPolarS.c **** *
+ 229:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 230:Generated_Source\PSoC5/counterPolarS.c **** *  InterruptsMask: This parameter is an or'd collection of the status bits
+ 231:Generated_Source\PSoC5/counterPolarS.c **** *                   which will be allowed to generate the counters interrupt.   
+ 232:Generated_Source\PSoC5/counterPolarS.c **** *
+ 233:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 234:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 235:Generated_Source\PSoC5/counterPolarS.c **** *
+ 236:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 237:Generated_Source\PSoC5/counterPolarS.c **** void counterPolarS_SetInterruptMode(uint8 interruptsMask) 
+ 238:Generated_Source\PSoC5/counterPolarS.c **** {
+ 247              		.loc 1 238 0
+ 248              		.cfi_startproc
+ 249              		@ args = 0, pretend = 0, frame = 8
+ 250              		@ frame_needed = 1, uses_anonymous_args = 0
+ 251              		@ link register save eliminated.
+ 252 0000 80B4     		push	{r7}
+ 253              		.cfi_def_cfa_offset 4
+ 254              		.cfi_offset 7, -4
+ 255 0002 83B0     		sub	sp, sp, #12
+ 256              		.cfi_def_cfa_offset 16
+ 257 0004 00AF     		add	r7, sp, #0
+ 258              		.cfi_def_cfa_register 7
+ 259 0006 0346     		mov	r3, r0
+ 260 0008 FB71     		strb	r3, [r7, #7]
+ 239:Generated_Source\PSoC5/counterPolarS.c ****     counterPolarS_STATUS_MASK = interruptsMask;
+ 261              		.loc 1 239 0
+ 262 000a 044A     		ldr	r2, .L15
+ 263 000c FB79     		ldrb	r3, [r7, #7]
+ 264 000e 1370     		strb	r3, [r2]
+ 240:Generated_Source\PSoC5/counterPolarS.c **** }
+ 265              		.loc 1 240 0
+ 266 0010 0C37     		adds	r7, r7, #12
+ 267              		.cfi_def_cfa_offset 4
+ 268 0012 BD46     		mov	sp, r7
+ 269              		.cfi_def_cfa_register 13
+ 270              		@ sp needed
+ 271 0014 5DF8047B 		ldr	r7, [sp], #4
+ 272              		.cfi_restore 7
+ 273              		.cfi_def_cfa_offset 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 10
+
+
+ 274 0018 7047     		bx	lr
+ 275              	.L16:
+ 276 001a 00BF     		.align	2
+ 277              	.L15:
+ 278 001c 87640040 		.word	1073767559
+ 279              		.cfi_endproc
+ 280              	.LFE4:
+ 281              		.size	counterPolarS_SetInterruptMode, .-counterPolarS_SetInterruptMode
+ 282              		.section	.text.counterPolarS_ReadStatusRegister,"ax",%progbits
+ 283              		.align	2
+ 284              		.global	counterPolarS_ReadStatusRegister
+ 285              		.thumb
+ 286              		.thumb_func
+ 287              		.type	counterPolarS_ReadStatusRegister, %function
+ 288              	counterPolarS_ReadStatusRegister:
+ 289              	.LFB5:
+ 241:Generated_Source\PSoC5/counterPolarS.c **** 
+ 242:Generated_Source\PSoC5/counterPolarS.c **** 
+ 243:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 244:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_ReadStatusRegister
+ 245:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 246:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 247:Generated_Source\PSoC5/counterPolarS.c **** *   Reads the status register and returns it's state. This function should use
+ 248:Generated_Source\PSoC5/counterPolarS.c **** *       defined types for the bit-field information as the bits in this
+ 249:Generated_Source\PSoC5/counterPolarS.c **** *       register may be permuteable.
+ 250:Generated_Source\PSoC5/counterPolarS.c **** *
+ 251:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 252:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 253:Generated_Source\PSoC5/counterPolarS.c **** *
+ 254:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 255:Generated_Source\PSoC5/counterPolarS.c **** *  (uint8) The contents of the status register
+ 256:Generated_Source\PSoC5/counterPolarS.c **** *
+ 257:Generated_Source\PSoC5/counterPolarS.c **** * Side Effects:
+ 258:Generated_Source\PSoC5/counterPolarS.c **** *   Status register bits may be clear on read. 
+ 259:Generated_Source\PSoC5/counterPolarS.c **** *
+ 260:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 261:Generated_Source\PSoC5/counterPolarS.c **** uint8   counterPolarS_ReadStatusRegister(void) 
+ 262:Generated_Source\PSoC5/counterPolarS.c **** {
+ 290              		.loc 1 262 0
+ 291              		.cfi_startproc
+ 292              		@ args = 0, pretend = 0, frame = 0
+ 293              		@ frame_needed = 1, uses_anonymous_args = 0
+ 294              		@ link register save eliminated.
+ 295 0000 80B4     		push	{r7}
+ 296              		.cfi_def_cfa_offset 4
+ 297              		.cfi_offset 7, -4
+ 298 0002 00AF     		add	r7, sp, #0
+ 299              		.cfi_def_cfa_register 7
+ 263:Generated_Source\PSoC5/counterPolarS.c ****     return counterPolarS_STATUS;
+ 300              		.loc 1 263 0
+ 301 0004 034B     		ldr	r3, .L19
+ 302 0006 1B78     		ldrb	r3, [r3]
+ 303 0008 DBB2     		uxtb	r3, r3
+ 264:Generated_Source\PSoC5/counterPolarS.c **** }
+ 304              		.loc 1 264 0
+ 305 000a 1846     		mov	r0, r3
+ 306 000c BD46     		mov	sp, r7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 11
+
+
+ 307              		.cfi_def_cfa_register 13
+ 308              		@ sp needed
+ 309 000e 5DF8047B 		ldr	r7, [sp], #4
+ 310              		.cfi_restore 7
+ 311              		.cfi_def_cfa_offset 0
+ 312 0012 7047     		bx	lr
+ 313              	.L20:
+ 314              		.align	2
+ 315              	.L19:
+ 316 0014 67640040 		.word	1073767527
+ 317              		.cfi_endproc
+ 318              	.LFE5:
+ 319              		.size	counterPolarS_ReadStatusRegister, .-counterPolarS_ReadStatusRegister
+ 320              		.section	.text.counterPolarS_ReadControlRegister,"ax",%progbits
+ 321              		.align	2
+ 322              		.global	counterPolarS_ReadControlRegister
+ 323              		.thumb
+ 324              		.thumb_func
+ 325              		.type	counterPolarS_ReadControlRegister, %function
+ 326              	counterPolarS_ReadControlRegister:
+ 327              	.LFB6:
+ 265:Generated_Source\PSoC5/counterPolarS.c **** 
+ 266:Generated_Source\PSoC5/counterPolarS.c **** 
+ 267:Generated_Source\PSoC5/counterPolarS.c **** #if(!counterPolarS_ControlRegRemoved)
+ 268:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 269:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_ReadControlRegister
+ 270:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 271:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 272:Generated_Source\PSoC5/counterPolarS.c **** *   Reads the control register and returns it's state. This function should use
+ 273:Generated_Source\PSoC5/counterPolarS.c **** *       defined types for the bit-field information as the bits in this
+ 274:Generated_Source\PSoC5/counterPolarS.c **** *       register may be permuteable.
+ 275:Generated_Source\PSoC5/counterPolarS.c **** *
+ 276:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 277:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 278:Generated_Source\PSoC5/counterPolarS.c **** *
+ 279:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 280:Generated_Source\PSoC5/counterPolarS.c **** *  (uint8) The contents of the control register
+ 281:Generated_Source\PSoC5/counterPolarS.c **** *
+ 282:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 283:Generated_Source\PSoC5/counterPolarS.c **** uint8   counterPolarS_ReadControlRegister(void) 
+ 284:Generated_Source\PSoC5/counterPolarS.c **** {
+ 328              		.loc 1 284 0
+ 329              		.cfi_startproc
+ 330              		@ args = 0, pretend = 0, frame = 0
+ 331              		@ frame_needed = 1, uses_anonymous_args = 0
+ 332              		@ link register save eliminated.
+ 333 0000 80B4     		push	{r7}
+ 334              		.cfi_def_cfa_offset 4
+ 335              		.cfi_offset 7, -4
+ 336 0002 00AF     		add	r7, sp, #0
+ 337              		.cfi_def_cfa_register 7
+ 285:Generated_Source\PSoC5/counterPolarS.c ****     return counterPolarS_CONTROL;
+ 338              		.loc 1 285 0
+ 339 0004 034B     		ldr	r3, .L23
+ 340 0006 1B78     		ldrb	r3, [r3]
+ 341 0008 DBB2     		uxtb	r3, r3
+ 286:Generated_Source\PSoC5/counterPolarS.c **** }
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 12
+
+
+ 342              		.loc 1 286 0
+ 343 000a 1846     		mov	r0, r3
+ 344 000c BD46     		mov	sp, r7
+ 345              		.cfi_def_cfa_register 13
+ 346              		@ sp needed
+ 347 000e 5DF8047B 		ldr	r7, [sp], #4
+ 348              		.cfi_restore 7
+ 349              		.cfi_def_cfa_offset 0
+ 350 0012 7047     		bx	lr
+ 351              	.L24:
+ 352              		.align	2
+ 353              	.L23:
+ 354 0014 77640040 		.word	1073767543
+ 355              		.cfi_endproc
+ 356              	.LFE6:
+ 357              		.size	counterPolarS_ReadControlRegister, .-counterPolarS_ReadControlRegister
+ 358              		.section	.text.counterPolarS_WriteControlRegister,"ax",%progbits
+ 359              		.align	2
+ 360              		.global	counterPolarS_WriteControlRegister
+ 361              		.thumb
+ 362              		.thumb_func
+ 363              		.type	counterPolarS_WriteControlRegister, %function
+ 364              	counterPolarS_WriteControlRegister:
+ 365              	.LFB7:
+ 287:Generated_Source\PSoC5/counterPolarS.c **** 
+ 288:Generated_Source\PSoC5/counterPolarS.c **** 
+ 289:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 290:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_WriteControlRegister
+ 291:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 292:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 293:Generated_Source\PSoC5/counterPolarS.c **** *   Sets the bit-field of the control register.  This function should use
+ 294:Generated_Source\PSoC5/counterPolarS.c **** *       defined types for the bit-field information as the bits in this
+ 295:Generated_Source\PSoC5/counterPolarS.c **** *       register may be permuteable.
+ 296:Generated_Source\PSoC5/counterPolarS.c **** *
+ 297:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 298:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 299:Generated_Source\PSoC5/counterPolarS.c **** *
+ 300:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 301:Generated_Source\PSoC5/counterPolarS.c **** *  (uint8) The contents of the control register
+ 302:Generated_Source\PSoC5/counterPolarS.c **** *
+ 303:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 304:Generated_Source\PSoC5/counterPolarS.c **** void    counterPolarS_WriteControlRegister(uint8 control) 
+ 305:Generated_Source\PSoC5/counterPolarS.c **** {
+ 366              		.loc 1 305 0
+ 367              		.cfi_startproc
+ 368              		@ args = 0, pretend = 0, frame = 8
+ 369              		@ frame_needed = 1, uses_anonymous_args = 0
+ 370              		@ link register save eliminated.
+ 371 0000 80B4     		push	{r7}
+ 372              		.cfi_def_cfa_offset 4
+ 373              		.cfi_offset 7, -4
+ 374 0002 83B0     		sub	sp, sp, #12
+ 375              		.cfi_def_cfa_offset 16
+ 376 0004 00AF     		add	r7, sp, #0
+ 377              		.cfi_def_cfa_register 7
+ 378 0006 0346     		mov	r3, r0
+ 379 0008 FB71     		strb	r3, [r7, #7]
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 13
+
+
+ 306:Generated_Source\PSoC5/counterPolarS.c ****     counterPolarS_CONTROL = control;
+ 380              		.loc 1 306 0
+ 381 000a 044A     		ldr	r2, .L26
+ 382 000c FB79     		ldrb	r3, [r7, #7]
+ 383 000e 1370     		strb	r3, [r2]
+ 307:Generated_Source\PSoC5/counterPolarS.c **** }
+ 384              		.loc 1 307 0
+ 385 0010 0C37     		adds	r7, r7, #12
+ 386              		.cfi_def_cfa_offset 4
+ 387 0012 BD46     		mov	sp, r7
+ 388              		.cfi_def_cfa_register 13
+ 389              		@ sp needed
+ 390 0014 5DF8047B 		ldr	r7, [sp], #4
+ 391              		.cfi_restore 7
+ 392              		.cfi_def_cfa_offset 0
+ 393 0018 7047     		bx	lr
+ 394              	.L27:
+ 395 001a 00BF     		.align	2
+ 396              	.L26:
+ 397 001c 77640040 		.word	1073767543
+ 398              		.cfi_endproc
+ 399              	.LFE7:
+ 400              		.size	counterPolarS_WriteControlRegister, .-counterPolarS_WriteControlRegister
+ 401              		.section	.text.counterPolarS_WriteCounter,"ax",%progbits
+ 402              		.align	2
+ 403              		.global	counterPolarS_WriteCounter
+ 404              		.thumb
+ 405              		.thumb_func
+ 406              		.type	counterPolarS_WriteCounter, %function
+ 407              	counterPolarS_WriteCounter:
+ 408              	.LFB8:
+ 308:Generated_Source\PSoC5/counterPolarS.c **** 
+ 309:Generated_Source\PSoC5/counterPolarS.c **** #endif  /* (!counterPolarS_ControlRegRemoved) */
+ 310:Generated_Source\PSoC5/counterPolarS.c **** 
+ 311:Generated_Source\PSoC5/counterPolarS.c **** 
+ 312:Generated_Source\PSoC5/counterPolarS.c **** #if (!(counterPolarS_UsingFixedFunction && (CY_PSOC5A)))
+ 313:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 314:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_WriteCounter
+ 315:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 316:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 317:Generated_Source\PSoC5/counterPolarS.c **** *   This funtion is used to set the counter to a specific value
+ 318:Generated_Source\PSoC5/counterPolarS.c **** *
+ 319:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 320:Generated_Source\PSoC5/counterPolarS.c **** *  counter:  New counter value. 
+ 321:Generated_Source\PSoC5/counterPolarS.c **** *
+ 322:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 323:Generated_Source\PSoC5/counterPolarS.c **** *  void 
+ 324:Generated_Source\PSoC5/counterPolarS.c **** *
+ 325:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 326:Generated_Source\PSoC5/counterPolarS.c **** void counterPolarS_WriteCounter(uint8 counter) \
+ 327:Generated_Source\PSoC5/counterPolarS.c ****                                    
+ 328:Generated_Source\PSoC5/counterPolarS.c **** {
+ 409              		.loc 1 328 0
+ 410              		.cfi_startproc
+ 411              		@ args = 0, pretend = 0, frame = 8
+ 412              		@ frame_needed = 1, uses_anonymous_args = 0
+ 413              		@ link register save eliminated.
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 14
+
+
+ 414 0000 80B4     		push	{r7}
+ 415              		.cfi_def_cfa_offset 4
+ 416              		.cfi_offset 7, -4
+ 417 0002 83B0     		sub	sp, sp, #12
+ 418              		.cfi_def_cfa_offset 16
+ 419 0004 00AF     		add	r7, sp, #0
+ 420              		.cfi_def_cfa_register 7
+ 421 0006 0346     		mov	r3, r0
+ 422 0008 FB71     		strb	r3, [r7, #7]
+ 329:Generated_Source\PSoC5/counterPolarS.c ****     #if(counterPolarS_UsingFixedFunction)
+ 330:Generated_Source\PSoC5/counterPolarS.c ****         /* assert if block is already enabled */
+ 331:Generated_Source\PSoC5/counterPolarS.c ****         CYASSERT (0u == (counterPolarS_GLOBAL_ENABLE & counterPolarS_BLOCK_EN_MASK));
+ 332:Generated_Source\PSoC5/counterPolarS.c ****         /* If block is disabled, enable it and then write the counter */
+ 333:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_GLOBAL_ENABLE |= counterPolarS_BLOCK_EN_MASK;
+ 334:Generated_Source\PSoC5/counterPolarS.c ****         CY_SET_REG16(counterPolarS_COUNTER_LSB_PTR, (uint16)counter);
+ 335:Generated_Source\PSoC5/counterPolarS.c ****         counterPolarS_GLOBAL_ENABLE &= ((uint8)(~counterPolarS_BLOCK_EN_MASK));
+ 336:Generated_Source\PSoC5/counterPolarS.c ****     #else
+ 337:Generated_Source\PSoC5/counterPolarS.c ****         CY_SET_REG8(counterPolarS_COUNTER_LSB_PTR, counter);
+ 423              		.loc 1 337 0
+ 424 000a 044A     		ldr	r2, .L29
+ 425 000c FB79     		ldrb	r3, [r7, #7]
+ 426 000e 1370     		strb	r3, [r2]
+ 338:Generated_Source\PSoC5/counterPolarS.c ****     #endif /* (counterPolarS_UsingFixedFunction) */
+ 339:Generated_Source\PSoC5/counterPolarS.c **** }
+ 427              		.loc 1 339 0
+ 428 0010 0C37     		adds	r7, r7, #12
+ 429              		.cfi_def_cfa_offset 4
+ 430 0012 BD46     		mov	sp, r7
+ 431              		.cfi_def_cfa_register 13
+ 432              		@ sp needed
+ 433 0014 5DF8047B 		ldr	r7, [sp], #4
+ 434              		.cfi_restore 7
+ 435              		.cfi_def_cfa_offset 0
+ 436 0018 7047     		bx	lr
+ 437              	.L30:
+ 438 001a 00BF     		.align	2
+ 439              	.L29:
+ 440 001c 07640040 		.word	1073767431
+ 441              		.cfi_endproc
+ 442              	.LFE8:
+ 443              		.size	counterPolarS_WriteCounter, .-counterPolarS_WriteCounter
+ 444              		.section	.text.counterPolarS_ReadCounter,"ax",%progbits
+ 445              		.align	2
+ 446              		.global	counterPolarS_ReadCounter
+ 447              		.thumb
+ 448              		.thumb_func
+ 449              		.type	counterPolarS_ReadCounter, %function
+ 450              	counterPolarS_ReadCounter:
+ 451              	.LFB9:
+ 340:Generated_Source\PSoC5/counterPolarS.c **** #endif /* (!(counterPolarS_UsingFixedFunction && (CY_PSOC5A))) */
+ 341:Generated_Source\PSoC5/counterPolarS.c **** 
+ 342:Generated_Source\PSoC5/counterPolarS.c **** 
+ 343:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 344:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_ReadCounter
+ 345:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 346:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 347:Generated_Source\PSoC5/counterPolarS.c **** * Returns the current value of the counter.  It doesn't matter
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 15
+
+
+ 348:Generated_Source\PSoC5/counterPolarS.c **** * if the counter is enabled or running.
+ 349:Generated_Source\PSoC5/counterPolarS.c **** *
+ 350:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 351:Generated_Source\PSoC5/counterPolarS.c **** *  void:  
+ 352:Generated_Source\PSoC5/counterPolarS.c **** *
+ 353:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 354:Generated_Source\PSoC5/counterPolarS.c **** *  (uint8) The present value of the counter.
+ 355:Generated_Source\PSoC5/counterPolarS.c **** *
+ 356:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 357:Generated_Source\PSoC5/counterPolarS.c **** uint8 counterPolarS_ReadCounter(void) 
+ 358:Generated_Source\PSoC5/counterPolarS.c **** {
+ 452              		.loc 1 358 0
+ 453              		.cfi_startproc
+ 454              		@ args = 0, pretend = 0, frame = 0
+ 455              		@ frame_needed = 1, uses_anonymous_args = 0
+ 456              		@ link register save eliminated.
+ 457 0000 80B4     		push	{r7}
+ 458              		.cfi_def_cfa_offset 4
+ 459              		.cfi_offset 7, -4
+ 460 0002 00AF     		add	r7, sp, #0
+ 461              		.cfi_def_cfa_register 7
+ 359:Generated_Source\PSoC5/counterPolarS.c ****     /* Force capture by reading Accumulator */
+ 360:Generated_Source\PSoC5/counterPolarS.c ****     /* Must first do a software capture to be able to read the counter */
+ 361:Generated_Source\PSoC5/counterPolarS.c ****     /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 362:Generated_Source\PSoC5/counterPolarS.c ****     #if(counterPolarS_UsingFixedFunction)
+ 363:Generated_Source\PSoC5/counterPolarS.c **** 		(void)CY_GET_REG16(counterPolarS_COUNTER_LSB_PTR);
+ 364:Generated_Source\PSoC5/counterPolarS.c **** 	#else
+ 365:Generated_Source\PSoC5/counterPolarS.c **** 		(void)CY_GET_REG8(counterPolarS_COUNTER_LSB_PTR_8BIT);
+ 462              		.loc 1 365 0
+ 463 0004 044B     		ldr	r3, .L33
+ 464 0006 1B78     		ldrb	r3, [r3]
+ 366:Generated_Source\PSoC5/counterPolarS.c **** 	#endif/* (counterPolarS_UsingFixedFunction) */
+ 367:Generated_Source\PSoC5/counterPolarS.c ****     
+ 368:Generated_Source\PSoC5/counterPolarS.c ****     /* Read the data from the FIFO (or capture register for Fixed Function)*/
+ 369:Generated_Source\PSoC5/counterPolarS.c ****     #if(counterPolarS_UsingFixedFunction)
+ 370:Generated_Source\PSoC5/counterPolarS.c ****         return ((uint8)CY_GET_REG16(counterPolarS_STATICCOUNT_LSB_PTR));
+ 371:Generated_Source\PSoC5/counterPolarS.c ****     #else
+ 372:Generated_Source\PSoC5/counterPolarS.c ****         return (CY_GET_REG8(counterPolarS_STATICCOUNT_LSB_PTR));
+ 465              		.loc 1 372 0
+ 466 0008 044B     		ldr	r3, .L33+4
+ 467 000a 1B78     		ldrb	r3, [r3]
+ 468 000c DBB2     		uxtb	r3, r3
+ 373:Generated_Source\PSoC5/counterPolarS.c ****     #endif /* (counterPolarS_UsingFixedFunction) */
+ 374:Generated_Source\PSoC5/counterPolarS.c **** }
+ 469              		.loc 1 374 0
+ 470 000e 1846     		mov	r0, r3
+ 471 0010 BD46     		mov	sp, r7
+ 472              		.cfi_def_cfa_register 13
+ 473              		@ sp needed
+ 474 0012 5DF8047B 		ldr	r7, [sp], #4
+ 475              		.cfi_restore 7
+ 476              		.cfi_def_cfa_offset 0
+ 477 0016 7047     		bx	lr
+ 478              	.L34:
+ 479              		.align	2
+ 480              	.L33:
+ 481 0018 07640040 		.word	1073767431
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 16
+
+
+ 482 001c 47640040 		.word	1073767495
+ 483              		.cfi_endproc
+ 484              	.LFE9:
+ 485              		.size	counterPolarS_ReadCounter, .-counterPolarS_ReadCounter
+ 486              		.section	.text.counterPolarS_ReadCapture,"ax",%progbits
+ 487              		.align	2
+ 488              		.global	counterPolarS_ReadCapture
+ 489              		.thumb
+ 490              		.thumb_func
+ 491              		.type	counterPolarS_ReadCapture, %function
+ 492              	counterPolarS_ReadCapture:
+ 493              	.LFB10:
+ 375:Generated_Source\PSoC5/counterPolarS.c **** 
+ 376:Generated_Source\PSoC5/counterPolarS.c **** 
+ 377:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 378:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_ReadCapture
+ 379:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 380:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 381:Generated_Source\PSoC5/counterPolarS.c **** *   This function returns the last value captured.
+ 382:Generated_Source\PSoC5/counterPolarS.c **** *
+ 383:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 384:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 385:Generated_Source\PSoC5/counterPolarS.c **** *
+ 386:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 387:Generated_Source\PSoC5/counterPolarS.c **** *  (uint8) Present Capture value.
+ 388:Generated_Source\PSoC5/counterPolarS.c **** *
+ 389:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 390:Generated_Source\PSoC5/counterPolarS.c **** uint8 counterPolarS_ReadCapture(void) 
+ 391:Generated_Source\PSoC5/counterPolarS.c **** {
+ 494              		.loc 1 391 0
+ 495              		.cfi_startproc
+ 496              		@ args = 0, pretend = 0, frame = 0
+ 497              		@ frame_needed = 1, uses_anonymous_args = 0
+ 498              		@ link register save eliminated.
+ 499 0000 80B4     		push	{r7}
+ 500              		.cfi_def_cfa_offset 4
+ 501              		.cfi_offset 7, -4
+ 502 0002 00AF     		add	r7, sp, #0
+ 503              		.cfi_def_cfa_register 7
+ 392:Generated_Source\PSoC5/counterPolarS.c ****     #if(counterPolarS_UsingFixedFunction)
+ 393:Generated_Source\PSoC5/counterPolarS.c ****         return ((uint8)CY_GET_REG16(counterPolarS_STATICCOUNT_LSB_PTR));
+ 394:Generated_Source\PSoC5/counterPolarS.c ****     #else
+ 395:Generated_Source\PSoC5/counterPolarS.c ****         return (CY_GET_REG8(counterPolarS_STATICCOUNT_LSB_PTR));
+ 504              		.loc 1 395 0
+ 505 0004 034B     		ldr	r3, .L37
+ 506 0006 1B78     		ldrb	r3, [r3]
+ 507 0008 DBB2     		uxtb	r3, r3
+ 396:Generated_Source\PSoC5/counterPolarS.c ****     #endif /* (counterPolarS_UsingFixedFunction) */
+ 397:Generated_Source\PSoC5/counterPolarS.c **** }
+ 508              		.loc 1 397 0
+ 509 000a 1846     		mov	r0, r3
+ 510 000c BD46     		mov	sp, r7
+ 511              		.cfi_def_cfa_register 13
+ 512              		@ sp needed
+ 513 000e 5DF8047B 		ldr	r7, [sp], #4
+ 514              		.cfi_restore 7
+ 515              		.cfi_def_cfa_offset 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 17
+
+
+ 516 0012 7047     		bx	lr
+ 517              	.L38:
+ 518              		.align	2
+ 519              	.L37:
+ 520 0014 47640040 		.word	1073767495
+ 521              		.cfi_endproc
+ 522              	.LFE10:
+ 523              		.size	counterPolarS_ReadCapture, .-counterPolarS_ReadCapture
+ 524              		.section	.text.counterPolarS_WritePeriod,"ax",%progbits
+ 525              		.align	2
+ 526              		.global	counterPolarS_WritePeriod
+ 527              		.thumb
+ 528              		.thumb_func
+ 529              		.type	counterPolarS_WritePeriod, %function
+ 530              	counterPolarS_WritePeriod:
+ 531              	.LFB11:
+ 398:Generated_Source\PSoC5/counterPolarS.c **** 
+ 399:Generated_Source\PSoC5/counterPolarS.c **** 
+ 400:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 401:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_WritePeriod
+ 402:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 403:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 404:Generated_Source\PSoC5/counterPolarS.c **** * Changes the period of the counter.  The new period 
+ 405:Generated_Source\PSoC5/counterPolarS.c **** * will be loaded the next time terminal count is detected.
+ 406:Generated_Source\PSoC5/counterPolarS.c **** *
+ 407:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 408:Generated_Source\PSoC5/counterPolarS.c **** *  period: (uint8) A value of 0 will result in
+ 409:Generated_Source\PSoC5/counterPolarS.c **** *         the counter remaining at zero.  
+ 410:Generated_Source\PSoC5/counterPolarS.c **** *
+ 411:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 412:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 413:Generated_Source\PSoC5/counterPolarS.c **** *
+ 414:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 415:Generated_Source\PSoC5/counterPolarS.c **** void counterPolarS_WritePeriod(uint8 period) 
+ 416:Generated_Source\PSoC5/counterPolarS.c **** {
+ 532              		.loc 1 416 0
+ 533              		.cfi_startproc
+ 534              		@ args = 0, pretend = 0, frame = 8
+ 535              		@ frame_needed = 1, uses_anonymous_args = 0
+ 536              		@ link register save eliminated.
+ 537 0000 80B4     		push	{r7}
+ 538              		.cfi_def_cfa_offset 4
+ 539              		.cfi_offset 7, -4
+ 540 0002 83B0     		sub	sp, sp, #12
+ 541              		.cfi_def_cfa_offset 16
+ 542 0004 00AF     		add	r7, sp, #0
+ 543              		.cfi_def_cfa_register 7
+ 544 0006 0346     		mov	r3, r0
+ 545 0008 FB71     		strb	r3, [r7, #7]
+ 417:Generated_Source\PSoC5/counterPolarS.c ****     #if(counterPolarS_UsingFixedFunction)
+ 418:Generated_Source\PSoC5/counterPolarS.c ****         CY_SET_REG16(counterPolarS_PERIOD_LSB_PTR,(uint16)period);
+ 419:Generated_Source\PSoC5/counterPolarS.c ****     #else
+ 420:Generated_Source\PSoC5/counterPolarS.c ****         CY_SET_REG8(counterPolarS_PERIOD_LSB_PTR, period);
+ 546              		.loc 1 420 0
+ 547 000a 044A     		ldr	r2, .L40
+ 548 000c FB79     		ldrb	r3, [r7, #7]
+ 549 000e 1370     		strb	r3, [r2]
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 18
+
+
+ 421:Generated_Source\PSoC5/counterPolarS.c ****     #endif /* (counterPolarS_UsingFixedFunction) */
+ 422:Generated_Source\PSoC5/counterPolarS.c **** }
+ 550              		.loc 1 422 0
+ 551 0010 0C37     		adds	r7, r7, #12
+ 552              		.cfi_def_cfa_offset 4
+ 553 0012 BD46     		mov	sp, r7
+ 554              		.cfi_def_cfa_register 13
+ 555              		@ sp needed
+ 556 0014 5DF8047B 		ldr	r7, [sp], #4
+ 557              		.cfi_restore 7
+ 558              		.cfi_def_cfa_offset 0
+ 559 0018 7047     		bx	lr
+ 560              	.L41:
+ 561 001a 00BF     		.align	2
+ 562              	.L40:
+ 563 001c 27640040 		.word	1073767463
+ 564              		.cfi_endproc
+ 565              	.LFE11:
+ 566              		.size	counterPolarS_WritePeriod, .-counterPolarS_WritePeriod
+ 567              		.section	.text.counterPolarS_ReadPeriod,"ax",%progbits
+ 568              		.align	2
+ 569              		.global	counterPolarS_ReadPeriod
+ 570              		.thumb
+ 571              		.thumb_func
+ 572              		.type	counterPolarS_ReadPeriod, %function
+ 573              	counterPolarS_ReadPeriod:
+ 574              	.LFB12:
+ 423:Generated_Source\PSoC5/counterPolarS.c **** 
+ 424:Generated_Source\PSoC5/counterPolarS.c **** 
+ 425:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 426:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_ReadPeriod
+ 427:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 428:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 429:Generated_Source\PSoC5/counterPolarS.c **** * Reads the current period value without affecting counter operation.
+ 430:Generated_Source\PSoC5/counterPolarS.c **** *
+ 431:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 432:Generated_Source\PSoC5/counterPolarS.c **** *  void:  
+ 433:Generated_Source\PSoC5/counterPolarS.c **** *
+ 434:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 435:Generated_Source\PSoC5/counterPolarS.c **** *  (uint8) Present period value.
+ 436:Generated_Source\PSoC5/counterPolarS.c **** *
+ 437:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 438:Generated_Source\PSoC5/counterPolarS.c **** uint8 counterPolarS_ReadPeriod(void) 
+ 439:Generated_Source\PSoC5/counterPolarS.c **** {
+ 575              		.loc 1 439 0
+ 576              		.cfi_startproc
+ 577              		@ args = 0, pretend = 0, frame = 0
+ 578              		@ frame_needed = 1, uses_anonymous_args = 0
+ 579              		@ link register save eliminated.
+ 580 0000 80B4     		push	{r7}
+ 581              		.cfi_def_cfa_offset 4
+ 582              		.cfi_offset 7, -4
+ 583 0002 00AF     		add	r7, sp, #0
+ 584              		.cfi_def_cfa_register 7
+ 440:Generated_Source\PSoC5/counterPolarS.c ****     #if(counterPolarS_UsingFixedFunction)
+ 441:Generated_Source\PSoC5/counterPolarS.c ****         return ((uint8)CY_GET_REG16(counterPolarS_PERIOD_LSB_PTR));
+ 442:Generated_Source\PSoC5/counterPolarS.c ****     #else
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 19
+
+
+ 443:Generated_Source\PSoC5/counterPolarS.c ****         return (CY_GET_REG8(counterPolarS_PERIOD_LSB_PTR));
+ 585              		.loc 1 443 0
+ 586 0004 034B     		ldr	r3, .L44
+ 587 0006 1B78     		ldrb	r3, [r3]
+ 588 0008 DBB2     		uxtb	r3, r3
+ 444:Generated_Source\PSoC5/counterPolarS.c ****     #endif /* (counterPolarS_UsingFixedFunction) */
+ 445:Generated_Source\PSoC5/counterPolarS.c **** }
+ 589              		.loc 1 445 0
+ 590 000a 1846     		mov	r0, r3
+ 591 000c BD46     		mov	sp, r7
+ 592              		.cfi_def_cfa_register 13
+ 593              		@ sp needed
+ 594 000e 5DF8047B 		ldr	r7, [sp], #4
+ 595              		.cfi_restore 7
+ 596              		.cfi_def_cfa_offset 0
+ 597 0012 7047     		bx	lr
+ 598              	.L45:
+ 599              		.align	2
+ 600              	.L44:
+ 601 0014 27640040 		.word	1073767463
+ 602              		.cfi_endproc
+ 603              	.LFE12:
+ 604              		.size	counterPolarS_ReadPeriod, .-counterPolarS_ReadPeriod
+ 605              		.section	.text.counterPolarS_WriteCompare,"ax",%progbits
+ 606              		.align	2
+ 607              		.global	counterPolarS_WriteCompare
+ 608              		.thumb
+ 609              		.thumb_func
+ 610              		.type	counterPolarS_WriteCompare, %function
+ 611              	counterPolarS_WriteCompare:
+ 612              	.LFB13:
+ 446:Generated_Source\PSoC5/counterPolarS.c **** 
+ 447:Generated_Source\PSoC5/counterPolarS.c **** 
+ 448:Generated_Source\PSoC5/counterPolarS.c **** #if (!counterPolarS_UsingFixedFunction)
+ 449:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 450:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_WriteCompare
+ 451:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 452:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 453:Generated_Source\PSoC5/counterPolarS.c **** * Changes the compare value.  The compare output will 
+ 454:Generated_Source\PSoC5/counterPolarS.c **** * reflect the new value on the next UDB clock.  The compare output will be 
+ 455:Generated_Source\PSoC5/counterPolarS.c **** * driven high when the present counter value compares true based on the 
+ 456:Generated_Source\PSoC5/counterPolarS.c **** * configured compare mode setting. 
+ 457:Generated_Source\PSoC5/counterPolarS.c **** *
+ 458:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 459:Generated_Source\PSoC5/counterPolarS.c **** *  Compare:  New compare value. 
+ 460:Generated_Source\PSoC5/counterPolarS.c **** *
+ 461:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 462:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 463:Generated_Source\PSoC5/counterPolarS.c **** *
+ 464:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 465:Generated_Source\PSoC5/counterPolarS.c **** void counterPolarS_WriteCompare(uint8 compare) \
+ 466:Generated_Source\PSoC5/counterPolarS.c ****                                    
+ 467:Generated_Source\PSoC5/counterPolarS.c **** {
+ 613              		.loc 1 467 0
+ 614              		.cfi_startproc
+ 615              		@ args = 0, pretend = 0, frame = 8
+ 616              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 20
+
+
+ 617              		@ link register save eliminated.
+ 618 0000 80B4     		push	{r7}
+ 619              		.cfi_def_cfa_offset 4
+ 620              		.cfi_offset 7, -4
+ 621 0002 83B0     		sub	sp, sp, #12
+ 622              		.cfi_def_cfa_offset 16
+ 623 0004 00AF     		add	r7, sp, #0
+ 624              		.cfi_def_cfa_register 7
+ 625 0006 0346     		mov	r3, r0
+ 626 0008 FB71     		strb	r3, [r7, #7]
+ 468:Generated_Source\PSoC5/counterPolarS.c ****     #if(counterPolarS_UsingFixedFunction)
+ 469:Generated_Source\PSoC5/counterPolarS.c ****         CY_SET_REG16(counterPolarS_COMPARE_LSB_PTR, (uint16)compare);
+ 470:Generated_Source\PSoC5/counterPolarS.c ****     #else
+ 471:Generated_Source\PSoC5/counterPolarS.c ****         CY_SET_REG8(counterPolarS_COMPARE_LSB_PTR, compare);
+ 627              		.loc 1 471 0
+ 628 000a 044A     		ldr	r2, .L47
+ 629 000c FB79     		ldrb	r3, [r7, #7]
+ 630 000e 1370     		strb	r3, [r2]
+ 472:Generated_Source\PSoC5/counterPolarS.c ****     #endif /* (counterPolarS_UsingFixedFunction) */
+ 473:Generated_Source\PSoC5/counterPolarS.c **** }
+ 631              		.loc 1 473 0
+ 632 0010 0C37     		adds	r7, r7, #12
+ 633              		.cfi_def_cfa_offset 4
+ 634 0012 BD46     		mov	sp, r7
+ 635              		.cfi_def_cfa_register 13
+ 636              		@ sp needed
+ 637 0014 5DF8047B 		ldr	r7, [sp], #4
+ 638              		.cfi_restore 7
+ 639              		.cfi_def_cfa_offset 0
+ 640 0018 7047     		bx	lr
+ 641              	.L48:
+ 642 001a 00BF     		.align	2
+ 643              	.L47:
+ 644 001c 37640040 		.word	1073767479
+ 645              		.cfi_endproc
+ 646              	.LFE13:
+ 647              		.size	counterPolarS_WriteCompare, .-counterPolarS_WriteCompare
+ 648              		.section	.text.counterPolarS_ReadCompare,"ax",%progbits
+ 649              		.align	2
+ 650              		.global	counterPolarS_ReadCompare
+ 651              		.thumb
+ 652              		.thumb_func
+ 653              		.type	counterPolarS_ReadCompare, %function
+ 654              	counterPolarS_ReadCompare:
+ 655              	.LFB14:
+ 474:Generated_Source\PSoC5/counterPolarS.c **** 
+ 475:Generated_Source\PSoC5/counterPolarS.c **** 
+ 476:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 477:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_ReadCompare
+ 478:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 479:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 480:Generated_Source\PSoC5/counterPolarS.c **** * Returns the compare value.
+ 481:Generated_Source\PSoC5/counterPolarS.c **** *
+ 482:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 483:Generated_Source\PSoC5/counterPolarS.c **** *  void:
+ 484:Generated_Source\PSoC5/counterPolarS.c **** *
+ 485:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 21
+
+
+ 486:Generated_Source\PSoC5/counterPolarS.c **** *  (uint8) Present compare value.
+ 487:Generated_Source\PSoC5/counterPolarS.c **** *
+ 488:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 489:Generated_Source\PSoC5/counterPolarS.c **** uint8 counterPolarS_ReadCompare(void) 
+ 490:Generated_Source\PSoC5/counterPolarS.c **** {
+ 656              		.loc 1 490 0
+ 657              		.cfi_startproc
+ 658              		@ args = 0, pretend = 0, frame = 0
+ 659              		@ frame_needed = 1, uses_anonymous_args = 0
+ 660              		@ link register save eliminated.
+ 661 0000 80B4     		push	{r7}
+ 662              		.cfi_def_cfa_offset 4
+ 663              		.cfi_offset 7, -4
+ 664 0002 00AF     		add	r7, sp, #0
+ 665              		.cfi_def_cfa_register 7
+ 491:Generated_Source\PSoC5/counterPolarS.c ****     return (CY_GET_REG8(counterPolarS_COMPARE_LSB_PTR));
+ 666              		.loc 1 491 0
+ 667 0004 034B     		ldr	r3, .L51
+ 668 0006 1B78     		ldrb	r3, [r3]
+ 669 0008 DBB2     		uxtb	r3, r3
+ 492:Generated_Source\PSoC5/counterPolarS.c **** }
+ 670              		.loc 1 492 0
+ 671 000a 1846     		mov	r0, r3
+ 672 000c BD46     		mov	sp, r7
+ 673              		.cfi_def_cfa_register 13
+ 674              		@ sp needed
+ 675 000e 5DF8047B 		ldr	r7, [sp], #4
+ 676              		.cfi_restore 7
+ 677              		.cfi_def_cfa_offset 0
+ 678 0012 7047     		bx	lr
+ 679              	.L52:
+ 680              		.align	2
+ 681              	.L51:
+ 682 0014 37640040 		.word	1073767479
+ 683              		.cfi_endproc
+ 684              	.LFE14:
+ 685              		.size	counterPolarS_ReadCompare, .-counterPolarS_ReadCompare
+ 686              		.section	.text.counterPolarS_ClearFIFO,"ax",%progbits
+ 687              		.align	2
+ 688              		.global	counterPolarS_ClearFIFO
+ 689              		.thumb
+ 690              		.thumb_func
+ 691              		.type	counterPolarS_ClearFIFO, %function
+ 692              	counterPolarS_ClearFIFO:
+ 693              	.LFB15:
+ 493:Generated_Source\PSoC5/counterPolarS.c **** 
+ 494:Generated_Source\PSoC5/counterPolarS.c **** 
+ 495:Generated_Source\PSoC5/counterPolarS.c **** #if (counterPolarS_COMPARE_MODE_SOFTWARE)
+ 496:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 497:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_SetCompareMode
+ 498:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 499:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 500:Generated_Source\PSoC5/counterPolarS.c **** *  Sets the software controlled Compare Mode.
+ 501:Generated_Source\PSoC5/counterPolarS.c **** *
+ 502:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:
+ 503:Generated_Source\PSoC5/counterPolarS.c **** *  compareMode:  Compare Mode Enumerated Type.
+ 504:Generated_Source\PSoC5/counterPolarS.c **** *
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 22
+
+
+ 505:Generated_Source\PSoC5/counterPolarS.c **** * Return:
+ 506:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 507:Generated_Source\PSoC5/counterPolarS.c **** *
+ 508:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 509:Generated_Source\PSoC5/counterPolarS.c **** void counterPolarS_SetCompareMode(uint8 compareMode) 
+ 510:Generated_Source\PSoC5/counterPolarS.c **** {
+ 511:Generated_Source\PSoC5/counterPolarS.c ****     /* Clear the compare mode bits in the control register */
+ 512:Generated_Source\PSoC5/counterPolarS.c ****     counterPolarS_CONTROL &= ((uint8)(~counterPolarS_CTRL_CMPMODE_MASK));
+ 513:Generated_Source\PSoC5/counterPolarS.c ****     
+ 514:Generated_Source\PSoC5/counterPolarS.c ****     /* Write the new setting */
+ 515:Generated_Source\PSoC5/counterPolarS.c ****     counterPolarS_CONTROL |= compareMode;
+ 516:Generated_Source\PSoC5/counterPolarS.c **** }
+ 517:Generated_Source\PSoC5/counterPolarS.c **** #endif  /* (counterPolarS_COMPARE_MODE_SOFTWARE) */
+ 518:Generated_Source\PSoC5/counterPolarS.c **** 
+ 519:Generated_Source\PSoC5/counterPolarS.c **** 
+ 520:Generated_Source\PSoC5/counterPolarS.c **** #if (counterPolarS_CAPTURE_MODE_SOFTWARE)
+ 521:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 522:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_SetCaptureMode
+ 523:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 524:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 525:Generated_Source\PSoC5/counterPolarS.c **** *  Sets the software controlled Capture Mode.
+ 526:Generated_Source\PSoC5/counterPolarS.c **** *
+ 527:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:
+ 528:Generated_Source\PSoC5/counterPolarS.c **** *  captureMode:  Capture Mode Enumerated Type.
+ 529:Generated_Source\PSoC5/counterPolarS.c **** *
+ 530:Generated_Source\PSoC5/counterPolarS.c **** * Return:
+ 531:Generated_Source\PSoC5/counterPolarS.c **** *  void
+ 532:Generated_Source\PSoC5/counterPolarS.c **** *
+ 533:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 534:Generated_Source\PSoC5/counterPolarS.c **** void counterPolarS_SetCaptureMode(uint8 captureMode) 
+ 535:Generated_Source\PSoC5/counterPolarS.c **** {
+ 536:Generated_Source\PSoC5/counterPolarS.c ****     /* Clear the capture mode bits in the control register */
+ 537:Generated_Source\PSoC5/counterPolarS.c ****     counterPolarS_CONTROL &= ((uint8)(~counterPolarS_CTRL_CAPMODE_MASK));
+ 538:Generated_Source\PSoC5/counterPolarS.c ****     
+ 539:Generated_Source\PSoC5/counterPolarS.c ****     /* Write the new setting */
+ 540:Generated_Source\PSoC5/counterPolarS.c ****     counterPolarS_CONTROL |= ((uint8)((uint8)captureMode << counterPolarS_CTRL_CAPMODE0_SHIFT));
+ 541:Generated_Source\PSoC5/counterPolarS.c **** }
+ 542:Generated_Source\PSoC5/counterPolarS.c **** #endif  /* (counterPolarS_CAPTURE_MODE_SOFTWARE) */
+ 543:Generated_Source\PSoC5/counterPolarS.c **** 
+ 544:Generated_Source\PSoC5/counterPolarS.c **** 
+ 545:Generated_Source\PSoC5/counterPolarS.c **** /*******************************************************************************
+ 546:Generated_Source\PSoC5/counterPolarS.c **** * Function Name: counterPolarS_ClearFIFO
+ 547:Generated_Source\PSoC5/counterPolarS.c **** ********************************************************************************
+ 548:Generated_Source\PSoC5/counterPolarS.c **** * Summary:
+ 549:Generated_Source\PSoC5/counterPolarS.c **** *   This function clears all capture data from the capture FIFO
+ 550:Generated_Source\PSoC5/counterPolarS.c **** *
+ 551:Generated_Source\PSoC5/counterPolarS.c **** * Parameters:  
+ 552:Generated_Source\PSoC5/counterPolarS.c **** *  void:
+ 553:Generated_Source\PSoC5/counterPolarS.c **** *
+ 554:Generated_Source\PSoC5/counterPolarS.c **** * Return: 
+ 555:Generated_Source\PSoC5/counterPolarS.c **** *  None
+ 556:Generated_Source\PSoC5/counterPolarS.c **** *
+ 557:Generated_Source\PSoC5/counterPolarS.c **** *******************************************************************************/
+ 558:Generated_Source\PSoC5/counterPolarS.c **** void counterPolarS_ClearFIFO(void) 
+ 559:Generated_Source\PSoC5/counterPolarS.c **** {
+ 694              		.loc 1 559 0
+ 695              		.cfi_startproc
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 23
+
+
+ 696              		@ args = 0, pretend = 0, frame = 0
+ 697              		@ frame_needed = 1, uses_anonymous_args = 0
+ 698 0000 80B5     		push	{r7, lr}
+ 699              		.cfi_def_cfa_offset 8
+ 700              		.cfi_offset 7, -8
+ 701              		.cfi_offset 14, -4
+ 702 0002 00AF     		add	r7, sp, #0
+ 703              		.cfi_def_cfa_register 7
+ 560:Generated_Source\PSoC5/counterPolarS.c **** 
+ 561:Generated_Source\PSoC5/counterPolarS.c ****     while(0u != (counterPolarS_ReadStatusRegister() & counterPolarS_STATUS_FIFONEMP))
+ 704              		.loc 1 561 0
+ 705 0004 01E0     		b	.L54
+ 706              	.L55:
+ 562:Generated_Source\PSoC5/counterPolarS.c ****     {
+ 563:Generated_Source\PSoC5/counterPolarS.c ****         (void)counterPolarS_ReadCapture();
+ 707              		.loc 1 563 0
+ 708 0006 FFF7FEFF 		bl	counterPolarS_ReadCapture
+ 709              	.L54:
+ 561:Generated_Source\PSoC5/counterPolarS.c ****     {
+ 710              		.loc 1 561 0
+ 711 000a FFF7FEFF 		bl	counterPolarS_ReadStatusRegister
+ 712 000e 0346     		mov	r3, r0
+ 713 0010 03F04003 		and	r3, r3, #64
+ 714 0014 002B     		cmp	r3, #0
+ 715 0016 F6D1     		bne	.L55
+ 564:Generated_Source\PSoC5/counterPolarS.c ****     }
+ 565:Generated_Source\PSoC5/counterPolarS.c **** 
+ 566:Generated_Source\PSoC5/counterPolarS.c **** }
+ 716              		.loc 1 566 0
+ 717 0018 80BD     		pop	{r7, pc}
+ 718              		.cfi_endproc
+ 719              	.LFE15:
+ 720              		.size	counterPolarS_ClearFIFO, .-counterPolarS_ClearFIFO
+ 721 001a 00BF     		.text
+ 722              	.Letext0:
+ 723              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 724              		.section	.debug_info,"",%progbits
+ 725              	.Ldebug_info0:
+ 726 0000 69020000 		.4byte	0x269
+ 727 0004 0400     		.2byte	0x4
+ 728 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 729 000a 04       		.byte	0x4
+ 730 000b 01       		.uleb128 0x1
+ 731 000c 65010000 		.4byte	.LASF38
+ 732 0010 01       		.byte	0x1
+ 733 0011 F2000000 		.4byte	.LASF39
+ 734 0015 30000000 		.4byte	.LASF40
+ 735 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 736 001d 00000000 		.4byte	0
+ 737 0021 00000000 		.4byte	.Ldebug_line0
+ 738 0025 02       		.uleb128 0x2
+ 739 0026 01       		.byte	0x1
+ 740 0027 06       		.byte	0x6
+ 741 0028 86030000 		.4byte	.LASF0
+ 742 002c 02       		.uleb128 0x2
+ 743 002d 01       		.byte	0x1
+ 744 002e 08       		.byte	0x8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 24
+
+
+ 745 002f DF000000 		.4byte	.LASF1
+ 746 0033 02       		.uleb128 0x2
+ 747 0034 02       		.byte	0x2
+ 748 0035 05       		.byte	0x5
+ 749 0036 28030000 		.4byte	.LASF2
+ 750 003a 02       		.uleb128 0x2
+ 751 003b 02       		.byte	0x2
+ 752 003c 07       		.byte	0x7
+ 753 003d A4000000 		.4byte	.LASF3
+ 754 0041 02       		.uleb128 0x2
+ 755 0042 04       		.byte	0x4
+ 756 0043 05       		.byte	0x5
+ 757 0044 54030000 		.4byte	.LASF4
+ 758 0048 02       		.uleb128 0x2
+ 759 0049 04       		.byte	0x4
+ 760 004a 07       		.byte	0x7
+ 761 004b 19010000 		.4byte	.LASF5
+ 762 004f 02       		.uleb128 0x2
+ 763 0050 08       		.byte	0x8
+ 764 0051 05       		.byte	0x5
+ 765 0052 D8020000 		.4byte	.LASF6
+ 766 0056 02       		.uleb128 0x2
+ 767 0057 08       		.byte	0x8
+ 768 0058 07       		.byte	0x7
+ 769 0059 6B020000 		.4byte	.LASF7
+ 770 005d 03       		.uleb128 0x3
+ 771 005e 04       		.byte	0x4
+ 772 005f 05       		.byte	0x5
+ 773 0060 696E7400 		.ascii	"int\000"
+ 774 0064 02       		.uleb128 0x2
+ 775 0065 04       		.byte	0x4
+ 776 0066 07       		.byte	0x7
+ 777 0067 44020000 		.4byte	.LASF8
+ 778 006b 04       		.uleb128 0x4
+ 779 006c 2B010000 		.4byte	.LASF12
+ 780 0070 02       		.byte	0x2
+ 781 0071 9201     		.2byte	0x192
+ 782 0073 2C000000 		.4byte	0x2c
+ 783 0077 02       		.uleb128 0x2
+ 784 0078 04       		.byte	0x4
+ 785 0079 04       		.byte	0x4
+ 786 007a D1000000 		.4byte	.LASF9
+ 787 007e 02       		.uleb128 0x2
+ 788 007f 08       		.byte	0x8
+ 789 0080 04       		.byte	0x4
+ 790 0081 F3010000 		.4byte	.LASF10
+ 791 0085 02       		.uleb128 0x2
+ 792 0086 01       		.byte	0x1
+ 793 0087 08       		.byte	0x8
+ 794 0088 E6020000 		.4byte	.LASF11
+ 795 008c 04       		.uleb128 0x4
+ 796 008d ED000000 		.4byte	.LASF13
+ 797 0091 02       		.byte	0x2
+ 798 0092 3C02     		.2byte	0x23c
+ 799 0094 98000000 		.4byte	0x98
+ 800 0098 05       		.uleb128 0x5
+ 801 0099 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 25
+
+
+ 802 009d 02       		.uleb128 0x2
+ 803 009e 04       		.byte	0x4
+ 804 009f 07       		.byte	0x7
+ 805 00a0 CF020000 		.4byte	.LASF14
+ 806 00a4 06       		.uleb128 0x6
+ 807 00a5 31020000 		.4byte	.LASF20
+ 808 00a9 01       		.byte	0x1
+ 809 00aa 25       		.byte	0x25
+ 810 00ab 00000000 		.4byte	.LFB0
+ 811 00af 84000000 		.4byte	.LFE0-.LFB0
+ 812 00b3 01       		.uleb128 0x1
+ 813 00b4 9C       		.byte	0x9c
+ 814 00b5 D6000000 		.4byte	0xd6
+ 815 00b9 07       		.uleb128 0x7
+ 816 00ba AF020000 		.4byte	.LASF15
+ 817 00be 01       		.byte	0x1
+ 818 00bf 28       		.byte	0x28
+ 819 00c0 6B000000 		.4byte	0x6b
+ 820 00c4 02       		.uleb128 0x2
+ 821 00c5 91       		.byte	0x91
+ 822 00c6 77       		.sleb128 -9
+ 823 00c7 07       		.uleb128 0x7
+ 824 00c8 48010000 		.4byte	.LASF16
+ 825 00cc 01       		.byte	0x1
+ 826 00cd 2D       		.byte	0x2d
+ 827 00ce 6B000000 		.4byte	0x6b
+ 828 00d2 02       		.uleb128 0x2
+ 829 00d3 91       		.byte	0x91
+ 830 00d4 76       		.sleb128 -10
+ 831 00d5 00       		.byte	0
+ 832 00d6 08       		.uleb128 0x8
+ 833 00d7 00000000 		.4byte	.LASF17
+ 834 00db 01       		.byte	0x1
+ 835 00dc 8F       		.byte	0x8f
+ 836 00dd 00000000 		.4byte	.LFB1
+ 837 00e1 20000000 		.4byte	.LFE1-.LFB1
+ 838 00e5 01       		.uleb128 0x1
+ 839 00e6 9C       		.byte	0x9c
+ 840 00e7 09       		.uleb128 0x9
+ 841 00e8 82020000 		.4byte	.LASF18
+ 842 00ec 01       		.byte	0x1
+ 843 00ed B2       		.byte	0xb2
+ 844 00ee 00000000 		.4byte	.LFB2
+ 845 00f2 20000000 		.4byte	.LFE2-.LFB2
+ 846 00f6 01       		.uleb128 0x1
+ 847 00f7 9C       		.byte	0x9c
+ 848 00f8 08       		.uleb128 0x8
+ 849 00f9 5D030000 		.4byte	.LASF19
+ 850 00fd 01       		.byte	0x1
+ 851 00fe D0       		.byte	0xd0
+ 852 00ff 00000000 		.4byte	.LFB3
+ 853 0103 20000000 		.4byte	.LFE3-.LFB3
+ 854 0107 01       		.uleb128 0x1
+ 855 0108 9C       		.byte	0x9c
+ 856 0109 0A       		.uleb128 0xa
+ 857 010a FA010000 		.4byte	.LASF21
+ 858 010e 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 26
+
+
+ 859 010f ED       		.byte	0xed
+ 860 0110 00000000 		.4byte	.LFB4
+ 861 0114 20000000 		.4byte	.LFE4-.LFB4
+ 862 0118 01       		.uleb128 0x1
+ 863 0119 9C       		.byte	0x9c
+ 864 011a 2D010000 		.4byte	0x12d
+ 865 011e 0B       		.uleb128 0xb
+ 866 011f 39010000 		.4byte	.LASF25
+ 867 0123 01       		.byte	0x1
+ 868 0124 ED       		.byte	0xed
+ 869 0125 6B000000 		.4byte	0x6b
+ 870 0129 02       		.uleb128 0x2
+ 871 012a 91       		.byte	0x91
+ 872 012b 77       		.sleb128 -9
+ 873 012c 00       		.byte	0
+ 874 012d 0C       		.uleb128 0xc
+ 875 012e 7C000000 		.4byte	.LASF22
+ 876 0132 01       		.byte	0x1
+ 877 0133 0501     		.2byte	0x105
+ 878 0135 6B000000 		.4byte	0x6b
+ 879 0139 00000000 		.4byte	.LFB5
+ 880 013d 18000000 		.4byte	.LFE5-.LFB5
+ 881 0141 01       		.uleb128 0x1
+ 882 0142 9C       		.byte	0x9c
+ 883 0143 0C       		.uleb128 0xc
+ 884 0144 32030000 		.4byte	.LASF23
+ 885 0148 01       		.byte	0x1
+ 886 0149 1B01     		.2byte	0x11b
+ 887 014b 6B000000 		.4byte	0x6b
+ 888 014f 00000000 		.4byte	.LFB6
+ 889 0153 18000000 		.4byte	.LFE6-.LFB6
+ 890 0157 01       		.uleb128 0x1
+ 891 0158 9C       		.byte	0x9c
+ 892 0159 0D       		.uleb128 0xd
+ 893 015a 05030000 		.4byte	.LASF24
+ 894 015e 01       		.byte	0x1
+ 895 015f 3001     		.2byte	0x130
+ 896 0161 00000000 		.4byte	.LFB7
+ 897 0165 20000000 		.4byte	.LFE7-.LFB7
+ 898 0169 01       		.uleb128 0x1
+ 899 016a 9C       		.byte	0x9c
+ 900 016b 7F010000 		.4byte	0x17f
+ 901 016f 0E       		.uleb128 0xe
+ 902 0170 31010000 		.4byte	.LASF26
+ 903 0174 01       		.byte	0x1
+ 904 0175 3001     		.2byte	0x130
+ 905 0177 6B000000 		.4byte	0x6b
+ 906 017b 02       		.uleb128 0x2
+ 907 017c 91       		.byte	0x91
+ 908 017d 77       		.sleb128 -9
+ 909 017e 00       		.byte	0
+ 910 017f 0D       		.uleb128 0xd
+ 911 0180 15000000 		.4byte	.LASF27
+ 912 0184 01       		.byte	0x1
+ 913 0185 4601     		.2byte	0x146
+ 914 0187 00000000 		.4byte	.LFB8
+ 915 018b 20000000 		.4byte	.LFE8-.LFB8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 27
+
+
+ 916 018f 01       		.uleb128 0x1
+ 917 0190 9C       		.byte	0x9c
+ 918 0191 A5010000 		.4byte	0x1a5
+ 919 0195 0E       		.uleb128 0xe
+ 920 0196 D7000000 		.4byte	.LASF28
+ 921 019a 01       		.byte	0x1
+ 922 019b 4601     		.2byte	0x146
+ 923 019d 6B000000 		.4byte	0x6b
+ 924 01a1 02       		.uleb128 0x2
+ 925 01a2 91       		.byte	0x91
+ 926 01a3 77       		.sleb128 -9
+ 927 01a4 00       		.byte	0
+ 928 01a5 0C       		.uleb128 0xc
+ 929 01a6 9A030000 		.4byte	.LASF29
+ 930 01aa 01       		.byte	0x1
+ 931 01ab 6501     		.2byte	0x165
+ 932 01ad 6B000000 		.4byte	0x6b
+ 933 01b1 00000000 		.4byte	.LFB9
+ 934 01b5 20000000 		.4byte	.LFE9-.LFB9
+ 935 01b9 01       		.uleb128 0x1
+ 936 01ba 9C       		.byte	0x9c
+ 937 01bb 0C       		.uleb128 0xc
+ 938 01bc EB020000 		.4byte	.LASF30
+ 939 01c0 01       		.byte	0x1
+ 940 01c1 8601     		.2byte	0x186
+ 941 01c3 6B000000 		.4byte	0x6b
+ 942 01c7 00000000 		.4byte	.LFB10
+ 943 01cb 18000000 		.4byte	.LFE10-.LFB10
+ 944 01cf 01       		.uleb128 0x1
+ 945 01d0 9C       		.byte	0x9c
+ 946 01d1 0D       		.uleb128 0xd
+ 947 01d2 B7000000 		.4byte	.LASF31
+ 948 01d6 01       		.byte	0x1
+ 949 01d7 9F01     		.2byte	0x19f
+ 950 01d9 00000000 		.4byte	.LFB11
+ 951 01dd 20000000 		.4byte	.LFE11-.LFB11
+ 952 01e1 01       		.uleb128 0x1
+ 953 01e2 9C       		.byte	0x9c
+ 954 01e3 F7010000 		.4byte	0x1f7
+ 955 01e7 0E       		.uleb128 0xe
+ 956 01e8 9D000000 		.4byte	.LASF32
+ 957 01ec 01       		.byte	0x1
+ 958 01ed 9F01     		.2byte	0x19f
+ 959 01ef 6B000000 		.4byte	0x6b
+ 960 01f3 02       		.uleb128 0x2
+ 961 01f4 91       		.byte	0x91
+ 962 01f5 77       		.sleb128 -9
+ 963 01f6 00       		.byte	0
+ 964 01f7 0C       		.uleb128 0xc
+ 965 01f8 96020000 		.4byte	.LASF33
+ 966 01fc 01       		.byte	0x1
+ 967 01fd B601     		.2byte	0x1b6
+ 968 01ff 6B000000 		.4byte	0x6b
+ 969 0203 00000000 		.4byte	.LFB12
+ 970 0207 18000000 		.4byte	.LFE12-.LFB12
+ 971 020b 01       		.uleb128 0x1
+ 972 020c 9C       		.byte	0x9c
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 28
+
+
+ 973 020d 0D       		.uleb128 0xd
+ 974 020e B4020000 		.4byte	.LASF34
+ 975 0212 01       		.byte	0x1
+ 976 0213 D101     		.2byte	0x1d1
+ 977 0215 00000000 		.4byte	.LFB13
+ 978 0219 20000000 		.4byte	.LFE13-.LFB13
+ 979 021d 01       		.uleb128 0x1
+ 980 021e 9C       		.byte	0x9c
+ 981 021f 33020000 		.4byte	0x233
+ 982 0223 0E       		.uleb128 0xe
+ 983 0224 92030000 		.4byte	.LASF35
+ 984 0228 01       		.byte	0x1
+ 985 0229 D101     		.2byte	0x1d1
+ 986 022b 6B000000 		.4byte	0x6b
+ 987 022f 02       		.uleb128 0x2
+ 988 0230 91       		.byte	0x91
+ 989 0231 77       		.sleb128 -9
+ 990 0232 00       		.byte	0
+ 991 0233 0C       		.uleb128 0xc
+ 992 0234 51020000 		.4byte	.LASF36
+ 993 0238 01       		.byte	0x1
+ 994 0239 E901     		.2byte	0x1e9
+ 995 023b 6B000000 		.4byte	0x6b
+ 996 023f 00000000 		.4byte	.LFB14
+ 997 0243 18000000 		.4byte	.LFE14-.LFB14
+ 998 0247 01       		.uleb128 0x1
+ 999 0248 9C       		.byte	0x9c
+ 1000 0249 0F       		.uleb128 0xf
+ 1001 024a 19020000 		.4byte	.LASF37
+ 1002 024e 01       		.byte	0x1
+ 1003 024f 2E02     		.2byte	0x22e
+ 1004 0251 00000000 		.4byte	.LFB15
+ 1005 0255 1A000000 		.4byte	.LFE15-.LFB15
+ 1006 0259 01       		.uleb128 0x1
+ 1007 025a 9C       		.byte	0x9c
+ 1008 025b 10       		.uleb128 0x10
+ 1009 025c 70030000 		.4byte	.LASF41
+ 1010 0260 01       		.byte	0x1
+ 1011 0261 15       		.byte	0x15
+ 1012 0262 6B000000 		.4byte	0x6b
+ 1013 0266 05       		.uleb128 0x5
+ 1014 0267 03       		.byte	0x3
+ 1015 0268 00000000 		.4byte	counterPolarS_initVar
+ 1016 026c 00       		.byte	0
+ 1017              		.section	.debug_abbrev,"",%progbits
+ 1018              	.Ldebug_abbrev0:
+ 1019 0000 01       		.uleb128 0x1
+ 1020 0001 11       		.uleb128 0x11
+ 1021 0002 01       		.byte	0x1
+ 1022 0003 25       		.uleb128 0x25
+ 1023 0004 0E       		.uleb128 0xe
+ 1024 0005 13       		.uleb128 0x13
+ 1025 0006 0B       		.uleb128 0xb
+ 1026 0007 03       		.uleb128 0x3
+ 1027 0008 0E       		.uleb128 0xe
+ 1028 0009 1B       		.uleb128 0x1b
+ 1029 000a 0E       		.uleb128 0xe
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 29
+
+
+ 1030 000b 55       		.uleb128 0x55
+ 1031 000c 17       		.uleb128 0x17
+ 1032 000d 11       		.uleb128 0x11
+ 1033 000e 01       		.uleb128 0x1
+ 1034 000f 10       		.uleb128 0x10
+ 1035 0010 17       		.uleb128 0x17
+ 1036 0011 00       		.byte	0
+ 1037 0012 00       		.byte	0
+ 1038 0013 02       		.uleb128 0x2
+ 1039 0014 24       		.uleb128 0x24
+ 1040 0015 00       		.byte	0
+ 1041 0016 0B       		.uleb128 0xb
+ 1042 0017 0B       		.uleb128 0xb
+ 1043 0018 3E       		.uleb128 0x3e
+ 1044 0019 0B       		.uleb128 0xb
+ 1045 001a 03       		.uleb128 0x3
+ 1046 001b 0E       		.uleb128 0xe
+ 1047 001c 00       		.byte	0
+ 1048 001d 00       		.byte	0
+ 1049 001e 03       		.uleb128 0x3
+ 1050 001f 24       		.uleb128 0x24
+ 1051 0020 00       		.byte	0
+ 1052 0021 0B       		.uleb128 0xb
+ 1053 0022 0B       		.uleb128 0xb
+ 1054 0023 3E       		.uleb128 0x3e
+ 1055 0024 0B       		.uleb128 0xb
+ 1056 0025 03       		.uleb128 0x3
+ 1057 0026 08       		.uleb128 0x8
+ 1058 0027 00       		.byte	0
+ 1059 0028 00       		.byte	0
+ 1060 0029 04       		.uleb128 0x4
+ 1061 002a 16       		.uleb128 0x16
+ 1062 002b 00       		.byte	0
+ 1063 002c 03       		.uleb128 0x3
+ 1064 002d 0E       		.uleb128 0xe
+ 1065 002e 3A       		.uleb128 0x3a
+ 1066 002f 0B       		.uleb128 0xb
+ 1067 0030 3B       		.uleb128 0x3b
+ 1068 0031 05       		.uleb128 0x5
+ 1069 0032 49       		.uleb128 0x49
+ 1070 0033 13       		.uleb128 0x13
+ 1071 0034 00       		.byte	0
+ 1072 0035 00       		.byte	0
+ 1073 0036 05       		.uleb128 0x5
+ 1074 0037 35       		.uleb128 0x35
+ 1075 0038 00       		.byte	0
+ 1076 0039 49       		.uleb128 0x49
+ 1077 003a 13       		.uleb128 0x13
+ 1078 003b 00       		.byte	0
+ 1079 003c 00       		.byte	0
+ 1080 003d 06       		.uleb128 0x6
+ 1081 003e 2E       		.uleb128 0x2e
+ 1082 003f 01       		.byte	0x1
+ 1083 0040 3F       		.uleb128 0x3f
+ 1084 0041 19       		.uleb128 0x19
+ 1085 0042 03       		.uleb128 0x3
+ 1086 0043 0E       		.uleb128 0xe
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 30
+
+
+ 1087 0044 3A       		.uleb128 0x3a
+ 1088 0045 0B       		.uleb128 0xb
+ 1089 0046 3B       		.uleb128 0x3b
+ 1090 0047 0B       		.uleb128 0xb
+ 1091 0048 27       		.uleb128 0x27
+ 1092 0049 19       		.uleb128 0x19
+ 1093 004a 11       		.uleb128 0x11
+ 1094 004b 01       		.uleb128 0x1
+ 1095 004c 12       		.uleb128 0x12
+ 1096 004d 06       		.uleb128 0x6
+ 1097 004e 40       		.uleb128 0x40
+ 1098 004f 18       		.uleb128 0x18
+ 1099 0050 9642     		.uleb128 0x2116
+ 1100 0052 19       		.uleb128 0x19
+ 1101 0053 01       		.uleb128 0x1
+ 1102 0054 13       		.uleb128 0x13
+ 1103 0055 00       		.byte	0
+ 1104 0056 00       		.byte	0
+ 1105 0057 07       		.uleb128 0x7
+ 1106 0058 34       		.uleb128 0x34
+ 1107 0059 00       		.byte	0
+ 1108 005a 03       		.uleb128 0x3
+ 1109 005b 0E       		.uleb128 0xe
+ 1110 005c 3A       		.uleb128 0x3a
+ 1111 005d 0B       		.uleb128 0xb
+ 1112 005e 3B       		.uleb128 0x3b
+ 1113 005f 0B       		.uleb128 0xb
+ 1114 0060 49       		.uleb128 0x49
+ 1115 0061 13       		.uleb128 0x13
+ 1116 0062 02       		.uleb128 0x2
+ 1117 0063 18       		.uleb128 0x18
+ 1118 0064 00       		.byte	0
+ 1119 0065 00       		.byte	0
+ 1120 0066 08       		.uleb128 0x8
+ 1121 0067 2E       		.uleb128 0x2e
+ 1122 0068 00       		.byte	0
+ 1123 0069 3F       		.uleb128 0x3f
+ 1124 006a 19       		.uleb128 0x19
+ 1125 006b 03       		.uleb128 0x3
+ 1126 006c 0E       		.uleb128 0xe
+ 1127 006d 3A       		.uleb128 0x3a
+ 1128 006e 0B       		.uleb128 0xb
+ 1129 006f 3B       		.uleb128 0x3b
+ 1130 0070 0B       		.uleb128 0xb
+ 1131 0071 27       		.uleb128 0x27
+ 1132 0072 19       		.uleb128 0x19
+ 1133 0073 11       		.uleb128 0x11
+ 1134 0074 01       		.uleb128 0x1
+ 1135 0075 12       		.uleb128 0x12
+ 1136 0076 06       		.uleb128 0x6
+ 1137 0077 40       		.uleb128 0x40
+ 1138 0078 18       		.uleb128 0x18
+ 1139 0079 9742     		.uleb128 0x2117
+ 1140 007b 19       		.uleb128 0x19
+ 1141 007c 00       		.byte	0
+ 1142 007d 00       		.byte	0
+ 1143 007e 09       		.uleb128 0x9
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 31
+
+
+ 1144 007f 2E       		.uleb128 0x2e
+ 1145 0080 00       		.byte	0
+ 1146 0081 3F       		.uleb128 0x3f
+ 1147 0082 19       		.uleb128 0x19
+ 1148 0083 03       		.uleb128 0x3
+ 1149 0084 0E       		.uleb128 0xe
+ 1150 0085 3A       		.uleb128 0x3a
+ 1151 0086 0B       		.uleb128 0xb
+ 1152 0087 3B       		.uleb128 0x3b
+ 1153 0088 0B       		.uleb128 0xb
+ 1154 0089 27       		.uleb128 0x27
+ 1155 008a 19       		.uleb128 0x19
+ 1156 008b 11       		.uleb128 0x11
+ 1157 008c 01       		.uleb128 0x1
+ 1158 008d 12       		.uleb128 0x12
+ 1159 008e 06       		.uleb128 0x6
+ 1160 008f 40       		.uleb128 0x40
+ 1161 0090 18       		.uleb128 0x18
+ 1162 0091 9642     		.uleb128 0x2116
+ 1163 0093 19       		.uleb128 0x19
+ 1164 0094 00       		.byte	0
+ 1165 0095 00       		.byte	0
+ 1166 0096 0A       		.uleb128 0xa
+ 1167 0097 2E       		.uleb128 0x2e
+ 1168 0098 01       		.byte	0x1
+ 1169 0099 3F       		.uleb128 0x3f
+ 1170 009a 19       		.uleb128 0x19
+ 1171 009b 03       		.uleb128 0x3
+ 1172 009c 0E       		.uleb128 0xe
+ 1173 009d 3A       		.uleb128 0x3a
+ 1174 009e 0B       		.uleb128 0xb
+ 1175 009f 3B       		.uleb128 0x3b
+ 1176 00a0 0B       		.uleb128 0xb
+ 1177 00a1 27       		.uleb128 0x27
+ 1178 00a2 19       		.uleb128 0x19
+ 1179 00a3 11       		.uleb128 0x11
+ 1180 00a4 01       		.uleb128 0x1
+ 1181 00a5 12       		.uleb128 0x12
+ 1182 00a6 06       		.uleb128 0x6
+ 1183 00a7 40       		.uleb128 0x40
+ 1184 00a8 18       		.uleb128 0x18
+ 1185 00a9 9742     		.uleb128 0x2117
+ 1186 00ab 19       		.uleb128 0x19
+ 1187 00ac 01       		.uleb128 0x1
+ 1188 00ad 13       		.uleb128 0x13
+ 1189 00ae 00       		.byte	0
+ 1190 00af 00       		.byte	0
+ 1191 00b0 0B       		.uleb128 0xb
+ 1192 00b1 05       		.uleb128 0x5
+ 1193 00b2 00       		.byte	0
+ 1194 00b3 03       		.uleb128 0x3
+ 1195 00b4 0E       		.uleb128 0xe
+ 1196 00b5 3A       		.uleb128 0x3a
+ 1197 00b6 0B       		.uleb128 0xb
+ 1198 00b7 3B       		.uleb128 0x3b
+ 1199 00b8 0B       		.uleb128 0xb
+ 1200 00b9 49       		.uleb128 0x49
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 32
+
+
+ 1201 00ba 13       		.uleb128 0x13
+ 1202 00bb 02       		.uleb128 0x2
+ 1203 00bc 18       		.uleb128 0x18
+ 1204 00bd 00       		.byte	0
+ 1205 00be 00       		.byte	0
+ 1206 00bf 0C       		.uleb128 0xc
+ 1207 00c0 2E       		.uleb128 0x2e
+ 1208 00c1 00       		.byte	0
+ 1209 00c2 3F       		.uleb128 0x3f
+ 1210 00c3 19       		.uleb128 0x19
+ 1211 00c4 03       		.uleb128 0x3
+ 1212 00c5 0E       		.uleb128 0xe
+ 1213 00c6 3A       		.uleb128 0x3a
+ 1214 00c7 0B       		.uleb128 0xb
+ 1215 00c8 3B       		.uleb128 0x3b
+ 1216 00c9 05       		.uleb128 0x5
+ 1217 00ca 27       		.uleb128 0x27
+ 1218 00cb 19       		.uleb128 0x19
+ 1219 00cc 49       		.uleb128 0x49
+ 1220 00cd 13       		.uleb128 0x13
+ 1221 00ce 11       		.uleb128 0x11
+ 1222 00cf 01       		.uleb128 0x1
+ 1223 00d0 12       		.uleb128 0x12
+ 1224 00d1 06       		.uleb128 0x6
+ 1225 00d2 40       		.uleb128 0x40
+ 1226 00d3 18       		.uleb128 0x18
+ 1227 00d4 9742     		.uleb128 0x2117
+ 1228 00d6 19       		.uleb128 0x19
+ 1229 00d7 00       		.byte	0
+ 1230 00d8 00       		.byte	0
+ 1231 00d9 0D       		.uleb128 0xd
+ 1232 00da 2E       		.uleb128 0x2e
+ 1233 00db 01       		.byte	0x1
+ 1234 00dc 3F       		.uleb128 0x3f
+ 1235 00dd 19       		.uleb128 0x19
+ 1236 00de 03       		.uleb128 0x3
+ 1237 00df 0E       		.uleb128 0xe
+ 1238 00e0 3A       		.uleb128 0x3a
+ 1239 00e1 0B       		.uleb128 0xb
+ 1240 00e2 3B       		.uleb128 0x3b
+ 1241 00e3 05       		.uleb128 0x5
+ 1242 00e4 27       		.uleb128 0x27
+ 1243 00e5 19       		.uleb128 0x19
+ 1244 00e6 11       		.uleb128 0x11
+ 1245 00e7 01       		.uleb128 0x1
+ 1246 00e8 12       		.uleb128 0x12
+ 1247 00e9 06       		.uleb128 0x6
+ 1248 00ea 40       		.uleb128 0x40
+ 1249 00eb 18       		.uleb128 0x18
+ 1250 00ec 9742     		.uleb128 0x2117
+ 1251 00ee 19       		.uleb128 0x19
+ 1252 00ef 01       		.uleb128 0x1
+ 1253 00f0 13       		.uleb128 0x13
+ 1254 00f1 00       		.byte	0
+ 1255 00f2 00       		.byte	0
+ 1256 00f3 0E       		.uleb128 0xe
+ 1257 00f4 05       		.uleb128 0x5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 33
+
+
+ 1258 00f5 00       		.byte	0
+ 1259 00f6 03       		.uleb128 0x3
+ 1260 00f7 0E       		.uleb128 0xe
+ 1261 00f8 3A       		.uleb128 0x3a
+ 1262 00f9 0B       		.uleb128 0xb
+ 1263 00fa 3B       		.uleb128 0x3b
+ 1264 00fb 05       		.uleb128 0x5
+ 1265 00fc 49       		.uleb128 0x49
+ 1266 00fd 13       		.uleb128 0x13
+ 1267 00fe 02       		.uleb128 0x2
+ 1268 00ff 18       		.uleb128 0x18
+ 1269 0100 00       		.byte	0
+ 1270 0101 00       		.byte	0
+ 1271 0102 0F       		.uleb128 0xf
+ 1272 0103 2E       		.uleb128 0x2e
+ 1273 0104 00       		.byte	0
+ 1274 0105 3F       		.uleb128 0x3f
+ 1275 0106 19       		.uleb128 0x19
+ 1276 0107 03       		.uleb128 0x3
+ 1277 0108 0E       		.uleb128 0xe
+ 1278 0109 3A       		.uleb128 0x3a
+ 1279 010a 0B       		.uleb128 0xb
+ 1280 010b 3B       		.uleb128 0x3b
+ 1281 010c 05       		.uleb128 0x5
+ 1282 010d 27       		.uleb128 0x27
+ 1283 010e 19       		.uleb128 0x19
+ 1284 010f 11       		.uleb128 0x11
+ 1285 0110 01       		.uleb128 0x1
+ 1286 0111 12       		.uleb128 0x12
+ 1287 0112 06       		.uleb128 0x6
+ 1288 0113 40       		.uleb128 0x40
+ 1289 0114 18       		.uleb128 0x18
+ 1290 0115 9642     		.uleb128 0x2116
+ 1291 0117 19       		.uleb128 0x19
+ 1292 0118 00       		.byte	0
+ 1293 0119 00       		.byte	0
+ 1294 011a 10       		.uleb128 0x10
+ 1295 011b 34       		.uleb128 0x34
+ 1296 011c 00       		.byte	0
+ 1297 011d 03       		.uleb128 0x3
+ 1298 011e 0E       		.uleb128 0xe
+ 1299 011f 3A       		.uleb128 0x3a
+ 1300 0120 0B       		.uleb128 0xb
+ 1301 0121 3B       		.uleb128 0x3b
+ 1302 0122 0B       		.uleb128 0xb
+ 1303 0123 49       		.uleb128 0x49
+ 1304 0124 13       		.uleb128 0x13
+ 1305 0125 3F       		.uleb128 0x3f
+ 1306 0126 19       		.uleb128 0x19
+ 1307 0127 02       		.uleb128 0x2
+ 1308 0128 18       		.uleb128 0x18
+ 1309 0129 00       		.byte	0
+ 1310 012a 00       		.byte	0
+ 1311 012b 00       		.byte	0
+ 1312              		.section	.debug_aranges,"",%progbits
+ 1313 0000 94000000 		.4byte	0x94
+ 1314 0004 0200     		.2byte	0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 34
+
+
+ 1315 0006 00000000 		.4byte	.Ldebug_info0
+ 1316 000a 04       		.byte	0x4
+ 1317 000b 00       		.byte	0
+ 1318 000c 0000     		.2byte	0
+ 1319 000e 0000     		.2byte	0
+ 1320 0010 00000000 		.4byte	.LFB0
+ 1321 0014 84000000 		.4byte	.LFE0-.LFB0
+ 1322 0018 00000000 		.4byte	.LFB1
+ 1323 001c 20000000 		.4byte	.LFE1-.LFB1
+ 1324 0020 00000000 		.4byte	.LFB2
+ 1325 0024 20000000 		.4byte	.LFE2-.LFB2
+ 1326 0028 00000000 		.4byte	.LFB3
+ 1327 002c 20000000 		.4byte	.LFE3-.LFB3
+ 1328 0030 00000000 		.4byte	.LFB4
+ 1329 0034 20000000 		.4byte	.LFE4-.LFB4
+ 1330 0038 00000000 		.4byte	.LFB5
+ 1331 003c 18000000 		.4byte	.LFE5-.LFB5
+ 1332 0040 00000000 		.4byte	.LFB6
+ 1333 0044 18000000 		.4byte	.LFE6-.LFB6
+ 1334 0048 00000000 		.4byte	.LFB7
+ 1335 004c 20000000 		.4byte	.LFE7-.LFB7
+ 1336 0050 00000000 		.4byte	.LFB8
+ 1337 0054 20000000 		.4byte	.LFE8-.LFB8
+ 1338 0058 00000000 		.4byte	.LFB9
+ 1339 005c 20000000 		.4byte	.LFE9-.LFB9
+ 1340 0060 00000000 		.4byte	.LFB10
+ 1341 0064 18000000 		.4byte	.LFE10-.LFB10
+ 1342 0068 00000000 		.4byte	.LFB11
+ 1343 006c 20000000 		.4byte	.LFE11-.LFB11
+ 1344 0070 00000000 		.4byte	.LFB12
+ 1345 0074 18000000 		.4byte	.LFE12-.LFB12
+ 1346 0078 00000000 		.4byte	.LFB13
+ 1347 007c 20000000 		.4byte	.LFE13-.LFB13
+ 1348 0080 00000000 		.4byte	.LFB14
+ 1349 0084 18000000 		.4byte	.LFE14-.LFB14
+ 1350 0088 00000000 		.4byte	.LFB15
+ 1351 008c 1A000000 		.4byte	.LFE15-.LFB15
+ 1352 0090 00000000 		.4byte	0
+ 1353 0094 00000000 		.4byte	0
+ 1354              		.section	.debug_ranges,"",%progbits
+ 1355              	.Ldebug_ranges0:
+ 1356 0000 00000000 		.4byte	.LFB0
+ 1357 0004 84000000 		.4byte	.LFE0
+ 1358 0008 00000000 		.4byte	.LFB1
+ 1359 000c 20000000 		.4byte	.LFE1
+ 1360 0010 00000000 		.4byte	.LFB2
+ 1361 0014 20000000 		.4byte	.LFE2
+ 1362 0018 00000000 		.4byte	.LFB3
+ 1363 001c 20000000 		.4byte	.LFE3
+ 1364 0020 00000000 		.4byte	.LFB4
+ 1365 0024 20000000 		.4byte	.LFE4
+ 1366 0028 00000000 		.4byte	.LFB5
+ 1367 002c 18000000 		.4byte	.LFE5
+ 1368 0030 00000000 		.4byte	.LFB6
+ 1369 0034 18000000 		.4byte	.LFE6
+ 1370 0038 00000000 		.4byte	.LFB7
+ 1371 003c 20000000 		.4byte	.LFE7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 35
+
+
+ 1372 0040 00000000 		.4byte	.LFB8
+ 1373 0044 20000000 		.4byte	.LFE8
+ 1374 0048 00000000 		.4byte	.LFB9
+ 1375 004c 20000000 		.4byte	.LFE9
+ 1376 0050 00000000 		.4byte	.LFB10
+ 1377 0054 18000000 		.4byte	.LFE10
+ 1378 0058 00000000 		.4byte	.LFB11
+ 1379 005c 20000000 		.4byte	.LFE11
+ 1380 0060 00000000 		.4byte	.LFB12
+ 1381 0064 18000000 		.4byte	.LFE12
+ 1382 0068 00000000 		.4byte	.LFB13
+ 1383 006c 20000000 		.4byte	.LFE13
+ 1384 0070 00000000 		.4byte	.LFB14
+ 1385 0074 18000000 		.4byte	.LFE14
+ 1386 0078 00000000 		.4byte	.LFB15
+ 1387 007c 1A000000 		.4byte	.LFE15
+ 1388 0080 00000000 		.4byte	0
+ 1389 0084 00000000 		.4byte	0
+ 1390              		.section	.debug_line,"",%progbits
+ 1391              	.Ldebug_line0:
+ 1392 0000 89010000 		.section	.debug_str,"MS",%progbits,1
+ 1392      02004A00 
+ 1392      00000201 
+ 1392      FB0E0D00 
+ 1392      01010101 
+ 1393              	.LASF17:
+ 1394 0000 636F756E 		.ascii	"counterPolarS_Enable\000"
+ 1394      74657250 
+ 1394      6F6C6172 
+ 1394      535F456E 
+ 1394      61626C65 
+ 1395              	.LASF27:
+ 1396 0015 636F756E 		.ascii	"counterPolarS_WriteCounter\000"
+ 1396      74657250 
+ 1396      6F6C6172 
+ 1396      535F5772 
+ 1396      69746543 
+ 1397              	.LASF40:
+ 1398 0030 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\PSoC Creator\\Puls"
+ 1398      73657273 
+ 1398      5C627279 
+ 1398      616E2E6C 
+ 1398      65655C44 
+ 1399 005e 655F7073 		.ascii	"e_psoc5\\Combine\\Combine.cydsn\000"
+ 1399      6F63355C 
+ 1399      436F6D62 
+ 1399      696E655C 
+ 1399      436F6D62 
+ 1400              	.LASF22:
+ 1401 007c 636F756E 		.ascii	"counterPolarS_ReadStatusRegister\000"
+ 1401      74657250 
+ 1401      6F6C6172 
+ 1401      535F5265 
+ 1401      61645374 
+ 1402              	.LASF32:
+ 1403 009d 70657269 		.ascii	"period\000"
+ 1403      6F6400
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 36
+
+
+ 1404              	.LASF3:
+ 1405 00a4 73686F72 		.ascii	"short unsigned int\000"
+ 1405      7420756E 
+ 1405      7369676E 
+ 1405      65642069 
+ 1405      6E7400
+ 1406              	.LASF31:
+ 1407 00b7 636F756E 		.ascii	"counterPolarS_WritePeriod\000"
+ 1407      74657250 
+ 1407      6F6C6172 
+ 1407      535F5772 
+ 1407      69746550 
+ 1408              	.LASF9:
+ 1409 00d1 666C6F61 		.ascii	"float\000"
+ 1409      7400
+ 1410              	.LASF28:
+ 1411 00d7 636F756E 		.ascii	"counter\000"
+ 1411      74657200 
+ 1412              	.LASF1:
+ 1413 00df 756E7369 		.ascii	"unsigned char\000"
+ 1413      676E6564 
+ 1413      20636861 
+ 1413      7200
+ 1414              	.LASF13:
+ 1415 00ed 72656738 		.ascii	"reg8\000"
+ 1415      00
+ 1416              	.LASF39:
+ 1417 00f2 47656E65 		.ascii	"Generated_Source\\PSoC5\\counterPolarS.c\000"
+ 1417      72617465 
+ 1417      645F536F 
+ 1417      75726365 
+ 1417      5C50536F 
+ 1418              	.LASF5:
+ 1419 0119 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1419      20756E73 
+ 1419      69676E65 
+ 1419      6420696E 
+ 1419      7400
+ 1420              	.LASF12:
+ 1421 012b 75696E74 		.ascii	"uint8\000"
+ 1421      3800
+ 1422              	.LASF26:
+ 1423 0131 636F6E74 		.ascii	"control\000"
+ 1423      726F6C00 
+ 1424              	.LASF25:
+ 1425 0139 696E7465 		.ascii	"interruptsMask\000"
+ 1425      72727570 
+ 1425      74734D61 
+ 1425      736B00
+ 1426              	.LASF16:
+ 1427 0148 636F756E 		.ascii	"counterPolarS_interruptState\000"
+ 1427      74657250 
+ 1427      6F6C6172 
+ 1427      535F696E 
+ 1427      74657272 
+ 1428              	.LASF38:
+ 1429 0165 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 37
+
+
+ 1429      4320342E 
+ 1429      392E3320 
+ 1429      32303135 
+ 1429      30333033 
+ 1430 0198 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m3 -mthumb -g -O"
+ 1430      20726576 
+ 1430      6973696F 
+ 1430      6E203232 
+ 1430      31323230 
+ 1431 01cb 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1431      66756E63 
+ 1431      74696F6E 
+ 1431      2D736563 
+ 1431      74696F6E 
+ 1432              	.LASF10:
+ 1433 01f3 646F7562 		.ascii	"double\000"
+ 1433      6C6500
+ 1434              	.LASF21:
+ 1435 01fa 636F756E 		.ascii	"counterPolarS_SetInterruptMode\000"
+ 1435      74657250 
+ 1435      6F6C6172 
+ 1435      535F5365 
+ 1435      74496E74 
+ 1436              	.LASF37:
+ 1437 0219 636F756E 		.ascii	"counterPolarS_ClearFIFO\000"
+ 1437      74657250 
+ 1437      6F6C6172 
+ 1437      535F436C 
+ 1437      65617246 
+ 1438              	.LASF20:
+ 1439 0231 636F756E 		.ascii	"counterPolarS_Init\000"
+ 1439      74657250 
+ 1439      6F6C6172 
+ 1439      535F496E 
+ 1439      697400
+ 1440              	.LASF8:
+ 1441 0244 756E7369 		.ascii	"unsigned int\000"
+ 1441      676E6564 
+ 1441      20696E74 
+ 1441      00
+ 1442              	.LASF36:
+ 1443 0251 636F756E 		.ascii	"counterPolarS_ReadCompare\000"
+ 1443      74657250 
+ 1443      6F6C6172 
+ 1443      535F5265 
+ 1443      6164436F 
+ 1444              	.LASF7:
+ 1445 026b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1445      206C6F6E 
+ 1445      6720756E 
+ 1445      7369676E 
+ 1445      65642069 
+ 1446              	.LASF18:
+ 1447 0282 636F756E 		.ascii	"counterPolarS_Start\000"
+ 1447      74657250 
+ 1447      6F6C6172 
+ 1447      535F5374 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 38
+
+
+ 1447      61727400 
+ 1448              	.LASF33:
+ 1449 0296 636F756E 		.ascii	"counterPolarS_ReadPeriod\000"
+ 1449      74657250 
+ 1449      6F6C6172 
+ 1449      535F5265 
+ 1449      61645065 
+ 1450              	.LASF15:
+ 1451 02af 6374726C 		.ascii	"ctrl\000"
+ 1451      00
+ 1452              	.LASF34:
+ 1453 02b4 636F756E 		.ascii	"counterPolarS_WriteCompare\000"
+ 1453      74657250 
+ 1453      6F6C6172 
+ 1453      535F5772 
+ 1453      69746543 
+ 1454              	.LASF14:
+ 1455 02cf 73697A65 		.ascii	"sizetype\000"
+ 1455      74797065 
+ 1455      00
+ 1456              	.LASF6:
+ 1457 02d8 6C6F6E67 		.ascii	"long long int\000"
+ 1457      206C6F6E 
+ 1457      6720696E 
+ 1457      7400
+ 1458              	.LASF11:
+ 1459 02e6 63686172 		.ascii	"char\000"
+ 1459      00
+ 1460              	.LASF30:
+ 1461 02eb 636F756E 		.ascii	"counterPolarS_ReadCapture\000"
+ 1461      74657250 
+ 1461      6F6C6172 
+ 1461      535F5265 
+ 1461      61644361 
+ 1462              	.LASF24:
+ 1463 0305 636F756E 		.ascii	"counterPolarS_WriteControlRegister\000"
+ 1463      74657250 
+ 1463      6F6C6172 
+ 1463      535F5772 
+ 1463      69746543 
+ 1464              	.LASF2:
+ 1465 0328 73686F72 		.ascii	"short int\000"
+ 1465      7420696E 
+ 1465      7400
+ 1466              	.LASF23:
+ 1467 0332 636F756E 		.ascii	"counterPolarS_ReadControlRegister\000"
+ 1467      74657250 
+ 1467      6F6C6172 
+ 1467      535F5265 
+ 1467      6164436F 
+ 1468              	.LASF4:
+ 1469 0354 6C6F6E67 		.ascii	"long int\000"
+ 1469      20696E74 
+ 1469      00
+ 1470              	.LASF19:
+ 1471 035d 636F756E 		.ascii	"counterPolarS_Stop\000"
+ 1471      74657250 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccXOdkTk.s 			page 39
+
+
+ 1471      6F6C6172 
+ 1471      535F5374 
+ 1471      6F7000
+ 1472              	.LASF41:
+ 1473 0370 636F756E 		.ascii	"counterPolarS_initVar\000"
+ 1473      74657250 
+ 1473      6F6C6172 
+ 1473      535F696E 
+ 1473      69745661 
+ 1474              	.LASF0:
+ 1475 0386 7369676E 		.ascii	"signed char\000"
+ 1475      65642063 
+ 1475      68617200 
+ 1476              	.LASF35:
+ 1477 0392 636F6D70 		.ascii	"compare\000"
+ 1477      61726500 
+ 1478              	.LASF29:
+ 1479 039a 636F756E 		.ascii	"counterPolarS_ReadCounter\000"
+ 1479      74657250 
+ 1479      6F6C6172 
+ 1479      535F5265 
+ 1479      6164436F 
+ 1480              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br

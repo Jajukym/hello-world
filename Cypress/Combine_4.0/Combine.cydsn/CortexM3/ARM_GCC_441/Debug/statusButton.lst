@@ -1,0 +1,982 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"statusButton.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 C7000000 		.text
+  20      02006500 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.section	.text.statusButton_Read,"ax",%progbits
+  24              		.align	2
+  25              		.global	statusButton_Read
+  26              		.thumb
+  27              		.thumb_func
+  28              		.type	statusButton_Read, %function
+  29              	statusButton_Read:
+  30              	.LFB0:
+  31              		.file 1 ".\\Generated_Source\\PSoC5\\statusButton.c"
+   1:.\Generated_Source\PSoC5/statusButton.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC5/statusButton.c **** * File Name: statusButton.c  
+   3:.\Generated_Source\PSoC5/statusButton.c **** * Version 1.80
+   4:.\Generated_Source\PSoC5/statusButton.c **** *
+   5:.\Generated_Source\PSoC5/statusButton.c **** * Description:
+   6:.\Generated_Source\PSoC5/statusButton.c **** *  This file contains API to enable firmware to read the value of a Status 
+   7:.\Generated_Source\PSoC5/statusButton.c **** *  Register.
+   8:.\Generated_Source\PSoC5/statusButton.c **** *
+   9:.\Generated_Source\PSoC5/statusButton.c **** * Note:
+  10:.\Generated_Source\PSoC5/statusButton.c **** *
+  11:.\Generated_Source\PSoC5/statusButton.c **** ********************************************************************************
+  12:.\Generated_Source\PSoC5/statusButton.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:.\Generated_Source\PSoC5/statusButton.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:.\Generated_Source\PSoC5/statusButton.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:.\Generated_Source\PSoC5/statusButton.c **** * the software package with which this file was provided.
+  16:.\Generated_Source\PSoC5/statusButton.c **** *******************************************************************************/
+  17:.\Generated_Source\PSoC5/statusButton.c **** 
+  18:.\Generated_Source\PSoC5/statusButton.c **** #include "statusButton.h"
+  19:.\Generated_Source\PSoC5/statusButton.c **** 
+  20:.\Generated_Source\PSoC5/statusButton.c **** #if !defined(statusButton_sts_sts_reg__REMOVED) /* Check for removal by optimization */
+  21:.\Generated_Source\PSoC5/statusButton.c **** 
+  22:.\Generated_Source\PSoC5/statusButton.c **** 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 2
+
+
+  23:.\Generated_Source\PSoC5/statusButton.c **** /*******************************************************************************
+  24:.\Generated_Source\PSoC5/statusButton.c **** * Function Name: statusButton_Read
+  25:.\Generated_Source\PSoC5/statusButton.c **** ********************************************************************************
+  26:.\Generated_Source\PSoC5/statusButton.c **** *
+  27:.\Generated_Source\PSoC5/statusButton.c **** * Summary:
+  28:.\Generated_Source\PSoC5/statusButton.c **** *  Reads the current value assigned to the Status Register.
+  29:.\Generated_Source\PSoC5/statusButton.c **** *
+  30:.\Generated_Source\PSoC5/statusButton.c **** * Parameters:
+  31:.\Generated_Source\PSoC5/statusButton.c **** *  None.
+  32:.\Generated_Source\PSoC5/statusButton.c **** *
+  33:.\Generated_Source\PSoC5/statusButton.c **** * Return:
+  34:.\Generated_Source\PSoC5/statusButton.c **** *  The current value in the Status Register.
+  35:.\Generated_Source\PSoC5/statusButton.c **** *
+  36:.\Generated_Source\PSoC5/statusButton.c **** *******************************************************************************/
+  37:.\Generated_Source\PSoC5/statusButton.c **** uint8 statusButton_Read(void) 
+  38:.\Generated_Source\PSoC5/statusButton.c **** { 
+  32              		.loc 1 38 0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+  36              		@ link register save eliminated.
+  37 0000 80B4     		push	{r7}
+  38              	.LCFI0:
+  39              		.cfi_def_cfa_offset 4
+  40 0002 00AF     		add	r7, sp, #0
+  41              		.cfi_offset 7, -4
+  42              	.LCFI1:
+  43              		.cfi_def_cfa_register 7
+  39:.\Generated_Source\PSoC5/statusButton.c ****     return statusButton_Status;
+  44              		.loc 1 39 0
+  45 0004 46F26753 		movw	r3, #:lower16:1073767783
+  46 0008 C4F20003 		movt	r3, #:upper16:1073767783
+  47 000c 1B78     		ldrb	r3, [r3, #0]
+  48 000e DBB2     		uxtb	r3, r3
+  40:.\Generated_Source\PSoC5/statusButton.c **** }
+  49              		.loc 1 40 0
+  50 0010 1846     		mov	r0, r3
+  51 0012 BD46     		mov	sp, r7
+  52 0014 80BC     		pop	{r7}
+  53 0016 7047     		bx	lr
+  54              		.cfi_endproc
+  55              	.LFE0:
+  56              		.size	statusButton_Read, .-statusButton_Read
+  57              		.section	.text.statusButton_InterruptEnable,"ax",%progbits
+  58              		.align	2
+  59              		.global	statusButton_InterruptEnable
+  60              		.thumb
+  61              		.thumb_func
+  62              		.type	statusButton_InterruptEnable, %function
+  63              	statusButton_InterruptEnable:
+  64              	.LFB1:
+  41:.\Generated_Source\PSoC5/statusButton.c **** 
+  42:.\Generated_Source\PSoC5/statusButton.c **** 
+  43:.\Generated_Source\PSoC5/statusButton.c **** /*******************************************************************************
+  44:.\Generated_Source\PSoC5/statusButton.c **** * Function Name: statusButton_InterruptEnable
+  45:.\Generated_Source\PSoC5/statusButton.c **** ********************************************************************************
+  46:.\Generated_Source\PSoC5/statusButton.c **** *
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 3
+
+
+  47:.\Generated_Source\PSoC5/statusButton.c **** * Summary:
+  48:.\Generated_Source\PSoC5/statusButton.c **** *  Enables the Status Register interrupt.
+  49:.\Generated_Source\PSoC5/statusButton.c **** *
+  50:.\Generated_Source\PSoC5/statusButton.c **** * Parameters:
+  51:.\Generated_Source\PSoC5/statusButton.c **** *  None.
+  52:.\Generated_Source\PSoC5/statusButton.c **** *
+  53:.\Generated_Source\PSoC5/statusButton.c **** * Return:
+  54:.\Generated_Source\PSoC5/statusButton.c **** *  None.
+  55:.\Generated_Source\PSoC5/statusButton.c **** *
+  56:.\Generated_Source\PSoC5/statusButton.c **** *******************************************************************************/
+  57:.\Generated_Source\PSoC5/statusButton.c **** void statusButton_InterruptEnable(void) 
+  58:.\Generated_Source\PSoC5/statusButton.c **** {
+  65              		.loc 1 58 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 8
+  68              		@ frame_needed = 1, uses_anonymous_args = 0
+  69 0000 80B5     		push	{r7, lr}
+  70              	.LCFI2:
+  71              		.cfi_def_cfa_offset 8
+  72 0002 82B0     		sub	sp, sp, #8
+  73              	.LCFI3:
+  74              		.cfi_def_cfa_offset 16
+  75 0004 00AF     		add	r7, sp, #0
+  76              		.cfi_offset 14, -4
+  77              		.cfi_offset 7, -8
+  78              	.LCFI4:
+  79              		.cfi_def_cfa_register 7
+  59:.\Generated_Source\PSoC5/statusButton.c ****     uint8 interruptState;
+  60:.\Generated_Source\PSoC5/statusButton.c ****     interruptState = CyEnterCriticalSection();
+  80              		.loc 1 60 0
+  81 0006 FFF7FEFF 		bl	CyEnterCriticalSection
+  82 000a 0346     		mov	r3, r0
+  83 000c FB71     		strb	r3, [r7, #7]
+  61:.\Generated_Source\PSoC5/statusButton.c ****     statusButton_Status_Aux_Ctrl |= statusButton_STATUS_INTR_ENBL;
+  84              		.loc 1 61 0
+  85 000e 46F29753 		movw	r3, #:lower16:1073767831
+  86 0012 C4F20003 		movt	r3, #:upper16:1073767831
+  87 0016 46F29752 		movw	r2, #:lower16:1073767831
+  88 001a C4F20002 		movt	r2, #:upper16:1073767831
+  89 001e 1278     		ldrb	r2, [r2, #0]
+  90 0020 D2B2     		uxtb	r2, r2
+  91 0022 42F01002 		orr	r2, r2, #16
+  92 0026 D2B2     		uxtb	r2, r2
+  93 0028 1A70     		strb	r2, [r3, #0]
+  62:.\Generated_Source\PSoC5/statusButton.c ****     CyExitCriticalSection(interruptState);
+  94              		.loc 1 62 0
+  95 002a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  96 002c 1846     		mov	r0, r3
+  97 002e FFF7FEFF 		bl	CyExitCriticalSection
+  63:.\Generated_Source\PSoC5/statusButton.c **** }
+  98              		.loc 1 63 0
+  99 0032 07F10807 		add	r7, r7, #8
+ 100 0036 BD46     		mov	sp, r7
+ 101 0038 80BD     		pop	{r7, pc}
+ 102              		.cfi_endproc
+ 103              	.LFE1:
+ 104              		.size	statusButton_InterruptEnable, .-statusButton_InterruptEnable
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 4
+
+
+ 105 003a 00BF     		.section	.text.statusButton_InterruptDisable,"ax",%progbits
+ 106              		.align	2
+ 107              		.global	statusButton_InterruptDisable
+ 108              		.thumb
+ 109              		.thumb_func
+ 110              		.type	statusButton_InterruptDisable, %function
+ 111              	statusButton_InterruptDisable:
+ 112              	.LFB2:
+  64:.\Generated_Source\PSoC5/statusButton.c **** 
+  65:.\Generated_Source\PSoC5/statusButton.c **** 
+  66:.\Generated_Source\PSoC5/statusButton.c **** /*******************************************************************************
+  67:.\Generated_Source\PSoC5/statusButton.c **** * Function Name: statusButton_InterruptDisable
+  68:.\Generated_Source\PSoC5/statusButton.c **** ********************************************************************************
+  69:.\Generated_Source\PSoC5/statusButton.c **** *
+  70:.\Generated_Source\PSoC5/statusButton.c **** * Summary:
+  71:.\Generated_Source\PSoC5/statusButton.c **** *  Disables the Status Register interrupt.
+  72:.\Generated_Source\PSoC5/statusButton.c **** *
+  73:.\Generated_Source\PSoC5/statusButton.c **** * Parameters:
+  74:.\Generated_Source\PSoC5/statusButton.c **** *  None.
+  75:.\Generated_Source\PSoC5/statusButton.c **** *
+  76:.\Generated_Source\PSoC5/statusButton.c **** * Return:
+  77:.\Generated_Source\PSoC5/statusButton.c **** *  None.
+  78:.\Generated_Source\PSoC5/statusButton.c **** *
+  79:.\Generated_Source\PSoC5/statusButton.c **** *******************************************************************************/
+  80:.\Generated_Source\PSoC5/statusButton.c **** void statusButton_InterruptDisable(void) 
+  81:.\Generated_Source\PSoC5/statusButton.c **** {
+ 113              		.loc 1 81 0
+ 114              		.cfi_startproc
+ 115              		@ args = 0, pretend = 0, frame = 8
+ 116              		@ frame_needed = 1, uses_anonymous_args = 0
+ 117 0000 80B5     		push	{r7, lr}
+ 118              	.LCFI5:
+ 119              		.cfi_def_cfa_offset 8
+ 120 0002 82B0     		sub	sp, sp, #8
+ 121              	.LCFI6:
+ 122              		.cfi_def_cfa_offset 16
+ 123 0004 00AF     		add	r7, sp, #0
+ 124              		.cfi_offset 14, -4
+ 125              		.cfi_offset 7, -8
+ 126              	.LCFI7:
+ 127              		.cfi_def_cfa_register 7
+  82:.\Generated_Source\PSoC5/statusButton.c ****     uint8 interruptState;
+  83:.\Generated_Source\PSoC5/statusButton.c ****     interruptState = CyEnterCriticalSection();
+ 128              		.loc 1 83 0
+ 129 0006 FFF7FEFF 		bl	CyEnterCriticalSection
+ 130 000a 0346     		mov	r3, r0
+ 131 000c FB71     		strb	r3, [r7, #7]
+  84:.\Generated_Source\PSoC5/statusButton.c ****     statusButton_Status_Aux_Ctrl &= (uint8)(~statusButton_STATUS_INTR_ENBL);
+ 132              		.loc 1 84 0
+ 133 000e 46F29753 		movw	r3, #:lower16:1073767831
+ 134 0012 C4F20003 		movt	r3, #:upper16:1073767831
+ 135 0016 46F29752 		movw	r2, #:lower16:1073767831
+ 136 001a C4F20002 		movt	r2, #:upper16:1073767831
+ 137 001e 1278     		ldrb	r2, [r2, #0]
+ 138 0020 D2B2     		uxtb	r2, r2
+ 139 0022 02F0EF02 		and	r2, r2, #239
+ 140 0026 1A70     		strb	r2, [r3, #0]
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 5
+
+
+  85:.\Generated_Source\PSoC5/statusButton.c ****     CyExitCriticalSection(interruptState);
+ 141              		.loc 1 85 0
+ 142 0028 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 143 002a 1846     		mov	r0, r3
+ 144 002c FFF7FEFF 		bl	CyExitCriticalSection
+  86:.\Generated_Source\PSoC5/statusButton.c **** }
+ 145              		.loc 1 86 0
+ 146 0030 07F10807 		add	r7, r7, #8
+ 147 0034 BD46     		mov	sp, r7
+ 148 0036 80BD     		pop	{r7, pc}
+ 149              		.cfi_endproc
+ 150              	.LFE2:
+ 151              		.size	statusButton_InterruptDisable, .-statusButton_InterruptDisable
+ 152              		.section	.text.statusButton_WriteMask,"ax",%progbits
+ 153              		.align	2
+ 154              		.global	statusButton_WriteMask
+ 155              		.thumb
+ 156              		.thumb_func
+ 157              		.type	statusButton_WriteMask, %function
+ 158              	statusButton_WriteMask:
+ 159              	.LFB3:
+  87:.\Generated_Source\PSoC5/statusButton.c **** 
+  88:.\Generated_Source\PSoC5/statusButton.c **** 
+  89:.\Generated_Source\PSoC5/statusButton.c **** /*******************************************************************************
+  90:.\Generated_Source\PSoC5/statusButton.c **** * Function Name: statusButton_WriteMask
+  91:.\Generated_Source\PSoC5/statusButton.c **** ********************************************************************************
+  92:.\Generated_Source\PSoC5/statusButton.c **** *
+  93:.\Generated_Source\PSoC5/statusButton.c **** * Summary:
+  94:.\Generated_Source\PSoC5/statusButton.c **** *  Writes the current mask value assigned to the Status Register.
+  95:.\Generated_Source\PSoC5/statusButton.c **** *
+  96:.\Generated_Source\PSoC5/statusButton.c **** * Parameters:
+  97:.\Generated_Source\PSoC5/statusButton.c **** *  mask:  Value to write into the mask register.
+  98:.\Generated_Source\PSoC5/statusButton.c **** *
+  99:.\Generated_Source\PSoC5/statusButton.c **** * Return:
+ 100:.\Generated_Source\PSoC5/statusButton.c **** *  None.
+ 101:.\Generated_Source\PSoC5/statusButton.c **** *
+ 102:.\Generated_Source\PSoC5/statusButton.c **** *******************************************************************************/
+ 103:.\Generated_Source\PSoC5/statusButton.c **** void statusButton_WriteMask(uint8 mask) 
+ 104:.\Generated_Source\PSoC5/statusButton.c **** {
+ 160              		.loc 1 104 0
+ 161              		.cfi_startproc
+ 162              		@ args = 0, pretend = 0, frame = 8
+ 163              		@ frame_needed = 1, uses_anonymous_args = 0
+ 164              		@ link register save eliminated.
+ 165 0000 80B4     		push	{r7}
+ 166              	.LCFI8:
+ 167              		.cfi_def_cfa_offset 4
+ 168 0002 83B0     		sub	sp, sp, #12
+ 169              	.LCFI9:
+ 170              		.cfi_def_cfa_offset 16
+ 171 0004 00AF     		add	r7, sp, #0
+ 172              		.cfi_offset 7, -4
+ 173              	.LCFI10:
+ 174              		.cfi_def_cfa_register 7
+ 175 0006 0346     		mov	r3, r0
+ 176 0008 FB71     		strb	r3, [r7, #7]
+ 105:.\Generated_Source\PSoC5/statusButton.c ****     #if(statusButton_INPUTS < 8u)
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 6
+
+
+ 106:.\Generated_Source\PSoC5/statusButton.c ****     	mask &= (uint8)((((uint8)1u) << statusButton_INPUTS) - 1u);
+ 107:.\Generated_Source\PSoC5/statusButton.c **** 	#endif /* End statusButton_INPUTS < 8u */
+ 108:.\Generated_Source\PSoC5/statusButton.c ****     statusButton_Status_Mask = mask;
+ 177              		.loc 1 108 0
+ 178 000a 46F28753 		movw	r3, #:lower16:1073767815
+ 179 000e C4F20003 		movt	r3, #:upper16:1073767815
+ 180 0012 FA79     		ldrb	r2, [r7, #7]
+ 181 0014 1A70     		strb	r2, [r3, #0]
+ 109:.\Generated_Source\PSoC5/statusButton.c **** }
+ 182              		.loc 1 109 0
+ 183 0016 07F10C07 		add	r7, r7, #12
+ 184 001a BD46     		mov	sp, r7
+ 185 001c 80BC     		pop	{r7}
+ 186 001e 7047     		bx	lr
+ 187              		.cfi_endproc
+ 188              	.LFE3:
+ 189              		.size	statusButton_WriteMask, .-statusButton_WriteMask
+ 190              		.section	.text.statusButton_ReadMask,"ax",%progbits
+ 191              		.align	2
+ 192              		.global	statusButton_ReadMask
+ 193              		.thumb
+ 194              		.thumb_func
+ 195              		.type	statusButton_ReadMask, %function
+ 196              	statusButton_ReadMask:
+ 197              	.LFB4:
+ 110:.\Generated_Source\PSoC5/statusButton.c **** 
+ 111:.\Generated_Source\PSoC5/statusButton.c **** 
+ 112:.\Generated_Source\PSoC5/statusButton.c **** /*******************************************************************************
+ 113:.\Generated_Source\PSoC5/statusButton.c **** * Function Name: statusButton_ReadMask
+ 114:.\Generated_Source\PSoC5/statusButton.c **** ********************************************************************************
+ 115:.\Generated_Source\PSoC5/statusButton.c **** *
+ 116:.\Generated_Source\PSoC5/statusButton.c **** * Summary:
+ 117:.\Generated_Source\PSoC5/statusButton.c **** *  Reads the current interrupt mask assigned to the Status Register.
+ 118:.\Generated_Source\PSoC5/statusButton.c **** *
+ 119:.\Generated_Source\PSoC5/statusButton.c **** * Parameters:
+ 120:.\Generated_Source\PSoC5/statusButton.c **** *  None.
+ 121:.\Generated_Source\PSoC5/statusButton.c **** *
+ 122:.\Generated_Source\PSoC5/statusButton.c **** * Return:
+ 123:.\Generated_Source\PSoC5/statusButton.c **** *  The value of the interrupt mask of the Status Register.
+ 124:.\Generated_Source\PSoC5/statusButton.c **** *
+ 125:.\Generated_Source\PSoC5/statusButton.c **** *******************************************************************************/
+ 126:.\Generated_Source\PSoC5/statusButton.c **** uint8 statusButton_ReadMask(void) 
+ 127:.\Generated_Source\PSoC5/statusButton.c **** {
+ 198              		.loc 1 127 0
+ 199              		.cfi_startproc
+ 200              		@ args = 0, pretend = 0, frame = 0
+ 201              		@ frame_needed = 1, uses_anonymous_args = 0
+ 202              		@ link register save eliminated.
+ 203 0000 80B4     		push	{r7}
+ 204              	.LCFI11:
+ 205              		.cfi_def_cfa_offset 4
+ 206 0002 00AF     		add	r7, sp, #0
+ 207              		.cfi_offset 7, -4
+ 208              	.LCFI12:
+ 209              		.cfi_def_cfa_register 7
+ 128:.\Generated_Source\PSoC5/statusButton.c ****     return statusButton_Status_Mask;
+ 210              		.loc 1 128 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 7
+
+
+ 211 0004 46F28753 		movw	r3, #:lower16:1073767815
+ 212 0008 C4F20003 		movt	r3, #:upper16:1073767815
+ 213 000c 1B78     		ldrb	r3, [r3, #0]
+ 214 000e DBB2     		uxtb	r3, r3
+ 129:.\Generated_Source\PSoC5/statusButton.c **** }
+ 215              		.loc 1 129 0
+ 216 0010 1846     		mov	r0, r3
+ 217 0012 BD46     		mov	sp, r7
+ 218 0014 80BC     		pop	{r7}
+ 219 0016 7047     		bx	lr
+ 220              		.cfi_endproc
+ 221              	.LFE4:
+ 222              		.size	statusButton_ReadMask, .-statusButton_ReadMask
+ 223              		.text
+ 224              	.Letext0:
+ 225              		.section	.debug_loc,"",%progbits
+ 226              	.Ldebug_loc0:
+ 227              	.LLST0:
+ 228 0000 00000000 		.4byte	.LFB0
+ 229 0004 02000000 		.4byte	.LCFI0
+ 230 0008 0100     		.2byte	0x1
+ 231 000a 5D       		.byte	0x5d
+ 232 000b 02000000 		.4byte	.LCFI0
+ 233 000f 04000000 		.4byte	.LCFI1
+ 234 0013 0200     		.2byte	0x2
+ 235 0015 7D       		.byte	0x7d
+ 236 0016 04       		.sleb128 4
+ 237 0017 04000000 		.4byte	.LCFI1
+ 238 001b 18000000 		.4byte	.LFE0
+ 239 001f 0200     		.2byte	0x2
+ 240 0021 77       		.byte	0x77
+ 241 0022 04       		.sleb128 4
+ 242 0023 00000000 		.4byte	0x0
+ 243 0027 00000000 		.4byte	0x0
+ 244              	.LLST1:
+ 245 002b 00000000 		.4byte	.LFB1
+ 246 002f 02000000 		.4byte	.LCFI2
+ 247 0033 0100     		.2byte	0x1
+ 248 0035 5D       		.byte	0x5d
+ 249 0036 02000000 		.4byte	.LCFI2
+ 250 003a 04000000 		.4byte	.LCFI3
+ 251 003e 0200     		.2byte	0x2
+ 252 0040 7D       		.byte	0x7d
+ 253 0041 08       		.sleb128 8
+ 254 0042 04000000 		.4byte	.LCFI3
+ 255 0046 06000000 		.4byte	.LCFI4
+ 256 004a 0200     		.2byte	0x2
+ 257 004c 7D       		.byte	0x7d
+ 258 004d 10       		.sleb128 16
+ 259 004e 06000000 		.4byte	.LCFI4
+ 260 0052 3A000000 		.4byte	.LFE1
+ 261 0056 0200     		.2byte	0x2
+ 262 0058 77       		.byte	0x77
+ 263 0059 10       		.sleb128 16
+ 264 005a 00000000 		.4byte	0x0
+ 265 005e 00000000 		.4byte	0x0
+ 266              	.LLST2:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 8
+
+
+ 267 0062 00000000 		.4byte	.LFB2
+ 268 0066 02000000 		.4byte	.LCFI5
+ 269 006a 0100     		.2byte	0x1
+ 270 006c 5D       		.byte	0x5d
+ 271 006d 02000000 		.4byte	.LCFI5
+ 272 0071 04000000 		.4byte	.LCFI6
+ 273 0075 0200     		.2byte	0x2
+ 274 0077 7D       		.byte	0x7d
+ 275 0078 08       		.sleb128 8
+ 276 0079 04000000 		.4byte	.LCFI6
+ 277 007d 06000000 		.4byte	.LCFI7
+ 278 0081 0200     		.2byte	0x2
+ 279 0083 7D       		.byte	0x7d
+ 280 0084 10       		.sleb128 16
+ 281 0085 06000000 		.4byte	.LCFI7
+ 282 0089 38000000 		.4byte	.LFE2
+ 283 008d 0200     		.2byte	0x2
+ 284 008f 77       		.byte	0x77
+ 285 0090 10       		.sleb128 16
+ 286 0091 00000000 		.4byte	0x0
+ 287 0095 00000000 		.4byte	0x0
+ 288              	.LLST3:
+ 289 0099 00000000 		.4byte	.LFB3
+ 290 009d 02000000 		.4byte	.LCFI8
+ 291 00a1 0100     		.2byte	0x1
+ 292 00a3 5D       		.byte	0x5d
+ 293 00a4 02000000 		.4byte	.LCFI8
+ 294 00a8 04000000 		.4byte	.LCFI9
+ 295 00ac 0200     		.2byte	0x2
+ 296 00ae 7D       		.byte	0x7d
+ 297 00af 04       		.sleb128 4
+ 298 00b0 04000000 		.4byte	.LCFI9
+ 299 00b4 06000000 		.4byte	.LCFI10
+ 300 00b8 0200     		.2byte	0x2
+ 301 00ba 7D       		.byte	0x7d
+ 302 00bb 10       		.sleb128 16
+ 303 00bc 06000000 		.4byte	.LCFI10
+ 304 00c0 20000000 		.4byte	.LFE3
+ 305 00c4 0200     		.2byte	0x2
+ 306 00c6 77       		.byte	0x77
+ 307 00c7 10       		.sleb128 16
+ 308 00c8 00000000 		.4byte	0x0
+ 309 00cc 00000000 		.4byte	0x0
+ 310              	.LLST4:
+ 311 00d0 00000000 		.4byte	.LFB4
+ 312 00d4 02000000 		.4byte	.LCFI11
+ 313 00d8 0100     		.2byte	0x1
+ 314 00da 5D       		.byte	0x5d
+ 315 00db 02000000 		.4byte	.LCFI11
+ 316 00df 04000000 		.4byte	.LCFI12
+ 317 00e3 0200     		.2byte	0x2
+ 318 00e5 7D       		.byte	0x7d
+ 319 00e6 04       		.sleb128 4
+ 320 00e7 04000000 		.4byte	.LCFI12
+ 321 00eb 18000000 		.4byte	.LFE4
+ 322 00ef 0200     		.2byte	0x2
+ 323 00f1 77       		.byte	0x77
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 9
+
+
+ 324 00f2 04       		.sleb128 4
+ 325 00f3 00000000 		.4byte	0x0
+ 326 00f7 00000000 		.4byte	0x0
+ 327              		.file 2 ".\\Generated_Source\\PSoC5\\/cytypes.h"
+ 328              		.section	.debug_info
+ 329 0000 2B010000 		.4byte	0x12b
+ 330 0004 0200     		.2byte	0x2
+ 331 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 332 000a 04       		.byte	0x4
+ 333 000b 01       		.uleb128 0x1
+ 334 000c 78000000 		.4byte	.LASF16
+ 335 0010 01       		.byte	0x1
+ 336 0011 D0000000 		.4byte	.LASF17
+ 337 0015 3D010000 		.4byte	.LASF18
+ 338 0019 00000000 		.4byte	0x0
+ 339 001d 00000000 		.4byte	0x0
+ 340 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 341 0025 00000000 		.4byte	.Ldebug_line0
+ 342 0029 02       		.uleb128 0x2
+ 343 002a 01       		.byte	0x1
+ 344 002b 06       		.byte	0x6
+ 345 002c 0A010000 		.4byte	.LASF0
+ 346 0030 02       		.uleb128 0x2
+ 347 0031 01       		.byte	0x1
+ 348 0032 08       		.byte	0x8
+ 349 0033 84000000 		.4byte	.LASF1
+ 350 0037 02       		.uleb128 0x2
+ 351 0038 02       		.byte	0x2
+ 352 0039 05       		.byte	0x5
+ 353 003a 33010000 		.4byte	.LASF2
+ 354 003e 02       		.uleb128 0x2
+ 355 003f 02       		.byte	0x2
+ 356 0040 07       		.byte	0x7
+ 357 0041 0E000000 		.4byte	.LASF3
+ 358 0045 02       		.uleb128 0x2
+ 359 0046 04       		.byte	0x4
+ 360 0047 05       		.byte	0x5
+ 361 0048 A9000000 		.4byte	.LASF4
+ 362 004c 02       		.uleb128 0x2
+ 363 004d 04       		.byte	0x4
+ 364 004e 07       		.byte	0x7
+ 365 004f 34000000 		.4byte	.LASF5
+ 366 0053 02       		.uleb128 0x2
+ 367 0054 08       		.byte	0x8
+ 368 0055 05       		.byte	0x5
+ 369 0056 00000000 		.4byte	.LASF6
+ 370 005a 02       		.uleb128 0x2
+ 371 005b 08       		.byte	0x8
+ 372 005c 07       		.byte	0x7
+ 373 005d 46000000 		.4byte	.LASF7
+ 374 0061 03       		.uleb128 0x3
+ 375 0062 04       		.byte	0x4
+ 376 0063 05       		.byte	0x5
+ 377 0064 696E7400 		.ascii	"int\000"
+ 378 0068 02       		.uleb128 0x2
+ 379 0069 04       		.byte	0x4
+ 380 006a 07       		.byte	0x7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 10
+
+
+ 381 006b 21000000 		.4byte	.LASF8
+ 382 006f 02       		.uleb128 0x2
+ 383 0070 01       		.byte	0x1
+ 384 0071 08       		.byte	0x8
+ 385 0072 89010000 		.4byte	.LASF9
+ 386 0076 04       		.uleb128 0x4
+ 387 0077 2E000000 		.4byte	.LASF19
+ 388 007b 02       		.byte	0x2
+ 389 007c 60       		.byte	0x60
+ 390 007d 30000000 		.4byte	0x30
+ 391 0081 05       		.uleb128 0x5
+ 392 0082 04       		.byte	0x4
+ 393 0083 07       		.byte	0x7
+ 394 0084 06       		.uleb128 0x6
+ 395 0085 01       		.byte	0x1
+ 396 0086 F8000000 		.4byte	.LASF14
+ 397 008a 01       		.byte	0x1
+ 398 008b 25       		.byte	0x25
+ 399 008c 01       		.byte	0x1
+ 400 008d 76000000 		.4byte	0x76
+ 401 0091 00000000 		.4byte	.LFB0
+ 402 0095 18000000 		.4byte	.LFE0
+ 403 0099 00000000 		.4byte	.LLST0
+ 404 009d 07       		.uleb128 0x7
+ 405 009e 01       		.byte	0x1
+ 406 009f 16010000 		.4byte	.LASF10
+ 407 00a3 01       		.byte	0x1
+ 408 00a4 39       		.byte	0x39
+ 409 00a5 01       		.byte	0x1
+ 410 00a6 00000000 		.4byte	.LFB1
+ 411 00aa 3A000000 		.4byte	.LFE1
+ 412 00ae 2B000000 		.4byte	.LLST1
+ 413 00b2 C5000000 		.4byte	0xc5
+ 414 00b6 08       		.uleb128 0x8
+ 415 00b7 8E010000 		.4byte	.LASF12
+ 416 00bb 01       		.byte	0x1
+ 417 00bc 3B       		.byte	0x3b
+ 418 00bd 76000000 		.4byte	0x76
+ 419 00c1 02       		.byte	0x2
+ 420 00c2 91       		.byte	0x91
+ 421 00c3 77       		.sleb128 -9
+ 422 00c4 00       		.byte	0x0
+ 423 00c5 07       		.uleb128 0x7
+ 424 00c6 01       		.byte	0x1
+ 425 00c7 B2000000 		.4byte	.LASF11
+ 426 00cb 01       		.byte	0x1
+ 427 00cc 50       		.byte	0x50
+ 428 00cd 01       		.byte	0x1
+ 429 00ce 00000000 		.4byte	.LFB2
+ 430 00d2 38000000 		.4byte	.LFE2
+ 431 00d6 62000000 		.4byte	.LLST2
+ 432 00da ED000000 		.4byte	0xed
+ 433 00de 08       		.uleb128 0x8
+ 434 00df 8E010000 		.4byte	.LASF12
+ 435 00e3 01       		.byte	0x1
+ 436 00e4 52       		.byte	0x52
+ 437 00e5 76000000 		.4byte	0x76
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 11
+
+
+ 438 00e9 02       		.byte	0x2
+ 439 00ea 91       		.byte	0x91
+ 440 00eb 77       		.sleb128 -9
+ 441 00ec 00       		.byte	0x0
+ 442 00ed 07       		.uleb128 0x7
+ 443 00ee 01       		.byte	0x1
+ 444 00ef 92000000 		.4byte	.LASF13
+ 445 00f3 01       		.byte	0x1
+ 446 00f4 67       		.byte	0x67
+ 447 00f5 01       		.byte	0x1
+ 448 00f6 00000000 		.4byte	.LFB3
+ 449 00fa 20000000 		.4byte	.LFE3
+ 450 00fe 99000000 		.4byte	.LLST3
+ 451 0102 15010000 		.4byte	0x115
+ 452 0106 09       		.uleb128 0x9
+ 453 0107 73000000 		.4byte	.LASF20
+ 454 010b 01       		.byte	0x1
+ 455 010c 67       		.byte	0x67
+ 456 010d 76000000 		.4byte	0x76
+ 457 0111 02       		.byte	0x2
+ 458 0112 91       		.byte	0x91
+ 459 0113 77       		.sleb128 -9
+ 460 0114 00       		.byte	0x0
+ 461 0115 06       		.uleb128 0x6
+ 462 0116 01       		.byte	0x1
+ 463 0117 5D000000 		.4byte	.LASF15
+ 464 011b 01       		.byte	0x1
+ 465 011c 7E       		.byte	0x7e
+ 466 011d 01       		.byte	0x1
+ 467 011e 76000000 		.4byte	0x76
+ 468 0122 00000000 		.4byte	.LFB4
+ 469 0126 18000000 		.4byte	.LFE4
+ 470 012a D0000000 		.4byte	.LLST4
+ 471 012e 00       		.byte	0x0
+ 472              		.section	.debug_abbrev
+ 473 0000 01       		.uleb128 0x1
+ 474 0001 11       		.uleb128 0x11
+ 475 0002 01       		.byte	0x1
+ 476 0003 25       		.uleb128 0x25
+ 477 0004 0E       		.uleb128 0xe
+ 478 0005 13       		.uleb128 0x13
+ 479 0006 0B       		.uleb128 0xb
+ 480 0007 03       		.uleb128 0x3
+ 481 0008 0E       		.uleb128 0xe
+ 482 0009 1B       		.uleb128 0x1b
+ 483 000a 0E       		.uleb128 0xe
+ 484 000b 11       		.uleb128 0x11
+ 485 000c 01       		.uleb128 0x1
+ 486 000d 52       		.uleb128 0x52
+ 487 000e 01       		.uleb128 0x1
+ 488 000f 55       		.uleb128 0x55
+ 489 0010 06       		.uleb128 0x6
+ 490 0011 10       		.uleb128 0x10
+ 491 0012 06       		.uleb128 0x6
+ 492 0013 00       		.byte	0x0
+ 493 0014 00       		.byte	0x0
+ 494 0015 02       		.uleb128 0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 12
+
+
+ 495 0016 24       		.uleb128 0x24
+ 496 0017 00       		.byte	0x0
+ 497 0018 0B       		.uleb128 0xb
+ 498 0019 0B       		.uleb128 0xb
+ 499 001a 3E       		.uleb128 0x3e
+ 500 001b 0B       		.uleb128 0xb
+ 501 001c 03       		.uleb128 0x3
+ 502 001d 0E       		.uleb128 0xe
+ 503 001e 00       		.byte	0x0
+ 504 001f 00       		.byte	0x0
+ 505 0020 03       		.uleb128 0x3
+ 506 0021 24       		.uleb128 0x24
+ 507 0022 00       		.byte	0x0
+ 508 0023 0B       		.uleb128 0xb
+ 509 0024 0B       		.uleb128 0xb
+ 510 0025 3E       		.uleb128 0x3e
+ 511 0026 0B       		.uleb128 0xb
+ 512 0027 03       		.uleb128 0x3
+ 513 0028 08       		.uleb128 0x8
+ 514 0029 00       		.byte	0x0
+ 515 002a 00       		.byte	0x0
+ 516 002b 04       		.uleb128 0x4
+ 517 002c 16       		.uleb128 0x16
+ 518 002d 00       		.byte	0x0
+ 519 002e 03       		.uleb128 0x3
+ 520 002f 0E       		.uleb128 0xe
+ 521 0030 3A       		.uleb128 0x3a
+ 522 0031 0B       		.uleb128 0xb
+ 523 0032 3B       		.uleb128 0x3b
+ 524 0033 0B       		.uleb128 0xb
+ 525 0034 49       		.uleb128 0x49
+ 526 0035 13       		.uleb128 0x13
+ 527 0036 00       		.byte	0x0
+ 528 0037 00       		.byte	0x0
+ 529 0038 05       		.uleb128 0x5
+ 530 0039 24       		.uleb128 0x24
+ 531 003a 00       		.byte	0x0
+ 532 003b 0B       		.uleb128 0xb
+ 533 003c 0B       		.uleb128 0xb
+ 534 003d 3E       		.uleb128 0x3e
+ 535 003e 0B       		.uleb128 0xb
+ 536 003f 00       		.byte	0x0
+ 537 0040 00       		.byte	0x0
+ 538 0041 06       		.uleb128 0x6
+ 539 0042 2E       		.uleb128 0x2e
+ 540 0043 00       		.byte	0x0
+ 541 0044 3F       		.uleb128 0x3f
+ 542 0045 0C       		.uleb128 0xc
+ 543 0046 03       		.uleb128 0x3
+ 544 0047 0E       		.uleb128 0xe
+ 545 0048 3A       		.uleb128 0x3a
+ 546 0049 0B       		.uleb128 0xb
+ 547 004a 3B       		.uleb128 0x3b
+ 548 004b 0B       		.uleb128 0xb
+ 549 004c 27       		.uleb128 0x27
+ 550 004d 0C       		.uleb128 0xc
+ 551 004e 49       		.uleb128 0x49
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 13
+
+
+ 552 004f 13       		.uleb128 0x13
+ 553 0050 11       		.uleb128 0x11
+ 554 0051 01       		.uleb128 0x1
+ 555 0052 12       		.uleb128 0x12
+ 556 0053 01       		.uleb128 0x1
+ 557 0054 40       		.uleb128 0x40
+ 558 0055 06       		.uleb128 0x6
+ 559 0056 00       		.byte	0x0
+ 560 0057 00       		.byte	0x0
+ 561 0058 07       		.uleb128 0x7
+ 562 0059 2E       		.uleb128 0x2e
+ 563 005a 01       		.byte	0x1
+ 564 005b 3F       		.uleb128 0x3f
+ 565 005c 0C       		.uleb128 0xc
+ 566 005d 03       		.uleb128 0x3
+ 567 005e 0E       		.uleb128 0xe
+ 568 005f 3A       		.uleb128 0x3a
+ 569 0060 0B       		.uleb128 0xb
+ 570 0061 3B       		.uleb128 0x3b
+ 571 0062 0B       		.uleb128 0xb
+ 572 0063 27       		.uleb128 0x27
+ 573 0064 0C       		.uleb128 0xc
+ 574 0065 11       		.uleb128 0x11
+ 575 0066 01       		.uleb128 0x1
+ 576 0067 12       		.uleb128 0x12
+ 577 0068 01       		.uleb128 0x1
+ 578 0069 40       		.uleb128 0x40
+ 579 006a 06       		.uleb128 0x6
+ 580 006b 01       		.uleb128 0x1
+ 581 006c 13       		.uleb128 0x13
+ 582 006d 00       		.byte	0x0
+ 583 006e 00       		.byte	0x0
+ 584 006f 08       		.uleb128 0x8
+ 585 0070 34       		.uleb128 0x34
+ 586 0071 00       		.byte	0x0
+ 587 0072 03       		.uleb128 0x3
+ 588 0073 0E       		.uleb128 0xe
+ 589 0074 3A       		.uleb128 0x3a
+ 590 0075 0B       		.uleb128 0xb
+ 591 0076 3B       		.uleb128 0x3b
+ 592 0077 0B       		.uleb128 0xb
+ 593 0078 49       		.uleb128 0x49
+ 594 0079 13       		.uleb128 0x13
+ 595 007a 02       		.uleb128 0x2
+ 596 007b 0A       		.uleb128 0xa
+ 597 007c 00       		.byte	0x0
+ 598 007d 00       		.byte	0x0
+ 599 007e 09       		.uleb128 0x9
+ 600 007f 05       		.uleb128 0x5
+ 601 0080 00       		.byte	0x0
+ 602 0081 03       		.uleb128 0x3
+ 603 0082 0E       		.uleb128 0xe
+ 604 0083 3A       		.uleb128 0x3a
+ 605 0084 0B       		.uleb128 0xb
+ 606 0085 3B       		.uleb128 0x3b
+ 607 0086 0B       		.uleb128 0xb
+ 608 0087 49       		.uleb128 0x49
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 14
+
+
+ 609 0088 13       		.uleb128 0x13
+ 610 0089 02       		.uleb128 0x2
+ 611 008a 0A       		.uleb128 0xa
+ 612 008b 00       		.byte	0x0
+ 613 008c 00       		.byte	0x0
+ 614 008d 00       		.byte	0x0
+ 615              		.section	.debug_pubnames,"",%progbits
+ 616 0000 9C000000 		.4byte	0x9c
+ 617 0004 0200     		.2byte	0x2
+ 618 0006 00000000 		.4byte	.Ldebug_info0
+ 619 000a 2F010000 		.4byte	0x12f
+ 620 000e 84000000 		.4byte	0x84
+ 621 0012 73746174 		.ascii	"statusButton_Read\000"
+ 621      75734275 
+ 621      74746F6E 
+ 621      5F526561 
+ 621      6400
+ 622 0024 9D000000 		.4byte	0x9d
+ 623 0028 73746174 		.ascii	"statusButton_InterruptEnable\000"
+ 623      75734275 
+ 623      74746F6E 
+ 623      5F496E74 
+ 623      65727275 
+ 624 0045 C5000000 		.4byte	0xc5
+ 625 0049 73746174 		.ascii	"statusButton_InterruptDisable\000"
+ 625      75734275 
+ 625      74746F6E 
+ 625      5F496E74 
+ 625      65727275 
+ 626 0067 ED000000 		.4byte	0xed
+ 627 006b 73746174 		.ascii	"statusButton_WriteMask\000"
+ 627      75734275 
+ 627      74746F6E 
+ 627      5F577269 
+ 627      74654D61 
+ 628 0082 15010000 		.4byte	0x115
+ 629 0086 73746174 		.ascii	"statusButton_ReadMask\000"
+ 629      75734275 
+ 629      74746F6E 
+ 629      5F526561 
+ 629      644D6173 
+ 630 009c 00000000 		.4byte	0x0
+ 631              		.section	.debug_aranges,"",%progbits
+ 632 0000 3C000000 		.4byte	0x3c
+ 633 0004 0200     		.2byte	0x2
+ 634 0006 00000000 		.4byte	.Ldebug_info0
+ 635 000a 04       		.byte	0x4
+ 636 000b 00       		.byte	0x0
+ 637 000c 0000     		.2byte	0x0
+ 638 000e 0000     		.2byte	0x0
+ 639 0010 00000000 		.4byte	.LFB0
+ 640 0014 18000000 		.4byte	.LFE0-.LFB0
+ 641 0018 00000000 		.4byte	.LFB1
+ 642 001c 3A000000 		.4byte	.LFE1-.LFB1
+ 643 0020 00000000 		.4byte	.LFB2
+ 644 0024 38000000 		.4byte	.LFE2-.LFB2
+ 645 0028 00000000 		.4byte	.LFB3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 15
+
+
+ 646 002c 20000000 		.4byte	.LFE3-.LFB3
+ 647 0030 00000000 		.4byte	.LFB4
+ 648 0034 18000000 		.4byte	.LFE4-.LFB4
+ 649 0038 00000000 		.4byte	0x0
+ 650 003c 00000000 		.4byte	0x0
+ 651              		.section	.debug_ranges,"",%progbits
+ 652              	.Ldebug_ranges0:
+ 653 0000 00000000 		.4byte	.Ltext0
+ 654 0004 00000000 		.4byte	.Letext0
+ 655 0008 00000000 		.4byte	.LFB0
+ 656 000c 18000000 		.4byte	.LFE0
+ 657 0010 00000000 		.4byte	.LFB1
+ 658 0014 3A000000 		.4byte	.LFE1
+ 659 0018 00000000 		.4byte	.LFB2
+ 660 001c 38000000 		.4byte	.LFE2
+ 661 0020 00000000 		.4byte	.LFB3
+ 662 0024 20000000 		.4byte	.LFE3
+ 663 0028 00000000 		.4byte	.LFB4
+ 664 002c 18000000 		.4byte	.LFE4
+ 665 0030 00000000 		.4byte	0x0
+ 666 0034 00000000 		.4byte	0x0
+ 667              		.section	.debug_str,"MS",%progbits,1
+ 668              	.LASF6:
+ 669 0000 6C6F6E67 		.ascii	"long long int\000"
+ 669      206C6F6E 
+ 669      6720696E 
+ 669      7400
+ 670              	.LASF3:
+ 671 000e 73686F72 		.ascii	"short unsigned int\000"
+ 671      7420756E 
+ 671      7369676E 
+ 671      65642069 
+ 671      6E7400
+ 672              	.LASF8:
+ 673 0021 756E7369 		.ascii	"unsigned int\000"
+ 673      676E6564 
+ 673      20696E74 
+ 673      00
+ 674              	.LASF19:
+ 675 002e 75696E74 		.ascii	"uint8\000"
+ 675      3800
+ 676              	.LASF5:
+ 677 0034 6C6F6E67 		.ascii	"long unsigned int\000"
+ 677      20756E73 
+ 677      69676E65 
+ 677      6420696E 
+ 677      7400
+ 678              	.LASF7:
+ 679 0046 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 679      206C6F6E 
+ 679      6720756E 
+ 679      7369676E 
+ 679      65642069 
+ 680              	.LASF15:
+ 681 005d 73746174 		.ascii	"statusButton_ReadMask\000"
+ 681      75734275 
+ 681      74746F6E 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 16
+
+
+ 681      5F526561 
+ 681      644D6173 
+ 682              	.LASF20:
+ 683 0073 6D61736B 		.ascii	"mask\000"
+ 683      00
+ 684              	.LASF16:
+ 685 0078 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 685      4320342E 
+ 685      342E3100 
+ 686              	.LASF1:
+ 687 0084 756E7369 		.ascii	"unsigned char\000"
+ 687      676E6564 
+ 687      20636861 
+ 687      7200
+ 688              	.LASF13:
+ 689 0092 73746174 		.ascii	"statusButton_WriteMask\000"
+ 689      75734275 
+ 689      74746F6E 
+ 689      5F577269 
+ 689      74654D61 
+ 690              	.LASF4:
+ 691 00a9 6C6F6E67 		.ascii	"long int\000"
+ 691      20696E74 
+ 691      00
+ 692              	.LASF11:
+ 693 00b2 73746174 		.ascii	"statusButton_InterruptDisable\000"
+ 693      75734275 
+ 693      74746F6E 
+ 693      5F496E74 
+ 693      65727275 
+ 694              	.LASF17:
+ 695 00d0 2E5C4765 		.ascii	".\\Generated_Source\\PSoC5\\statusButton.c\000"
+ 695      6E657261 
+ 695      7465645F 
+ 695      536F7572 
+ 695      63655C50 
+ 696              	.LASF14:
+ 697 00f8 73746174 		.ascii	"statusButton_Read\000"
+ 697      75734275 
+ 697      74746F6E 
+ 697      5F526561 
+ 697      6400
+ 698              	.LASF0:
+ 699 010a 7369676E 		.ascii	"signed char\000"
+ 699      65642063 
+ 699      68617200 
+ 700              	.LASF10:
+ 701 0116 73746174 		.ascii	"statusButton_InterruptEnable\000"
+ 701      75734275 
+ 701      74746F6E 
+ 701      5F496E74 
+ 701      65727275 
+ 702              	.LASF2:
+ 703 0133 73686F72 		.ascii	"short int\000"
+ 703      7420696E 
+ 703      7400
+ 704              	.LASF18:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccUza5Fx.s 			page 17
+
+
+ 705 013d 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\PSoC Creator\\Puls"
+ 705      73657273 
+ 705      5C627279 
+ 705      616E2E6C 
+ 705      65655C44 
+ 706 016b 655F7073 		.ascii	"e_psoc5\\Combine\\Combine.cydsn\000"
+ 706      6F63355C 
+ 706      436F6D62 
+ 706      696E655C 
+ 706      436F6D62 
+ 707              	.LASF9:
+ 708 0189 63686172 		.ascii	"char\000"
+ 708      00
+ 709              	.LASF12:
+ 710 018e 696E7465 		.ascii	"interruptState\000"
+ 710      72727570 
+ 710      74537461 
+ 710      746500
+ 711              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
