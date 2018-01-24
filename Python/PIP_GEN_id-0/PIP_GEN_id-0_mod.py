@@ -413,7 +413,7 @@ class Device( xml.sax.ContentHandler ):
           sta['au2'].alignment = Alignment(wrap_text = True)
           sta['au2'] = com
       elif self.CurrentData == "GradeProtocol":
-         print "", self.GradeProtocol
+         print "Incline:", self.GradeProtocol
          e = eng['q2'].value #Incline
          c = chi['q2'].value
          n = '\n\n'
@@ -422,6 +422,8 @@ class Device( xml.sax.ContentHandler ):
          sta['ao2'] = com
       elif self.CurrentData == "MaintenanceConfigFunction":
          print "", self.MaintenanceConfigFunction
+         if self.MaintainanceConfigFunction == 
+
 
 
 
