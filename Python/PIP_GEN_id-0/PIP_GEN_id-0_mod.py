@@ -716,3 +716,4 @@ os.startfile(file)
 
 execfile("PIP_GEN_id-0_mod.py") #uncomment launch for repeat .xml verification
 #execfile('C:\Users\bryan.lee\Documents\GitHub\hello-world\Python\PIP_GEN_id-0\PIP_GEN_id-0_mod.py') #used to launch from python shell
+#https://youtu.be/VKQ1Ph81Gps This is py2exe tutorial
