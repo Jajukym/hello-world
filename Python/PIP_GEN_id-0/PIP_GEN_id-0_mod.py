@@ -1,7 +1,7 @@
 #libraries that are used in this script
 import sys; #print(sys.version) #build system
 import os
-from datetime import datetime, date; print(datetime.now()) #date stamp
+from datetime import datetime, date; #print(datetime.now()) #date stamp
 import xml.sax #.xml parser
 import msvcrt #key press recognition
 import openpyxl #create a workbook
@@ -14,7 +14,7 @@ from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Fo
 
 
 
-
+raw_input('Press Enter to Continue!')
 
 
 
