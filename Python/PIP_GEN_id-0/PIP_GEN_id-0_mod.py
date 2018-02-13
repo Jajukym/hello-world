@@ -14,9 +14,6 @@ from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Fo
 
 
 
-raw_input('Press Enter to Continue!')
-
-
 
 mcu = ['PSOC', 'NRF51', 'RENESAS', 'XILOG'];
 
@@ -684,6 +681,13 @@ if ( __name__ == "__main__"):
    parser.setContentHandler( Handler )
 
    parser.parse(filename)
+
+e = eng['b2'].value #Equipment needed
+c = chi['b2'].value
+n = '\n\n'
+com = c + n + e
+sta['h2'].alignment = Alignment(wrap_text = True)
+sta['h2'] = chi['b2'].value + '\n' + chi['b6'].value + '\n\n' + eng['b2'].value + '\n' + eng['b6'].value # Something new
 
 e = eng['e2'].value #ESD bag
 c = chi['e2'].value
