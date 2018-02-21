@@ -51,7 +51,7 @@ pulse = ['Hand', 'Thumb', 'Chest', 'Ant', 'BLE', 'nanoHand', 'Priority'];
 
 fan = ['TwoWire', 'ThreeWire', 'twoAndThree'];
 
-audio = ['PC', 'BrainBoard', 'MP3', 'iPod', 'TV', 'FM', 'Headphones']; #may need upper or lower case adjustments
+audio = ['BrainBoard', 'BLE', 'Headphones', 'TV', 'FM']; #audio functions
 
 header = ['void for function call', 'RecordID', 'Link to Parts - Consoles', 'Link to Parts - Console Pics',
           'Part Number','Description', 'ProductType', 'Display Type', 'Equipment Needed', 'Setup', 'BLE SETUP',
@@ -109,7 +109,7 @@ rev = mywb.get_sheet_by_name('revision') #rev
 rev['A1'] = 'REV 0'
 rev['B1'] = '20171005'
 rev['C1'] = 'From chaos, springs new beginnings!'
-rev['D1'] = 'id-0'
+rev['D1'] = 'LOKI'
 
 rev['A2'] = 'REV 1'
 rev['B2'] = '20171205'
@@ -189,6 +189,7 @@ class Device( xml.sax.ContentHandler ):
       self.AudioSrcItem = ""
       self.DistanceDriver = ""
       self.ResistanceDriver = ""
+      self.KeyCodeCategory = ""
 
 
 
@@ -247,6 +248,8 @@ class Device( xml.sax.ContentHandler ):
          self.FanProtocol = content
       elif self.CurrentData == "AudioSrcItem":
          self.AudioSrcItem = content
+      elif self.CurrentData == "KeyCodeCategory":
+         self.KeyCodeCategory = content
 
 
 
@@ -350,6 +353,8 @@ class Device( xml.sax.ContentHandler ):
                      com = c + n + e
                      sta['ae2'].alignment = Alignment(wrap_text = True)
                      sta['ae2'] = com
+                     #sta['h2'].alignment = Alignment(wrap_text = True) #Equipment needed
+                     #sta['h2'] = chi['b12'].value + '\n\n' + eng['b12'].value
                      print com
                      e = eng['l6'].value #BLE calibrate
                      c = chi['l6'].value
@@ -381,18 +386,12 @@ class Device( xml.sax.ContentHandler ):
                 sta['i2'] = com
          for i in range(2,20):
             if self.PowerBoard == controller[i]:
-                ef = eng['c2'].value #Tread 1, Tread 2 will require verification of TV for Upright feature
-                cf = chi['c2'].value
-                n = '\n\n'
-                comf = cf + n + ef
-                ep = eng['h2'].value #Tread 1, Tread 2 will require verification of TV for Upright feature
-                cp = chi['h2'].value
-                n = '\n\n'
-                comp = cp + n + ep
-                sta['i2'].alignment = Alignment(wrap_text = True)
-                sta['i2'] = comf
-                sta['z2'].alignment = Alignment(wrap_text = True)
-                sta['z2'] = comp
+                sta['i2'].alignment = Alignment(wrap_text = True) #Fixture Callout
+                sta['i2'] = chi['c2'].value + '\n\n' + eng['c2'].value
+                sta['z2'].alignment = Alignment(wrap_text = True) #Power up
+                sta['z2'] = chi['h2'].value + '\n\n' + eng['h2'].value
+                sta['h2'].alignment = Alignment(wrap_text = True) #Equipment needed
+                sta['h2'] = chi['b2'].value + '\n' + chi['b7'].value + '\n\n' + eng['b2'].value + '\n' + eng['b7'].value
          if self.PowerBoard == controller[21]:
             ef = eng['c5'].value #Club treadmill
             cf = chi['c5'].value
@@ -437,6 +436,8 @@ class Device( xml.sax.ContentHandler ):
             sta['i2'] = com
       elif self.KeyCodeName == "KeyCodeName":
           print "", self.KeyCodeName
+      elif self.KeyCodeCategory == "KeyCodeCategory":
+          print "", self.KeyCodeCategory
       elif self.CurrentData == "TabletProtocol": #-------------------------------------------------------------
           print "", self.TabletProtocol
           if self.TabletProtocol == tablet[0]:
@@ -461,11 +462,6 @@ class Device( xml.sax.ContentHandler ):
               com = c + n + e
               sta['ah2'].alignment = Alignment(wrap_text = True)
               sta['ah2'] = com
-              #e = eng['n2'].value #Wolf keycodes not needed for this console style
-              #c = chi['n2'].value
-              #com = c + n + e
-              #sta['aj2'].alignment = Alignment(wrap_text = True)
-              #sta['aj2'] = com
               e = eng['t6'].value #Wolf chest pulse
               c = chi['t6'].value
               com = c + n + e
@@ -476,6 +472,7 @@ class Device( xml.sax.ContentHandler ):
               com = c + n + e
               sta['au2'].alignment = Alignment(wrap_text = True)
               sta['au2'] = com
+              
           if self.TabletProtocol == tablet[1]:#-----------------------------------------------------------
               e = eng['k3'].value #Legacy maintainance
               c = chi['k3'].value
@@ -597,35 +594,42 @@ class Device( xml.sax.ContentHandler ):
             sta['as2'] = com
       elif self.CurrentData == "AudioSrcItem":
          print "", self.AudioSrcItem
-         for i in range(0,4):
-             if self.AudioSrcItem == audio[i]:
-                e = eng['v2'].value #Connect iPOD
-                c = chi['v2'].value
-                n = '\n\n'
-                com = c + n + e
-                sta['at2'].alignment = Alignment(wrap_text = True)
-                sta['at2'] = com
-         if self.AudioSrcItem == audio[4]:
+         if self.AudioSrcItem == audio[0]:
+             e = eng['v2'].value #Connect iPOD
+             c = chi['v2'].value
+             n = '\n\n'
+             com = c + n + e
+             sta['at2'].alignment = Alignment(wrap_text = True)
+             sta['at2'] = com
+         if self.AudioSrcItem == audio[1]:
+             e = eng['v3'].value #Connect headphones
+             c = chi['v3'].value
+             n = '\n\n'
+             com = c + n + e
+             sta['at2'].alignment = Alignment(wrap_text = True)
+             sta['at2'] = com
+         if self.AudioSrcItem == audio[2]:
+             e = eng['v4'].value #Connect BLE audio
+             c = chi['v4'].value
+             n = '\n\n'
+             com = c + n + e
+             sta['at2'].alignment = Alignment(wrap_text = True)
+             sta['at2'] = com
+         if self.AudioSrcItem == audio[3]:
              e = eng['t3'].value #Connect TV
              c = chi['t3'].value
              n = '\n\n'
              com = c + n + e
              sta['at2'].alignment = Alignment(wrap_text = True)
              sta['at2'] = com
-         if self.AudioSrcItem == audio[5]:
-             e = eng['v4'].value #FM
-             c = chi['v4'].value
+         if self.AudioSrcItem == audio[4]:
+             e = eng['v5'].value #FM is MYE
+             c = chi['v5'].value
              n = '\n\n'
              com = c + n + e
              sta['at2'].alignment = Alignment(wrap_text = True)
              sta['at2'] = com
-         if self.AudioSrcItem == audio[6]:
-             e = eng['v3'].value #Connect TV
-             c = chi['v3'].value
-             n = '\n\n'
-             com = c + n + e
-             sta['at2'].alignment = Alignment(wrap_text = True)
-             sta['at2'] = com
+         
       elif self.CurrentData == "ResistanceDriver":
          print "", self.ResistanceDriver
          e = eng['r2'].value #resistance
@@ -682,12 +686,7 @@ if ( __name__ == "__main__"):
 
    parser.parse(filename)
 
-e = eng['b2'].value #Equipment needed
-c = chi['b2'].value
-n = '\n\n'
-com = c + n + e
-sta['h2'].alignment = Alignment(wrap_text = True)
-sta['h2'] = chi['b2'].value + '\n' + chi['b6'].value + '\n\n' + eng['b2'].value + '\n' + eng['b6'].value # Something new
+
 
 e = eng['e2'].value #ESD bag
 c = chi['e2'].value
