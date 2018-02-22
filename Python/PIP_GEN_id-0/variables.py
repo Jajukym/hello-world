@@ -10,6 +10,8 @@ display = ['NO_DISPLAY', 'SISP_DISPLAY', 'AW_DISPLAY', 'AW_DESK', 'RICKENBACKER_
            'LED_900', 'CD_DISPLAY', 'FENDER_DISPLAY', 'OFENDER_DISPLAY', 'OP_DISPLAY', 'IF17_DISPLAY',
            'IF17_VERT_DISPLAY'];
 
+tablet = ['RoyalWolf', 'Leagacy', 'Leagacy_FreeMotion']
+
 controller = ['TREAD_TACH', 'MC1650LS_2W', 'MC1618DLS', 'MC1648DLS', 'MC1618DHB', 'MC1648DHB', 'MC1618IHS',#6
               'MC1648IHS', 'MC1618IHB', 'MC1648IHB', 'MC2100LT_12', 'MC2100LTS_30', 'MC2100LTS_50W', 'MC2100ELS_18W_2Y',#13
               'MC2100ELS_50W_2Y', 'MC5100DTS_18W', 'MC5100DTS_50W', 'MC5100DTS3_50W', 'MC5100EDS_50W_V1',#18
@@ -23,6 +25,8 @@ distance = ['LoResTach'];
 
 maintainance = ['CALIBRATE', 'TOGGLE_DISPLAY_ON_OFF', 'KEYCODE_TEST']; #tablet consoles will be different
 
+keycode = ['SETTINGS', 'PRIORITY_DISPLAY', 'MANUAL']
+
 ble = ['NO_PROFILE_SUPPORTED', 'WEIGHT_MACHINE_SUPPORTED', 'SPEED_RING_SUPPORTED', 'FILE_SYSTEM_SUPPORTED',
        'FITPRO_SYSTEM_SUPPORTED', 'HEART_RATE_SENSOR_SUPPORTED'];
 
@@ -30,7 +34,7 @@ pulse = ['Hand', 'Thumb', 'Chest', 'Ant', 'BLE', 'nanoHand', 'Priority'];
 
 fan = ['TwoWire', 'ThreeWire', 'twoAndThree'];
 
-audio = ['PC', 'BrainBoard', 'MP3', 'iPod', 'TV', 'FM', 'Headphones']; #may need upper or lower case adjustments
+audio = ['None', 'PC', 'BrainBoard', 'MP3', 'iPod', 'Headphones','BLE', 'TV', 'FM']; #audio functions
 
 header = ['void for function call', 'RecordID', 'Link to Parts - Consoles', 'Link to Parts - Console Pics',
           'Part Number','Description', 'ProductType', 'Display Type', 'Equipment Needed', 'Setup', 'BLE SETUP',
