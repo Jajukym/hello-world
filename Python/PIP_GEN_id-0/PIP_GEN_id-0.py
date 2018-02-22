@@ -67,15 +67,14 @@ header = ['void for function call', 'RecordID', 'Link to Parts - Consoles', 'Lin
 
 
 #EQF1259 source and to
-app = load_workbook(filename = 'EQF1259 App Procedures.xlsx')
+app = load_workbook(filename = 'ConsoleProcedures.xlsx')
 #print(app.get_sheet_names()) #debug
 
 
 
 
 #Read sheets
-mat = app.get_sheet_by_name('matrix') #PIP database
-eng = app.get_sheet_by_name('english')
+eng = app.get_sheet_by_name('english') #PIP database
 chi = app.get_sheet_by_name('chinese')
 
 
@@ -709,6 +708,6 @@ print '---------Procedure is building...Done!---------\n'
 file = 'C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-world\\Python\\PIP_GEN_id-0\\Parts - Consoles.csv.xlsx' #open procedure file
 os.startfile(file)
 
-execfile("PIP_GEN_id-0_mod.py") #uncomment launch for repeat .xml verification
+execfile("PIP_GEN_id-0.py") #uncomment launch for repeat .xml verification
 #execfile('C:\Users\bryan.lee\Documents\GitHub\hello-world\Python\PIP_GEN_id-0\PIP_GEN_id-0_mod.py') #used to launch from python shell
 #https://youtu.be/VKQ1Ph81Gps This is py2exe tutorial
