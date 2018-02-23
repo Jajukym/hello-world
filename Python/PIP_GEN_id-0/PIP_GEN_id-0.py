@@ -192,8 +192,6 @@ class Device( xml.sax.ContentHandler ):
 
 
 
-
-
    # Call when an element starts
    def startElement(self, tag, attributes):
       self.CurrentData = tag
@@ -223,6 +221,10 @@ class Device( xml.sax.ContentHandler ):
          if feature == "TvFeature": #39818 TV test
              sta['au2'].alignment = Alignment(wrap_text = True) #MYE TV test
              sta['au2'] = chi['w4'].value + '\n\n' + eng['w4'].value
+         if feature == "MaintenanceModeFeature":
+             print "", feature
+             if self.KeyCodeName == 'SETTINGS':
+              print 'something else---------------------------------------------------------------------'
              
          
     # Call when a character is read
@@ -335,14 +337,13 @@ class Device( xml.sax.ContentHandler ):
              com = c + n + e
              sta['ar2'].alignment = Alignment(wrap_text = True)
              sta['ar2'] = com    
-             if self.equipmentType == equipment[0] or equipment[1]:
+             if self.equipmentType == ('TREADMILL_DEVICE' or 'INCLINE_TRAINER_DEVICE'):
                  e = eng['k5'].value #BLE maintenance
                  c = chi['k5'].value
                  n = '\n\n'
                  com = c + n + e
                  sta['ae2'].alignment = Alignment(wrap_text = True)
                  sta['ae2'] = com
-                 print com
                  e = eng['l5'].value #BLE calibrate
                  c = chi['l5'].value
                  com = c + n + e
@@ -359,26 +360,24 @@ class Device( xml.sax.ContentHandler ):
                  sta['aj2'].alignment = Alignment(wrap_text = True)
                  sta['aj2'] = com
          if self.mcuChipName == mcu[2]:
-             #if self.TabletProtocol == False:
-                 if equipment[0] or equipment[1]:
-                     e = eng['k6'].value #BLE maintenance
+             if self.equipmentType == ('TREADMILL_DEVICE' or 'INCLINE_TRAINER_DEVICE'):
+                     e = eng['k6'].value #Renesas maintenance
                      c = chi['k6'].value
                      n = '\n\n'
                      com = c + n + e
                      sta['ae2'].alignment = Alignment(wrap_text = True)
                      sta['ae2'] = com
-                     print com
-                     e = eng['l6'].value #BLE calibrate
+                     e = eng['l6'].value #Renesas calibrate
                      c = chi['l6'].value
                      com = c + n + e
                      sta['ag2'].alignment = Alignment(wrap_text = True)
                      sta['ag2'] = com
-                     e = eng['m6'].value #BLE display
+                     e = eng['m6'].value #Renesas display
                      c = chi['m6'].value
                      com = c + n + e
                      sta['ah2'].alignment = Alignment(wrap_text = True)
                      sta['ah2'] = com
-                     e = eng['n6'].value #BLE keycodes
+                     e = eng['n6'].value #Renesas keycodes
                      c = chi['n6'].value
                      com = c + n + e
                      sta['aj2'].alignment = Alignment(wrap_text = True)
@@ -440,18 +439,44 @@ class Device( xml.sax.ContentHandler ):
                 sta['i2'].alignment = Alignment(wrap_text = True)
                 sta['i2'] = com
          if self.PowerBoard == controller[31] or self.PowerBoard == controller[32]:
+             
             e = eng['c11'].value #Club bike
             c = chi['c11'].value
             n = '\n\n'
             com = c + n + e
             sta['i2'].alignment = Alignment(wrap_text = True)
             sta['i2'] = com
-      elif self.KeyCodeName == "KeyCodeName":
-          print "", self.KeyCodeName
-      elif self.KeyCodeCategory == "KeyCodeCategory":
-          print "", self.KeyCodeCategory
+      elif self.CurrentData == "KeyCodeName":
+          print "", #self.KeyCodeName
+      elif self.CurrentData == "KeyCodeCategory":
+          print "", #self.KeyCodeCategory
+          if self.KeyCodeName == 'SETTINGS':
+              sta['ae2'].alignment = Alignment(wrap_text = True) #software
+              sta['ae2'] = chi['k8'].value + '\n\n' + eng['k8'].value
+              sta['ag2'].alignment = Alignment(wrap_text = True) #incline
+              sta['ag2'] = chi['l8'].value + '\n\n' + eng['l8'].value
+              sta['ah2'].alignment = Alignment(wrap_text = True) #display
+              sta['ah2'] = chi['m8'].value + '\n\n' + eng['m8'].value
+              sta['aj2'].alignment = Alignment(wrap_text = True) #keycodes
+              sta['aj2'] = chi['n8'].value + '\n\n' + eng['n8'].value
+          if (self.KeyCodeName == 'MANUAL' or 'PRIORITY_DISPLAY'):
+              sta['ae2'].alignment = Alignment(wrap_text = True) #software
+              sta['ae2'] = chi['k9'].value + '\n\n' + eng['k9'].value
+              sta['ag2'].alignment = Alignment(wrap_text = True) #incline
+              sta['ag2'] = chi['l9'].value + '\n\n' + eng['l9'].value
+              sta['ah2'].alignment = Alignment(wrap_text = True) #display
+              sta['ah2'] = chi['m9'].value + '\n\n' + eng['m9'].value
+              sta['aj2'].alignment = Alignment(wrap_text = True) #keycodes
+              sta['aj2'] = chi['n9'].value + '\n\n' + eng['n9'].value
+          if self.GradeProtocol != "Manual":
+              sta['ag2'].alignment = Alignment(wrap_text = True) #incline
+              sta['ag2'] = ""
+             
+              
+          
+              
       elif self.CurrentData == "TabletProtocol": #-------------------------------------------------------------
-          print "", self.TabletProtocol
+          #print "", self.TabletProtocol
           if self.TabletProtocol == tablet[0]:
               e = eng['g3'].value #Wolf cosmetic
               c = chi['g3'].value
@@ -530,6 +555,7 @@ class Device( xml.sax.ContentHandler ):
               com = c + n + e
               sta['ah2'].alignment = Alignment(wrap_text = True)
               sta['ah2'] = com
+
               e = eng['n3'].value #Legacy FreeMotion keycodes
               c = chi['n3'].value
               com = c + n + e
@@ -549,10 +575,11 @@ class Device( xml.sax.ContentHandler ):
          com = c + n + e
          sta['ao2'].alignment = Alignment(wrap_text = True)
          sta['ao2'] = com
+         
       elif self.CurrentData == "MaintenanceConfigFunction":
-         print "", self.MaintenanceConfigFunction
+         print "", #self.MaintenanceConfigFunction
       elif self.CurrentData == "PulseDriverItem": #-------------------------------------------------------------------
-         print "", self.PulseDriverItem
+         #print "", self.PulseDriverItem
          if self.PulseDriverItem == pulse[0] or self.PulseDriverItem == pulse[5]:
              e = eng['t2'].value #Hand or nanoHand pulse
              c = chi['t2'].value
@@ -575,7 +602,7 @@ class Device( xml.sax.ContentHandler ):
              sta['ar2'].alignment = Alignment(wrap_text = True)
              sta['ar2'] = com
       elif self.CurrentData == "FanProtocol":
-         print "", self.FanProtocol
+         #print "", self.FanProtocol
          if self.FanProtocol == fan[0]:
             e = eng['u2'].value #Two pin
             c = chi['u2'].value
@@ -591,7 +618,7 @@ class Device( xml.sax.ContentHandler ):
             sta['as2'].alignment = Alignment(wrap_text = True)
             sta['as2'] = com
       elif self.CurrentData == "AudioSrcItem": #--------------------------------------------------------------------
-         print "", self.AudioSrcItem
+         #print "", self.AudioSrcItem
          if self.AudioSrcItem == audio[2]:
              e = eng['v2'].value #Connect audio source
              c = chi['v2'].value
@@ -622,7 +649,7 @@ class Device( xml.sax.ContentHandler ):
              sta['at2'] = com
          
       elif self.CurrentData == "ResistanceDriver": #-----------------------------------------------------------
-         print "", self.ResistanceDriver
+         #print "", self.ResistanceDriver
          e = eng['r2'].value #resistance
          c = chi['r2'].value
          n = '\n\n'
@@ -632,7 +659,7 @@ class Device( xml.sax.ContentHandler ):
       elif self.CurrentData == "DistanceDriver":
          print "", self.DistanceDriver
       elif self.CurrentData == "ConsoleVoltage":
-         print "", self.ConsoleVoltage
+         #print "", self.ConsoleVoltage
          if self.ConsoleVoltage != voltage[0]:
             ef = eng['c9'].value #Basic Bike1 with voltage > 0; resist and tach
             cf = chi['c9'].value
