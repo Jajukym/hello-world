@@ -1,9 +1,8 @@
-#libraries that are used in this script
+﻿#libraries that are used in this script
 import sys; #print(sys.version) #build system
 import os
 from datetime import datetime, date; #print(datetime.now()) #date stamp
 import xml.sax #.xml parser
-import msvcrt #key press recognition
 import openpyxl #create a workbook
 from openpyxl.workbook import Workbook #inserting line in workbook
 from openpyxl import load_workbook
@@ -53,7 +52,7 @@ fan = ['TwoWire', 'ThreeWire', 'twoAndThree'];
 
 audio = ['None', 'PC', 'BrainBoard', 'MP3', 'iPod', 'Headphones','BLE', 'TV', 'FM']; #audio functions
 
-header = ['void for function call', 'RecordID', 'Link to Parts - Consoles', 'Link to Parts - Console Pics',
+header = ['void for function call', 'RecordID', 'Link to Parts - Console Pics', 'Link to Parts - Consoles',
           'Part Number','Description', 'ProductType', 'Display Type', 'Equipment Needed', 'Setup', 'BLE SETUP',
           'Part Type Pull', 'PIP', 'Video of Inspection', 'EQF1259 Config', 'BLE Setup Image 1', 'BLE Setup Image 2',
           'Setup Image 1', 'Setup Image 2', 'ESD Bag', 'Cosmetics', 'Warning Label', 'Warning Label Picture',
@@ -81,11 +80,11 @@ chi = app.get_sheet_by_name('chinese')
 #Create standalone
 mywb = openpyxl.Workbook()
 mywb.remove_sheet(mywb.get_sheet_by_name('Sheet')) #removes default sheet title
-mywb.create_sheet(index=0, title='Parts - Consoles.csv') #adds new sheet with title
+mywb.create_sheet(index=0, title='Parts - Consoles') #adds new sheet with title
 mywb.create_sheet(index=1, title='revision')
 
 
-sta = mywb.get_sheet_by_name('Parts - Consoles.csv') #pip
+sta = mywb.get_sheet_by_name('Parts - Consoles') #pip
 for i in range(1, 54):
     _ = sta.cell(column = i, row = 1, value = header[i]) #write headers
 
@@ -140,10 +139,15 @@ rev['B7'] = '20180123'
 rev['C7'] = 'Added chinese and auto launch for PIP'
 rev['D7'] = 'id-0'
 
-rev['A8'] = 'REV'
-rev['B8'] = datetime.now()
-rev['C8'] = 'Let justice be done, though the heavens fall!'
+rev['A8'] = 'REV 7'
+rev['B8'] = '20180223'
+rev['C8'] = 'About done'
 rev['D8'] = 'id-0'
+
+rev['A9'] = 'REV'
+rev['B9'] = datetime.now()
+rev['C9'] = 'Let justice be done, though the heavens fall!'
+rev['D9'] = 'id-0'
 
 
 
@@ -471,9 +475,6 @@ class Device( xml.sax.ContentHandler ):
           if self.GradeProtocol != "Manual":
               sta['ag2'].alignment = Alignment(wrap_text = True) #incline
               sta['ag2'] = ""
-             
-              
-          
               
       elif self.CurrentData == "TabletProtocol": #-------------------------------------------------------------
           #print "", self.TabletProtocol
@@ -705,6 +706,8 @@ if ( __name__ == "__main__"):
    parser.parse(filename)
 
 
+sta['c2'].alignment = Alignment(wrap_text = True) #[PartTypeLink]
+sta['c2'] = '控制台 console'
 
 e = eng['e2'].value #ESD bag
 c = chi['e2'].value
@@ -720,19 +723,19 @@ com = c + n + e
 sta['aw2'].alignment = Alignment(wrap_text = True)
 sta['aw2'] = com
 
-sta['ay2'] = 'PIP_GEN_id-0'
+sta['ay2'] = 'PIP_Generator'
 sta['ba2'] = datetime.now()
 
 
 
 
-mywb.save('Parts - Consoles.csv.xlsx') #save created workbook
+mywb.save('Parts - Consoles.xlsx') #save created workbook
 print '---------Procedure is building...Done!---------\n'
 
 
 
 
-file = 'C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-world\\Python\\PIP_GEN_id-0\\Parts - Consoles.csv.xlsx' #open procedure file
+file = 'C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-world\\Python\\PIP_GEN_id-0\\Parts - Consoles.xlsx' #open procedure file
 os.startfile(file)
 
 execfile("PIP_GEN_id-0.py") #uncomment launch for repeat .xml verification
