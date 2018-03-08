@@ -1,3 +1,5 @@
+#https://youtu.be/YXIlclFQZVU .whl install with pip install 'path to file and name of file'
+
 mcu = ['PSOC', 'NRF51', 'RENESAS', 'XILOG'];
 
 equipment = ['TREADMILL_DEVICE', 'INCLINE_TRAINER_DEVICE', 'ELLIPTICAL_DEVICE',

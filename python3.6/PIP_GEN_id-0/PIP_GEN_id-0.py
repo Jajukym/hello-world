@@ -106,8 +106,8 @@ rev = mywb["revision"] #rev
 #Preliminary
 rev["A1"] = "REV 0"
 rev["B1"] = "20171005"
-rev["C1"] = "From chaos, springs new beginnings!"
-rev["D1"] = "LOKI"
+rev["C1"] = "Order from chaos"
+rev["D1"] = "id-0"
 
 rev["A2"] = "REV 1"
 rev["B2"] = "20171205"
@@ -144,15 +144,20 @@ rev["B8"] = "20180223"
 rev["C8"] = "About done"
 rev["D8"] = "id-0"
 
-rev["A9"] = "REV"
+rev["A9"] = "REV 8"
 rev["B9"] = "20180228"
 rev["C9"] = "Migrated to Python3.6.4"
 rev["D9"] = "id-0"
 
-rev["A10"] = "REV"
-rev["B10"] = datetime.now()
-rev["C10"] = "Let justice be done, though the heavens fall!"
+rev["A10"] = "REV 9"
+rev["B10"] = "20180307"
+rev["C10"] = "Test build with cx_Freeze5.1.1"
 rev["D10"] = "id-0"
+
+rev["A11"] = "REV x.x"
+rev["B11"] = datetime.now()
+rev["C11"] = "Fiat justitia ruat caelum "
+rev["D11"] = "id-0"
 
 for col in rev.columns:
      max_length = 0
@@ -184,7 +189,7 @@ class Device( xml.sax.ContentHandler ):
       self.systemUnitType = ""
       self.BuildModelString = ""
       self.TypeName = ""
-      self.PowerBroad = ""
+      self.PowerBoard = ""
       self.ConsoleVoltage = ""
       self.GradeProtocol = ""
       self.TabletProtocol = ""

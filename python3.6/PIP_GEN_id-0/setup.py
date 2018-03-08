@@ -1,4 +1,8 @@
-from distutils.core import setup
-import py2exe, sys, os
+import cx_Freeze
+from cx_Freeze import setup, Executable
 
-setup (console = ['PIP_GEN_id-0.py'])
+setup(name = "PIP_Generator",
+      version = "0.9",
+      description = "Test build with cx_Freeze",
+      executables = [Executable("PIP_GEN_id-0.py")]
+      )
