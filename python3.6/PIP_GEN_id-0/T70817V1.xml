@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SystemInfo>
+    <productString>ETFM70817V1</productString>
+    <modelString>70817v1</modelString>
+    <partNumber>398869</partNumber>
+    <consolePartNumber>396860</consolePartNumber>
+    <serialNumber>3</serialNumber>
+    <configVersionNumber>1</configVersionNumber>
+    <systemConfiguration>SINGLE_MASTER</systemConfiguration>
+    <mcuChipName>NRF51</mcuChipName>
+    <mcuFlashSize>0</mcuFlashSize>
+    <mcuDataFlashSize>0</mcuDataFlashSize>
+    <equipmentType>TREADMILL_DEVICE</equipmentType>
+    <systemUnitType>ENGLISH</systemUnitType>
+    <language>ENGLISH</language>
+    <systemMarketType>HOME_UNIT</systemMarketType>
+    <FirmwareHardwareId>33026</FirmwareHardwareId>
+    <HardwareRevision>0</HardwareRevision>
+    <Notes>This is a large power ring console based on the ETPF79115.
+Brian Beardall is the main developer responsible for this console.</Notes>
+    <ProductName>ETFM70817V1</ProductName>
+    <GeneratedConfigVersion>1</GeneratedConfigVersion>
+    <BuildModelString>ETFM70817V1</BuildModelString>
+    <Display>
+      <DisplayId>0</DisplayId>
+      <TypeName>NO_DISPLAY</TypeName>
+    </Display>
+    <PowerBoard>OLYMPUS_V1</PowerBoard>
+	<MaxCurrent>35</MaxCurrent>	
+    <emulatorPortNumber>2609</emulatorPortNumber>
+    <isReleased>false</isReleased>
+    <fit1eEnabled>false</fit1eEnabled>
+    <beltTestEnabled>false</beltTestEnabled>
+    <orangeTheory>false</orangeTheory>
+    <MaxCurrent>2</MaxCurrent>
+    <PCB>NOT_LISTED_PCB</PCB>
+  </SystemInfo>
+  <ReleaseArray>
+    <ReleaseItem>
+      <BuildTime>2016-01-25T11:35:05.1231071-07:00</BuildTime>
+      <Priority>0</Priority>
+      <EstimatedConsumerNumbers>0</EstimatedConsumerNumbers>
+      <FactoryRelease>false</FactoryRelease>
+      <GithubLink>https://github.ifit-dev.com/SparkyRelease/SparkyMasterLib/releases/tag/vFFFF</GithubLink>
+      <FitProGithubLink>https://github.ifit-dev.com/Sparky/FitPro/releases/tag/v0.1.8</FitProGithubLink>
+      <FitProAndroidValidated>false</FitProAndroidValidated>
+      <FitProIOsValidated>false</FitProIOsValidated>
+      <FitProValidatedTime>0001-01-01T00:00:00</FitProValidatedTime>
+  </ReleaseArray>
+  <FeatureArray>
+    <FeatureItem xsi:type="KeyPressFeature">
+      <Enabled>true</Enabled>
+      <KeyArray>
+        <KeyObj>
+          <MembraneNumber>ZERO</MembraneNumber>
+          <MembraneByteLength>ONE</MembraneByteLength>
+          <MembraneBitMask>FFFFFFFA</MembraneBitMask>
+          <MembraneActiveLevel>true</MembraneActiveLevel>
+          <MembraneKeyCode>
+            <KeyCodeValue>1011</KeyCodeValue>
+            <KeyCodeName>MPH_12</KeyCodeName>
+            <KeyCodeCategory>Speed</KeyCodeCategory>
+          </MembraneKeyCode>
+          <KeyLocation>
+            <X>0</X>
+            <Y>0</Y>
+          </KeyLocation>
+        </KeyObj>
+      </KeyArray>
+      <numberOfSingleBitButtons>0</numberOfSingleBitButtons>
+      <SingleBitBUttonsMask>0</SingleBitBUttonsMask>
+    </FeatureItem>
+    <FeatureItem xsi:type="SpeedFeature">
+      <Enabled>true</Enabled>
+      <SpeedProtocol>Manual</SpeedProtocol>
+      <MaxSpeed>1931</MaxSpeed>
+      <Intercept>9.37</Intercept>
+      <SpeedCoefficient>0</SpeedCoefficient>
+      <DeltaSpeedCoefficient>0</DeltaSpeedCoefficient>
+      <checksum>FFFF</checksum>
+      <parValueArray />
+    </FeatureItem>
+    <FeatureItem xsi:type="GradeFeature">
+      <Enabled>true</Enabled>
+      <GradeProtocol>Manual</GradeProtocol>
+      <MinGrade>0</MinGrade>
+      <MaxGrade>1500</MaxGrade>
+      <MinPhysicalGrade>0</MinPhysicalGrade>
+      <MaxPhysicalGrade>1500</MaxPhysicalGrade>
+      <TransMax>120</TransMax>
+      <GradeSpeedLimitArray>
+        <GradeSpeedLimitItem>
+          <LimitGrade>0</LimitGrade>
+          <LimitSpeed>0</LimitSpeed>
+        </GradeSpeedLimitItem>
+      </GradeSpeedLimitArray>
+      <TransZero>-1</TransZero>
+      <MinPotRhymebus>0</MinPotRhymebus>
+      <MaxPotRhymebus>0</MaxPotRhymebus>
+      <AdcInclineArray />
+      <RbChecksum>FFFF</RbChecksum>
+    </FeatureItem>
+    <FeatureItem xsi:type="DistanceFeature">
+      <Enabled>true</Enabled>
+      <DistanceDriver>LoResTach</DistanceDriver>
+      <DistanceTach>280</DistanceTach>
+      <DistanceTimeBetweenTach>32</DistanceTimeBetweenTach>
+      <DistanceCountBetweenTach>1</DistanceCountBetweenTach>
+    </FeatureItem>
+    <FeatureItem xsi:type="PulseFeature">
+      <Enabled>true</Enabled>
+      <PulseDriverArray>
+        <PulseDriverItem>BLE</PulseDriverItem>
+        <PulseDriverItem>Hand</PulseDriverItem>
+      </PulseDriverArray>
+      <PulseAdcResolution>EIGHT_BIT</PulseAdcResolution>
+      <RawPulseAdcChannel>5</RawPulseAdcChannel>
+      <VsenseAdcChannel>6</VsenseAdcChannel>
+      <HandDetectAdcChannel>7</HandDetectAdcChannel>
+    </FeatureItem>
+  </FeatureArray>
+</Config>
