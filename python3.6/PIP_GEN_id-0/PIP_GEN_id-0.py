@@ -1,7 +1,7 @@
 ﻿#libraries that are used in this script
-import sys; print(sys.version) #build system
+import sys; print(sys.version, "\n\n", "-------------Welcome to PIP Generator-------------") #build system
 import os
-from datetime import datetime, date; #print(datetime.now()) #date stamp
+from datetime import datetime, date; print(datetime.now()) #date stamp
 import xml.sax #.xml parser
 import openpyxl #create a workbook
 from openpyxl.workbook import Workbook #inserting line in workbook
@@ -67,11 +67,6 @@ header = ["void for function call", "RecordID", "Link to Parts - Console Pics", 
 
 #EQF1259 source and to
 app = load_workbook(filename = "ConsoleProcedures.xlsx")
-#print(app.get_sheet_names()) #debug
-
-
-
-
 #Read sheets
 eng = app["english"] #PIP database
 chi = app["chinese"]
@@ -82,7 +77,6 @@ mywb = openpyxl.Workbook()
 mywb.remove(mywb["Sheet"]) #removes default sheet title
 mywb.create_sheet(index=0, title="Parts - Consoles") #adds new sheet with title
 mywb.create_sheet(index=1, title="revision")
-
 
 sta = mywb["Parts - Consoles"] #pip
 for i in range(1, 54):
@@ -104,60 +98,63 @@ for col in sta.columns:
 
 rev = mywb["revision"] #rev
 #Preliminary
-rev["A1"] = "REV 0"
+rev["A1"] = "V.0"
 rev["B1"] = "20171005"
 rev["C1"] = "Order from chaos"
 rev["D1"] = "id-0"
 
-rev["A2"] = "REV 1"
+rev["A2"] = "V.1"
 rev["B2"] = "20171205"
 rev["C2"] = "Created arrays for variables"
 rev["D2"] = "id-0"
 
-rev["A3"] = "REV 2"
+rev["A3"] = "V.2"
 rev["B3"] = "20171206"
 rev["C3"] = "Added time stamping"
 rev["D3"] = "id-0"
 
-rev["A4"] = "REV 3"
+rev["A4"] = "V.3"
 rev["B4"] = "20171207"
 rev["C4"] = "Functions on test x.xml"
 rev["D4"] = "id-0"
 
-rev["A5"] = "REV 4"
+rev["A5"] = "V.4"
 rev["B5"] = "20171227"
 rev["C5"] = "Converted to openpyxl"
 rev["D5"] = "id-0"
 
-rev["A6"] = "REV 5"
+rev["A6"] = "V.5"
 rev["B6"] = "20180112"
 rev["C6"] = "Killed trackvia full table"
 rev["D6"] = "id-0"
 
-rev["A7"] = "REV 6"
+rev["A7"] = "V.6"
 rev["B7"] = "20180123"
 rev["C7"] = "Added chinese and auto launch for PIP"
 rev["D7"] = "id-0"
 
-rev["A8"] = "REV 7"
+rev["A8"] = "V.7"
 rev["B8"] = "20180223"
 rev["C8"] = "About done"
 rev["D8"] = "id-0"
 
-rev["A9"] = "REV 8"
+rev["A9"] = "V.8"
 rev["B9"] = "20180228"
 rev["C9"] = "Migrated to Python3.6.4"
 rev["D9"] = "id-0"
 
-rev["A10"] = "REV 9"
+rev["A10"] = "V.9"
 rev["B10"] = "20180307"
 rev["C10"] = "Test build with cx_Freeze5.1.1"
 rev["D10"] = "id-0"
 
-rev["A11"] = "REV x.x"
+rev["A11"] = "V.x"
 rev["B11"] = datetime.now()
 rev["C11"] = "Fiat justitia ruat caelum "
 rev["D11"] = "id-0"
+
+print (rev["a10"].value, rev["c10"].value, "\n")
+
 
 for col in rev.columns:
      max_length = 0
@@ -170,12 +167,6 @@ for col in rev.columns:
              pass
      adjusted_width = (max_length + 2) * 1.2 #add defined width value
      rev.column_dimensions[column].width = adjusted_width #adjust multi column width that contains string
-
-#print(mywb.get_sheet_names()) #debug
-print (rev["a7"].value, rev["c7"].value)
-
-
-
 
 
 #Parse .xml file
@@ -289,88 +280,53 @@ class Device( xml.sax.ContentHandler ):
          sta["d2"] = self.consolePartNumber
       elif self.CurrentData == "BuildModelString":
          print ("Part Name:", self.BuildModelString)
+         sta["e2"].alignment = Alignment(wrap_text = True)
          sta["e2"] = self.BuildModelString
       elif self.CurrentData == "equipmentType":
          print ("Equipment:", self.equipmentType)
+         sta["f2"].alignment = Alignment(wrap_text = True)
          sta["f2"] = self.equipmentType
          i = 0
          for i in range(2):
              if self.equipmentType == equipment[i]:
-                 e = eng["f2"].value #Warning label
-                 c = chi["f2"].value
-                 n = "\n\n"
-                 com = c + n + e
-                 sta["u2"].alignment = Alignment(wrap_text = True)
-                 sta["u2"] = com
-                 e = eng["i2"].value #DMK
-                 c = chi["i2"].value
-                 com = c + n + e
-                 sta["aa2"].alignment = Alignment(wrap_text = True)
-                 sta["aa2"] = com
-                 e = eng["o2"].value #Drive motor (PWM)
-                 c = chi["o2"].value
-                 com = c + n + e
-                 sta["al2"].alignment = Alignment(wrap_text = True)
-                 sta["al2"] = com      
+                 sta["u2"].alignment = Alignment(wrap_text = True) #Warning label
+                 sta["u2"] = chi["f2"].value + "\n\n" + eng["f2"].value
+                 sta["aa2"].alignment = Alignment(wrap_text = True) #DMK
+                 sta["aa2"] = chi["i2"].value + "\n\n" + eng["i2"].value
+                 sta["al2"].alignment = Alignment(wrap_text = True) #Drivemotor
+                 sta["al2"] = chi["o2"].value + "\n\n" + eng["o2"].value
          for i in range(2,8):
             if self.equipmentType == equipment[i]:
-                 e = eng["p2"].value #Tach
-                 c = chi["p2"].value
-                 n = "\n\n"
-                 com = c + n + e
-                 sta["am2"].alignment = Alignment(wrap_text = True)
-                 sta["am2"] = com
+                 sta["am2"].alignment = Alignment(wrap_text = True) #Tach
+                 sta["am2"] = chi["p2"].value + "\n\n" + eng["p2"].value
       elif self.CurrentData == "TypeName": #Isolates tag to array items only
          if self.TypeName == display[0]:
              print ("Display:", self.TypeName)
+             sta["g2"].alignment = Alignment(wrap_text = True)
              sta["g2"] = self.TypeName
          for i in range(1, 19):
              if self.TypeName == display[i]:
                  print ("Display:", self.TypeName)
+                 sta["g2"].alignment = Alignment(wrap_text = True)
                  sta["g2"] = self.TypeName
-                 e = eng["g2"].value #Cosmetic all other product
-                 c = chi["g2"].value
-                 n = "\n\n"
-                 com = c + n + e
-                 sta["w2"].alignment = Alignment(wrap_text = True)
-                 sta["w2"] = com
+                 sta["w2"].alignment = Alignment(wrap_text = True) #Cosmetic all other product
+                 sta["w2"] = chi["g2"].value + "\n\n" + eng["g2"].value
       elif self.CurrentData == "mcuChipName":
          print ("Processor:", self.mcuChipName)
          if self.mcuChipName == mcu[1]:
-             e = eng["j2"].value #BLE test
-             c = chi["j2"].value
-             n = "\n\n"
-             com = c + n + e
-             sta["ab2"].alignment = Alignment(wrap_text = True)
-             sta["ab2"] = com
-             e = eng["t5"].value #BLE pulse
-             c = chi["t5"].value
-             n = "\n\n"
-             com = c + n + e
-             sta["ar2"].alignment = Alignment(wrap_text = True)
-             sta["ar2"] = com    
+             sta["ab2"].alignment = Alignment(wrap_text = True) #BLE test
+             sta["ab2"] = chi["j2"].value + "\n\n" + eng["j2"].value
+             sta["ar2"].alignment = Alignment(wrap_text = True) #BLE pulse
+             sta["ar2"] = chi["t5"].value + "\n\n" + eng["t5"].value
              if self.equipmentType == ("TREADMILL_DEVICE" or "INCLINE_TRAINER_DEVICE"):
-                 e = eng["k5"].value #BLE maintenance
-                 c = chi["k5"].value
-                 n = "\n\n"
-                 com = c + n + e
-                 sta["ae2"].alignment = Alignment(wrap_text = True)
-                 sta["ae2"] = com
-                 e = eng["l5"].value #BLE calibrate
-                 c = chi["l5"].value
-                 com = c + n + e
-                 sta["ag2"].alignment = Alignment(wrap_text = True)
-                 sta["ag2"] = com
-                 e = eng["m5"].value #BLE display
-                 c = chi["m5"].value
-                 com = c + n + e
-                 sta["ah2"].alignment = Alignment(wrap_text = True)
-                 sta["ah2"] = com
-                 e = eng["n5"].value #BLE keycodes
-                 c = chi["n5"].value
-                 com = c + n + e
-                 sta["aj2"].alignment = Alignment(wrap_text = True)
-                 sta["aj2"] = com
+                 sta["ae2"].alignment = Alignment(wrap_text = True) #BLE maintainance
+                 sta["ae2"] = chi["k5"].value + "\n\n" + eng["k5"].value
+                 sta["ag2"].alignment = Alignment(wrap_text = True) #BLE calibrate
+                 sta["ag2"] = chi["l5"].value + "\n\n" + eng["l5"].value
+                 sta["ah2"].alignment = Alignment(wrap_text = True) #BLE display
+                 sta["ah2"] = chi["m5"].value + "\n\n" + eng["m5"].value
+                 sta["aj2"].alignment = Alignment(wrap_text = True) #BLE keycodes
+                 sta["aj2"] = chi["n5"].value + "\n\n" + eng["n5"].value
          if self.mcuChipName == mcu[2]:
              if self.equipmentType == ("TREADMILL_DEVICE" or "INCLINE_TRAINER_DEVICE"):
                      e = eng["k6"].value #Renesas maintenance
@@ -485,7 +441,7 @@ class Device( xml.sax.ContentHandler ):
               sta["ag2"] = ""
               
       elif self.CurrentData == "TabletProtocol": #-------------------------------------------------------------
-          #print "", self.TabletProtocol
+          print (""), self.TabletProtocol
           if self.TabletProtocol == tablet[0]:
               e = eng["g3"].value #Wolf cosmetic
               c = chi["g3"].value
@@ -588,7 +544,7 @@ class Device( xml.sax.ContentHandler ):
       elif self.CurrentData == "MaintenanceConfigFunction":
          print ("") #self.MaintenanceConfigFunction
       elif self.CurrentData == "PulseDriverItem": #-------------------------------------------------------------------
-         #print "", self.PulseDriverItem
+         print (""), self.PulseDriverItem
          if self.PulseDriverItem == pulse[0] or self.PulseDriverItem == pulse[5]:
              e = eng["t2"].value #Hand or nanoHand pulse
              c = chi["t2"].value
@@ -611,7 +567,7 @@ class Device( xml.sax.ContentHandler ):
              sta["ar2"].alignment = Alignment(wrap_text = True)
              sta["ar2"] = com
       elif self.CurrentData == "FanProtocol":
-         #print "", self.FanProtocol
+         print (""), self.FanProtocol
          if self.FanProtocol == fan[0]:
             e = eng["u2"].value #Two pin
             c = chi["u2"].value
@@ -627,7 +583,7 @@ class Device( xml.sax.ContentHandler ):
             sta["as2"].alignment = Alignment(wrap_text = True)
             sta["as2"] = com
       elif self.CurrentData == "AudioSrcItem": #--------------------------------------------------------------------
-         #print "", self.AudioSrcItem
+         print (""), self.AudioSrcItem
          if self.AudioSrcItem == audio[2]:
              e = eng["v2"].value #Connect audio source
              c = chi["v2"].value
@@ -668,7 +624,7 @@ class Device( xml.sax.ContentHandler ):
       elif self.CurrentData == "DistanceDriver":
          print ("", self.DistanceDriver)
       elif self.CurrentData == "ConsoleVoltage":
-         #print "", self.ConsoleVoltage
+         print (""), self.ConsoleVoltage
          if self.ConsoleVoltage != voltage[0]:
             ef = eng["c9"].value #Basic Bike1 with voltage > 0; resist and tach
             cf = chi["c9"].value
@@ -738,14 +694,10 @@ sta["ba2"] = datetime.now()
 
 
 mywb.save("Parts - Consoles.xlsx") #save created workbook
-print ("---------Procedure is building...Done!---------\n")
+print ("-------------Procedure is building...Done!-------------")
 
 
 
 
 file = "C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-world\\python3.6\\PIP_GEN_id-0\\Parts - Consoles.xlsx" #open procedure file
 os.startfile(file)
-
-#execfile["PIP_GEN_id-0.py"] #uncomment launch for repeat .xml verification
-#execfile("C:\Users\bryan.lee\Documents\GitHub\hello-world\Python\PIP_GEN_id-0\PIP_GEN_id-0_mod.py") #used to launch from python shell
-#https://youtu.be/VKQ1Ph81Gps This is py2exe tutorial
