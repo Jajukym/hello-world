@@ -329,27 +329,14 @@ class Device( xml.sax.ContentHandler ):
                  sta["aj2"] = chi["n5"].value + "\n\n" + eng["n5"].value
          if self.mcuChipName == mcu[2]:
              if self.equipmentType == ("TREADMILL_DEVICE" or "INCLINE_TRAINER_DEVICE"):
-                     e = eng["k6"].value #Renesas maintenance
-                     c = chi["k6"].value
-                     n = "\n\n"
-                     com = c + n + e
-                     sta["ae2"].alignment = Alignment(wrap_text = True)
-                     sta["ae2"] = com
-                     e = eng["l6"].value #Renesas calibrate
-                     c = chi["l6"].value
-                     com = c + n + e
-                     sta["ag2"].alignment = Alignment(wrap_text = True)
-                     sta["ag2"] = com
-                     e = eng["m6"].value #Renesas display
-                     c = chi["m6"].value
-                     com = c + n + e
-                     sta["ah2"].alignment = Alignment(wrap_text = True)
-                     sta["ah2"] = com
-                     e = eng["n6"].value #Renesas keycodes
-                     c = chi["n6"].value
-                     com = c + n + e
-                     sta["aj2"].alignment = Alignment(wrap_text = True)
-                     sta["aj2"] = com
+                 sta["ae2"].alignment = Alignment(wrap_text = True) #Renesas maintenance
+                 sta["ae2"] = chi["k6"].value + "\n\n" + eng["k6"].value
+                 sta["ag2"].alignment = Alignment(wrap_text = True) #Renesas calibrate
+                 sta["ag2"] = chi["l6"].value + "\n\n" + eng["l6"].value
+                 sta["ah2"].alignment = Alignment(wrap_text = True) #Renesas display
+                 sta["ah2"] = chi["m6"].value + "\n\n" + eng["m6"].value
+                 sta["aj2"].alignment = Alignment(wrap_text = True) #Renesas keycodes
+                 sta["aj2"] = chi["n6"].value + "\n\n" + eng["n6"].value
 
       elif self.CurrentData == "systemUnitType":
          print ("Unit Measure:", self.systemUnitType)
@@ -357,12 +344,8 @@ class Device( xml.sax.ContentHandler ):
          print ("Controller:", self.PowerBoard, "\n")
          for i in range(0,1):
             if self.PowerBoard == controller[i]:
-                e = eng["c4"].value #Tread 3
-                c = chi["c4"].value
-                n = "\n\n"
-                com = c + n + e
-                sta["i2"].alignment = Alignment(wrap_text = True)
-                sta["i2"] = com
+                sta["i2"].alignment = Alignment(wrap_text = True) #Tread 3
+                sta["i2"] = chi["c4"].value + "\n\n" + eng["c4"].value
          for i in range(2,20):
             if self.PowerBoard == controller[i]:
                 sta["i2"].alignment = Alignment(wrap_text = True) #Fixture Callout
@@ -372,25 +355,15 @@ class Device( xml.sax.ContentHandler ):
                 sta["h2"].alignment = Alignment(wrap_text = True) #Equipment needed
                 sta["h2"] = chi["b2"].value + "\n" + chi["b7"].value + "\n\n" + eng["b2"].value + "\n" + eng["b7"].value
          if self.PowerBoard == controller[21]:
-            ef = eng["c5"].value #Club treadmill
-            cf = chi["c5"].value
-            n = "\n\n"
-            comf = cf + n + ef
-            sta["i2"].alignment = Alignment(wrap_text = True)
-            sta["i2"] = comf
-            ep = eng["h5"].value #Club treadmill
-            cp = chi["h5"].value
-            n = "\n\n"
-            comp = cp + n + ep
-            sta["z2"].alignment = Alignment(wrap_text = True)
-            sta["z2"] = comp
+            sta["i2"].alignment = Alignment(wrap_text = True) #Club fixture Callout
+            sta["i2"] = chi["c5"].value + "\n\n" + eng["c5"].value
+            sta["z2"].alignment = Alignment(wrap_text = True) #Power up
+            sta["z2"] = chi["h5"].value + "\n\n" + eng["h5"].value
          if self.PowerBoard == controller[20]:
-            e = eng["c6"].value #Boston 1, Boston 2 will require verification of TV or Upright feature
-            c = chi["c6"].value
-            n = "\n\n"
-            com = c + n + e
-            sta["i2"].alignment = Alignment(wrap_text = True)
-            sta["i2"] = com
+            sta["i2"].alignment = Alignment(wrap_text = True) #Boston 1, Boston 2 will require verification of TV or Upright feature
+            sta["i2"] = chi["c6"].value + "\n\n" + eng["c6"].value
+            sta["z2"].alignment = Alignment(wrap_text = True) #Power up
+            sta["z2"] = chi["h2"].value + "\n\n" + eng["h2"].value
          if self.PowerBoard == controller[25] or self.PowerBoard == controller[26]:
             e = eng["c11"].value #PB_INC
             c = chi["c11"].value
@@ -443,37 +416,18 @@ class Device( xml.sax.ContentHandler ):
       elif self.CurrentData == "TabletProtocol": #-------------------------------------------------------------
           print (""), self.TabletProtocol
           if self.TabletProtocol == tablet[0]:
-              e = eng["g3"].value #Wolf cosmetic
-              c = chi["g3"].value
-              n = "\n\n"
-              com = c + n + e
-              sta["w2"].alignment = Alignment(wrap_text = True)
-              sta["w2"] = com
-              e = eng["k2"].value #Wolf maintainance
-              c = chi["k2"].value
-              com = c + n + e
-              sta["ae2"].alignment = Alignment(wrap_text = True)
-              sta["ae2"] = com
-              e = eng["l2"].value #Wolf calibrate
-              c = chi["l2"].value
-              com = c + n + e
-              sta["ag2"].alignment = Alignment(wrap_text = True)
-              sta["ag2"] = com
-              e = eng["m2"].value #Wolf display
-              c = chi["m2"].value
-              com = c + n + e
-              sta["ah2"].alignment = Alignment(wrap_text = True)
-              sta["ah2"] = com
-              e = eng["t6"].value #Wolf chest pulse
-              c = chi["t6"].value
-              com = c + n + e
-              sta["ar2"].alignment = Alignment(wrap_text = True)
-              sta["ar2"] = com
-              e = eng["w2"].value #Wolf HDMI
-              c = chi["w2"].value
-              com = c + n + e
-              sta["au2"].alignment = Alignment(wrap_text = True)
-              sta["au2"] = com
+              sta["w2"].alignment = Alignment(wrap_text = True) #Wolf cosmetics
+              sta["w2"] = chi["g3"].value + "\n\n" + eng["g3"].value
+              sta["ae2"].alignment = Alignment(wrap_text = True) #Wolf maintainance
+              sta["ae2"] = chi["k2"].value + "\n\n" + eng["k2"].value
+              sta["ag2"].alignment = Alignment(wrap_text = True) #Wolf calibrate
+              sta["ag2"] = chi["l2"].value + "\n\n" + eng["l2"].value
+              sta["ah2"].alignment = Alignment(wrap_text = True) #Wolf display
+              sta["ah2"] = chi["m2"].value + "\n\n" + eng["m2"].value
+              sta["ar2"].alignment = Alignment(wrap_text = True) #Wolf chest pulse
+              sta["ar2"] = chi["t6"].value + "\n\n" + eng["t6"].value
+              sta["au2"].alignment = Alignment(wrap_text = True) #Wolf HDMI
+              sta["au2"] = chi["w2"].value + "\n\n" + eng["w2"].value
               
           if self.TabletProtocol == tablet[1]:#-----------------------------------------------------------
               e = eng["k3"].value #Legacy maintainance
@@ -693,11 +647,8 @@ sta["ba2"] = datetime.now()
 
 
 
-mywb.save("Parts - Consoles.xlsx") #save created workbook
+mywb.save("Parts - Consoles.xlsx") #save created workbook. Can designate path for saving.
 print ("-------------Procedure is building...Done!-------------")
 
-
-
-
-file = "C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-world\\python3.6\\PIP_GEN_id-0\\Parts - Consoles.xlsx" #open procedure file
-os.startfile(file)
+#file = "C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-world\\python3.6\\PIP_GEN_id-0\\Parts - Consoles.xlsx" #open procedure file based on the path called out in previous lines.
+#os.startfile(file)
