@@ -25,7 +25,7 @@
       <DisplayId>0</DisplayId>
       <TypeName>NO_DISPLAY</TypeName>
     </Display>
-    <PowerBoard />
+    <PowerBoard>MC5100DTS_50W</PowerBoard>
     <emulatorPortNumber>2609</emulatorPortNumber>
     <isReleased>false</isReleased>
     <fit1eEnabled>false</fit1eEnabled>
@@ -1941,7 +1941,7 @@
       <MaxGrade>4000</MaxGrade>
       <MinPhysicalGrade>-600</MinPhysicalGrade>
       <MaxPhysicalGrade>4000</MaxPhysicalGrade>
-      <TransMax>0</TransMax>
+      <TransMax>200</TransMax>
       <GradeSpeedLimitArray>
         <GradeSpeedLimitItem>
           <LimitGrade>-10</LimitGrade>
@@ -2051,6 +2051,7 @@
       <Enabled>true</Enabled>
       <PulseDriverArray>
         <PulseDriverItem>Hand</PulseDriverItem>
+		<PulseDriverItem>BLE</PulseDriverItem>
       </PulseDriverArray>
       <PulseAdcResolution>EIGHT_BIT</PulseAdcResolution>
       <RawPulseAdcChannel>5</RawPulseAdcChannel>
