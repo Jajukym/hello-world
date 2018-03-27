@@ -1,7 +1,8 @@
 ﻿#libraries that are used in this script
-import sys; print(sys.version) #build system
+import sys; print(sys.version, "\n\n")  #build system
+print("-------------Welcome to PIP Generator-------------\n")
 import os
-from datetime import datetime, date; #print(datetime.now()) #date stamp
+from datetime import datetime, date; print(datetime.now()) #date stamp
 import xml.sax #.xml parser
 import openpyxl #create a workbook
 from openpyxl.workbook import Workbook #inserting line in workbook
@@ -10,6 +11,7 @@ from openpyxl.worksheet import *
 from openpyxl.cell import  Cell
 from openpyxl.utils import get_column_letter, column_index_from_string, coordinate_from_string
 from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Font, Color, colors
+
 
 
 
@@ -67,11 +69,6 @@ header = ["void for function call", "RecordID", "Link to Parts - Console Pics", 
 
 #EQF1259 source and to
 app = load_workbook(filename = "ConsoleProcedures.xlsx")
-#print(app.get_sheet_names()) #debug
-
-
-
-
 #Read sheets
 eng = app["english"] #PIP database
 chi = app["chinese"]
@@ -82,7 +79,6 @@ mywb = openpyxl.Workbook()
 mywb.remove(mywb["Sheet"]) #removes default sheet title
 mywb.create_sheet(index=0, title="Parts - Consoles") #adds new sheet with title
 mywb.create_sheet(index=1, title="revision")
-
 
 sta = mywb["Parts - Consoles"] #pip
 for i in range(1, 54):
@@ -104,60 +100,68 @@ for col in sta.columns:
 
 rev = mywb["revision"] #rev
 #Preliminary
-rev["A1"] = "REV 0"
+rev["A1"] = "V.0"
 rev["B1"] = "20171005"
 rev["C1"] = "Order from chaos"
 rev["D1"] = "id-0"
 
-rev["A2"] = "REV 1"
+rev["A2"] = "V.1"
 rev["B2"] = "20171205"
 rev["C2"] = "Created arrays for variables"
 rev["D2"] = "id-0"
 
-rev["A3"] = "REV 2"
+rev["A3"] = "V.2"
 rev["B3"] = "20171206"
 rev["C3"] = "Added time stamping"
 rev["D3"] = "id-0"
 
-rev["A4"] = "REV 3"
+rev["A4"] = "V.3"
 rev["B4"] = "20171207"
 rev["C4"] = "Functions on test x.xml"
 rev["D4"] = "id-0"
 
-rev["A5"] = "REV 4"
+rev["A5"] = "V.4"
 rev["B5"] = "20171227"
 rev["C5"] = "Converted to openpyxl"
 rev["D5"] = "id-0"
 
-rev["A6"] = "REV 5"
+rev["A6"] = "V.5"
 rev["B6"] = "20180112"
 rev["C6"] = "Killed trackvia full table"
 rev["D6"] = "id-0"
 
-rev["A7"] = "REV 6"
+rev["A7"] = "V.6"
 rev["B7"] = "20180123"
 rev["C7"] = "Added chinese and auto launch for PIP"
 rev["D7"] = "id-0"
 
-rev["A8"] = "REV 7"
+rev["A8"] = "V.7"
 rev["B8"] = "20180223"
 rev["C8"] = "About done"
 rev["D8"] = "id-0"
 
-rev["A9"] = "REV 8"
+rev["A9"] = "V.8"
 rev["B9"] = "20180228"
 rev["C9"] = "Migrated to Python3.6.4"
 rev["D9"] = "id-0"
 
-rev["A10"] = "REV 9"
+rev["A10"] = "V.9"
 rev["B10"] = "20180307"
 rev["C10"] = "Test build with cx_Freeze5.1.1"
 rev["D10"] = "id-0"
 
-rev["A11"] = "REV x.x"
-rev["B11"] = datetime.now()
-rev["C11"] = "Fiat justitia ruat caelum "
+rev["A11"] = "V.10"
+rev["B11"] = "20180327"
+rev["C11"] = "Added pause to verify no errors"
 rev["D11"] = "id-0"
+
+rev["A12"] = "V.x"
+rev["B12"] = datetime.now()
+rev["C12"] = "Fiat justitia ruat caelum "
+rev["D12"] = "id-0"
+
+print (rev["a11"].value, rev["c11"].value, "\n")
+
 
 for col in rev.columns:
      max_length = 0
@@ -170,12 +174,6 @@ for col in rev.columns:
              pass
      adjusted_width = (max_length + 2) * 1.2 #add defined width value
      rev.column_dimensions[column].width = adjusted_width #adjust multi column width that contains string
-
-#print(mywb.get_sheet_names()) #debug
-print (rev["a7"].value, rev["c7"].value)
-
-
-
 
 
 #Parse .xml file
@@ -213,10 +211,12 @@ class Device( xml.sax.ContentHandler ):
          feature = attributes["xsi:type"]
          #print feature
          if feature == "UsbFeature":
+             print ("Feature:", feature)
              sta["ap2"].alignment = Alignment(wrap_text = True) #USB test
              sta["ap2"] = chi["s2"].value + "\n\n" + eng["s2"].value
              
          if feature == "CsafeFeature": #OT maintainance mode
+             print ("Feature:", feature)
              sta["ae2"].alignment = Alignment(wrap_text = True) #OT maintainance
              sta["ae2"] = chi["k6"].value + "\n\n" + eng["k6"].value
              sta["ag2"].alignment = Alignment(wrap_text = True) #OT calibrate
@@ -234,7 +234,7 @@ class Device( xml.sax.ContentHandler ):
              sta["au2"].alignment = Alignment(wrap_text = True) #MYE TV test
              sta["au2"] = chi["w4"].value + "\n\n" + eng["w4"].value
          if feature == "MaintenanceModeFeature":
-             print ("", feature)
+             print ("Feature:", feature)
              if self.KeyCodeName == "SETTINGS":
               print ("something else---------------------------------------------------------------------")
              
@@ -289,124 +289,61 @@ class Device( xml.sax.ContentHandler ):
          sta["d2"] = self.consolePartNumber
       elif self.CurrentData == "BuildModelString":
          print ("Part Name:", self.BuildModelString)
+         sta["e2"].alignment = Alignment(wrap_text = True)
          sta["e2"] = self.BuildModelString
       elif self.CurrentData == "equipmentType":
          print ("Equipment:", self.equipmentType)
+         sta["f2"].alignment = Alignment(wrap_text = True)
          sta["f2"] = self.equipmentType
          i = 0
          for i in range(2):
              if self.equipmentType == equipment[i]:
-                 e = eng["f2"].value #Warning label
-                 c = chi["f2"].value
-                 n = "\n\n"
-                 com = c + n + e
-                 sta["u2"].alignment = Alignment(wrap_text = True)
-                 sta["u2"] = com
-                 e = eng["i2"].value #DMK
-                 c = chi["i2"].value
-                 com = c + n + e
-                 sta["aa2"].alignment = Alignment(wrap_text = True)
-                 sta["aa2"] = com
-                 e = eng["o2"].value #Drive motor (PWM)
-                 c = chi["o2"].value
-                 com = c + n + e
-                 sta["al2"].alignment = Alignment(wrap_text = True)
-                 sta["al2"] = com      
+                 sta["u2"].alignment = Alignment(wrap_text = True) #Warning label
+                 sta["u2"] = chi["f2"].value + "\n\n" + eng["f2"].value
+                 sta["aa2"].alignment = Alignment(wrap_text = True) #DMK
+                 sta["aa2"] = chi["i2"].value + "\n\n" + eng["i2"].value
+                 sta["al2"].alignment = Alignment(wrap_text = True) #Drivemotor
+                 sta["al2"] = chi["o2"].value + "\n\n" + eng["o2"].value
          for i in range(2,8):
             if self.equipmentType == equipment[i]:
-                 e = eng["p2"].value #Tach
-                 c = chi["p2"].value
-                 n = "\n\n"
-                 com = c + n + e
-                 sta["am2"].alignment = Alignment(wrap_text = True)
-                 sta["am2"] = com
+                 sta["am2"].alignment = Alignment(wrap_text = True) #Tach
+                 sta["am2"] = chi["p2"].value + "\n\n" + eng["p2"].value
       elif self.CurrentData == "TypeName": #Isolates tag to array items only
          if self.TypeName == display[0]:
              print ("Display:", self.TypeName)
+             sta["g2"].alignment = Alignment(wrap_text = True)
              sta["g2"] = self.TypeName
          for i in range(1, 19):
              if self.TypeName == display[i]:
                  print ("Display:", self.TypeName)
+                 sta["g2"].alignment = Alignment(wrap_text = True)
                  sta["g2"] = self.TypeName
-                 e = eng["g2"].value #Cosmetic all other product
-                 c = chi["g2"].value
-                 n = "\n\n"
-                 com = c + n + e
-                 sta["w2"].alignment = Alignment(wrap_text = True)
-                 sta["w2"] = com
+                 sta["w2"].alignment = Alignment(wrap_text = True) #Cosmetic all other product
+                 sta["w2"] = chi["g2"].value + "\n\n" + eng["g2"].value
       elif self.CurrentData == "mcuChipName":
          print ("Processor:", self.mcuChipName)
          if self.mcuChipName == mcu[1]:
-             e = eng["j2"].value #BLE test
-             c = chi["j2"].value
-             n = "\n\n"
-             com = c + n + e
-             sta["ab2"].alignment = Alignment(wrap_text = True)
-             sta["ab2"] = com
-             e = eng["t5"].value #BLE pulse
-             c = chi["t5"].value
-             n = "\n\n"
-             com = c + n + e
-             sta["ar2"].alignment = Alignment(wrap_text = True)
-             sta["ar2"] = com    
+             sta["ab2"].alignment = Alignment(wrap_text = True) #BLE test
+             sta["ab2"] = chi["j2"].value + "\n\n" + eng["j2"].value
+             sta["ar2"].alignment = Alignment(wrap_text = True) #BLE pulse
+             sta["ar2"] = chi["t5"].value + "\n\n" + eng["t5"].value
              if self.equipmentType == ("TREADMILL_DEVICE" or "INCLINE_TRAINER_DEVICE"):
-                 e = eng["k5"].value #BLE maintenance
-                 c = chi["k5"].value
-                 n = "\n\n"
-                 com = c + n + e
-                 sta["ae2"].alignment = Alignment(wrap_text = True)
-                 sta["ae2"] = com
-                 e = eng["l5"].value #BLE calibrate
-                 c = chi["l5"].value
-                 com = c + n + e
-                 sta["ag2"].alignment = Alignment(wrap_text = True)
-                 sta["ag2"] = com
-                 e = eng["m5"].value #BLE display
-                 c = chi["m5"].value
-                 com = c + n + e
-                 sta["ah2"].alignment = Alignment(wrap_text = True)
-                 sta["ah2"] = com
-                 e = eng["n5"].value #BLE keycodes
-                 c = chi["n5"].value
-                 com = c + n + e
-                 sta["aj2"].alignment = Alignment(wrap_text = True)
-                 sta["aj2"] = com
-         if self.mcuChipName == mcu[2]:
-             if self.equipmentType == ("TREADMILL_DEVICE" or "INCLINE_TRAINER_DEVICE"):
-                     e = eng["k6"].value #Renesas maintenance
-                     c = chi["k6"].value
-                     n = "\n\n"
-                     com = c + n + e
-                     sta["ae2"].alignment = Alignment(wrap_text = True)
-                     sta["ae2"] = com
-                     e = eng["l6"].value #Renesas calibrate
-                     c = chi["l6"].value
-                     com = c + n + e
-                     sta["ag2"].alignment = Alignment(wrap_text = True)
-                     sta["ag2"] = com
-                     e = eng["m6"].value #Renesas display
-                     c = chi["m6"].value
-                     com = c + n + e
-                     sta["ah2"].alignment = Alignment(wrap_text = True)
-                     sta["ah2"] = com
-                     e = eng["n6"].value #Renesas keycodes
-                     c = chi["n6"].value
-                     com = c + n + e
-                     sta["aj2"].alignment = Alignment(wrap_text = True)
-                     sta["aj2"] = com
-
+                 sta["ae2"].alignment = Alignment(wrap_text = True) #BLE maintainance
+                 sta["ae2"] = chi["k5"].value + "\n\n" + eng["k5"].value
+                 sta["ag2"].alignment = Alignment(wrap_text = True) #BLE calibrate
+                 sta["ag2"] = chi["l5"].value + "\n\n" + eng["l5"].value
+                 sta["ah2"].alignment = Alignment(wrap_text = True) #BLE display
+                 sta["ah2"] = chi["m5"].value + "\n\n" + eng["m5"].value
+                 sta["aj2"].alignment = Alignment(wrap_text = True) #BLE keycodes
+                 sta["aj2"] = chi["n5"].value + "\n\n" + eng["n5"].value
       elif self.CurrentData == "systemUnitType":
          print ("Unit Measure:", self.systemUnitType)
       elif self.CurrentData == "PowerBoard": #----------------------------------------------------------------------------------------
          print ("Controller:", self.PowerBoard, "\n")
          for i in range(0,1):
             if self.PowerBoard == controller[i]:
-                e = eng["c4"].value #Tread 3
-                c = chi["c4"].value
-                n = "\n\n"
-                com = c + n + e
-                sta["i2"].alignment = Alignment(wrap_text = True)
-                sta["i2"] = com
+                sta["i2"].alignment = Alignment(wrap_text = True) #Tread 3
+                sta["i2"] = chi["c4"].value + "\n\n" + eng["c4"].value
          for i in range(2,20):
             if self.PowerBoard == controller[i]:
                 sta["i2"].alignment = Alignment(wrap_text = True) #Fixture Callout
@@ -416,52 +353,35 @@ class Device( xml.sax.ContentHandler ):
                 sta["h2"].alignment = Alignment(wrap_text = True) #Equipment needed
                 sta["h2"] = chi["b2"].value + "\n" + chi["b7"].value + "\n\n" + eng["b2"].value + "\n" + eng["b7"].value
          if self.PowerBoard == controller[21]:
-            ef = eng["c5"].value #Club treadmill
-            cf = chi["c5"].value
-            n = "\n\n"
-            comf = cf + n + ef
-            sta["i2"].alignment = Alignment(wrap_text = True)
-            sta["i2"] = comf
-            ep = eng["h5"].value #Club treadmill
-            cp = chi["h5"].value
-            n = "\n\n"
-            comp = cp + n + ep
-            sta["z2"].alignment = Alignment(wrap_text = True)
-            sta["z2"] = comp
+            sta["i2"].alignment = Alignment(wrap_text = True) #Club fixture Callout
+            sta["i2"] = chi["c5"].value + "\n\n" + eng["c5"].value
+            sta["z2"].alignment = Alignment(wrap_text = True) #Power up
+            sta["z2"] = chi["h5"].value + "\n\n" + eng["h5"].value
          if self.PowerBoard == controller[20]:
-            e = eng["c6"].value #Boston 1, Boston 2 will require verification of TV or Upright feature
-            c = chi["c6"].value
-            n = "\n\n"
-            com = c + n + e
-            sta["i2"].alignment = Alignment(wrap_text = True)
-            sta["i2"] = com
+            sta["i2"].alignment = Alignment(wrap_text = True) #Boston 1, Boston 2 will require verification of TV or Upright feature
+            sta["i2"] = chi["c6"].value + "\n\n" + eng["c6"].value
+            sta["z2"].alignment = Alignment(wrap_text = True) #Power up
+            sta["z2"] = chi["h2"].value + "\n\n" + eng["h2"].value
          if self.PowerBoard == controller[25] or self.PowerBoard == controller[26]:
-            e = eng["c11"].value #PB_INC
-            c = chi["c11"].value
-            n = "\n\n"
-            com = c + n + e
-            sta["i2"].alignment = Alignment(wrap_text = True)
-            sta["i2"] = com
+            sta["i2"].alignment = Alignment(wrap_text = True) #PB_INC
+            sta["i2"] = chi["c11"].value + "\n\n" + eng["c11"].value
+            sta["z2"].alignment = Alignment(wrap_text = True) #Power up
+            sta["z2"] = chi["h3"].value + "\n\n" + eng["h3"].value
          for i in range(27,30):
             if self.PowerBoard == controller[i]:
-                e = eng["c12"].value #PB_INC_485
-                c = chi["c12"].value
-                n = "\n\n"
-                com = c + n + e
-                sta["i2"].alignment = Alignment(wrap_text = True)
-                sta["i2"] = com
+                sta["i2"].alignment = Alignment(wrap_text = True) #PB_INC_485
+                sta["i2"] = chi["c12"].value + "\n\n" + eng["c12"].value
          if self.PowerBoard == controller[31] or self.PowerBoard == controller[32]:
-             
-            e = eng["c11"].value #Club bike
-            c = chi["c11"].value
-            n = "\n\n"
-            com = c + n + e
-            sta["i2"].alignment = Alignment(wrap_text = True)
-            sta["i2"] = com
+            sta["i2"].alignment = Alignment(wrap_text = True) #CLUB_BIKE
+            sta["i2"] = chi["c11"].value + "\n\n" + eng["c11"].value
       elif self.CurrentData == "KeyCodeName":
-          print ("") #self.KeyCodeName
+          if self.KeyCodeName == "SETTINGS":
+              print ("KeyName:", self.KeyCodeName)
+          if self.KeyCodeName == "MANUAL":
+              print ("KeyName:", self.KeyCodeName)
+          if self.KeyCodeName == "PRIORITY_DISPLAY":
+              print ("KeyName:", self.KeyCodeName)
       elif self.CurrentData == "KeyCodeCategory":
-          print ("") #self.KeyCodeCategory
           if self.KeyCodeName == "SETTINGS":
               sta["ae2"].alignment = Alignment(wrap_text = True) #software
               sta["ae2"] = chi["k8"].value + "\n\n" + eng["k8"].value
@@ -471,6 +391,10 @@ class Device( xml.sax.ContentHandler ):
               sta["ah2"] = chi["m8"].value + "\n\n" + eng["m8"].value
               sta["aj2"].alignment = Alignment(wrap_text = True) #keycodes
               sta["aj2"] = chi["n8"].value + "\n\n" + eng["n8"].value
+          if self.GradeProtocol != "Manual":
+              sta["ag2"].alignment = Alignment(wrap_text = True) #incline
+              sta["ag2"] = ""
+      elif self.CurrentData == "KeyCodeCategory":
           if (self.KeyCodeName == "MANUAL" or "PRIORITY_DISPLAY"):
               sta["ae2"].alignment = Alignment(wrap_text = True) #software
               sta["ae2"] = chi["k9"].value + "\n\n" + eng["k9"].value
@@ -483,212 +407,93 @@ class Device( xml.sax.ContentHandler ):
           if self.GradeProtocol != "Manual":
               sta["ag2"].alignment = Alignment(wrap_text = True) #incline
               sta["ag2"] = ""
-              
       elif self.CurrentData == "TabletProtocol": #-------------------------------------------------------------
-          #print "", self.TabletProtocol
+          print ("Tablet Type:", self.TabletProtocol)
+          """print ("Equipment:", self.equipmentType) #can call variable later on in the function!
+          for i in range(2,8):
+              if self.TabletProtocol == tablet[0] and self.equipmentType == equipment[i]:
+                  print ("I did this")
+                  sta["aj2"].alignment = Alignment(wrap_text = True) #Wolf button test
+                  sta["aj2"] = chi["n2"].value + "\n\n" + eng["n2"].value"""
           if self.TabletProtocol == tablet[0]:
-              e = eng["g3"].value #Wolf cosmetic
-              c = chi["g3"].value
-              n = "\n\n"
-              com = c + n + e
-              sta["w2"].alignment = Alignment(wrap_text = True)
-              sta["w2"] = com
-              e = eng["k2"].value #Wolf maintainance
-              c = chi["k2"].value
-              com = c + n + e
-              sta["ae2"].alignment = Alignment(wrap_text = True)
-              sta["ae2"] = com
-              e = eng["l2"].value #Wolf calibrate
-              c = chi["l2"].value
-              com = c + n + e
-              sta["ag2"].alignment = Alignment(wrap_text = True)
-              sta["ag2"] = com
-              e = eng["m2"].value #Wolf display
-              c = chi["m2"].value
-              com = c + n + e
-              sta["ah2"].alignment = Alignment(wrap_text = True)
-              sta["ah2"] = com
-              e = eng["t6"].value #Wolf chest pulse
-              c = chi["t6"].value
-              com = c + n + e
-              sta["ar2"].alignment = Alignment(wrap_text = True)
-              sta["ar2"] = com
-              e = eng["w2"].value #Wolf HDMI
-              c = chi["w2"].value
-              com = c + n + e
-              sta["au2"].alignment = Alignment(wrap_text = True)
-              sta["au2"] = com
-              
-          if self.TabletProtocol == tablet[1]:#-----------------------------------------------------------
-              e = eng["k3"].value #Legacy maintainance
-              c = chi["k3"].value
-              n = "\n\n"
-              com = c + n + e
-              sta["ae2"].alignment = Alignment(wrap_text = True)
-              sta["ae2"] = com
-              e = eng["l3"].value #Legacy calibrate
-              c = chi["l3"].value
-              com = c + n + e
-              sta["ag2"].alignment = Alignment(wrap_text = True)
-              sta["ag2"] = com
-              e = eng["m2"].value #Legacy display
-              c = chi["m2"].value
-              com = c + n + e
-              sta["ah2"].alignment = Alignment(wrap_text = True)
-              sta["ah2"] = com
-              e = eng["n3"].value #Legacy keycodes
-              c = chi["n3"].value
-              com = c + n + e
-              sta["ai2"].alignment = Alignment(wrap_text = True)
-              sta["ai2"] = com
-              e = eng["t5"].value #Legacy Chest pulse
-              c = chi["t5"].value
-              n = "\n\n"
-              com = c + n + e
-              sta["ar2"].alignment = Alignment(wrap_text = True)
-              sta["ar2"] = com
+              sta["w2"].alignment = Alignment(wrap_text = True) #Wolf cosmetics
+              sta["w2"] = chi["g3"].value + "\n\n" + eng["g3"].value
+              sta["ae2"].alignment = Alignment(wrap_text = True) #Wolf maintainance
+              sta["ae2"] = chi["k2"].value + "\n\n" + eng["k2"].value
+              sta["ag2"].alignment = Alignment(wrap_text = True) #Wolf calibrate
+              sta["ag2"] = chi["l2"].value + "\n\n" + eng["l2"].value
+              sta["ah2"].alignment = Alignment(wrap_text = True) #Wolf display
+              sta["ah2"] = chi["m2"].value + "\n\n" + eng["m2"].value
+              sta["ar2"].alignment = Alignment(wrap_text = True) #Wolf chest pulse
+              sta["ar2"] = chi["t6"].value + "\n\n" + eng["t6"].value
+              sta["au2"].alignment = Alignment(wrap_text = True) #Wolf HDMI
+              sta["au2"] = chi["w2"].value + "\n\n" + eng["w2"].value
           if self.TabletProtocol == tablet[2]:#------------------------------------------------------------
-              e = eng["k4"].value #Legacy FreeMotion maintainance
-              c = chi["k4"].value
-              n = "\n\n"
-              com = c + n + e
-              sta["ae2"].alignment = Alignment(wrap_text = True)
-              sta["ae2"] = com
-              e = eng["l4"].value #Legacy FreeMotion calibrate
-              c = chi["l4"].value
-              com = c + n + e
-              sta["ag2"].alignment = Alignment(wrap_text = True)
-              sta["ag2"] = com
-              e = eng["m2"].value #Legacy FreeMotion display
-              c = chi["m2"].value
-              com = c + n + e
-              sta["ah2"].alignment = Alignment(wrap_text = True)
-              sta["ah2"] = com
-
-              e = eng["n3"].value #Legacy FreeMotion keycodes
-              c = chi["n3"].value
-              com = c + n + e
-              sta["ai2"].alignment = Alignment(wrap_text = True)
-              sta["ai2"] = com
-              e = eng["t4"].value #ANT pulse
-              c = chi["t4"].value
-              n = "\n\n"
-              com = c + n + e
-              sta["ar2"].alignment = Alignment(wrap_text = True)
-              sta["ar2"] = com
+              sta["ae2"].alignment = Alignment(wrap_text = True) #Legacy FreeMotion maintainance
+              sta["ae2"] = chi["k4"].value + "\n\n" + eng["k4"].value
+              sta["ag2"].alignment = Alignment(wrap_text = True) #Legacy FreeMotion calibrate
+              sta["ag2"] = chi["l4"].value + "\n\n" + eng["l4"].value
+              sta["ah2"].alignment = Alignment(wrap_text = True) #Legacy FreeMotion display
+              sta["ah2"] = chi["m2"].value + "\n\n" + eng["m2"].value
+              sta["ai2"].alignment = Alignment(wrap_text = True) #Legacy FreeMotion maintainance
+              sta["ai2"] = chi["n3"].value + "\n\n" + eng["n3"].value
+              sta["ar2"].alignment = Alignment(wrap_text = True) #ANT pulse
+              sta["ar2"] = chi["t4"].value + "\n\n" + eng["t4"].value
       elif self.CurrentData == "GradeProtocol":
          print ("Incline Type:", self.GradeProtocol)
-         e = eng["q2"].value #Incline
-         c = chi["q2"].value
-         n = "\n\n"
-         com = c + n + e
-         sta["ao2"].alignment = Alignment(wrap_text = True)
-         sta["ao2"] = com
-         
+         sta["ao2"].alignment = Alignment(wrap_text = True) #Incline
+         sta["ao2"] = chi["q2"].value + "\n\n" + eng["q2"].value
       elif self.CurrentData == "MaintenanceConfigFunction":
-         print ("") #self.MaintenanceConfigFunction
+         print ("Maintaince Screens:", self.MaintenanceConfigFunction)
       elif self.CurrentData == "PulseDriverItem": #-------------------------------------------------------------------
-         #print "", self.PulseDriverItem
+         print ("Pulse Type:", self.PulseDriverItem)
          if self.PulseDriverItem == pulse[0] or self.PulseDriverItem == pulse[5]:
-             e = eng["t2"].value #Hand or nanoHand pulse
-             c = chi["t2"].value
-             n = "\n\n"
-             com = c + n + e
-             sta["aq2"].alignment = Alignment(wrap_text = True)
-             sta["aq2"] = com
+             sta["aq2"].alignment = Alignment(wrap_text = True) #Hand or nanoHand pulse
+             sta["aq2"] = chi["t2"].value + "\n\n" + eng["t2"].value
          if self.PulseDriverItem == pulse[1]:
-             e = eng["t3"].value #Thumb pulse
-             c = chi["t3"].value
-             n = "\n\n"
-             com = c + n + e
-             sta["aq2"].alignment = Alignment(wrap_text = True)
-             sta["aq2"] = com    
+             sta["aq2"].alignment = Alignment(wrap_text = True) #Thumb pulse
+             sta["aq2"] = chi["t3"].value + "\n\n" + eng["t3"].value
          if self.PulseDriverItem == pulse[2]:
-             e = eng["t4"].value #Chest pulse
-             c = chi["t4"].value
-             n = "\n\n"
-             com = c + n + e
-             sta["ar2"].alignment = Alignment(wrap_text = True)
-             sta["ar2"] = com
+             sta["ar2"].alignment = Alignment(wrap_text = True) #Chest pulse
+             sta["ar2"] = chi["t4"].value + "\n\n" + eng["t4"].value
       elif self.CurrentData == "FanProtocol":
-         #print "", self.FanProtocol
+         print ("Fan Pin:", self.FanProtocol)
          if self.FanProtocol == fan[0]:
-            e = eng["u2"].value #Two pin
-            c = chi["u2"].value
-            n = "\n\n"
-            com = c + n + e
-            sta["as2"].alignment = Alignment(wrap_text = True)
-            sta["as2"] = com
+            sta["as2"].alignment = Alignment(wrap_text = True) #Two pin
+            sta["as2"] = chi["u2"].value + "\n\n" + eng["u2"].value
          else:
-            e = eng["u3"].value #Three pin
-            c = chi["u3"].value
-            n = "\n\n"
-            com = c + n + e
-            sta["as2"].alignment = Alignment(wrap_text = True)
-            sta["as2"] = com
+            sta["as2"].alignment = Alignment(wrap_text = True) #Three pin
+            sta["as2"] = chi["u3"].value + "\n\n" + eng["u3"].value
       elif self.CurrentData == "AudioSrcItem": #--------------------------------------------------------------------
-         #print "", self.AudioSrcItem
+         print ("Audio Source:", self.AudioSrcItem)
          if self.AudioSrcItem == audio[2]:
-             e = eng["v2"].value #Connect audio source
-             c = chi["v2"].value
-             n = "\n\n"
-             com = c + n + e
-             sta["at2"].alignment = Alignment(wrap_text = True)
-             sta["at2"] = com
+             sta["at2"].alignment = Alignment(wrap_text = True) #Connect audio source
+             sta["at2"] = chi["v2"].value + "\n\n" + eng["v2"].value
          if self.AudioSrcItem == audio[5]:
-             e = eng["v3"].value #Connect headphones
-             c = chi["v3"].value
-             n = "\n\n"
-             com = c + n + e
-             sta["at2"].alignment = Alignment(wrap_text = True)
-             sta["at2"] = com
+             sta["at2"].alignment = Alignment(wrap_text = True) #Connect audio source and headphones
+             sta["at2"] = chi["v3"].value + "\n\n" + eng["v3"].value
          if self.AudioSrcItem == audio[6]:
-             e = eng["v4"].value #Connect BLE audio source
-             c = chi["v4"].value
-             n = "\n\n"
-             com = c + n + e
-             sta["at2"].alignment = Alignment(wrap_text = True)
-             sta["at2"] = com
+             sta["at2"].alignment = Alignment(wrap_text = True) #Connect audio source and headphones and BLE audio
+             sta["at2"] = chi["v4"].value + "\n\n" + eng["v4"].value
          if self.AudioSrcItem == audio[8]:
-             e = eng["v5"].value #FM is MYE audio source
-             c = chi["v5"].value
-             n = "\n\n"
-             com = c + n + e
-             sta["at2"].alignment = Alignment(wrap_text = True)
-             sta["at2"] = com
-         
+             sta["at2"].alignment = Alignment(wrap_text = True) #Connect MYE audio
+             sta["at2"] = chi["v5"].value + "\n\n" + eng["v5"].value
       elif self.CurrentData == "ResistanceDriver": #-----------------------------------------------------------
-         #print "", self.ResistanceDriver
-         e = eng["r2"].value #resistance
-         c = chi["r2"].value
-         n = "\n\n"
-         com = c + n + e
-         sta["an2"].alignment = Alignment(wrap_text = True)
-         sta["an2"] = com
+         print ("Resistance Type:",self.ResistanceDriver)
+         sta["an2"].alignment = Alignment(wrap_text = True) #Resistance
+         sta["an2"] = chi["r2"].value + "\n\n" + eng["r2"].value
       elif self.CurrentData == "DistanceDriver":
-         print ("", self.DistanceDriver)
+         print ("Tach type:", self.DistanceDriver)
       elif self.CurrentData == "ConsoleVoltage":
-         #print "", self.ConsoleVoltage
+         print ("Console Voltage:", self.ConsoleVoltage)#---------------------------------------------------------------
          if self.ConsoleVoltage != voltage[0]:
-            ef = eng["c9"].value #Basic Bike1 with voltage > 0; resist and tach
-            cf = chi["c9"].value
-            n = "\n\n"
-            comf = cf + n + ef
-            ep = eng["h9"].value #Power up
-            cp = chi["h9"].value
-            n = "\n\n"
-            comp = cp + n + ep
-            sta["i2"].alignment = Alignment(wrap_text = True)
-            sta["i2"] = comf
-            sta["z2"].alignment = Alignment(wrap_text = True)
-            sta["z2"] = comp
-         if self.ConsoleVoltage == voltage[0]:
-            e = eng["c10"].value #Basic Bike2 voltage = 0; resist and tach
-            c = chi["c10"].value
-            n = "\n\n"
-            com = c + n + e
-            sta["i2"].alignment = Alignment(wrap_text = True)
-            sta["i2"] = com
+            sta["i2"].alignment = Alignment(wrap_text = True) #Basic Bike1 with voltage > 0; resist and tach
+            sta["i2"] = chi["c9"].value + "\n\n" + eng["c9"].value
+            sta["z2"].alignment = Alignment(wrap_text = True) #Power up
+            sta["z2"] = chi["h9"].value + "\n\n" + eng["h9"].value
+         if self.ConsoleVoltage == voltage[0]:#------------------------------------------------------------------------
+            sta["i2"].alignment = Alignment(wrap_text = True) #Basic Bike2 voltage = 0; resist and tach
+            sta["i2"] = chi["c10"].value + "\n\n" + eng["c10"].value
       self.CurrentData = ""
       
 
@@ -704,48 +509,34 @@ if ( __name__ == "__main__"):
    # turn off namepsaces
    parser.setFeature(xml.sax.handler.feature_namespaces, 0)
 
-
-
-
    # override the default ContextHandler
    Handler = Device()
    parser.setContentHandler( Handler )
-
    parser.parse(filename)
 
 
 sta["c2"].alignment = Alignment(wrap_text = True) #[PartTypeLink]
 sta["c2"] = "控制台 console"
 
-e = eng["e2"].value #ESD bag
-c = chi["e2"].value
-n = "\n\n"
-com = c + n + e
-sta["s2"].alignment = Alignment(wrap_text = True)
-sta["s2"] = com
+sta["s2"].alignment = Alignment(wrap_text = True) #ESD bag
+sta["s2"] = chi["e2"].value + "\n\n" + eng["e2"].value
 
-e = eng["aa2"].value #finish
-c = chi["aa2"].value
-n = "\n\n"
-com = c + n + e
-sta["aw2"].alignment = Alignment(wrap_text = True)
-sta["aw2"] = com
-
+sta["aw2"].alignment = Alignment(wrap_text = True) #Finish
+sta["aw2"] = chi["aa2"].value + "\n\n" + eng["aa2"].value
+sta["ay2"].alignment = Alignment(wrap_text = True) #Finish
 sta["ay2"] = "PIP_Generator"
+sta["ba2"].alignment = Alignment(wrap_text = True) #Finish
 sta["ba2"] = datetime.now()
 
 
 
 
-mywb.save("Parts - Consoles.xlsx") #save created workbook
-print ("---------Procedure is building...Done!---------\n")
+mywb.save("Parts - Consoles.xlsx") #save created workbook. Can designate path for saving.
+print ("\n")
+print ("-------------Procedure Build Is Complete!-------------\n")
+
+#file = "C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-world\\python3.6\\PIP_GEN_id-0\\Parts - Consoles.xlsx" #for development
+#os.startfile(file)
 
 
-
-
-file = "C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-world\\python3.6\\PIP_GEN_id-0\\Parts - Consoles.xlsx" #open procedure file
-os.startfile(file)
-
-#execfile["PIP_GEN_id-0.py"] #uncomment launch for repeat .xml verification
-#execfile("C:\Users\bryan.lee\Documents\GitHub\hello-world\Python\PIP_GEN_id-0\PIP_GEN_id-0_mod.py") #used to launch from python shell
-#https://youtu.be/VKQ1Ph81Gps This is py2exe tutorial
+input ("Press Enter To Close Window:") #for release
