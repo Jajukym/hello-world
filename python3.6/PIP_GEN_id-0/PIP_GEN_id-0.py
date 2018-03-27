@@ -15,6 +15,7 @@ from openpyxl.styles import PatternFill, Border, Side, Alignment, Protection, Fo
 
 
 
+
 mcu = ["PSOC", "NRF51", "RENESAS", "XILOG"];
 
 equipment = ["TREADMILL_DEVICE", "INCLINE_TRAINER_DEVICE", "ELLIPTICAL_DEVICE",
@@ -149,12 +150,17 @@ rev["B10"] = "20180307"
 rev["C10"] = "Test build with cx_Freeze5.1.1"
 rev["D10"] = "id-0"
 
-rev["A11"] = "V.x"
-rev["B11"] = datetime.now()
-rev["C11"] = "Fiat justitia ruat caelum "
+rev["A11"] = "V.10"
+rev["B11"] = "20180327"
+rev["C11"] = "Added pause to verify no errors"
 rev["D11"] = "id-0"
 
-print (rev["a10"].value, rev["c10"].value, "\n")
+rev["A12"] = "V.x"
+rev["B12"] = datetime.now()
+rev["C12"] = "Fiat justitia ruat caelum "
+rev["D12"] = "id-0"
+
+print (rev["a11"].value, rev["c11"].value, "\n")
 
 
 for col in rev.columns:
@@ -359,6 +365,8 @@ class Device( xml.sax.ContentHandler ):
          if self.PowerBoard == controller[25] or self.PowerBoard == controller[26]:
             sta["i2"].alignment = Alignment(wrap_text = True) #PB_INC
             sta["i2"] = chi["c11"].value + "\n\n" + eng["c11"].value
+            sta["z2"].alignment = Alignment(wrap_text = True) #Power up
+            sta["z2"] = chi["h3"].value + "\n\n" + eng["h3"].value
          for i in range(27,30):
             if self.PowerBoard == controller[i]:
                 sta["i2"].alignment = Alignment(wrap_text = True) #PB_INC_485
@@ -401,6 +409,12 @@ class Device( xml.sax.ContentHandler ):
               sta["ag2"] = ""
       elif self.CurrentData == "TabletProtocol": #-------------------------------------------------------------
           print ("Tablet Type:", self.TabletProtocol)
+          """print ("Equipment:", self.equipmentType) #can call variable later on in the function!
+          for i in range(2,8):
+              if self.TabletProtocol == tablet[0] and self.equipmentType == equipment[i]:
+                  print ("I did this")
+                  sta["aj2"].alignment = Alignment(wrap_text = True) #Wolf button test
+                  sta["aj2"] = chi["n2"].value + "\n\n" + eng["n2"].value"""
           if self.TabletProtocol == tablet[0]:
               sta["w2"].alignment = Alignment(wrap_text = True) #Wolf cosmetics
               sta["w2"] = chi["g3"].value + "\n\n" + eng["g3"].value
@@ -495,13 +509,9 @@ if ( __name__ == "__main__"):
    # turn off namepsaces
    parser.setFeature(xml.sax.handler.feature_namespaces, 0)
 
-
-
-
    # override the default ContextHandler
    Handler = Device()
    parser.setContentHandler( Handler )
-
    parser.parse(filename)
 
 
@@ -525,7 +535,8 @@ mywb.save("Parts - Consoles.xlsx") #save created workbook. Can designate path fo
 print ("\n")
 print ("-------------Procedure Build Is Complete!-------------\n")
 
-file = "C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-world\\python3.6\\PIP_GEN_id-0\\Parts - Consoles.xlsx" #open procedure file based on the path called out in previous lines.
-os.startfile(file)
+#file = "C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-world\\python3.6\\PIP_GEN_id-0\\Parts - Consoles.xlsx" #for development
+#os.startfile(file)
 
-#input ("Press Enter To Close Window:")
+
+input ("Press Enter To Close Window:") #for release
