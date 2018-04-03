@@ -1,0 +1,1938 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"shiftregReceiver.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	shiftregReceiver_initVar
+  20              		.bss
+  21              		.type	shiftregReceiver_initVar, %object
+  22              		.size	shiftregReceiver_initVar, 1
+  23              	shiftregReceiver_initVar:
+  24 0000 00       		.space	1
+  25              		.section	.text.shiftregReceiver_Start,"ax",%progbits
+  26              		.align	2
+  27              		.global	shiftregReceiver_Start
+  28              		.thumb
+  29              		.thumb_func
+  30              		.type	shiftregReceiver_Start, %function
+  31              	shiftregReceiver_Start:
+  32              	.LFB0:
+  33              		.file 1 "Generated_Source\\PSoC5\\shiftregReceiver.c"
+   1:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/shiftregReceiver.c **** * File Name: shiftregReceiver.c
+   3:Generated_Source\PSoC5/shiftregReceiver.c **** * Version 2.30
+   4:Generated_Source\PSoC5/shiftregReceiver.c **** *
+   5:Generated_Source\PSoC5/shiftregReceiver.c **** * Description:
+   6:Generated_Source\PSoC5/shiftregReceiver.c **** *  This file provides the API source code for the Shift Register component.
+   7:Generated_Source\PSoC5/shiftregReceiver.c **** *
+   8:Generated_Source\PSoC5/shiftregReceiver.c **** * Note: none
+   9:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  10:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+  11:Generated_Source\PSoC5/shiftregReceiver.c **** * Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/shiftregReceiver.c **** * You may use this file only in accordance with the license, terms, conditions,
+  13:Generated_Source\PSoC5/shiftregReceiver.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  14:Generated_Source\PSoC5/shiftregReceiver.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************/
+  16:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  17:Generated_Source\PSoC5/shiftregReceiver.c **** #include "shiftregReceiver.h"
+  18:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  19:Generated_Source\PSoC5/shiftregReceiver.c **** uint8 shiftregReceiver_initVar = 0u;
+  20:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  21:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  22:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+  23:Generated_Source\PSoC5/shiftregReceiver.c **** * Function Name: shiftregReceiver_Start
+  24:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 2
+
+
+  25:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  26:Generated_Source\PSoC5/shiftregReceiver.c **** * Summary:
+  27:Generated_Source\PSoC5/shiftregReceiver.c **** *  Starts the Shift Register.
+  28:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  29:Generated_Source\PSoC5/shiftregReceiver.c **** * Parameters:
+  30:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+  31:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  32:Generated_Source\PSoC5/shiftregReceiver.c **** * Return:
+  33:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+  34:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  35:Generated_Source\PSoC5/shiftregReceiver.c **** * Global Variables:
+  36:Generated_Source\PSoC5/shiftregReceiver.c **** *  shiftregReceiver_initVar - used to check initial configuration, modified on
+  37:Generated_Source\PSoC5/shiftregReceiver.c **** *  first function call.
+  38:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  39:Generated_Source\PSoC5/shiftregReceiver.c **** * Reentrant:
+  40:Generated_Source\PSoC5/shiftregReceiver.c **** *  No.
+  41:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  42:Generated_Source\PSoC5/shiftregReceiver.c **** *******************************************************************************/
+  43:Generated_Source\PSoC5/shiftregReceiver.c **** void shiftregReceiver_Start(void) 
+  44:Generated_Source\PSoC5/shiftregReceiver.c **** {
+  34              		.loc 1 44 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 0
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38 0000 80B5     		push	{r7, lr}
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 00AF     		add	r7, sp, #0
+  43              		.cfi_def_cfa_register 7
+  45:Generated_Source\PSoC5/shiftregReceiver.c ****     if(0u == shiftregReceiver_initVar)
+  44              		.loc 1 45 0
+  45 0004 064B     		ldr	r3, .L3
+  46 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  47 0008 002B     		cmp	r3, #0
+  48 000a 04D1     		bne	.L2
+  46:Generated_Source\PSoC5/shiftregReceiver.c ****     {
+  47:Generated_Source\PSoC5/shiftregReceiver.c ****         shiftregReceiver_Init();
+  49              		.loc 1 47 0
+  50 000c FFF7FEFF 		bl	shiftregReceiver_Init
+  48:Generated_Source\PSoC5/shiftregReceiver.c ****         shiftregReceiver_initVar = 1u; /* Component initialized */
+  51              		.loc 1 48 0
+  52 0010 034B     		ldr	r3, .L3
+  53 0012 0122     		movs	r2, #1
+  54 0014 1A70     		strb	r2, [r3]
+  55              	.L2:
+  49:Generated_Source\PSoC5/shiftregReceiver.c ****     }
+  50:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  51:Generated_Source\PSoC5/shiftregReceiver.c ****     shiftregReceiver_Enable();
+  56              		.loc 1 51 0
+  57 0016 FFF7FEFF 		bl	shiftregReceiver_Enable
+  52:Generated_Source\PSoC5/shiftregReceiver.c **** }
+  58              		.loc 1 52 0
+  59 001a 00BF     		nop
+  60 001c 80BD     		pop	{r7, pc}
+  61              	.L4:
+  62 001e 00BF     		.align	2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 3
+
+
+  63              	.L3:
+  64 0020 00000000 		.word	shiftregReceiver_initVar
+  65              		.cfi_endproc
+  66              	.LFE0:
+  67              		.size	shiftregReceiver_Start, .-shiftregReceiver_Start
+  68              		.section	.text.shiftregReceiver_Enable,"ax",%progbits
+  69              		.align	2
+  70              		.global	shiftregReceiver_Enable
+  71              		.thumb
+  72              		.thumb_func
+  73              		.type	shiftregReceiver_Enable, %function
+  74              	shiftregReceiver_Enable:
+  75              	.LFB1:
+  53:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  54:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  55:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+  56:Generated_Source\PSoC5/shiftregReceiver.c **** * Function Name: shiftregReceiver_Enable
+  57:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+  58:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  59:Generated_Source\PSoC5/shiftregReceiver.c **** * Summary:
+  60:Generated_Source\PSoC5/shiftregReceiver.c **** *  Enables the Shift Register.
+  61:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  62:Generated_Source\PSoC5/shiftregReceiver.c **** * Parameters:
+  63:Generated_Source\PSoC5/shiftregReceiver.c **** *  void.
+  64:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  65:Generated_Source\PSoC5/shiftregReceiver.c **** * Return:
+  66:Generated_Source\PSoC5/shiftregReceiver.c **** *  void.
+  67:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  68:Generated_Source\PSoC5/shiftregReceiver.c **** *******************************************************************************/
+  69:Generated_Source\PSoC5/shiftregReceiver.c **** void shiftregReceiver_Enable(void) 
+  70:Generated_Source\PSoC5/shiftregReceiver.c **** {
+  76              		.loc 1 70 0
+  77              		.cfi_startproc
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 1, uses_anonymous_args = 0
+  80 0000 80B5     		push	{r7, lr}
+  81              		.cfi_def_cfa_offset 8
+  82              		.cfi_offset 7, -8
+  83              		.cfi_offset 14, -4
+  84 0002 00AF     		add	r7, sp, #0
+  85              		.cfi_def_cfa_register 7
+  71:Generated_Source\PSoC5/shiftregReceiver.c ****     /* Changing address in Datapath Control Store
+  72:Generated_Source\PSoC5/shiftregReceiver.c ****        from NOP to component state machine commands space */
+  73:Generated_Source\PSoC5/shiftregReceiver.c ****     shiftregReceiver_SR_CONTROL |= shiftregReceiver_CLK_EN;
+  86              		.loc 1 73 0
+  87 0004 054A     		ldr	r2, .L6
+  88 0006 054B     		ldr	r3, .L6
+  89 0008 1B78     		ldrb	r3, [r3]
+  90 000a DBB2     		uxtb	r3, r3
+  91 000c 43F00103 		orr	r3, r3, #1
+  92 0010 DBB2     		uxtb	r3, r3
+  93 0012 1370     		strb	r3, [r2]
+  74:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  75:Generated_Source\PSoC5/shiftregReceiver.c ****     shiftregReceiver_EnableInt();
+  94              		.loc 1 75 0
+  95 0014 FFF7FEFF 		bl	shiftregReceiver_EnableInt
+  76:Generated_Source\PSoC5/shiftregReceiver.c **** }
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 4
+
+
+  96              		.loc 1 76 0
+  97 0018 00BF     		nop
+  98 001a 80BD     		pop	{r7, pc}
+  99              	.L7:
+ 100              		.align	2
+ 101              	.L6:
+ 102 001c 75640040 		.word	1073767541
+ 103              		.cfi_endproc
+ 104              	.LFE1:
+ 105              		.size	shiftregReceiver_Enable, .-shiftregReceiver_Enable
+ 106              		.section	.text.shiftregReceiver_Init,"ax",%progbits
+ 107              		.align	2
+ 108              		.global	shiftregReceiver_Init
+ 109              		.thumb
+ 110              		.thumb_func
+ 111              		.type	shiftregReceiver_Init, %function
+ 112              	shiftregReceiver_Init:
+ 113              	.LFB2:
+  77:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  78:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  79:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+  80:Generated_Source\PSoC5/shiftregReceiver.c **** * Function Name: shiftregReceiver_Init
+  81:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+  82:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  83:Generated_Source\PSoC5/shiftregReceiver.c **** * Summary:
+  84:Generated_Source\PSoC5/shiftregReceiver.c **** *  Initializes Tx and/or Rx interrupt sources with initial values.
+  85:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  86:Generated_Source\PSoC5/shiftregReceiver.c **** * Parameters:
+  87:Generated_Source\PSoC5/shiftregReceiver.c **** *  void.
+  88:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  89:Generated_Source\PSoC5/shiftregReceiver.c **** * Return:
+  90:Generated_Source\PSoC5/shiftregReceiver.c **** *  void.
+  91:Generated_Source\PSoC5/shiftregReceiver.c **** *
+  92:Generated_Source\PSoC5/shiftregReceiver.c **** *******************************************************************************/
+  93:Generated_Source\PSoC5/shiftregReceiver.c **** void shiftregReceiver_Init(void) 
+  94:Generated_Source\PSoC5/shiftregReceiver.c **** {
+ 114              		.loc 1 94 0
+ 115              		.cfi_startproc
+ 116              		@ args = 0, pretend = 0, frame = 0
+ 117              		@ frame_needed = 1, uses_anonymous_args = 0
+ 118 0000 80B5     		push	{r7, lr}
+ 119              		.cfi_def_cfa_offset 8
+ 120              		.cfi_offset 7, -8
+ 121              		.cfi_offset 14, -4
+ 122 0002 00AF     		add	r7, sp, #0
+ 123              		.cfi_def_cfa_register 7
+  95:Generated_Source\PSoC5/shiftregReceiver.c ****     shiftregReceiver_SetIntMode(shiftregReceiver_INT_SRC);
+ 124              		.loc 1 95 0
+ 125 0004 0220     		movs	r0, #2
+ 126 0006 FFF7FEFF 		bl	shiftregReceiver_SetIntMode
+  96:Generated_Source\PSoC5/shiftregReceiver.c **** }
+ 127              		.loc 1 96 0
+ 128 000a 00BF     		nop
+ 129 000c 80BD     		pop	{r7, pc}
+ 130              		.cfi_endproc
+ 131              	.LFE2:
+ 132              		.size	shiftregReceiver_Init, .-shiftregReceiver_Init
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 5
+
+
+ 133 000e 00BF     		.section	.text.shiftregReceiver_Stop,"ax",%progbits
+ 134              		.align	2
+ 135              		.global	shiftregReceiver_Stop
+ 136              		.thumb
+ 137              		.thumb_func
+ 138              		.type	shiftregReceiver_Stop, %function
+ 139              	shiftregReceiver_Stop:
+ 140              	.LFB3:
+  97:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  98:Generated_Source\PSoC5/shiftregReceiver.c **** 
+  99:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+ 100:Generated_Source\PSoC5/shiftregReceiver.c **** * Function Name: shiftregReceiver_Stop
+ 101:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+ 102:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 103:Generated_Source\PSoC5/shiftregReceiver.c **** * Summary:
+ 104:Generated_Source\PSoC5/shiftregReceiver.c **** *  Disables the Shift Register
+ 105:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 106:Generated_Source\PSoC5/shiftregReceiver.c **** * Parameters:
+ 107:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+ 108:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 109:Generated_Source\PSoC5/shiftregReceiver.c **** * Return:
+ 110:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+ 111:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 112:Generated_Source\PSoC5/shiftregReceiver.c **** *******************************************************************************/
+ 113:Generated_Source\PSoC5/shiftregReceiver.c **** void shiftregReceiver_Stop(void) 
+ 114:Generated_Source\PSoC5/shiftregReceiver.c **** {
+ 141              		.loc 1 114 0
+ 142              		.cfi_startproc
+ 143              		@ args = 0, pretend = 0, frame = 0
+ 144              		@ frame_needed = 1, uses_anonymous_args = 0
+ 145 0000 80B5     		push	{r7, lr}
+ 146              		.cfi_def_cfa_offset 8
+ 147              		.cfi_offset 7, -8
+ 148              		.cfi_offset 14, -4
+ 149 0002 00AF     		add	r7, sp, #0
+ 150              		.cfi_def_cfa_register 7
+ 115:Generated_Source\PSoC5/shiftregReceiver.c ****     /*changing Datapath Control Store address to NOP space*/
+ 116:Generated_Source\PSoC5/shiftregReceiver.c ****     shiftregReceiver_SR_CONTROL &= ((uint8) ~shiftregReceiver_CLK_EN);
+ 151              		.loc 1 116 0
+ 152 0004 054A     		ldr	r2, .L10
+ 153 0006 054B     		ldr	r3, .L10
+ 154 0008 1B78     		ldrb	r3, [r3]
+ 155 000a DBB2     		uxtb	r3, r3
+ 156 000c 23F00103 		bic	r3, r3, #1
+ 157 0010 DBB2     		uxtb	r3, r3
+ 158 0012 1370     		strb	r3, [r2]
+ 117:Generated_Source\PSoC5/shiftregReceiver.c ****     shiftregReceiver_DisableInt();
+ 159              		.loc 1 117 0
+ 160 0014 FFF7FEFF 		bl	shiftregReceiver_DisableInt
+ 118:Generated_Source\PSoC5/shiftregReceiver.c **** }
+ 161              		.loc 1 118 0
+ 162 0018 00BF     		nop
+ 163 001a 80BD     		pop	{r7, pc}
+ 164              	.L11:
+ 165              		.align	2
+ 166              	.L10:
+ 167 001c 75640040 		.word	1073767541
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 6
+
+
+ 168              		.cfi_endproc
+ 169              	.LFE3:
+ 170              		.size	shiftregReceiver_Stop, .-shiftregReceiver_Stop
+ 171              		.section	.text.shiftregReceiver_EnableInt,"ax",%progbits
+ 172              		.align	2
+ 173              		.global	shiftregReceiver_EnableInt
+ 174              		.thumb
+ 175              		.thumb_func
+ 176              		.type	shiftregReceiver_EnableInt, %function
+ 177              	shiftregReceiver_EnableInt:
+ 178              	.LFB4:
+ 119:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 120:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 121:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+ 122:Generated_Source\PSoC5/shiftregReceiver.c **** * Function Name: shiftregReceiver_EnableInt
+ 123:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+ 124:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 125:Generated_Source\PSoC5/shiftregReceiver.c **** * Summary:
+ 126:Generated_Source\PSoC5/shiftregReceiver.c **** *  Enables the Shift Register interrupt.
+ 127:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 128:Generated_Source\PSoC5/shiftregReceiver.c **** * Parameters:
+ 129:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+ 130:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 131:Generated_Source\PSoC5/shiftregReceiver.c **** * Return:
+ 132:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+ 133:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 134:Generated_Source\PSoC5/shiftregReceiver.c **** *******************************************************************************/
+ 135:Generated_Source\PSoC5/shiftregReceiver.c **** void shiftregReceiver_EnableInt(void) 
+ 136:Generated_Source\PSoC5/shiftregReceiver.c **** {
+ 179              		.loc 1 136 0
+ 180              		.cfi_startproc
+ 181              		@ args = 0, pretend = 0, frame = 8
+ 182              		@ frame_needed = 1, uses_anonymous_args = 0
+ 183 0000 80B5     		push	{r7, lr}
+ 184              		.cfi_def_cfa_offset 8
+ 185              		.cfi_offset 7, -8
+ 186              		.cfi_offset 14, -4
+ 187 0002 82B0     		sub	sp, sp, #8
+ 188              		.cfi_def_cfa_offset 16
+ 189 0004 00AF     		add	r7, sp, #0
+ 190              		.cfi_def_cfa_register 7
+ 137:Generated_Source\PSoC5/shiftregReceiver.c ****     uint8 interruptState;
+ 138:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 139:Generated_Source\PSoC5/shiftregReceiver.c ****     interruptState = CyEnterCriticalSection();
+ 191              		.loc 1 139 0
+ 192 0006 FFF7FEFF 		bl	CyEnterCriticalSection
+ 193 000a 0346     		mov	r3, r0
+ 194 000c FB71     		strb	r3, [r7, #7]
+ 140:Generated_Source\PSoC5/shiftregReceiver.c ****     shiftregReceiver_SR_AUX_CONTROL |= shiftregReceiver_INTERRUPTS_ENABLE;
+ 195              		.loc 1 140 0
+ 196 000e 084A     		ldr	r2, .L13
+ 197 0010 074B     		ldr	r3, .L13
+ 198 0012 1B78     		ldrb	r3, [r3]
+ 199 0014 DBB2     		uxtb	r3, r3
+ 200 0016 43F01003 		orr	r3, r3, #16
+ 201 001a DBB2     		uxtb	r3, r3
+ 202 001c 1370     		strb	r3, [r2]
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 7
+
+
+ 141:Generated_Source\PSoC5/shiftregReceiver.c ****     CyExitCriticalSection(interruptState);
+ 203              		.loc 1 141 0
+ 204 001e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 205 0020 1846     		mov	r0, r3
+ 206 0022 FFF7FEFF 		bl	CyExitCriticalSection
+ 142:Generated_Source\PSoC5/shiftregReceiver.c **** }
+ 207              		.loc 1 142 0
+ 208 0026 00BF     		nop
+ 209 0028 0837     		adds	r7, r7, #8
+ 210              		.cfi_def_cfa_offset 8
+ 211 002a BD46     		mov	sp, r7
+ 212              		.cfi_def_cfa_register 13
+ 213              		@ sp needed
+ 214 002c 80BD     		pop	{r7, pc}
+ 215              	.L14:
+ 216 002e 00BF     		.align	2
+ 217              	.L13:
+ 218 0030 95640040 		.word	1073767573
+ 219              		.cfi_endproc
+ 220              	.LFE4:
+ 221              		.size	shiftregReceiver_EnableInt, .-shiftregReceiver_EnableInt
+ 222              		.section	.text.shiftregReceiver_DisableInt,"ax",%progbits
+ 223              		.align	2
+ 224              		.global	shiftregReceiver_DisableInt
+ 225              		.thumb
+ 226              		.thumb_func
+ 227              		.type	shiftregReceiver_DisableInt, %function
+ 228              	shiftregReceiver_DisableInt:
+ 229              	.LFB5:
+ 143:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 144:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 145:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+ 146:Generated_Source\PSoC5/shiftregReceiver.c **** * Function Name: shiftregReceiver_DisableInt
+ 147:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+ 148:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 149:Generated_Source\PSoC5/shiftregReceiver.c **** * Summary:
+ 150:Generated_Source\PSoC5/shiftregReceiver.c **** *  Disables the Shift Register interrupt.
+ 151:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 152:Generated_Source\PSoC5/shiftregReceiver.c **** * Parameters:
+ 153:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+ 154:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 155:Generated_Source\PSoC5/shiftregReceiver.c **** * Return:
+ 156:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+ 157:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 158:Generated_Source\PSoC5/shiftregReceiver.c **** *******************************************************************************/
+ 159:Generated_Source\PSoC5/shiftregReceiver.c **** void shiftregReceiver_DisableInt(void) 
+ 160:Generated_Source\PSoC5/shiftregReceiver.c **** {
+ 230              		.loc 1 160 0
+ 231              		.cfi_startproc
+ 232              		@ args = 0, pretend = 0, frame = 8
+ 233              		@ frame_needed = 1, uses_anonymous_args = 0
+ 234 0000 80B5     		push	{r7, lr}
+ 235              		.cfi_def_cfa_offset 8
+ 236              		.cfi_offset 7, -8
+ 237              		.cfi_offset 14, -4
+ 238 0002 82B0     		sub	sp, sp, #8
+ 239              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 8
+
+
+ 240 0004 00AF     		add	r7, sp, #0
+ 241              		.cfi_def_cfa_register 7
+ 161:Generated_Source\PSoC5/shiftregReceiver.c ****     uint8 interruptState;
+ 162:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 163:Generated_Source\PSoC5/shiftregReceiver.c ****     interruptState = CyEnterCriticalSection();
+ 242              		.loc 1 163 0
+ 243 0006 FFF7FEFF 		bl	CyEnterCriticalSection
+ 244 000a 0346     		mov	r3, r0
+ 245 000c FB71     		strb	r3, [r7, #7]
+ 164:Generated_Source\PSoC5/shiftregReceiver.c ****     shiftregReceiver_SR_AUX_CONTROL &= ((uint8) ~shiftregReceiver_INTERRUPTS_ENABLE);
+ 246              		.loc 1 164 0
+ 247 000e 084A     		ldr	r2, .L16
+ 248 0010 074B     		ldr	r3, .L16
+ 249 0012 1B78     		ldrb	r3, [r3]
+ 250 0014 DBB2     		uxtb	r3, r3
+ 251 0016 23F01003 		bic	r3, r3, #16
+ 252 001a DBB2     		uxtb	r3, r3
+ 253 001c 1370     		strb	r3, [r2]
+ 165:Generated_Source\PSoC5/shiftregReceiver.c ****     CyExitCriticalSection(interruptState);
+ 254              		.loc 1 165 0
+ 255 001e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 256 0020 1846     		mov	r0, r3
+ 257 0022 FFF7FEFF 		bl	CyExitCriticalSection
+ 166:Generated_Source\PSoC5/shiftregReceiver.c **** }
+ 258              		.loc 1 166 0
+ 259 0026 00BF     		nop
+ 260 0028 0837     		adds	r7, r7, #8
+ 261              		.cfi_def_cfa_offset 8
+ 262 002a BD46     		mov	sp, r7
+ 263              		.cfi_def_cfa_register 13
+ 264              		@ sp needed
+ 265 002c 80BD     		pop	{r7, pc}
+ 266              	.L17:
+ 267 002e 00BF     		.align	2
+ 268              	.L16:
+ 269 0030 95640040 		.word	1073767573
+ 270              		.cfi_endproc
+ 271              	.LFE5:
+ 272              		.size	shiftregReceiver_DisableInt, .-shiftregReceiver_DisableInt
+ 273              		.section	.text.shiftregReceiver_GetFIFOStatus,"ax",%progbits
+ 274              		.align	2
+ 275              		.global	shiftregReceiver_GetFIFOStatus
+ 276              		.thumb
+ 277              		.thumb_func
+ 278              		.type	shiftregReceiver_GetFIFOStatus, %function
+ 279              	shiftregReceiver_GetFIFOStatus:
+ 280              	.LFB6:
+ 167:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 168:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 169:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+ 170:Generated_Source\PSoC5/shiftregReceiver.c **** * Function Name: shiftregReceiver_GetFIFOStatus
+ 171:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+ 172:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 173:Generated_Source\PSoC5/shiftregReceiver.c **** * Summary:
+ 174:Generated_Source\PSoC5/shiftregReceiver.c **** *  Returns current status of input or output FIFO.
+ 175:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 176:Generated_Source\PSoC5/shiftregReceiver.c **** * Parameters:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 9
+
+
+ 177:Generated_Source\PSoC5/shiftregReceiver.c **** *  fifoId.
+ 178:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 179:Generated_Source\PSoC5/shiftregReceiver.c **** * Return:
+ 180:Generated_Source\PSoC5/shiftregReceiver.c **** *  FIFO status.
+ 181:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 182:Generated_Source\PSoC5/shiftregReceiver.c **** *******************************************************************************/
+ 183:Generated_Source\PSoC5/shiftregReceiver.c **** uint8 shiftregReceiver_GetFIFOStatus(uint8 fifoId) 
+ 184:Generated_Source\PSoC5/shiftregReceiver.c **** {
+ 281              		.loc 1 184 0
+ 282              		.cfi_startproc
+ 283              		@ args = 0, pretend = 0, frame = 16
+ 284              		@ frame_needed = 1, uses_anonymous_args = 0
+ 285              		@ link register save eliminated.
+ 286 0000 80B4     		push	{r7}
+ 287              		.cfi_def_cfa_offset 4
+ 288              		.cfi_offset 7, -4
+ 289 0002 85B0     		sub	sp, sp, #20
+ 290              		.cfi_def_cfa_offset 24
+ 291 0004 00AF     		add	r7, sp, #0
+ 292              		.cfi_def_cfa_register 7
+ 293 0006 0346     		mov	r3, r0
+ 294 0008 FB71     		strb	r3, [r7, #7]
+ 185:Generated_Source\PSoC5/shiftregReceiver.c ****     uint8 result;
+ 186:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 187:Generated_Source\PSoC5/shiftregReceiver.c ****     result = shiftregReceiver_RET_FIFO_NOT_DEFINED;
+ 295              		.loc 1 187 0
+ 296 000a FE23     		movs	r3, #254
+ 297 000c FB73     		strb	r3, [r7, #15]
+ 188:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 189:Generated_Source\PSoC5/shiftregReceiver.c ****     #if(0u != shiftregReceiver_USE_INPUT_FIFO)
+ 190:Generated_Source\PSoC5/shiftregReceiver.c ****         if(shiftregReceiver_IN_FIFO == fifoId)
+ 191:Generated_Source\PSoC5/shiftregReceiver.c ****         {
+ 192:Generated_Source\PSoC5/shiftregReceiver.c ****             switch(shiftregReceiver_GET_IN_FIFO_STS)
+ 193:Generated_Source\PSoC5/shiftregReceiver.c ****             {
+ 194:Generated_Source\PSoC5/shiftregReceiver.c ****                 case shiftregReceiver_IN_FIFO_FULL :
+ 195:Generated_Source\PSoC5/shiftregReceiver.c ****                     result = shiftregReceiver_RET_FIFO_FULL;
+ 196:Generated_Source\PSoC5/shiftregReceiver.c ****                     break;
+ 197:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 198:Generated_Source\PSoC5/shiftregReceiver.c ****                 case shiftregReceiver_IN_FIFO_EMPTY :
+ 199:Generated_Source\PSoC5/shiftregReceiver.c ****                     result = shiftregReceiver_RET_FIFO_EMPTY;
+ 200:Generated_Source\PSoC5/shiftregReceiver.c ****                     break;
+ 201:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 202:Generated_Source\PSoC5/shiftregReceiver.c ****                 case shiftregReceiver_IN_FIFO_PARTIAL:
+ 203:Generated_Source\PSoC5/shiftregReceiver.c ****                     result = shiftregReceiver_RET_FIFO_PARTIAL;
+ 204:Generated_Source\PSoC5/shiftregReceiver.c ****                     break;
+ 205:Generated_Source\PSoC5/shiftregReceiver.c ****                     
+ 206:Generated_Source\PSoC5/shiftregReceiver.c ****                 default:
+ 207:Generated_Source\PSoC5/shiftregReceiver.c ****                     /* Initial result value, while 
+ 208:Generated_Source\PSoC5/shiftregReceiver.c ****                        IN_FIFO_EMPTY case is false 
+ 209:Generated_Source\PSoC5/shiftregReceiver.c ****                      */
+ 210:Generated_Source\PSoC5/shiftregReceiver.c ****                     result = shiftregReceiver_RET_FIFO_EMPTY;
+ 211:Generated_Source\PSoC5/shiftregReceiver.c ****                     break;
+ 212:Generated_Source\PSoC5/shiftregReceiver.c ****             }   
+ 213:Generated_Source\PSoC5/shiftregReceiver.c ****         }
+ 214:Generated_Source\PSoC5/shiftregReceiver.c ****     #endif /* (0u != shiftregReceiver_USE_INPUT_FIFO) */
+ 215:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 216:Generated_Source\PSoC5/shiftregReceiver.c ****     if(shiftregReceiver_OUT_FIFO == fifoId)
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 10
+
+
+ 298              		.loc 1 216 0
+ 299 000e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 300 0010 022B     		cmp	r3, #2
+ 301 0012 18D1     		bne	.L19
+ 217:Generated_Source\PSoC5/shiftregReceiver.c ****     {
+ 218:Generated_Source\PSoC5/shiftregReceiver.c ****         switch(shiftregReceiver_GET_OUT_FIFO_STS)
+ 302              		.loc 1 218 0
+ 303 0014 0F4B     		ldr	r3, .L26
+ 304 0016 1B78     		ldrb	r3, [r3]
+ 305 0018 DBB2     		uxtb	r3, r3
+ 306 001a 03F06003 		and	r3, r3, #96
+ 307 001e 5B09     		lsrs	r3, r3, #5
+ 308 0020 012B     		cmp	r3, #1
+ 309 0022 04D0     		beq	.L21
+ 310 0024 012B     		cmp	r3, #1
+ 311 0026 05D3     		bcc	.L22
+ 312 0028 022B     		cmp	r3, #2
+ 313 002a 06D0     		beq	.L23
+ 314 002c 08E0     		b	.L25
+ 315              	.L21:
+ 219:Generated_Source\PSoC5/shiftregReceiver.c ****         {
+ 220:Generated_Source\PSoC5/shiftregReceiver.c ****             case shiftregReceiver_OUT_FIFO_FULL :
+ 221:Generated_Source\PSoC5/shiftregReceiver.c ****                 result = shiftregReceiver_RET_FIFO_FULL;
+ 316              		.loc 1 221 0
+ 317 002e 0023     		movs	r3, #0
+ 318 0030 FB73     		strb	r3, [r7, #15]
+ 222:Generated_Source\PSoC5/shiftregReceiver.c ****                 break;
+ 319              		.loc 1 222 0
+ 320 0032 08E0     		b	.L19
+ 321              	.L22:
+ 223:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 224:Generated_Source\PSoC5/shiftregReceiver.c ****             case shiftregReceiver_OUT_FIFO_EMPTY :
+ 225:Generated_Source\PSoC5/shiftregReceiver.c ****                 result = shiftregReceiver_RET_FIFO_EMPTY;
+ 322              		.loc 1 225 0
+ 323 0034 0223     		movs	r3, #2
+ 324 0036 FB73     		strb	r3, [r7, #15]
+ 226:Generated_Source\PSoC5/shiftregReceiver.c ****                 break;
+ 325              		.loc 1 226 0
+ 326 0038 05E0     		b	.L19
+ 327              	.L23:
+ 227:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 228:Generated_Source\PSoC5/shiftregReceiver.c ****             case shiftregReceiver_OUT_FIFO_PARTIAL :
+ 229:Generated_Source\PSoC5/shiftregReceiver.c ****                 result = shiftregReceiver_RET_FIFO_PARTIAL;
+ 328              		.loc 1 229 0
+ 329 003a 0123     		movs	r3, #1
+ 330 003c FB73     		strb	r3, [r7, #15]
+ 230:Generated_Source\PSoC5/shiftregReceiver.c ****                 break;
+ 331              		.loc 1 230 0
+ 332 003e 02E0     		b	.L19
+ 333              	.L25:
+ 231:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 232:Generated_Source\PSoC5/shiftregReceiver.c ****             default:
+ 233:Generated_Source\PSoC5/shiftregReceiver.c ****                 /* Initial result value, while 
+ 234:Generated_Source\PSoC5/shiftregReceiver.c ****                    OUT_FIFO_FULL case is false 
+ 235:Generated_Source\PSoC5/shiftregReceiver.c ****                  */
+ 236:Generated_Source\PSoC5/shiftregReceiver.c ****                 result = shiftregReceiver_RET_FIFO_FULL;
+ 334              		.loc 1 236 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 11
+
+
+ 335 0040 0023     		movs	r3, #0
+ 336 0042 FB73     		strb	r3, [r7, #15]
+ 237:Generated_Source\PSoC5/shiftregReceiver.c ****                 break;
+ 337              		.loc 1 237 0
+ 338 0044 00BF     		nop
+ 339              	.L19:
+ 238:Generated_Source\PSoC5/shiftregReceiver.c ****         }
+ 239:Generated_Source\PSoC5/shiftregReceiver.c ****     }
+ 240:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 241:Generated_Source\PSoC5/shiftregReceiver.c ****     return(result);
+ 340              		.loc 1 241 0
+ 341 0046 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 242:Generated_Source\PSoC5/shiftregReceiver.c **** }
+ 342              		.loc 1 242 0
+ 343 0048 1846     		mov	r0, r3
+ 344 004a 1437     		adds	r7, r7, #20
+ 345              		.cfi_def_cfa_offset 4
+ 346 004c BD46     		mov	sp, r7
+ 347              		.cfi_def_cfa_register 13
+ 348              		@ sp needed
+ 349 004e 80BC     		pop	{r7}
+ 350              		.cfi_restore 7
+ 351              		.cfi_def_cfa_offset 0
+ 352 0050 7047     		bx	lr
+ 353              	.L27:
+ 354 0052 00BF     		.align	2
+ 355              	.L26:
+ 356 0054 65640040 		.word	1073767525
+ 357              		.cfi_endproc
+ 358              	.LFE6:
+ 359              		.size	shiftregReceiver_GetFIFOStatus, .-shiftregReceiver_GetFIFOStatus
+ 360              		.section	.text.shiftregReceiver_SetIntMode,"ax",%progbits
+ 361              		.align	2
+ 362              		.global	shiftregReceiver_SetIntMode
+ 363              		.thumb
+ 364              		.thumb_func
+ 365              		.type	shiftregReceiver_SetIntMode, %function
+ 366              	shiftregReceiver_SetIntMode:
+ 367              	.LFB7:
+ 243:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 244:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 245:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+ 246:Generated_Source\PSoC5/shiftregReceiver.c **** * Function Name: shiftregReceiver_SetIntMode
+ 247:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+ 248:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 249:Generated_Source\PSoC5/shiftregReceiver.c **** * Summary:
+ 250:Generated_Source\PSoC5/shiftregReceiver.c **** *  Sets the Interrupt Source for the Shift Register interrupt. Multiple
+ 251:Generated_Source\PSoC5/shiftregReceiver.c **** *  sources may be ORed together
+ 252:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 253:Generated_Source\PSoC5/shiftregReceiver.c **** * Parameters:
+ 254:Generated_Source\PSoC5/shiftregReceiver.c **** *  interruptSource: Byte containing the constant for the selected interrupt
+ 255:Generated_Source\PSoC5/shiftregReceiver.c **** *  source/s.
+ 256:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 257:Generated_Source\PSoC5/shiftregReceiver.c **** * Return:
+ 258:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+ 259:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 260:Generated_Source\PSoC5/shiftregReceiver.c **** *******************************************************************************/
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 12
+
+
+ 261:Generated_Source\PSoC5/shiftregReceiver.c **** void shiftregReceiver_SetIntMode(uint8 interruptSource) 
+ 262:Generated_Source\PSoC5/shiftregReceiver.c **** {
+ 368              		.loc 1 262 0
+ 369              		.cfi_startproc
+ 370              		@ args = 0, pretend = 0, frame = 8
+ 371              		@ frame_needed = 1, uses_anonymous_args = 0
+ 372              		@ link register save eliminated.
+ 373 0000 80B4     		push	{r7}
+ 374              		.cfi_def_cfa_offset 4
+ 375              		.cfi_offset 7, -4
+ 376 0002 83B0     		sub	sp, sp, #12
+ 377              		.cfi_def_cfa_offset 16
+ 378 0004 00AF     		add	r7, sp, #0
+ 379              		.cfi_def_cfa_register 7
+ 380 0006 0346     		mov	r3, r0
+ 381 0008 FB71     		strb	r3, [r7, #7]
+ 263:Generated_Source\PSoC5/shiftregReceiver.c ****     shiftregReceiver_SR_STATUS_MASK &= ((uint8) ~shiftregReceiver_INTS_EN_MASK);          /* Clear 
+ 382              		.loc 1 263 0
+ 383 000a 0C4A     		ldr	r2, .L29
+ 384 000c 0B4B     		ldr	r3, .L29
+ 385 000e 1B78     		ldrb	r3, [r3]
+ 386 0010 DBB2     		uxtb	r3, r3
+ 387 0012 23F00703 		bic	r3, r3, #7
+ 388 0016 DBB2     		uxtb	r3, r3
+ 389 0018 1370     		strb	r3, [r2]
+ 264:Generated_Source\PSoC5/shiftregReceiver.c ****     shiftregReceiver_SR_STATUS_MASK |= (interruptSource & shiftregReceiver_INTS_EN_MASK); /* Set in
+ 390              		.loc 1 264 0
+ 391 001a 0849     		ldr	r1, .L29
+ 392 001c 074B     		ldr	r3, .L29
+ 393 001e 1B78     		ldrb	r3, [r3]
+ 394 0020 DAB2     		uxtb	r2, r3
+ 395 0022 FB79     		ldrb	r3, [r7, #7]
+ 396 0024 03F00703 		and	r3, r3, #7
+ 397 0028 DBB2     		uxtb	r3, r3
+ 398 002a 1343     		orrs	r3, r3, r2
+ 399 002c DBB2     		uxtb	r3, r3
+ 400 002e 0B70     		strb	r3, [r1]
+ 265:Generated_Source\PSoC5/shiftregReceiver.c **** }
+ 401              		.loc 1 265 0
+ 402 0030 00BF     		nop
+ 403 0032 0C37     		adds	r7, r7, #12
+ 404              		.cfi_def_cfa_offset 4
+ 405 0034 BD46     		mov	sp, r7
+ 406              		.cfi_def_cfa_register 13
+ 407              		@ sp needed
+ 408 0036 80BC     		pop	{r7}
+ 409              		.cfi_restore 7
+ 410              		.cfi_def_cfa_offset 0
+ 411 0038 7047     		bx	lr
+ 412              	.L30:
+ 413 003a 00BF     		.align	2
+ 414              	.L29:
+ 415 003c 85640040 		.word	1073767557
+ 416              		.cfi_endproc
+ 417              	.LFE7:
+ 418              		.size	shiftregReceiver_SetIntMode, .-shiftregReceiver_SetIntMode
+ 419              		.section	.text.shiftregReceiver_GetIntStatus,"ax",%progbits
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 13
+
+
+ 420              		.align	2
+ 421              		.global	shiftregReceiver_GetIntStatus
+ 422              		.thumb
+ 423              		.thumb_func
+ 424              		.type	shiftregReceiver_GetIntStatus, %function
+ 425              	shiftregReceiver_GetIntStatus:
+ 426              	.LFB8:
+ 266:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 267:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 268:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+ 269:Generated_Source\PSoC5/shiftregReceiver.c **** * Function Name: shiftregReceiver_GetIntStatus
+ 270:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+ 271:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 272:Generated_Source\PSoC5/shiftregReceiver.c **** * Summary:
+ 273:Generated_Source\PSoC5/shiftregReceiver.c **** *  Gets the Shift Register Interrupt status.
+ 274:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 275:Generated_Source\PSoC5/shiftregReceiver.c **** * Parameters:
+ 276:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+ 277:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 278:Generated_Source\PSoC5/shiftregReceiver.c **** * Return:
+ 279:Generated_Source\PSoC5/shiftregReceiver.c **** *  Byte containing the constant for the selected interrupt source/s.
+ 280:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 281:Generated_Source\PSoC5/shiftregReceiver.c **** *******************************************************************************/
+ 282:Generated_Source\PSoC5/shiftregReceiver.c **** uint8 shiftregReceiver_GetIntStatus(void) 
+ 283:Generated_Source\PSoC5/shiftregReceiver.c **** {
+ 427              		.loc 1 283 0
+ 428              		.cfi_startproc
+ 429              		@ args = 0, pretend = 0, frame = 0
+ 430              		@ frame_needed = 1, uses_anonymous_args = 0
+ 431              		@ link register save eliminated.
+ 432 0000 80B4     		push	{r7}
+ 433              		.cfi_def_cfa_offset 4
+ 434              		.cfi_offset 7, -4
+ 435 0002 00AF     		add	r7, sp, #0
+ 436              		.cfi_def_cfa_register 7
+ 284:Generated_Source\PSoC5/shiftregReceiver.c ****     return(shiftregReceiver_SR_STATUS & shiftregReceiver_INTS_EN_MASK);
+ 437              		.loc 1 284 0
+ 438 0004 044B     		ldr	r3, .L33
+ 439 0006 1B78     		ldrb	r3, [r3]
+ 440 0008 DBB2     		uxtb	r3, r3
+ 441 000a 03F00703 		and	r3, r3, #7
+ 442 000e DBB2     		uxtb	r3, r3
+ 285:Generated_Source\PSoC5/shiftregReceiver.c **** }
+ 443              		.loc 1 285 0
+ 444 0010 1846     		mov	r0, r3
+ 445 0012 BD46     		mov	sp, r7
+ 446              		.cfi_def_cfa_register 13
+ 447              		@ sp needed
+ 448 0014 80BC     		pop	{r7}
+ 449              		.cfi_restore 7
+ 450              		.cfi_def_cfa_offset 0
+ 451 0016 7047     		bx	lr
+ 452              	.L34:
+ 453              		.align	2
+ 454              	.L33:
+ 455 0018 65640040 		.word	1073767525
+ 456              		.cfi_endproc
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 14
+
+
+ 457              	.LFE8:
+ 458              		.size	shiftregReceiver_GetIntStatus, .-shiftregReceiver_GetIntStatus
+ 459              		.section	.text.shiftregReceiver_WriteRegValue,"ax",%progbits
+ 460              		.align	2
+ 461              		.global	shiftregReceiver_WriteRegValue
+ 462              		.thumb
+ 463              		.thumb_func
+ 464              		.type	shiftregReceiver_WriteRegValue, %function
+ 465              	shiftregReceiver_WriteRegValue:
+ 466              	.LFB9:
+ 286:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 287:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 288:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+ 289:Generated_Source\PSoC5/shiftregReceiver.c **** * Function Name: shiftregReceiver_WriteRegValue
+ 290:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+ 291:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 292:Generated_Source\PSoC5/shiftregReceiver.c **** * Summary:
+ 293:Generated_Source\PSoC5/shiftregReceiver.c **** *  Send state directly to shift register
+ 294:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 295:Generated_Source\PSoC5/shiftregReceiver.c **** * Parameters:
+ 296:Generated_Source\PSoC5/shiftregReceiver.c **** *  shiftData: containing shift register state.
+ 297:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 298:Generated_Source\PSoC5/shiftregReceiver.c **** * Return:
+ 299:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+ 300:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 301:Generated_Source\PSoC5/shiftregReceiver.c **** *******************************************************************************/
+ 302:Generated_Source\PSoC5/shiftregReceiver.c **** void shiftregReceiver_WriteRegValue(uint8 shiftData)
+ 303:Generated_Source\PSoC5/shiftregReceiver.c ****                                                                      
+ 304:Generated_Source\PSoC5/shiftregReceiver.c **** {
+ 467              		.loc 1 304 0
+ 468              		.cfi_startproc
+ 469              		@ args = 0, pretend = 0, frame = 8
+ 470              		@ frame_needed = 1, uses_anonymous_args = 0
+ 471              		@ link register save eliminated.
+ 472 0000 80B4     		push	{r7}
+ 473              		.cfi_def_cfa_offset 4
+ 474              		.cfi_offset 7, -4
+ 475 0002 83B0     		sub	sp, sp, #12
+ 476              		.cfi_def_cfa_offset 16
+ 477 0004 00AF     		add	r7, sp, #0
+ 478              		.cfi_def_cfa_register 7
+ 479 0006 0346     		mov	r3, r0
+ 480 0008 FB71     		strb	r3, [r7, #7]
+ 305:Generated_Source\PSoC5/shiftregReceiver.c ****     CY_SET_REG8(shiftregReceiver_SHIFT_REG_LSB_PTR, shiftData);
+ 481              		.loc 1 305 0
+ 482 000a 044A     		ldr	r2, .L36
+ 483 000c FB79     		ldrb	r3, [r7, #7]
+ 484 000e 1370     		strb	r3, [r2]
+ 306:Generated_Source\PSoC5/shiftregReceiver.c **** }
+ 485              		.loc 1 306 0
+ 486 0010 00BF     		nop
+ 487 0012 0C37     		adds	r7, r7, #12
+ 488              		.cfi_def_cfa_offset 4
+ 489 0014 BD46     		mov	sp, r7
+ 490              		.cfi_def_cfa_register 13
+ 491              		@ sp needed
+ 492 0016 80BC     		pop	{r7}
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 15
+
+
+ 493              		.cfi_restore 7
+ 494              		.cfi_def_cfa_offset 0
+ 495 0018 7047     		bx	lr
+ 496              	.L37:
+ 497 001a 00BF     		.align	2
+ 498              	.L36:
+ 499 001c 06640040 		.word	1073767430
+ 500              		.cfi_endproc
+ 501              	.LFE9:
+ 502              		.size	shiftregReceiver_WriteRegValue, .-shiftregReceiver_WriteRegValue
+ 503              		.section	.text.shiftregReceiver_ReadData,"ax",%progbits
+ 504              		.align	2
+ 505              		.global	shiftregReceiver_ReadData
+ 506              		.thumb
+ 507              		.thumb_func
+ 508              		.type	shiftregReceiver_ReadData, %function
+ 509              	shiftregReceiver_ReadData:
+ 510              	.LFB10:
+ 307:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 308:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 309:Generated_Source\PSoC5/shiftregReceiver.c **** #if(0u != shiftregReceiver_USE_INPUT_FIFO)
+ 310:Generated_Source\PSoC5/shiftregReceiver.c ****     /*******************************************************************************
+ 311:Generated_Source\PSoC5/shiftregReceiver.c ****     * Function Name: shiftregReceiver_WriteData
+ 312:Generated_Source\PSoC5/shiftregReceiver.c ****     ********************************************************************************
+ 313:Generated_Source\PSoC5/shiftregReceiver.c ****     *
+ 314:Generated_Source\PSoC5/shiftregReceiver.c ****     * Summary:
+ 315:Generated_Source\PSoC5/shiftregReceiver.c ****     *  Send state to FIFO for later transfer to shift register based on the Load
+ 316:Generated_Source\PSoC5/shiftregReceiver.c ****     *  input
+ 317:Generated_Source\PSoC5/shiftregReceiver.c ****     *
+ 318:Generated_Source\PSoC5/shiftregReceiver.c ****     * Parameters:
+ 319:Generated_Source\PSoC5/shiftregReceiver.c ****     *  shiftData: containing shift register state.
+ 320:Generated_Source\PSoC5/shiftregReceiver.c ****     *
+ 321:Generated_Source\PSoC5/shiftregReceiver.c ****     * Return:
+ 322:Generated_Source\PSoC5/shiftregReceiver.c ****     *  Indicates: successful execution of function
+ 323:Generated_Source\PSoC5/shiftregReceiver.c ****     *  when FIFO is empty; and error when FIFO is full.
+ 324:Generated_Source\PSoC5/shiftregReceiver.c ****     *
+ 325:Generated_Source\PSoC5/shiftregReceiver.c ****     * Reentrant:
+ 326:Generated_Source\PSoC5/shiftregReceiver.c ****     *  No.
+ 327:Generated_Source\PSoC5/shiftregReceiver.c ****     *
+ 328:Generated_Source\PSoC5/shiftregReceiver.c ****     *******************************************************************************/
+ 329:Generated_Source\PSoC5/shiftregReceiver.c ****     cystatus shiftregReceiver_WriteData(uint8 shiftData)
+ 330:Generated_Source\PSoC5/shiftregReceiver.c ****                                                                          
+ 331:Generated_Source\PSoC5/shiftregReceiver.c ****     {
+ 332:Generated_Source\PSoC5/shiftregReceiver.c ****         cystatus result;
+ 333:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 334:Generated_Source\PSoC5/shiftregReceiver.c ****         result = CYRET_INVALID_STATE;
+ 335:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 336:Generated_Source\PSoC5/shiftregReceiver.c ****         /* Writes data into the input FIFO if it is not FULL */
+ 337:Generated_Source\PSoC5/shiftregReceiver.c ****         if(shiftregReceiver_RET_FIFO_FULL != (shiftregReceiver_GetFIFOStatus(shiftregReceiver_IN_FI
+ 338:Generated_Source\PSoC5/shiftregReceiver.c ****         {
+ 339:Generated_Source\PSoC5/shiftregReceiver.c ****             CY_SET_REG8(shiftregReceiver_IN_FIFO_VAL_LSB_PTR, shiftData);
+ 340:Generated_Source\PSoC5/shiftregReceiver.c ****             result = CYRET_SUCCESS;
+ 341:Generated_Source\PSoC5/shiftregReceiver.c ****         }
+ 342:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 343:Generated_Source\PSoC5/shiftregReceiver.c ****         return(result);
+ 344:Generated_Source\PSoC5/shiftregReceiver.c ****     }
+ 345:Generated_Source\PSoC5/shiftregReceiver.c **** #endif /* (0u != shiftregReceiver_USE_INPUT_FIFO) */
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 16
+
+
+ 346:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 347:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 348:Generated_Source\PSoC5/shiftregReceiver.c **** #if(0u != shiftregReceiver_USE_OUTPUT_FIFO)
+ 349:Generated_Source\PSoC5/shiftregReceiver.c ****     /*******************************************************************************
+ 350:Generated_Source\PSoC5/shiftregReceiver.c ****     * Function Name: shiftregReceiver_ReadData
+ 351:Generated_Source\PSoC5/shiftregReceiver.c ****     ********************************************************************************
+ 352:Generated_Source\PSoC5/shiftregReceiver.c ****     *
+ 353:Generated_Source\PSoC5/shiftregReceiver.c ****     * Summary:
+ 354:Generated_Source\PSoC5/shiftregReceiver.c ****     *  Returns state in FIFO due to Store input.
+ 355:Generated_Source\PSoC5/shiftregReceiver.c ****     *
+ 356:Generated_Source\PSoC5/shiftregReceiver.c ****     * Parameters:
+ 357:Generated_Source\PSoC5/shiftregReceiver.c ****     *  None.
+ 358:Generated_Source\PSoC5/shiftregReceiver.c ****     *
+ 359:Generated_Source\PSoC5/shiftregReceiver.c ****     * Return:
+ 360:Generated_Source\PSoC5/shiftregReceiver.c ****     *  Shift Register state
+ 361:Generated_Source\PSoC5/shiftregReceiver.c ****     *
+ 362:Generated_Source\PSoC5/shiftregReceiver.c ****     * Reentrant:
+ 363:Generated_Source\PSoC5/shiftregReceiver.c ****     *  No.
+ 364:Generated_Source\PSoC5/shiftregReceiver.c ****     *
+ 365:Generated_Source\PSoC5/shiftregReceiver.c ****     *******************************************************************************/
+ 366:Generated_Source\PSoC5/shiftregReceiver.c ****     uint8 shiftregReceiver_ReadData(void) 
+ 367:Generated_Source\PSoC5/shiftregReceiver.c ****     {
+ 511              		.loc 1 367 0
+ 512              		.cfi_startproc
+ 513              		@ args = 0, pretend = 0, frame = 0
+ 514              		@ frame_needed = 1, uses_anonymous_args = 0
+ 515              		@ link register save eliminated.
+ 516 0000 80B4     		push	{r7}
+ 517              		.cfi_def_cfa_offset 4
+ 518              		.cfi_offset 7, -4
+ 519 0002 00AF     		add	r7, sp, #0
+ 520              		.cfi_def_cfa_register 7
+ 368:Generated_Source\PSoC5/shiftregReceiver.c ****         return(CY_GET_REG8(shiftregReceiver_OUT_FIFO_VAL_LSB_PTR));
+ 521              		.loc 1 368 0
+ 522 0004 034B     		ldr	r3, .L40
+ 523 0006 1B78     		ldrb	r3, [r3]
+ 524 0008 DBB2     		uxtb	r3, r3
+ 369:Generated_Source\PSoC5/shiftregReceiver.c ****     }
+ 525              		.loc 1 369 0
+ 526 000a 1846     		mov	r0, r3
+ 527 000c BD46     		mov	sp, r7
+ 528              		.cfi_def_cfa_register 13
+ 529              		@ sp needed
+ 530 000e 80BC     		pop	{r7}
+ 531              		.cfi_restore 7
+ 532              		.cfi_def_cfa_offset 0
+ 533 0010 7047     		bx	lr
+ 534              	.L41:
+ 535 0012 00BF     		.align	2
+ 536              	.L40:
+ 537 0014 56640040 		.word	1073767510
+ 538              		.cfi_endproc
+ 539              	.LFE10:
+ 540              		.size	shiftregReceiver_ReadData, .-shiftregReceiver_ReadData
+ 541              		.section	.text.shiftregReceiver_ReadRegValue,"ax",%progbits
+ 542              		.align	2
+ 543              		.global	shiftregReceiver_ReadRegValue
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 17
+
+
+ 544              		.thumb
+ 545              		.thumb_func
+ 546              		.type	shiftregReceiver_ReadRegValue, %function
+ 547              	shiftregReceiver_ReadRegValue:
+ 548              	.LFB11:
+ 370:Generated_Source\PSoC5/shiftregReceiver.c **** #endif /* (0u != shiftregReceiver_USE_OUTPUT_FIFO) */
+ 371:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 372:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 373:Generated_Source\PSoC5/shiftregReceiver.c **** /*******************************************************************************
+ 374:Generated_Source\PSoC5/shiftregReceiver.c **** * Function Name: shiftregReceiver_ReadRegValue
+ 375:Generated_Source\PSoC5/shiftregReceiver.c **** ********************************************************************************
+ 376:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 377:Generated_Source\PSoC5/shiftregReceiver.c **** * Summary:
+ 378:Generated_Source\PSoC5/shiftregReceiver.c **** *  Directly returns current state in shift register, not data in FIFO due
+ 379:Generated_Source\PSoC5/shiftregReceiver.c **** *  to Store input.
+ 380:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 381:Generated_Source\PSoC5/shiftregReceiver.c **** * Parameters:
+ 382:Generated_Source\PSoC5/shiftregReceiver.c **** *  None.
+ 383:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 384:Generated_Source\PSoC5/shiftregReceiver.c **** * Return:
+ 385:Generated_Source\PSoC5/shiftregReceiver.c **** *  Shift Register state. Clears output FIFO.
+ 386:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 387:Generated_Source\PSoC5/shiftregReceiver.c **** * Reentrant:
+ 388:Generated_Source\PSoC5/shiftregReceiver.c **** *  No.
+ 389:Generated_Source\PSoC5/shiftregReceiver.c **** *
+ 390:Generated_Source\PSoC5/shiftregReceiver.c **** *******************************************************************************/
+ 391:Generated_Source\PSoC5/shiftregReceiver.c **** uint8 shiftregReceiver_ReadRegValue(void) 
+ 392:Generated_Source\PSoC5/shiftregReceiver.c **** {
+ 549              		.loc 1 392 0
+ 550              		.cfi_startproc
+ 551              		@ args = 0, pretend = 0, frame = 8
+ 552              		@ frame_needed = 1, uses_anonymous_args = 0
+ 553 0000 80B5     		push	{r7, lr}
+ 554              		.cfi_def_cfa_offset 8
+ 555              		.cfi_offset 7, -8
+ 556              		.cfi_offset 14, -4
+ 557 0002 82B0     		sub	sp, sp, #8
+ 558              		.cfi_def_cfa_offset 16
+ 559 0004 00AF     		add	r7, sp, #0
+ 560              		.cfi_def_cfa_register 7
+ 393:Generated_Source\PSoC5/shiftregReceiver.c ****     uint8 result;
+ 394:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 395:Generated_Source\PSoC5/shiftregReceiver.c ****     /* Clear FIFO before software capture */
+ 396:Generated_Source\PSoC5/shiftregReceiver.c ****     while(shiftregReceiver_RET_FIFO_EMPTY != shiftregReceiver_GetFIFOStatus(shiftregReceiver_OUT_FI
+ 561              		.loc 1 396 0
+ 562 0006 01E0     		b	.L43
+ 563              	.L44:
+ 397:Generated_Source\PSoC5/shiftregReceiver.c ****     {
+ 398:Generated_Source\PSoC5/shiftregReceiver.c ****         (void) CY_GET_REG8(shiftregReceiver_OUT_FIFO_VAL_LSB_PTR);
+ 564              		.loc 1 398 0
+ 565 0008 084B     		ldr	r3, .L46
+ 566 000a 1B78     		ldrb	r3, [r3]
+ 567              	.L43:
+ 396:Generated_Source\PSoC5/shiftregReceiver.c ****     {
+ 568              		.loc 1 396 0
+ 569 000c 0220     		movs	r0, #2
+ 570 000e FFF7FEFF 		bl	shiftregReceiver_GetFIFOStatus
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 18
+
+
+ 571 0012 0346     		mov	r3, r0
+ 572 0014 022B     		cmp	r3, #2
+ 573 0016 F7D1     		bne	.L44
+ 399:Generated_Source\PSoC5/shiftregReceiver.c ****     }
+ 400:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 401:Generated_Source\PSoC5/shiftregReceiver.c ****     /* Read of 8 bits from A1 causes capture to output FIFO */
+ 402:Generated_Source\PSoC5/shiftregReceiver.c ****     (void) CY_GET_REG8(shiftregReceiver_SHIFT_REG_CAPTURE_PTR);
+ 574              		.loc 1 402 0
+ 575 0018 054B     		ldr	r3, .L46+4
+ 576 001a 1B78     		ldrb	r3, [r3]
+ 403:Generated_Source\PSoC5/shiftregReceiver.c **** 
+ 404:Generated_Source\PSoC5/shiftregReceiver.c ****     /* Read output FIFO */
+ 405:Generated_Source\PSoC5/shiftregReceiver.c ****     result  = CY_GET_REG8(shiftregReceiver_OUT_FIFO_VAL_LSB_PTR);
+ 577              		.loc 1 405 0
+ 578 001c 034B     		ldr	r3, .L46
+ 579 001e 1B78     		ldrb	r3, [r3]
+ 580 0020 FB71     		strb	r3, [r7, #7]
+ 406:Generated_Source\PSoC5/shiftregReceiver.c ****     
+ 407:Generated_Source\PSoC5/shiftregReceiver.c ****     #if(0u != (shiftregReceiver_SR_SIZE % 8u))
+ 408:Generated_Source\PSoC5/shiftregReceiver.c ****         result &= ((uint8) shiftregReceiver_SR_MASK);
+ 409:Generated_Source\PSoC5/shiftregReceiver.c ****     #endif /* (0u != (shiftregReceiver_SR_SIZE % 8u)) */
+ 410:Generated_Source\PSoC5/shiftregReceiver.c ****     
+ 411:Generated_Source\PSoC5/shiftregReceiver.c ****     return(result);
+ 581              		.loc 1 411 0
+ 582 0022 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 412:Generated_Source\PSoC5/shiftregReceiver.c **** }
+ 583              		.loc 1 412 0
+ 584 0024 1846     		mov	r0, r3
+ 585 0026 0837     		adds	r7, r7, #8
+ 586              		.cfi_def_cfa_offset 8
+ 587 0028 BD46     		mov	sp, r7
+ 588              		.cfi_def_cfa_register 13
+ 589              		@ sp needed
+ 590 002a 80BD     		pop	{r7, pc}
+ 591              	.L47:
+ 592              		.align	2
+ 593              	.L46:
+ 594 002c 56640040 		.word	1073767510
+ 595 0030 16640040 		.word	1073767446
+ 596              		.cfi_endproc
+ 597              	.LFE11:
+ 598              		.size	shiftregReceiver_ReadRegValue, .-shiftregReceiver_ReadRegValue
+ 599              		.text
+ 600              	.Letext0:
+ 601              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 602              		.section	.debug_info,"",%progbits
+ 603              	.Ldebug_info0:
+ 604 0000 1D020000 		.4byte	0x21d
+ 605 0004 0400     		.2byte	0x4
+ 606 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 607 000a 04       		.byte	0x4
+ 608 000b 01       		.uleb128 0x1
+ 609 000c 00000000 		.4byte	.LASF33
+ 610 0010 0C       		.byte	0xc
+ 611 0011 A8010000 		.4byte	.LASF34
+ 612 0015 C9020000 		.4byte	.LASF35
+ 613 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 19
+
+
+ 614 001d 00000000 		.4byte	0
+ 615 0021 00000000 		.4byte	.Ldebug_line0
+ 616 0025 02       		.uleb128 0x2
+ 617 0026 01       		.byte	0x1
+ 618 0027 06       		.byte	0x6
+ 619 0028 27030000 		.4byte	.LASF0
+ 620 002c 02       		.uleb128 0x2
+ 621 002d 01       		.byte	0x1
+ 622 002e 08       		.byte	0x8
+ 623 002f 0A010000 		.4byte	.LASF1
+ 624 0033 02       		.uleb128 0x2
+ 625 0034 02       		.byte	0x2
+ 626 0035 05       		.byte	0x5
+ 627 0036 84010000 		.4byte	.LASF2
+ 628 003a 02       		.uleb128 0x2
+ 629 003b 02       		.byte	0x2
+ 630 003c 07       		.byte	0x7
+ 631 003d A5000000 		.4byte	.LASF3
+ 632 0041 02       		.uleb128 0x2
+ 633 0042 04       		.byte	0x4
+ 634 0043 05       		.byte	0x5
+ 635 0044 A2020000 		.4byte	.LASF4
+ 636 0048 02       		.uleb128 0x2
+ 637 0049 04       		.byte	0x4
+ 638 004a 07       		.byte	0x7
+ 639 004b 2C010000 		.4byte	.LASF5
+ 640 004f 02       		.uleb128 0x2
+ 641 0050 08       		.byte	0x8
+ 642 0051 05       		.byte	0x5
+ 643 0052 06020000 		.4byte	.LASF6
+ 644 0056 02       		.uleb128 0x2
+ 645 0057 08       		.byte	0x8
+ 646 0058 07       		.byte	0x7
+ 647 0059 DF010000 		.4byte	.LASF7
+ 648 005d 03       		.uleb128 0x3
+ 649 005e 04       		.byte	0x4
+ 650 005f 05       		.byte	0x5
+ 651 0060 696E7400 		.ascii	"int\000"
+ 652 0064 02       		.uleb128 0x2
+ 653 0065 04       		.byte	0x4
+ 654 0066 07       		.byte	0x7
+ 655 0067 D2010000 		.4byte	.LASF8
+ 656 006b 04       		.uleb128 0x4
+ 657 006c 3E010000 		.4byte	.LASF12
+ 658 0070 02       		.byte	0x2
+ 659 0071 9201     		.2byte	0x192
+ 660 0073 2C000000 		.4byte	0x2c
+ 661 0077 02       		.uleb128 0x2
+ 662 0078 04       		.byte	0x4
+ 663 0079 04       		.byte	0x4
+ 664 007a 04010000 		.4byte	.LASF9
+ 665 007e 02       		.uleb128 0x2
+ 666 007f 08       		.byte	0x8
+ 667 0080 04       		.byte	0x4
+ 668 0081 67010000 		.4byte	.LASF10
+ 669 0085 02       		.uleb128 0x2
+ 670 0086 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 20
+
+
+ 671 0087 08       		.byte	0x8
+ 672 0088 14020000 		.4byte	.LASF11
+ 673 008c 04       		.uleb128 0x4
+ 674 008d 18010000 		.4byte	.LASF13
+ 675 0091 02       		.byte	0x2
+ 676 0092 3C02     		.2byte	0x23c
+ 677 0094 98000000 		.4byte	0x98
+ 678 0098 05       		.uleb128 0x5
+ 679 0099 6B000000 		.4byte	0x6b
+ 680 009d 02       		.uleb128 0x2
+ 681 009e 08       		.byte	0x8
+ 682 009f 04       		.byte	0x4
+ 683 00a0 1B030000 		.4byte	.LASF14
+ 684 00a4 02       		.uleb128 0x2
+ 685 00a5 04       		.byte	0x4
+ 686 00a6 07       		.byte	0x7
+ 687 00a7 FD010000 		.4byte	.LASF15
+ 688 00ab 06       		.uleb128 0x6
+ 689 00ac 8E000000 		.4byte	.LASF16
+ 690 00b0 01       		.byte	0x1
+ 691 00b1 2B       		.byte	0x2b
+ 692 00b2 00000000 		.4byte	.LFB0
+ 693 00b6 24000000 		.4byte	.LFE0-.LFB0
+ 694 00ba 01       		.uleb128 0x1
+ 695 00bb 9C       		.byte	0x9c
+ 696 00bc 06       		.uleb128 0x6
+ 697 00bd B8000000 		.4byte	.LASF17
+ 698 00c1 01       		.byte	0x1
+ 699 00c2 45       		.byte	0x45
+ 700 00c3 00000000 		.4byte	.LFB1
+ 701 00c7 20000000 		.4byte	.LFE1-.LFB1
+ 702 00cb 01       		.uleb128 0x1
+ 703 00cc 9C       		.byte	0x9c
+ 704 00cd 06       		.uleb128 0x6
+ 705 00ce 6E010000 		.4byte	.LASF18
+ 706 00d2 01       		.byte	0x1
+ 707 00d3 5D       		.byte	0x5d
+ 708 00d4 00000000 		.4byte	.LFB2
+ 709 00d8 0E000000 		.4byte	.LFE2-.LFB2
+ 710 00dc 01       		.uleb128 0x1
+ 711 00dd 9C       		.byte	0x9c
+ 712 00de 06       		.uleb128 0x6
+ 713 00df 33020000 		.4byte	.LASF19
+ 714 00e3 01       		.byte	0x1
+ 715 00e4 71       		.byte	0x71
+ 716 00e5 00000000 		.4byte	.LFB3
+ 717 00e9 20000000 		.4byte	.LFE3-.LFB3
+ 718 00ed 01       		.uleb128 0x1
+ 719 00ee 9C       		.byte	0x9c
+ 720 00ef 07       		.uleb128 0x7
+ 721 00f0 E9000000 		.4byte	.LASF20
+ 722 00f4 01       		.byte	0x1
+ 723 00f5 87       		.byte	0x87
+ 724 00f6 00000000 		.4byte	.LFB4
+ 725 00fa 34000000 		.4byte	.LFE4-.LFB4
+ 726 00fe 01       		.uleb128 0x1
+ 727 00ff 9C       		.byte	0x9c
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 21
+
+
+ 728 0100 13010000 		.4byte	0x113
+ 729 0104 08       		.uleb128 0x8
+ 730 0105 1D010000 		.4byte	.LASF22
+ 731 0109 01       		.byte	0x1
+ 732 010a 89       		.byte	0x89
+ 733 010b 6B000000 		.4byte	0x6b
+ 734 010f 02       		.uleb128 0x2
+ 735 0110 91       		.byte	0x91
+ 736 0111 77       		.sleb128 -9
+ 737 0112 00       		.byte	0
+ 738 0113 07       		.uleb128 0x7
+ 739 0114 86020000 		.4byte	.LASF21
+ 740 0118 01       		.byte	0x1
+ 741 0119 9F       		.byte	0x9f
+ 742 011a 00000000 		.4byte	.LFB5
+ 743 011e 34000000 		.4byte	.LFE5-.LFB5
+ 744 0122 01       		.uleb128 0x1
+ 745 0123 9C       		.byte	0x9c
+ 746 0124 37010000 		.4byte	0x137
+ 747 0128 08       		.uleb128 0x8
+ 748 0129 1D010000 		.4byte	.LASF22
+ 749 012d 01       		.byte	0x1
+ 750 012e A1       		.byte	0xa1
+ 751 012f 6B000000 		.4byte	0x6b
+ 752 0133 02       		.uleb128 0x2
+ 753 0134 91       		.byte	0x91
+ 754 0135 77       		.sleb128 -9
+ 755 0136 00       		.byte	0
+ 756 0137 09       		.uleb128 0x9
+ 757 0138 49020000 		.4byte	.LASF31
+ 758 013c 01       		.byte	0x1
+ 759 013d B7       		.byte	0xb7
+ 760 013e 6B000000 		.4byte	0x6b
+ 761 0142 00000000 		.4byte	.LFB6
+ 762 0146 58000000 		.4byte	.LFE6-.LFB6
+ 763 014a 01       		.uleb128 0x1
+ 764 014b 9C       		.byte	0x9c
+ 765 014c 6D010000 		.4byte	0x16d
+ 766 0150 0A       		.uleb128 0xa
+ 767 0151 44010000 		.4byte	.LASF25
+ 768 0155 01       		.byte	0x1
+ 769 0156 B7       		.byte	0xb7
+ 770 0157 6B000000 		.4byte	0x6b
+ 771 015b 02       		.uleb128 0x2
+ 772 015c 91       		.byte	0x91
+ 773 015d 6F       		.sleb128 -17
+ 774 015e 08       		.uleb128 0x8
+ 775 015f F6010000 		.4byte	.LASF23
+ 776 0163 01       		.byte	0x1
+ 777 0164 B9       		.byte	0xb9
+ 778 0165 6B000000 		.4byte	0x6b
+ 779 0169 02       		.uleb128 0x2
+ 780 016a 91       		.byte	0x91
+ 781 016b 77       		.sleb128 -9
+ 782 016c 00       		.byte	0
+ 783 016d 0B       		.uleb128 0xb
+ 784 016e 4B010000 		.4byte	.LASF24
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 22
+
+
+ 785 0172 01       		.byte	0x1
+ 786 0173 0501     		.2byte	0x105
+ 787 0175 00000000 		.4byte	.LFB7
+ 788 0179 40000000 		.4byte	.LFE7-.LFB7
+ 789 017d 01       		.uleb128 0x1
+ 790 017e 9C       		.byte	0x9c
+ 791 017f 93010000 		.4byte	0x193
+ 792 0183 0C       		.uleb128 0xc
+ 793 0184 8E010000 		.4byte	.LASF26
+ 794 0188 01       		.byte	0x1
+ 795 0189 0501     		.2byte	0x105
+ 796 018b 6B000000 		.4byte	0x6b
+ 797 018f 02       		.uleb128 0x2
+ 798 0190 91       		.byte	0x91
+ 799 0191 77       		.sleb128 -9
+ 800 0192 00       		.byte	0
+ 801 0193 0D       		.uleb128 0xd
+ 802 0194 68020000 		.4byte	.LASF29
+ 803 0198 01       		.byte	0x1
+ 804 0199 1A01     		.2byte	0x11a
+ 805 019b 6B000000 		.4byte	0x6b
+ 806 019f 00000000 		.4byte	.LFB8
+ 807 01a3 1C000000 		.4byte	.LFE8-.LFB8
+ 808 01a7 01       		.uleb128 0x1
+ 809 01a8 9C       		.byte	0x9c
+ 810 01a9 0B       		.uleb128 0xb
+ 811 01aa 33030000 		.4byte	.LASF27
+ 812 01ae 01       		.byte	0x1
+ 813 01af 2E01     		.2byte	0x12e
+ 814 01b1 00000000 		.4byte	.LFB9
+ 815 01b5 20000000 		.4byte	.LFE9-.LFB9
+ 816 01b9 01       		.uleb128 0x1
+ 817 01ba 9C       		.byte	0x9c
+ 818 01bb CF010000 		.4byte	0x1cf
+ 819 01bf 0C       		.uleb128 0xc
+ 820 01c0 9E010000 		.4byte	.LASF28
+ 821 01c4 01       		.byte	0x1
+ 822 01c5 2E01     		.2byte	0x12e
+ 823 01c7 6B000000 		.4byte	0x6b
+ 824 01cb 02       		.uleb128 0x2
+ 825 01cc 91       		.byte	0x91
+ 826 01cd 77       		.sleb128 -9
+ 827 01ce 00       		.byte	0
+ 828 01cf 0D       		.uleb128 0xd
+ 829 01d0 19020000 		.4byte	.LASF30
+ 830 01d4 01       		.byte	0x1
+ 831 01d5 6E01     		.2byte	0x16e
+ 832 01d7 6B000000 		.4byte	0x6b
+ 833 01db 00000000 		.4byte	.LFB10
+ 834 01df 18000000 		.4byte	.LFE10-.LFB10
+ 835 01e3 01       		.uleb128 0x1
+ 836 01e4 9C       		.byte	0x9c
+ 837 01e5 0E       		.uleb128 0xe
+ 838 01e6 AB020000 		.4byte	.LASF32
+ 839 01ea 01       		.byte	0x1
+ 840 01eb 8701     		.2byte	0x187
+ 841 01ed 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 23
+
+
+ 842 01f1 00000000 		.4byte	.LFB11
+ 843 01f5 34000000 		.4byte	.LFE11-.LFB11
+ 844 01f9 01       		.uleb128 0x1
+ 845 01fa 9C       		.byte	0x9c
+ 846 01fb 0F020000 		.4byte	0x20f
+ 847 01ff 0F       		.uleb128 0xf
+ 848 0200 F6010000 		.4byte	.LASF23
+ 849 0204 01       		.byte	0x1
+ 850 0205 8901     		.2byte	0x189
+ 851 0207 6B000000 		.4byte	0x6b
+ 852 020b 02       		.uleb128 0x2
+ 853 020c 91       		.byte	0x91
+ 854 020d 77       		.sleb128 -9
+ 855 020e 00       		.byte	0
+ 856 020f 10       		.uleb128 0x10
+ 857 0210 D0000000 		.4byte	.LASF36
+ 858 0214 01       		.byte	0x1
+ 859 0215 13       		.byte	0x13
+ 860 0216 6B000000 		.4byte	0x6b
+ 861 021a 05       		.uleb128 0x5
+ 862 021b 03       		.byte	0x3
+ 863 021c 00000000 		.4byte	shiftregReceiver_initVar
+ 864 0220 00       		.byte	0
+ 865              		.section	.debug_abbrev,"",%progbits
+ 866              	.Ldebug_abbrev0:
+ 867 0000 01       		.uleb128 0x1
+ 868 0001 11       		.uleb128 0x11
+ 869 0002 01       		.byte	0x1
+ 870 0003 25       		.uleb128 0x25
+ 871 0004 0E       		.uleb128 0xe
+ 872 0005 13       		.uleb128 0x13
+ 873 0006 0B       		.uleb128 0xb
+ 874 0007 03       		.uleb128 0x3
+ 875 0008 0E       		.uleb128 0xe
+ 876 0009 1B       		.uleb128 0x1b
+ 877 000a 0E       		.uleb128 0xe
+ 878 000b 55       		.uleb128 0x55
+ 879 000c 17       		.uleb128 0x17
+ 880 000d 11       		.uleb128 0x11
+ 881 000e 01       		.uleb128 0x1
+ 882 000f 10       		.uleb128 0x10
+ 883 0010 17       		.uleb128 0x17
+ 884 0011 00       		.byte	0
+ 885 0012 00       		.byte	0
+ 886 0013 02       		.uleb128 0x2
+ 887 0014 24       		.uleb128 0x24
+ 888 0015 00       		.byte	0
+ 889 0016 0B       		.uleb128 0xb
+ 890 0017 0B       		.uleb128 0xb
+ 891 0018 3E       		.uleb128 0x3e
+ 892 0019 0B       		.uleb128 0xb
+ 893 001a 03       		.uleb128 0x3
+ 894 001b 0E       		.uleb128 0xe
+ 895 001c 00       		.byte	0
+ 896 001d 00       		.byte	0
+ 897 001e 03       		.uleb128 0x3
+ 898 001f 24       		.uleb128 0x24
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 24
+
+
+ 899 0020 00       		.byte	0
+ 900 0021 0B       		.uleb128 0xb
+ 901 0022 0B       		.uleb128 0xb
+ 902 0023 3E       		.uleb128 0x3e
+ 903 0024 0B       		.uleb128 0xb
+ 904 0025 03       		.uleb128 0x3
+ 905 0026 08       		.uleb128 0x8
+ 906 0027 00       		.byte	0
+ 907 0028 00       		.byte	0
+ 908 0029 04       		.uleb128 0x4
+ 909 002a 16       		.uleb128 0x16
+ 910 002b 00       		.byte	0
+ 911 002c 03       		.uleb128 0x3
+ 912 002d 0E       		.uleb128 0xe
+ 913 002e 3A       		.uleb128 0x3a
+ 914 002f 0B       		.uleb128 0xb
+ 915 0030 3B       		.uleb128 0x3b
+ 916 0031 05       		.uleb128 0x5
+ 917 0032 49       		.uleb128 0x49
+ 918 0033 13       		.uleb128 0x13
+ 919 0034 00       		.byte	0
+ 920 0035 00       		.byte	0
+ 921 0036 05       		.uleb128 0x5
+ 922 0037 35       		.uleb128 0x35
+ 923 0038 00       		.byte	0
+ 924 0039 49       		.uleb128 0x49
+ 925 003a 13       		.uleb128 0x13
+ 926 003b 00       		.byte	0
+ 927 003c 00       		.byte	0
+ 928 003d 06       		.uleb128 0x6
+ 929 003e 2E       		.uleb128 0x2e
+ 930 003f 00       		.byte	0
+ 931 0040 3F       		.uleb128 0x3f
+ 932 0041 19       		.uleb128 0x19
+ 933 0042 03       		.uleb128 0x3
+ 934 0043 0E       		.uleb128 0xe
+ 935 0044 3A       		.uleb128 0x3a
+ 936 0045 0B       		.uleb128 0xb
+ 937 0046 3B       		.uleb128 0x3b
+ 938 0047 0B       		.uleb128 0xb
+ 939 0048 27       		.uleb128 0x27
+ 940 0049 19       		.uleb128 0x19
+ 941 004a 11       		.uleb128 0x11
+ 942 004b 01       		.uleb128 0x1
+ 943 004c 12       		.uleb128 0x12
+ 944 004d 06       		.uleb128 0x6
+ 945 004e 40       		.uleb128 0x40
+ 946 004f 18       		.uleb128 0x18
+ 947 0050 9642     		.uleb128 0x2116
+ 948 0052 19       		.uleb128 0x19
+ 949 0053 00       		.byte	0
+ 950 0054 00       		.byte	0
+ 951 0055 07       		.uleb128 0x7
+ 952 0056 2E       		.uleb128 0x2e
+ 953 0057 01       		.byte	0x1
+ 954 0058 3F       		.uleb128 0x3f
+ 955 0059 19       		.uleb128 0x19
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 25
+
+
+ 956 005a 03       		.uleb128 0x3
+ 957 005b 0E       		.uleb128 0xe
+ 958 005c 3A       		.uleb128 0x3a
+ 959 005d 0B       		.uleb128 0xb
+ 960 005e 3B       		.uleb128 0x3b
+ 961 005f 0B       		.uleb128 0xb
+ 962 0060 27       		.uleb128 0x27
+ 963 0061 19       		.uleb128 0x19
+ 964 0062 11       		.uleb128 0x11
+ 965 0063 01       		.uleb128 0x1
+ 966 0064 12       		.uleb128 0x12
+ 967 0065 06       		.uleb128 0x6
+ 968 0066 40       		.uleb128 0x40
+ 969 0067 18       		.uleb128 0x18
+ 970 0068 9642     		.uleb128 0x2116
+ 971 006a 19       		.uleb128 0x19
+ 972 006b 01       		.uleb128 0x1
+ 973 006c 13       		.uleb128 0x13
+ 974 006d 00       		.byte	0
+ 975 006e 00       		.byte	0
+ 976 006f 08       		.uleb128 0x8
+ 977 0070 34       		.uleb128 0x34
+ 978 0071 00       		.byte	0
+ 979 0072 03       		.uleb128 0x3
+ 980 0073 0E       		.uleb128 0xe
+ 981 0074 3A       		.uleb128 0x3a
+ 982 0075 0B       		.uleb128 0xb
+ 983 0076 3B       		.uleb128 0x3b
+ 984 0077 0B       		.uleb128 0xb
+ 985 0078 49       		.uleb128 0x49
+ 986 0079 13       		.uleb128 0x13
+ 987 007a 02       		.uleb128 0x2
+ 988 007b 18       		.uleb128 0x18
+ 989 007c 00       		.byte	0
+ 990 007d 00       		.byte	0
+ 991 007e 09       		.uleb128 0x9
+ 992 007f 2E       		.uleb128 0x2e
+ 993 0080 01       		.byte	0x1
+ 994 0081 3F       		.uleb128 0x3f
+ 995 0082 19       		.uleb128 0x19
+ 996 0083 03       		.uleb128 0x3
+ 997 0084 0E       		.uleb128 0xe
+ 998 0085 3A       		.uleb128 0x3a
+ 999 0086 0B       		.uleb128 0xb
+ 1000 0087 3B       		.uleb128 0x3b
+ 1001 0088 0B       		.uleb128 0xb
+ 1002 0089 27       		.uleb128 0x27
+ 1003 008a 19       		.uleb128 0x19
+ 1004 008b 49       		.uleb128 0x49
+ 1005 008c 13       		.uleb128 0x13
+ 1006 008d 11       		.uleb128 0x11
+ 1007 008e 01       		.uleb128 0x1
+ 1008 008f 12       		.uleb128 0x12
+ 1009 0090 06       		.uleb128 0x6
+ 1010 0091 40       		.uleb128 0x40
+ 1011 0092 18       		.uleb128 0x18
+ 1012 0093 9742     		.uleb128 0x2117
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 26
+
+
+ 1013 0095 19       		.uleb128 0x19
+ 1014 0096 01       		.uleb128 0x1
+ 1015 0097 13       		.uleb128 0x13
+ 1016 0098 00       		.byte	0
+ 1017 0099 00       		.byte	0
+ 1018 009a 0A       		.uleb128 0xa
+ 1019 009b 05       		.uleb128 0x5
+ 1020 009c 00       		.byte	0
+ 1021 009d 03       		.uleb128 0x3
+ 1022 009e 0E       		.uleb128 0xe
+ 1023 009f 3A       		.uleb128 0x3a
+ 1024 00a0 0B       		.uleb128 0xb
+ 1025 00a1 3B       		.uleb128 0x3b
+ 1026 00a2 0B       		.uleb128 0xb
+ 1027 00a3 49       		.uleb128 0x49
+ 1028 00a4 13       		.uleb128 0x13
+ 1029 00a5 02       		.uleb128 0x2
+ 1030 00a6 18       		.uleb128 0x18
+ 1031 00a7 00       		.byte	0
+ 1032 00a8 00       		.byte	0
+ 1033 00a9 0B       		.uleb128 0xb
+ 1034 00aa 2E       		.uleb128 0x2e
+ 1035 00ab 01       		.byte	0x1
+ 1036 00ac 3F       		.uleb128 0x3f
+ 1037 00ad 19       		.uleb128 0x19
+ 1038 00ae 03       		.uleb128 0x3
+ 1039 00af 0E       		.uleb128 0xe
+ 1040 00b0 3A       		.uleb128 0x3a
+ 1041 00b1 0B       		.uleb128 0xb
+ 1042 00b2 3B       		.uleb128 0x3b
+ 1043 00b3 05       		.uleb128 0x5
+ 1044 00b4 27       		.uleb128 0x27
+ 1045 00b5 19       		.uleb128 0x19
+ 1046 00b6 11       		.uleb128 0x11
+ 1047 00b7 01       		.uleb128 0x1
+ 1048 00b8 12       		.uleb128 0x12
+ 1049 00b9 06       		.uleb128 0x6
+ 1050 00ba 40       		.uleb128 0x40
+ 1051 00bb 18       		.uleb128 0x18
+ 1052 00bc 9742     		.uleb128 0x2117
+ 1053 00be 19       		.uleb128 0x19
+ 1054 00bf 01       		.uleb128 0x1
+ 1055 00c0 13       		.uleb128 0x13
+ 1056 00c1 00       		.byte	0
+ 1057 00c2 00       		.byte	0
+ 1058 00c3 0C       		.uleb128 0xc
+ 1059 00c4 05       		.uleb128 0x5
+ 1060 00c5 00       		.byte	0
+ 1061 00c6 03       		.uleb128 0x3
+ 1062 00c7 0E       		.uleb128 0xe
+ 1063 00c8 3A       		.uleb128 0x3a
+ 1064 00c9 0B       		.uleb128 0xb
+ 1065 00ca 3B       		.uleb128 0x3b
+ 1066 00cb 05       		.uleb128 0x5
+ 1067 00cc 49       		.uleb128 0x49
+ 1068 00cd 13       		.uleb128 0x13
+ 1069 00ce 02       		.uleb128 0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 27
+
+
+ 1070 00cf 18       		.uleb128 0x18
+ 1071 00d0 00       		.byte	0
+ 1072 00d1 00       		.byte	0
+ 1073 00d2 0D       		.uleb128 0xd
+ 1074 00d3 2E       		.uleb128 0x2e
+ 1075 00d4 00       		.byte	0
+ 1076 00d5 3F       		.uleb128 0x3f
+ 1077 00d6 19       		.uleb128 0x19
+ 1078 00d7 03       		.uleb128 0x3
+ 1079 00d8 0E       		.uleb128 0xe
+ 1080 00d9 3A       		.uleb128 0x3a
+ 1081 00da 0B       		.uleb128 0xb
+ 1082 00db 3B       		.uleb128 0x3b
+ 1083 00dc 05       		.uleb128 0x5
+ 1084 00dd 27       		.uleb128 0x27
+ 1085 00de 19       		.uleb128 0x19
+ 1086 00df 49       		.uleb128 0x49
+ 1087 00e0 13       		.uleb128 0x13
+ 1088 00e1 11       		.uleb128 0x11
+ 1089 00e2 01       		.uleb128 0x1
+ 1090 00e3 12       		.uleb128 0x12
+ 1091 00e4 06       		.uleb128 0x6
+ 1092 00e5 40       		.uleb128 0x40
+ 1093 00e6 18       		.uleb128 0x18
+ 1094 00e7 9742     		.uleb128 0x2117
+ 1095 00e9 19       		.uleb128 0x19
+ 1096 00ea 00       		.byte	0
+ 1097 00eb 00       		.byte	0
+ 1098 00ec 0E       		.uleb128 0xe
+ 1099 00ed 2E       		.uleb128 0x2e
+ 1100 00ee 01       		.byte	0x1
+ 1101 00ef 3F       		.uleb128 0x3f
+ 1102 00f0 19       		.uleb128 0x19
+ 1103 00f1 03       		.uleb128 0x3
+ 1104 00f2 0E       		.uleb128 0xe
+ 1105 00f3 3A       		.uleb128 0x3a
+ 1106 00f4 0B       		.uleb128 0xb
+ 1107 00f5 3B       		.uleb128 0x3b
+ 1108 00f6 05       		.uleb128 0x5
+ 1109 00f7 27       		.uleb128 0x27
+ 1110 00f8 19       		.uleb128 0x19
+ 1111 00f9 49       		.uleb128 0x49
+ 1112 00fa 13       		.uleb128 0x13
+ 1113 00fb 11       		.uleb128 0x11
+ 1114 00fc 01       		.uleb128 0x1
+ 1115 00fd 12       		.uleb128 0x12
+ 1116 00fe 06       		.uleb128 0x6
+ 1117 00ff 40       		.uleb128 0x40
+ 1118 0100 18       		.uleb128 0x18
+ 1119 0101 9642     		.uleb128 0x2116
+ 1120 0103 19       		.uleb128 0x19
+ 1121 0104 01       		.uleb128 0x1
+ 1122 0105 13       		.uleb128 0x13
+ 1123 0106 00       		.byte	0
+ 1124 0107 00       		.byte	0
+ 1125 0108 0F       		.uleb128 0xf
+ 1126 0109 34       		.uleb128 0x34
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 28
+
+
+ 1127 010a 00       		.byte	0
+ 1128 010b 03       		.uleb128 0x3
+ 1129 010c 0E       		.uleb128 0xe
+ 1130 010d 3A       		.uleb128 0x3a
+ 1131 010e 0B       		.uleb128 0xb
+ 1132 010f 3B       		.uleb128 0x3b
+ 1133 0110 05       		.uleb128 0x5
+ 1134 0111 49       		.uleb128 0x49
+ 1135 0112 13       		.uleb128 0x13
+ 1136 0113 02       		.uleb128 0x2
+ 1137 0114 18       		.uleb128 0x18
+ 1138 0115 00       		.byte	0
+ 1139 0116 00       		.byte	0
+ 1140 0117 10       		.uleb128 0x10
+ 1141 0118 34       		.uleb128 0x34
+ 1142 0119 00       		.byte	0
+ 1143 011a 03       		.uleb128 0x3
+ 1144 011b 0E       		.uleb128 0xe
+ 1145 011c 3A       		.uleb128 0x3a
+ 1146 011d 0B       		.uleb128 0xb
+ 1147 011e 3B       		.uleb128 0x3b
+ 1148 011f 0B       		.uleb128 0xb
+ 1149 0120 49       		.uleb128 0x49
+ 1150 0121 13       		.uleb128 0x13
+ 1151 0122 3F       		.uleb128 0x3f
+ 1152 0123 19       		.uleb128 0x19
+ 1153 0124 02       		.uleb128 0x2
+ 1154 0125 18       		.uleb128 0x18
+ 1155 0126 00       		.byte	0
+ 1156 0127 00       		.byte	0
+ 1157 0128 00       		.byte	0
+ 1158              		.section	.debug_aranges,"",%progbits
+ 1159 0000 74000000 		.4byte	0x74
+ 1160 0004 0200     		.2byte	0x2
+ 1161 0006 00000000 		.4byte	.Ldebug_info0
+ 1162 000a 04       		.byte	0x4
+ 1163 000b 00       		.byte	0
+ 1164 000c 0000     		.2byte	0
+ 1165 000e 0000     		.2byte	0
+ 1166 0010 00000000 		.4byte	.LFB0
+ 1167 0014 24000000 		.4byte	.LFE0-.LFB0
+ 1168 0018 00000000 		.4byte	.LFB1
+ 1169 001c 20000000 		.4byte	.LFE1-.LFB1
+ 1170 0020 00000000 		.4byte	.LFB2
+ 1171 0024 0E000000 		.4byte	.LFE2-.LFB2
+ 1172 0028 00000000 		.4byte	.LFB3
+ 1173 002c 20000000 		.4byte	.LFE3-.LFB3
+ 1174 0030 00000000 		.4byte	.LFB4
+ 1175 0034 34000000 		.4byte	.LFE4-.LFB4
+ 1176 0038 00000000 		.4byte	.LFB5
+ 1177 003c 34000000 		.4byte	.LFE5-.LFB5
+ 1178 0040 00000000 		.4byte	.LFB6
+ 1179 0044 58000000 		.4byte	.LFE6-.LFB6
+ 1180 0048 00000000 		.4byte	.LFB7
+ 1181 004c 40000000 		.4byte	.LFE7-.LFB7
+ 1182 0050 00000000 		.4byte	.LFB8
+ 1183 0054 1C000000 		.4byte	.LFE8-.LFB8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 29
+
+
+ 1184 0058 00000000 		.4byte	.LFB9
+ 1185 005c 20000000 		.4byte	.LFE9-.LFB9
+ 1186 0060 00000000 		.4byte	.LFB10
+ 1187 0064 18000000 		.4byte	.LFE10-.LFB10
+ 1188 0068 00000000 		.4byte	.LFB11
+ 1189 006c 34000000 		.4byte	.LFE11-.LFB11
+ 1190 0070 00000000 		.4byte	0
+ 1191 0074 00000000 		.4byte	0
+ 1192              		.section	.debug_ranges,"",%progbits
+ 1193              	.Ldebug_ranges0:
+ 1194 0000 00000000 		.4byte	.LFB0
+ 1195 0004 24000000 		.4byte	.LFE0
+ 1196 0008 00000000 		.4byte	.LFB1
+ 1197 000c 20000000 		.4byte	.LFE1
+ 1198 0010 00000000 		.4byte	.LFB2
+ 1199 0014 0E000000 		.4byte	.LFE2
+ 1200 0018 00000000 		.4byte	.LFB3
+ 1201 001c 20000000 		.4byte	.LFE3
+ 1202 0020 00000000 		.4byte	.LFB4
+ 1203 0024 34000000 		.4byte	.LFE4
+ 1204 0028 00000000 		.4byte	.LFB5
+ 1205 002c 34000000 		.4byte	.LFE5
+ 1206 0030 00000000 		.4byte	.LFB6
+ 1207 0034 58000000 		.4byte	.LFE6
+ 1208 0038 00000000 		.4byte	.LFB7
+ 1209 003c 40000000 		.4byte	.LFE7
+ 1210 0040 00000000 		.4byte	.LFB8
+ 1211 0044 1C000000 		.4byte	.LFE8
+ 1212 0048 00000000 		.4byte	.LFB9
+ 1213 004c 20000000 		.4byte	.LFE9
+ 1214 0050 00000000 		.4byte	.LFB10
+ 1215 0054 18000000 		.4byte	.LFE10
+ 1216 0058 00000000 		.4byte	.LFB11
+ 1217 005c 34000000 		.4byte	.LFE11
+ 1218 0060 00000000 		.4byte	0
+ 1219 0064 00000000 		.4byte	0
+ 1220              		.section	.debug_line,"",%progbits
+ 1221              	.Ldebug_line0:
+ 1222 0000 46010000 		.section	.debug_str,"MS",%progbits,1
+ 1222      02004D00 
+ 1222      00000201 
+ 1222      FB0E0D00 
+ 1222      01010101 
+ 1223              	.LASF33:
+ 1224 0000 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1224      43313120 
+ 1224      352E342E 
+ 1224      31203230 
+ 1224      31363036 
+ 1225 0033 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1225      20726576 
+ 1225      6973696F 
+ 1225      6E203233 
+ 1225      37373135 
+ 1226 0066 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1226      66756E63 
+ 1226      74696F6E 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 30
+
+
+ 1226      2D736563 
+ 1226      74696F6E 
+ 1227              	.LASF16:
+ 1228 008e 73686966 		.ascii	"shiftregReceiver_Start\000"
+ 1228      74726567 
+ 1228      52656365 
+ 1228      69766572 
+ 1228      5F537461 
+ 1229              	.LASF3:
+ 1230 00a5 73686F72 		.ascii	"short unsigned int\000"
+ 1230      7420756E 
+ 1230      7369676E 
+ 1230      65642069 
+ 1230      6E7400
+ 1231              	.LASF17:
+ 1232 00b8 73686966 		.ascii	"shiftregReceiver_Enable\000"
+ 1232      74726567 
+ 1232      52656365 
+ 1232      69766572 
+ 1232      5F456E61 
+ 1233              	.LASF36:
+ 1234 00d0 73686966 		.ascii	"shiftregReceiver_initVar\000"
+ 1234      74726567 
+ 1234      52656365 
+ 1234      69766572 
+ 1234      5F696E69 
+ 1235              	.LASF20:
+ 1236 00e9 73686966 		.ascii	"shiftregReceiver_EnableInt\000"
+ 1236      74726567 
+ 1236      52656365 
+ 1236      69766572 
+ 1236      5F456E61 
+ 1237              	.LASF9:
+ 1238 0104 666C6F61 		.ascii	"float\000"
+ 1238      7400
+ 1239              	.LASF1:
+ 1240 010a 756E7369 		.ascii	"unsigned char\000"
+ 1240      676E6564 
+ 1240      20636861 
+ 1240      7200
+ 1241              	.LASF13:
+ 1242 0118 72656738 		.ascii	"reg8\000"
+ 1242      00
+ 1243              	.LASF22:
+ 1244 011d 696E7465 		.ascii	"interruptState\000"
+ 1244      72727570 
+ 1244      74537461 
+ 1244      746500
+ 1245              	.LASF5:
+ 1246 012c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1246      20756E73 
+ 1246      69676E65 
+ 1246      6420696E 
+ 1246      7400
+ 1247              	.LASF12:
+ 1248 013e 75696E74 		.ascii	"uint8\000"
+ 1248      3800
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 31
+
+
+ 1249              	.LASF25:
+ 1250 0144 6669666F 		.ascii	"fifoId\000"
+ 1250      496400
+ 1251              	.LASF24:
+ 1252 014b 73686966 		.ascii	"shiftregReceiver_SetIntMode\000"
+ 1252      74726567 
+ 1252      52656365 
+ 1252      69766572 
+ 1252      5F536574 
+ 1253              	.LASF10:
+ 1254 0167 646F7562 		.ascii	"double\000"
+ 1254      6C6500
+ 1255              	.LASF18:
+ 1256 016e 73686966 		.ascii	"shiftregReceiver_Init\000"
+ 1256      74726567 
+ 1256      52656365 
+ 1256      69766572 
+ 1256      5F496E69 
+ 1257              	.LASF2:
+ 1258 0184 73686F72 		.ascii	"short int\000"
+ 1258      7420696E 
+ 1258      7400
+ 1259              	.LASF26:
+ 1260 018e 696E7465 		.ascii	"interruptSource\000"
+ 1260      72727570 
+ 1260      74536F75 
+ 1260      72636500 
+ 1261              	.LASF28:
+ 1262 019e 73686966 		.ascii	"shiftData\000"
+ 1262      74446174 
+ 1262      6100
+ 1263              	.LASF34:
+ 1264 01a8 47656E65 		.ascii	"Generated_Source\\PSoC5\\shiftregReceiver.c\000"
+ 1264      72617465 
+ 1264      645F536F 
+ 1264      75726365 
+ 1264      5C50536F 
+ 1265              	.LASF8:
+ 1266 01d2 756E7369 		.ascii	"unsigned int\000"
+ 1266      676E6564 
+ 1266      20696E74 
+ 1266      00
+ 1267              	.LASF7:
+ 1268 01df 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1268      206C6F6E 
+ 1268      6720756E 
+ 1268      7369676E 
+ 1268      65642069 
+ 1269              	.LASF23:
+ 1270 01f6 72657375 		.ascii	"result\000"
+ 1270      6C7400
+ 1271              	.LASF15:
+ 1272 01fd 73697A65 		.ascii	"sizetype\000"
+ 1272      74797065 
+ 1272      00
+ 1273              	.LASF6:
+ 1274 0206 6C6F6E67 		.ascii	"long long int\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 32
+
+
+ 1274      206C6F6E 
+ 1274      6720696E 
+ 1274      7400
+ 1275              	.LASF11:
+ 1276 0214 63686172 		.ascii	"char\000"
+ 1276      00
+ 1277              	.LASF30:
+ 1278 0219 73686966 		.ascii	"shiftregReceiver_ReadData\000"
+ 1278      74726567 
+ 1278      52656365 
+ 1278      69766572 
+ 1278      5F526561 
+ 1279              	.LASF19:
+ 1280 0233 73686966 		.ascii	"shiftregReceiver_Stop\000"
+ 1280      74726567 
+ 1280      52656365 
+ 1280      69766572 
+ 1280      5F53746F 
+ 1281              	.LASF31:
+ 1282 0249 73686966 		.ascii	"shiftregReceiver_GetFIFOStatus\000"
+ 1282      74726567 
+ 1282      52656365 
+ 1282      69766572 
+ 1282      5F476574 
+ 1283              	.LASF29:
+ 1284 0268 73686966 		.ascii	"shiftregReceiver_GetIntStatus\000"
+ 1284      74726567 
+ 1284      52656365 
+ 1284      69766572 
+ 1284      5F476574 
+ 1285              	.LASF21:
+ 1286 0286 73686966 		.ascii	"shiftregReceiver_DisableInt\000"
+ 1286      74726567 
+ 1286      52656365 
+ 1286      69766572 
+ 1286      5F446973 
+ 1287              	.LASF4:
+ 1288 02a2 6C6F6E67 		.ascii	"long int\000"
+ 1288      20696E74 
+ 1288      00
+ 1289              	.LASF32:
+ 1290 02ab 73686966 		.ascii	"shiftregReceiver_ReadRegValue\000"
+ 1290      74726567 
+ 1290      52656365 
+ 1290      69766572 
+ 1290      5F526561 
+ 1291              	.LASF35:
+ 1292 02c9 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-worl"
+ 1292      73657273 
+ 1292      5C627279 
+ 1292      616E2E6C 
+ 1292      65655C44 
+ 1293 02f7 645C4379 		.ascii	"d\\Cypress\\Combine_4.0\\Combine.cydsn\000"
+ 1293      70726573 
+ 1293      735C436F 
+ 1293      6D62696E 
+ 1293      655F342E 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc4pHUbd.s 			page 33
+
+
+ 1294              	.LASF14:
+ 1295 031b 6C6F6E67 		.ascii	"long double\000"
+ 1295      20646F75 
+ 1295      626C6500 
+ 1296              	.LASF0:
+ 1297 0327 7369676E 		.ascii	"signed char\000"
+ 1297      65642063 
+ 1297      68617200 
+ 1298              	.LASF27:
+ 1299 0333 73686966 		.ascii	"shiftregReceiver_WriteRegValue\000"
+ 1299      74726567 
+ 1299      52656365 
+ 1299      69766572 
+ 1299      5F577269 
+ 1300              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

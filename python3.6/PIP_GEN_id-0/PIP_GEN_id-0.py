@@ -155,12 +155,17 @@ rev["B11"] = "20180327"
 rev["C11"] = "Added pause to verify no errors"
 rev["D11"] = "id-0"
 
-rev["A12"] = "V.x"
-rev["B12"] = datetime.now()
-rev["C12"] = "Fiat justitia ruat caelum "
+rev["A12"] = "V.11"
+rev["B12"] = "20180402"
+rev["C12"] = "Working on Basic_Bike callouts"
 rev["D12"] = "id-0"
 
-print (rev["a11"].value, rev["c11"].value, "\n")
+rev["A13"] = "V.x"
+rev["B13"] = datetime.now()
+rev["C13"] = "Fiat justitia ruat caelum"
+rev["D13"] = "id-0"
+
+print (rev["a12"].value, rev["c12"].value, "\n")
 
 
 for col in rev.columns:
@@ -304,7 +309,7 @@ class Device( xml.sax.ContentHandler ):
                  sta["aa2"] = chi["i2"].value + "\n\n" + eng["i2"].value
                  sta["al2"].alignment = Alignment(wrap_text = True) #Drivemotor
                  sta["al2"] = chi["o2"].value + "\n\n" + eng["o2"].value
-         for i in range(2,8):
+         for i in range(2,9):
             if self.equipmentType == equipment[i]:
                  sta["am2"].alignment = Alignment(wrap_text = True) #Tach
                  sta["am2"] = chi["p2"].value + "\n\n" + eng["p2"].value
@@ -409,12 +414,6 @@ class Device( xml.sax.ContentHandler ):
               sta["ag2"] = ""
       elif self.CurrentData == "TabletProtocol": #-------------------------------------------------------------
           print ("Tablet Type:", self.TabletProtocol)
-          """print ("Equipment:", self.equipmentType) #can call variable later on in the function!
-          for i in range(2,8):
-              if self.TabletProtocol == tablet[0] and self.equipmentType == equipment[i]:
-                  print ("I did this")
-                  sta["aj2"].alignment = Alignment(wrap_text = True) #Wolf button test
-                  sta["aj2"] = chi["n2"].value + "\n\n" + eng["n2"].value"""
           if self.TabletProtocol == tablet[0]:
               sta["w2"].alignment = Alignment(wrap_text = True) #Wolf cosmetics
               sta["w2"] = chi["g3"].value + "\n\n" + eng["g3"].value
@@ -486,14 +485,15 @@ class Device( xml.sax.ContentHandler ):
          print ("Tach type:", self.DistanceDriver)
       elif self.CurrentData == "ConsoleVoltage":
          print ("Console Voltage:", self.ConsoleVoltage)#---------------------------------------------------------------
-         if self.ConsoleVoltage != voltage[0]:
-            sta["i2"].alignment = Alignment(wrap_text = True) #Basic Bike1 with voltage > 0; resist and tach
-            sta["i2"] = chi["c9"].value + "\n\n" + eng["c9"].value
-            sta["z2"].alignment = Alignment(wrap_text = True) #Power up
-            sta["z2"] = chi["h9"].value + "\n\n" + eng["h9"].value
+         for i in range (1, 4):
+             if self.ConsoleVoltage == voltage[i]:
+                 sta["i2"].alignment = Alignment(wrap_text = True) #Basic Bike1 with voltage > 0; resist and tach
+                 sta["i2"] = chi["c16"].value + "\n\n" + eng["c16"].value
+                 sta["z2"].alignment = Alignment(wrap_text = True) #Power up
+                 sta["z2"] = chi["h16"].value + "\n\n" + eng["h16"].value
          if self.ConsoleVoltage == voltage[0]:#------------------------------------------------------------------------
-            sta["i2"].alignment = Alignment(wrap_text = True) #Basic Bike2 voltage = 0; resist and tach
-            sta["i2"] = chi["c10"].value + "\n\n" + eng["c10"].value
+             sta["am2"].alignment = Alignment(wrap_text = True) #Basic Bike2 voltage = 0; resist and tach
+             sta["am2"] = chi["c10"].value + "\n\n" + eng["c10"].value
       self.CurrentData = ""
       
 

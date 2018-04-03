@@ -1,0 +1,2272 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.comm	UartRxDataSim,4,4
+  20              		.comm	devIndex,1,1
+  21              		.comm	Periph_Selected,1,1
+  22              		.comm	IsSelected,1,1
+  23              		.comm	IsDetected,1,1
+  24              		.comm	IsConnected,1,1
+  25              		.comm	connHandle,2,4
+  26              		.comm	apiResult,2,2
+  27              		.section	.rodata
+  28              		.align	2
+  29              	.LC1:
+  30 0000 424C4520 		.ascii	"BLE Central + Observer Example \015\000"
+  30      43656E74 
+  30      72616C20 
+  30      2B204F62 
+  30      73657276 
+  31              		.section	.text.BLE_Central_Observer_init,"ax",%progbits
+  32              		.align	2
+  33              		.global	BLE_Central_Observer_init
+  34              		.code	16
+  35              		.thumb_func
+  36              		.type	BLE_Central_Observer_init, %function
+  37              	BLE_Central_Observer_init:
+  38              	.LFB38:
+  39              		.file 1 "main.c"
+   1:main.c        **** /******************************************************************************
+   2:main.c        **** * Project Name		: BLE_Central_Observer
+   3:main.c        **** * File Name			: main.c
+   4:main.c        **** * Version 			: 1.0
+   5:main.c        **** * Device Used		: CY8C4247LQI-BL483
+   6:main.c        **** * Software Used		: PSoC Creator 3.1 CP1
+   7:main.c        **** * Compiler    		: ARM GCC 4.8.4, ARM RVDS Generic, ARM MDK Generic
+   8:main.c        **** * Owner				: MADY
+   9:main.c        **** *
+  10:main.c        **** ********************************************************************************
+  11:main.c        **** * Copyright (2014-15), Cypress Semiconductor Corporation. All Rights Reserved.
+  12:main.c        **** ********************************************************************************
+  13:main.c        **** * This software is owned by Cypress Semiconductor Corporation (Cypress)
+  14:main.c        **** * and is protected by and subject to worldwide patent protection (United
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 2
+
+
+  15:main.c        **** * States and foreign), United States copyright laws and international treaty
+  16:main.c        **** * provisions. Cypress hereby grants to licensee a personal, non-exclusive,
+  17:main.c        **** * non-transferable license to copy, use, modify, create derivative works of,
+  18:main.c        **** * and compile the Cypress Source Code and derivative works for the sole
+  19:main.c        **** * purpose of creating custom software in support of licensee product to be
+  20:main.c        **** * used only in conjunction with a Cypress integrated circuit as specified in
+  21:main.c        **** * the applicable agreement. Any reproduction, modification, translation,
+  22:main.c        **** * compilation, or representation of this software except as specified above 
+  23:main.c        **** * is prohibited without the express written permission of Cypress.
+  24:main.c        **** *
+  25:main.c        **** * Disclaimer: CYPRESS MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, WITH 
+  26:main.c        **** * REGARD TO THIS MATERIAL, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+  27:main.c        **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  28:main.c        **** * Cypress reserves the right to make changes without further notice to the 
+  29:main.c        **** * materials described herein. Cypress does not assume any liability arising out 
+  30:main.c        **** * of the application or use of any product or circuit described herein. Cypress 
+  31:main.c        **** * does not authorize its products for use as critical components in life-support 
+  32:main.c        **** * systems where a malfunction or failure may reasonably be expected to result in 
+  33:main.c        **** * significant injury to the user. The inclusion of Cypress' product in a life-
+  34:main.c        **** * support systems application implies that the manufacturer assumes all risk of 
+  35:main.c        **** * such use and in doing so indemnifies Cypress against all charges. 
+  36:main.c        **** *
+  37:main.c        **** * Use of this Software may be limited by and subject to the applicable Cypress
+  38:main.c        **** * software license agreement. 
+  39:main.c        **** *******************************************************************************/
+  40:main.c        **** /******************************************************************************
+  41:main.c        **** *                           THEORY OF OPERATION
+  42:main.c        **** *******************************************************************************
+  43:main.c        **** *A BLE Central is a device that initiates connections to Peripherals and will 
+  44:main.c        **** *therefore become a master when connected. BLE Observer is one which scans for 
+  45:main.c        **** *Broadcasters (devices that send advertising events over BLE) and reports the
+  46:main.c        **** *received information to an application. The BLE Observer role does not allow
+  47:main.c        **** *transmissions. In this example the BLE Component is configured to work as both 
+  48:main.c        **** *a BLE Central and BLE Observer. It keeps scanning for the Peripherals and 
+  49:main.c        **** *Broadcasters and displays the information from the Advertisement and Scan 
+  50:main.c        **** *response packets received. The user can initiate a connection with any of
+  51:main.c        **** *the detected devices any time or disconnect an existing connection. The user 
+  52:main.c        **** *enters the input via UART terminal. This example can handle upto 10 peripherals 
+  53:main.c        **** *or broadcastres advetising at the same time.
+  54:main.c        **** ******************************************************************************/
+  55:main.c        **** 
+  56:main.c        **** #include <project.h>
+  57:main.c        **** #include "stdio.h"
+  58:main.c        **** #include "BLE_Central_Observer.h"
+  59:main.c        **** #include "main.h"
+  60:main.c        **** 
+  61:main.c        **** uint32  UartRxDataSim;  // Character Input Received from the UART Terminal for Initiating Connectio
+  62:main.c        **** uint8 devIndex;         // Index of the devices detected in Scanning
+  63:main.c        **** uint8 Periph_Selected;  // The Index of the Peropheral which the user wants to connect the Central 
+  64:main.c        **** uint8 IsSelected;       // Whether user has given Periph_Selected
+  65:main.c        **** uint8 IsDetected;       // Whether any device has been detected in Scanning
+  66:main.c        **** uint8 IsConnected;      // Whether the Central is in connected state or not.
+  67:main.c        **** CYBLE_CONN_HANDLE_T			connHandle; // Handle of the device connected.
+  68:main.c        **** CYBLE_API_RESULT_T 		    apiResult;
+  69:main.c        **** 
+  70:main.c        **** /*******************************************************************************
+  71:main.c        **** * Function Name: BLE_Central_Observer_init
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 3
+
+
+  72:main.c        **** ********************************************************************************
+  73:main.c        **** *
+  74:main.c        **** * Summary:
+  75:main.c        **** * Starts BLE and UART Components and enables Global Interrupt
+  76:main.c        **** *
+  77:main.c        **** * Parameters:  
+  78:main.c        **** *  None
+  79:main.c        **** *
+  80:main.c        **** * Return: 
+  81:main.c        **** *  None
+  82:main.c        **** *
+  83:main.c        **** *******************************************************************************/
+  84:main.c        **** 
+  85:main.c        **** void BLE_Central_Observer_init(void)
+  86:main.c        **** {
+  40              		.loc 1 86 0
+  41              		.cfi_startproc
+  42              		@ args = 0, pretend = 0, frame = 0
+  43              		@ frame_needed = 1, uses_anonymous_args = 0
+  44 0000 80B5     		push	{r7, lr}
+  45              		.cfi_def_cfa_offset 8
+  46              		.cfi_offset 7, -8
+  47              		.cfi_offset 14, -4
+  48 0002 00AF     		add	r7, sp, #0
+  49              		.cfi_def_cfa_register 7
+  87:main.c        **** 	ALL_LED_OFF();
+  50              		.loc 1 87 0
+  51 0004 0120     		movs	r0, #1
+  52 0006 FFF7FEFF 		bl	RED_LED_Write
+  53 000a 0120     		movs	r0, #1
+  54 000c FFF7FEFF 		bl	GREEN_LED_Write
+  55 0010 0120     		movs	r0, #1
+  56 0012 FFF7FEFF 		bl	BLUE_LED_Write
+  88:main.c        ****     
+  89:main.c        **** 	CyGlobalIntEnable; /* Enabling Global interrupts */
+  57              		.loc 1 89 0
+  58              		.syntax divided
+  59              	@ 89 "main.c" 1
+  60 0016 62B6     		CPSIE   i
+  61              	@ 0 "" 2
+  90:main.c        ****     
+  91:main.c        ****     /* Start BLE component and register Event handler function */
+  92:main.c        **** 	CyBle_Start (StackEventHandler);	
+  62              		.loc 1 92 0
+  63              		.thumb
+  64              		.syntax unified
+  65 0018 064B     		ldr	r3, .L2
+  66 001a 1800     		movs	r0, r3
+  67 001c FFF7FEFF 		bl	CyBle_Start
+  93:main.c        **** 	
+  94:main.c        **** 	/* Start UART Component which is used for receiving inputs and Debugging */
+  95:main.c        ****     UART_Start();
+  68              		.loc 1 95 0
+  69 0020 FFF7FEFF 		bl	UART_Start
+  96:main.c        **** 	printf("BLE Central + Observer Example \r\n");
+  70              		.loc 1 96 0
+  71 0024 044B     		ldr	r3, .L2+4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 4
+
+
+  72 0026 1800     		movs	r0, r3
+  73 0028 FFF7FEFF 		bl	puts
+  97:main.c        **** 	
+  98:main.c        **** }
+  74              		.loc 1 98 0
+  75 002c C046     		nop
+  76 002e BD46     		mov	sp, r7
+  77              		@ sp needed
+  78 0030 80BD     		pop	{r7, pc}
+  79              	.L3:
+  80 0032 C046     		.align	2
+  81              	.L2:
+  82 0034 00000000 		.word	StackEventHandler
+  83 0038 00000000 		.word	.LC1
+  84              		.cfi_endproc
+  85              	.LFE38:
+  86              		.size	BLE_Central_Observer_init, .-BLE_Central_Observer_init
+  87              		.section	.rodata
+  88 0021 000000   		.align	2
+  89              	.LC8:
+  90 0024 41747465 		.ascii	"Attempting Disconnection\015\000"
+  90      6D707469 
+  90      6E672044 
+  90      6973636F 
+  90      6E6E6563 
+  91 003e 0000     		.align	2
+  92              	.LC13:
+  93 0040 54727969 		.ascii	"Trying to connect to previous device.\015\000"
+  93      6E672074 
+  93      6F20636F 
+  93      6E6E6563 
+  93      7420746F 
+  94 0067 00       		.align	2
+  95              	.LC16:
+  96 0068 4572726F 		.ascii	"Error. Cannot Disconnect a previous Connection \015"
+  96      722E2043 
+  96      616E6E6F 
+  96      74204469 
+  96      73636F6E 
+  97 0098 00       		.ascii	"\000"
+  98 0099 000000   		.align	2
+  99              	.LC18:
+ 100 009c 44697363 		.ascii	"Disconnecting Previous Connection and Trying to con"
+ 100      6F6E6E65 
+ 100      6374696E 
+ 100      67205072 
+ 100      6576696F 
+ 101 00cf 6E656374 		.ascii	"nect to Device No %d \015\012\000"
+ 101      20746F20 
+ 101      44657669 
+ 101      6365204E 
+ 101      6F202564 
+ 102 00e7 00       		.align	2
+ 103              	.LC20:
+ 104 00e8 496E7661 		.ascii	"Invalid Input \015\000"
+ 104      6C696420 
+ 104      496E7075 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 5
+
+
+ 104      74200D00 
+ 105              		.section	.text.main,"ax",%progbits
+ 106              		.align	2
+ 107              		.global	main
+ 108              		.code	16
+ 109              		.thumb_func
+ 110              		.type	main, %function
+ 111              	main:
+ 112              	.LFB39:
+  99:main.c        **** 
+ 100:main.c        **** /*******************************************************************************
+ 101:main.c        **** * Function Name: main
+ 102:main.c        **** ********************************************************************************
+ 103:main.c        **** *
+ 104:main.c        **** * Summary:
+ 105:main.c        **** *  System entry and execution point for application
+ 106:main.c        **** *
+ 107:main.c        **** * Parameters:  
+ 108:main.c        **** *  None
+ 109:main.c        **** *
+ 110:main.c        **** * Return: 
+ 111:main.c        **** *  int
+ 112:main.c        **** 
+ 113:main.c        **** ********************************************************************************/
+ 114:main.c        **** 
+ 115:main.c        **** int main()
+ 116:main.c        **** {
+ 113              		.loc 1 116 0
+ 114              		.cfi_startproc
+ 115              		@ args = 0, pretend = 0, frame = 0
+ 116              		@ frame_needed = 1, uses_anonymous_args = 0
+ 117 0000 80B5     		push	{r7, lr}
+ 118              		.cfi_def_cfa_offset 8
+ 119              		.cfi_offset 7, -8
+ 120              		.cfi_offset 14, -4
+ 121 0002 00AF     		add	r7, sp, #0
+ 122              		.cfi_def_cfa_register 7
+ 117:main.c        ****     /* Initializing all the Flags and Indexes to 0 */
+ 118:main.c        ****     IsSelected = 0;
+ 123              		.loc 1 118 0
+ 124 0004 3B4B     		ldr	r3, .L14
+ 125 0006 0022     		movs	r2, #0
+ 126 0008 1A70     		strb	r2, [r3]
+ 119:main.c        ****     Periph_Selected = 0;
+ 127              		.loc 1 119 0
+ 128 000a 3B4B     		ldr	r3, .L14+4
+ 129 000c 0022     		movs	r2, #0
+ 130 000e 1A70     		strb	r2, [r3]
+ 120:main.c        ****     IsConnected = 0;
+ 131              		.loc 1 120 0
+ 132 0010 3A4B     		ldr	r3, .L14+8
+ 133 0012 0022     		movs	r2, #0
+ 134 0014 1A70     		strb	r2, [r3]
+ 121:main.c        ****     devIndex = 0;
+ 135              		.loc 1 121 0
+ 136 0016 3A4B     		ldr	r3, .L14+12
+ 137 0018 0022     		movs	r2, #0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 6
+
+
+ 138 001a 1A70     		strb	r2, [r3]
+ 122:main.c        ****     
+ 123:main.c        ****     /* Initialize the system */
+ 124:main.c        **** 	BLE_Central_Observer_init();
+ 139              		.loc 1 124 0
+ 140 001c FFF7FEFF 		bl	BLE_Central_Observer_init
+ 141              	.L13:
+ 125:main.c        **** 	
+ 126:main.c        ****     /* Continuous loop scans for inputs from UART Terminal and accordingly 
+ 127:main.c        ****        handles conneciton, disconnection and scanning. Also processes
+ 128:main.c        ****         BLE events */
+ 129:main.c        ****     for(;;)
+ 130:main.c        ****     {
+ 131:main.c        **** 		//Checks the internal task queue in the BLE Stack
+ 132:main.c        **** 	    CyBle_ProcessEvents();
+ 142              		.loc 1 132 0
+ 143 0020 FFF7FEFF 		bl	CyBle_ProcessEvents
+ 133:main.c        ****         
+ 134:main.c        ****         if(UART_SpiUartGetRxBufferSize())
+ 144              		.loc 1 134 0
+ 145 0024 FFF7FEFF 		bl	UART_SpiUartGetRxBufferSize
+ 146 0028 031E     		subs	r3, r0, #0
+ 147 002a 5FD0     		beq	.L5
+ 135:main.c        **** 		{
+ 136:main.c        ****             UartRxDataSim = UART_UartGetChar();
+ 148              		.loc 1 136 0
+ 149 002c FFF7FEFF 		bl	UART_UartGetChar
+ 150 0030 0200     		movs	r2, r0
+ 151 0032 344B     		ldr	r3, .L14+16
+ 152 0034 1A60     		str	r2, [r3]
+ 137:main.c        ****             // The user has to Enter D for disconnection  
+ 138:main.c        ****             if (UartRxDataSim == 'D' || UartRxDataSim == 'd')  // The user has to Enter D for disco
+ 153              		.loc 1 138 0
+ 154 0036 334B     		ldr	r3, .L14+16
+ 155 0038 1B68     		ldr	r3, [r3]
+ 156 003a 442B     		cmp	r3, #68
+ 157 003c 03D0     		beq	.L6
+ 158              		.loc 1 138 0 is_stmt 0 discriminator 1
+ 159 003e 314B     		ldr	r3, .L14+16
+ 160 0040 1B68     		ldr	r3, [r3]
+ 161 0042 642B     		cmp	r3, #100
+ 162 0044 0FD1     		bne	.L7
+ 163              	.L6:
+ 139:main.c        ****             {
+ 140:main.c        ****                 printf ("Attempting Disconnection\r\n");
+ 164              		.loc 1 140 0 is_stmt 1
+ 165 0046 304B     		ldr	r3, .L14+20
+ 166 0048 1800     		movs	r0, r3
+ 167 004a FFF7FEFF 		bl	puts
+ 141:main.c        ****                 CyBle_GapDisconnect(connHandle.bdHandle);
+ 168              		.loc 1 141 0
+ 169 004e 2F4B     		ldr	r3, .L14+24
+ 170 0050 1B78     		ldrb	r3, [r3]
+ 171 0052 1800     		movs	r0, r3
+ 172 0054 FFF7FEFF 		bl	CyBle_GapDisconnect
+ 142:main.c        ****                 IsConnected = 0;
+ 173              		.loc 1 142 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 7
+
+
+ 174 0058 284B     		ldr	r3, .L14+8
+ 175 005a 0022     		movs	r2, #0
+ 176 005c 1A70     		strb	r2, [r3]
+ 143:main.c        ****                 devIndex= 0;
+ 177              		.loc 1 143 0
+ 178 005e 284B     		ldr	r3, .L14+12
+ 179 0060 0022     		movs	r2, #0
+ 180 0062 1A70     		strb	r2, [r3]
+ 181 0064 42E0     		b	.L5
+ 182              	.L7:
+ 144:main.c        ****             }
+ 145:main.c        ****             
+ 146:main.c        ****             else
+ 147:main.c        ****             {
+ 148:main.c        ****                 // Check if a Valid Device index has been received
+ 149:main.c        ****                 if ((UartRxDataSim - '0' < devIndex) && (IsDetected))  
+ 183              		.loc 1 149 0
+ 184 0066 274B     		ldr	r3, .L14+16
+ 185 0068 1B68     		ldr	r3, [r3]
+ 186 006a 303B     		subs	r3, r3, #48
+ 187 006c 244A     		ldr	r2, .L14+12
+ 188 006e 1278     		ldrb	r2, [r2]
+ 189 0070 9342     		cmp	r3, r2
+ 190 0072 37D2     		bcs	.L8
+ 191              		.loc 1 149 0 is_stmt 0 discriminator 1
+ 192 0074 264B     		ldr	r3, .L14+28
+ 193 0076 1B78     		ldrb	r3, [r3]
+ 194 0078 002B     		cmp	r3, #0
+ 195 007a 33D0     		beq	.L8
+ 150:main.c        ****                 {
+ 151:main.c        ****                     Periph_Selected = (uint8)(UartRxDataSim - '0');
+ 196              		.loc 1 151 0 is_stmt 1
+ 197 007c 214B     		ldr	r3, .L14+16
+ 198 007e 1B68     		ldr	r3, [r3]
+ 199 0080 DBB2     		uxtb	r3, r3
+ 200 0082 303B     		subs	r3, r3, #48
+ 201 0084 DAB2     		uxtb	r2, r3
+ 202 0086 1C4B     		ldr	r3, .L14+4
+ 203 0088 1A70     		strb	r2, [r3]
+ 152:main.c        ****                     IsSelected = 1;
+ 204              		.loc 1 152 0
+ 205 008a 1A4B     		ldr	r3, .L14
+ 206 008c 0122     		movs	r2, #1
+ 207 008e 1A70     		strb	r2, [r3]
+ 153:main.c        ****                     //Stop the scanning before connecting to the preferred peripheral
+ 154:main.c        ****                     if(CyBle_GetState() != CYBLE_STATE_CONNECTING)
+ 208              		.loc 1 154 0
+ 209 0090 204B     		ldr	r3, .L14+32
+ 210 0092 1B78     		ldrb	r3, [r3]
+ 211 0094 042B     		cmp	r3, #4
+ 212 0096 02D0     		beq	.L9
+ 155:main.c        ****                     CyBle_GapcStopScan();
+ 213              		.loc 1 155 0
+ 214 0098 FFF7FEFF 		bl	CyBle_GapcStopScan
+ 215 009c 03E0     		b	.L10
+ 216              	.L9:
+ 156:main.c        ****                     else
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 8
+
+
+ 157:main.c        ****                         printf("Trying to connect to previous device.\r\n");
+ 217              		.loc 1 157 0
+ 218 009e 1E4B     		ldr	r3, .L14+36
+ 219 00a0 1800     		movs	r0, r3
+ 220 00a2 FFF7FEFF 		bl	puts
+ 221              	.L10:
+ 158:main.c        ****                     
+ 159:main.c        ****                     if (IsConnected)
+ 222              		.loc 1 159 0
+ 223 00a6 154B     		ldr	r3, .L14+8
+ 224 00a8 1B78     		ldrb	r3, [r3]
+ 225 00aa 002B     		cmp	r3, #0
+ 226 00ac 1ED0     		beq	.L5
+ 160:main.c        ****                     {
+ 161:main.c        ****                       // Disconnect if another connection already exists
+ 162:main.c        ****                         apiResult =    CyBle_GapDisconnect(connHandle.bdHandle); 
+ 227              		.loc 1 162 0
+ 228 00ae 174B     		ldr	r3, .L14+24
+ 229 00b0 1B78     		ldrb	r3, [r3]
+ 230 00b2 1800     		movs	r0, r3
+ 231 00b4 FFF7FEFF 		bl	CyBle_GapDisconnect
+ 232 00b8 0300     		movs	r3, r0
+ 233 00ba 1A00     		movs	r2, r3
+ 234 00bc 174B     		ldr	r3, .L14+40
+ 235 00be 1A80     		strh	r2, [r3]
+ 163:main.c        ****                         if(CYBLE_ERROR_OK != apiResult )
+ 236              		.loc 1 163 0
+ 237 00c0 164B     		ldr	r3, .L14+40
+ 238 00c2 1B88     		ldrh	r3, [r3]
+ 239 00c4 002B     		cmp	r3, #0
+ 240 00c6 04D0     		beq	.L12
+ 164:main.c        ****     				    {
+ 165:main.c        ****     				       printf ("Error. Cannot Disconnect a previous Connection \r\n"); 
+ 241              		.loc 1 165 0
+ 242 00c8 154B     		ldr	r3, .L14+44
+ 243 00ca 1800     		movs	r0, r3
+ 244 00cc FFF7FEFF 		bl	puts
+ 159:main.c        ****                     {
+ 245              		.loc 1 159 0
+ 246 00d0 0CE0     		b	.L5
+ 247              	.L12:
+ 166:main.c        ****                         }
+ 167:main.c        ****                         else
+ 168:main.c        ****                         {
+ 169:main.c        ****                             printf ("Disconnecting Previous Connection and Trying to connect to Dev
+ 248              		.loc 1 169 0
+ 249 00d2 094B     		ldr	r3, .L14+4
+ 250 00d4 1B78     		ldrb	r3, [r3]
+ 251 00d6 1A00     		movs	r2, r3
+ 252 00d8 124B     		ldr	r3, .L14+48
+ 253 00da 1100     		movs	r1, r2
+ 254 00dc 1800     		movs	r0, r3
+ 255 00de FFF7FEFF 		bl	printf
+ 159:main.c        ****                     {
+ 256              		.loc 1 159 0
+ 257 00e2 03E0     		b	.L5
+ 258              	.L8:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 9
+
+
+ 170:main.c        ****                         }
+ 171:main.c        ****                     } 
+ 172:main.c        ****                 }
+ 173:main.c        ****                 
+ 174:main.c        ****              else
+ 175:main.c        ****                 {
+ 176:main.c        ****                     printf ("Invalid Input \r\n");
+ 259              		.loc 1 176 0
+ 260 00e4 104B     		ldr	r3, .L14+52
+ 261 00e6 1800     		movs	r0, r3
+ 262 00e8 FFF7FEFF 		bl	puts
+ 263              	.L5:
+ 177:main.c        ****                 }
+ 178:main.c        ****             }
+ 179:main.c        **** 		}
+ 180:main.c        ****         //Function to handle connection and disconnecton
+ 181:main.c        **** 		Handle_ble_Central_Observer_State();
+ 264              		.loc 1 181 0
+ 265 00ec FFF7FEFF 		bl	Handle_ble_Central_Observer_State
+ 182:main.c        ****     }
+ 266              		.loc 1 182 0
+ 267 00f0 96E7     		b	.L13
+ 268              	.L15:
+ 269 00f2 C046     		.align	2
+ 270              	.L14:
+ 271 00f4 00000000 		.word	IsSelected
+ 272 00f8 00000000 		.word	Periph_Selected
+ 273 00fc 00000000 		.word	IsConnected
+ 274 0100 00000000 		.word	devIndex
+ 275 0104 00000000 		.word	UartRxDataSim
+ 276 0108 24000000 		.word	.LC8
+ 277 010c 00000000 		.word	connHandle
+ 278 0110 00000000 		.word	IsDetected
+ 279 0114 00000000 		.word	cyBle_state
+ 280 0118 40000000 		.word	.LC13
+ 281 011c 00000000 		.word	apiResult
+ 282 0120 68000000 		.word	.LC16
+ 283 0124 9C000000 		.word	.LC18
+ 284 0128 E8000000 		.word	.LC20
+ 285              		.cfi_endproc
+ 286              	.LFE39:
+ 287              		.size	main, .-main
+ 288              		.text
+ 289              	.Letext0:
+ 290              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 291              		.file 3 "Generated_Source\\PSoC4/BLE_Stack.h"
+ 292              		.file 4 "Generated_Source\\PSoC4/BLE_StackGatt.h"
+ 293              		.file 5 "Generated_Source\\PSoC4/BLE_eventHandler.h"
+ 294              		.section	.debug_info,"",%progbits
+ 295              	.Ldebug_info0:
+ 296 0000 8E040000 		.4byte	0x48e
+ 297 0004 0400     		.2byte	0x4
+ 298 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 299 000a 04       		.byte	0x4
+ 300 000b 01       		.uleb128 0x1
+ 301 000c 1C080000 		.4byte	.LASF146
+ 302 0010 0C       		.byte	0xc
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 10
+
+
+ 303 0011 C2070000 		.4byte	.LASF147
+ 304 0015 EC040000 		.4byte	.LASF148
+ 305 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 306 001d 00000000 		.4byte	0
+ 307 0021 00000000 		.4byte	.Ldebug_line0
+ 308 0025 02       		.uleb128 0x2
+ 309 0026 01       		.byte	0x1
+ 310 0027 06       		.byte	0x6
+ 311 0028 FE020000 		.4byte	.LASF0
+ 312 002c 02       		.uleb128 0x2
+ 313 002d 01       		.byte	0x1
+ 314 002e 08       		.byte	0x8
+ 315 002f 440B0000 		.4byte	.LASF1
+ 316 0033 02       		.uleb128 0x2
+ 317 0034 02       		.byte	0x2
+ 318 0035 05       		.byte	0x5
+ 319 0036 8D0B0000 		.4byte	.LASF2
+ 320 003a 02       		.uleb128 0x2
+ 321 003b 02       		.byte	0x2
+ 322 003c 07       		.byte	0x7
+ 323 003d 030E0000 		.4byte	.LASF3
+ 324 0041 02       		.uleb128 0x2
+ 325 0042 04       		.byte	0x4
+ 326 0043 05       		.byte	0x5
+ 327 0044 D3010000 		.4byte	.LASF4
+ 328 0048 02       		.uleb128 0x2
+ 329 0049 04       		.byte	0x4
+ 330 004a 07       		.byte	0x7
+ 331 004b 63060000 		.4byte	.LASF5
+ 332 004f 02       		.uleb128 0x2
+ 333 0050 08       		.byte	0x8
+ 334 0051 05       		.byte	0x5
+ 335 0052 F0020000 		.4byte	.LASF6
+ 336 0056 02       		.uleb128 0x2
+ 337 0057 08       		.byte	0x8
+ 338 0058 07       		.byte	0x7
+ 339 0059 A1050000 		.4byte	.LASF7
+ 340 005d 03       		.uleb128 0x3
+ 341 005e 04       		.byte	0x4
+ 342 005f 05       		.byte	0x5
+ 343 0060 696E7400 		.ascii	"int\000"
+ 344 0064 02       		.uleb128 0x2
+ 345 0065 04       		.byte	0x4
+ 346 0066 07       		.byte	0x7
+ 347 0067 F90C0000 		.4byte	.LASF8
+ 348 006b 04       		.uleb128 0x4
+ 349 006c 43040000 		.4byte	.LASF9
+ 350 0070 02       		.byte	0x2
+ 351 0071 B901     		.2byte	0x1b9
+ 352 0073 2C000000 		.4byte	0x2c
+ 353 0077 04       		.uleb128 0x4
+ 354 0078 AE040000 		.4byte	.LASF10
+ 355 007c 02       		.byte	0x2
+ 356 007d BB01     		.2byte	0x1bb
+ 357 007f 48000000 		.4byte	0x48
+ 358 0083 02       		.uleb128 0x2
+ 359 0084 04       		.byte	0x4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 11
+
+
+ 360 0085 04       		.byte	0x4
+ 361 0086 F30A0000 		.4byte	.LASF11
+ 362 008a 02       		.uleb128 0x2
+ 363 008b 08       		.byte	0x8
+ 364 008c 04       		.byte	0x4
+ 365 008d 68040000 		.4byte	.LASF12
+ 366 0091 02       		.uleb128 0x2
+ 367 0092 01       		.byte	0x1
+ 368 0093 08       		.byte	0x8
+ 369 0094 B20C0000 		.4byte	.LASF13
+ 370 0098 02       		.uleb128 0x2
+ 371 0099 08       		.byte	0x8
+ 372 009a 04       		.byte	0x4
+ 373 009b A60C0000 		.4byte	.LASF14
+ 374 009f 02       		.uleb128 0x2
+ 375 00a0 04       		.byte	0x4
+ 376 00a1 07       		.byte	0x7
+ 377 00a2 89090000 		.4byte	.LASF15
+ 378 00a6 05       		.uleb128 0x5
+ 379 00a7 01       		.byte	0x1
+ 380 00a8 2C000000 		.4byte	0x2c
+ 381 00ac 03       		.byte	0x3
+ 382 00ad 4D01     		.2byte	0x14d
+ 383 00af 64020000 		.4byte	0x264
+ 384 00b3 06       		.uleb128 0x6
+ 385 00b4 31070000 		.4byte	.LASF16
+ 386 00b8 00       		.byte	0
+ 387 00b9 06       		.uleb128 0x6
+ 388 00ba 0A030000 		.4byte	.LASF17
+ 389 00be 01       		.byte	0x1
+ 390 00bf 06       		.uleb128 0x6
+ 391 00c0 C1010000 		.4byte	.LASF18
+ 392 00c4 02       		.byte	0x2
+ 393 00c5 06       		.uleb128 0x6
+ 394 00c6 EA0D0000 		.4byte	.LASF19
+ 395 00ca 03       		.byte	0x3
+ 396 00cb 06       		.uleb128 0x6
+ 397 00cc 41020000 		.4byte	.LASF20
+ 398 00d0 04       		.byte	0x4
+ 399 00d1 06       		.uleb128 0x6
+ 400 00d2 23000000 		.4byte	.LASF21
+ 401 00d6 05       		.byte	0x5
+ 402 00d7 06       		.uleb128 0x6
+ 403 00d8 66070000 		.4byte	.LASF22
+ 404 00dc 06       		.byte	0x6
+ 405 00dd 06       		.uleb128 0x6
+ 406 00de E1080000 		.4byte	.LASF23
+ 407 00e2 20       		.byte	0x20
+ 408 00e3 06       		.uleb128 0x6
+ 409 00e4 5C030000 		.4byte	.LASF24
+ 410 00e8 21       		.byte	0x21
+ 411 00e9 06       		.uleb128 0x6
+ 412 00ea 7F070000 		.4byte	.LASF25
+ 413 00ee 22       		.byte	0x22
+ 414 00ef 06       		.uleb128 0x6
+ 415 00f0 C40D0000 		.4byte	.LASF26
+ 416 00f4 23       		.byte	0x23
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 12
+
+
+ 417 00f5 06       		.uleb128 0x6
+ 418 00f6 3B0A0000 		.4byte	.LASF27
+ 419 00fa 24       		.byte	0x24
+ 420 00fb 06       		.uleb128 0x6
+ 421 00fc AB090000 		.4byte	.LASF28
+ 422 0100 25       		.byte	0x25
+ 423 0101 06       		.uleb128 0x6
+ 424 0102 F8030000 		.4byte	.LASF29
+ 425 0106 26       		.byte	0x26
+ 426 0107 06       		.uleb128 0x6
+ 427 0108 A3070000 		.4byte	.LASF30
+ 428 010c 27       		.byte	0x27
+ 429 010d 06       		.uleb128 0x6
+ 430 010e D70C0000 		.4byte	.LASF31
+ 431 0112 28       		.byte	0x28
+ 432 0113 06       		.uleb128 0x6
+ 433 0114 AA020000 		.4byte	.LASF32
+ 434 0118 29       		.byte	0x29
+ 435 0119 06       		.uleb128 0x6
+ 436 011a BF000000 		.4byte	.LASF33
+ 437 011e 2A       		.byte	0x2a
+ 438 011f 06       		.uleb128 0x6
+ 439 0120 56020000 		.4byte	.LASF34
+ 440 0124 2B       		.byte	0x2b
+ 441 0125 06       		.uleb128 0x6
+ 442 0126 2D0F0000 		.4byte	.LASF35
+ 443 012a 2C       		.byte	0x2c
+ 444 012b 06       		.uleb128 0x6
+ 445 012c C7020000 		.4byte	.LASF36
+ 446 0130 2D       		.byte	0x2d
+ 447 0131 06       		.uleb128 0x6
+ 448 0132 520B0000 		.4byte	.LASF37
+ 449 0136 2E       		.byte	0x2e
+ 450 0137 06       		.uleb128 0x6
+ 451 0138 3C010000 		.4byte	.LASF38
+ 452 013c 2F       		.byte	0x2f
+ 453 013d 06       		.uleb128 0x6
+ 454 013e 000A0000 		.4byte	.LASF39
+ 455 0142 30       		.byte	0x30
+ 456 0143 06       		.uleb128 0x6
+ 457 0144 850F0000 		.4byte	.LASF40
+ 458 0148 31       		.byte	0x31
+ 459 0149 06       		.uleb128 0x6
+ 460 014a DF090000 		.4byte	.LASF41
+ 461 014e 32       		.byte	0x32
+ 462 014f 06       		.uleb128 0x6
+ 463 0150 420C0000 		.4byte	.LASF42
+ 464 0154 33       		.byte	0x33
+ 465 0155 06       		.uleb128 0x6
+ 466 0156 75060000 		.4byte	.LASF43
+ 467 015a 34       		.byte	0x34
+ 468 015b 06       		.uleb128 0x6
+ 469 015c 84050000 		.4byte	.LASF44
+ 470 0160 35       		.byte	0x35
+ 471 0161 06       		.uleb128 0x6
+ 472 0162 C9070000 		.4byte	.LASF45
+ 473 0166 36       		.byte	0x36
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 13
+
+
+ 474 0167 06       		.uleb128 0x6
+ 475 0168 0B090000 		.4byte	.LASF46
+ 476 016c 37       		.byte	0x37
+ 477 016d 06       		.uleb128 0x6
+ 478 016e D2040000 		.4byte	.LASF47
+ 479 0172 40       		.byte	0x40
+ 480 0173 06       		.uleb128 0x6
+ 481 0174 AA080000 		.4byte	.LASF48
+ 482 0178 41       		.byte	0x41
+ 483 0179 06       		.uleb128 0x6
+ 484 017a A90F0000 		.4byte	.LASF49
+ 485 017e 42       		.byte	0x42
+ 486 017f 06       		.uleb128 0x6
+ 487 0180 340E0000 		.4byte	.LASF50
+ 488 0184 43       		.byte	0x43
+ 489 0185 06       		.uleb128 0x6
+ 490 0186 A7060000 		.4byte	.LASF51
+ 491 018a 44       		.byte	0x44
+ 492 018b 06       		.uleb128 0x6
+ 493 018c CC0A0000 		.4byte	.LASF52
+ 494 0190 45       		.byte	0x45
+ 495 0191 06       		.uleb128 0x6
+ 496 0192 68090000 		.4byte	.LASF53
+ 497 0196 46       		.byte	0x46
+ 498 0197 06       		.uleb128 0x6
+ 499 0198 48070000 		.4byte	.LASF54
+ 500 019c 47       		.byte	0x47
+ 501 019d 06       		.uleb128 0x6
+ 502 019e F10E0000 		.4byte	.LASF55
+ 503 01a2 48       		.byte	0x48
+ 504 01a3 06       		.uleb128 0x6
+ 505 01a4 73030000 		.4byte	.LASF56
+ 506 01a8 49       		.byte	0x49
+ 507 01a9 06       		.uleb128 0x6
+ 508 01aa 600E0000 		.4byte	.LASF57
+ 509 01ae 4A       		.byte	0x4a
+ 510 01af 06       		.uleb128 0x6
+ 511 01b0 65010000 		.4byte	.LASF58
+ 512 01b4 4B       		.byte	0x4b
+ 513 01b5 06       		.uleb128 0x6
+ 514 01b6 8D060000 		.4byte	.LASF59
+ 515 01ba 4C       		.byte	0x4c
+ 516 01bb 06       		.uleb128 0x6
+ 517 01bc C5090000 		.4byte	.LASF60
+ 518 01c0 4D       		.byte	0x4d
+ 519 01c1 06       		.uleb128 0x6
+ 520 01c2 C1030000 		.4byte	.LASF61
+ 521 01c6 4E       		.byte	0x4e
+ 522 01c7 06       		.uleb128 0x6
+ 523 01c8 E40B0000 		.4byte	.LASF62
+ 524 01cc 4F       		.byte	0x4f
+ 525 01cd 06       		.uleb128 0x6
+ 526 01ce 84010000 		.4byte	.LASF63
+ 527 01d2 50       		.byte	0x50
+ 528 01d3 06       		.uleb128 0x6
+ 529 01d4 49040000 		.4byte	.LASF64
+ 530 01d8 51       		.byte	0x51
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 14
+
+
+ 531 01d9 06       		.uleb128 0x6
+ 532 01da 740A0000 		.4byte	.LASF65
+ 533 01de 52       		.byte	0x52
+ 534 01df 06       		.uleb128 0x6
+ 535 01e0 970B0000 		.4byte	.LASF66
+ 536 01e4 53       		.byte	0x53
+ 537 01e5 06       		.uleb128 0x6
+ 538 01e6 030C0000 		.4byte	.LASF67
+ 539 01ea 54       		.byte	0x54
+ 540 01eb 06       		.uleb128 0x6
+ 541 01ec C5060000 		.4byte	.LASF68
+ 542 01f0 55       		.byte	0x55
+ 543 01f1 06       		.uleb128 0x6
+ 544 01f2 DB050000 		.4byte	.LASF69
+ 545 01f6 56       		.byte	0x56
+ 546 01f7 06       		.uleb128 0x6
+ 547 01f8 160D0000 		.4byte	.LASF70
+ 548 01fc 57       		.byte	0x57
+ 549 01fd 06       		.uleb128 0x6
+ 550 01fe B8050000 		.4byte	.LASF71
+ 551 0202 58       		.byte	0x58
+ 552 0203 06       		.uleb128 0x6
+ 553 0204 EA070000 		.4byte	.LASF72
+ 554 0208 70       		.byte	0x70
+ 555 0209 06       		.uleb128 0x6
+ 556 020a 5A0F0000 		.4byte	.LASF73
+ 557 020e 71       		.byte	0x71
+ 558 020f 06       		.uleb128 0x6
+ 559 0210 C5080000 		.4byte	.LASF74
+ 560 0214 72       		.byte	0x72
+ 561 0215 06       		.uleb128 0x6
+ 562 0216 A3010000 		.4byte	.LASF75
+ 563 021a 73       		.byte	0x73
+ 564 021b 06       		.uleb128 0x6
+ 565 021c AE0A0000 		.4byte	.LASF76
+ 566 0220 74       		.byte	0x74
+ 567 0221 06       		.uleb128 0x6
+ 568 0222 6F040000 		.4byte	.LASF77
+ 569 0226 75       		.byte	0x75
+ 570 0227 06       		.uleb128 0x6
+ 571 0228 E8000000 		.4byte	.LASF78
+ 572 022c 76       		.byte	0x76
+ 573 022d 06       		.uleb128 0x6
+ 574 022e 53000000 		.4byte	.LASF79
+ 575 0232 77       		.byte	0x77
+ 576 0233 06       		.uleb128 0x6
+ 577 0234 00000000 		.4byte	.LASF80
+ 578 0238 78       		.byte	0x78
+ 579 0239 06       		.uleb128 0x6
+ 580 023a 3F0D0000 		.4byte	.LASF81
+ 581 023e 79       		.byte	0x79
+ 582 023f 06       		.uleb128 0x6
+ 583 0240 60050000 		.4byte	.LASF82
+ 584 0244 7A       		.byte	0x7a
+ 585 0245 06       		.uleb128 0x6
+ 586 0246 75020000 		.4byte	.LASF83
+ 587 024a FA       		.byte	0xfa
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 15
+
+
+ 588 024b 06       		.uleb128 0x6
+ 589 024c 1B060000 		.4byte	.LASF84
+ 590 0250 FB       		.byte	0xfb
+ 591 0251 06       		.uleb128 0x6
+ 592 0252 B80B0000 		.4byte	.LASF85
+ 593 0256 FC       		.byte	0xfc
+ 594 0257 06       		.uleb128 0x6
+ 595 0258 EF0F0000 		.4byte	.LASF86
+ 596 025c FD       		.byte	0xfd
+ 597 025d 06       		.uleb128 0x6
+ 598 025e B5040000 		.4byte	.LASF87
+ 599 0262 FF       		.byte	0xff
+ 600 0263 00       		.byte	0
+ 601 0264 05       		.uleb128 0x5
+ 602 0265 02       		.byte	0x2
+ 603 0266 3A000000 		.4byte	0x3a
+ 604 026a 03       		.byte	0x3
+ 605 026b 0204     		.2byte	0x402
+ 606 026d 3D030000 		.4byte	0x33d
+ 607 0271 06       		.uleb128 0x6
+ 608 0272 C3040000 		.4byte	.LASF88
+ 609 0276 00       		.byte	0
+ 610 0277 06       		.uleb128 0x6
+ 611 0278 90040000 		.4byte	.LASF89
+ 612 027c 01       		.byte	0x1
+ 613 027d 06       		.uleb128 0x6
+ 614 027e 160E0000 		.4byte	.LASF90
+ 615 0282 02       		.byte	0x2
+ 616 0283 06       		.uleb128 0x6
+ 617 0284 91000000 		.4byte	.LASF91
+ 618 0288 03       		.byte	0x3
+ 619 0289 06       		.uleb128 0x6
+ 620 028a 1E020000 		.4byte	.LASF92
+ 621 028e 04       		.byte	0x4
+ 622 028f 06       		.uleb128 0x6
+ 623 0290 FD050000 		.4byte	.LASF93
+ 624 0294 05       		.byte	0x5
+ 625 0295 06       		.uleb128 0x6
+ 626 0296 CA0B0000 		.4byte	.LASF94
+ 627 029a 06       		.byte	0x6
+ 628 029b 06       		.uleb128 0x6
+ 629 029c 3F030000 		.4byte	.LASF95
+ 630 02a0 07       		.byte	0x7
+ 631 02a1 06       		.uleb128 0x6
+ 632 02a2 240C0000 		.4byte	.LASF96
+ 633 02a6 08       		.byte	0x8
+ 634 02a7 06       		.uleb128 0x6
+ 635 02a8 180F0000 		.4byte	.LASF97
+ 636 02ac 09       		.byte	0x9
+ 637 02ad 06       		.uleb128 0x6
+ 638 02ae 070B0000 		.4byte	.LASF98
+ 639 02b2 0A       		.byte	0xa
+ 640 02b3 06       		.uleb128 0x6
+ 641 02b4 B70C0000 		.4byte	.LASF99
+ 642 02b8 0B       		.byte	0xb
+ 643 02b9 06       		.uleb128 0x6
+ 644 02ba 93020000 		.4byte	.LASF100
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 16
+
+
+ 645 02be 0C       		.byte	0xc
+ 646 02bf 06       		.uleb128 0x6
+ 647 02c0 F9010000 		.4byte	.LASF101
+ 648 02c4 0D       		.byte	0xd
+ 649 02c5 06       		.uleb128 0x6
+ 650 02c6 3A060000 		.4byte	.LASF102
+ 651 02ca 0E       		.byte	0xe
+ 652 02cb 06       		.uleb128 0x6
+ 653 02cc B60E0000 		.4byte	.LASF103
+ 654 02d0 0F       		.byte	0xf
+ 655 02d1 06       		.uleb128 0x6
+ 656 02d2 960D0000 		.4byte	.LASF104
+ 657 02d6 10       		.byte	0x10
+ 658 02d7 06       		.uleb128 0x6
+ 659 02d8 F4060000 		.4byte	.LASF105
+ 660 02dc 11       		.byte	0x11
+ 661 02dd 06       		.uleb128 0x6
+ 662 02de 20040000 		.4byte	.LASF106
+ 663 02e2 12       		.byte	0x12
+ 664 02e3 06       		.uleb128 0x6
+ 665 02e4 C70F0000 		.4byte	.LASF107
+ 666 02e8 13       		.byte	0x13
+ 667 02e9 06       		.uleb128 0x6
+ 668 02ea 1D030000 		.4byte	.LASF108
+ 669 02ee 27       		.byte	0x27
+ 670 02ef 06       		.uleb128 0x6
+ 671 02f0 710D0000 		.4byte	.LASF109
+ 672 02f4 28       		.byte	0x28
+ 673 02f5 06       		.uleb128 0x6
+ 674 02f6 9A0E0000 		.4byte	.LASF110
+ 675 02fa 29       		.byte	0x29
+ 676 02fb 06       		.uleb128 0x6
+ 677 02fc DC010000 		.4byte	.LASF111
+ 678 0300 2A       		.byte	0x2a
+ 679 0301 06       		.uleb128 0x6
+ 680 0302 09010000 		.4byte	.LASF112
+ 681 0306 2B       		.byte	0x2b
+ 682 0307 06       		.uleb128 0x6
+ 683 0308 50090000 		.4byte	.LASF113
+ 684 030c 2C       		.byte	0x2c
+ 685 030d 06       		.uleb128 0x6
+ 686 030e 7E0E0000 		.4byte	.LASF114
+ 687 0312 FE       		.byte	0xfe
+ 688 0313 06       		.uleb128 0x6
+ 689 0314 40090000 		.4byte	.LASF115
+ 690 0318 FF       		.byte	0xff
+ 691 0319 07       		.uleb128 0x7
+ 692 031a 18070000 		.4byte	.LASF116
+ 693 031e 0001     		.2byte	0x100
+ 694 0320 07       		.uleb128 0x7
+ 695 0321 950A0000 		.4byte	.LASF117
+ 696 0325 0101     		.2byte	0x101
+ 697 0327 07       		.uleb128 0x7
+ 698 0328 210B0000 		.4byte	.LASF118
+ 699 032c 0201     		.2byte	0x102
+ 700 032e 07       		.uleb128 0x7
+ 701 032f 8C030000 		.4byte	.LASF119
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 17
+
+
+ 702 0333 0301     		.2byte	0x103
+ 703 0335 07       		.uleb128 0x7
+ 704 0336 8F0C0000 		.4byte	.LASF120
+ 705 033a 0401     		.2byte	0x104
+ 706 033c 00       		.byte	0
+ 707 033d 04       		.uleb128 0x4
+ 708 033e 610A0000 		.4byte	.LASF121
+ 709 0342 03       		.byte	0x3
+ 710 0343 7104     		.2byte	0x471
+ 711 0345 64020000 		.4byte	0x264
+ 712 0349 08       		.uleb128 0x8
+ 713 034a 02       		.byte	0x2
+ 714 034b 04       		.byte	0x4
+ 715 034c 9301     		.2byte	0x193
+ 716 034e 6D030000 		.4byte	0x36d
+ 717 0352 09       		.uleb128 0x9
+ 718 0353 510F0000 		.4byte	.LASF122
+ 719 0357 04       		.byte	0x4
+ 720 0358 9A01     		.2byte	0x19a
+ 721 035a 6B000000 		.4byte	0x6b
+ 722 035e 00       		.byte	0
+ 723 035f 09       		.uleb128 0x9
+ 724 0360 05090000 		.4byte	.LASF123
+ 725 0364 04       		.byte	0x4
+ 726 0365 A001     		.2byte	0x1a0
+ 727 0367 6B000000 		.4byte	0x6b
+ 728 036b 01       		.byte	0x1
+ 729 036c 00       		.byte	0
+ 730 036d 04       		.uleb128 0x4
+ 731 036e 72000000 		.4byte	.LASF124
+ 732 0372 04       		.byte	0x4
+ 733 0373 A201     		.2byte	0x1a2
+ 734 0375 49030000 		.4byte	0x349
+ 735 0379 05       		.uleb128 0x5
+ 736 037a 01       		.byte	0x1
+ 737 037b 2C000000 		.4byte	0x2c
+ 738 037f 05       		.byte	0x5
+ 739 0380 5008     		.2byte	0x850
+ 740 0382 AB030000 		.4byte	0x3ab
+ 741 0386 06       		.uleb128 0x6
+ 742 0387 3F000000 		.4byte	.LASF125
+ 743 038b 00       		.byte	0
+ 744 038c 06       		.uleb128 0x6
+ 745 038d 92090000 		.4byte	.LASF126
+ 746 0391 01       		.byte	0x1
+ 747 0392 06       		.uleb128 0x6
+ 748 0393 DB0E0000 		.4byte	.LASF127
+ 749 0397 02       		.byte	0x2
+ 750 0398 06       		.uleb128 0x6
+ 751 0399 7A0C0000 		.4byte	.LASF128
+ 752 039d 03       		.byte	0x3
+ 753 039e 06       		.uleb128 0x6
+ 754 039f 760B0000 		.4byte	.LASF129
+ 755 03a3 04       		.byte	0x4
+ 756 03a4 06       		.uleb128 0x6
+ 757 03a5 DF030000 		.4byte	.LASF130
+ 758 03a9 05       		.byte	0x5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 18
+
+
+ 759 03aa 00       		.byte	0
+ 760 03ab 04       		.uleb128 0x4
+ 761 03ac 520E0000 		.4byte	.LASF131
+ 762 03b0 05       		.byte	0x5
+ 763 03b1 5E08     		.2byte	0x85e
+ 764 03b3 79030000 		.4byte	0x379
+ 765 03b7 05       		.uleb128 0x5
+ 766 03b8 01       		.byte	0x1
+ 767 03b9 2C000000 		.4byte	0x2c
+ 768 03bd 05       		.byte	0x5
+ 769 03be 9308     		.2byte	0x893
+ 770 03c0 D7030000 		.4byte	0x3d7
+ 771 03c4 06       		.uleb128 0x6
+ 772 03c5 620D0000 		.4byte	.LASF132
+ 773 03c9 00       		.byte	0
+ 774 03ca 06       		.uleb128 0x6
+ 775 03cb 060D0000 		.4byte	.LASF133
+ 776 03cf 01       		.byte	0x1
+ 777 03d0 06       		.uleb128 0x6
+ 778 03d1 690C0000 		.4byte	.LASF134
+ 779 03d5 02       		.byte	0x2
+ 780 03d6 00       		.byte	0
+ 781 03d7 0A       		.uleb128 0xa
+ 782 03d8 210A0000 		.4byte	.LASF135
+ 783 03dc 01       		.byte	0x1
+ 784 03dd 55       		.byte	0x55
+ 785 03de 00000000 		.4byte	.LFB38
+ 786 03e2 3C000000 		.4byte	.LFE38-.LFB38
+ 787 03e6 01       		.uleb128 0x1
+ 788 03e7 9C       		.byte	0x9c
+ 789 03e8 0B       		.uleb128 0xb
+ 790 03e9 800F0000 		.4byte	.LASF136
+ 791 03ed 01       		.byte	0x1
+ 792 03ee 73       		.byte	0x73
+ 793 03ef 5D000000 		.4byte	0x5d
+ 794 03f3 00000000 		.4byte	.LFB39
+ 795 03f7 2C010000 		.4byte	.LFE39-.LFB39
+ 796 03fb 01       		.uleb128 0x1
+ 797 03fc 9C       		.byte	0x9c
+ 798 03fd 0C       		.uleb128 0xc
+ 799 03fe 10080000 		.4byte	.LASF137
+ 800 0402 05       		.byte	0x5
+ 801 0403 A90A     		.2byte	0xaa9
+ 802 0405 AB030000 		.4byte	0x3ab
+ 803 0409 0D       		.uleb128 0xd
+ 804 040a B1030000 		.4byte	.LASF138
+ 805 040e 01       		.byte	0x1
+ 806 040f 3F       		.byte	0x3f
+ 807 0410 6B000000 		.4byte	0x6b
+ 808 0414 05       		.uleb128 0x5
+ 809 0415 03       		.byte	0x3
+ 810 0416 00000000 		.4byte	Periph_Selected
+ 811 041a 0D       		.uleb128 0xd
+ 812 041b B6000000 		.4byte	.LASF139
+ 813 041f 01       		.byte	0x1
+ 814 0420 3E       		.byte	0x3e
+ 815 0421 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 19
+
+
+ 816 0425 05       		.uleb128 0x5
+ 817 0426 03       		.byte	0x3
+ 818 0427 00000000 		.4byte	devIndex
+ 819 042b 0D       		.uleb128 0xd
+ 820 042c F90A0000 		.4byte	.LASF140
+ 821 0430 01       		.byte	0x1
+ 822 0431 3D       		.byte	0x3d
+ 823 0432 77000000 		.4byte	0x77
+ 824 0436 05       		.uleb128 0x5
+ 825 0437 03       		.byte	0x3
+ 826 0438 00000000 		.4byte	UartRxDataSim
+ 827 043c 0D       		.uleb128 0xd
+ 828 043d E9060000 		.4byte	.LASF141
+ 829 0441 01       		.byte	0x1
+ 830 0442 40       		.byte	0x40
+ 831 0443 6B000000 		.4byte	0x6b
+ 832 0447 05       		.uleb128 0x5
+ 833 0448 03       		.byte	0x3
+ 834 0449 00000000 		.4byte	IsSelected
+ 835 044d 0D       		.uleb128 0xd
+ 836 044e A6030000 		.4byte	.LASF142
+ 837 0452 01       		.byte	0x1
+ 838 0453 41       		.byte	0x41
+ 839 0454 6B000000 		.4byte	0x6b
+ 840 0458 05       		.uleb128 0x5
+ 841 0459 03       		.byte	0x3
+ 842 045a 00000000 		.4byte	IsDetected
+ 843 045e 0D       		.uleb128 0xd
+ 844 045f 54050000 		.4byte	.LASF143
+ 845 0463 01       		.byte	0x1
+ 846 0464 42       		.byte	0x42
+ 847 0465 6B000000 		.4byte	0x6b
+ 848 0469 05       		.uleb128 0x5
+ 849 046a 03       		.byte	0x3
+ 850 046b 00000000 		.4byte	IsConnected
+ 851 046f 0D       		.uleb128 0xd
+ 852 0470 86000000 		.4byte	.LASF144
+ 853 0474 01       		.byte	0x1
+ 854 0475 43       		.byte	0x43
+ 855 0476 6D030000 		.4byte	0x36d
+ 856 047a 05       		.uleb128 0x5
+ 857 047b 03       		.byte	0x3
+ 858 047c 00000000 		.4byte	connHandle
+ 859 0480 0D       		.uleb128 0xd
+ 860 0481 570A0000 		.4byte	.LASF145
+ 861 0485 01       		.byte	0x1
+ 862 0486 44       		.byte	0x44
+ 863 0487 3D030000 		.4byte	0x33d
+ 864 048b 05       		.uleb128 0x5
+ 865 048c 03       		.byte	0x3
+ 866 048d 00000000 		.4byte	apiResult
+ 867 0491 00       		.byte	0
+ 868              		.section	.debug_abbrev,"",%progbits
+ 869              	.Ldebug_abbrev0:
+ 870 0000 01       		.uleb128 0x1
+ 871 0001 11       		.uleb128 0x11
+ 872 0002 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 20
+
+
+ 873 0003 25       		.uleb128 0x25
+ 874 0004 0E       		.uleb128 0xe
+ 875 0005 13       		.uleb128 0x13
+ 876 0006 0B       		.uleb128 0xb
+ 877 0007 03       		.uleb128 0x3
+ 878 0008 0E       		.uleb128 0xe
+ 879 0009 1B       		.uleb128 0x1b
+ 880 000a 0E       		.uleb128 0xe
+ 881 000b 55       		.uleb128 0x55
+ 882 000c 17       		.uleb128 0x17
+ 883 000d 11       		.uleb128 0x11
+ 884 000e 01       		.uleb128 0x1
+ 885 000f 10       		.uleb128 0x10
+ 886 0010 17       		.uleb128 0x17
+ 887 0011 00       		.byte	0
+ 888 0012 00       		.byte	0
+ 889 0013 02       		.uleb128 0x2
+ 890 0014 24       		.uleb128 0x24
+ 891 0015 00       		.byte	0
+ 892 0016 0B       		.uleb128 0xb
+ 893 0017 0B       		.uleb128 0xb
+ 894 0018 3E       		.uleb128 0x3e
+ 895 0019 0B       		.uleb128 0xb
+ 896 001a 03       		.uleb128 0x3
+ 897 001b 0E       		.uleb128 0xe
+ 898 001c 00       		.byte	0
+ 899 001d 00       		.byte	0
+ 900 001e 03       		.uleb128 0x3
+ 901 001f 24       		.uleb128 0x24
+ 902 0020 00       		.byte	0
+ 903 0021 0B       		.uleb128 0xb
+ 904 0022 0B       		.uleb128 0xb
+ 905 0023 3E       		.uleb128 0x3e
+ 906 0024 0B       		.uleb128 0xb
+ 907 0025 03       		.uleb128 0x3
+ 908 0026 08       		.uleb128 0x8
+ 909 0027 00       		.byte	0
+ 910 0028 00       		.byte	0
+ 911 0029 04       		.uleb128 0x4
+ 912 002a 16       		.uleb128 0x16
+ 913 002b 00       		.byte	0
+ 914 002c 03       		.uleb128 0x3
+ 915 002d 0E       		.uleb128 0xe
+ 916 002e 3A       		.uleb128 0x3a
+ 917 002f 0B       		.uleb128 0xb
+ 918 0030 3B       		.uleb128 0x3b
+ 919 0031 05       		.uleb128 0x5
+ 920 0032 49       		.uleb128 0x49
+ 921 0033 13       		.uleb128 0x13
+ 922 0034 00       		.byte	0
+ 923 0035 00       		.byte	0
+ 924 0036 05       		.uleb128 0x5
+ 925 0037 04       		.uleb128 0x4
+ 926 0038 01       		.byte	0x1
+ 927 0039 0B       		.uleb128 0xb
+ 928 003a 0B       		.uleb128 0xb
+ 929 003b 49       		.uleb128 0x49
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 21
+
+
+ 930 003c 13       		.uleb128 0x13
+ 931 003d 3A       		.uleb128 0x3a
+ 932 003e 0B       		.uleb128 0xb
+ 933 003f 3B       		.uleb128 0x3b
+ 934 0040 05       		.uleb128 0x5
+ 935 0041 01       		.uleb128 0x1
+ 936 0042 13       		.uleb128 0x13
+ 937 0043 00       		.byte	0
+ 938 0044 00       		.byte	0
+ 939 0045 06       		.uleb128 0x6
+ 940 0046 28       		.uleb128 0x28
+ 941 0047 00       		.byte	0
+ 942 0048 03       		.uleb128 0x3
+ 943 0049 0E       		.uleb128 0xe
+ 944 004a 1C       		.uleb128 0x1c
+ 945 004b 0B       		.uleb128 0xb
+ 946 004c 00       		.byte	0
+ 947 004d 00       		.byte	0
+ 948 004e 07       		.uleb128 0x7
+ 949 004f 28       		.uleb128 0x28
+ 950 0050 00       		.byte	0
+ 951 0051 03       		.uleb128 0x3
+ 952 0052 0E       		.uleb128 0xe
+ 953 0053 1C       		.uleb128 0x1c
+ 954 0054 05       		.uleb128 0x5
+ 955 0055 00       		.byte	0
+ 956 0056 00       		.byte	0
+ 957 0057 08       		.uleb128 0x8
+ 958 0058 13       		.uleb128 0x13
+ 959 0059 01       		.byte	0x1
+ 960 005a 0B       		.uleb128 0xb
+ 961 005b 0B       		.uleb128 0xb
+ 962 005c 3A       		.uleb128 0x3a
+ 963 005d 0B       		.uleb128 0xb
+ 964 005e 3B       		.uleb128 0x3b
+ 965 005f 05       		.uleb128 0x5
+ 966 0060 01       		.uleb128 0x1
+ 967 0061 13       		.uleb128 0x13
+ 968 0062 00       		.byte	0
+ 969 0063 00       		.byte	0
+ 970 0064 09       		.uleb128 0x9
+ 971 0065 0D       		.uleb128 0xd
+ 972 0066 00       		.byte	0
+ 973 0067 03       		.uleb128 0x3
+ 974 0068 0E       		.uleb128 0xe
+ 975 0069 3A       		.uleb128 0x3a
+ 976 006a 0B       		.uleb128 0xb
+ 977 006b 3B       		.uleb128 0x3b
+ 978 006c 05       		.uleb128 0x5
+ 979 006d 49       		.uleb128 0x49
+ 980 006e 13       		.uleb128 0x13
+ 981 006f 38       		.uleb128 0x38
+ 982 0070 0B       		.uleb128 0xb
+ 983 0071 00       		.byte	0
+ 984 0072 00       		.byte	0
+ 985 0073 0A       		.uleb128 0xa
+ 986 0074 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 22
+
+
+ 987 0075 00       		.byte	0
+ 988 0076 3F       		.uleb128 0x3f
+ 989 0077 19       		.uleb128 0x19
+ 990 0078 03       		.uleb128 0x3
+ 991 0079 0E       		.uleb128 0xe
+ 992 007a 3A       		.uleb128 0x3a
+ 993 007b 0B       		.uleb128 0xb
+ 994 007c 3B       		.uleb128 0x3b
+ 995 007d 0B       		.uleb128 0xb
+ 996 007e 27       		.uleb128 0x27
+ 997 007f 19       		.uleb128 0x19
+ 998 0080 11       		.uleb128 0x11
+ 999 0081 01       		.uleb128 0x1
+ 1000 0082 12       		.uleb128 0x12
+ 1001 0083 06       		.uleb128 0x6
+ 1002 0084 40       		.uleb128 0x40
+ 1003 0085 18       		.uleb128 0x18
+ 1004 0086 9642     		.uleb128 0x2116
+ 1005 0088 19       		.uleb128 0x19
+ 1006 0089 00       		.byte	0
+ 1007 008a 00       		.byte	0
+ 1008 008b 0B       		.uleb128 0xb
+ 1009 008c 2E       		.uleb128 0x2e
+ 1010 008d 00       		.byte	0
+ 1011 008e 3F       		.uleb128 0x3f
+ 1012 008f 19       		.uleb128 0x19
+ 1013 0090 03       		.uleb128 0x3
+ 1014 0091 0E       		.uleb128 0xe
+ 1015 0092 3A       		.uleb128 0x3a
+ 1016 0093 0B       		.uleb128 0xb
+ 1017 0094 3B       		.uleb128 0x3b
+ 1018 0095 0B       		.uleb128 0xb
+ 1019 0096 49       		.uleb128 0x49
+ 1020 0097 13       		.uleb128 0x13
+ 1021 0098 11       		.uleb128 0x11
+ 1022 0099 01       		.uleb128 0x1
+ 1023 009a 12       		.uleb128 0x12
+ 1024 009b 06       		.uleb128 0x6
+ 1025 009c 40       		.uleb128 0x40
+ 1026 009d 18       		.uleb128 0x18
+ 1027 009e 9642     		.uleb128 0x2116
+ 1028 00a0 19       		.uleb128 0x19
+ 1029 00a1 00       		.byte	0
+ 1030 00a2 00       		.byte	0
+ 1031 00a3 0C       		.uleb128 0xc
+ 1032 00a4 34       		.uleb128 0x34
+ 1033 00a5 00       		.byte	0
+ 1034 00a6 03       		.uleb128 0x3
+ 1035 00a7 0E       		.uleb128 0xe
+ 1036 00a8 3A       		.uleb128 0x3a
+ 1037 00a9 0B       		.uleb128 0xb
+ 1038 00aa 3B       		.uleb128 0x3b
+ 1039 00ab 05       		.uleb128 0x5
+ 1040 00ac 49       		.uleb128 0x49
+ 1041 00ad 13       		.uleb128 0x13
+ 1042 00ae 3F       		.uleb128 0x3f
+ 1043 00af 19       		.uleb128 0x19
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 23
+
+
+ 1044 00b0 3C       		.uleb128 0x3c
+ 1045 00b1 19       		.uleb128 0x19
+ 1046 00b2 00       		.byte	0
+ 1047 00b3 00       		.byte	0
+ 1048 00b4 0D       		.uleb128 0xd
+ 1049 00b5 34       		.uleb128 0x34
+ 1050 00b6 00       		.byte	0
+ 1051 00b7 03       		.uleb128 0x3
+ 1052 00b8 0E       		.uleb128 0xe
+ 1053 00b9 3A       		.uleb128 0x3a
+ 1054 00ba 0B       		.uleb128 0xb
+ 1055 00bb 3B       		.uleb128 0x3b
+ 1056 00bc 0B       		.uleb128 0xb
+ 1057 00bd 49       		.uleb128 0x49
+ 1058 00be 13       		.uleb128 0x13
+ 1059 00bf 3F       		.uleb128 0x3f
+ 1060 00c0 19       		.uleb128 0x19
+ 1061 00c1 02       		.uleb128 0x2
+ 1062 00c2 18       		.uleb128 0x18
+ 1063 00c3 00       		.byte	0
+ 1064 00c4 00       		.byte	0
+ 1065 00c5 00       		.byte	0
+ 1066              		.section	.debug_aranges,"",%progbits
+ 1067 0000 24000000 		.4byte	0x24
+ 1068 0004 0200     		.2byte	0x2
+ 1069 0006 00000000 		.4byte	.Ldebug_info0
+ 1070 000a 04       		.byte	0x4
+ 1071 000b 00       		.byte	0
+ 1072 000c 0000     		.2byte	0
+ 1073 000e 0000     		.2byte	0
+ 1074 0010 00000000 		.4byte	.LFB38
+ 1075 0014 3C000000 		.4byte	.LFE38-.LFB38
+ 1076 0018 00000000 		.4byte	.LFB39
+ 1077 001c 2C010000 		.4byte	.LFE39-.LFB39
+ 1078 0020 00000000 		.4byte	0
+ 1079 0024 00000000 		.4byte	0
+ 1080              		.section	.debug_ranges,"",%progbits
+ 1081              	.Ldebug_ranges0:
+ 1082 0000 00000000 		.4byte	.LFB38
+ 1083 0004 3C000000 		.4byte	.LFE38
+ 1084 0008 00000000 		.4byte	.LFB39
+ 1085 000c 2C010000 		.4byte	.LFE39
+ 1086 0010 00000000 		.4byte	0
+ 1087 0014 00000000 		.4byte	0
+ 1088              		.section	.debug_line,"",%progbits
+ 1089              	.Ldebug_line0:
+ 1090 0000 D8000000 		.section	.debug_str,"MS",%progbits,1
+ 1090      02007900 
+ 1090      00000201 
+ 1090      FB0E0D00 
+ 1090      01010101 
+ 1091              	.LASF80:
+ 1092 0000 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND\000"
+ 1092      455F4556 
+ 1092      545F4C32 
+ 1092      4341505F 
+ 1092      43424643 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 24
+
+
+ 1093              	.LASF21:
+ 1094 0023 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS\000"
+ 1094      455F4556 
+ 1094      545F5354 
+ 1094      41434B5F 
+ 1094      42555359 
+ 1095              	.LASF125:
+ 1096 003f 4359424C 		.ascii	"CYBLE_STATE_STOPPED\000"
+ 1096      455F5354 
+ 1096      4154455F 
+ 1096      53544F50 
+ 1096      50454400 
+ 1097              	.LASF79:
+ 1098 0053 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
+ 1098      455F4556 
+ 1098      545F4C32 
+ 1098      4341505F 
+ 1098      43424643 
+ 1099              	.LASF124:
+ 1100 0072 4359424C 		.ascii	"CYBLE_CONN_HANDLE_T\000"
+ 1100      455F434F 
+ 1100      4E4E5F48 
+ 1100      414E444C 
+ 1100      455F5400 
+ 1101              	.LASF144:
+ 1102 0086 636F6E6E 		.ascii	"connHandle\000"
+ 1102      48616E64 
+ 1102      6C6500
+ 1103              	.LASF91:
+ 1104 0091 4359424C 		.ascii	"CYBLE_ERROR_MEMORY_ALLOCATION_FAILED\000"
+ 1104      455F4552 
+ 1104      524F525F 
+ 1104      4D454D4F 
+ 1104      52595F41 
+ 1105              	.LASF139:
+ 1106 00b6 64657649 		.ascii	"devIndex\000"
+ 1106      6E646578 
+ 1106      00
+ 1107              	.LASF33:
+ 1108 00bf 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE\000"
+ 1108      455F4556 
+ 1108      545F4741 
+ 1108      505F434F 
+ 1108      4E4E4543 
+ 1109              	.LASF78:
+ 1110 00e8 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF\000"
+ 1110      455F4556 
+ 1110      545F4C32 
+ 1110      4341505F 
+ 1110      43424643 
+ 1111              	.LASF112:
+ 1112 0109 4359424C 		.ascii	"CYBLE_ERROR_UNSUPPORTED_FEATURE_OR_PARAMETER_VALUE\000"
+ 1112      455F4552 
+ 1112      524F525F 
+ 1112      554E5355 
+ 1112      50504F52 
+ 1113              	.LASF38:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 25
+
+
+ 1114 013c 4359424C 		.ascii	"CYBLE_EVT_GAP_OOB_GENERATED_NOTIFICATION\000"
+ 1114      455F4556 
+ 1114      545F4741 
+ 1114      505F4F4F 
+ 1114      425F4745 
+ 1115              	.LASF58:
+ 1116 0165 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP\000"
+ 1116      455F4556 
+ 1116      545F4741 
+ 1116      5454435F 
+ 1116      52454144 
+ 1117              	.LASF63:
+ 1118 0184 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
+ 1118      455F4556 
+ 1118      545F4741 
+ 1118      5454535F 
+ 1118      45584543 
+ 1119              	.LASF75:
+ 1120 01a3 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND\000"
+ 1120      455F4556 
+ 1120      545F4C32 
+ 1120      4341505F 
+ 1120      43424643 
+ 1121              	.LASF18:
+ 1122 01c1 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT\000"
+ 1122      455F4556 
+ 1122      545F5449 
+ 1122      4D454F55 
+ 1122      5400
+ 1123              	.LASF4:
+ 1124 01d3 6C6F6E67 		.ascii	"long int\000"
+ 1124      20696E74 
+ 1124      00
+ 1125              	.LASF111:
+ 1126 01dc 4359424C 		.ascii	"CYBLE_ERROR_HARDWARE_FAILURE\000"
+ 1126      455F4552 
+ 1126      524F525F 
+ 1126      48415244 
+ 1126      57415245 
+ 1127              	.LASF101:
+ 1128 01f9 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_PSM_WRONG_ENCODING\000"
+ 1128      455F4552 
+ 1128      524F525F 
+ 1128      4C324341 
+ 1128      505F5053 
+ 1129              	.LASF92:
+ 1130 021e 4359424C 		.ascii	"CYBLE_ERROR_INSUFFICIENT_RESOURCES\000"
+ 1130      455F4552 
+ 1130      524F525F 
+ 1130      494E5355 
+ 1130      46464943 
+ 1131              	.LASF20:
+ 1132 0241 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS\000"
+ 1132      455F4556 
+ 1132      545F4843 
+ 1132      495F5354 
+ 1132      41545553 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 26
+
+
+ 1133              	.LASF34:
+ 1134 0256 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP\000"
+ 1134      455F4556 
+ 1134      545F4741 
+ 1134      50435F53 
+ 1134      43414E5F 
+ 1135              	.LASF83:
+ 1136 0275 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE\000"
+ 1136      455F4556 
+ 1136      545F5045 
+ 1136      4E44494E 
+ 1136      475F464C 
+ 1137              	.LASF100:
+ 1138 0293 4359424C 		.ascii	"CYBLE_ERROR_SEC_FAILED\000"
+ 1138      455F4552 
+ 1138      524F525F 
+ 1138      5345435F 
+ 1138      4641494C 
+ 1139              	.LASF32:
+ 1140 02aa 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE\000"
+ 1140      455F4556 
+ 1140      545F4741 
+ 1140      505F454E 
+ 1140      43525950 
+ 1141              	.LASF36:
+ 1142 02c7 4359424C 		.ascii	"CYBLE_EVT_GAP_NUMERIC_COMPARISON_REQUEST\000"
+ 1142      455F4556 
+ 1142      545F4741 
+ 1142      505F4E55 
+ 1142      4D455249 
+ 1143              	.LASF6:
+ 1144 02f0 6C6F6E67 		.ascii	"long long int\000"
+ 1144      206C6F6E 
+ 1144      6720696E 
+ 1144      7400
+ 1145              	.LASF0:
+ 1146 02fe 7369676E 		.ascii	"signed char\000"
+ 1146      65642063 
+ 1146      68617200 
+ 1147              	.LASF17:
+ 1148 030a 4359424C 		.ascii	"CYBLE_EVT_STACK_ON\000"
+ 1148      455F4556 
+ 1148      545F5354 
+ 1148      41434B5F 
+ 1148      4F4E00
+ 1149              	.LASF108:
+ 1150 031d 4359424C 		.ascii	"CYBLE_ERROR_DEVICE_ALREADY_EXISTS\000"
+ 1150      455F4552 
+ 1150      524F525F 
+ 1150      44455649 
+ 1150      43455F41 
+ 1151              	.LASF95:
+ 1152 033f 4359424C 		.ascii	"CYBLE_ERROR_NO_DEVICE_ENTITY\000"
+ 1152      455F4552 
+ 1152      524F525F 
+ 1152      4E4F5F44 
+ 1152      45564943 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 27
+
+
+ 1153              	.LASF24:
+ 1154 035c 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ\000"
+ 1154      455F4556 
+ 1154      545F4741 
+ 1154      505F4155 
+ 1154      54485F52 
+ 1155              	.LASF56:
+ 1156 0373 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP\000"
+ 1156      455F4556 
+ 1156      545F4741 
+ 1156      5454435F 
+ 1156      52454144 
+ 1157              	.LASF119:
+ 1158 038c 4359424C 		.ascii	"CYBLE_ERROR_INVALID_STATE\000"
+ 1158      455F4552 
+ 1158      524F525F 
+ 1158      494E5641 
+ 1158      4C49445F 
+ 1159              	.LASF142:
+ 1160 03a6 49734465 		.ascii	"IsDetected\000"
+ 1160      74656374 
+ 1160      656400
+ 1161              	.LASF138:
+ 1162 03b1 50657269 		.ascii	"Periph_Selected\000"
+ 1162      70685F53 
+ 1162      656C6563 
+ 1162      74656400 
+ 1163              	.LASF61:
+ 1164 03c1 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
+ 1164      455F4556 
+ 1164      545F4741 
+ 1164      5454535F 
+ 1164      57524954 
+ 1165              	.LASF130:
+ 1166 03df 4359424C 		.ascii	"CYBLE_STATE_DISCONNECTED\000"
+ 1166      455F5354 
+ 1166      4154455F 
+ 1166      44495343 
+ 1166      4F4E4E45 
+ 1167              	.LASF29:
+ 1168 03f8 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
+ 1168      455F4556 
+ 1168      545F4741 
+ 1168      50505F41 
+ 1168      44564552 
+ 1169              	.LASF106:
+ 1170 0420 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_PSM_NOT_IN_RANGE\000"
+ 1170      455F4552 
+ 1170      524F525F 
+ 1170      4C324341 
+ 1170      505F5053 
+ 1171              	.LASF9:
+ 1172 0443 75696E74 		.ascii	"uint8\000"
+ 1172      3800
+ 1173              	.LASF64:
+ 1174 0449 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP\000"
+ 1174      455F4556 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 28
+
+
+ 1174      545F4741 
+ 1174      5454435F 
+ 1174      45584543 
+ 1175              	.LASF12:
+ 1176 0468 646F7562 		.ascii	"double\000"
+ 1176      6C6500
+ 1177              	.LASF77:
+ 1178 046f 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND\000"
+ 1178      455F4556 
+ 1178      545F4C32 
+ 1178      4341505F 
+ 1178      43424643 
+ 1179              	.LASF89:
+ 1180 0490 4359424C 		.ascii	"CYBLE_ERROR_INVALID_PARAMETER\000"
+ 1180      455F4552 
+ 1180      524F525F 
+ 1180      494E5641 
+ 1180      4C49445F 
+ 1181              	.LASF10:
+ 1182 04ae 75696E74 		.ascii	"uint32\000"
+ 1182      333200
+ 1183              	.LASF87:
+ 1184 04b5 4359424C 		.ascii	"CYBLE_EVT_MAX\000"
+ 1184      455F4556 
+ 1184      545F4D41 
+ 1184      5800
+ 1185              	.LASF88:
+ 1186 04c3 4359424C 		.ascii	"CYBLE_ERROR_OK\000"
+ 1186      455F4552 
+ 1186      524F525F 
+ 1186      4F4B00
+ 1187              	.LASF47:
+ 1188 04d2 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
+ 1188      455F4556 
+ 1188      545F4741 
+ 1188      5454435F 
+ 1188      4552524F 
+ 1189              	.LASF148:
+ 1190 04ec 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-worl"
+ 1190      73657273 
+ 1190      5C627279 
+ 1190      616E2E6C 
+ 1190      65655C44 
+ 1191 051a 645C4379 		.ascii	"d\\Cypress\\BLE_Central_Observer\\BLE_Central_Obser"
+ 1191      70726573 
+ 1191      735C424C 
+ 1191      455F4365 
+ 1191      6E747261 
+ 1192 054a 7665722E 		.ascii	"ver.cydsn\000"
+ 1192      63796473 
+ 1192      6E00
+ 1193              	.LASF143:
+ 1194 0554 4973436F 		.ascii	"IsConnected\000"
+ 1194      6E6E6563 
+ 1194      74656400 
+ 1195              	.LASF82:
+ 1196 0560 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 29
+
+
+ 1196      455F4556 
+ 1196      545F4C32 
+ 1196      4341505F 
+ 1196      43424643 
+ 1197              	.LASF44:
+ 1198 0584 4359424C 		.ascii	"CYBLE_EVT_GAP_SCAN_REQ_RECVD\000"
+ 1198      455F4556 
+ 1198      545F4741 
+ 1198      505F5343 
+ 1198      414E5F52 
+ 1199              	.LASF7:
+ 1200 05a1 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1200      206C6F6E 
+ 1200      6720756E 
+ 1200      7369676E 
+ 1200      65642069 
+ 1201              	.LASF71:
+ 1202 05b8 4359424C 		.ascii	"CYBLE_EVT_GATTC_LONG_PROCEDURE_END\000"
+ 1202      455F4556 
+ 1202      545F4741 
+ 1202      5454435F 
+ 1202      4C4F4E47 
+ 1203              	.LASF69:
+ 1204 05db 4359424C 		.ascii	"CYBLE_EVT_GATTC_STOP_CMD_COMPLETE\000"
+ 1204      455F4556 
+ 1204      545F4741 
+ 1204      5454435F 
+ 1204      53544F50 
+ 1205              	.LASF93:
+ 1206 05fd 4359424C 		.ascii	"CYBLE_ERROR_OOB_NOT_AVAILABLE\000"
+ 1206      455F4552 
+ 1206      524F525F 
+ 1206      4F4F425F 
+ 1206      4E4F545F 
+ 1207              	.LASF84:
+ 1208 061b 4359424C 		.ascii	"CYBLE_EVT_LE_PING_AUTH_TIMEOUT\000"
+ 1208      455F4556 
+ 1208      545F4C45 
+ 1208      5F50494E 
+ 1208      475F4155 
+ 1209              	.LASF102:
+ 1210 063a 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_PSM_ALREADY_REGISTERED\000"
+ 1210      455F4552 
+ 1210      524F525F 
+ 1210      4C324341 
+ 1210      505F5053 
+ 1211              	.LASF5:
+ 1212 0663 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1212      20756E73 
+ 1212      69676E65 
+ 1212      6420696E 
+ 1212      7400
+ 1213              	.LASF43:
+ 1214 0675 4359424C 		.ascii	"CYBLE_EVT_GAP_CONN_ESTB\000"
+ 1214      455F4556 
+ 1214      545F4741 
+ 1214      505F434F 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 30
+
+
+ 1214      4E4E5F45 
+ 1215              	.LASF59:
+ 1216 068d 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
+ 1216      455F4556 
+ 1216      545F4741 
+ 1216      5454535F 
+ 1216      57524954 
+ 1217              	.LASF51:
+ 1218 06a7 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP\000"
+ 1218      455F4556 
+ 1218      545F4741 
+ 1218      5454435F 
+ 1218      5843484E 
+ 1219              	.LASF68:
+ 1220 06c5 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
+ 1220      455F4556 
+ 1220      545F4741 
+ 1220      5454535F 
+ 1220      44415441 
+ 1221              	.LASF141:
+ 1222 06e9 49735365 		.ascii	"IsSelected\000"
+ 1222      6C656374 
+ 1222      656400
+ 1223              	.LASF105:
+ 1224 06f4 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_CHANNEL_NOT_FOUND\000"
+ 1224      455F4552 
+ 1224      524F525F 
+ 1224      4C324341 
+ 1224      505F4348 
+ 1225              	.LASF116:
+ 1226 0718 4359424C 		.ascii	"CYBLE_ERROR_NTF_DISABLED\000"
+ 1226      455F4552 
+ 1226      524F525F 
+ 1226      4E54465F 
+ 1226      44495341 
+ 1227              	.LASF16:
+ 1228 0731 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID\000"
+ 1228      455F4556 
+ 1228      545F484F 
+ 1228      53545F49 
+ 1228      4E56414C 
+ 1229              	.LASF54:
+ 1230 0748 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP\000"
+ 1230      455F4556 
+ 1230      545F4741 
+ 1230      5454435F 
+ 1230      46494E44 
+ 1231              	.LASF22:
+ 1232 0766 4359424C 		.ascii	"CYBLE_EVT_MEMORY_REQUEST\000"
+ 1232      455F4556 
+ 1232      545F4D45 
+ 1232      4D4F5259 
+ 1232      5F524551 
+ 1233              	.LASF25:
+ 1234 077f 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST\000"
+ 1234      455F4556 
+ 1234      545F4741 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 31
+
+
+ 1234      505F5041 
+ 1234      53534B45 
+ 1235              	.LASF30:
+ 1236 07a3 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED\000"
+ 1236      455F4556 
+ 1236      545F4741 
+ 1236      505F4445 
+ 1236      56494345 
+ 1237              	.LASF147:
+ 1238 07c2 6D61696E 		.ascii	"main.c\000"
+ 1238      2E6300
+ 1239              	.LASF45:
+ 1240 07c9 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ_REPLY_ERR\000"
+ 1240      455F4556 
+ 1240      545F4741 
+ 1240      505F4155 
+ 1240      54485F52 
+ 1241              	.LASF72:
+ 1242 07ea 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ\000"
+ 1242      455F4556 
+ 1242      545F4C32 
+ 1242      4341505F 
+ 1242      434F4E4E 
+ 1243              	.LASF137:
+ 1244 0810 6379426C 		.ascii	"cyBle_state\000"
+ 1244      655F7374 
+ 1244      61746500 
+ 1245              	.LASF146:
+ 1246 081c 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1246      43313120 
+ 1246      352E342E 
+ 1246      31203230 
+ 1246      31363036 
+ 1247 084f 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1247      20726576 
+ 1247      6973696F 
+ 1247      6E203233 
+ 1247      37373135 
+ 1248 0882 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1248      66756E63 
+ 1248      74696F6E 
+ 1248      2D736563 
+ 1248      74696F6E 
+ 1249              	.LASF48:
+ 1250 08aa 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND\000"
+ 1250      455F4556 
+ 1250      545F4741 
+ 1250      54545F43 
+ 1250      4F4E4E45 
+ 1251              	.LASF74:
+ 1252 08c5 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ\000"
+ 1252      455F4556 
+ 1252      545F4C32 
+ 1252      4341505F 
+ 1252      434F4D4D 
+ 1253              	.LASF23:
+ 1254 08e1 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 32
+
+
+ 1254      455F4556 
+ 1254      545F4741 
+ 1254      50435F53 
+ 1254      43414E5F 
+ 1255              	.LASF123:
+ 1256 0905 61747449 		.ascii	"attId\000"
+ 1256      6400
+ 1257              	.LASF46:
+ 1258 090b 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_LOC_P256_KEYS_GEN_AND_SET_COMPLET"
+ 1258      455F4556 
+ 1258      545F4741 
+ 1258      505F534D 
+ 1258      505F4C4F 
+ 1259 093e 4500     		.ascii	"E\000"
+ 1260              	.LASF115:
+ 1261 0940 4359424C 		.ascii	"CYBLE_ERROR_MAX\000"
+ 1261      455F4552 
+ 1261      524F525F 
+ 1261      4D415800 
+ 1262              	.LASF113:
+ 1263 0950 4359424C 		.ascii	"CYBLE_ERROR_FLASH_WRITE\000"
+ 1263      455F4552 
+ 1263      524F525F 
+ 1263      464C4153 
+ 1263      485F5752 
+ 1264              	.LASF53:
+ 1265 0968 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP\000"
+ 1265      455F4556 
+ 1265      545F4741 
+ 1265      5454435F 
+ 1265      52454144 
+ 1266              	.LASF15:
+ 1267 0989 73697A65 		.ascii	"sizetype\000"
+ 1267      74797065 
+ 1267      00
+ 1268              	.LASF126:
+ 1269 0992 4359424C 		.ascii	"CYBLE_STATE_INITIALIZING\000"
+ 1269      455F5354 
+ 1269      4154455F 
+ 1269      494E4954 
+ 1269      49414C49 
+ 1270              	.LASF28:
+ 1271 09ab 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED\000"
+ 1271      455F4556 
+ 1271      545F4741 
+ 1271      505F4155 
+ 1271      54485F46 
+ 1272              	.LASF60:
+ 1273 09c5 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP\000"
+ 1273      455F4556 
+ 1273      545F4741 
+ 1273      5454435F 
+ 1273      57524954 
+ 1274              	.LASF41:
+ 1275 09df 4359424C 		.ascii	"CYBLE_EVT_GAPC_DIRECT_ADV_REPORT\000"
+ 1275      455F4556 
+ 1275      545F4741 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 33
+
+
+ 1275      50435F44 
+ 1275      49524543 
+ 1276              	.LASF39:
+ 1277 0a00 4359424C 		.ascii	"CYBLE_EVT_GAP_DATA_LENGTH_CHANGE\000"
+ 1277      455F4556 
+ 1277      545F4741 
+ 1277      505F4441 
+ 1277      54415F4C 
+ 1278              	.LASF135:
+ 1279 0a21 424C455F 		.ascii	"BLE_Central_Observer_init\000"
+ 1279      43656E74 
+ 1279      72616C5F 
+ 1279      4F627365 
+ 1279      72766572 
+ 1280              	.LASF27:
+ 1281 0a3b 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE\000"
+ 1281      455F4556 
+ 1281      545F4741 
+ 1281      505F4155 
+ 1281      54485F43 
+ 1282              	.LASF145:
+ 1283 0a57 61706952 		.ascii	"apiResult\000"
+ 1283      6573756C 
+ 1283      7400
+ 1284              	.LASF121:
+ 1285 0a61 4359424C 		.ascii	"CYBLE_API_RESULT_T\000"
+ 1285      455F4150 
+ 1285      495F5245 
+ 1285      53554C54 
+ 1285      5F5400
+ 1286              	.LASF65:
+ 1287 0a74 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF\000"
+ 1287      455F4556 
+ 1287      545F4741 
+ 1287      5454435F 
+ 1287      48414E44 
+ 1288              	.LASF117:
+ 1289 0a95 4359424C 		.ascii	"CYBLE_ERROR_IND_DISABLED\000"
+ 1289      455F4552 
+ 1289      524F525F 
+ 1289      494E445F 
+ 1289      44495341 
+ 1290              	.LASF76:
+ 1291 0aae 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF\000"
+ 1291      455F4556 
+ 1291      545F4C32 
+ 1291      4341505F 
+ 1291      43424643 
+ 1292              	.LASF52:
+ 1293 0acc 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP\000"
+ 1293      455F4556 
+ 1293      545F4741 
+ 1293      5454435F 
+ 1293      52454144 
+ 1294              	.LASF11:
+ 1295 0af3 666C6F61 		.ascii	"float\000"
+ 1295      7400
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 34
+
+
+ 1296              	.LASF140:
+ 1297 0af9 55617274 		.ascii	"UartRxDataSim\000"
+ 1297      52784461 
+ 1297      74615369 
+ 1297      6D00
+ 1298              	.LASF98:
+ 1299 0b07 4359424C 		.ascii	"CYBLE_ERROR_TX_POWER_READ\000"
+ 1299      455F4552 
+ 1299      524F525F 
+ 1299      54585F50 
+ 1299      4F574552 
+ 1300              	.LASF118:
+ 1301 0b21 4359424C 		.ascii	"CYBLE_ERROR_CHAR_IS_NOT_DISCOVERED\000"
+ 1301      455F4552 
+ 1301      524F525F 
+ 1301      43484152 
+ 1301      5F49535F 
+ 1302              	.LASF1:
+ 1303 0b44 756E7369 		.ascii	"unsigned char\000"
+ 1303      676E6564 
+ 1303      20636861 
+ 1303      7200
+ 1304              	.LASF37:
+ 1305 0b52 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYPRESS_NOTIFICATION\000"
+ 1305      455F4556 
+ 1305      545F4741 
+ 1305      505F4B45 
+ 1305      59505245 
+ 1306              	.LASF129:
+ 1307 0b76 4359424C 		.ascii	"CYBLE_STATE_CONNECTING\000"
+ 1307      455F5354 
+ 1307      4154455F 
+ 1307      434F4E4E 
+ 1307      45435449 
+ 1308              	.LASF2:
+ 1309 0b8d 73686F72 		.ascii	"short int\000"
+ 1309      7420696E 
+ 1309      7400
+ 1310              	.LASF66:
+ 1311 0b97 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND\000"
+ 1311      455F4556 
+ 1311      545F4741 
+ 1311      5454435F 
+ 1311      48414E44 
+ 1312              	.LASF85:
+ 1313 0bb8 4359424C 		.ascii	"CYBLE_EVT_HCI_PKT\000"
+ 1313      455F4556 
+ 1313      545F4843 
+ 1313      495F504B 
+ 1313      5400
+ 1314              	.LASF94:
+ 1315 0bca 4359424C 		.ascii	"CYBLE_ERROR_NO_CONNECTION\000"
+ 1315      455F4552 
+ 1315      524F525F 
+ 1315      4E4F5F43 
+ 1315      4F4E4E45 
+ 1316              	.LASF62:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 35
+
+
+ 1317 0be4 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ\000"
+ 1317      455F4556 
+ 1317      545F4741 
+ 1317      5454535F 
+ 1317      50524550 
+ 1318              	.LASF67:
+ 1319 0c03 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF\000"
+ 1319      455F4556 
+ 1319      545F4741 
+ 1319      5454535F 
+ 1319      48414E44 
+ 1320              	.LASF96:
+ 1321 0c24 4359424C 		.ascii	"CYBLE_ERROR_REPEATED_ATTEMPTS\000"
+ 1321      455F4552 
+ 1321      524F525F 
+ 1321      52455045 
+ 1321      41544544 
+ 1322              	.LASF42:
+ 1323 0c42 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_NEGOTIATED_AUTH_INFO\000"
+ 1323      455F4556 
+ 1323      545F4741 
+ 1323      505F534D 
+ 1323      505F4E45 
+ 1324              	.LASF134:
+ 1325 0c69 4359424C 		.ascii	"CYBLE_SRVI_COUNT\000"
+ 1325      455F5352 
+ 1325      56495F43 
+ 1325      4F554E54 
+ 1325      00
+ 1326              	.LASF128:
+ 1327 0c7a 4359424C 		.ascii	"CYBLE_STATE_SCANNING\000"
+ 1327      455F5354 
+ 1327      4154455F 
+ 1327      5343414E 
+ 1327      4E494E47 
+ 1328              	.LASF120:
+ 1329 0c8f 4359424C 		.ascii	"CYBLE_ERROR_STACK_BUSY\000"
+ 1329      455F4552 
+ 1329      524F525F 
+ 1329      53544143 
+ 1329      4B5F4255 
+ 1330              	.LASF14:
+ 1331 0ca6 6C6F6E67 		.ascii	"long double\000"
+ 1331      20646F75 
+ 1331      626C6500 
+ 1332              	.LASF13:
+ 1333 0cb2 63686172 		.ascii	"char\000"
+ 1333      00
+ 1334              	.LASF99:
+ 1335 0cb7 4359424C 		.ascii	"CYBLE_ERROR_BT_ON_NOT_COMPLETED\000"
+ 1335      455F4552 
+ 1335      524F525F 
+ 1335      42545F4F 
+ 1335      4E5F4E4F 
+ 1336              	.LASF31:
+ 1337 0cd7 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
+ 1337      455F4556 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 36
+
+
+ 1337      545F4741 
+ 1337      505F4445 
+ 1337      56494345 
+ 1338              	.LASF8:
+ 1339 0cf9 756E7369 		.ascii	"unsigned int\000"
+ 1339      676E6564 
+ 1339      20696E74 
+ 1339      00
+ 1340              	.LASF133:
+ 1341 0d06 4359424C 		.ascii	"CYBLE_SRVI_GATT\000"
+ 1341      455F5352 
+ 1341      56495F47 
+ 1341      41545400 
+ 1342              	.LASF70:
+ 1343 0d16 4359424C 		.ascii	"CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ\000"
+ 1343      455F4556 
+ 1343      545F4741 
+ 1343      5454535F 
+ 1343      52454144 
+ 1344              	.LASF81:
+ 1345 0d3f 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND\000"
+ 1345      455F4556 
+ 1345      545F4C32 
+ 1345      4341505F 
+ 1345      43424643 
+ 1346              	.LASF132:
+ 1347 0d62 4359424C 		.ascii	"CYBLE_SRVI_GAP\000"
+ 1347      455F5352 
+ 1347      56495F47 
+ 1347      415000
+ 1348              	.LASF109:
+ 1349 0d71 4359424C 		.ascii	"CYBLE_ERROR_FLASH_WRITE_NOT_PERMITED\000"
+ 1349      455F4552 
+ 1349      524F525F 
+ 1349      464C4153 
+ 1349      485F5752 
+ 1350              	.LASF104:
+ 1351 0d96 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_CONNECTION_ENTITY_NOT_FOUND\000"
+ 1351      455F4552 
+ 1351      524F525F 
+ 1351      4C324341 
+ 1351      505F434F 
+ 1352              	.LASF26:
+ 1353 0dc4 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST\000"
+ 1353      455F4556 
+ 1353      545F4741 
+ 1353      505F5041 
+ 1353      53534B45 
+ 1354              	.LASF19:
+ 1355 0dea 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR\000"
+ 1355      455F4556 
+ 1355      545F4841 
+ 1355      52445741 
+ 1355      52455F45 
+ 1356              	.LASF3:
+ 1357 0e03 73686F72 		.ascii	"short unsigned int\000"
+ 1357      7420756E 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 37
+
+
+ 1357      7369676E 
+ 1357      65642069 
+ 1357      6E7400
+ 1358              	.LASF90:
+ 1359 0e16 4359424C 		.ascii	"CYBLE_ERROR_INVALID_OPERATION\000"
+ 1359      455F4552 
+ 1359      524F525F 
+ 1359      494E5641 
+ 1359      4C49445F 
+ 1360              	.LASF50:
+ 1361 0e34 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
+ 1361      455F4556 
+ 1361      545F4741 
+ 1361      5454535F 
+ 1361      58434E48 
+ 1362              	.LASF131:
+ 1363 0e52 4359424C 		.ascii	"CYBLE_STATE_T\000"
+ 1363      455F5354 
+ 1363      4154455F 
+ 1363      5400
+ 1364              	.LASF57:
+ 1365 0e60 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP\000"
+ 1365      455F4556 
+ 1365      545F4741 
+ 1365      5454435F 
+ 1365      52454144 
+ 1366              	.LASF114:
+ 1367 0e7e 4359424C 		.ascii	"CYBLE_ERROR_CONTROLLER_BUSY\000"
+ 1367      455F4552 
+ 1367      524F525F 
+ 1367      434F4E54 
+ 1367      524F4C4C 
+ 1368              	.LASF110:
+ 1369 0e9a 4359424C 		.ascii	"CYBLE_ERROR_MIC_AUTH_FAILED\000"
+ 1369      455F4552 
+ 1369      524F525F 
+ 1369      4D49435F 
+ 1369      41555448 
+ 1370              	.LASF103:
+ 1371 0eb6 4359424C 		.ascii	"CYBLE_ERROR_L2CAP_PSM_NOT_REGISTERED\000"
+ 1371      455F4552 
+ 1371      524F525F 
+ 1371      4C324341 
+ 1371      505F5053 
+ 1372              	.LASF127:
+ 1373 0edb 4359424C 		.ascii	"CYBLE_STATE_CONNECTED\000"
+ 1373      455F5354 
+ 1373      4154455F 
+ 1373      434F4E4E 
+ 1373      45435445 
+ 1374              	.LASF55:
+ 1375 0ef1 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP\000"
+ 1375      455F4556 
+ 1375      545F4741 
+ 1375      5454435F 
+ 1375      46494E44 
+ 1376              	.LASF97:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchldXRs.s 			page 38
+
+
+ 1377 0f18 4359424C 		.ascii	"CYBLE_ERROR_GAP_ROLE\000"
+ 1377      455F4552 
+ 1377      524F525F 
+ 1377      4741505F 
+ 1377      524F4C45 
+ 1378              	.LASF35:
+ 1379 0f2d 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT\000"
+ 1379      455F4556 
+ 1379      545F4741 
+ 1379      505F4B45 
+ 1379      59494E46 
+ 1380              	.LASF122:
+ 1381 0f51 62644861 		.ascii	"bdHandle\000"
+ 1381      6E646C65 
+ 1381      00
+ 1382              	.LASF73:
+ 1383 0f5a 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP\000"
+ 1383      455F4556 
+ 1383      545F4C32 
+ 1383      4341505F 
+ 1383      434F4E4E 
+ 1384              	.LASF136:
+ 1385 0f80 6D61696E 		.ascii	"main\000"
+ 1385      00
+ 1386              	.LASF40:
+ 1387 0f85 4359424C 		.ascii	"CYBLE_EVT_GAP_ENHANCE_CONN_COMPLETE\000"
+ 1387      455F4556 
+ 1387      545F4741 
+ 1387      505F454E 
+ 1387      48414E43 
+ 1388              	.LASF49:
+ 1389 0fa9 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND\000"
+ 1389      455F4556 
+ 1389      545F4741 
+ 1389      54545F44 
+ 1389      4953434F 
+ 1390              	.LASF107:
+ 1391 0fc7 4359424C 		.ascii	"CYBLE_ERROR_GATT_DB_INVALID_ATTR_HANDLE\000"
+ 1391      455F4552 
+ 1391      524F525F 
+ 1391      47415454 
+ 1391      5F44425F 
+ 1392              	.LASF86:
+ 1393 0fef 4359424C 		.ascii	"CYBLE_EVT_FLASH_CORRUPT\000"
+ 1393      455F4556 
+ 1393      545F464C 
+ 1393      4153485F 
+ 1393      434F5252 
+ 1394              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

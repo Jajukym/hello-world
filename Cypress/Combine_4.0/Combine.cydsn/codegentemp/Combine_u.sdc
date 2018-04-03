@@ -1,3 +1,3 @@
-# Component constraints for C:\Users\bryan.lee\Documents\PSoC Creator\Pulse_psoc5\Combine\Combine.cydsn\TopDesign\TopDesign.cysch
-# Project: C:\Users\bryan.lee\Documents\PSoC Creator\Pulse_psoc5\Combine\Combine.cydsn\Combine.cyprj
-# Date: Thu, 29 Dec 2016 00:01:31 GMT
+# Component constraints for C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\Combine_4.0\Combine.cydsn\TopDesign\TopDesign.cysch
+# Project: C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\Combine_4.0\Combine.cydsn\Combine.cyprj
+# Date: Tue, 27 Mar 2018 23:12:48 GMT
