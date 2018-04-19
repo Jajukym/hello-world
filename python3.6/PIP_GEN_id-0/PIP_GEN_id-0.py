@@ -160,12 +160,17 @@ rev["B12"] = "20180402"
 rev["C12"] = "Working on Basic_Bike callouts"
 rev["D12"] = "id-0"
 
-rev["A13"] = "V.x"
-rev["B13"] = datetime.now()
-rev["C13"] = "Fiat justitia ruat caelum"
+rev["A13"] = "V.12"
+rev["B13"] = "20180418"
+rev["C13"] = "BLE finish steps work again"
 rev["D13"] = "id-0"
 
-print (rev["a12"].value, rev["c12"].value, "\n")
+rev["A14"] = "V.x"
+rev["B14"] = datetime.now()
+rev["C14"] = "Fiat justitia ruat caelum"
+rev["D14"] = "id-0"
+
+print (rev["a13"].value, rev["c13"].value, "\n")
 
 
 for col in rev.columns:
@@ -230,6 +235,8 @@ class Device( xml.sax.ContentHandler ):
              sta["ah2"] = chi["m6"].value + "\n\n" + eng["m6"].value
              sta["aj2"].alignment = Alignment(wrap_text = True) #OT keycodes
              sta["aj2"] = chi["n6"].value + "\n\n" + eng["n6"].value
+             sta["aw2"].alignment = Alignment(wrap_text = True) #OT Finish
+             sta["aw2"] = chi["aa4"].value + "\n\n" + eng["aa4"].value
          """if feature == "WahooFeature": #MYE CardioCare
              sta["???"].alignment = Alignment(wrap_text = True) #MYE CardioCare Add to TrackVia table options
              sta["???"] = chi["x2"].value + "\n\n" + eng["x2"].value
@@ -309,6 +316,17 @@ class Device( xml.sax.ContentHandler ):
                  sta["aa2"] = chi["i2"].value + "\n\n" + eng["i2"].value
                  sta["al2"].alignment = Alignment(wrap_text = True) #Drivemotor
                  sta["al2"] = chi["o2"].value + "\n\n" + eng["o2"].value
+             if self.mcuChipName == mcu[1]:
+                 sta["ae2"].alignment = Alignment(wrap_text = True) #BLE maintainance
+                 sta["ae2"] = chi["k5"].value + "\n\n" + eng["k5"].value
+                 sta["ag2"].alignment = Alignment(wrap_text = True) #BLE calibrate
+                 sta["ag2"] = chi["l5"].value + "\n\n" + eng["l5"].value
+                 sta["ah2"].alignment = Alignment(wrap_text = True) #BLE display
+                 sta["ah2"] = chi["m5"].value + "\n\n" + eng["m5"].value
+                 sta["aj2"].alignment = Alignment(wrap_text = True) #BLE keycodes
+                 sta["aj2"] = chi["n5"].value + "\n\n" + eng["n5"].value
+                 sta["aw2"].alignment = Alignment(wrap_text = True) #Finish does not work due to location of self.equipmentType
+                 sta["aw2"] = chi["aa5"].value + "\n\n" + eng["aa5"].value
          for i in range(2,9):
             if self.equipmentType == equipment[i]:
                  sta["am2"].alignment = Alignment(wrap_text = True) #Tach
@@ -332,15 +350,6 @@ class Device( xml.sax.ContentHandler ):
              sta["ab2"] = chi["j2"].value + "\n\n" + eng["j2"].value
              sta["ar2"].alignment = Alignment(wrap_text = True) #BLE pulse
              sta["ar2"] = chi["t5"].value + "\n\n" + eng["t5"].value
-             if self.equipmentType == ("TREADMILL_DEVICE" or "INCLINE_TRAINER_DEVICE"):
-                 sta["ae2"].alignment = Alignment(wrap_text = True) #BLE maintainance
-                 sta["ae2"] = chi["k5"].value + "\n\n" + eng["k5"].value
-                 sta["ag2"].alignment = Alignment(wrap_text = True) #BLE calibrate
-                 sta["ag2"] = chi["l5"].value + "\n\n" + eng["l5"].value
-                 sta["ah2"].alignment = Alignment(wrap_text = True) #BLE display
-                 sta["ah2"] = chi["m5"].value + "\n\n" + eng["m5"].value
-                 sta["aj2"].alignment = Alignment(wrap_text = True) #BLE keycodes
-                 sta["aj2"] = chi["n5"].value + "\n\n" + eng["n5"].value
       elif self.CurrentData == "systemUnitType":
          print ("Unit Measure:", self.systemUnitType)
       elif self.CurrentData == "PowerBoard": #----------------------------------------------------------------------------------------
@@ -372,13 +381,23 @@ class Device( xml.sax.ContentHandler ):
             sta["i2"] = chi["c11"].value + "\n\n" + eng["c11"].value
             sta["z2"].alignment = Alignment(wrap_text = True) #Power up
             sta["z2"] = chi["h3"].value + "\n\n" + eng["h3"].value
-         for i in range(27,30):
+         for i in range(27,29):
             if self.PowerBoard == controller[i]:
                 sta["i2"].alignment = Alignment(wrap_text = True) #PB_INC_485
                 sta["i2"] = chi["c12"].value + "\n\n" + eng["c12"].value
+                sta["z2"].alignment = Alignment(wrap_text = True) #Power up
+                sta["Z2"] = chi["h4"].value + "\n\n" + eng["h4"].value
+         for i in range(29,31):
+            if self.PowerBoard == controller[i]:
+                sta["i2"].alignment = Alignment(wrap_text = True) #PB_PPI_485
+                sta["i2"] = chi["c17"].value + "\n\n" + eng["c17"].value
+                sta["z2"].alignment = Alignment(wrap_text = True) #Power up
+                sta["Z2"] = chi["h17"].value + "\n\n" + eng["h17"].value
          if self.PowerBoard == controller[31] or self.PowerBoard == controller[32]:
             sta["i2"].alignment = Alignment(wrap_text = True) #CLUB_BIKE
             sta["i2"] = chi["c11"].value + "\n\n" + eng["c11"].value
+            #sta["z2"].alignment = Alignment(wrap_text = True) #Power up
+            #sta["z2"] = chi["h3"].value + "\n\n" + eng["h3"].value
       elif self.CurrentData == "KeyCodeName":
           if self.KeyCodeName == "SETTINGS":
               print ("KeyName:", self.KeyCodeName)
@@ -427,6 +446,8 @@ class Device( xml.sax.ContentHandler ):
               sta["ar2"] = chi["t6"].value + "\n\n" + eng["t6"].value
               sta["au2"].alignment = Alignment(wrap_text = True) #Wolf HDMI
               sta["au2"] = chi["w2"].value + "\n\n" + eng["w2"].value
+              sta["aw2"].alignment = Alignment(wrap_text = True) #Finish
+              sta["aw2"] = chi["aa2"].value + "\n\n" + eng["aa2"].value
           if self.TabletProtocol == tablet[2]:#------------------------------------------------------------
               sta["ae2"].alignment = Alignment(wrap_text = True) #Legacy FreeMotion maintainance
               sta["ae2"] = chi["k4"].value + "\n\n" + eng["k4"].value
@@ -438,6 +459,8 @@ class Device( xml.sax.ContentHandler ):
               sta["ai2"] = chi["n3"].value + "\n\n" + eng["n3"].value
               sta["ar2"].alignment = Alignment(wrap_text = True) #ANT pulse
               sta["ar2"] = chi["t4"].value + "\n\n" + eng["t4"].value
+              #sta["aw2"].alignment = Alignment(wrap_text = True) #Finish
+              #sta["aw2"] = chi["aa3"].value + "\n\n" + eng["aa3"].value
       elif self.CurrentData == "GradeProtocol":
          print ("Incline Type:", self.GradeProtocol)
          sta["ao2"].alignment = Alignment(wrap_text = True) #Incline
@@ -494,6 +517,8 @@ class Device( xml.sax.ContentHandler ):
          if self.ConsoleVoltage == voltage[0]:#------------------------------------------------------------------------
              sta["am2"].alignment = Alignment(wrap_text = True) #Basic Bike2 voltage = 0; resist and tach
              sta["am2"] = chi["c10"].value + "\n\n" + eng["c10"].value
+             sta["aw2"].alignment = Alignment(wrap_text = True) #Finish
+             sta["aw2"] = chi["aa6"].value + "\n\n" + eng["aa6"].value
       self.CurrentData = ""
       
 
@@ -521,8 +546,6 @@ sta["c2"] = "控制台 console"
 sta["s2"].alignment = Alignment(wrap_text = True) #ESD bag
 sta["s2"] = chi["e2"].value + "\n\n" + eng["e2"].value
 
-sta["aw2"].alignment = Alignment(wrap_text = True) #Finish
-sta["aw2"] = chi["aa2"].value + "\n\n" + eng["aa2"].value
 sta["ay2"].alignment = Alignment(wrap_text = True) #Finish
 sta["ay2"] = "PIP_Generator"
 sta["ba2"].alignment = Alignment(wrap_text = True) #Finish
