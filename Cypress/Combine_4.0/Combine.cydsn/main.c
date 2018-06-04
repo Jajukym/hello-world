@@ -106,7 +106,7 @@ int main()
         {
             /*lcdDisplay_Position(2,9);  //Button Hex Strings...InclineD:FE, InclineU:FD, Run:FB, Stop:F7, Speed-:EF, Speed+:DF
             lcdDisplay_PrintInt8(statusButton_Read());*/
-            shiftregReceiver_WriteRegValue(statusButton_Read());//Writes to the Shift Register
+            /*shiftregReceiver_WriteRegValue(statusButton_Read());//Writes to the Shift Register*/
         }
     	
 		if(!((Status = shiftregSender_GetFIFOStatus(shiftregSender_IN_FIFO)) == shiftregSender_RET_FIFO_FULL))

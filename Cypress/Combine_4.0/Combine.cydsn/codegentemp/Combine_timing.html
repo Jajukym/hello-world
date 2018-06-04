@@ -539,7 +539,7 @@ function getElementsByClass(rootNode, elemName, className)
 <tr> <td class="prop"> Project :</td>
 <td class="proptext"> Combine</td></tr>
 <tr> <td class="prop"> Build Time :</td>
-<td class="proptext"> 12/28/16 17:01:39</td></tr>
+<td class="proptext"> 05/09/18 15:59:46</td></tr>
 <tr> <td class="prop"> Device :</td>
 <td class="proptext"> CY8C5868AXI-LP032</td></tr>
 <tr> <td class="prop"> Temperature :</td>
@@ -591,7 +591,7 @@ Timing Violation Section</span>
 </tr>
 <tr class="sta_tv tv1">
  <td class = "text_info"> </td>
- <td class = "text_info">clockShift(fixed-function)</td>
+ <td class = "text_info">ClockBlock/dclk_glb_ff_1</td>
  <td class = "text_info">clockShift</td>
  <td class = "text_info"> </td>
 </tr>
@@ -617,6 +617,14 @@ Clock Summary Section</span>
 </tr>
 </thead> 
 <tbody>
+<tr> 
+ <td class = "text_info">ClockBlock/dclk_glb_ff_1</td>
+ <td class = "text_info">ClockBlock/dclk_glb_ff_1</td>
+ <td class = "number">UNKNOWN</td>
+ <td class = "number">UNKNOWN</td>
+ <td class = "number"> N/A </td>
+ <td class = "text_info"> </td>
+</tr>
 <tr> 
  <td class = "text_info">CyILO</td>
  <td class = "text_info">CyILO</td>
@@ -654,7 +662,7 @@ Clock Summary Section</span>
  <td class = "text_info">CyMASTER_CLK</td>
  <td class = "number">32.768&nbsp;kHz</td>
  <td class = "number">32.787&nbsp;kHz</td>
- <td class = "number">47.596&nbsp;MHz</td>
+ <td class = "number">42.655&nbsp;MHz</td>
  <td class = "text_info"></td>
 </tr>
 <tr> 
@@ -686,14 +694,6 @@ Clock Summary Section</span>
  <td class = "text_info">CyXTAL_32kHz</td>
  <td class = "number">32.768&nbsp;kHz</td>
  <td class = "number">32.768&nbsp;kHz</td>
- <td class = "number"> N/A </td>
- <td class = "text_info"> </td>
-</tr>
-<tr> 
- <td class = "text_info">clockShift(fixed-function)</td>
- <td class = "text_info">clockShift(fixed-function)</td>
- <td class = "number">32.768&nbsp;kHz</td>
- <td class = "number">32.787&nbsp;kHz</td>
  <td class = "number"> N/A </td>
  <td class = "text_info"> </td>
 </tr>
@@ -842,92 +842,11 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
 </thead> 
 <tbody>
 <tr> 
- <td class = "text_info">Net_749/q</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">47.596&nbsp;MHz</td>
- <td class = "number">21.010</td>
- <td class = "number">30478.990</td>
- <td class = "text_info"></td>
-</tr>
-<tr class="sta_path">
-<td class="sta_path"  colspan="6">
-<table class="sta_path">
- <thead> 
-<tr> 
-<th>Type</th>
-<th>Location</th>
-<th>Fanout</th>
-<th>Instance/Net</th>
-<th>Source</th>
-<th>Dest</th>
-<th>Delay (ns)</th>
-</tr>
-</thead> 
-<tbody>
-<tr> 
- <td class = "text_info">macrocell31</td>
- <td class = "text_info">U(2,0)</td>
- <td class = "number">1</td>
- <td class = "text_info">Net_749</td>
- <td class = "text_info">Net_749/clock_0</td>
- <td class = "text_info">Net_749/q</td>
- <td class = "number">1.250</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"> </td>
- <td class = "number">1</td>
- <td class = "text_info">Net_749</td>
- <td class = "text_info">Net_749/q</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_1</td>
- <td class = "number">3.585</td>
-</tr>
-<tr> 
- <td class = "text_info">macrocell3</td>
- <td class = "text_info">U(2,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
- <td class = "number">3.350</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"> </td>
- <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">6.635</td>
-</tr>
-<tr> 
- <td class = "text_info">datapathcell3</td>
- <td class = "text_info">U(2,5)</td>
- <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\</td>
- <td class = "text_info"></td>
- <td class = "text_info">SETUP</td>
- <td class = "number">6.190</td>
-</tr>
-<tr> 
- <td class = "text_info">Clock</td>
- <td class = "text_info"> </td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info">Skew</td>
- <td class = "number">0.000</td>
-</tr>
-</tbody>
- </table> 
-</td>
-</tr>
-<tr> 
  <td class = "text_info">\counterANTPlus:CounterUDB:sC8:counterdp:u0\/ce0_comb</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">47.767&nbsp;MHz</td>
- <td class = "number">20.935</td>
- <td class = "number">30479.065</td>
+ <td class = "number">42.655&nbsp;MHz</td>
+ <td class = "number">23.444</td>
+ <td class = "number">30476.556</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -961,7 +880,7 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
  <td class = "text_info">\counterANTPlus:CounterUDB:per_equal\</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:sC8:counterdp:u0\/ce0_comb</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:reload\/main_2</td>
- <td class = "number">4.746</td>
+ <td class = "number">4.730</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell10</td>
@@ -979,7 +898,7 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
  <td class = "text_info">\counterANTPlus:CounterUDB:reload\</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:reload\/q</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">4.349</td>
+ <td class = "number">6.874</td>
 </tr>
 <tr> 
  <td class = "text_info">datapathcell5</td>
@@ -1004,11 +923,173 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
 </td>
 </tr>
 <tr> 
+ <td class = "text_info">Net_749/q</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
+ <td class = "number">44.466&nbsp;MHz</td>
+ <td class = "number">22.489</td>
+ <td class = "number">30477.511</td>
+ <td class = "text_info"></td>
+</tr>
+<tr class="sta_path">
+<td class="sta_path"  colspan="6">
+<table class="sta_path">
+ <thead> 
+<tr> 
+<th>Type</th>
+<th>Location</th>
+<th>Fanout</th>
+<th>Instance/Net</th>
+<th>Source</th>
+<th>Dest</th>
+<th>Delay (ns)</th>
+</tr>
+</thead> 
+<tbody>
+<tr> 
+ <td class = "text_info">macrocell31</td>
+ <td class = "text_info">U(2,0)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_749</td>
+ <td class = "text_info">Net_749/clock_0</td>
+ <td class = "text_info">Net_749/q</td>
+ <td class = "number">1.250</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"> </td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_749</td>
+ <td class = "text_info">Net_749/q</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_1</td>
+ <td class = "number">3.416</td>
+</tr>
+<tr> 
+ <td class = "text_info">macrocell3</td>
+ <td class = "text_info">U(2,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
+ <td class = "number">3.350</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"> </td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
+ <td class = "number">8.283</td>
+</tr>
+<tr> 
+ <td class = "text_info">datapathcell3</td>
+ <td class = "text_info">U(2,5)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\</td>
+ <td class = "text_info"></td>
+ <td class = "text_info">SETUP</td>
+ <td class = "number">6.190</td>
+</tr>
+<tr> 
+ <td class = "text_info">Clock</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info">Skew</td>
+ <td class = "number">0.000</td>
+</tr>
+</tbody>
+ </table> 
+</td>
+</tr>
+<tr> 
+ <td class = "text_info">Net_749/q</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sSTSReg:stsreg\/status_4</td>
+ <td class = "number">44.994&nbsp;MHz</td>
+ <td class = "number">22.225</td>
+ <td class = "number">30477.775</td>
+ <td class = "text_info"></td>
+</tr>
+<tr class="sta_path">
+<td class="sta_path"  colspan="6">
+<table class="sta_path">
+ <thead> 
+<tr> 
+<th>Type</th>
+<th>Location</th>
+<th>Fanout</th>
+<th>Instance/Net</th>
+<th>Source</th>
+<th>Dest</th>
+<th>Delay (ns)</th>
+</tr>
+</thead> 
+<tbody>
+<tr> 
+ <td class = "text_info">macrocell31</td>
+ <td class = "text_info">U(2,0)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_749</td>
+ <td class = "text_info">Net_749/clock_0</td>
+ <td class = "text_info">Net_749/q</td>
+ <td class = "number">1.250</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"> </td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_749</td>
+ <td class = "text_info">Net_749/q</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_1</td>
+ <td class = "number">3.416</td>
+</tr>
+<tr> 
+ <td class = "text_info">macrocell3</td>
+ <td class = "text_info">U(2,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
+ <td class = "number">3.350</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"> </td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sSTSReg:stsreg\/status_4</td>
+ <td class = "number">13.709</td>
+</tr>
+<tr> 
+ <td class = "text_info">statusicell4</td>
+ <td class = "text_info">U(2,2)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sSTSReg:stsreg\</td>
+ <td class = "text_info"></td>
+ <td class = "text_info">SETUP</td>
+ <td class = "number">0.500</td>
+</tr>
+<tr> 
+ <td class = "text_info">Clock</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info">Skew</td>
+ <td class = "number">0.000</td>
+</tr>
+</tbody>
+ </table> 
+</td>
+</tr>
+<tr> 
  <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\/q</td>
  <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">48.669&nbsp;MHz</td>
- <td class = "number">20.547</td>
- <td class = "number">30479.453</td>
+ <td class = "number">45.055&nbsp;MHz</td>
+ <td class = "number">22.195</td>
+ <td class = "number">30477.805</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -1060,7 +1141,7 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
  <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
  <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
  <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">6.635</td>
+ <td class = "number">8.283</td>
 </tr>
 <tr> 
  <td class = "text_info">datapathcell3</td>
@@ -1085,173 +1166,11 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
 </td>
 </tr>
 <tr> 
- <td class = "text_info">\counterPolarS:CounterUDB:sCTRLReg:ctrlreg\/control_7</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/cs_addr_1</td>
- <td class = "number">51.193&nbsp;MHz</td>
- <td class = "number">19.534</td>
- <td class = "number">30480.466</td>
- <td class = "text_info"></td>
-</tr>
-<tr class="sta_path">
-<td class="sta_path"  colspan="6">
-<table class="sta_path">
- <thead> 
-<tr> 
-<th>Type</th>
-<th>Location</th>
-<th>Fanout</th>
-<th>Instance/Net</th>
-<th>Source</th>
-<th>Dest</th>
-<th>Delay (ns)</th>
-</tr>
-</thead> 
-<tbody>
-<tr> 
- <td class = "text_info">controlcell4</td>
- <td class = "text_info">U(2,2)</td>
- <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sCTRLReg:ctrlreg\</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sCTRLReg:ctrlreg\/clock</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sCTRLReg:ctrlreg\/control_7</td>
- <td class = "number">1.210</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"> </td>
- <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:control_7\</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sCTRLReg:ctrlreg\/control_7</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\/main_1</td>
- <td class = "number">4.390</td>
-</tr>
-<tr> 
- <td class = "text_info">macrocell9</td>
- <td class = "text_info">U(2,5)</td>
- <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\/main_1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\/q</td>
- <td class = "number">3.350</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"> </td>
- <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\/q</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/cs_addr_1</td>
- <td class = "number">4.394</td>
-</tr>
-<tr> 
- <td class = "text_info">datapathcell4</td>
- <td class = "text_info">U(2,2)</td>
- <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\</td>
- <td class = "text_info"></td>
- <td class = "text_info">SETUP</td>
- <td class = "number">6.190</td>
-</tr>
-<tr> 
- <td class = "text_info">Clock</td>
- <td class = "text_info"> </td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info">Skew</td>
- <td class = "number">0.000</td>
-</tr>
-</tbody>
- </table> 
-</td>
-</tr>
-<tr> 
- <td class = "text_info">Net_749/q</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">54.268&nbsp;MHz</td>
- <td class = "number">18.427</td>
- <td class = "number">30481.573</td>
- <td class = "text_info"></td>
-</tr>
-<tr class="sta_path">
-<td class="sta_path"  colspan="6">
-<table class="sta_path">
- <thead> 
-<tr> 
-<th>Type</th>
-<th>Location</th>
-<th>Fanout</th>
-<th>Instance/Net</th>
-<th>Source</th>
-<th>Dest</th>
-<th>Delay (ns)</th>
-</tr>
-</thead> 
-<tbody>
-<tr> 
- <td class = "text_info">macrocell31</td>
- <td class = "text_info">U(2,0)</td>
- <td class = "number">1</td>
- <td class = "text_info">Net_749</td>
- <td class = "text_info">Net_749/clock_0</td>
- <td class = "text_info">Net_749/q</td>
- <td class = "number">1.250</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"> </td>
- <td class = "number">1</td>
- <td class = "text_info">Net_749</td>
- <td class = "text_info">Net_749/q</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_1</td>
- <td class = "number">3.585</td>
-</tr>
-<tr> 
- <td class = "text_info">macrocell3</td>
- <td class = "text_info">U(2,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
- <td class = "number">3.350</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"> </td>
- <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">4.052</td>
-</tr>
-<tr> 
- <td class = "text_info">datapathcell4</td>
- <td class = "text_info">U(2,2)</td>
- <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\</td>
- <td class = "text_info"></td>
- <td class = "text_info">SETUP</td>
- <td class = "number">6.190</td>
-</tr>
-<tr> 
- <td class = "text_info">Clock</td>
- <td class = "text_info"> </td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info">Skew</td>
- <td class = "number">0.000</td>
-</tr>
-</tbody>
- </table> 
-</td>
-</tr>
-<tr> 
  <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\/q</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">55.667&nbsp;MHz</td>
- <td class = "number">17.964</td>
- <td class = "number">30482.036</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sSTSReg:stsreg\/status_4</td>
+ <td class = "number">45.598&nbsp;MHz</td>
+ <td class = "number">21.931</td>
+ <td class = "number">30478.069</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -1302,17 +1221,17 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
  <td class = "number">1</td>
  <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
  <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">4.052</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sSTSReg:stsreg\/status_4</td>
+ <td class = "number">13.709</td>
 </tr>
 <tr> 
- <td class = "text_info">datapathcell4</td>
+ <td class = "text_info">statusicell4</td>
  <td class = "text_info">U(2,2)</td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sSTSReg:stsreg\</td>
  <td class = "text_info"></td>
  <td class = "text_info">SETUP</td>
- <td class = "number">6.190</td>
+ <td class = "number">0.500</td>
 </tr>
 <tr> 
  <td class = "text_info">Clock</td>
@@ -1329,10 +1248,10 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
 </tr>
 <tr> 
  <td class = "text_info">Net_749/q</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/f0_load</td>
- <td class = "number">55.710&nbsp;MHz</td>
- <td class = "number">17.950</td>
- <td class = "number">30482.050</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:sSTSReg:stsreg\/status_4</td>
+ <td class = "number">46.920&nbsp;MHz</td>
+ <td class = "number">21.313</td>
+ <td class = "number">30478.687</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -1366,7 +1285,7 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
  <td class = "text_info">Net_749</td>
  <td class = "text_info">Net_749/q</td>
  <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_1</td>
- <td class = "number">3.585</td>
+ <td class = "number">3.416</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell3</td>
@@ -1383,17 +1302,98 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
  <td class = "number">1</td>
  <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
  <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/f0_load</td>
- <td class = "number">6.635</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:sSTSReg:stsreg\/status_4</td>
+ <td class = "number">12.797</td>
 </tr>
 <tr> 
- <td class = "text_info">datapathcell3</td>
- <td class = "text_info">U(2,5)</td>
+ <td class = "text_info">statusicell5</td>
+ <td class = "text_info">U(2,3)</td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:sSTSReg:stsreg\</td>
  <td class = "text_info"></td>
  <td class = "text_info">SETUP</td>
- <td class = "number">3.130</td>
+ <td class = "number">0.500</td>
+</tr>
+<tr> 
+ <td class = "text_info">Clock</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info">Skew</td>
+ <td class = "number">0.000</td>
+</tr>
+</tbody>
+ </table> 
+</td>
+</tr>
+<tr> 
+ <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\/q</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:sSTSReg:stsreg\/status_4</td>
+ <td class = "number">47.576&nbsp;MHz</td>
+ <td class = "number">21.019</td>
+ <td class = "number">30478.981</td>
+ <td class = "text_info"></td>
+</tr>
+<tr class="sta_path">
+<td class="sta_path"  colspan="6">
+<table class="sta_path">
+ <thead> 
+<tr> 
+<th>Type</th>
+<th>Location</th>
+<th>Fanout</th>
+<th>Instance/Net</th>
+<th>Source</th>
+<th>Dest</th>
+<th>Delay (ns)</th>
+</tr>
+</thead> 
+<tbody>
+<tr> 
+ <td class = "text_info">macrocell18</td>
+ <td class = "text_info">U(2,0)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\/clock_0</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\/q</td>
+ <td class = "number">1.250</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"> </td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\/q</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_0</td>
+ <td class = "number">3.122</td>
+</tr>
+<tr> 
+ <td class = "text_info">macrocell3</td>
+ <td class = "text_info">U(2,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_0</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
+ <td class = "number">3.350</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"> </td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:sSTSReg:stsreg\/status_4</td>
+ <td class = "number">12.797</td>
+</tr>
+<tr> 
+ <td class = "text_info">statusicell5</td>
+ <td class = "text_info">U(2,3)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:sSTSReg:stsreg\</td>
+ <td class = "text_info"></td>
+ <td class = "text_info">SETUP</td>
+ <td class = "number">0.500</td>
 </tr>
 <tr> 
  <td class = "text_info">Clock</td>
@@ -1411,9 +1411,9 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
 <tr> 
  <td class = "text_info">Net_749/q</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">56.107&nbsp;MHz</td>
- <td class = "number">17.823</td>
- <td class = "number">30482.177</td>
+ <td class = "number">49.554&nbsp;MHz</td>
+ <td class = "number">20.180</td>
+ <td class = "number">30479.820</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -1447,7 +1447,7 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
  <td class = "text_info">Net_749</td>
  <td class = "text_info">Net_749/q</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:reload\/main_1</td>
- <td class = "number">2.684</td>
+ <td class = "number">2.516</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell10</td>
@@ -1465,7 +1465,7 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
  <td class = "text_info">\counterANTPlus:CounterUDB:reload\</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:reload\/q</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
- <td class = "number">4.349</td>
+ <td class = "number">6.874</td>
 </tr>
 <tr> 
  <td class = "text_info">datapathcell5</td>
@@ -1491,10 +1491,10 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
 </tr>
 <tr> 
  <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\/q</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/f0_load</td>
- <td class = "number">57.185&nbsp;MHz</td>
- <td class = "number">17.487</td>
- <td class = "number">30482.513</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
+ <td class = "number">50.269&nbsp;MHz</td>
+ <td class = "number">19.893</td>
+ <td class = "number">30480.107</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -1527,35 +1527,35 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
  <td class = "number">1</td>
  <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\</td>
  <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\/q</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_0</td>
- <td class = "number">3.122</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:reload\/main_0</td>
+ <td class = "number">2.229</td>
 </tr>
 <tr> 
- <td class = "text_info">macrocell3</td>
- <td class = "text_info">U(2,1)</td>
+ <td class = "text_info">macrocell10</td>
+ <td class = "text_info">U(2,0)</td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_0</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:reload\</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:reload\/main_0</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:reload\/q</td>
  <td class = "number">3.350</td>
 </tr>
 <tr> 
  <td class = "text_info">Route</td>
  <td class = "text_info"> </td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
- <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/f0_load</td>
- <td class = "number">6.635</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:reload\</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:reload\/q</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:sC8:counterdp:u0\/cs_addr_0</td>
+ <td class = "number">6.874</td>
 </tr>
 <tr> 
- <td class = "text_info">datapathcell3</td>
- <td class = "text_info">U(2,5)</td>
+ <td class = "text_info">datapathcell5</td>
+ <td class = "text_info">U(2,3)</td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\</td>
+ <td class = "text_info">\counterANTPlus:CounterUDB:sC8:counterdp:u0\</td>
  <td class = "text_info"></td>
  <td class = "text_info">SETUP</td>
- <td class = "number">3.130</td>
+ <td class = "number">6.190</td>
 </tr>
 <tr> 
  <td class = "text_info">Clock</td>
@@ -1571,11 +1571,11 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
 </td>
 </tr>
 <tr> 
- <td class = "text_info">\counterPolarS:CounterUDB:count_stored_i\/q</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/cs_addr_1</td>
- <td class = "number">57.185&nbsp;MHz</td>
- <td class = "number">17.487</td>
- <td class = "number">30482.513</td>
+ <td class = "text_info">Net_749/q</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:sSTSReg:stsreg\/status_4</td>
+ <td class = "number">50.878&nbsp;MHz</td>
+ <td class = "number">19.655</td>
+ <td class = "number">30480.345</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -1594,49 +1594,49 @@ Destination Clock : clockPulseCount : Positive edge(Required Frequency 32.7869&n
 </thead> 
 <tbody>
 <tr> 
- <td class = "text_info">macrocell24</td>
- <td class = "text_info">U(2,5)</td>
+ <td class = "text_info">macrocell31</td>
+ <td class = "text_info">U(2,0)</td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_stored_i\</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_stored_i\/clock_0</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_stored_i\/q</td>
+ <td class = "text_info">Net_749</td>
+ <td class = "text_info">Net_749/clock_0</td>
+ <td class = "text_info">Net_749/q</td>
  <td class = "number">1.250</td>
 </tr>
 <tr> 
  <td class = "text_info">Route</td>
  <td class = "text_info"> </td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_stored_i\</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_stored_i\/q</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\/main_2</td>
- <td class = "number">2.303</td>
+ <td class = "text_info">Net_749</td>
+ <td class = "text_info">Net_749/q</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_1</td>
+ <td class = "number">3.416</td>
 </tr>
 <tr> 
- <td class = "text_info">macrocell9</td>
- <td class = "text_info">U(2,5)</td>
+ <td class = "text_info">macrocell3</td>
+ <td class = "text_info">U(2,1)</td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\/main_2</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\/q</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/main_1</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
  <td class = "number">3.350</td>
 </tr>
 <tr> 
  <td class = "text_info">Route</td>
  <td class = "text_info"> </td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\</td>
- <td class = "text_info">\counterPolarS:CounterUDB:count_enable\/q</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/cs_addr_1</td>
- <td class = "number">4.394</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:hwCapture\/q</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:sSTSReg:stsreg\/status_4</td>
+ <td class = "number">11.139</td>
 </tr>
 <tr> 
- <td class = "text_info">datapathcell4</td>
- <td class = "text_info">U(2,2)</td>
+ <td class = "text_info">statusicell3</td>
+ <td class = "text_info">U(2,5)</td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\</td>
+ <td class = "text_info">\counterPolarC:CounterUDB:sSTSReg:stsreg\</td>
  <td class = "text_info"></td>
  <td class = "text_info">SETUP</td>
- <td class = "number">6.190</td>
+ <td class = "number">0.500</td>
 </tr>
 <tr> 
  <td class = "text_info">Clock</td>
@@ -2281,7 +2281,7 @@ Destination Clock : clockPulseCount : Positive edge</span>
 <tr> 
  <td class = "text_info">\counterANTPlus:CounterUDB:sC8:counterdp:u0\/ce1_comb</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:prevCompare\/main_0</td>
- <td class = "number">3.408</td>
+ <td class = "number">3.410</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -2315,7 +2315,7 @@ Destination Clock : clockPulseCount : Positive edge</span>
  <td class = "text_info">\counterANTPlus:CounterUDB:cmp_out_i\</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:sC8:counterdp:u0\/ce1_comb</td>
  <td class = "text_info">\counterANTPlus:CounterUDB:prevCompare\/main_0</td>
- <td class = "number">2.598</td>
+ <td class = "number">2.600</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell26</td>
@@ -2402,69 +2402,8 @@ Destination Clock : clockPulseCount : Positive edge</span>
 </tr>
 <tr> 
  <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/cl0_comb</td>
- <td class = "text_info">\PWMPulseCapture:PWMUDB:status_0\/main_1</td>
- <td class = "number">3.622</td>
- <td class = "text_info"></td>
-</tr>
-<tr class="sta_path">
-<td class="sta_path"  colspan="4">
-<table class="sta_path">
- <thead> 
-<tr> 
-<th>Type</th>
-<th>Location</th>
-<th>Fanout</th>
-<th>Instance/Net</th>
-<th>Source</th>
-<th>Dest</th>
-<th>Delay (ns)</th>
-</tr>
-</thead> 
-<tbody>
-<tr> 
- <td class = "text_info">datapathcell7</td>
- <td class = "text_info">U(3,0)</td>
- <td class = "number">1</td>
- <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\</td>
- <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/clock</td>
- <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/cl0_comb</td>
- <td class = "number">0.780</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"></td>
- <td class = "number">1</td>
- <td class = "text_info">\PWMPulseCapture:PWMUDB:cmp1_less\</td>
- <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/cl0_comb</td>
- <td class = "text_info">\PWMPulseCapture:PWMUDB:status_0\/main_1</td>
- <td class = "number">2.842</td>
-</tr>
-<tr> 
- <td class = "text_info">macrocell30</td>
- <td class = "text_info">U(2,0)</td>
- <td class = "number">1</td>
- <td class = "text_info">\PWMPulseCapture:PWMUDB:status_0\</td>
- <td class = "text_info"> </td>
- <td class = "text_info">HOLD</td>
- <td class = "number">0.000</td>
-</tr>
-<tr> 
- <td class = "text_info">Clock</td>
- <td class = "text_info"> </td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info">Skew</td>
- <td class = "number">0.000</td>
-</tr>
-</tbody>
- </table> 
-</td>
-</tr>
-<tr> 
- <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/cl0_comb</td>
  <td class = "text_info">\PWMPulseCapture:PWMUDB:prevCompare1\/main_0</td>
- <td class = "number">3.779</td>
+ <td class = "number">3.636</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -2498,7 +2437,7 @@ Destination Clock : clockPulseCount : Positive edge</span>
  <td class = "text_info">\PWMPulseCapture:PWMUDB:cmp1_less\</td>
  <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/cl0_comb</td>
  <td class = "text_info">\PWMPulseCapture:PWMUDB:prevCompare1\/main_0</td>
- <td class = "number">2.999</td>
+ <td class = "number">2.856</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell29</td>
@@ -2524,8 +2463,8 @@ Destination Clock : clockPulseCount : Positive edge</span>
 </tr>
 <tr> 
  <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/cl0_comb</td>
- <td class = "text_info">Net_749/main_1</td>
- <td class = "number">3.790</td>
+ <td class = "text_info">\PWMPulseCapture:PWMUDB:status_0\/main_1</td>
+ <td class = "number">3.768</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -2558,14 +2497,14 @@ Destination Clock : clockPulseCount : Positive edge</span>
  <td class = "number">1</td>
  <td class = "text_info">\PWMPulseCapture:PWMUDB:cmp1_less\</td>
  <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/cl0_comb</td>
- <td class = "text_info">Net_749/main_1</td>
- <td class = "number">3.010</td>
+ <td class = "text_info">\PWMPulseCapture:PWMUDB:status_0\/main_1</td>
+ <td class = "number">2.988</td>
 </tr>
 <tr> 
- <td class = "text_info">macrocell31</td>
+ <td class = "text_info">macrocell30</td>
  <td class = "text_info">U(2,0)</td>
  <td class = "number">1</td>
- <td class = "text_info">Net_749</td>
+ <td class = "text_info">\PWMPulseCapture:PWMUDB:status_0\</td>
  <td class = "text_info"> </td>
  <td class = "text_info">HOLD</td>
  <td class = "number">0.000</td>
@@ -2586,7 +2525,7 @@ Destination Clock : clockPulseCount : Positive edge</span>
 <tr> 
  <td class = "text_info">Net_749/q</td>
  <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\/main_0</td>
- <td class = "number">3.925</td>
+ <td class = "number">3.773</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -2620,7 +2559,7 @@ Destination Clock : clockPulseCount : Positive edge</span>
  <td class = "text_info">Net_749</td>
  <td class = "text_info">Net_749/q</td>
  <td class = "text_info">\counterPolarC:CounterUDB:prevCapture\/main_0</td>
- <td class = "number">2.675</td>
+ <td class = "number">2.523</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell18</td>
@@ -2645,9 +2584,9 @@ Destination Clock : clockPulseCount : Positive edge</span>
 </td>
 </tr>
 <tr> 
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/z0_comb</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sSTSReg:stsreg\/status_1</td>
- <td class = "number">3.989</td>
+ <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/cl0_comb</td>
+ <td class = "text_info">Net_749/main_1</td>
+ <td class = "number">3.777</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -2666,28 +2605,89 @@ Destination Clock : clockPulseCount : Positive edge</span>
 </thead> 
 <tbody>
 <tr> 
- <td class = "text_info">datapathcell3</td>
- <td class = "text_info">U(2,5)</td>
+ <td class = "text_info">datapathcell7</td>
+ <td class = "text_info">U(3,0)</td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/clock</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/z0_comb</td>
+ <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\</td>
+ <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/clock</td>
+ <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/cl0_comb</td>
+ <td class = "number">0.780</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"></td>
+ <td class = "number">1</td>
+ <td class = "text_info">\PWMPulseCapture:PWMUDB:cmp1_less\</td>
+ <td class = "text_info">\PWMPulseCapture:PWMUDB:sP16:pwmdp:u1\/cl0_comb</td>
+ <td class = "text_info">Net_749/main_1</td>
+ <td class = "number">2.997</td>
+</tr>
+<tr> 
+ <td class = "text_info">macrocell31</td>
+ <td class = "text_info">U(2,0)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_749</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info">HOLD</td>
+ <td class = "number">0.000</td>
+</tr>
+<tr> 
+ <td class = "text_info">Clock</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info">Skew</td>
+ <td class = "number">0.000</td>
+</tr>
+</tbody>
+ </table> 
+</td>
+</tr>
+<tr> 
+ <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/z0_comb</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sSTSReg:stsreg\/status_1</td>
+ <td class = "number">3.977</td>
+ <td class = "text_info"></td>
+</tr>
+<tr class="sta_path">
+<td class="sta_path"  colspan="4">
+<table class="sta_path">
+ <thead> 
+<tr> 
+<th>Type</th>
+<th>Location</th>
+<th>Fanout</th>
+<th>Instance/Net</th>
+<th>Source</th>
+<th>Dest</th>
+<th>Delay (ns)</th>
+</tr>
+</thead> 
+<tbody>
+<tr> 
+ <td class = "text_info">datapathcell4</td>
+ <td class = "text_info">U(2,2)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/clock</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/z0_comb</td>
  <td class = "number">1.810</td>
 </tr>
 <tr> 
  <td class = "text_info">Route</td>
  <td class = "text_info"></td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:status_1\</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sC8:counterdp:u0\/z0_comb</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sSTSReg:stsreg\/status_1</td>
- <td class = "number">4.179</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:status_1\</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sC8:counterdp:u0\/z0_comb</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sSTSReg:stsreg\/status_1</td>
+ <td class = "number">4.167</td>
 </tr>
 <tr> 
- <td class = "text_info">statusicell3</td>
- <td class = "text_info">U(2,5)</td>
+ <td class = "text_info">statusicell4</td>
+ <td class = "text_info">U(2,2)</td>
  <td class = "number">1</td>
- <td class = "text_info">\counterPolarC:CounterUDB:sSTSReg:stsreg\</td>
+ <td class = "text_info">\counterPolarS:CounterUDB:sSTSReg:stsreg\</td>
  <td class = "text_info"> </td>
  <td class = "text_info">HOLD</td>
  <td class = "number">-2.000</td>
@@ -3033,7 +3033,7 @@ Asynchronous Clock Crossing Section</span>
 <div>
 <a href="#" style="text-decoration: none; color: inherit;">
 <span class="sec_head"><span style="font-family: monospace;">+</span>
-Source Clock clockShift(fixed-function)</span>
+Source Clock ClockBlock/dclk_glb_ff_1</span>
 </a>
 </div><div class="sta_secbody"><div class="sta_sec" >
 <div>
@@ -3053,7 +3053,7 @@ Destination Clock clockShift</span>
 <tr> 
  <td class = "text_info">\counterShift:CounterHW\/tc</td>
  <td class = "text_info">\shiftregSender:bSR:sC8:BShiftRegDp:u0\/cs_addr_1</td>
- <td class = "number">22.746</td>
+ <td class = "number">23.946</td>
 </tr>
 <tr class="sta_path tv1">
 <td class="sta_path"  colspan="3">
@@ -3086,7 +3086,7 @@ Destination Clock clockShift</span>
  <td class = "text_info">Net_423</td>
  <td class = "text_info">\counterShift:CounterHW\/tc</td>
  <td class = "text_info">\shiftregSender:bSR:status_0\/main_0</td>
- <td class = "number">7.990</td>
+ <td class = "number">9.190</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell1</td>
@@ -3131,7 +3131,7 @@ Destination Clock clockShift</span>
 <tr> 
  <td class = "text_info">\counterShift:CounterHW\/tc</td>
  <td class = "text_info">\shiftregSender:bSR:StsReg\/status_0</td>
- <td class = "number">18.745</td>
+ <td class = "number">19.945</td>
 </tr>
 <tr class="sta_path">
 <td class="sta_path"  colspan="3">
@@ -3164,7 +3164,7 @@ Destination Clock clockShift</span>
  <td class = "text_info">Net_423</td>
  <td class = "text_info">\counterShift:CounterHW\/tc</td>
  <td class = "text_info">\shiftregSender:bSR:status_0\/main_0</td>
- <td class = "number">7.990</td>
+ <td class = "number">9.190</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell1</td>
@@ -3208,68 +3208,8 @@ Destination Clock clockShift</span>
 </tr>
 <tr> 
  <td class = "text_info">\counterShift:CounterHW\/tc</td>
- <td class = "text_info">\shiftregSender:bSR:load_reg\/main_0</td>
- <td class = "number">13.201</td>
-</tr>
-<tr class="sta_path">
-<td class="sta_path"  colspan="3">
-<table class="sta_path">
- <thead> 
-<tr> 
-<th>Type</th>
-<th>Location</th>
-<th>Fanout</th>
-<th>Instance/Net</th>
-<th>Source</th>
-<th>Dest</th>
-<th>Delay (ns)</th>
-</tr>
-</thead> 
-<tbody>
-<tr> 
- <td class = "text_info">timercell</td>
- <td class = "text_info">F(Timer,0)</td>
- <td class = "number">1</td>
- <td class = "text_info">\counterShift:CounterHW\</td>
- <td class = "text_info">\counterShift:CounterHW\/clock</td>
- <td class = "text_info">\counterShift:CounterHW\/tc</td>
- <td class = "number">1.000</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"> </td>
- <td class = "number">1</td>
- <td class = "text_info">Net_423</td>
- <td class = "text_info">\counterShift:CounterHW\/tc</td>
- <td class = "text_info">\shiftregSender:bSR:load_reg\/main_0</td>
- <td class = "number">8.691</td>
-</tr>
-<tr> 
- <td class = "text_info">macrocell17</td>
- <td class = "text_info">U(2,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">\shiftregSender:bSR:load_reg\</td>
- <td class = "text_info"></td>
- <td class = "text_info">SETUP</td>
- <td class = "number">3.510</td>
-</tr>
-<tr> 
- <td class = "text_info">Clock</td>
- <td class = "text_info"> </td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info">Skew</td>
- <td class = "number">0.000</td>
-</tr>
-</tbody>
- </table> 
-</td>
-</tr>
-<tr> 
- <td class = "text_info">\counterShift:CounterHW\/tc</td>
  <td class = "text_info">\shiftregReceiver:bSR:sC8:BShiftRegDp:u0\/f1_load</td>
- <td class = "number">9.688</td>
+ <td class = "number">14.509</td>
 </tr>
 <tr class="sta_path">
 <td class="sta_path"  colspan="3">
@@ -3302,7 +3242,7 @@ Destination Clock clockShift</span>
  <td class = "text_info">Net_423</td>
  <td class = "text_info">\counterShift:CounterHW\/tc</td>
  <td class = "text_info">\shiftregReceiver:bSR:sC8:BShiftRegDp:u0\/f1_load</td>
- <td class = "number">5.838</td>
+ <td class = "number">10.659</td>
 </tr>
 <tr> 
  <td class = "text_info">datapathcell1</td>
@@ -3328,8 +3268,68 @@ Destination Clock clockShift</span>
 </tr>
 <tr> 
  <td class = "text_info">\counterShift:CounterHW\/tc</td>
+ <td class = "text_info">\shiftregSender:bSR:load_reg\/main_0</td>
+ <td class = "number">14.262</td>
+</tr>
+<tr class="sta_path">
+<td class="sta_path"  colspan="3">
+<table class="sta_path">
+ <thead> 
+<tr> 
+<th>Type</th>
+<th>Location</th>
+<th>Fanout</th>
+<th>Instance/Net</th>
+<th>Source</th>
+<th>Dest</th>
+<th>Delay (ns)</th>
+</tr>
+</thead> 
+<tbody>
+<tr> 
+ <td class = "text_info">timercell</td>
+ <td class = "text_info">F(Timer,0)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterShift:CounterHW\</td>
+ <td class = "text_info">\counterShift:CounterHW\/clock</td>
+ <td class = "text_info">\counterShift:CounterHW\/tc</td>
+ <td class = "number">1.000</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"> </td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_423</td>
+ <td class = "text_info">\counterShift:CounterHW\/tc</td>
+ <td class = "text_info">\shiftregSender:bSR:load_reg\/main_0</td>
+ <td class = "number">9.752</td>
+</tr>
+<tr> 
+ <td class = "text_info">macrocell17</td>
+ <td class = "text_info">U(2,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\shiftregSender:bSR:load_reg\</td>
+ <td class = "text_info"></td>
+ <td class = "text_info">SETUP</td>
+ <td class = "number">3.510</td>
+</tr>
+<tr> 
+ <td class = "text_info">Clock</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info">Skew</td>
+ <td class = "number">0.000</td>
+</tr>
+</tbody>
+ </table> 
+</td>
+</tr>
+<tr> 
+ <td class = "text_info">\counterShift:CounterHW\/tc</td>
  <td class = "text_info">\shiftregReceiver:bSR:StsReg\/status_1</td>
- <td class = "number">6.598</td>
+ <td class = "number">8.217</td>
 </tr>
 <tr class="sta_path">
 <td class="sta_path"  colspan="3">
@@ -3362,7 +3362,7 @@ Destination Clock clockShift</span>
  <td class = "text_info">Net_423</td>
  <td class = "text_info">\counterShift:CounterHW\/tc</td>
  <td class = "text_info">\shiftregReceiver:bSR:StsReg\/status_1</td>
- <td class = "number">5.098</td>
+ <td class = "number">6.717</td>
 </tr>
 <tr> 
  <td class = "text_info">statusicell1</td>
@@ -3401,6 +3401,112 @@ Destination Clock clockShift</span>
 Clock To Output Section</span>
 </a>
 </div><div class="sta_secbody"><div class="sta_sec" >
+<div>
+<a href="#" style="text-decoration: none; color: inherit;">
+<span class="sec_head"><span style="font-family: monospace;">+</span>
+ClockBlock/dclk_glb_ff_1</span>
+</a>
+</div><div class="sta_secbody"><table class="sta_tscs">
+ <thead> 
+<tr> 
+<th>Source</th>
+<th>Destination</th>
+<th>Delay (ns)</th>
+</tr>
+</thead> 
+<tbody>
+<tr> 
+ <td class = "text_info">\counterShift:CounterHW\/tc</td>
+ <td class = "text_info">pinShift_Load(0)_PAD</td>
+ <td class = "number">34.909</td>
+</tr>
+<tr class="sta_path">
+<td class="sta_path"  colspan="3">
+<table class="sta_path">
+ <thead> 
+<tr> 
+<th>Type</th>
+<th>Location</th>
+<th>Fanout</th>
+<th>Instance/Net</th>
+<th>Source</th>
+<th>Dest</th>
+<th>Delay (ns)</th>
+</tr>
+</thead> 
+<tbody>
+<tr> 
+ <td class = "text_info">timercell</td>
+ <td class = "text_info">F(Timer,0)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\counterShift:CounterHW\</td>
+ <td class = "text_info">\counterShift:CounterHW\/clock</td>
+ <td class = "text_info">\counterShift:CounterHW\/tc</td>
+ <td class = "number">1.000</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"></td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_423</td>
+ <td class = "text_info">\counterShift:CounterHW\/tc</td>
+ <td class = "text_info">Net_492/main_0</td>
+ <td class = "number">9.735</td>
+</tr>
+<tr> 
+ <td class = "text_info">macrocell2</td>
+ <td class = "text_info">U(3,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_492</td>
+ <td class = "text_info">Net_492/main_0</td>
+ <td class = "text_info">Net_492/q</td>
+ <td class = "number">3.350</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"></td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_492</td>
+ <td class = "text_info">Net_492/q</td>
+ <td class = "text_info">pinShift_Load(0)/pin_input</td>
+ <td class = "number">5.829</td>
+</tr>
+<tr> 
+ <td class = "text_info">iocell11</td>
+ <td class = "text_info">P3[2]</td>
+ <td class = "number">1</td>
+ <td class = "text_info">pinShift_Load(0)</td>
+ <td class = "text_info">pinShift_Load(0)/pin_input</td>
+ <td class = "text_info">pinShift_Load(0)/pad_out</td>
+ <td class = "number">14.995</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"></td>
+ <td class = "number">1</td>
+ <td class = "text_info">pinShift_Load(0)_PAD</td>
+ <td class = "text_info">pinShift_Load(0)/pad_out</td>
+ <td class = "text_info">pinShift_Load(0)_PAD</td>
+ <td class = "number">0.000</td>
+</tr>
+<tr> 
+ <td class = "text_info">Clock</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info">Clock path delay</td>
+ <td class = "number">0.000</td>
+</tr>
+</tbody>
+ </table> 
+</td>
+</tr>
+</tbody>
+ </table> 
+</div>
+</div>
+<div class="sta_sec" >
 <div>
 <a href="#" style="text-decoration: none; color: inherit;">
 <span class="sec_head"><span style="font-family: monospace;">+</span>
@@ -3469,112 +3575,6 @@ clockShift</span>
  <td class = "text_info">pinCalibrateOut(0)_PAD</td>
  <td class = "text_info">pinCalibrateOut(0)/pad_out</td>
  <td class = "text_info">pinCalibrateOut(0)_PAD</td>
- <td class = "number">0.000</td>
-</tr>
-<tr> 
- <td class = "text_info">Clock</td>
- <td class = "text_info"> </td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info">Clock path delay</td>
- <td class = "number">0.000</td>
-</tr>
-</tbody>
- </table> 
-</td>
-</tr>
-</tbody>
- </table> 
-</div>
-</div>
-<div class="sta_sec" >
-<div>
-<a href="#" style="text-decoration: none; color: inherit;">
-<span class="sec_head"><span style="font-family: monospace;">+</span>
-clockShift(fixed-function)</span>
-</a>
-</div><div class="sta_secbody"><table class="sta_tscs">
- <thead> 
-<tr> 
-<th>Source</th>
-<th>Destination</th>
-<th>Delay (ns)</th>
-</tr>
-</thead> 
-<tbody>
-<tr> 
- <td class = "text_info">\counterShift:CounterHW\/tc</td>
- <td class = "text_info">pinShift_Load(0)_PAD</td>
- <td class = "number">34.233</td>
-</tr>
-<tr class="sta_path">
-<td class="sta_path"  colspan="3">
-<table class="sta_path">
- <thead> 
-<tr> 
-<th>Type</th>
-<th>Location</th>
-<th>Fanout</th>
-<th>Instance/Net</th>
-<th>Source</th>
-<th>Dest</th>
-<th>Delay (ns)</th>
-</tr>
-</thead> 
-<tbody>
-<tr> 
- <td class = "text_info">timercell</td>
- <td class = "text_info">F(Timer,0)</td>
- <td class = "number">1</td>
- <td class = "text_info">\counterShift:CounterHW\</td>
- <td class = "text_info">\counterShift:CounterHW\/clock</td>
- <td class = "text_info">\counterShift:CounterHW\/tc</td>
- <td class = "number">1.000</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"></td>
- <td class = "number">1</td>
- <td class = "text_info">Net_423</td>
- <td class = "text_info">\counterShift:CounterHW\/tc</td>
- <td class = "text_info">Net_492/main_0</td>
- <td class = "number">8.681</td>
-</tr>
-<tr> 
- <td class = "text_info">macrocell2</td>
- <td class = "text_info">U(3,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">Net_492</td>
- <td class = "text_info">Net_492/main_0</td>
- <td class = "text_info">Net_492/q</td>
- <td class = "number">3.350</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"></td>
- <td class = "number">1</td>
- <td class = "text_info">Net_492</td>
- <td class = "text_info">Net_492/q</td>
- <td class = "text_info">pinShift_Load(0)/pin_input</td>
- <td class = "number">6.207</td>
-</tr>
-<tr> 
- <td class = "text_info">iocell11</td>
- <td class = "text_info">P3[2]</td>
- <td class = "number">1</td>
- <td class = "text_info">pinShift_Load(0)</td>
- <td class = "text_info">pinShift_Load(0)/pin_input</td>
- <td class = "text_info">pinShift_Load(0)/pad_out</td>
- <td class = "number">14.995</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"></td>
- <td class = "number">1</td>
- <td class = "text_info">pinShift_Load(0)_PAD</td>
- <td class = "text_info">pinShift_Load(0)/pad_out</td>
- <td class = "text_info">pinShift_Load(0)_PAD</td>
  <td class = "number">0.000</td>
 </tr>
 <tr> 

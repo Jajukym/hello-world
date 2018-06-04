@@ -1,0 +1,2735 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"debug.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._write,"ax",%progbits
+  20              		.align	2
+  21              		.global	_write
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	_write, %function
+  25              	_write:
+  26              	.LFB38:
+  27              		.file 1 "debug.c"
+   1:debug.c       **** /* ========================================
+   2:debug.c       ****  *
+   3:debug.c       ****  * Copyright YOUR COMPANY, THE YEAR
+   4:debug.c       ****  * All Rights Reserved
+   5:debug.c       ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:debug.c       ****  *
+   7:debug.c       ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:debug.c       ****  * WHICH IS THE PROPERTY OF your company.
+   9:debug.c       ****  *
+  10:debug.c       ****  * ========================================
+  11:debug.c       **** */
+  12:debug.c       **** 
+  13:debug.c       **** #include "debug.h"
+  14:debug.c       **** 
+  15:debug.c       **** 
+  16:debug.c       **** #if defined(__ARMCC_VERSION)
+  17:debug.c       ****     
+  18:debug.c       **** /* For MDK/RVDS compiler revise fputc function for printf functionality */
+  19:debug.c       **** struct __FILE 
+  20:debug.c       **** {
+  21:debug.c       ****     int handle;  
+  22:debug.c       **** };
+  23:debug.c       **** 
+  24:debug.c       **** enum 
+  25:debug.c       **** {
+  26:debug.c       ****     STDIN_HANDLE,
+  27:debug.c       ****     STDOUT_HANDLE,
+  28:debug.c       ****     STDERR_HANDLE
+  29:debug.c       **** };
+  30:debug.c       **** 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 2
+
+
+  31:debug.c       **** FILE __stdin = {STDIN_HANDLE};
+  32:debug.c       **** FILE __stdout = {STDOUT_HANDLE};
+  33:debug.c       **** FILE __stderr = {STDERR_HANDLE};
+  34:debug.c       **** 
+  35:debug.c       **** int fputc(int ch, FILE *file) 
+  36:debug.c       **** {
+  37:debug.c       ****     int ret = EOF;
+  38:debug.c       **** 
+  39:debug.c       ****     switch( file->handle )
+  40:debug.c       ****     {
+  41:debug.c       ****         case STDOUT_HANDLE:
+  42:debug.c       ****             UART_DEB_UartPutChar(ch);
+  43:debug.c       ****             ret = ch ;
+  44:debug.c       ****             break ;
+  45:debug.c       **** 
+  46:debug.c       ****         case STDERR_HANDLE:
+  47:debug.c       ****             ret = ch ;
+  48:debug.c       ****             break ;
+  49:debug.c       **** 
+  50:debug.c       ****         default:
+  51:debug.c       ****             file = file;
+  52:debug.c       ****             break ;
+  53:debug.c       ****     }
+  54:debug.c       ****     return ret ;
+  55:debug.c       **** }
+  56:debug.c       **** 
+  57:debug.c       **** #elif defined (__ICCARM__)      /* IAR */
+  58:debug.c       **** 
+  59:debug.c       **** /* For IAR compiler revise __write() function for printf functionality */
+  60:debug.c       **** size_t __write(int handle, const unsigned char * buffer, size_t size)
+  61:debug.c       **** {
+  62:debug.c       ****     size_t nChars = 0;
+  63:debug.c       **** 
+  64:debug.c       ****     if (buffer == 0)
+  65:debug.c       ****     {
+  66:debug.c       ****         /*
+  67:debug.c       ****          * This means that we should flush internal buffers.  Since we
+  68:debug.c       ****          * don't we just return.  (Remember, "handle" == -1 means that all
+  69:debug.c       ****          * handles should be flushed.)
+  70:debug.c       ****          */
+  71:debug.c       ****         return (0);
+  72:debug.c       ****     }
+  73:debug.c       **** 
+  74:debug.c       ****     for (/* Empty */; size != 0; --size)
+  75:debug.c       ****     {
+  76:debug.c       ****         UART_DEB_UartPutChar(*buffer++);
+  77:debug.c       ****         ++nChars;
+  78:debug.c       ****     }
+  79:debug.c       **** 
+  80:debug.c       ****     return (nChars);
+  81:debug.c       **** }
+  82:debug.c       **** 
+  83:debug.c       **** #else  /* (__GNUC__)  GCC */
+  84:debug.c       **** 
+  85:debug.c       **** /* For GCC compiler revise _write() function for printf functionality */
+  86:debug.c       **** int _write(int file, char *ptr, int len)
+  87:debug.c       **** {
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 3
+
+
+  28              		.loc 1 87 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 24
+  31              		@ frame_needed = 1, uses_anonymous_args = 0
+  32 0000 80B5     		push	{r7, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 7, -8
+  35              		.cfi_offset 14, -4
+  36 0002 86B0     		sub	sp, sp, #24
+  37              		.cfi_def_cfa_offset 32
+  38 0004 00AF     		add	r7, sp, #0
+  39              		.cfi_def_cfa_register 7
+  40 0006 F860     		str	r0, [r7, #12]
+  41 0008 B960     		str	r1, [r7, #8]
+  42 000a 7A60     		str	r2, [r7, #4]
+  88:debug.c       ****     int i;
+  89:debug.c       ****     file = file;
+  90:debug.c       ****     for (i = 0; i < len; i++)
+  43              		.loc 1 90 0
+  44 000c 0023     		movs	r3, #0
+  45 000e 7B61     		str	r3, [r7, #20]
+  46 0010 09E0     		b	.L2
+  47              	.L3:
+  91:debug.c       ****     {
+  92:debug.c       ****         UART_UartPutChar(*ptr++);
+  48              		.loc 1 92 0 discriminator 3
+  49 0012 BB68     		ldr	r3, [r7, #8]
+  50 0014 5A1C     		adds	r2, r3, #1
+  51 0016 BA60     		str	r2, [r7, #8]
+  52 0018 1B78     		ldrb	r3, [r3]
+  53 001a 1800     		movs	r0, r3
+  54 001c FFF7FEFF 		bl	UART_SpiUartWriteTxData
+  90:debug.c       ****     {
+  55              		.loc 1 90 0 discriminator 3
+  56 0020 7B69     		ldr	r3, [r7, #20]
+  57 0022 0133     		adds	r3, r3, #1
+  58 0024 7B61     		str	r3, [r7, #20]
+  59              	.L2:
+  90:debug.c       ****     {
+  60              		.loc 1 90 0 is_stmt 0 discriminator 1
+  61 0026 7A69     		ldr	r2, [r7, #20]
+  62 0028 7B68     		ldr	r3, [r7, #4]
+  63 002a 9A42     		cmp	r2, r3
+  64 002c F1DB     		blt	.L3
+  93:debug.c       ****     }
+  94:debug.c       ****     return len;
+  65              		.loc 1 94 0 is_stmt 1
+  66 002e 7B68     		ldr	r3, [r7, #4]
+  95:debug.c       **** }
+  67              		.loc 1 95 0
+  68 0030 1800     		movs	r0, r3
+  69 0032 BD46     		mov	sp, r7
+  70 0034 06B0     		add	sp, sp, #24
+  71              		@ sp needed
+  72 0036 80BD     		pop	{r7, pc}
+  73              		.cfi_endproc
+  74              	.LFE38:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 4
+
+
+  75              		.size	_write, .-_write
+  76              		.section	.rodata
+  77              		.align	2
+  78              	.LC1:
+  79 0000 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID \015\000"
+  79      455F4556 
+  79      545F484F 
+  79      53545F49 
+  79      4E56414C 
+  80 0019 000000   		.align	2
+  81              	.LC3:
+  82 001c 4359424C 		.ascii	"CYBLE_EVT_STACK_ON \015\000"
+  82      455F4556 
+  82      545F5354 
+  82      41434B5F 
+  82      4F4E200D 
+  83 0031 000000   		.align	2
+  84              	.LC5:
+  85 0034 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT \015\000"
+  85      455F4556 
+  85      545F5449 
+  85      4D454F55 
+  85      54200D00 
+  86              		.align	2
+  87              	.LC7:
+  88 0048 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR \015\000"
+  88      455F4556 
+  88      545F4841 
+  88      52445741 
+  88      52455F45 
+  89 0063 00       		.align	2
+  90              	.LC9:
+  91 0064 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS \015\000"
+  91      455F4556 
+  91      545F4843 
+  91      495F5354 
+  91      41545553 
+  92 007b 00       		.align	2
+  93              	.LC11:
+  94 007c 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS \015\000"
+  94      455F4556 
+  94      545F5354 
+  94      41434B5F 
+  94      42555359 
+  95 009a 0000     		.align	2
+  96              	.LC13:
+  97 009c 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT \015\000"
+  97      455F4556 
+  97      545F4741 
+  97      50435F53 
+  97      43414E5F 
+  98 00c2 0000     		.align	2
+  99              	.LC15:
+ 100 00c4 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ \015\000"
+ 100      455F4556 
+ 100      545F4741 
+ 100      505F4155 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 5
+
+
+ 100      54485F52 
+ 101 00dd 000000   		.align	2
+ 102              	.LC17:
+ 103 00e0 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST \015\000"
+ 103      455F4556 
+ 103      545F4741 
+ 103      505F5041 
+ 103      53534B45 
+ 104 0106 0000     		.align	2
+ 105              	.LC19:
+ 106 0108 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST \015\000"
+ 106      455F4556 
+ 106      545F4741 
+ 106      505F5041 
+ 106      53534B45 
+ 107              		.align	2
+ 108              	.LC21:
+ 109 0130 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE \015\000"
+ 109      455F4556 
+ 109      545F4741 
+ 109      505F4155 
+ 109      54485F43 
+ 110 014e 0000     		.align	2
+ 111              	.LC23:
+ 112 0150 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED \015\000"
+ 112      455F4556 
+ 112      545F4741 
+ 112      505F4155 
+ 112      54485F46 
+ 113              		.align	2
+ 114              	.LC25:
+ 115 016c 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP \015\000"
+ 115      455F4556 
+ 115      545F4741 
+ 115      50505F41 
+ 115      44564552 
+ 116 0196 0000     		.align	2
+ 117              	.LC27:
+ 118 0198 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED \015\000"
+ 118      455F4556 
+ 118      545F4741 
+ 118      505F4445 
+ 118      56494345 
+ 119 01b9 000000   		.align	2
+ 120              	.LC29:
+ 121 01bc 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED \015\000"
+ 121      455F4556 
+ 121      545F4741 
+ 121      505F4445 
+ 121      56494345 
+ 122              		.align	2
+ 123              	.LC31:
+ 124 01e0 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE \015\000"
+ 124      455F4556 
+ 124      545F4741 
+ 124      505F454E 
+ 124      43525950 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 6
+
+
+ 125 01ff 00       		.align	2
+ 126              	.LC33:
+ 127 0200 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE \015\000"
+ 127      455F4556 
+ 127      545F4741 
+ 127      505F434F 
+ 127      4E4E4543 
+ 128 022b 00       		.align	2
+ 129              	.LC35:
+ 130 022c 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP \015\000"
+ 130      455F4556 
+ 130      545F4741 
+ 130      50435F53 
+ 130      43414E5F 
+ 131 024d 000000   		.align	2
+ 132              	.LC37:
+ 133 0250 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT \015\000"
+ 133      455F4556 
+ 133      545F4741 
+ 133      505F4B45 
+ 133      59494E46 
+ 134 0276 0000     		.align	2
+ 135              	.LC39:
+ 136 0278 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP \015\000"
+ 136      455F4556 
+ 136      545F4741 
+ 136      5454435F 
+ 136      4552524F 
+ 137              		.align	2
+ 138              	.LC41:
+ 139 0294 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND \015\000"
+ 139      455F4556 
+ 139      545F4741 
+ 139      54545F43 
+ 139      4F4E4E45 
+ 140 02b1 000000   		.align	2
+ 141              	.LC43:
+ 142 02b4 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND \015\000"
+ 142      455F4556 
+ 142      545F4741 
+ 142      54545F44 
+ 142      4953434F 
+ 143              		.align	2
+ 144              	.LC45:
+ 145 02d4 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ \015\000"
+ 145      455F4556 
+ 145      545F4741 
+ 145      5454535F 
+ 145      58434E48 
+ 146              		.align	2
+ 147              	.LC47:
+ 148 02f4 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP \015\000"
+ 148      455F4556 
+ 148      545F4741 
+ 148      5454435F 
+ 148      5843484E 
+ 149              		.align	2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 7
+
+
+ 150              	.LC49:
+ 151 0314 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP \015\000"
+ 151      455F4556 
+ 151      545F4741 
+ 151      5454435F 
+ 151      52454144 
+ 152 033d 000000   		.align	2
+ 153              	.LC51:
+ 154 0340 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP \015\000"
+ 154      455F4556 
+ 154      545F4741 
+ 154      5454435F 
+ 154      52454144 
+ 155 0363 00       		.align	2
+ 156              	.LC53:
+ 157 0364 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP \015\000"
+ 157      455F4556 
+ 157      545F4741 
+ 157      5454435F 
+ 157      46494E44 
+ 158              		.align	2
+ 159              	.LC55:
+ 160 0384 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP \015\000"
+ 160      455F4556 
+ 160      545F4741 
+ 160      5454435F 
+ 160      46494E44 
+ 161 03ad 000000   		.align	2
+ 162              	.LC57:
+ 163 03b0 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP \015\000"
+ 163      455F4556 
+ 163      545F4741 
+ 163      5454435F 
+ 163      52454144 
+ 164 03cb 00       		.align	2
+ 165              	.LC59:
+ 166 03cc 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP \015\000"
+ 166      455F4556 
+ 166      545F4741 
+ 166      5454435F 
+ 166      52454144 
+ 167              		.align	2
+ 168              	.LC61:
+ 169 03ec 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP \015\000"
+ 169      455F4556 
+ 169      545F4741 
+ 169      5454435F 
+ 169      52454144 
+ 170 040d 000000   		.align	2
+ 171              	.LC63:
+ 172 0410 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ \015\000"
+ 172      455F4556 
+ 172      545F4741 
+ 172      5454535F 
+ 172      57524954 
+ 173              		.align	2
+ 174              	.LC65:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 8
+
+
+ 175 042c 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP \015\000"
+ 175      455F4556 
+ 175      545F4741 
+ 175      5454435F 
+ 175      57524954 
+ 176              		.align	2
+ 177              	.LC67:
+ 178 0448 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ \015\000"
+ 178      455F4556 
+ 178      545F4741 
+ 178      5454535F 
+ 178      57524954 
+ 179              		.align	2
+ 180              	.LC69:
+ 181 0468 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ \015\000"
+ 181      455F4556 
+ 181      545F4741 
+ 181      5454535F 
+ 181      50524550 
+ 182 0489 000000   		.align	2
+ 183              	.LC71:
+ 184 048c 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ \015\000"
+ 184      455F4556 
+ 184      545F4741 
+ 184      5454535F 
+ 184      45584543 
+ 185 04ad 000000   		.align	2
+ 186              	.LC73:
+ 187 04b0 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP \015\000"
+ 187      455F4556 
+ 187      545F4741 
+ 187      5454435F 
+ 187      45584543 
+ 188 04d1 000000   		.align	2
+ 189              	.LC75:
+ 190 04d4 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF \015\000"
+ 190      455F4556 
+ 190      545F4741 
+ 190      5454435F 
+ 190      48414E44 
+ 191 04f7 00       		.align	2
+ 192              	.LC77:
+ 193 04f8 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND \015\000"
+ 193      455F4556 
+ 193      545F4741 
+ 193      5454435F 
+ 193      48414E44 
+ 194 051b 00       		.align	2
+ 195              	.LC79:
+ 196 051c 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF \015\000"
+ 196      455F4556 
+ 196      545F4741 
+ 196      5454535F 
+ 196      48414E44 
+ 197 053f 00       		.align	2
+ 198              	.LC81:
+ 199 0540 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ \015\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 9
+
+
+ 199      455F4556 
+ 199      545F4741 
+ 199      5454535F 
+ 199      44415441 
+ 200 0566 0000     		.align	2
+ 201              	.LC83:
+ 202 0568 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ \015\000"
+ 202      455F4556 
+ 202      545F4C32 
+ 202      4341505F 
+ 202      434F4E4E 
+ 203              		.align	2
+ 204              	.LC85:
+ 205 0590 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP \015\000"
+ 205      455F4556 
+ 205      545F4C32 
+ 205      4341505F 
+ 205      434F4E4E 
+ 206              		.align	2
+ 207              	.LC87:
+ 208 05b8 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ \015\000"
+ 208      455F4556 
+ 208      545F4C32 
+ 208      4341505F 
+ 208      434F4D4D 
+ 209 05d6 0000     		.align	2
+ 210              	.LC89:
+ 211 05d8 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND \015\000"
+ 211      455F4556 
+ 211      545F4C32 
+ 211      4341505F 
+ 211      43424643 
+ 212              		.align	2
+ 213              	.LC91:
+ 214 05f8 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF \015\000"
+ 214      455F4556 
+ 214      545F4C32 
+ 214      4341505F 
+ 214      43424643 
+ 215              		.align	2
+ 216              	.LC93:
+ 217 0618 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND \015\000"
+ 217      455F4556 
+ 217      545F4C32 
+ 217      4341505F 
+ 217      43424643 
+ 218 063b 00       		.align	2
+ 219              	.LC95:
+ 220 063c 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF \015\000"
+ 220      455F4556 
+ 220      545F4C32 
+ 220      4341505F 
+ 220      43424643 
+ 221 065f 00       		.align	2
+ 222              	.LC97:
+ 223 0660 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ \015\000"
+ 223      455F4556 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 10
+
+
+ 223      545F4C32 
+ 223      4341505F 
+ 223      43424643 
+ 224 0681 000000   		.align	2
+ 225              	.LC99:
+ 226 0684 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND \015\000"
+ 226      455F4556 
+ 226      545F4C32 
+ 226      4341505F 
+ 226      43424643 
+ 227 06a9 000000   		.align	2
+ 228              	.LC101:
+ 229 06ac 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND \015\000"
+ 229      455F4556 
+ 229      545F4C32 
+ 229      4341505F 
+ 229      43424643 
+ 230 06d1 000000   		.align	2
+ 231              	.LC103:
+ 232 06d4 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND \015\000"
+ 232      455F4556 
+ 232      545F4C32 
+ 232      4341505F 
+ 232      43424643 
+ 233 06fa 0000     		.align	2
+ 234              	.LC105:
+ 235 06fc 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE \015\000"
+ 235      455F4556 
+ 235      545F5045 
+ 235      4E44494E 
+ 235      475F464C 
+ 236              		.align	2
+ 237              	.LC107:
+ 238 071c 4359424C 		.ascii	"CYBLE_EVT_MAX \015\000"
+ 238      455F4556 
+ 238      545F4D41 
+ 238      58200D00 
+ 239              		.section	.text.print_event,"ax",%progbits
+ 240              		.align	2
+ 241              		.global	print_event
+ 242              		.code	16
+ 243              		.thumb_func
+ 244              		.type	print_event, %function
+ 245              	print_event:
+ 246              	.LFB39:
+  96:debug.c       **** 
+  97:debug.c       **** 
+  98:debug.c       **** #endif  /* (__ARMCC_VERSION) */   
+  99:debug.c       **** 
+ 100:debug.c       **** 
+ 101:debug.c       **** void print_event(uint32 event)
+ 102:debug.c       **** {
+ 247              		.loc 1 102 0
+ 248              		.cfi_startproc
+ 249              		@ args = 0, pretend = 0, frame = 8
+ 250              		@ frame_needed = 1, uses_anonymous_args = 0
+ 251 0000 80B5     		push	{r7, lr}
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 11
+
+
+ 252              		.cfi_def_cfa_offset 8
+ 253              		.cfi_offset 7, -8
+ 254              		.cfi_offset 14, -4
+ 255 0002 82B0     		sub	sp, sp, #8
+ 256              		.cfi_def_cfa_offset 16
+ 257 0004 00AF     		add	r7, sp, #0
+ 258              		.cfi_def_cfa_register 7
+ 259 0006 7860     		str	r0, [r7, #4]
+ 103:debug.c       **** 	switch(event)
+ 260              		.loc 1 103 0
+ 261 0008 7B68     		ldr	r3, [r7, #4]
+ 262 000a FF2B     		cmp	r3, #255
+ 263 000c 00D9     		bls	.LCB63
+ 264 000e 13E1     		b	.L63	@long jump
+ 265              	.LCB63:
+ 266 0010 7B68     		ldr	r3, [r7, #4]
+ 267 0012 9A00     		lsls	r2, r3, #2
+ 268 0014 8B4B     		ldr	r3, .L64
+ 269 0016 D318     		adds	r3, r2, r3
+ 270 0018 1B68     		ldr	r3, [r3]
+ 271 001a 9F46     		mov	pc, r3
+ 272              		.section	.rodata
+ 273              		.align	2
+ 274              	.L8:
+ 275 072c 1C000000 		.word	.L7
+ 276 0730 26000000 		.word	.L9
+ 277 0734 30000000 		.word	.L10
+ 278 0738 3A000000 		.word	.L11
+ 279 073c 44000000 		.word	.L12
+ 280 0740 4E000000 		.word	.L13
+ 281 0744 38020000 		.word	.L63
+ 282 0748 38020000 		.word	.L63
+ 283 074c 38020000 		.word	.L63
+ 284 0750 38020000 		.word	.L63
+ 285 0754 38020000 		.word	.L63
+ 286 0758 38020000 		.word	.L63
+ 287 075c 38020000 		.word	.L63
+ 288 0760 38020000 		.word	.L63
+ 289 0764 38020000 		.word	.L63
+ 290 0768 38020000 		.word	.L63
+ 291 076c 38020000 		.word	.L63
+ 292 0770 38020000 		.word	.L63
+ 293 0774 38020000 		.word	.L63
+ 294 0778 38020000 		.word	.L63
+ 295 077c 38020000 		.word	.L63
+ 296 0780 38020000 		.word	.L63
+ 297 0784 38020000 		.word	.L63
+ 298 0788 38020000 		.word	.L63
+ 299 078c 38020000 		.word	.L63
+ 300 0790 38020000 		.word	.L63
+ 301 0794 38020000 		.word	.L63
+ 302 0798 38020000 		.word	.L63
+ 303 079c 38020000 		.word	.L63
+ 304 07a0 38020000 		.word	.L63
+ 305 07a4 38020000 		.word	.L63
+ 306 07a8 38020000 		.word	.L63
+ 307 07ac 58000000 		.word	.L14
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 12
+
+
+ 308 07b0 62000000 		.word	.L15
+ 309 07b4 6C000000 		.word	.L16
+ 310 07b8 76000000 		.word	.L17
+ 311 07bc 80000000 		.word	.L18
+ 312 07c0 8A000000 		.word	.L19
+ 313 07c4 94000000 		.word	.L20
+ 314 07c8 9E000000 		.word	.L21
+ 315 07cc A8000000 		.word	.L22
+ 316 07d0 B2000000 		.word	.L23
+ 317 07d4 BC000000 		.word	.L24
+ 318 07d8 C6000000 		.word	.L25
+ 319 07dc D0000000 		.word	.L26
+ 320 07e0 38020000 		.word	.L63
+ 321 07e4 38020000 		.word	.L63
+ 322 07e8 38020000 		.word	.L63
+ 323 07ec 38020000 		.word	.L63
+ 324 07f0 38020000 		.word	.L63
+ 325 07f4 38020000 		.word	.L63
+ 326 07f8 38020000 		.word	.L63
+ 327 07fc 38020000 		.word	.L63
+ 328 0800 38020000 		.word	.L63
+ 329 0804 38020000 		.word	.L63
+ 330 0808 38020000 		.word	.L63
+ 331 080c 38020000 		.word	.L63
+ 332 0810 38020000 		.word	.L63
+ 333 0814 38020000 		.word	.L63
+ 334 0818 38020000 		.word	.L63
+ 335 081c 38020000 		.word	.L63
+ 336 0820 38020000 		.word	.L63
+ 337 0824 38020000 		.word	.L63
+ 338 0828 38020000 		.word	.L63
+ 339 082c DA000000 		.word	.L27
+ 340 0830 E4000000 		.word	.L28
+ 341 0834 EE000000 		.word	.L29
+ 342 0838 F8000000 		.word	.L30
+ 343 083c 02010000 		.word	.L31
+ 344 0840 0C010000 		.word	.L32
+ 345 0844 16010000 		.word	.L33
+ 346 0848 20010000 		.word	.L34
+ 347 084c 2A010000 		.word	.L35
+ 348 0850 34010000 		.word	.L36
+ 349 0854 3E010000 		.word	.L37
+ 350 0858 48010000 		.word	.L38
+ 351 085c 52010000 		.word	.L39
+ 352 0860 5C010000 		.word	.L40
+ 353 0864 66010000 		.word	.L41
+ 354 0868 70010000 		.word	.L42
+ 355 086c 7A010000 		.word	.L43
+ 356 0870 84010000 		.word	.L44
+ 357 0874 8E010000 		.word	.L45
+ 358 0878 98010000 		.word	.L46
+ 359 087c A2010000 		.word	.L47
+ 360 0880 AC010000 		.word	.L48
+ 361 0884 38020000 		.word	.L63
+ 362 0888 38020000 		.word	.L63
+ 363 088c 38020000 		.word	.L63
+ 364 0890 38020000 		.word	.L63
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 13
+
+
+ 365 0894 38020000 		.word	.L63
+ 366 0898 38020000 		.word	.L63
+ 367 089c 38020000 		.word	.L63
+ 368 08a0 38020000 		.word	.L63
+ 369 08a4 38020000 		.word	.L63
+ 370 08a8 38020000 		.word	.L63
+ 371 08ac 38020000 		.word	.L63
+ 372 08b0 38020000 		.word	.L63
+ 373 08b4 38020000 		.word	.L63
+ 374 08b8 38020000 		.word	.L63
+ 375 08bc 38020000 		.word	.L63
+ 376 08c0 38020000 		.word	.L63
+ 377 08c4 38020000 		.word	.L63
+ 378 08c8 38020000 		.word	.L63
+ 379 08cc 38020000 		.word	.L63
+ 380 08d0 38020000 		.word	.L63
+ 381 08d4 38020000 		.word	.L63
+ 382 08d8 38020000 		.word	.L63
+ 383 08dc 38020000 		.word	.L63
+ 384 08e0 38020000 		.word	.L63
+ 385 08e4 38020000 		.word	.L63
+ 386 08e8 38020000 		.word	.L63
+ 387 08ec B6010000 		.word	.L49
+ 388 08f0 C0010000 		.word	.L50
+ 389 08f4 CA010000 		.word	.L51
+ 390 08f8 D4010000 		.word	.L52
+ 391 08fc DE010000 		.word	.L53
+ 392 0900 E8010000 		.word	.L54
+ 393 0904 F2010000 		.word	.L55
+ 394 0908 FC010000 		.word	.L56
+ 395 090c 06020000 		.word	.L57
+ 396 0910 10020000 		.word	.L58
+ 397 0914 1A020000 		.word	.L59
+ 398 0918 38020000 		.word	.L63
+ 399 091c 38020000 		.word	.L63
+ 400 0920 38020000 		.word	.L63
+ 401 0924 38020000 		.word	.L63
+ 402 0928 38020000 		.word	.L63
+ 403 092c 38020000 		.word	.L63
+ 404 0930 38020000 		.word	.L63
+ 405 0934 38020000 		.word	.L63
+ 406 0938 38020000 		.word	.L63
+ 407 093c 38020000 		.word	.L63
+ 408 0940 38020000 		.word	.L63
+ 409 0944 38020000 		.word	.L63
+ 410 0948 38020000 		.word	.L63
+ 411 094c 38020000 		.word	.L63
+ 412 0950 38020000 		.word	.L63
+ 413 0954 38020000 		.word	.L63
+ 414 0958 38020000 		.word	.L63
+ 415 095c 38020000 		.word	.L63
+ 416 0960 38020000 		.word	.L63
+ 417 0964 38020000 		.word	.L63
+ 418 0968 38020000 		.word	.L63
+ 419 096c 38020000 		.word	.L63
+ 420 0970 38020000 		.word	.L63
+ 421 0974 38020000 		.word	.L63
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 14
+
+
+ 422 0978 38020000 		.word	.L63
+ 423 097c 38020000 		.word	.L63
+ 424 0980 38020000 		.word	.L63
+ 425 0984 38020000 		.word	.L63
+ 426 0988 38020000 		.word	.L63
+ 427 098c 38020000 		.word	.L63
+ 428 0990 38020000 		.word	.L63
+ 429 0994 38020000 		.word	.L63
+ 430 0998 38020000 		.word	.L63
+ 431 099c 38020000 		.word	.L63
+ 432 09a0 38020000 		.word	.L63
+ 433 09a4 38020000 		.word	.L63
+ 434 09a8 38020000 		.word	.L63
+ 435 09ac 38020000 		.word	.L63
+ 436 09b0 38020000 		.word	.L63
+ 437 09b4 38020000 		.word	.L63
+ 438 09b8 38020000 		.word	.L63
+ 439 09bc 38020000 		.word	.L63
+ 440 09c0 38020000 		.word	.L63
+ 441 09c4 38020000 		.word	.L63
+ 442 09c8 38020000 		.word	.L63
+ 443 09cc 38020000 		.word	.L63
+ 444 09d0 38020000 		.word	.L63
+ 445 09d4 38020000 		.word	.L63
+ 446 09d8 38020000 		.word	.L63
+ 447 09dc 38020000 		.word	.L63
+ 448 09e0 38020000 		.word	.L63
+ 449 09e4 38020000 		.word	.L63
+ 450 09e8 38020000 		.word	.L63
+ 451 09ec 38020000 		.word	.L63
+ 452 09f0 38020000 		.word	.L63
+ 453 09f4 38020000 		.word	.L63
+ 454 09f8 38020000 		.word	.L63
+ 455 09fc 38020000 		.word	.L63
+ 456 0a00 38020000 		.word	.L63
+ 457 0a04 38020000 		.word	.L63
+ 458 0a08 38020000 		.word	.L63
+ 459 0a0c 38020000 		.word	.L63
+ 460 0a10 38020000 		.word	.L63
+ 461 0a14 38020000 		.word	.L63
+ 462 0a18 38020000 		.word	.L63
+ 463 0a1c 38020000 		.word	.L63
+ 464 0a20 38020000 		.word	.L63
+ 465 0a24 38020000 		.word	.L63
+ 466 0a28 38020000 		.word	.L63
+ 467 0a2c 38020000 		.word	.L63
+ 468 0a30 38020000 		.word	.L63
+ 469 0a34 38020000 		.word	.L63
+ 470 0a38 38020000 		.word	.L63
+ 471 0a3c 38020000 		.word	.L63
+ 472 0a40 38020000 		.word	.L63
+ 473 0a44 38020000 		.word	.L63
+ 474 0a48 38020000 		.word	.L63
+ 475 0a4c 38020000 		.word	.L63
+ 476 0a50 38020000 		.word	.L63
+ 477 0a54 38020000 		.word	.L63
+ 478 0a58 38020000 		.word	.L63
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 15
+
+
+ 479 0a5c 38020000 		.word	.L63
+ 480 0a60 38020000 		.word	.L63
+ 481 0a64 38020000 		.word	.L63
+ 482 0a68 38020000 		.word	.L63
+ 483 0a6c 38020000 		.word	.L63
+ 484 0a70 38020000 		.word	.L63
+ 485 0a74 38020000 		.word	.L63
+ 486 0a78 38020000 		.word	.L63
+ 487 0a7c 38020000 		.word	.L63
+ 488 0a80 38020000 		.word	.L63
+ 489 0a84 38020000 		.word	.L63
+ 490 0a88 38020000 		.word	.L63
+ 491 0a8c 38020000 		.word	.L63
+ 492 0a90 38020000 		.word	.L63
+ 493 0a94 38020000 		.word	.L63
+ 494 0a98 38020000 		.word	.L63
+ 495 0a9c 38020000 		.word	.L63
+ 496 0aa0 38020000 		.word	.L63
+ 497 0aa4 38020000 		.word	.L63
+ 498 0aa8 38020000 		.word	.L63
+ 499 0aac 38020000 		.word	.L63
+ 500 0ab0 38020000 		.word	.L63
+ 501 0ab4 38020000 		.word	.L63
+ 502 0ab8 38020000 		.word	.L63
+ 503 0abc 38020000 		.word	.L63
+ 504 0ac0 38020000 		.word	.L63
+ 505 0ac4 38020000 		.word	.L63
+ 506 0ac8 38020000 		.word	.L63
+ 507 0acc 38020000 		.word	.L63
+ 508 0ad0 38020000 		.word	.L63
+ 509 0ad4 38020000 		.word	.L63
+ 510 0ad8 38020000 		.word	.L63
+ 511 0adc 38020000 		.word	.L63
+ 512 0ae0 38020000 		.word	.L63
+ 513 0ae4 38020000 		.word	.L63
+ 514 0ae8 38020000 		.word	.L63
+ 515 0aec 38020000 		.word	.L63
+ 516 0af0 38020000 		.word	.L63
+ 517 0af4 38020000 		.word	.L63
+ 518 0af8 38020000 		.word	.L63
+ 519 0afc 38020000 		.word	.L63
+ 520 0b00 38020000 		.word	.L63
+ 521 0b04 38020000 		.word	.L63
+ 522 0b08 38020000 		.word	.L63
+ 523 0b0c 38020000 		.word	.L63
+ 524 0b10 38020000 		.word	.L63
+ 525 0b14 24020000 		.word	.L60
+ 526 0b18 38020000 		.word	.L63
+ 527 0b1c 38020000 		.word	.L63
+ 528 0b20 38020000 		.word	.L63
+ 529 0b24 38020000 		.word	.L63
+ 530 0b28 2E020000 		.word	.L61
+ 531              		.section	.text.print_event
+ 532              	.L7:
+ 104:debug.c       **** 	{
+ 105:debug.c       **** 		case CYBLE_EVT_HOST_INVALID :
+ 106:debug.c       **** 			printf("CYBLE_EVT_HOST_INVALID \r\n");
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 16
+
+
+ 533              		.loc 1 106 0
+ 534 001c 8A4B     		ldr	r3, .L64+4
+ 535 001e 1800     		movs	r0, r3
+ 536 0020 FFF7FEFF 		bl	puts
+ 107:debug.c       **** 			break;
+ 537              		.loc 1 107 0
+ 538 0024 09E1     		b	.L62
+ 539              	.L9:
+ 108:debug.c       **** 		
+ 109:debug.c       **** 		case CYBLE_EVT_STACK_ON :
+ 110:debug.c       **** 			printf("CYBLE_EVT_STACK_ON \r\n");
+ 540              		.loc 1 110 0
+ 541 0026 894B     		ldr	r3, .L64+8
+ 542 0028 1800     		movs	r0, r3
+ 543 002a FFF7FEFF 		bl	puts
+ 111:debug.c       **** 			break;	
+ 544              		.loc 1 111 0
+ 545 002e 04E1     		b	.L62
+ 546              	.L10:
+ 112:debug.c       **** 		case CYBLE_EVT_TIMEOUT :
+ 113:debug.c       **** 			printf("CYBLE_EVT_TIMEOUT \r\n");
+ 547              		.loc 1 113 0
+ 548 0030 874B     		ldr	r3, .L64+12
+ 549 0032 1800     		movs	r0, r3
+ 550 0034 FFF7FEFF 		bl	puts
+ 114:debug.c       **** 			break;	
+ 551              		.loc 1 114 0
+ 552 0038 FFE0     		b	.L62
+ 553              	.L11:
+ 115:debug.c       **** 		case CYBLE_EVT_HARDWARE_ERROR :
+ 116:debug.c       **** 			printf("CYBLE_EVT_HARDWARE_ERROR \r\n");
+ 554              		.loc 1 116 0
+ 555 003a 864B     		ldr	r3, .L64+16
+ 556 003c 1800     		movs	r0, r3
+ 557 003e FFF7FEFF 		bl	puts
+ 117:debug.c       **** 			break;				
+ 558              		.loc 1 117 0
+ 559 0042 FAE0     		b	.L62
+ 560              	.L12:
+ 118:debug.c       **** 		case CYBLE_EVT_HCI_STATUS :
+ 119:debug.c       **** 			printf("CYBLE_EVT_HCI_STATUS \r\n");
+ 561              		.loc 1 119 0
+ 562 0044 844B     		ldr	r3, .L64+20
+ 563 0046 1800     		movs	r0, r3
+ 564 0048 FFF7FEFF 		bl	puts
+ 120:debug.c       **** 			break;				
+ 565              		.loc 1 120 0
+ 566 004c F5E0     		b	.L62
+ 567              	.L13:
+ 121:debug.c       **** 		case CYBLE_EVT_STACK_BUSY_STATUS :
+ 122:debug.c       **** 			printf("CYBLE_EVT_STACK_BUSY_STATUS \r\n");
+ 568              		.loc 1 122 0
+ 569 004e 834B     		ldr	r3, .L64+24
+ 570 0050 1800     		movs	r0, r3
+ 571 0052 FFF7FEFF 		bl	puts
+ 123:debug.c       **** 			break;				
+ 572              		.loc 1 123 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 17
+
+
+ 573 0056 F0E0     		b	.L62
+ 574              	.L14:
+ 124:debug.c       **** 		case CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT :
+ 125:debug.c       **** 			printf("CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT \r\n");
+ 575              		.loc 1 125 0
+ 576 0058 814B     		ldr	r3, .L64+28
+ 577 005a 1800     		movs	r0, r3
+ 578 005c FFF7FEFF 		bl	puts
+ 126:debug.c       **** 			break;				
+ 579              		.loc 1 126 0
+ 580 0060 EBE0     		b	.L62
+ 581              	.L15:
+ 127:debug.c       **** 		case CYBLE_EVT_GAP_AUTH_REQ :
+ 128:debug.c       **** 			printf("CYBLE_EVT_GAP_AUTH_REQ \r\n");
+ 582              		.loc 1 128 0
+ 583 0062 804B     		ldr	r3, .L64+32
+ 584 0064 1800     		movs	r0, r3
+ 585 0066 FFF7FEFF 		bl	puts
+ 129:debug.c       **** 			break;				
+ 586              		.loc 1 129 0
+ 587 006a E6E0     		b	.L62
+ 588              	.L16:
+ 130:debug.c       **** 		case CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST :
+ 131:debug.c       **** 			printf("CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST \r\n");
+ 589              		.loc 1 131 0
+ 590 006c 7E4B     		ldr	r3, .L64+36
+ 591 006e 1800     		movs	r0, r3
+ 592 0070 FFF7FEFF 		bl	puts
+ 132:debug.c       **** 			break;				
+ 593              		.loc 1 132 0
+ 594 0074 E1E0     		b	.L62
+ 595              	.L17:
+ 133:debug.c       **** 		case CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST :
+ 134:debug.c       **** 			printf("CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST \r\n");
+ 596              		.loc 1 134 0
+ 597 0076 7D4B     		ldr	r3, .L64+40
+ 598 0078 1800     		movs	r0, r3
+ 599 007a FFF7FEFF 		bl	puts
+ 135:debug.c       **** 			break;				
+ 600              		.loc 1 135 0
+ 601 007e DCE0     		b	.L62
+ 602              	.L18:
+ 136:debug.c       **** 		case CYBLE_EVT_GAP_AUTH_COMPLETE :
+ 137:debug.c       **** 			printf("CYBLE_EVT_GAP_AUTH_COMPLETE \r\n");
+ 603              		.loc 1 137 0
+ 604 0080 7B4B     		ldr	r3, .L64+44
+ 605 0082 1800     		movs	r0, r3
+ 606 0084 FFF7FEFF 		bl	puts
+ 138:debug.c       **** 			break;				
+ 607              		.loc 1 138 0
+ 608 0088 D7E0     		b	.L62
+ 609              	.L19:
+ 139:debug.c       **** 		case CYBLE_EVT_GAP_AUTH_FAILED :
+ 140:debug.c       **** 			printf("CYBLE_EVT_GAP_AUTH_FAILED \r\n");
+ 610              		.loc 1 140 0
+ 611 008a 7A4B     		ldr	r3, .L64+48
+ 612 008c 1800     		movs	r0, r3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 18
+
+
+ 613 008e FFF7FEFF 		bl	puts
+ 141:debug.c       **** 			break;				
+ 614              		.loc 1 141 0
+ 615 0092 D2E0     		b	.L62
+ 616              	.L20:
+ 142:debug.c       **** 		case CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP :
+ 143:debug.c       **** 			printf("CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP \r\n");
+ 617              		.loc 1 143 0
+ 618 0094 784B     		ldr	r3, .L64+52
+ 619 0096 1800     		movs	r0, r3
+ 620 0098 FFF7FEFF 		bl	puts
+ 144:debug.c       **** 			break;				
+ 621              		.loc 1 144 0
+ 622 009c CDE0     		b	.L62
+ 623              	.L21:
+ 145:debug.c       **** 		case CYBLE_EVT_GAP_DEVICE_CONNECTED :
+ 146:debug.c       **** 			printf("CYBLE_EVT_GAP_DEVICE_CONNECTED \r\n");
+ 624              		.loc 1 146 0
+ 625 009e 774B     		ldr	r3, .L64+56
+ 626 00a0 1800     		movs	r0, r3
+ 627 00a2 FFF7FEFF 		bl	puts
+ 147:debug.c       **** 			break;				
+ 628              		.loc 1 147 0
+ 629 00a6 C8E0     		b	.L62
+ 630              	.L22:
+ 148:debug.c       **** 		case CYBLE_EVT_GAP_DEVICE_DISCONNECTED :
+ 149:debug.c       **** 			printf("CYBLE_EVT_GAP_DEVICE_DISCONNECTED \r\n");
+ 631              		.loc 1 149 0
+ 632 00a8 754B     		ldr	r3, .L64+60
+ 633 00aa 1800     		movs	r0, r3
+ 634 00ac FFF7FEFF 		bl	puts
+ 150:debug.c       **** 			break;				
+ 635              		.loc 1 150 0
+ 636 00b0 C3E0     		b	.L62
+ 637              	.L23:
+ 151:debug.c       **** 		case CYBLE_EVT_GAP_ENCRYPT_CHANGE :
+ 152:debug.c       **** 			printf("CYBLE_EVT_GAP_ENCRYPT_CHANGE \r\n");
+ 638              		.loc 1 152 0
+ 639 00b2 744B     		ldr	r3, .L64+64
+ 640 00b4 1800     		movs	r0, r3
+ 641 00b6 FFF7FEFF 		bl	puts
+ 153:debug.c       **** 			break;				
+ 642              		.loc 1 153 0
+ 643 00ba BEE0     		b	.L62
+ 644              	.L24:
+ 154:debug.c       **** 		case CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE :
+ 155:debug.c       **** 			printf("CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE \r\n");
+ 645              		.loc 1 155 0
+ 646 00bc 724B     		ldr	r3, .L64+68
+ 647 00be 1800     		movs	r0, r3
+ 648 00c0 FFF7FEFF 		bl	puts
+ 156:debug.c       **** 			break;				
+ 649              		.loc 1 156 0
+ 650 00c4 B9E0     		b	.L62
+ 651              	.L25:
+ 157:debug.c       **** 		case CYBLE_EVT_GAPC_SCAN_START_STOP :
+ 158:debug.c       **** 			printf("CYBLE_EVT_GAPC_SCAN_START_STOP \r\n");
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 19
+
+
+ 652              		.loc 1 158 0
+ 653 00c6 714B     		ldr	r3, .L64+72
+ 654 00c8 1800     		movs	r0, r3
+ 655 00ca FFF7FEFF 		bl	puts
+ 159:debug.c       **** 			break;				
+ 656              		.loc 1 159 0
+ 657 00ce B4E0     		b	.L62
+ 658              	.L26:
+ 160:debug.c       **** 		case CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT :
+ 161:debug.c       **** 			printf("CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT \r\n");
+ 659              		.loc 1 161 0
+ 660 00d0 6F4B     		ldr	r3, .L64+76
+ 661 00d2 1800     		movs	r0, r3
+ 662 00d4 FFF7FEFF 		bl	puts
+ 162:debug.c       **** 			break;				
+ 663              		.loc 1 162 0
+ 664 00d8 AFE0     		b	.L62
+ 665              	.L27:
+ 163:debug.c       **** 		case CYBLE_EVT_GATTC_ERROR_RSP :
+ 164:debug.c       **** 			printf("CYBLE_EVT_GATTC_ERROR_RSP \r\n");
+ 666              		.loc 1 164 0
+ 667 00da 6E4B     		ldr	r3, .L64+80
+ 668 00dc 1800     		movs	r0, r3
+ 669 00de FFF7FEFF 		bl	puts
+ 165:debug.c       **** 			break;				
+ 670              		.loc 1 165 0
+ 671 00e2 AAE0     		b	.L62
+ 672              	.L28:
+ 166:debug.c       **** 		case CYBLE_EVT_GATT_CONNECT_IND :
+ 167:debug.c       **** 			printf("CYBLE_EVT_GATT_CONNECT_IND \r\n");
+ 673              		.loc 1 167 0
+ 674 00e4 6C4B     		ldr	r3, .L64+84
+ 675 00e6 1800     		movs	r0, r3
+ 676 00e8 FFF7FEFF 		bl	puts
+ 168:debug.c       **** 			break;				
+ 677              		.loc 1 168 0
+ 678 00ec A5E0     		b	.L62
+ 679              	.L29:
+ 169:debug.c       **** 		case CYBLE_EVT_GATT_DISCONNECT_IND :
+ 170:debug.c       **** 			printf("CYBLE_EVT_GATT_DISCONNECT_IND \r\n");
+ 680              		.loc 1 170 0
+ 681 00ee 6B4B     		ldr	r3, .L64+88
+ 682 00f0 1800     		movs	r0, r3
+ 683 00f2 FFF7FEFF 		bl	puts
+ 171:debug.c       **** 			break;				
+ 684              		.loc 1 171 0
+ 685 00f6 A0E0     		b	.L62
+ 686              	.L30:
+ 172:debug.c       **** 		case CYBLE_EVT_GATTS_XCNHG_MTU_REQ :
+ 173:debug.c       **** 			printf("CYBLE_EVT_GATTS_XCNHG_MTU_REQ \r\n");
+ 687              		.loc 1 173 0
+ 688 00f8 694B     		ldr	r3, .L64+92
+ 689 00fa 1800     		movs	r0, r3
+ 690 00fc FFF7FEFF 		bl	puts
+ 174:debug.c       **** 			break;				
+ 691              		.loc 1 174 0
+ 692 0100 9BE0     		b	.L62
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 20
+
+
+ 693              	.L31:
+ 175:debug.c       **** 		case CYBLE_EVT_GATTC_XCHNG_MTU_RSP :
+ 176:debug.c       **** 			printf("CYBLE_EVT_GATTC_XCHNG_MTU_RSP \r\n");
+ 694              		.loc 1 176 0
+ 695 0102 684B     		ldr	r3, .L64+96
+ 696 0104 1800     		movs	r0, r3
+ 697 0106 FFF7FEFF 		bl	puts
+ 177:debug.c       **** 			break;				
+ 698              		.loc 1 177 0
+ 699 010a 96E0     		b	.L62
+ 700              	.L32:
+ 178:debug.c       **** 		case CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP :
+ 179:debug.c       **** 			printf("CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP \r\n");
+ 701              		.loc 1 179 0
+ 702 010c 664B     		ldr	r3, .L64+100
+ 703 010e 1800     		movs	r0, r3
+ 704 0110 FFF7FEFF 		bl	puts
+ 180:debug.c       **** 			break;				
+ 705              		.loc 1 180 0
+ 706 0114 91E0     		b	.L62
+ 707              	.L33:
+ 181:debug.c       **** 		case CYBLE_EVT_GATTC_READ_BY_TYPE_RSP :
+ 182:debug.c       **** 			printf("CYBLE_EVT_GATTC_READ_BY_TYPE_RSP \r\n");
+ 708              		.loc 1 182 0
+ 709 0116 654B     		ldr	r3, .L64+104
+ 710 0118 1800     		movs	r0, r3
+ 711 011a FFF7FEFF 		bl	puts
+ 183:debug.c       **** 			break;				
+ 712              		.loc 1 183 0
+ 713 011e 8CE0     		b	.L62
+ 714              	.L34:
+ 184:debug.c       **** 		case CYBLE_EVT_GATTC_FIND_INFO_RSP :
+ 185:debug.c       **** 			printf("CYBLE_EVT_GATTC_FIND_INFO_RSP \r\n");
+ 715              		.loc 1 185 0
+ 716 0120 634B     		ldr	r3, .L64+108
+ 717 0122 1800     		movs	r0, r3
+ 718 0124 FFF7FEFF 		bl	puts
+ 186:debug.c       **** 			break;				
+ 719              		.loc 1 186 0
+ 720 0128 87E0     		b	.L62
+ 721              	.L35:
+ 187:debug.c       **** 		case CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP :
+ 188:debug.c       **** 			printf("CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP \r\n");
+ 722              		.loc 1 188 0
+ 723 012a 624B     		ldr	r3, .L64+112
+ 724 012c 1800     		movs	r0, r3
+ 725 012e FFF7FEFF 		bl	puts
+ 189:debug.c       **** 			break;				
+ 726              		.loc 1 189 0
+ 727 0132 82E0     		b	.L62
+ 728              	.L36:
+ 190:debug.c       **** 		case CYBLE_EVT_GATTC_READ_RSP :
+ 191:debug.c       **** 			printf("CYBLE_EVT_GATTC_READ_RSP \r\n");
+ 729              		.loc 1 191 0
+ 730 0134 604B     		ldr	r3, .L64+116
+ 731 0136 1800     		movs	r0, r3
+ 732 0138 FFF7FEFF 		bl	puts
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 21
+
+
+ 192:debug.c       **** 			break;				
+ 733              		.loc 1 192 0
+ 734 013c 7DE0     		b	.L62
+ 735              	.L37:
+ 193:debug.c       **** 		case CYBLE_EVT_GATTC_READ_BLOB_RSP :
+ 194:debug.c       **** 			printf("CYBLE_EVT_GATTC_READ_BLOB_RSP \r\n");
+ 736              		.loc 1 194 0
+ 737 013e 5F4B     		ldr	r3, .L64+120
+ 738 0140 1800     		movs	r0, r3
+ 739 0142 FFF7FEFF 		bl	puts
+ 195:debug.c       **** 			break;				
+ 740              		.loc 1 195 0
+ 741 0146 78E0     		b	.L62
+ 742              	.L38:
+ 196:debug.c       **** 		case CYBLE_EVT_GATTC_READ_MULTI_RSP :
+ 197:debug.c       **** 			printf("CYBLE_EVT_GATTC_READ_MULTI_RSP \r\n");
+ 743              		.loc 1 197 0
+ 744 0148 5D4B     		ldr	r3, .L64+124
+ 745 014a 1800     		movs	r0, r3
+ 746 014c FFF7FEFF 		bl	puts
+ 198:debug.c       **** 			break;				
+ 747              		.loc 1 198 0
+ 748 0150 73E0     		b	.L62
+ 749              	.L39:
+ 199:debug.c       **** 		case CYBLE_EVT_GATTS_WRITE_REQ :
+ 200:debug.c       **** 			printf("CYBLE_EVT_GATTS_WRITE_REQ \r\n");
+ 750              		.loc 1 200 0
+ 751 0152 5C4B     		ldr	r3, .L64+128
+ 752 0154 1800     		movs	r0, r3
+ 753 0156 FFF7FEFF 		bl	puts
+ 201:debug.c       **** 			break;				
+ 754              		.loc 1 201 0
+ 755 015a 6EE0     		b	.L62
+ 756              	.L40:
+ 202:debug.c       **** 		case CYBLE_EVT_GATTC_WRITE_RSP :
+ 203:debug.c       **** 			printf("CYBLE_EVT_GATTC_WRITE_RSP \r\n");
+ 757              		.loc 1 203 0
+ 758 015c 5A4B     		ldr	r3, .L64+132
+ 759 015e 1800     		movs	r0, r3
+ 760 0160 FFF7FEFF 		bl	puts
+ 204:debug.c       **** 			break;				
+ 761              		.loc 1 204 0
+ 762 0164 69E0     		b	.L62
+ 763              	.L41:
+ 205:debug.c       **** 		case CYBLE_EVT_GATTS_WRITE_CMD_REQ :
+ 206:debug.c       **** 			printf("CYBLE_EVT_GATTS_WRITE_CMD_REQ \r\n");
+ 764              		.loc 1 206 0
+ 765 0166 594B     		ldr	r3, .L64+136
+ 766 0168 1800     		movs	r0, r3
+ 767 016a FFF7FEFF 		bl	puts
+ 207:debug.c       **** 			break;				
+ 768              		.loc 1 207 0
+ 769 016e 64E0     		b	.L62
+ 770              	.L42:
+ 208:debug.c       **** 		case CYBLE_EVT_GATTS_PREP_WRITE_REQ :
+ 209:debug.c       **** 			printf("CYBLE_EVT_GATTS_PREP_WRITE_REQ \r\n");
+ 771              		.loc 1 209 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 22
+
+
+ 772 0170 574B     		ldr	r3, .L64+140
+ 773 0172 1800     		movs	r0, r3
+ 774 0174 FFF7FEFF 		bl	puts
+ 210:debug.c       **** 			break;				
+ 775              		.loc 1 210 0
+ 776 0178 5FE0     		b	.L62
+ 777              	.L43:
+ 211:debug.c       **** 		case CYBLE_EVT_GATTS_EXEC_WRITE_REQ :
+ 212:debug.c       **** 			printf("CYBLE_EVT_GATTS_EXEC_WRITE_REQ \r\n");
+ 778              		.loc 1 212 0
+ 779 017a 564B     		ldr	r3, .L64+144
+ 780 017c 1800     		movs	r0, r3
+ 781 017e FFF7FEFF 		bl	puts
+ 213:debug.c       **** 			break;				
+ 782              		.loc 1 213 0
+ 783 0182 5AE0     		b	.L62
+ 784              	.L44:
+ 214:debug.c       **** 		case CYBLE_EVT_GATTC_EXEC_WRITE_RSP :
+ 215:debug.c       **** 			printf("CYBLE_EVT_GATTC_EXEC_WRITE_RSP \r\n");
+ 785              		.loc 1 215 0
+ 786 0184 544B     		ldr	r3, .L64+148
+ 787 0186 1800     		movs	r0, r3
+ 788 0188 FFF7FEFF 		bl	puts
+ 216:debug.c       **** 			break;				
+ 789              		.loc 1 216 0
+ 790 018c 55E0     		b	.L62
+ 791              	.L45:
+ 217:debug.c       **** 		case CYBLE_EVT_GATTC_HANDLE_VALUE_NTF :
+ 218:debug.c       **** 			printf("CYBLE_EVT_GATTC_HANDLE_VALUE_NTF \r\n");
+ 792              		.loc 1 218 0
+ 793 018e 534B     		ldr	r3, .L64+152
+ 794 0190 1800     		movs	r0, r3
+ 795 0192 FFF7FEFF 		bl	puts
+ 219:debug.c       **** 			break;				
+ 796              		.loc 1 219 0
+ 797 0196 50E0     		b	.L62
+ 798              	.L46:
+ 220:debug.c       **** 		case CYBLE_EVT_GATTC_HANDLE_VALUE_IND :
+ 221:debug.c       **** 			printf("CYBLE_EVT_GATTC_HANDLE_VALUE_IND \r\n");
+ 799              		.loc 1 221 0
+ 800 0198 514B     		ldr	r3, .L64+156
+ 801 019a 1800     		movs	r0, r3
+ 802 019c FFF7FEFF 		bl	puts
+ 222:debug.c       **** 			break;				
+ 803              		.loc 1 222 0
+ 804 01a0 4BE0     		b	.L62
+ 805              	.L47:
+ 223:debug.c       **** 		case CYBLE_EVT_GATTS_HANDLE_VALUE_CNF :
+ 224:debug.c       **** 			printf("CYBLE_EVT_GATTS_HANDLE_VALUE_CNF \r\n");
+ 806              		.loc 1 224 0
+ 807 01a2 504B     		ldr	r3, .L64+160
+ 808 01a4 1800     		movs	r0, r3
+ 809 01a6 FFF7FEFF 		bl	puts
+ 225:debug.c       **** 			break;				
+ 810              		.loc 1 225 0
+ 811 01aa 46E0     		b	.L62
+ 812              	.L48:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 23
+
+
+ 226:debug.c       **** 		case CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ :
+ 227:debug.c       **** 			printf("CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ \r\n");
+ 813              		.loc 1 227 0
+ 814 01ac 4E4B     		ldr	r3, .L64+164
+ 815 01ae 1800     		movs	r0, r3
+ 816 01b0 FFF7FEFF 		bl	puts
+ 228:debug.c       **** 			break;				
+ 817              		.loc 1 228 0
+ 818 01b4 41E0     		b	.L62
+ 819              	.L49:
+ 229:debug.c       **** 		case CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ :
+ 230:debug.c       **** 			printf("CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ \r\n");
+ 820              		.loc 1 230 0
+ 821 01b6 4D4B     		ldr	r3, .L64+168
+ 822 01b8 1800     		movs	r0, r3
+ 823 01ba FFF7FEFF 		bl	puts
+ 231:debug.c       **** 			break;				
+ 824              		.loc 1 231 0
+ 825 01be 3CE0     		b	.L62
+ 826              	.L50:
+ 232:debug.c       **** 		case CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP :
+ 233:debug.c       **** 			printf("CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP \r\n");
+ 827              		.loc 1 233 0
+ 828 01c0 4B4B     		ldr	r3, .L64+172
+ 829 01c2 1800     		movs	r0, r3
+ 830 01c4 FFF7FEFF 		bl	puts
+ 234:debug.c       **** 			break;				
+ 831              		.loc 1 234 0
+ 832 01c8 37E0     		b	.L62
+ 833              	.L51:
+ 235:debug.c       **** 		case CYBLE_EVT_L2CAP_COMMAND_REJ :
+ 236:debug.c       **** 			printf("CYBLE_EVT_L2CAP_COMMAND_REJ \r\n");
+ 834              		.loc 1 236 0
+ 835 01ca 4A4B     		ldr	r3, .L64+176
+ 836 01cc 1800     		movs	r0, r3
+ 837 01ce FFF7FEFF 		bl	puts
+ 237:debug.c       **** 			break;				
+ 838              		.loc 1 237 0
+ 839 01d2 32E0     		b	.L62
+ 840              	.L52:
+ 238:debug.c       **** 		case CYBLE_EVT_L2CAP_CBFC_CONN_IND :
+ 239:debug.c       **** 			printf("CYBLE_EVT_L2CAP_CBFC_CONN_IND \r\n");
+ 841              		.loc 1 239 0
+ 842 01d4 484B     		ldr	r3, .L64+180
+ 843 01d6 1800     		movs	r0, r3
+ 844 01d8 FFF7FEFF 		bl	puts
+ 240:debug.c       **** 			break;				
+ 845              		.loc 1 240 0
+ 846 01dc 2DE0     		b	.L62
+ 847              	.L53:
+ 241:debug.c       **** 		case CYBLE_EVT_L2CAP_CBFC_CONN_CNF :
+ 242:debug.c       **** 			printf("CYBLE_EVT_L2CAP_CBFC_CONN_CNF \r\n");
+ 848              		.loc 1 242 0
+ 849 01de 474B     		ldr	r3, .L64+184
+ 850 01e0 1800     		movs	r0, r3
+ 851 01e2 FFF7FEFF 		bl	puts
+ 243:debug.c       **** 			break;				
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 24
+
+
+ 852              		.loc 1 243 0
+ 853 01e6 28E0     		b	.L62
+ 854              	.L54:
+ 244:debug.c       **** 		case CYBLE_EVT_L2CAP_CBFC_DISCONN_IND :
+ 245:debug.c       **** 			printf("CYBLE_EVT_L2CAP_CBFC_DISCONN_IND \r\n");
+ 855              		.loc 1 245 0
+ 856 01e8 454B     		ldr	r3, .L64+188
+ 857 01ea 1800     		movs	r0, r3
+ 858 01ec FFF7FEFF 		bl	puts
+ 246:debug.c       **** 			break;				
+ 859              		.loc 1 246 0
+ 860 01f0 23E0     		b	.L62
+ 861              	.L55:
+ 247:debug.c       **** 		case CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF :
+ 248:debug.c       **** 			printf("CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF \r\n");
+ 862              		.loc 1 248 0
+ 863 01f2 444B     		ldr	r3, .L64+192
+ 864 01f4 1800     		movs	r0, r3
+ 865 01f6 FFF7FEFF 		bl	puts
+ 249:debug.c       **** 			break;				
+ 866              		.loc 1 249 0
+ 867 01fa 1EE0     		b	.L62
+ 868              	.L56:
+ 250:debug.c       **** 		case CYBLE_EVT_L2CAP_CBFC_DATA_READ :
+ 251:debug.c       **** 			printf("CYBLE_EVT_L2CAP_CBFC_DATA_READ \r\n");
+ 869              		.loc 1 251 0
+ 870 01fc 424B     		ldr	r3, .L64+196
+ 871 01fe 1800     		movs	r0, r3
+ 872 0200 FFF7FEFF 		bl	puts
+ 252:debug.c       **** 			break;				
+ 873              		.loc 1 252 0
+ 874 0204 19E0     		b	.L62
+ 875              	.L57:
+ 253:debug.c       **** 		case CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND :
+ 254:debug.c       **** 			printf("CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND \r\n");
+ 876              		.loc 1 254 0
+ 877 0206 414B     		ldr	r3, .L64+200
+ 878 0208 1800     		movs	r0, r3
+ 879 020a FFF7FEFF 		bl	puts
+ 255:debug.c       **** 			break;				
+ 880              		.loc 1 255 0
+ 881 020e 14E0     		b	.L62
+ 882              	.L58:
+ 256:debug.c       **** 		case CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND :
+ 257:debug.c       **** 			printf("CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND \r\n");
+ 883              		.loc 1 257 0
+ 884 0210 3F4B     		ldr	r3, .L64+204
+ 885 0212 1800     		movs	r0, r3
+ 886 0214 FFF7FEFF 		bl	puts
+ 258:debug.c       **** 			break;				
+ 887              		.loc 1 258 0
+ 888 0218 0FE0     		b	.L62
+ 889              	.L59:
+ 259:debug.c       **** 		case CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND :
+ 260:debug.c       **** 			printf("CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND \r\n");
+ 890              		.loc 1 260 0
+ 891 021a 3E4B     		ldr	r3, .L64+208
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 25
+
+
+ 892 021c 1800     		movs	r0, r3
+ 893 021e FFF7FEFF 		bl	puts
+ 261:debug.c       **** 			break;				
+ 894              		.loc 1 261 0
+ 895 0222 0AE0     		b	.L62
+ 896              	.L60:
+ 262:debug.c       **** 		case CYBLE_EVT_PENDING_FLASH_WRITE :
+ 263:debug.c       **** 			printf("CYBLE_EVT_PENDING_FLASH_WRITE \r\n");
+ 897              		.loc 1 263 0
+ 898 0224 3C4B     		ldr	r3, .L64+212
+ 899 0226 1800     		movs	r0, r3
+ 900 0228 FFF7FEFF 		bl	puts
+ 264:debug.c       **** 			break;				
+ 901              		.loc 1 264 0
+ 902 022c 05E0     		b	.L62
+ 903              	.L61:
+ 265:debug.c       **** 		case CYBLE_EVT_MAX :
+ 266:debug.c       **** 			printf("CYBLE_EVT_MAX \r\n");
+ 904              		.loc 1 266 0
+ 905 022e 3B4B     		ldr	r3, .L64+216
+ 906 0230 1800     		movs	r0, r3
+ 907 0232 FFF7FEFF 		bl	puts
+ 267:debug.c       **** 			break;				
+ 908              		.loc 1 267 0
+ 909 0236 00E0     		b	.L62
+ 910              	.L63:
+ 268:debug.c       **** 			
+ 269:debug.c       **** 		default:
+ 270:debug.c       **** 		   break;
+ 911              		.loc 1 270 0
+ 912 0238 C046     		nop
+ 913              	.L62:
+ 271:debug.c       **** 	}
+ 272:debug.c       **** }
+ 914              		.loc 1 272 0
+ 915 023a C046     		nop
+ 916 023c BD46     		mov	sp, r7
+ 917 023e 02B0     		add	sp, sp, #8
+ 918              		@ sp needed
+ 919 0240 80BD     		pop	{r7, pc}
+ 920              	.L65:
+ 921 0242 C046     		.align	2
+ 922              	.L64:
+ 923 0244 2C070000 		.word	.L8
+ 924 0248 00000000 		.word	.LC1
+ 925 024c 1C000000 		.word	.LC3
+ 926 0250 34000000 		.word	.LC5
+ 927 0254 48000000 		.word	.LC7
+ 928 0258 64000000 		.word	.LC9
+ 929 025c 7C000000 		.word	.LC11
+ 930 0260 9C000000 		.word	.LC13
+ 931 0264 C4000000 		.word	.LC15
+ 932 0268 E0000000 		.word	.LC17
+ 933 026c 08010000 		.word	.LC19
+ 934 0270 30010000 		.word	.LC21
+ 935 0274 50010000 		.word	.LC23
+ 936 0278 6C010000 		.word	.LC25
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 26
+
+
+ 937 027c 98010000 		.word	.LC27
+ 938 0280 BC010000 		.word	.LC29
+ 939 0284 E0010000 		.word	.LC31
+ 940 0288 00020000 		.word	.LC33
+ 941 028c 2C020000 		.word	.LC35
+ 942 0290 50020000 		.word	.LC37
+ 943 0294 78020000 		.word	.LC39
+ 944 0298 94020000 		.word	.LC41
+ 945 029c B4020000 		.word	.LC43
+ 946 02a0 D4020000 		.word	.LC45
+ 947 02a4 F4020000 		.word	.LC47
+ 948 02a8 14030000 		.word	.LC49
+ 949 02ac 40030000 		.word	.LC51
+ 950 02b0 64030000 		.word	.LC53
+ 951 02b4 84030000 		.word	.LC55
+ 952 02b8 B0030000 		.word	.LC57
+ 953 02bc CC030000 		.word	.LC59
+ 954 02c0 EC030000 		.word	.LC61
+ 955 02c4 10040000 		.word	.LC63
+ 956 02c8 2C040000 		.word	.LC65
+ 957 02cc 48040000 		.word	.LC67
+ 958 02d0 68040000 		.word	.LC69
+ 959 02d4 8C040000 		.word	.LC71
+ 960 02d8 B0040000 		.word	.LC73
+ 961 02dc D4040000 		.word	.LC75
+ 962 02e0 F8040000 		.word	.LC77
+ 963 02e4 1C050000 		.word	.LC79
+ 964 02e8 40050000 		.word	.LC81
+ 965 02ec 68050000 		.word	.LC83
+ 966 02f0 90050000 		.word	.LC85
+ 967 02f4 B8050000 		.word	.LC87
+ 968 02f8 D8050000 		.word	.LC89
+ 969 02fc F8050000 		.word	.LC91
+ 970 0300 18060000 		.word	.LC93
+ 971 0304 3C060000 		.word	.LC95
+ 972 0308 60060000 		.word	.LC97
+ 973 030c 84060000 		.word	.LC99
+ 974 0310 AC060000 		.word	.LC101
+ 975 0314 D4060000 		.word	.LC103
+ 976 0318 FC060000 		.word	.LC105
+ 977 031c 1C070000 		.word	.LC107
+ 978              		.cfi_endproc
+ 979              	.LFE39:
+ 980              		.size	print_event, .-print_event
+ 981              		.text
+ 982              	.Letext0:
+ 983              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 984              		.file 3 "Generated_Source\\PSoC4/BLE_Stack.h"
+ 985              		.section	.debug_info,"",%progbits
+ 986              	.Ldebug_info0:
+ 987 0000 CB020000 		.4byte	0x2cb
+ 988 0004 0400     		.2byte	0x4
+ 989 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 990 000a 04       		.byte	0x4
+ 991 000b 01       		.uleb128 0x1
+ 992 000c BB030000 		.4byte	.LASF88
+ 993 0010 0C       		.byte	0xc
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 27
+
+
+ 994 0011 09050000 		.4byte	.LASF89
+ 995 0015 C8070000 		.4byte	.LASF90
+ 996 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 997 001d 00000000 		.4byte	0
+ 998 0021 00000000 		.4byte	.Ldebug_line0
+ 999 0025 02       		.uleb128 0x2
+ 1000 0026 01       		.byte	0x1
+ 1001 0027 06       		.byte	0x6
+ 1002 0028 11050000 		.4byte	.LASF0
+ 1003 002c 02       		.uleb128 0x2
+ 1004 002d 01       		.byte	0x1
+ 1005 002e 08       		.byte	0x8
+ 1006 002f BD040000 		.4byte	.LASF1
+ 1007 0033 02       		.uleb128 0x2
+ 1008 0034 02       		.byte	0x2
+ 1009 0035 05       		.byte	0x5
+ 1010 0036 95000000 		.4byte	.LASF2
+ 1011 003a 02       		.uleb128 0x2
+ 1012 003b 02       		.byte	0x2
+ 1013 003c 07       		.byte	0x7
+ 1014 003d 44060000 		.4byte	.LASF3
+ 1015 0041 02       		.uleb128 0x2
+ 1016 0042 04       		.byte	0x4
+ 1017 0043 05       		.byte	0x5
+ 1018 0044 03030000 		.4byte	.LASF4
+ 1019 0048 02       		.uleb128 0x2
+ 1020 0049 04       		.byte	0x4
+ 1021 004a 07       		.byte	0x7
+ 1022 004b A2050000 		.4byte	.LASF5
+ 1023 004f 02       		.uleb128 0x2
+ 1024 0050 08       		.byte	0x8
+ 1025 0051 05       		.byte	0x5
+ 1026 0052 0D010000 		.4byte	.LASF6
+ 1027 0056 02       		.uleb128 0x2
+ 1028 0057 08       		.byte	0x8
+ 1029 0058 07       		.byte	0x7
+ 1030 0059 CB020000 		.4byte	.LASF7
+ 1031 005d 03       		.uleb128 0x3
+ 1032 005e 04       		.byte	0x4
+ 1033 005f 05       		.byte	0x5
+ 1034 0060 696E7400 		.ascii	"int\000"
+ 1035 0064 02       		.uleb128 0x2
+ 1036 0065 04       		.byte	0x4
+ 1037 0066 07       		.byte	0x7
+ 1038 0067 7A050000 		.4byte	.LASF8
+ 1039 006b 02       		.uleb128 0x2
+ 1040 006c 08       		.byte	0x8
+ 1041 006d 04       		.byte	0x4
+ 1042 006e 8B040000 		.4byte	.LASF9
+ 1043 0072 02       		.uleb128 0x2
+ 1044 0073 04       		.byte	0x4
+ 1045 0074 07       		.byte	0x7
+ 1046 0075 E3000000 		.4byte	.LASF10
+ 1047 0079 04       		.uleb128 0x4
+ 1048 007a 04       		.byte	0x4
+ 1049 007b 7F000000 		.4byte	0x7f
+ 1050 007f 02       		.uleb128 0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 28
+
+
+ 1051 0080 01       		.byte	0x1
+ 1052 0081 08       		.byte	0x8
+ 1053 0082 BF060000 		.4byte	.LASF11
+ 1054 0086 05       		.uleb128 0x5
+ 1055 0087 1D070000 		.4byte	.LASF91
+ 1056 008b 02       		.byte	0x2
+ 1057 008c BB01     		.2byte	0x1bb
+ 1058 008e 48000000 		.4byte	0x48
+ 1059 0092 02       		.uleb128 0x2
+ 1060 0093 04       		.byte	0x4
+ 1061 0094 04       		.byte	0x4
+ 1062 0095 62020000 		.4byte	.LASF12
+ 1063 0099 02       		.uleb128 0x2
+ 1064 009a 08       		.byte	0x8
+ 1065 009b 04       		.byte	0x4
+ 1066 009c 65070000 		.4byte	.LASF13
+ 1067 00a0 06       		.uleb128 0x6
+ 1068 00a1 01       		.byte	0x1
+ 1069 00a2 2C000000 		.4byte	0x2c
+ 1070 00a6 03       		.byte	0x3
+ 1071 00a7 4D01     		.2byte	0x14d
+ 1072 00a9 5E020000 		.4byte	0x25e
+ 1073 00ad 07       		.uleb128 0x7
+ 1074 00ae 0C020000 		.4byte	.LASF14
+ 1075 00b2 00       		.byte	0
+ 1076 00b3 07       		.uleb128 0x7
+ 1077 00b4 42010000 		.4byte	.LASF15
+ 1078 00b8 01       		.byte	0x1
+ 1079 00b9 07       		.uleb128 0x7
+ 1080 00ba 36090000 		.4byte	.LASF16
+ 1081 00be 02       		.byte	0x2
+ 1082 00bf 07       		.uleb128 0x7
+ 1083 00c0 30080000 		.4byte	.LASF17
+ 1084 00c4 03       		.byte	0x3
+ 1085 00c5 07       		.uleb128 0x7
+ 1086 00c6 28010000 		.4byte	.LASF18
+ 1087 00ca 04       		.byte	0x4
+ 1088 00cb 07       		.uleb128 0x7
+ 1089 00cc AC070000 		.4byte	.LASF19
+ 1090 00d0 05       		.byte	0x5
+ 1091 00d1 07       		.uleb128 0x7
+ 1092 00d2 3E000000 		.4byte	.LASF20
+ 1093 00d6 06       		.byte	0x6
+ 1094 00d7 07       		.uleb128 0x7
+ 1095 00d8 8E080000 		.4byte	.LASF21
+ 1096 00dc 20       		.byte	0x20
+ 1097 00dd 07       		.uleb128 0x7
+ 1098 00de B4050000 		.4byte	.LASF22
+ 1099 00e2 21       		.byte	0x21
+ 1100 00e3 07       		.uleb128 0x7
+ 1101 00e4 00000000 		.4byte	.LASF23
+ 1102 00e8 22       		.byte	0x22
+ 1103 00e9 07       		.uleb128 0x7
+ 1104 00ea 95030000 		.4byte	.LASF24
+ 1105 00ee 23       		.byte	0x23
+ 1106 00ef 07       		.uleb128 0x7
+ 1107 00f0 5E050000 		.4byte	.LASF25
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 29
+
+
+ 1108 00f4 24       		.byte	0x24
+ 1109 00f5 07       		.uleb128 0x7
+ 1110 00f6 9F000000 		.4byte	.LASF26
+ 1111 00fa 25       		.byte	0x25
+ 1112 00fb 07       		.uleb128 0x7
+ 1113 00fc 4C030000 		.4byte	.LASF27
+ 1114 0100 26       		.byte	0x26
+ 1115 0101 07       		.uleb128 0x7
+ 1116 0102 2D030000 		.4byte	.LASF28
+ 1117 0106 27       		.byte	0x27
+ 1118 0107 07       		.uleb128 0x7
+ 1119 0108 210A0000 		.4byte	.LASF29
+ 1120 010c 28       		.byte	0x28
+ 1121 010d 07       		.uleb128 0x7
+ 1122 010e EC050000 		.4byte	.LASF30
+ 1123 0112 29       		.byte	0x29
+ 1124 0113 07       		.uleb128 0x7
+ 1125 0114 6F060000 		.4byte	.LASF31
+ 1126 0118 2A       		.byte	0x2a
+ 1127 0119 07       		.uleb128 0x7
+ 1128 011a 6C090000 		.4byte	.LASF32
+ 1129 011e 2B       		.byte	0x2b
+ 1130 011f 07       		.uleb128 0x7
+ 1131 0120 A8010000 		.4byte	.LASF33
+ 1132 0124 2C       		.byte	0x2c
+ 1133 0125 07       		.uleb128 0x7
+ 1134 0126 81020000 		.4byte	.LASF34
+ 1135 012a 2D       		.byte	0x2d
+ 1136 012b 07       		.uleb128 0x7
+ 1137 012c 71000000 		.4byte	.LASF35
+ 1138 0130 2E       		.byte	0x2e
+ 1139 0131 07       		.uleb128 0x7
+ 1140 0132 790A0000 		.4byte	.LASF36
+ 1141 0136 2F       		.byte	0x2f
+ 1142 0137 07       		.uleb128 0x7
+ 1143 0138 EC000000 		.4byte	.LASF37
+ 1144 013c 30       		.byte	0x30
+ 1145 013d 07       		.uleb128 0x7
+ 1146 013e 67040000 		.4byte	.LASF38
+ 1147 0142 31       		.byte	0x31
+ 1148 0143 07       		.uleb128 0x7
+ 1149 0144 AA020000 		.4byte	.LASF39
+ 1150 0148 32       		.byte	0x32
+ 1151 0149 07       		.uleb128 0x7
+ 1152 014a 98060000 		.4byte	.LASF40
+ 1153 014e 33       		.byte	0x33
+ 1154 014f 07       		.uleb128 0x7
+ 1155 0150 09060000 		.4byte	.LASF41
+ 1156 0154 34       		.byte	0x34
+ 1157 0155 07       		.uleb128 0x7
+ 1158 0156 8F070000 		.4byte	.LASF42
+ 1159 015a 35       		.byte	0x35
+ 1160 015b 07       		.uleb128 0x7
+ 1161 015c E2020000 		.4byte	.LASF43
+ 1162 0160 36       		.byte	0x36
+ 1163 0161 07       		.uleb128 0x7
+ 1164 0162 55010000 		.4byte	.LASF44
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 30
+
+
+ 1165 0166 37       		.byte	0x37
+ 1166 0167 07       		.uleb128 0x7
+ 1167 0168 57000000 		.4byte	.LASF45
+ 1168 016c 40       		.byte	0x40
+ 1169 016d 07       		.uleb128 0x7
+ 1170 016e 87050000 		.4byte	.LASF46
+ 1171 0172 41       		.byte	0x41
+ 1172 0173 07       		.uleb128 0x7
+ 1173 0174 B9000000 		.4byte	.LASF47
+ 1174 0178 42       		.byte	0x42
+ 1175 0179 07       		.uleb128 0x7
+ 1176 017a 8A010000 		.4byte	.LASF48
+ 1177 017e 43       		.byte	0x43
+ 1178 017f 07       		.uleb128 0x7
+ 1179 0180 18090000 		.4byte	.LASF49
+ 1180 0184 44       		.byte	0x44
+ 1181 0185 07       		.uleb128 0x7
+ 1182 0186 B2080000 		.4byte	.LASF50
+ 1183 018a 45       		.byte	0x45
+ 1184 018b 07       		.uleb128 0x7
+ 1185 018c F7080000 		.4byte	.LASF51
+ 1186 0190 46       		.byte	0x46
+ 1187 0191 07       		.uleb128 0x7
+ 1188 0192 C2090000 		.4byte	.LASF52
+ 1189 0196 47       		.byte	0x47
+ 1190 0197 07       		.uleb128 0x7
+ 1191 0198 37050000 		.4byte	.LASF53
+ 1192 019c 48       		.byte	0x48
+ 1193 019d 07       		.uleb128 0x7
+ 1194 019e 68020000 		.4byte	.LASF54
+ 1195 01a2 49       		.byte	0x49
+ 1196 01a3 07       		.uleb128 0x7
+ 1197 01a4 E0060000 		.4byte	.LASF55
+ 1198 01a8 4A       		.byte	0x4a
+ 1199 01a9 07       		.uleb128 0x7
+ 1200 01aa CC010000 		.4byte	.LASF56
+ 1201 01ae 4B       		.byte	0x4b
+ 1202 01af 07       		.uleb128 0x7
+ 1203 01b0 1D050000 		.4byte	.LASF57
+ 1204 01b4 4C       		.byte	0x4c
+ 1205 01b5 07       		.uleb128 0x7
+ 1206 01b6 24000000 		.4byte	.LASF58
+ 1207 01ba 4D       		.byte	0x4d
+ 1208 01bb 07       		.uleb128 0x7
+ 1209 01bc D9080000 		.4byte	.LASF59
+ 1210 01c0 4E       		.byte	0x4e
+ 1211 01c1 07       		.uleb128 0x7
+ 1212 01c2 CB040000 		.4byte	.LASF60
+ 1213 01c6 4F       		.byte	0x4f
+ 1214 01c7 07       		.uleb128 0x7
+ 1215 01c8 020A0000 		.4byte	.LASF61
+ 1216 01cc 50       		.byte	0x50
+ 1217 01cd 07       		.uleb128 0x7
+ 1218 01ce FE060000 		.4byte	.LASF62
+ 1219 01d2 51       		.byte	0x51
+ 1220 01d3 07       		.uleb128 0x7
+ 1221 01d4 74030000 		.4byte	.LASF63
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 31
+
+
+ 1222 01d8 52       		.byte	0x52
+ 1223 01d9 07       		.uleb128 0x7
+ 1224 01da 0C030000 		.4byte	.LASF64
+ 1225 01de 53       		.byte	0x53
+ 1226 01df 07       		.uleb128 0x7
+ 1227 01e0 EB010000 		.4byte	.LASF65
+ 1228 01e4 54       		.byte	0x54
+ 1229 01e5 07       		.uleb128 0x7
+ 1230 01e6 430A0000 		.4byte	.LASF66
+ 1231 01ea 55       		.byte	0x55
+ 1232 01eb 07       		.uleb128 0x7
+ 1233 01ec E0090000 		.4byte	.LASF67
+ 1234 01f0 56       		.byte	0x56
+ 1235 01f1 07       		.uleb128 0x7
+ 1236 01f2 99090000 		.4byte	.LASF68
+ 1237 01f6 57       		.byte	0x57
+ 1238 01f7 07       		.uleb128 0x7
+ 1239 01f8 21060000 		.4byte	.LASF69
+ 1240 01fc 58       		.byte	0x58
+ 1241 01fd 07       		.uleb128 0x7
+ 1242 01fe 97040000 		.4byte	.LASF70
+ 1243 0202 70       		.byte	0x70
+ 1244 0203 07       		.uleb128 0x7
+ 1245 0204 68080000 		.4byte	.LASF71
+ 1246 0208 71       		.byte	0x71
+ 1247 0209 07       		.uleb128 0x7
+ 1248 020a C4060000 		.4byte	.LASF72
+ 1249 020e 72       		.byte	0x72
+ 1250 020f 07       		.uleb128 0x7
+ 1251 0210 23020000 		.4byte	.LASF73
+ 1252 0214 73       		.byte	0x73
+ 1253 0215 07       		.uleb128 0x7
+ 1254 0216 49040000 		.4byte	.LASF74
+ 1255 021a 74       		.byte	0x74
+ 1256 021b 07       		.uleb128 0x7
+ 1257 021c CB050000 		.4byte	.LASF75
+ 1258 0220 75       		.byte	0x75
+ 1259 0221 07       		.uleb128 0x7
+ 1260 0222 41020000 		.4byte	.LASF76
+ 1261 0226 76       		.byte	0x76
+ 1262 0227 07       		.uleb128 0x7
+ 1263 0228 49080000 		.4byte	.LASF77
+ 1264 022c 77       		.byte	0x77
+ 1265 022d 07       		.uleb128 0x7
+ 1266 022e 42070000 		.4byte	.LASF78
+ 1267 0232 78       		.byte	0x78
+ 1268 0233 07       		.uleb128 0x7
+ 1269 0234 6C070000 		.4byte	.LASF79
+ 1270 0238 79       		.byte	0x79
+ 1271 0239 07       		.uleb128 0x7
+ 1272 023a 48090000 		.4byte	.LASF80
+ 1273 023e 7A       		.byte	0x7a
+ 1274 023f 07       		.uleb128 0x7
+ 1275 0240 24070000 		.4byte	.LASF81
+ 1276 0244 FA       		.byte	0xfa
+ 1277 0245 07       		.uleb128 0x7
+ 1278 0246 EA040000 		.4byte	.LASF82
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 32
+
+
+ 1279 024a FB       		.byte	0xfb
+ 1280 024b 07       		.uleb128 0x7
+ 1281 024c 670A0000 		.4byte	.LASF83
+ 1282 0250 FC       		.byte	0xfc
+ 1283 0251 07       		.uleb128 0x7
+ 1284 0252 57060000 		.4byte	.LASF84
+ 1285 0256 FD       		.byte	0xfd
+ 1286 0257 07       		.uleb128 0x7
+ 1287 0258 8B090000 		.4byte	.LASF85
+ 1288 025c FF       		.byte	0xff
+ 1289 025d 00       		.byte	0
+ 1290 025e 08       		.uleb128 0x8
+ 1291 025f 1B010000 		.4byte	.LASF92
+ 1292 0263 01       		.byte	0x1
+ 1293 0264 56       		.byte	0x56
+ 1294 0265 5D000000 		.4byte	0x5d
+ 1295 0269 00000000 		.4byte	.LFB38
+ 1296 026d 38000000 		.4byte	.LFE38-.LFB38
+ 1297 0271 01       		.uleb128 0x1
+ 1298 0272 9C       		.byte	0x9c
+ 1299 0273 AE020000 		.4byte	0x2ae
+ 1300 0277 09       		.uleb128 0x9
+ 1301 0278 3D010000 		.4byte	.LASF86
+ 1302 027c 01       		.byte	0x1
+ 1303 027d 56       		.byte	0x56
+ 1304 027e 5D000000 		.4byte	0x5d
+ 1305 0282 02       		.uleb128 0x2
+ 1306 0283 91       		.byte	0x91
+ 1307 0284 6C       		.sleb128 -20
+ 1308 0285 0A       		.uleb128 0xa
+ 1309 0286 70747200 		.ascii	"ptr\000"
+ 1310 028a 01       		.byte	0x1
+ 1311 028b 56       		.byte	0x56
+ 1312 028c 79000000 		.4byte	0x79
+ 1313 0290 02       		.uleb128 0x2
+ 1314 0291 91       		.byte	0x91
+ 1315 0292 68       		.sleb128 -24
+ 1316 0293 0A       		.uleb128 0xa
+ 1317 0294 6C656E00 		.ascii	"len\000"
+ 1318 0298 01       		.byte	0x1
+ 1319 0299 56       		.byte	0x56
+ 1320 029a 5D000000 		.4byte	0x5d
+ 1321 029e 02       		.uleb128 0x2
+ 1322 029f 91       		.byte	0x91
+ 1323 02a0 64       		.sleb128 -28
+ 1324 02a1 0B       		.uleb128 0xb
+ 1325 02a2 6900     		.ascii	"i\000"
+ 1326 02a4 01       		.byte	0x1
+ 1327 02a5 58       		.byte	0x58
+ 1328 02a6 5D000000 		.4byte	0x5d
+ 1329 02aa 02       		.uleb128 0x2
+ 1330 02ab 91       		.byte	0x91
+ 1331 02ac 74       		.sleb128 -12
+ 1332 02ad 00       		.byte	0
+ 1333 02ae 0C       		.uleb128 0xc
+ 1334 02af D7000000 		.4byte	.LASF93
+ 1335 02b3 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 33
+
+
+ 1336 02b4 65       		.byte	0x65
+ 1337 02b5 00000000 		.4byte	.LFB39
+ 1338 02b9 20030000 		.4byte	.LFE39-.LFB39
+ 1339 02bd 01       		.uleb128 0x1
+ 1340 02be 9C       		.byte	0x9c
+ 1341 02bf 09       		.uleb128 0x9
+ 1342 02c0 22010000 		.4byte	.LASF87
+ 1343 02c4 01       		.byte	0x1
+ 1344 02c5 65       		.byte	0x65
+ 1345 02c6 86000000 		.4byte	0x86
+ 1346 02ca 02       		.uleb128 0x2
+ 1347 02cb 91       		.byte	0x91
+ 1348 02cc 74       		.sleb128 -12
+ 1349 02cd 00       		.byte	0
+ 1350 02ce 00       		.byte	0
+ 1351              		.section	.debug_abbrev,"",%progbits
+ 1352              	.Ldebug_abbrev0:
+ 1353 0000 01       		.uleb128 0x1
+ 1354 0001 11       		.uleb128 0x11
+ 1355 0002 01       		.byte	0x1
+ 1356 0003 25       		.uleb128 0x25
+ 1357 0004 0E       		.uleb128 0xe
+ 1358 0005 13       		.uleb128 0x13
+ 1359 0006 0B       		.uleb128 0xb
+ 1360 0007 03       		.uleb128 0x3
+ 1361 0008 0E       		.uleb128 0xe
+ 1362 0009 1B       		.uleb128 0x1b
+ 1363 000a 0E       		.uleb128 0xe
+ 1364 000b 55       		.uleb128 0x55
+ 1365 000c 17       		.uleb128 0x17
+ 1366 000d 11       		.uleb128 0x11
+ 1367 000e 01       		.uleb128 0x1
+ 1368 000f 10       		.uleb128 0x10
+ 1369 0010 17       		.uleb128 0x17
+ 1370 0011 00       		.byte	0
+ 1371 0012 00       		.byte	0
+ 1372 0013 02       		.uleb128 0x2
+ 1373 0014 24       		.uleb128 0x24
+ 1374 0015 00       		.byte	0
+ 1375 0016 0B       		.uleb128 0xb
+ 1376 0017 0B       		.uleb128 0xb
+ 1377 0018 3E       		.uleb128 0x3e
+ 1378 0019 0B       		.uleb128 0xb
+ 1379 001a 03       		.uleb128 0x3
+ 1380 001b 0E       		.uleb128 0xe
+ 1381 001c 00       		.byte	0
+ 1382 001d 00       		.byte	0
+ 1383 001e 03       		.uleb128 0x3
+ 1384 001f 24       		.uleb128 0x24
+ 1385 0020 00       		.byte	0
+ 1386 0021 0B       		.uleb128 0xb
+ 1387 0022 0B       		.uleb128 0xb
+ 1388 0023 3E       		.uleb128 0x3e
+ 1389 0024 0B       		.uleb128 0xb
+ 1390 0025 03       		.uleb128 0x3
+ 1391 0026 08       		.uleb128 0x8
+ 1392 0027 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 34
+
+
+ 1393 0028 00       		.byte	0
+ 1394 0029 04       		.uleb128 0x4
+ 1395 002a 0F       		.uleb128 0xf
+ 1396 002b 00       		.byte	0
+ 1397 002c 0B       		.uleb128 0xb
+ 1398 002d 0B       		.uleb128 0xb
+ 1399 002e 49       		.uleb128 0x49
+ 1400 002f 13       		.uleb128 0x13
+ 1401 0030 00       		.byte	0
+ 1402 0031 00       		.byte	0
+ 1403 0032 05       		.uleb128 0x5
+ 1404 0033 16       		.uleb128 0x16
+ 1405 0034 00       		.byte	0
+ 1406 0035 03       		.uleb128 0x3
+ 1407 0036 0E       		.uleb128 0xe
+ 1408 0037 3A       		.uleb128 0x3a
+ 1409 0038 0B       		.uleb128 0xb
+ 1410 0039 3B       		.uleb128 0x3b
+ 1411 003a 05       		.uleb128 0x5
+ 1412 003b 49       		.uleb128 0x49
+ 1413 003c 13       		.uleb128 0x13
+ 1414 003d 00       		.byte	0
+ 1415 003e 00       		.byte	0
+ 1416 003f 06       		.uleb128 0x6
+ 1417 0040 04       		.uleb128 0x4
+ 1418 0041 01       		.byte	0x1
+ 1419 0042 0B       		.uleb128 0xb
+ 1420 0043 0B       		.uleb128 0xb
+ 1421 0044 49       		.uleb128 0x49
+ 1422 0045 13       		.uleb128 0x13
+ 1423 0046 3A       		.uleb128 0x3a
+ 1424 0047 0B       		.uleb128 0xb
+ 1425 0048 3B       		.uleb128 0x3b
+ 1426 0049 05       		.uleb128 0x5
+ 1427 004a 01       		.uleb128 0x1
+ 1428 004b 13       		.uleb128 0x13
+ 1429 004c 00       		.byte	0
+ 1430 004d 00       		.byte	0
+ 1431 004e 07       		.uleb128 0x7
+ 1432 004f 28       		.uleb128 0x28
+ 1433 0050 00       		.byte	0
+ 1434 0051 03       		.uleb128 0x3
+ 1435 0052 0E       		.uleb128 0xe
+ 1436 0053 1C       		.uleb128 0x1c
+ 1437 0054 0B       		.uleb128 0xb
+ 1438 0055 00       		.byte	0
+ 1439 0056 00       		.byte	0
+ 1440 0057 08       		.uleb128 0x8
+ 1441 0058 2E       		.uleb128 0x2e
+ 1442 0059 01       		.byte	0x1
+ 1443 005a 3F       		.uleb128 0x3f
+ 1444 005b 19       		.uleb128 0x19
+ 1445 005c 03       		.uleb128 0x3
+ 1446 005d 0E       		.uleb128 0xe
+ 1447 005e 3A       		.uleb128 0x3a
+ 1448 005f 0B       		.uleb128 0xb
+ 1449 0060 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 35
+
+
+ 1450 0061 0B       		.uleb128 0xb
+ 1451 0062 27       		.uleb128 0x27
+ 1452 0063 19       		.uleb128 0x19
+ 1453 0064 49       		.uleb128 0x49
+ 1454 0065 13       		.uleb128 0x13
+ 1455 0066 11       		.uleb128 0x11
+ 1456 0067 01       		.uleb128 0x1
+ 1457 0068 12       		.uleb128 0x12
+ 1458 0069 06       		.uleb128 0x6
+ 1459 006a 40       		.uleb128 0x40
+ 1460 006b 18       		.uleb128 0x18
+ 1461 006c 9642     		.uleb128 0x2116
+ 1462 006e 19       		.uleb128 0x19
+ 1463 006f 01       		.uleb128 0x1
+ 1464 0070 13       		.uleb128 0x13
+ 1465 0071 00       		.byte	0
+ 1466 0072 00       		.byte	0
+ 1467 0073 09       		.uleb128 0x9
+ 1468 0074 05       		.uleb128 0x5
+ 1469 0075 00       		.byte	0
+ 1470 0076 03       		.uleb128 0x3
+ 1471 0077 0E       		.uleb128 0xe
+ 1472 0078 3A       		.uleb128 0x3a
+ 1473 0079 0B       		.uleb128 0xb
+ 1474 007a 3B       		.uleb128 0x3b
+ 1475 007b 0B       		.uleb128 0xb
+ 1476 007c 49       		.uleb128 0x49
+ 1477 007d 13       		.uleb128 0x13
+ 1478 007e 02       		.uleb128 0x2
+ 1479 007f 18       		.uleb128 0x18
+ 1480 0080 00       		.byte	0
+ 1481 0081 00       		.byte	0
+ 1482 0082 0A       		.uleb128 0xa
+ 1483 0083 05       		.uleb128 0x5
+ 1484 0084 00       		.byte	0
+ 1485 0085 03       		.uleb128 0x3
+ 1486 0086 08       		.uleb128 0x8
+ 1487 0087 3A       		.uleb128 0x3a
+ 1488 0088 0B       		.uleb128 0xb
+ 1489 0089 3B       		.uleb128 0x3b
+ 1490 008a 0B       		.uleb128 0xb
+ 1491 008b 49       		.uleb128 0x49
+ 1492 008c 13       		.uleb128 0x13
+ 1493 008d 02       		.uleb128 0x2
+ 1494 008e 18       		.uleb128 0x18
+ 1495 008f 00       		.byte	0
+ 1496 0090 00       		.byte	0
+ 1497 0091 0B       		.uleb128 0xb
+ 1498 0092 34       		.uleb128 0x34
+ 1499 0093 00       		.byte	0
+ 1500 0094 03       		.uleb128 0x3
+ 1501 0095 08       		.uleb128 0x8
+ 1502 0096 3A       		.uleb128 0x3a
+ 1503 0097 0B       		.uleb128 0xb
+ 1504 0098 3B       		.uleb128 0x3b
+ 1505 0099 0B       		.uleb128 0xb
+ 1506 009a 49       		.uleb128 0x49
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 36
+
+
+ 1507 009b 13       		.uleb128 0x13
+ 1508 009c 02       		.uleb128 0x2
+ 1509 009d 18       		.uleb128 0x18
+ 1510 009e 00       		.byte	0
+ 1511 009f 00       		.byte	0
+ 1512 00a0 0C       		.uleb128 0xc
+ 1513 00a1 2E       		.uleb128 0x2e
+ 1514 00a2 01       		.byte	0x1
+ 1515 00a3 3F       		.uleb128 0x3f
+ 1516 00a4 19       		.uleb128 0x19
+ 1517 00a5 03       		.uleb128 0x3
+ 1518 00a6 0E       		.uleb128 0xe
+ 1519 00a7 3A       		.uleb128 0x3a
+ 1520 00a8 0B       		.uleb128 0xb
+ 1521 00a9 3B       		.uleb128 0x3b
+ 1522 00aa 0B       		.uleb128 0xb
+ 1523 00ab 27       		.uleb128 0x27
+ 1524 00ac 19       		.uleb128 0x19
+ 1525 00ad 11       		.uleb128 0x11
+ 1526 00ae 01       		.uleb128 0x1
+ 1527 00af 12       		.uleb128 0x12
+ 1528 00b0 06       		.uleb128 0x6
+ 1529 00b1 40       		.uleb128 0x40
+ 1530 00b2 18       		.uleb128 0x18
+ 1531 00b3 9642     		.uleb128 0x2116
+ 1532 00b5 19       		.uleb128 0x19
+ 1533 00b6 00       		.byte	0
+ 1534 00b7 00       		.byte	0
+ 1535 00b8 00       		.byte	0
+ 1536              		.section	.debug_aranges,"",%progbits
+ 1537 0000 24000000 		.4byte	0x24
+ 1538 0004 0200     		.2byte	0x2
+ 1539 0006 00000000 		.4byte	.Ldebug_info0
+ 1540 000a 04       		.byte	0x4
+ 1541 000b 00       		.byte	0
+ 1542 000c 0000     		.2byte	0
+ 1543 000e 0000     		.2byte	0
+ 1544 0010 00000000 		.4byte	.LFB38
+ 1545 0014 38000000 		.4byte	.LFE38-.LFB38
+ 1546 0018 00000000 		.4byte	.LFB39
+ 1547 001c 20030000 		.4byte	.LFE39-.LFB39
+ 1548 0020 00000000 		.4byte	0
+ 1549 0024 00000000 		.4byte	0
+ 1550              		.section	.debug_ranges,"",%progbits
+ 1551              	.Ldebug_ranges0:
+ 1552 0000 00000000 		.4byte	.LFB38
+ 1553 0004 38000000 		.4byte	.LFE38
+ 1554 0008 00000000 		.4byte	.LFB39
+ 1555 000c 20030000 		.4byte	.LFE39
+ 1556 0010 00000000 		.4byte	0
+ 1557 0014 00000000 		.4byte	0
+ 1558              		.section	.debug_line,"",%progbits
+ 1559              	.Ldebug_line0:
+ 1560 0000 FA000000 		.section	.debug_str,"MS",%progbits,1
+ 1560      02005100 
+ 1560      00000201 
+ 1560      FB0E0D00 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 37
+
+
+ 1560      01010101 
+ 1561              	.LASF23:
+ 1562 0000 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST\000"
+ 1562      455F4556 
+ 1562      545F4741 
+ 1562      505F5041 
+ 1562      53534B45 
+ 1563              	.LASF58:
+ 1564 0024 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP\000"
+ 1564      455F4556 
+ 1564      545F4741 
+ 1564      5454435F 
+ 1564      57524954 
+ 1565              	.LASF20:
+ 1566 003e 4359424C 		.ascii	"CYBLE_EVT_MEMORY_REQUEST\000"
+ 1566      455F4556 
+ 1566      545F4D45 
+ 1566      4D4F5259 
+ 1566      5F524551 
+ 1567              	.LASF45:
+ 1568 0057 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
+ 1568      455F4556 
+ 1568      545F4741 
+ 1568      5454435F 
+ 1568      4552524F 
+ 1569              	.LASF35:
+ 1570 0071 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYPRESS_NOTIFICATION\000"
+ 1570      455F4556 
+ 1570      545F4741 
+ 1570      505F4B45 
+ 1570      59505245 
+ 1571              	.LASF2:
+ 1572 0095 73686F72 		.ascii	"short int\000"
+ 1572      7420696E 
+ 1572      7400
+ 1573              	.LASF26:
+ 1574 009f 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED\000"
+ 1574      455F4556 
+ 1574      545F4741 
+ 1574      505F4155 
+ 1574      54485F46 
+ 1575              	.LASF47:
+ 1576 00b9 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND\000"
+ 1576      455F4556 
+ 1576      545F4741 
+ 1576      54545F44 
+ 1576      4953434F 
+ 1577              	.LASF93:
+ 1578 00d7 7072696E 		.ascii	"print_event\000"
+ 1578      745F6576 
+ 1578      656E7400 
+ 1579              	.LASF10:
+ 1580 00e3 73697A65 		.ascii	"sizetype\000"
+ 1580      74797065 
+ 1580      00
+ 1581              	.LASF37:
+ 1582 00ec 4359424C 		.ascii	"CYBLE_EVT_GAP_DATA_LENGTH_CHANGE\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 38
+
+
+ 1582      455F4556 
+ 1582      545F4741 
+ 1582      505F4441 
+ 1582      54415F4C 
+ 1583              	.LASF6:
+ 1584 010d 6C6F6E67 		.ascii	"long long int\000"
+ 1584      206C6F6E 
+ 1584      6720696E 
+ 1584      7400
+ 1585              	.LASF92:
+ 1586 011b 5F777269 		.ascii	"_write\000"
+ 1586      746500
+ 1587              	.LASF87:
+ 1588 0122 6576656E 		.ascii	"event\000"
+ 1588      7400
+ 1589              	.LASF18:
+ 1590 0128 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS\000"
+ 1590      455F4556 
+ 1590      545F4843 
+ 1590      495F5354 
+ 1590      41545553 
+ 1591              	.LASF86:
+ 1592 013d 66696C65 		.ascii	"file\000"
+ 1592      00
+ 1593              	.LASF15:
+ 1594 0142 4359424C 		.ascii	"CYBLE_EVT_STACK_ON\000"
+ 1594      455F4556 
+ 1594      545F5354 
+ 1594      41434B5F 
+ 1594      4F4E00
+ 1595              	.LASF44:
+ 1596 0155 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_LOC_P256_KEYS_GEN_AND_SET_COMPLET"
+ 1596      455F4556 
+ 1596      545F4741 
+ 1596      505F534D 
+ 1596      505F4C4F 
+ 1597 0188 4500     		.ascii	"E\000"
+ 1598              	.LASF48:
+ 1599 018a 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
+ 1599      455F4556 
+ 1599      545F4741 
+ 1599      5454535F 
+ 1599      58434E48 
+ 1600              	.LASF33:
+ 1601 01a8 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT\000"
+ 1601      455F4556 
+ 1601      545F4741 
+ 1601      505F4B45 
+ 1601      59494E46 
+ 1602              	.LASF56:
+ 1603 01cc 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP\000"
+ 1603      455F4556 
+ 1603      545F4741 
+ 1603      5454435F 
+ 1603      52454144 
+ 1604              	.LASF65:
+ 1605 01eb 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 39
+
+
+ 1605      455F4556 
+ 1605      545F4741 
+ 1605      5454535F 
+ 1605      48414E44 
+ 1606              	.LASF14:
+ 1607 020c 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID\000"
+ 1607      455F4556 
+ 1607      545F484F 
+ 1607      53545F49 
+ 1607      4E56414C 
+ 1608              	.LASF73:
+ 1609 0223 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND\000"
+ 1609      455F4556 
+ 1609      545F4C32 
+ 1609      4341505F 
+ 1609      43424643 
+ 1610              	.LASF76:
+ 1611 0241 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF\000"
+ 1611      455F4556 
+ 1611      545F4C32 
+ 1611      4341505F 
+ 1611      43424643 
+ 1612              	.LASF12:
+ 1613 0262 666C6F61 		.ascii	"float\000"
+ 1613      7400
+ 1614              	.LASF54:
+ 1615 0268 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP\000"
+ 1615      455F4556 
+ 1615      545F4741 
+ 1615      5454435F 
+ 1615      52454144 
+ 1616              	.LASF34:
+ 1617 0281 4359424C 		.ascii	"CYBLE_EVT_GAP_NUMERIC_COMPARISON_REQUEST\000"
+ 1617      455F4556 
+ 1617      545F4741 
+ 1617      505F4E55 
+ 1617      4D455249 
+ 1618              	.LASF39:
+ 1619 02aa 4359424C 		.ascii	"CYBLE_EVT_GAPC_DIRECT_ADV_REPORT\000"
+ 1619      455F4556 
+ 1619      545F4741 
+ 1619      50435F44 
+ 1619      49524543 
+ 1620              	.LASF7:
+ 1621 02cb 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1621      206C6F6E 
+ 1621      6720756E 
+ 1621      7369676E 
+ 1621      65642069 
+ 1622              	.LASF43:
+ 1623 02e2 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ_REPLY_ERR\000"
+ 1623      455F4556 
+ 1623      545F4741 
+ 1623      505F4155 
+ 1623      54485F52 
+ 1624              	.LASF4:
+ 1625 0303 6C6F6E67 		.ascii	"long int\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 40
+
+
+ 1625      20696E74 
+ 1625      00
+ 1626              	.LASF64:
+ 1627 030c 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND\000"
+ 1627      455F4556 
+ 1627      545F4741 
+ 1627      5454435F 
+ 1627      48414E44 
+ 1628              	.LASF28:
+ 1629 032d 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED\000"
+ 1629      455F4556 
+ 1629      545F4741 
+ 1629      505F4445 
+ 1629      56494345 
+ 1630              	.LASF27:
+ 1631 034c 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
+ 1631      455F4556 
+ 1631      545F4741 
+ 1631      50505F41 
+ 1631      44564552 
+ 1632              	.LASF63:
+ 1633 0374 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF\000"
+ 1633      455F4556 
+ 1633      545F4741 
+ 1633      5454435F 
+ 1633      48414E44 
+ 1634              	.LASF24:
+ 1635 0395 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST\000"
+ 1635      455F4556 
+ 1635      545F4741 
+ 1635      505F5041 
+ 1635      53534B45 
+ 1636              	.LASF88:
+ 1637 03bb 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1637      43313120 
+ 1637      352E342E 
+ 1637      31203230 
+ 1637      31363036 
+ 1638 03ee 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1638      20726576 
+ 1638      6973696F 
+ 1638      6E203233 
+ 1638      37373135 
+ 1639 0421 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1639      66756E63 
+ 1639      74696F6E 
+ 1639      2D736563 
+ 1639      74696F6E 
+ 1640              	.LASF74:
+ 1641 0449 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF\000"
+ 1641      455F4556 
+ 1641      545F4C32 
+ 1641      4341505F 
+ 1641      43424643 
+ 1642              	.LASF38:
+ 1643 0467 4359424C 		.ascii	"CYBLE_EVT_GAP_ENHANCE_CONN_COMPLETE\000"
+ 1643      455F4556 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 41
+
+
+ 1643      545F4741 
+ 1643      505F454E 
+ 1643      48414E43 
+ 1644              	.LASF9:
+ 1645 048b 6C6F6E67 		.ascii	"long double\000"
+ 1645      20646F75 
+ 1645      626C6500 
+ 1646              	.LASF70:
+ 1647 0497 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ\000"
+ 1647      455F4556 
+ 1647      545F4C32 
+ 1647      4341505F 
+ 1647      434F4E4E 
+ 1648              	.LASF1:
+ 1649 04bd 756E7369 		.ascii	"unsigned char\000"
+ 1649      676E6564 
+ 1649      20636861 
+ 1649      7200
+ 1650              	.LASF60:
+ 1651 04cb 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ\000"
+ 1651      455F4556 
+ 1651      545F4741 
+ 1651      5454535F 
+ 1651      50524550 
+ 1652              	.LASF82:
+ 1653 04ea 4359424C 		.ascii	"CYBLE_EVT_LE_PING_AUTH_TIMEOUT\000"
+ 1653      455F4556 
+ 1653      545F4C45 
+ 1653      5F50494E 
+ 1653      475F4155 
+ 1654              	.LASF89:
+ 1655 0509 64656275 		.ascii	"debug.c\000"
+ 1655      672E6300 
+ 1656              	.LASF0:
+ 1657 0511 7369676E 		.ascii	"signed char\000"
+ 1657      65642063 
+ 1657      68617200 
+ 1658              	.LASF57:
+ 1659 051d 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
+ 1659      455F4556 
+ 1659      545F4741 
+ 1659      5454535F 
+ 1659      57524954 
+ 1660              	.LASF53:
+ 1661 0537 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP\000"
+ 1661      455F4556 
+ 1661      545F4741 
+ 1661      5454435F 
+ 1661      46494E44 
+ 1662              	.LASF25:
+ 1663 055e 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE\000"
+ 1663      455F4556 
+ 1663      545F4741 
+ 1663      505F4155 
+ 1663      54485F43 
+ 1664              	.LASF8:
+ 1665 057a 756E7369 		.ascii	"unsigned int\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 42
+
+
+ 1665      676E6564 
+ 1665      20696E74 
+ 1665      00
+ 1666              	.LASF46:
+ 1667 0587 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND\000"
+ 1667      455F4556 
+ 1667      545F4741 
+ 1667      54545F43 
+ 1667      4F4E4E45 
+ 1668              	.LASF5:
+ 1669 05a2 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1669      20756E73 
+ 1669      69676E65 
+ 1669      6420696E 
+ 1669      7400
+ 1670              	.LASF22:
+ 1671 05b4 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ\000"
+ 1671      455F4556 
+ 1671      545F4741 
+ 1671      505F4155 
+ 1671      54485F52 
+ 1672              	.LASF75:
+ 1673 05cb 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND\000"
+ 1673      455F4556 
+ 1673      545F4C32 
+ 1673      4341505F 
+ 1673      43424643 
+ 1674              	.LASF30:
+ 1675 05ec 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE\000"
+ 1675      455F4556 
+ 1675      545F4741 
+ 1675      505F454E 
+ 1675      43525950 
+ 1676              	.LASF41:
+ 1677 0609 4359424C 		.ascii	"CYBLE_EVT_GAP_CONN_ESTB\000"
+ 1677      455F4556 
+ 1677      545F4741 
+ 1677      505F434F 
+ 1677      4E4E5F45 
+ 1678              	.LASF69:
+ 1679 0621 4359424C 		.ascii	"CYBLE_EVT_GATTC_LONG_PROCEDURE_END\000"
+ 1679      455F4556 
+ 1679      545F4741 
+ 1679      5454435F 
+ 1679      4C4F4E47 
+ 1680              	.LASF3:
+ 1681 0644 73686F72 		.ascii	"short unsigned int\000"
+ 1681      7420756E 
+ 1681      7369676E 
+ 1681      65642069 
+ 1681      6E7400
+ 1682              	.LASF84:
+ 1683 0657 4359424C 		.ascii	"CYBLE_EVT_FLASH_CORRUPT\000"
+ 1683      455F4556 
+ 1683      545F464C 
+ 1683      4153485F 
+ 1683      434F5252 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 43
+
+
+ 1684              	.LASF31:
+ 1685 066f 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE\000"
+ 1685      455F4556 
+ 1685      545F4741 
+ 1685      505F434F 
+ 1685      4E4E4543 
+ 1686              	.LASF40:
+ 1687 0698 4359424C 		.ascii	"CYBLE_EVT_GAP_SMP_NEGOTIATED_AUTH_INFO\000"
+ 1687      455F4556 
+ 1687      545F4741 
+ 1687      505F534D 
+ 1687      505F4E45 
+ 1688              	.LASF11:
+ 1689 06bf 63686172 		.ascii	"char\000"
+ 1689      00
+ 1690              	.LASF72:
+ 1691 06c4 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ\000"
+ 1691      455F4556 
+ 1691      545F4C32 
+ 1691      4341505F 
+ 1691      434F4D4D 
+ 1692              	.LASF55:
+ 1693 06e0 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP\000"
+ 1693      455F4556 
+ 1693      545F4741 
+ 1693      5454435F 
+ 1693      52454144 
+ 1694              	.LASF62:
+ 1695 06fe 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP\000"
+ 1695      455F4556 
+ 1695      545F4741 
+ 1695      5454435F 
+ 1695      45584543 
+ 1696              	.LASF91:
+ 1697 071d 75696E74 		.ascii	"uint32\000"
+ 1697      333200
+ 1698              	.LASF81:
+ 1699 0724 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE\000"
+ 1699      455F4556 
+ 1699      545F5045 
+ 1699      4E44494E 
+ 1699      475F464C 
+ 1700              	.LASF78:
+ 1701 0742 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND\000"
+ 1701      455F4556 
+ 1701      545F4C32 
+ 1701      4341505F 
+ 1701      43424643 
+ 1702              	.LASF13:
+ 1703 0765 646F7562 		.ascii	"double\000"
+ 1703      6C6500
+ 1704              	.LASF79:
+ 1705 076c 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND\000"
+ 1705      455F4556 
+ 1705      545F4C32 
+ 1705      4341505F 
+ 1705      43424643 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 44
+
+
+ 1706              	.LASF42:
+ 1707 078f 4359424C 		.ascii	"CYBLE_EVT_GAP_SCAN_REQ_RECVD\000"
+ 1707      455F4556 
+ 1707      545F4741 
+ 1707      505F5343 
+ 1707      414E5F52 
+ 1708              	.LASF19:
+ 1709 07ac 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS\000"
+ 1709      455F4556 
+ 1709      545F5354 
+ 1709      41434B5F 
+ 1709      42555359 
+ 1710              	.LASF90:
+ 1711 07c8 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-worl"
+ 1711      73657273 
+ 1711      5C627279 
+ 1711      616E2E6C 
+ 1711      65655C44 
+ 1712 07f6 645C4379 		.ascii	"d\\Cypress\\BLE_Central_Observer\\BLE_Central_Obser"
+ 1712      70726573 
+ 1712      735C424C 
+ 1712      455F4365 
+ 1712      6E747261 
+ 1713 0826 7665722E 		.ascii	"ver.cydsn\000"
+ 1713      63796473 
+ 1713      6E00
+ 1714              	.LASF17:
+ 1715 0830 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR\000"
+ 1715      455F4556 
+ 1715      545F4841 
+ 1715      52445741 
+ 1715      52455F45 
+ 1716              	.LASF77:
+ 1717 0849 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
+ 1717      455F4556 
+ 1717      545F4C32 
+ 1717      4341505F 
+ 1717      43424643 
+ 1718              	.LASF71:
+ 1719 0868 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP\000"
+ 1719      455F4556 
+ 1719      545F4C32 
+ 1719      4341505F 
+ 1719      434F4E4E 
+ 1720              	.LASF21:
+ 1721 088e 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT\000"
+ 1721      455F4556 
+ 1721      545F4741 
+ 1721      50435F53 
+ 1721      43414E5F 
+ 1722              	.LASF50:
+ 1723 08b2 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP\000"
+ 1723      455F4556 
+ 1723      545F4741 
+ 1723      5454435F 
+ 1723      52454144 
+ 1724              	.LASF59:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 45
+
+
+ 1725 08d9 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
+ 1725      455F4556 
+ 1725      545F4741 
+ 1725      5454535F 
+ 1725      57524954 
+ 1726              	.LASF51:
+ 1727 08f7 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP\000"
+ 1727      455F4556 
+ 1727      545F4741 
+ 1727      5454435F 
+ 1727      52454144 
+ 1728              	.LASF49:
+ 1729 0918 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP\000"
+ 1729      455F4556 
+ 1729      545F4741 
+ 1729      5454435F 
+ 1729      5843484E 
+ 1730              	.LASF16:
+ 1731 0936 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT\000"
+ 1731      455F4556 
+ 1731      545F5449 
+ 1731      4D454F55 
+ 1731      5400
+ 1732              	.LASF80:
+ 1733 0948 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND\000"
+ 1733      455F4556 
+ 1733      545F4C32 
+ 1733      4341505F 
+ 1733      43424643 
+ 1734              	.LASF32:
+ 1735 096c 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP\000"
+ 1735      455F4556 
+ 1735      545F4741 
+ 1735      50435F53 
+ 1735      43414E5F 
+ 1736              	.LASF85:
+ 1737 098b 4359424C 		.ascii	"CYBLE_EVT_MAX\000"
+ 1737      455F4556 
+ 1737      545F4D41 
+ 1737      5800
+ 1738              	.LASF68:
+ 1739 0999 4359424C 		.ascii	"CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ\000"
+ 1739      455F4556 
+ 1739      545F4741 
+ 1739      5454535F 
+ 1739      52454144 
+ 1740              	.LASF52:
+ 1741 09c2 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP\000"
+ 1741      455F4556 
+ 1741      545F4741 
+ 1741      5454435F 
+ 1741      46494E44 
+ 1742              	.LASF67:
+ 1743 09e0 4359424C 		.ascii	"CYBLE_EVT_GATTC_STOP_CMD_COMPLETE\000"
+ 1743      455F4556 
+ 1743      545F4741 
+ 1743      5454435F 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccpOKZcd.s 			page 46
+
+
+ 1743      53544F50 
+ 1744              	.LASF61:
+ 1745 0a02 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
+ 1745      455F4556 
+ 1745      545F4741 
+ 1745      5454535F 
+ 1745      45584543 
+ 1746              	.LASF29:
+ 1747 0a21 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
+ 1747      455F4556 
+ 1747      545F4741 
+ 1747      505F4445 
+ 1747      56494345 
+ 1748              	.LASF66:
+ 1749 0a43 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
+ 1749      455F4556 
+ 1749      545F4741 
+ 1749      5454535F 
+ 1749      44415441 
+ 1750              	.LASF83:
+ 1751 0a67 4359424C 		.ascii	"CYBLE_EVT_HCI_PKT\000"
+ 1751      455F4556 
+ 1751      545F4843 
+ 1751      495F504B 
+ 1751      5400
+ 1752              	.LASF36:
+ 1753 0a79 4359424C 		.ascii	"CYBLE_EVT_GAP_OOB_GENERATED_NOTIFICATION\000"
+ 1753      455F4556 
+ 1753      545F4741 
+ 1753      505F4F4F 
+ 1753      425F4745 
+ 1754              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
