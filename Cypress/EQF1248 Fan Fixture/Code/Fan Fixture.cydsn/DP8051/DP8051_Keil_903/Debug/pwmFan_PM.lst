@@ -1,0 +1,416 @@
+C51 COMPILER V9.03   PWMFAN_PM                                                             07/19/2013 02:53:01 PAGE 1   
+
+
+C51 COMPILER V9.03, COMPILATION OF MODULE PWMFAN_PM
+OBJECT MODULE PLACED IN .\DP8051\DP8051_Keil_903\Debug\pwmFan_PM.obj
+COMPILER INVOKED BY: C:\Program Files\Cypress\PSoC Creator\2.2\PSoC Creator\import\keil\pk51\9.03\C51\BIN\c51.exe .\Gene
+                    -rated_Source\PSoC3\pwmFan_PM.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051\DP8051_Keil_903\Debug\pwmFan_PM.lst) CD DB NOIP 
+                    -OT(2,SIZE) DF(DEBUG) INCDIR(Generated_Source\PSoC3) OJ(.\DP8051\DP8051_Keil_903\Debug\pwmFan_PM.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2          * File Name: pwmFan_PM.c
+   3          * Version 2.40
+   4          *
+   5          * Description:
+   6          *  This file provides the power management source code to API for the
+   7          *  PWM.
+   8          *
+   9          * Note:
+  10          *
+  11          ********************************************************************************
+  12          * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13          * You may use this file only in accordance with the license, terms, conditions,
+  14          * disclaimers, and limitations in the end user license agreement accompanying
+  15          * the software package with which this file was provided.
+  16          *******************************************************************************/
+  17          #include "cytypes.h"
+  18          #include "pwmFan.h"
+  19          
+  20          static pwmFan_backupStruct pwmFan_backup;
+  21          
+  22          
+  23          /*******************************************************************************
+  24          * Function Name: pwmFan_SaveConfig
+  25          ********************************************************************************
+  26          *
+  27          * Summary:
+  28          *  Saves the current user configuration of the component.
+  29          *  
+  30          * Parameters:  
+  31          *  None
+  32          *
+  33          * Return: 
+  34          *  None
+  35          *
+  36          * Global variables:
+  37          *  pwmFan_backup:  Variables of this global structure are modified to 
+  38          *  store the values of non retention configuration registers when Sleep() API is 
+  39          *  called.
+  40          *
+  41          *******************************************************************************/
+  42          void pwmFan_SaveConfig(void) 
+  43          {
+  44   1          
+  45   1          #if(!pwmFan_UsingFixedFunction)
+  46   1              #if (CY_UDB_V0)
+                          pwmFan_backup.PWMUdb = pwmFan_ReadCounter();
+                          pwmFan_backup.PWMPeriod = pwmFan_ReadPeriod();
+                          #if (pwmFan_UseStatus)
+                              pwmFan_backup.InterruptMaskValue = pwmFan_STATUS_MASK;
+                          #endif /* (pwmFan_UseStatus) */
+                          
+                          #if(pwmFan_UseOneCompareMode)
+C51 COMPILER V9.03   PWMFAN_PM                                                             07/19/2013 02:53:01 PAGE 2   
+
+                              pwmFan_backup.PWMCompareValue = pwmFan_ReadCompare();
+                          #else
+                              pwmFan_backup.PWMCompareValue1 = pwmFan_ReadCompare1();
+                              pwmFan_backup.PWMCompareValue2 = pwmFan_ReadCompare2();
+                          #endif /* (pwmFan_UseOneCompareMode) */
+                          
+                         #if(pwmFan_DeadBandUsed)
+                              pwmFan_backup.PWMdeadBandValue = pwmFan_ReadDeadTime();
+                          #endif /* (pwmFan_DeadBandUsed) */
+                        
+                          #if ( pwmFan_KillModeMinTime)
+                              pwmFan_backup.PWMKillCounterPeriod = pwmFan_ReadKillTime();
+                          #endif /* ( pwmFan_KillModeMinTime) */
+                      #endif /* (CY_UDB_V0) */
+  68   1              
+  69   1              #if (CY_UDB_V1)
+  70   1                  #if(!pwmFan_PWMModeIsCenterAligned)
+  71   1                      pwmFan_backup.PWMPeriod = pwmFan_ReadPeriod();
+  72   1                  #endif /* (!pwmFan_PWMModeIsCenterAligned) */
+  73   1                  pwmFan_backup.PWMUdb = pwmFan_ReadCounter();
+  74   1                  #if (pwmFan_UseStatus)
+  75   1                      pwmFan_backup.InterruptMaskValue = pwmFan_STATUS_MASK;
+  76   1                  #endif /* (pwmFan_UseStatus) */
+  77   1                  
+  78   1                  #if(pwmFan_DeadBandMode == pwmFan__B_PWM__DBM_256_CLOCKS || \
+  79   1                      pwmFan_DeadBandMode == pwmFan__B_PWM__DBM_2_4_CLOCKS)
+                              pwmFan_backup.PWMdeadBandValue = pwmFan_ReadDeadTime();
+                          #endif /*  deadband count is either 2-4 clocks or 256 clocks */
+  82   1                  
+  83   1                  #if(pwmFan_KillModeMinTime)
+                               pwmFan_backup.PWMKillCounterPeriod = pwmFan_ReadKillTime();
+                          #endif /* (pwmFan_KillModeMinTime) */
+  86   1              #endif /* (CY_UDB_V1) */
+  87   1              
+  88   1              #if(pwmFan_UseControl)
+  89   1                  pwmFan_backup.PWMControlRegister = pwmFan_ReadControlRegister();
+  90   1              #endif /* (pwmFan_UseControl) */
+  91   1          #endif  /* (!pwmFan_UsingFixedFunction) */
+  92   1      }
+  93          
+  94          
+  95          /*******************************************************************************
+  96          * Function Name: pwmFan_RestoreConfig
+  97          ********************************************************************************
+  98          * 
+  99          * Summary:
+ 100          *  Restores the current user configuration of the component.
+ 101          *
+ 102          * Parameters:  
+ 103          *  None
+ 104          *
+ 105          * Return: 
+ 106          *  None
+ 107          *
+ 108          * Global variables:
+ 109          *  pwmFan_backup:  Variables of this global structure are used to  
+ 110          *  restore the values of non retention registers on wakeup from sleep mode.
+ 111          *
+ 112          *******************************************************************************/
+ 113          void pwmFan_RestoreConfig(void) 
+ 114          {
+ 115   1              #if(!pwmFan_UsingFixedFunction)
+C51 COMPILER V9.03   PWMFAN_PM                                                             07/19/2013 02:53:01 PAGE 3   
+
+ 116   1                  #if (CY_UDB_V0)
+                              /* Interrupt State Backup for Critical Region*/
+                              uint8 pwmFan_interruptState;
+                              /* Enter Critical Region*/
+                              pwmFan_interruptState = CyEnterCriticalSection();
+                              #if (pwmFan_UseStatus)
+                                  /* Use the interrupt output of the status register for IRQ output */
+                                  pwmFan_STATUS_AUX_CTRL |= pwmFan_STATUS_ACTL_INT_EN_MASK;
+                                  
+                                  pwmFan_STATUS_MASK = pwmFan_backup.InterruptMaskValue;
+                              #endif /* (pwmFan_UseStatus) */
+                              
+                              #if (pwmFan_Resolution == 8)
+                                  /* Set FIFO 0 to 1 byte register for period*/
+                                  pwmFan_AUX_CONTROLDP0 |= (pwmFan_AUX_CTRL_FIFO0_CLR);
+                              #else /* (pwmFan_Resolution == 16)*/
+                                  /* Set FIFO 0 to 1 byte register for period */
+                                  pwmFan_AUX_CONTROLDP0 |= (pwmFan_AUX_CTRL_FIFO0_CLR);
+                                  pwmFan_AUX_CONTROLDP1 |= (pwmFan_AUX_CTRL_FIFO0_CLR);
+                              #endif /* (pwmFan_Resolution == 8) */
+                              /* Exit Critical Region*/
+                              CyExitCriticalSection(pwmFan_interruptState);
+                              
+                              pwmFan_WriteCounter(pwmFan_backup.PWMUdb);
+                              pwmFan_WritePeriod(pwmFan_backup.PWMPeriod);
+                              
+                              #if(pwmFan_UseOneCompareMode)
+                                  pwmFan_WriteCompare(pwmFan_backup.PWMCompareValue);
+                              #else
+                                  pwmFan_WriteCompare1(pwmFan_backup.PWMCompareValue1);
+                                  pwmFan_WriteCompare2(pwmFan_backup.PWMCompareValue2);
+                              #endif /* (pwmFan_UseOneCompareMode) */
+                              
+                             #if(pwmFan_DeadBandMode == pwmFan__B_PWM__DBM_256_CLOCKS || \
+                                 pwmFan_DeadBandMode == pwmFan__B_PWM__DBM_2_4_CLOCKS)
+                                  pwmFan_WriteDeadTime(pwmFan_backup.PWMdeadBandValue);
+                              #endif /* deadband count is either 2-4 clocks or 256 clocks */
+                          
+                              #if ( pwmFan_KillModeMinTime)
+                                  pwmFan_WriteKillTime(pwmFan_backup.PWMKillCounterPeriod);
+                              #endif /* ( pwmFan_KillModeMinTime) */
+                          #endif /* (CY_UDB_V0) */
+ 158   1                  
+ 159   1                  #if (CY_UDB_V1)
+ 160   1                      #if(!pwmFan_PWMModeIsCenterAligned)
+ 161   1                          pwmFan_WritePeriod(pwmFan_backup.PWMPeriod);
+ 162   1                      #endif /* (!pwmFan_PWMModeIsCenterAligned) */
+ 163   1                      pwmFan_WriteCounter(pwmFan_backup.PWMUdb);
+ 164   1                      #if (pwmFan_UseStatus)
+ 165   1                          pwmFan_STATUS_MASK = pwmFan_backup.InterruptMaskValue;
+ 166   1                      #endif /* (pwmFan_UseStatus) */
+ 167   1                      
+ 168   1                      #if(pwmFan_DeadBandMode == pwmFan__B_PWM__DBM_256_CLOCKS || \
+ 169   1                          pwmFan_DeadBandMode == pwmFan__B_PWM__DBM_2_4_CLOCKS)
+                                  pwmFan_WriteDeadTime(pwmFan_backup.PWMdeadBandValue);
+                              #endif /* deadband count is either 2-4 clocks or 256 clocks */
+ 172   1                      
+ 173   1                      #if(pwmFan_KillModeMinTime)
+                                  pwmFan_WriteKillTime(pwmFan_backup.PWMKillCounterPeriod);
+                              #endif /* (pwmFan_KillModeMinTime) */
+ 176   1                  #endif /* (CY_UDB_V1) */
+ 177   1                  
+C51 COMPILER V9.03   PWMFAN_PM                                                             07/19/2013 02:53:01 PAGE 4   
+
+ 178   1                  #if(pwmFan_UseControl)
+ 179   1                      pwmFan_WriteControlRegister(pwmFan_backup.PWMControlRegister); 
+ 180   1                  #endif /* (pwmFan_UseControl) */
+ 181   1              #endif  /* (!pwmFan_UsingFixedFunction) */
+ 182   1          }
+ 183          
+ 184          
+ 185          /*******************************************************************************
+ 186          * Function Name: pwmFan_Sleep
+ 187          ********************************************************************************
+ 188          * 
+ 189          * Summary:
+ 190          *  Disables block's operation and saves the user configuration. Should be called 
+ 191          *  just prior to entering sleep.
+ 192          *  
+ 193          * Parameters:  
+ 194          *  None
+ 195          *
+ 196          * Return: 
+ 197          *  None
+ 198          *
+ 199          * Global variables:
+ 200          *  pwmFan_backup.PWMEnableState:  Is modified depending on the enable 
+ 201          *  state of the block before entering sleep mode.
+ 202          *
+ 203          *******************************************************************************/
+ 204          void pwmFan_Sleep(void) 
+ 205          {
+ 206   1          #if(pwmFan_UseControl)
+ 207   1              if(pwmFan_CTRL_ENABLE == (pwmFan_CONTROL & pwmFan_CTRL_ENABLE))
+ 208   1              {
+ 209   2                  /*Component is enabled */
+ 210   2                  pwmFan_backup.PWMEnableState = 1u;
+ 211   2              }
+ 212   1              else
+ 213   1              {
+ 214   2                  /* Component is disabled */
+ 215   2                  pwmFan_backup.PWMEnableState = 0u;
+ 216   2              }
+ 217   1          #endif /* (pwmFan_UseControl) */
+ 218   1      
+ 219   1          /* Stop component */
+ 220   1          pwmFan_Stop();
+ 221   1          
+ 222   1          /* Save registers configuration */
+ 223   1          pwmFan_SaveConfig();
+ 224   1      }
+ 225          
+ 226          
+ 227          /*******************************************************************************
+ 228          * Function Name: pwmFan_Wakeup
+ 229          ********************************************************************************
+ 230          * 
+ 231          * Summary:
+ 232          *  Restores and enables the user configuration. Should be called just after 
+ 233          *  awaking from sleep.
+ 234          *  
+ 235          * Parameters:  
+ 236          *  None
+ 237          *
+ 238          * Return: 
+ 239          *  None
+C51 COMPILER V9.03   PWMFAN_PM                                                             07/19/2013 02:53:01 PAGE 5   
+
+ 240          *
+ 241          * Global variables:
+ 242          *  pwmFan_backup.pwmEnable:  Is used to restore the enable state of 
+ 243          *  block on wakeup from sleep mode.
+ 244          *
+ 245          *******************************************************************************/
+ 246          void pwmFan_Wakeup(void) 
+ 247          {
+ 248   1           /* Restore registers values */
+ 249   1          pwmFan_RestoreConfig();
+ 250   1          
+ 251   1          if(pwmFan_backup.PWMEnableState != 0u)
+ 252   1          {
+ 253   2              /* Enable component's operation */
+ 254   2              pwmFan_Enable();
+ 255   2          } /* Do nothing if component's block was disabled before */
+ 256   1          
+ 257   1      }
+ 258          
+ 259          
+ 260          /* [] END OF FILE */
+C51 COMPILER V9.03   PWMFAN_PM                                                             07/19/2013 02:53:01 PAGE 6   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION pwmFan_SaveConfig (BEGIN)
+                                           ; SOURCE LINE # 42
+                                           ; SOURCE LINE # 43
+                                           ; SOURCE LINE # 71
+0000 120000      E     LCALL   pwmFan_ReadPeriod
+0003 900000      R     MOV     DPTR,#pwmFan_backup+02H
+0006 EF                MOV     A,R7
+0007 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 73
+0008 120000      E     LCALL   pwmFan_ReadCounter
+000B 900000      R     MOV     DPTR,#pwmFan_backup+01H
+000E EF                MOV     A,R7
+000F F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 75
+0010 906588            MOV     DPTR,#06588H
+0013 E0                MOVX    A,@DPTR
+0014 FF                MOV     R7,A
+0015 900000      R     MOV     DPTR,#pwmFan_backup+03H
+0018 EF                MOV     A,R7
+0019 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 89
+001A 120000      E     LCALL   pwmFan_ReadControlRegister
+001D 900000      R     MOV     DPTR,#pwmFan_backup+04H
+0020 EF                MOV     A,R7
+0021 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 92
+0022 22                RET     
+             ; FUNCTION pwmFan_SaveConfig (END)
+
+             ; FUNCTION pwmFan_RestoreConfig (BEGIN)
+                                           ; SOURCE LINE # 113
+                                           ; SOURCE LINE # 114
+                                           ; SOURCE LINE # 161
+0000 900000      R     MOV     DPTR,#pwmFan_backup+02H
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 120000      E     LCALL   _pwmFan_WritePeriod
+                                           ; SOURCE LINE # 163
+0008 900000      R     MOV     DPTR,#pwmFan_backup+01H
+000B E0                MOVX    A,@DPTR
+000C FF                MOV     R7,A
+000D 120000      E     LCALL   _pwmFan_WriteCounter
+                                           ; SOURCE LINE # 165
+0010 900000      R     MOV     DPTR,#pwmFan_backup+03H
+0013 E0                MOVX    A,@DPTR
+0014 FF                MOV     R7,A
+0015 906588            MOV     DPTR,#06588H
+0018 EF                MOV     A,R7
+0019 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 179
+001A 900000      R     MOV     DPTR,#pwmFan_backup+04H
+001D E0                MOVX    A,@DPTR
+001E FF                MOV     R7,A
+001F 120000      E     LCALL   _pwmFan_WriteControlRegister
+                                           ; SOURCE LINE # 182
+0022 22                RET     
+             ; FUNCTION pwmFan_RestoreConfig (END)
+
+             ; FUNCTION pwmFan_Sleep (BEGIN)
+C51 COMPILER V9.03   PWMFAN_PM                                                             07/19/2013 02:53:01 PAGE 7   
+
+                                           ; SOURCE LINE # 204
+                                           ; SOURCE LINE # 205
+                                           ; SOURCE LINE # 207
+0000 90657B            MOV     DPTR,#0657BH
+0003 E0                MOVX    A,@DPTR
+0004 FF                MOV     R7,A
+0005 EF                MOV     A,R7
+0006 30E708            JNB     ACC.7,?C0003
+                                           ; SOURCE LINE # 208
+                                           ; SOURCE LINE # 210
+0009 900000      R     MOV     DPTR,#pwmFan_backup
+000C 7401              MOV     A,#01H
+000E F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 211
+000F 8005              SJMP    ?C0004
+0011         ?C0003:
+                                           ; SOURCE LINE # 213
+                                           ; SOURCE LINE # 215
+0011 900000      R     MOV     DPTR,#pwmFan_backup
+0014 E4                CLR     A
+0015 F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 216
+0016         ?C0004:
+                                           ; SOURCE LINE # 220
+0016 120000      E     LCALL   pwmFan_Stop
+                                           ; SOURCE LINE # 223
+0019 120000      R     LCALL   pwmFan_SaveConfig
+                                           ; SOURCE LINE # 224
+001C 22                RET     
+             ; FUNCTION pwmFan_Sleep (END)
+
+             ; FUNCTION pwmFan_Wakeup (BEGIN)
+                                           ; SOURCE LINE # 246
+                                           ; SOURCE LINE # 247
+                                           ; SOURCE LINE # 249
+0000 120000      R     LCALL   pwmFan_RestoreConfig
+                                           ; SOURCE LINE # 251
+0003 900000      R     MOV     DPTR,#pwmFan_backup
+0006 E0                MOVX    A,@DPTR
+0007 FF                MOV     R7,A
+0008 EF                MOV     A,R7
+0009 6003              JZ      ?C0007
+                                           ; SOURCE LINE # 252
+                                           ; SOURCE LINE # 254
+000B 120000      E     LCALL   pwmFan_Enable
+                                           ; SOURCE LINE # 255
+                                           ; SOURCE LINE # 257
+000E         ?C0007:
+000E 22                RET     
+             ; FUNCTION pwmFan_Wakeup (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    114    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      5    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+C51 COMPILER V9.03   PWMFAN_PM                                                             07/19/2013 02:53:01 PAGE 8   
+
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

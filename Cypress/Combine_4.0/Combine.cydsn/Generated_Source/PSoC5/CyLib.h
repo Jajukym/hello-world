@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file CyLib.h
-* \version 5.40
+* \version 5.70
 *
 * \brief Provides the function definitions for the system, clocking, interrupts
 * and watchdog timer API.
@@ -10,7 +10,7 @@
 *
 ********************************************************************************
 * \copyright
-* Copyright 2008-2016, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2018, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -438,7 +438,7 @@ void CyGetUniqueId(uint32* uniqueId);
     #if defined(__ARMCC_VERSION)
         #define CY_SYS_ISB       __isb(0x0f)
     #else   /* ASM for GCC & IAR */
-        #define CY_SYS_ISB       asm volatile ("isb \n")
+        #define CY_SYS_ISB       __asm volatile ("isb \n")
     #endif /* (__ARMCC_VERSION) */
 
 #endif /* (CY_PSOC5) */

@@ -1,13 +1,13 @@
 /***************************************************************************//**
 * \file Cm3Start.c
-* \version 5.40
+* \version 5.70
 *
 *  \brief
 *  Startup code for the ARM CM3.
 *
 ********************************************************************************
 * \copyright
-* Copyright 2008-2015, Cypress Semiconductor Corporation. All rights reserved.
+* Copyright 2008-2018, Cypress Semiconductor Corporation. All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -46,7 +46,6 @@
 
 #if defined(__GNUC__)
     #include <errno.h>
-    extern int  errno;
     extern int  end;
 #endif  /* defined(__GNUC__) */
 
@@ -90,17 +89,37 @@ cyisraddress CyRamVectors[CY_NUM_VECTORS];
 *******************************************************************************/
 CY_ISR(IntDefaultHandler)
 {
-    #ifdef CY_BOOT_INT_DEFAULT_HANDLER_EXCEPTION_ENTRY_CALLBACK
-        CyBoot_IntDefaultHandler_Exception_EntryCallback();
-    #endif /* CY_BOOT_INT_DEFAULT_HANDLER_EXCEPTION_ENTRY_CALLBACK */
+    /***************************************************************************
+    * We must not get here. If we do, a serious problem occurs, so go into
+    * an infinite loop.
+    ***************************************************************************/
 
-    while(1)
-    {
-        /***********************************************************************
-        * We must not get here. If we do, a serious problem occurs, so go
-        * into an infinite loop.
-        ***********************************************************************/
-    }
+    #if defined(__GNUC__)
+        if (errno == ENOMEM)
+        {
+            #ifdef CY_BOOT_INT_DEFAULT_HANDLER_ENOMEM_EXCEPTION_CALLBACK
+                CyBoot_IntDefaultHandler_Enomem_Exception_Callback();
+            #endif /* CY_BOOT_INT_DEFAULT_HANDLER_ENOMEM_EXCEPTION_CALLBACK */
+            
+            while(1)
+            {
+                /* Out Of Heap Space
+                 * This can be increased in the System tab of the Design Wide Resources.
+                 */
+            }
+        }
+        else
+    #endif
+        {
+            #ifdef CY_BOOT_INT_DEFAULT_HANDLER_EXCEPTION_ENTRY_CALLBACK
+                CyBoot_IntDefaultHandler_Exception_EntryCallback();
+            #endif /* CY_BOOT_INT_DEFAULT_HANDLER_EXCEPTION_ENTRY_CALLBACK */
+
+            while(1)
+            {
+
+            }
+        }
 }
 
 
@@ -247,11 +266,11 @@ void * _sbrk (int nbytes)
     void *      returnValue;
 
     /* The statically held previous end of the heap, with its initialization. */
-    static void *heapPointer = (void *) &end;                 /* Previous end */
+    static uint8 *heapPointer = (uint8 *) &end;                 /* Previous end */
 
-    if (((heapPointer + nbytes) - (void *) &end) <= CYDEV_HEAP_SIZE)
+    if (((heapPointer + nbytes) - (uint8 *) &end) <= CYDEV_HEAP_SIZE)
     {
-        returnValue  = heapPointer;
+        returnValue  = (void *) heapPointer;
         heapPointer += nbytes;
     }
     else
