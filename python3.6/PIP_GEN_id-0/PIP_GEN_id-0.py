@@ -52,7 +52,7 @@ pulse = ["Hand", "Thumb", "Chest", "Ant", "BLE", "nanoHand", "Priority"];
 
 fan = ["TwoWire", "ThreeWire", "twoAndThree"];
 
-audio = ["None", "PC", "BrainBoard", "MP3", "iPod", "Headphones","BLE", "TV", "FM"]; #audio functions
+audio = ["None", "PC", "BrainBoard", "MP3", "iPod", "Headphones","BLE", "TV", "MYE"]; #audio functions
 
 header = ["void for function call", "RecordID", "Link to Parts - Console Pics", "Link to Parts - Consoles",
           "Part Number","Description", "ProductType", "Display Type", "Equipment Needed", "Setup", "BLE SETUP",
@@ -165,12 +165,17 @@ rev["B13"] = "20180418"
 rev["C13"] = "BLE finish steps work again"
 rev["D13"] = "id-0"
 
-rev["A14"] = "V.x"
-rev["B14"] = datetime.now()
-rev["C14"] = "Fiat justitia ruat caelum"
+rev["A14"] = "V.13"
+rev["B14"] = "20181015"
+rev["C14"] = "FreeMotion Legacy tablet /w MYE"
 rev["D14"] = "id-0"
 
-print (rev["a13"].value, rev["c13"].value, "\n")
+rev["A15"] = "V.x"
+rev["B15"] = datetime.now()
+rev["C15"] = "Fiat justitia ruat caelum"
+rev["D15"] = "id-0"
+
+print (rev["a14"].value, rev["c14"].value, "\n")
 
 
 for col in rev.columns:
@@ -455,12 +460,12 @@ class Device( xml.sax.ContentHandler ):
               sta["ag2"] = chi["l4"].value + "\n\n" + eng["l4"].value
               sta["ah2"].alignment = Alignment(wrap_text = True) #Legacy FreeMotion display
               sta["ah2"] = chi["m2"].value + "\n\n" + eng["m2"].value
-              sta["ai2"].alignment = Alignment(wrap_text = True) #Legacy FreeMotion maintainance
-              sta["ai2"] = chi["n3"].value + "\n\n" + eng["n3"].value
+              sta["aj2"].alignment = Alignment(wrap_text = True) #Legacy FreeMotion maintainance
+              sta["aj2"] = chi["n4"].value + "\n\n" + eng["n4"].value
               sta["ar2"].alignment = Alignment(wrap_text = True) #ANT pulse
               sta["ar2"] = chi["t4"].value + "\n\n" + eng["t4"].value
-              #sta["aw2"].alignment = Alignment(wrap_text = True) #Finish
-              #sta["aw2"] = chi["aa3"].value + "\n\n" + eng["aa3"].value
+              sta["aw2"].alignment = Alignment(wrap_text = True) #Finish
+              sta["aw2"] = chi["aa4"].value + "\n\n" + eng["aa4"].value
       elif self.CurrentData == "GradeProtocol":
          print ("Incline Type:", self.GradeProtocol)
          sta["ao2"].alignment = Alignment(wrap_text = True) #Incline
