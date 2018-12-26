@@ -1,0 +1,45 @@
+net Net_82
+	term   ":ioport2:pin7.fb"
+	switch ":ioport2:pin7.fb==>:ioport2:hsiom_in7.hsiom7_in"
+	switch ":ioport2:hsiom_in7.dsi==>Stub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v13+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v15"
+	switch "OStub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v13+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v15"
+	switch ":dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:15,48"
+	switch ":dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:63,48_f"
+	switch "IStub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v61+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v63"
+	switch "Stub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v61+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v63==>:m0s8tcpwmcell_1_permute.tr_in<3>"
+	switch ":m0s8tcpwmcell_1_permute.capture==>:m0s8tcpwmcell_1.capture"
+	term   ":m0s8tcpwmcell_1.capture"
+	switch ":m0s8tcpwmcell_1_permute.reload==>:m0s8tcpwmcell_1.reload"
+	term   ":m0s8tcpwmcell_1.reload"
+	switch ":m0s8tcpwmcell_1_permute.stop==>:m0s8tcpwmcell_1.stop"
+	term   ":m0s8tcpwmcell_1.stop"
+	switch ":m0s8tcpwmcell_1_permute.start==>:m0s8tcpwmcell_1.start"
+	term   ":m0s8tcpwmcell_1.start"
+end Net_82
+net ClockBlock_HFClk
+	term   ":m0s8clockblockcell.hfclk"
+	switch ":m0s8clockblockcell.hfclk==>:ioport2_clock_io_mux.hfclk"
+	switch ":ioport2_clock_io_mux.clk_in==>:ioport2_clock_io_mux.clk_in_limit"
+	switch ":ioport2_clock_io_mux.clk_in_limit==>:ioport2:pin7.in_clock"
+	term   ":ioport2:pin7.in_clock"
+	switch ":m0s8clockblockcell.hfclk==>:interrupt_18.clock"
+	term   ":interrupt_18.clock"
+end ClockBlock_HFClk
+net Net_78
+	term   ":m0s8tcpwmcell_0.line"
+	switch ":m0s8tcpwmcell_0.line==>Stub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v16+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v18"
+	switch "OStub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v16+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v18"
+	switch ":dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:16,24"
+	switch ":dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:95,24_f"
+	switch "IStub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v93+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v95+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v97"
+	switch "Stub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v93+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v95+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v97==>:ioport2:inputs2_mux.in_1"
+	switch ":ioport2:inputs2_mux.pin6__pin_input==>:ioport2:hsiom_out6.dsi"
+	switch ":ioport2:hsiom_out6.hsiom6_out==>:ioport2:pin6.pin_input"
+	term   ":ioport2:pin6.pin_input"
+end Net_78
+net Net_86
+	term   ":m0s8tcpwmcell_1.interrupt"
+	switch ":m0s8tcpwmcell_1.interrupt==>:interrupt_idmux_18.in_0"
+	switch ":interrupt_idmux_18.interrupt_idmux_18__out==>:interrupt_18.interrupt"
+	term   ":interrupt_18.interrupt"
+end Net_86

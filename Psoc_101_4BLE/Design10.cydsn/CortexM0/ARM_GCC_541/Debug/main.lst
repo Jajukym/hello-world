@@ -1,0 +1,697 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.main,"ax",%progbits
+  20              		.align	2
+  21              		.global	main
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	main, %function
+  25              	main:
+  26              	.LFB35:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** 
+  14:main.c        **** 
+  15:main.c        **** 
+  16:main.c        **** int main(void)
+  17:main.c        **** {
+  28              		.loc 1 17 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  36              	.LVL0:
+  18:main.c        ****     uint8 compare = 0;
+  19:main.c        ****     uint8 i2cbuf[0];
+  20:main.c        ****     i2cbuf[0] = 0;
+  37              		.loc 1 20 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 2
+
+
+  38 0002 0022     		movs	r2, #0
+  39 0004 6B46     		mov	r3, sp
+  40 0006 1A70     		strb	r2, [r3]
+  21:main.c        ****     
+  22:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  41              		.loc 1 22 0
+  42              		.syntax divided
+  43              	@ 22 "main.c" 1
+  44 0008 62B6     		CPSIE   i
+  45              	@ 0 "" 2
+  23:main.c        ****     
+  24:main.c        ****     PWM_Start();
+  46              		.loc 1 24 0
+  47              		.thumb
+  48              		.syntax unified
+  49 000a FFF7FEFF 		bl	PWM_Start
+  50              	.LVL1:
+  25:main.c        ****     I2C_Start();
+  51              		.loc 1 25 0
+  52 000e FFF7FEFF 		bl	I2C_Start
+  53              	.LVL2:
+  26:main.c        ****     I2C_EzI2CSetBuffer1(1,1,i2cbuf);
+  54              		.loc 1 26 0
+  55 0012 6A46     		mov	r2, sp
+  56 0014 0121     		movs	r1, #1
+  57 0016 0120     		movs	r0, #1
+  58 0018 FFF7FEFF 		bl	I2C_EzI2CSetBuffer1
+  59              	.LVL3:
+  18:main.c        ****     uint8 i2cbuf[0];
+  60              		.loc 1 18 0
+  61 001c 0022     		movs	r2, #0
+  62              	.LVL4:
+  63              	.L2:
+  27:main.c        ****     
+  28:main.c        ****     
+  29:main.c        ****     
+  30:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  31:main.c        **** 
+  32:main.c        ****     for(;;)
+  33:main.c        ****     {
+  34:main.c        ****         if(compare != i2cbuf[0])
+  64              		.loc 1 34 0
+  65 001e 6B46     		mov	r3, sp
+  66 0020 1C78     		ldrb	r4, [r3]
+  67 0022 A242     		cmp	r2, r4
+  68 0024 FBD0     		beq	.L2
+  69              	.LVL5:
+  35:main.c        ****         {
+  36:main.c        ****             compare = i2cbuf[0];
+  37:main.c        ****             PWM_WriteCompare(compare);
+  70              		.loc 1 37 0
+  71 0026 2000     		movs	r0, r4
+  72 0028 FFF7FEFF 		bl	PWM_WriteCompare
+  73              	.LVL6:
+  36:main.c        ****             PWM_WriteCompare(compare);
+  74              		.loc 1 36 0
+  75 002c 2200     		movs	r2, r4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 3
+
+
+  76 002e F6E7     		b	.L2
+  77              		.cfi_endproc
+  78              	.LFE35:
+  79              		.size	main, .-main
+  80              		.text
+  81              	.Letext0:
+  82              		.file 2 "Generated_Source\\PSoC4/PWM.h"
+  83              		.file 3 "Generated_Source\\PSoC4/I2C.h"
+  84              		.file 4 "Generated_Source\\PSoC4/I2C_EZI2C.h"
+  85              		.file 5 "Generated_Source\\PSoC4/cytypes.h"
+  86              		.section	.debug_info,"",%progbits
+  87              	.Ldebug_info0:
+  88 0000 4B010000 		.4byte	0x14b
+  89 0004 0400     		.2byte	0x4
+  90 0006 00000000 		.4byte	.Ldebug_abbrev0
+  91 000a 04       		.byte	0x4
+  92 000b 01       		.uleb128 0x1
+  93 000c B6000000 		.4byte	.LASF20
+  94 0010 0C       		.byte	0xc
+  95 0011 25000000 		.4byte	.LASF21
+  96 0015 79010000 		.4byte	.LASF22
+  97 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  98 001d 00000000 		.4byte	0
+  99 0021 00000000 		.4byte	.Ldebug_line0
+ 100 0025 02       		.uleb128 0x2
+ 101 0026 01       		.byte	0x1
+ 102 0027 06       		.byte	0x6
+ 103 0028 57010000 		.4byte	.LASF0
+ 104 002c 02       		.uleb128 0x2
+ 105 002d 01       		.byte	0x1
+ 106 002e 08       		.byte	0x8
+ 107 002f 84000000 		.4byte	.LASF1
+ 108 0033 02       		.uleb128 0x2
+ 109 0034 02       		.byte	0x2
+ 110 0035 05       		.byte	0x5
+ 111 0036 6F010000 		.4byte	.LASF2
+ 112 003a 02       		.uleb128 0x2
+ 113 003b 02       		.byte	0x2
+ 114 003c 07       		.byte	0x7
+ 115 003d 44010000 		.4byte	.LASF3
+ 116 0041 02       		.uleb128 0x2
+ 117 0042 04       		.byte	0x4
+ 118 0043 05       		.byte	0x5
+ 119 0044 97000000 		.4byte	.LASF4
+ 120 0048 02       		.uleb128 0x2
+ 121 0049 04       		.byte	0x4
+ 122 004a 07       		.byte	0x7
+ 123 004b 37000000 		.4byte	.LASF5
+ 124 004f 02       		.uleb128 0x2
+ 125 0050 08       		.byte	0x8
+ 126 0051 05       		.byte	0x5
+ 127 0052 00000000 		.4byte	.LASF6
+ 128 0056 02       		.uleb128 0x2
+ 129 0057 08       		.byte	0x8
+ 130 0058 07       		.byte	0x7
+ 131 0059 49000000 		.4byte	.LASF7
+ 132 005d 03       		.uleb128 0x3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 4
+
+
+ 133 005e 04       		.byte	0x4
+ 134 005f 05       		.byte	0x5
+ 135 0060 696E7400 		.ascii	"int\000"
+ 136 0064 02       		.uleb128 0x2
+ 137 0065 04       		.byte	0x4
+ 138 0066 07       		.byte	0x7
+ 139 0067 18000000 		.4byte	.LASF8
+ 140 006b 04       		.uleb128 0x4
+ 141 006c 31000000 		.4byte	.LASF23
+ 142 0070 05       		.byte	0x5
+ 143 0071 D201     		.2byte	0x1d2
+ 144 0073 2C000000 		.4byte	0x2c
+ 145 0077 02       		.uleb128 0x2
+ 146 0078 04       		.byte	0x4
+ 147 0079 04       		.byte	0x4
+ 148 007a 60000000 		.4byte	.LASF9
+ 149 007e 02       		.uleb128 0x2
+ 150 007f 08       		.byte	0x8
+ 151 0080 04       		.byte	0x4
+ 152 0081 A0000000 		.4byte	.LASF10
+ 153 0085 02       		.uleb128 0x2
+ 154 0086 01       		.byte	0x1
+ 155 0087 08       		.byte	0x8
+ 156 0088 92000000 		.4byte	.LASF11
+ 157 008c 02       		.uleb128 0x2
+ 158 008d 08       		.byte	0x8
+ 159 008e 04       		.byte	0x4
+ 160 008f 63010000 		.4byte	.LASF12
+ 161 0093 02       		.uleb128 0x2
+ 162 0094 04       		.byte	0x4
+ 163 0095 07       		.byte	0x7
+ 164 0096 BF010000 		.4byte	.LASF13
+ 165 009a 05       		.uleb128 0x5
+ 166 009b 2C000000 		.4byte	.LASF24
+ 167 009f 01       		.byte	0x1
+ 168 00a0 10       		.byte	0x10
+ 169 00a1 5D000000 		.4byte	0x5d
+ 170 00a5 00000000 		.4byte	.LFB35
+ 171 00a9 30000000 		.4byte	.LFE35-.LFB35
+ 172 00ad 01       		.uleb128 0x1
+ 173 00ae 9C       		.byte	0x9c
+ 174 00af 11010000 		.4byte	0x111
+ 175 00b3 06       		.uleb128 0x6
+ 176 00b4 A7000000 		.4byte	.LASF14
+ 177 00b8 01       		.byte	0x1
+ 178 00b9 12       		.byte	0x12
+ 179 00ba 6B000000 		.4byte	0x6b
+ 180 00be 00000000 		.4byte	.LLST0
+ 181 00c2 07       		.uleb128 0x7
+ 182 00c3 AF000000 		.4byte	.LASF15
+ 183 00c7 01       		.byte	0x1
+ 184 00c8 13       		.byte	0x13
+ 185 00c9 11010000 		.4byte	0x111
+ 186 00cd 02       		.uleb128 0x2
+ 187 00ce 91       		.byte	0x91
+ 188 00cf 78       		.sleb128 -8
+ 189 00d0 08       		.uleb128 0x8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 5
+
+
+ 190 00d1 0E000000 		.4byte	.LVL1
+ 191 00d5 20010000 		.4byte	0x120
+ 192 00d9 08       		.uleb128 0x8
+ 193 00da 12000000 		.4byte	.LVL2
+ 194 00de 2C010000 		.4byte	0x12c
+ 195 00e2 09       		.uleb128 0x9
+ 196 00e3 1C000000 		.4byte	.LVL3
+ 197 00e7 37010000 		.4byte	0x137
+ 198 00eb 00010000 		.4byte	0x100
+ 199 00ef 0A       		.uleb128 0xa
+ 200 00f0 01       		.uleb128 0x1
+ 201 00f1 50       		.byte	0x50
+ 202 00f2 01       		.uleb128 0x1
+ 203 00f3 31       		.byte	0x31
+ 204 00f4 0A       		.uleb128 0xa
+ 205 00f5 01       		.uleb128 0x1
+ 206 00f6 51       		.byte	0x51
+ 207 00f7 01       		.uleb128 0x1
+ 208 00f8 31       		.byte	0x31
+ 209 00f9 0A       		.uleb128 0xa
+ 210 00fa 01       		.uleb128 0x1
+ 211 00fb 52       		.byte	0x52
+ 212 00fc 02       		.uleb128 0x2
+ 213 00fd 7D       		.byte	0x7d
+ 214 00fe 00       		.sleb128 0
+ 215 00ff 00       		.byte	0
+ 216 0100 0B       		.uleb128 0xb
+ 217 0101 2C000000 		.4byte	.LVL6
+ 218 0105 42010000 		.4byte	0x142
+ 219 0109 0A       		.uleb128 0xa
+ 220 010a 01       		.uleb128 0x1
+ 221 010b 50       		.byte	0x50
+ 222 010c 02       		.uleb128 0x2
+ 223 010d 74       		.byte	0x74
+ 224 010e 00       		.sleb128 0
+ 225 010f 00       		.byte	0
+ 226 0110 00       		.byte	0
+ 227 0111 0C       		.uleb128 0xc
+ 228 0112 6B000000 		.4byte	0x6b
+ 229 0116 20010000 		.4byte	0x120
+ 230 011a 0D       		.uleb128 0xd
+ 231 011b 93000000 		.4byte	0x93
+ 232 011f 00       		.byte	0
+ 233 0120 0E       		.uleb128 0xe
+ 234 0121 7A000000 		.4byte	.LASF16
+ 235 0125 7A000000 		.4byte	.LASF16
+ 236 0129 02       		.byte	0x2
+ 237 012a 3201     		.2byte	0x132
+ 238 012c 0F       		.uleb128 0xf
+ 239 012d 0E000000 		.4byte	.LASF17
+ 240 0131 0E000000 		.4byte	.LASF17
+ 241 0135 03       		.byte	0x3
+ 242 0136 72       		.byte	0x72
+ 243 0137 0F       		.uleb128 0xf
+ 244 0138 66000000 		.4byte	.LASF18
+ 245 013c 66000000 		.4byte	.LASF18
+ 246 0140 04       		.byte	0x4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 6
+
+
+ 247 0141 A2       		.byte	0xa2
+ 248 0142 0E       		.uleb128 0xe
+ 249 0143 AE010000 		.4byte	.LASF19
+ 250 0147 AE010000 		.4byte	.LASF19
+ 251 014b 02       		.byte	0x2
+ 252 014c 5501     		.2byte	0x155
+ 253 014e 00       		.byte	0
+ 254              		.section	.debug_abbrev,"",%progbits
+ 255              	.Ldebug_abbrev0:
+ 256 0000 01       		.uleb128 0x1
+ 257 0001 11       		.uleb128 0x11
+ 258 0002 01       		.byte	0x1
+ 259 0003 25       		.uleb128 0x25
+ 260 0004 0E       		.uleb128 0xe
+ 261 0005 13       		.uleb128 0x13
+ 262 0006 0B       		.uleb128 0xb
+ 263 0007 03       		.uleb128 0x3
+ 264 0008 0E       		.uleb128 0xe
+ 265 0009 1B       		.uleb128 0x1b
+ 266 000a 0E       		.uleb128 0xe
+ 267 000b 55       		.uleb128 0x55
+ 268 000c 17       		.uleb128 0x17
+ 269 000d 11       		.uleb128 0x11
+ 270 000e 01       		.uleb128 0x1
+ 271 000f 10       		.uleb128 0x10
+ 272 0010 17       		.uleb128 0x17
+ 273 0011 00       		.byte	0
+ 274 0012 00       		.byte	0
+ 275 0013 02       		.uleb128 0x2
+ 276 0014 24       		.uleb128 0x24
+ 277 0015 00       		.byte	0
+ 278 0016 0B       		.uleb128 0xb
+ 279 0017 0B       		.uleb128 0xb
+ 280 0018 3E       		.uleb128 0x3e
+ 281 0019 0B       		.uleb128 0xb
+ 282 001a 03       		.uleb128 0x3
+ 283 001b 0E       		.uleb128 0xe
+ 284 001c 00       		.byte	0
+ 285 001d 00       		.byte	0
+ 286 001e 03       		.uleb128 0x3
+ 287 001f 24       		.uleb128 0x24
+ 288 0020 00       		.byte	0
+ 289 0021 0B       		.uleb128 0xb
+ 290 0022 0B       		.uleb128 0xb
+ 291 0023 3E       		.uleb128 0x3e
+ 292 0024 0B       		.uleb128 0xb
+ 293 0025 03       		.uleb128 0x3
+ 294 0026 08       		.uleb128 0x8
+ 295 0027 00       		.byte	0
+ 296 0028 00       		.byte	0
+ 297 0029 04       		.uleb128 0x4
+ 298 002a 16       		.uleb128 0x16
+ 299 002b 00       		.byte	0
+ 300 002c 03       		.uleb128 0x3
+ 301 002d 0E       		.uleb128 0xe
+ 302 002e 3A       		.uleb128 0x3a
+ 303 002f 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 7
+
+
+ 304 0030 3B       		.uleb128 0x3b
+ 305 0031 05       		.uleb128 0x5
+ 306 0032 49       		.uleb128 0x49
+ 307 0033 13       		.uleb128 0x13
+ 308 0034 00       		.byte	0
+ 309 0035 00       		.byte	0
+ 310 0036 05       		.uleb128 0x5
+ 311 0037 2E       		.uleb128 0x2e
+ 312 0038 01       		.byte	0x1
+ 313 0039 3F       		.uleb128 0x3f
+ 314 003a 19       		.uleb128 0x19
+ 315 003b 03       		.uleb128 0x3
+ 316 003c 0E       		.uleb128 0xe
+ 317 003d 3A       		.uleb128 0x3a
+ 318 003e 0B       		.uleb128 0xb
+ 319 003f 3B       		.uleb128 0x3b
+ 320 0040 0B       		.uleb128 0xb
+ 321 0041 27       		.uleb128 0x27
+ 322 0042 19       		.uleb128 0x19
+ 323 0043 49       		.uleb128 0x49
+ 324 0044 13       		.uleb128 0x13
+ 325 0045 8701     		.uleb128 0x87
+ 326 0047 19       		.uleb128 0x19
+ 327 0048 11       		.uleb128 0x11
+ 328 0049 01       		.uleb128 0x1
+ 329 004a 12       		.uleb128 0x12
+ 330 004b 06       		.uleb128 0x6
+ 331 004c 40       		.uleb128 0x40
+ 332 004d 18       		.uleb128 0x18
+ 333 004e 9742     		.uleb128 0x2117
+ 334 0050 19       		.uleb128 0x19
+ 335 0051 01       		.uleb128 0x1
+ 336 0052 13       		.uleb128 0x13
+ 337 0053 00       		.byte	0
+ 338 0054 00       		.byte	0
+ 339 0055 06       		.uleb128 0x6
+ 340 0056 34       		.uleb128 0x34
+ 341 0057 00       		.byte	0
+ 342 0058 03       		.uleb128 0x3
+ 343 0059 0E       		.uleb128 0xe
+ 344 005a 3A       		.uleb128 0x3a
+ 345 005b 0B       		.uleb128 0xb
+ 346 005c 3B       		.uleb128 0x3b
+ 347 005d 0B       		.uleb128 0xb
+ 348 005e 49       		.uleb128 0x49
+ 349 005f 13       		.uleb128 0x13
+ 350 0060 02       		.uleb128 0x2
+ 351 0061 17       		.uleb128 0x17
+ 352 0062 00       		.byte	0
+ 353 0063 00       		.byte	0
+ 354 0064 07       		.uleb128 0x7
+ 355 0065 34       		.uleb128 0x34
+ 356 0066 00       		.byte	0
+ 357 0067 03       		.uleb128 0x3
+ 358 0068 0E       		.uleb128 0xe
+ 359 0069 3A       		.uleb128 0x3a
+ 360 006a 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 8
+
+
+ 361 006b 3B       		.uleb128 0x3b
+ 362 006c 0B       		.uleb128 0xb
+ 363 006d 49       		.uleb128 0x49
+ 364 006e 13       		.uleb128 0x13
+ 365 006f 02       		.uleb128 0x2
+ 366 0070 18       		.uleb128 0x18
+ 367 0071 00       		.byte	0
+ 368 0072 00       		.byte	0
+ 369 0073 08       		.uleb128 0x8
+ 370 0074 898201   		.uleb128 0x4109
+ 371 0077 00       		.byte	0
+ 372 0078 11       		.uleb128 0x11
+ 373 0079 01       		.uleb128 0x1
+ 374 007a 31       		.uleb128 0x31
+ 375 007b 13       		.uleb128 0x13
+ 376 007c 00       		.byte	0
+ 377 007d 00       		.byte	0
+ 378 007e 09       		.uleb128 0x9
+ 379 007f 898201   		.uleb128 0x4109
+ 380 0082 01       		.byte	0x1
+ 381 0083 11       		.uleb128 0x11
+ 382 0084 01       		.uleb128 0x1
+ 383 0085 31       		.uleb128 0x31
+ 384 0086 13       		.uleb128 0x13
+ 385 0087 01       		.uleb128 0x1
+ 386 0088 13       		.uleb128 0x13
+ 387 0089 00       		.byte	0
+ 388 008a 00       		.byte	0
+ 389 008b 0A       		.uleb128 0xa
+ 390 008c 8A8201   		.uleb128 0x410a
+ 391 008f 00       		.byte	0
+ 392 0090 02       		.uleb128 0x2
+ 393 0091 18       		.uleb128 0x18
+ 394 0092 9142     		.uleb128 0x2111
+ 395 0094 18       		.uleb128 0x18
+ 396 0095 00       		.byte	0
+ 397 0096 00       		.byte	0
+ 398 0097 0B       		.uleb128 0xb
+ 399 0098 898201   		.uleb128 0x4109
+ 400 009b 01       		.byte	0x1
+ 401 009c 11       		.uleb128 0x11
+ 402 009d 01       		.uleb128 0x1
+ 403 009e 31       		.uleb128 0x31
+ 404 009f 13       		.uleb128 0x13
+ 405 00a0 00       		.byte	0
+ 406 00a1 00       		.byte	0
+ 407 00a2 0C       		.uleb128 0xc
+ 408 00a3 01       		.uleb128 0x1
+ 409 00a4 01       		.byte	0x1
+ 410 00a5 49       		.uleb128 0x49
+ 411 00a6 13       		.uleb128 0x13
+ 412 00a7 01       		.uleb128 0x1
+ 413 00a8 13       		.uleb128 0x13
+ 414 00a9 00       		.byte	0
+ 415 00aa 00       		.byte	0
+ 416 00ab 0D       		.uleb128 0xd
+ 417 00ac 21       		.uleb128 0x21
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 9
+
+
+ 418 00ad 00       		.byte	0
+ 419 00ae 49       		.uleb128 0x49
+ 420 00af 13       		.uleb128 0x13
+ 421 00b0 00       		.byte	0
+ 422 00b1 00       		.byte	0
+ 423 00b2 0E       		.uleb128 0xe
+ 424 00b3 2E       		.uleb128 0x2e
+ 425 00b4 00       		.byte	0
+ 426 00b5 3F       		.uleb128 0x3f
+ 427 00b6 19       		.uleb128 0x19
+ 428 00b7 3C       		.uleb128 0x3c
+ 429 00b8 19       		.uleb128 0x19
+ 430 00b9 6E       		.uleb128 0x6e
+ 431 00ba 0E       		.uleb128 0xe
+ 432 00bb 03       		.uleb128 0x3
+ 433 00bc 0E       		.uleb128 0xe
+ 434 00bd 3A       		.uleb128 0x3a
+ 435 00be 0B       		.uleb128 0xb
+ 436 00bf 3B       		.uleb128 0x3b
+ 437 00c0 05       		.uleb128 0x5
+ 438 00c1 00       		.byte	0
+ 439 00c2 00       		.byte	0
+ 440 00c3 0F       		.uleb128 0xf
+ 441 00c4 2E       		.uleb128 0x2e
+ 442 00c5 00       		.byte	0
+ 443 00c6 3F       		.uleb128 0x3f
+ 444 00c7 19       		.uleb128 0x19
+ 445 00c8 3C       		.uleb128 0x3c
+ 446 00c9 19       		.uleb128 0x19
+ 447 00ca 6E       		.uleb128 0x6e
+ 448 00cb 0E       		.uleb128 0xe
+ 449 00cc 03       		.uleb128 0x3
+ 450 00cd 0E       		.uleb128 0xe
+ 451 00ce 3A       		.uleb128 0x3a
+ 452 00cf 0B       		.uleb128 0xb
+ 453 00d0 3B       		.uleb128 0x3b
+ 454 00d1 0B       		.uleb128 0xb
+ 455 00d2 00       		.byte	0
+ 456 00d3 00       		.byte	0
+ 457 00d4 00       		.byte	0
+ 458              		.section	.debug_loc,"",%progbits
+ 459              	.Ldebug_loc0:
+ 460              	.LLST0:
+ 461 0000 02000000 		.4byte	.LVL0
+ 462 0004 1E000000 		.4byte	.LVL4
+ 463 0008 0200     		.2byte	0x2
+ 464 000a 30       		.byte	0x30
+ 465 000b 9F       		.byte	0x9f
+ 466 000c 1E000000 		.4byte	.LVL4
+ 467 0010 26000000 		.4byte	.LVL5
+ 468 0014 0100     		.2byte	0x1
+ 469 0016 52       		.byte	0x52
+ 470 0017 26000000 		.4byte	.LVL5
+ 471 001b 30000000 		.4byte	.LFE35
+ 472 001f 0100     		.2byte	0x1
+ 473 0021 54       		.byte	0x54
+ 474 0022 00000000 		.4byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 10
+
+
+ 475 0026 00000000 		.4byte	0
+ 476              		.section	.debug_aranges,"",%progbits
+ 477 0000 1C000000 		.4byte	0x1c
+ 478 0004 0200     		.2byte	0x2
+ 479 0006 00000000 		.4byte	.Ldebug_info0
+ 480 000a 04       		.byte	0x4
+ 481 000b 00       		.byte	0
+ 482 000c 0000     		.2byte	0
+ 483 000e 0000     		.2byte	0
+ 484 0010 00000000 		.4byte	.LFB35
+ 485 0014 30000000 		.4byte	.LFE35-.LFB35
+ 486 0018 00000000 		.4byte	0
+ 487 001c 00000000 		.4byte	0
+ 488              		.section	.debug_ranges,"",%progbits
+ 489              	.Ldebug_ranges0:
+ 490 0000 00000000 		.4byte	.LFB35
+ 491 0004 30000000 		.4byte	.LFE35
+ 492 0008 00000000 		.4byte	0
+ 493 000c 00000000 		.4byte	0
+ 494              		.section	.debug_line,"",%progbits
+ 495              	.Ldebug_line0:
+ 496 0000 84000000 		.section	.debug_str,"MS",%progbits,1
+ 496      02006200 
+ 496      00000201 
+ 496      FB0E0D00 
+ 496      01010101 
+ 497              	.LASF6:
+ 498 0000 6C6F6E67 		.ascii	"long long int\000"
+ 498      206C6F6E 
+ 498      6720696E 
+ 498      7400
+ 499              	.LASF17:
+ 500 000e 4932435F 		.ascii	"I2C_Start\000"
+ 500      53746172 
+ 500      7400
+ 501              	.LASF8:
+ 502 0018 756E7369 		.ascii	"unsigned int\000"
+ 502      676E6564 
+ 502      20696E74 
+ 502      00
+ 503              	.LASF21:
+ 504 0025 6D61696E 		.ascii	"main.c\000"
+ 504      2E6300
+ 505              	.LASF24:
+ 506 002c 6D61696E 		.ascii	"main\000"
+ 506      00
+ 507              	.LASF23:
+ 508 0031 75696E74 		.ascii	"uint8\000"
+ 508      3800
+ 509              	.LASF5:
+ 510 0037 6C6F6E67 		.ascii	"long unsigned int\000"
+ 510      20756E73 
+ 510      69676E65 
+ 510      6420696E 
+ 510      7400
+ 511              	.LASF7:
+ 512 0049 6C6F6E67 		.ascii	"long long unsigned int\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 11
+
+
+ 512      206C6F6E 
+ 512      6720756E 
+ 512      7369676E 
+ 512      65642069 
+ 513              	.LASF9:
+ 514 0060 666C6F61 		.ascii	"float\000"
+ 514      7400
+ 515              	.LASF18:
+ 516 0066 4932435F 		.ascii	"I2C_EzI2CSetBuffer1\000"
+ 516      457A4932 
+ 516      43536574 
+ 516      42756666 
+ 516      65723100 
+ 517              	.LASF16:
+ 518 007a 50574D5F 		.ascii	"PWM_Start\000"
+ 518      53746172 
+ 518      7400
+ 519              	.LASF1:
+ 520 0084 756E7369 		.ascii	"unsigned char\000"
+ 520      676E6564 
+ 520      20636861 
+ 520      7200
+ 521              	.LASF11:
+ 522 0092 63686172 		.ascii	"char\000"
+ 522      00
+ 523              	.LASF4:
+ 524 0097 6C6F6E67 		.ascii	"long int\000"
+ 524      20696E74 
+ 524      00
+ 525              	.LASF10:
+ 526 00a0 646F7562 		.ascii	"double\000"
+ 526      6C6500
+ 527              	.LASF14:
+ 528 00a7 636F6D70 		.ascii	"compare\000"
+ 528      61726500 
+ 529              	.LASF15:
+ 530 00af 69326362 		.ascii	"i2cbuf\000"
+ 530      756600
+ 531              	.LASF20:
+ 532 00b6 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 532      43313120 
+ 532      352E342E 
+ 532      31203230 
+ 532      31363036 
+ 533 00e9 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 533      20726576 
+ 533      6973696F 
+ 533      6E203233 
+ 533      37373135 
+ 534 011c 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 534      66756E63 
+ 534      74696F6E 
+ 534      2D736563 
+ 534      74696F6E 
+ 535              	.LASF3:
+ 536 0144 73686F72 		.ascii	"short unsigned int\000"
+ 536      7420756E 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccRNrc3n.s 			page 12
+
+
+ 536      7369676E 
+ 536      65642069 
+ 536      6E7400
+ 537              	.LASF0:
+ 538 0157 7369676E 		.ascii	"signed char\000"
+ 538      65642063 
+ 538      68617200 
+ 539              	.LASF12:
+ 540 0163 6C6F6E67 		.ascii	"long double\000"
+ 540      20646F75 
+ 540      626C6500 
+ 541              	.LASF2:
+ 542 016f 73686F72 		.ascii	"short int\000"
+ 542      7420696E 
+ 542      7400
+ 543              	.LASF22:
+ 544 0179 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\Psoc_101\\Design10"
+ 544      73657273 
+ 544      5C627279 
+ 544      616E2E6C 
+ 544      65655C44 
+ 545 01a7 2E637964 		.ascii	".cydsn\000"
+ 545      736E00
+ 546              	.LASF19:
+ 547 01ae 50574D5F 		.ascii	"PWM_WriteCompare\000"
+ 547      57726974 
+ 547      65436F6D 
+ 547      70617265 
+ 547      00
+ 548              	.LASF13:
+ 549 01bf 73697A65 		.ascii	"sizetype\000"
+ 549      74797065 
+ 549      00
+ 550              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

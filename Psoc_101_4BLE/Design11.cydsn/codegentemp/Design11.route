@@ -1,0 +1,41 @@
+net ClockBlock_HFClk
+	term   ":m0s8clockblockcell.hfclk"
+	switch ":m0s8clockblockcell.hfclk==>:ioport2_clock_io_mux.hfclk"
+	switch ":ioport2_clock_io_mux.clk_in==>:ioport2_clock_io_mux.clk_in_limit"
+	switch ":ioport2_clock_io_mux.clk_in_limit==>:ioport2:pin7.in_clock"
+	term   ":ioport2:pin7.in_clock"
+	switch ":m0s8clockblockcell.hfclk==>:interrupt_10.clock"
+	term   ":interrupt_10.clock"
+end ClockBlock_HFClk
+net Net_115
+	term   ":ioport3:pin5.fb"
+	switch ":ioport3:pin5.fb==>:ioport3:hsiom_in5.hsiom5_in"
+	switch ":ioport3:hsiom_in5.fixed_DPSLP_2==>:m0s8scbcell_1__i2c_scl__hsiom_permute.ioport3__fixed_out_p5_DPSLP_2"
+	switch ":m0s8scbcell_1__i2c_scl__hsiom_permute.m0s8scbcell_1__i2c_scl==>:m0s8scbcell_1.i2c_scl"
+	term   ":m0s8scbcell_1.i2c_scl"
+end Net_115
+net Net_116
+	term   ":ioport3:pin4.fb"
+	switch ":ioport3:pin4.fb==>:ioport3:hsiom_in4.hsiom4_in"
+	switch ":ioport3:hsiom_in4.fixed_DPSLP_2==>:m0s8scbcell_1__i2c_sda__hsiom_permute.ioport3__fixed_out_p4_DPSLP_2"
+	switch ":m0s8scbcell_1__i2c_sda__hsiom_permute.m0s8scbcell_1__i2c_sda==>:m0s8scbcell_1.i2c_sda"
+	term   ":m0s8scbcell_1.i2c_sda"
+end Net_116
+net Net_78
+	term   ":m0s8tcpwmcell_0.line"
+	switch ":m0s8tcpwmcell_0.line==>Stub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v16+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v18"
+	switch "OStub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v16+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v18"
+	switch ":dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:16,24"
+	switch ":dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:95,24_f"
+	switch "IStub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v93+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v95+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v97"
+	switch "Stub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v93+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v95+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v97==>:ioport2:inputs2_mux.in_1"
+	switch ":ioport2:inputs2_mux.pin6__pin_input==>:ioport2:hsiom_out6.dsi"
+	switch ":ioport2:hsiom_out6.hsiom6_out==>:ioport2:pin6.pin_input"
+	term   ":ioport2:pin6.pin_input"
+end Net_78
+net Net_98
+	term   ":m0s8scbcell_1.interrupt"
+	switch ":m0s8scbcell_1.interrupt==>:interrupt_idmux_10.in_0"
+	switch ":interrupt_idmux_10.interrupt_idmux_10__out==>:interrupt_10.interrupt"
+	term   ":interrupt_10.interrupt"
+end Net_98
