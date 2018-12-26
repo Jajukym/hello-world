@@ -150,6 +150,7 @@ rev["B10"] = "20180307"
 rev["C10"] = "Test build with cx_Freeze5.1.1"
 rev["D10"] = "id-0"
 
+#Release
 rev["A11"] = "V.10"
 rev["B11"] = "20180327"
 rev["C11"] = "Added pause to verify no errors"
@@ -170,12 +171,17 @@ rev["B14"] = "20181015"
 rev["C14"] = "FreeMotion Legacy tablet /w MYE"
 rev["D14"] = "id-0"
 
-rev["A15"] = "V.x"
-rev["B15"] = datetime.now()
-rev["C15"] = "Fiat justitia ruat caelum"
+rev["A15"] = "V.14"
+rev["B15"] = "20181217"
+rev["C15"] = "Working on BASIC_BIKE"
 rev["D15"] = "id-0"
 
-print (rev["a14"].value, rev["c14"].value, "\n")
+rev["A16"] = "V.x"
+rev["B16"] = datetime.now()
+rev["C16"] = "Fiat justitia ruat caelum"
+rev["D16"] = "id-0"
+
+print (rev["a15"].value, rev["c15"].value, "\n")
 
 
 for col in rev.columns:
@@ -515,12 +521,12 @@ class Device( xml.sax.ContentHandler ):
          print ("Console Voltage:", self.ConsoleVoltage)#---------------------------------------------------------------
          for i in range (1, 4):
              if self.ConsoleVoltage == voltage[i]:
-                 sta["i2"].alignment = Alignment(wrap_text = True) #Basic Bike1 with voltage > 0; resist and tach
-                 sta["i2"] = chi["c16"].value + "\n\n" + eng["c16"].value
+                 sta["i2"].alignment = Alignment(wrap_text = True) #Basic Bike1 with voltage > 0; resist and tach and DC power
+                 sta["i2"] = chi["c9"].value + "\n\n" + eng["c9"].value
                  sta["z2"].alignment = Alignment(wrap_text = True) #Power up
-                 sta["z2"] = chi["h16"].value + "\n\n" + eng["h16"].value
+                 sta["z2"] = chi["h9"].value + "\n\n" + eng["h9"].value
          if self.ConsoleVoltage == voltage[0]:#------------------------------------------------------------------------
-             sta["am2"].alignment = Alignment(wrap_text = True) #Basic Bike2 voltage = 0; resist and tach
+             sta["am2"].alignment = Alignment(wrap_text = True) #Basic Bike2 voltage = 0; resist and tach and battery
              sta["am2"] = chi["c10"].value + "\n\n" + eng["c10"].value
              sta["aw2"].alignment = Alignment(wrap_text = True) #Finish
              sta["aw2"] = chi["aa6"].value + "\n\n" + eng["aa6"].value
