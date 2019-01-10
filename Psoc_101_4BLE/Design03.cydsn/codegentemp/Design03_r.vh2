@@ -1,6 +1,6 @@
 -- Project:   Design03
--- Generated: 01/31/2018 13:10:07
--- PSoC Creator  4.1 Update 1
+-- Generated: 01/10/2019 08:54:26
+-- PSoC Creator  4.2
 
 ENTITY Design03 IS
     PORT(
@@ -64,11 +64,11 @@ ARCHITECTURE __DEFAULT__ OF Design03 IS
     END COMPONENT;
     COMPONENT iocell
         PORT (
-            pin_input : IN std_ulogic;
             oe : IN std_ulogic;
             fb : OUT std_ulogic;
-            pad_in : IN std_ulogic;
             pa_out : OUT std_ulogic;
+            pin_input : IN std_ulogic;
+            pad_in : IN std_ulogic;
             pad_out : OUT std_ulogic;
             oe_reg : OUT std_ulogic;
             oe_internal : IN std_ulogic;
