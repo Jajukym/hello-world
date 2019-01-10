@@ -1,6 +1,6 @@
--- Project:   C:\Users\bryan.lee\Documents\PSoC Creator\Psoc_101\Design04.cydsn\Design04.cyprj
--- Generated: 01/31/2018 14:59:13
--- PSoC Creator  4.1 Update 1
+-- Project:   C:\Users\bryan.lee\Documents\GitHub\hello-world\Psoc_101_4BLE\Design04.cydsn\Design04.cyprj
+-- Generated: 01/10/2019 08:55:09
+-- PSoC Creator  4.2
 
 ENTITY Design04 IS
     PORT(
@@ -61,11 +61,11 @@ ARCHITECTURE __DEFAULT__ OF Design04 IS
     ATTRIBUTE Location OF Net_29 : LABEL IS "U(0,0)";
     COMPONENT iocell
         PORT (
-            pin_input : IN std_ulogic;
             oe : IN std_ulogic;
             fb : OUT std_ulogic;
-            pad_in : IN std_ulogic;
             pa_out : OUT std_ulogic;
+            pin_input : IN std_ulogic;
+            pad_in : IN std_ulogic;
             pad_out : OUT std_ulogic;
             oe_reg : OUT std_ulogic;
             oe_internal : IN std_ulogic;

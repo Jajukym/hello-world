@@ -29,7 +29,6 @@
 #include "UART_tx_aliases.h"
 #include "UART_rx.h"
 #include "UART_rx_aliases.h"
-#include "cy_em_eeprom.h"
 #include "core_cm0_psoc4.h"
 #include "CyFlash.h"
 #include "CyLib.h"

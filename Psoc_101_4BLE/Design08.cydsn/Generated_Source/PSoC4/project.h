@@ -28,7 +28,6 @@
 #include "Pin_SW2_aliases.h"
 #include "Clock_1.h"
 #include "PWM.h"
-#include "cy_em_eeprom.h"
 #include "core_cm0_psoc4.h"
 #include "CyFlash.h"
 #include "CyLib.h"
@@ -36,6 +35,7 @@
 #include "cytypes.h"
 #include "cypins.h"
 #include "CyLFClk.h"
+#include "cy_em_eeprom.h"
 
 /*[]*/
 

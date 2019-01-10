@@ -1,3 +1,3 @@
-# Component constraints for C:\Users\bryan.lee\Documents\Psoc_101\Design07.cydsn\TopDesign\TopDesign.cysch
-# Project: C:\Users\bryan.lee\Documents\Psoc_101\Design07.cydsn\Design07.cyprj
-# Date: Tue, 31 Jul 2018 16:29:18 GMT
+# Component constraints for C:\Users\bryan.lee\Documents\GitHub\hello-world\Psoc_101_4BLE\Design07.cydsn\TopDesign\TopDesign.cysch
+# Project: C:\Users\bryan.lee\Documents\GitHub\hello-world\Psoc_101_4BLE\Design07.cydsn\Design07.cyprj
+# Date: Thu, 10 Jan 2019 15:55:27 GMT

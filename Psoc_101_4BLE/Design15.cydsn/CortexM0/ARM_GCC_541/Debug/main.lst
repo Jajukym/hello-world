@@ -1,0 +1,651 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccK17yXV.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.main,"ax",%progbits
+  20              		.align	2
+  21              		.global	main
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	main, %function
+  25              	main:
+  26              	.LFB35:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include "project.h"
+  13:main.c        **** 
+  14:main.c        **** #define NUM_CHANNELS        (2)
+  15:main.c        **** 
+  16:main.c        **** 
+  17:main.c        **** 
+  18:main.c        **** int main(void)
+  19:main.c        **** {
+  28              		.loc 1 19 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  20:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  36              		.loc 1 20 0
+  37              		.syntax divided
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccK17yXV.s 			page 2
+
+
+  38              	@ 20 "main.c" 1
+  39 0002 62B6     		CPSIE   i
+  40              	@ 0 "" 2
+  41              	.LVL0:
+  21:main.c        ****     uint8 ctlval = 0;
+  22:main.c        ****     
+  23:main.c        ****     PWM_Start();
+  42              		.loc 1 23 0
+  43              		.thumb
+  44              		.syntax unified
+  45 0004 FFF7FEFF 		bl	PWM_Start
+  46              	.LVL1:
+  21:main.c        ****     uint8 ctlval = 0;
+  47              		.loc 1 21 0
+  48 0008 0024     		movs	r4, #0
+  49              	.LVL2:
+  50              	.L3:
+  24:main.c        **** 
+  25:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  26:main.c        **** 
+  27:main.c        ****     for(;;)
+  28:main.c        ****     {
+  29:main.c        ****         /* Place your application code here. */
+  30:main.c        ****         PWM_WriteCompare(16634);
+  51              		.loc 1 30 0
+  52 000a 0848     		ldr	r0, .L5
+  53 000c FFF7FEFF 		bl	PWM_WriteCompare
+  54              	.LVL3:
+  31:main.c        ****         Control_Write(ctlval);
+  55              		.loc 1 31 0
+  56 0010 2000     		movs	r0, r4
+  57 0012 FFF7FEFF 		bl	Control_Write
+  58              	.LVL4:
+  32:main.c        ****         ctlval++;
+  59              		.loc 1 32 0
+  60 0016 0134     		adds	r4, r4, #1
+  61              	.LVL5:
+  62 0018 E4B2     		uxtb	r4, r4
+  63              	.LVL6:
+  33:main.c        ****         
+  34:main.c        ****         if(ctlval >= NUM_CHANNELS)
+  64              		.loc 1 34 0
+  65 001a 012C     		cmp	r4, #1
+  66 001c 00D9     		bls	.L2
+  35:main.c        ****         {
+  36:main.c        ****             ctlval = 0;
+  67              		.loc 1 36 0
+  68 001e 0024     		movs	r4, #0
+  69              	.LVL7:
+  70              	.L2:
+  37:main.c        ****         }
+  38:main.c        ****         CyDelay(500);
+  71              		.loc 1 38 0
+  72 0020 FA20     		movs	r0, #250
+  73 0022 4000     		lsls	r0, r0, #1
+  74 0024 FFF7FEFF 		bl	CyDelay
+  75              	.LVL8:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccK17yXV.s 			page 3
+
+
+  39:main.c        ****     }
+  76              		.loc 1 39 0
+  77 0028 EFE7     		b	.L3
+  78              	.L6:
+  79 002a C046     		.align	2
+  80              	.L5:
+  81 002c FA400000 		.word	16634
+  82              		.cfi_endproc
+  83              	.LFE35:
+  84              		.size	main, .-main
+  85              		.text
+  86              	.Letext0:
+  87              		.file 2 "Generated_Source\\PSoC4/PWM.h"
+  88              		.file 3 "Generated_Source\\PSoC4/Control.h"
+  89              		.file 4 "Generated_Source\\PSoC4/CyLib.h"
+  90              		.file 5 "Generated_Source\\PSoC4/cytypes.h"
+  91              		.section	.debug_info,"",%progbits
+  92              	.Ldebug_info0:
+  93 0000 31010000 		.4byte	0x131
+  94 0004 0400     		.2byte	0x4
+  95 0006 00000000 		.4byte	.Ldebug_abbrev0
+  96 000a 04       		.byte	0x4
+  97 000b 01       		.uleb128 0x1
+  98 000c F7000000 		.4byte	.LASF18
+  99 0010 0C       		.byte	0xc
+ 100 0011 29000000 		.4byte	.LASF19
+ 101 0015 73000000 		.4byte	.LASF20
+ 102 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 103 001d 00000000 		.4byte	0
+ 104 0021 00000000 		.4byte	.Ldebug_line0
+ 105 0025 02       		.uleb128 0x2
+ 106 0026 01       		.byte	0x1
+ 107 0027 06       		.byte	0x6
+ 108 0028 98010000 		.4byte	.LASF0
+ 109 002c 02       		.uleb128 0x2
+ 110 002d 01       		.byte	0x1
+ 111 002e 08       		.byte	0x8
+ 112 002f CA000000 		.4byte	.LASF1
+ 113 0033 02       		.uleb128 0x2
+ 114 0034 02       		.byte	0x2
+ 115 0035 05       		.byte	0x5
+ 116 0036 E6000000 		.4byte	.LASF2
+ 117 003a 02       		.uleb128 0x2
+ 118 003b 02       		.byte	0x2
+ 119 003c 07       		.byte	0x7
+ 120 003d 85010000 		.4byte	.LASF3
+ 121 0041 02       		.uleb128 0x2
+ 122 0042 04       		.byte	0x4
+ 123 0043 05       		.byte	0x5
+ 124 0044 DD000000 		.4byte	.LASF4
+ 125 0048 02       		.uleb128 0x2
+ 126 0049 04       		.byte	0x4
+ 127 004a 07       		.byte	0x7
+ 128 004b 43000000 		.4byte	.LASF5
+ 129 004f 02       		.uleb128 0x2
+ 130 0050 08       		.byte	0x8
+ 131 0051 05       		.byte	0x5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccK17yXV.s 			page 4
+
+
+ 132 0052 00000000 		.4byte	.LASF6
+ 133 0056 02       		.uleb128 0x2
+ 134 0057 08       		.byte	0x8
+ 135 0058 07       		.byte	0x7
+ 136 0059 55000000 		.4byte	.LASF7
+ 137 005d 03       		.uleb128 0x3
+ 138 005e 04       		.byte	0x4
+ 139 005f 05       		.byte	0x5
+ 140 0060 696E7400 		.ascii	"int\000"
+ 141 0064 02       		.uleb128 0x2
+ 142 0065 04       		.byte	0x4
+ 143 0066 07       		.byte	0x7
+ 144 0067 0E000000 		.4byte	.LASF8
+ 145 006b 04       		.uleb128 0x4
+ 146 006c 3D000000 		.4byte	.LASF21
+ 147 0070 05       		.byte	0x5
+ 148 0071 E401     		.2byte	0x1e4
+ 149 0073 2C000000 		.4byte	0x2c
+ 150 0077 02       		.uleb128 0x2
+ 151 0078 04       		.byte	0x4
+ 152 0079 04       		.byte	0x4
+ 153 007a B0010000 		.4byte	.LASF9
+ 154 007e 02       		.uleb128 0x2
+ 155 007f 08       		.byte	0x8
+ 156 0080 04       		.byte	0x4
+ 157 0081 F0000000 		.4byte	.LASF10
+ 158 0085 02       		.uleb128 0x2
+ 159 0086 01       		.byte	0x1
+ 160 0087 08       		.byte	0x8
+ 161 0088 D8000000 		.4byte	.LASF11
+ 162 008c 02       		.uleb128 0x2
+ 163 008d 08       		.byte	0x8
+ 164 008e 04       		.byte	0x4
+ 165 008f A4010000 		.4byte	.LASF12
+ 166 0093 02       		.uleb128 0x2
+ 167 0094 04       		.byte	0x4
+ 168 0095 07       		.byte	0x7
+ 169 0096 C7010000 		.4byte	.LASF13
+ 170 009a 05       		.uleb128 0x5
+ 171 009b 30000000 		.4byte	.LASF22
+ 172 009f 01       		.byte	0x1
+ 173 00a0 12       		.byte	0x12
+ 174 00a1 5D000000 		.4byte	0x5d
+ 175 00a5 00000000 		.4byte	.LFB35
+ 176 00a9 30000000 		.4byte	.LFE35-.LFB35
+ 177 00ad 01       		.uleb128 0x1
+ 178 00ae 9C       		.byte	0x9c
+ 179 00af 06010000 		.4byte	0x106
+ 180 00b3 06       		.uleb128 0x6
+ 181 00b4 6C000000 		.4byte	.LASF23
+ 182 00b8 01       		.byte	0x1
+ 183 00b9 15       		.byte	0x15
+ 184 00ba 6B000000 		.4byte	0x6b
+ 185 00be 00000000 		.4byte	.LLST0
+ 186 00c2 07       		.uleb128 0x7
+ 187 00c3 08000000 		.4byte	.LVL1
+ 188 00c7 06010000 		.4byte	0x106
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccK17yXV.s 			page 5
+
+
+ 189 00cb 08       		.uleb128 0x8
+ 190 00cc 10000000 		.4byte	.LVL3
+ 191 00d0 12010000 		.4byte	0x112
+ 192 00d4 E0000000 		.4byte	0xe0
+ 193 00d8 09       		.uleb128 0x9
+ 194 00d9 01       		.uleb128 0x1
+ 195 00da 50       		.byte	0x50
+ 196 00db 03       		.uleb128 0x3
+ 197 00dc 0A       		.byte	0xa
+ 198 00dd FA40     		.2byte	0x40fa
+ 199 00df 00       		.byte	0
+ 200 00e0 08       		.uleb128 0x8
+ 201 00e1 16000000 		.4byte	.LVL4
+ 202 00e5 1E010000 		.4byte	0x11e
+ 203 00e9 F4000000 		.4byte	0xf4
+ 204 00ed 09       		.uleb128 0x9
+ 205 00ee 01       		.uleb128 0x1
+ 206 00ef 50       		.byte	0x50
+ 207 00f0 02       		.uleb128 0x2
+ 208 00f1 74       		.byte	0x74
+ 209 00f2 00       		.sleb128 0
+ 210 00f3 00       		.byte	0
+ 211 00f4 0A       		.uleb128 0xa
+ 212 00f5 28000000 		.4byte	.LVL8
+ 213 00f9 29010000 		.4byte	0x129
+ 214 00fd 09       		.uleb128 0x9
+ 215 00fe 01       		.uleb128 0x1
+ 216 00ff 50       		.byte	0x50
+ 217 0100 03       		.uleb128 0x3
+ 218 0101 0A       		.byte	0xa
+ 219 0102 F401     		.2byte	0x1f4
+ 220 0104 00       		.byte	0
+ 221 0105 00       		.byte	0
+ 222 0106 0B       		.uleb128 0xb
+ 223 0107 C0000000 		.4byte	.LASF14
+ 224 010b C0000000 		.4byte	.LASF14
+ 225 010f 02       		.byte	0x2
+ 226 0110 3201     		.2byte	0x132
+ 227 0112 0B       		.uleb128 0xb
+ 228 0113 B6010000 		.4byte	.LASF15
+ 229 0117 B6010000 		.4byte	.LASF15
+ 230 011b 02       		.byte	0x2
+ 231 011c 5501     		.2byte	0x155
+ 232 011e 0C       		.uleb128 0xc
+ 233 011f 1B000000 		.4byte	.LASF16
+ 234 0123 1B000000 		.4byte	.LASF16
+ 235 0127 03       		.byte	0x3
+ 236 0128 2F       		.byte	0x2f
+ 237 0129 0C       		.uleb128 0xc
+ 238 012a 35000000 		.4byte	.LASF17
+ 239 012e 35000000 		.4byte	.LASF17
+ 240 0132 04       		.byte	0x4
+ 241 0133 D9       		.byte	0xd9
+ 242 0134 00       		.byte	0
+ 243              		.section	.debug_abbrev,"",%progbits
+ 244              	.Ldebug_abbrev0:
+ 245 0000 01       		.uleb128 0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccK17yXV.s 			page 6
+
+
+ 246 0001 11       		.uleb128 0x11
+ 247 0002 01       		.byte	0x1
+ 248 0003 25       		.uleb128 0x25
+ 249 0004 0E       		.uleb128 0xe
+ 250 0005 13       		.uleb128 0x13
+ 251 0006 0B       		.uleb128 0xb
+ 252 0007 03       		.uleb128 0x3
+ 253 0008 0E       		.uleb128 0xe
+ 254 0009 1B       		.uleb128 0x1b
+ 255 000a 0E       		.uleb128 0xe
+ 256 000b 55       		.uleb128 0x55
+ 257 000c 17       		.uleb128 0x17
+ 258 000d 11       		.uleb128 0x11
+ 259 000e 01       		.uleb128 0x1
+ 260 000f 10       		.uleb128 0x10
+ 261 0010 17       		.uleb128 0x17
+ 262 0011 00       		.byte	0
+ 263 0012 00       		.byte	0
+ 264 0013 02       		.uleb128 0x2
+ 265 0014 24       		.uleb128 0x24
+ 266 0015 00       		.byte	0
+ 267 0016 0B       		.uleb128 0xb
+ 268 0017 0B       		.uleb128 0xb
+ 269 0018 3E       		.uleb128 0x3e
+ 270 0019 0B       		.uleb128 0xb
+ 271 001a 03       		.uleb128 0x3
+ 272 001b 0E       		.uleb128 0xe
+ 273 001c 00       		.byte	0
+ 274 001d 00       		.byte	0
+ 275 001e 03       		.uleb128 0x3
+ 276 001f 24       		.uleb128 0x24
+ 277 0020 00       		.byte	0
+ 278 0021 0B       		.uleb128 0xb
+ 279 0022 0B       		.uleb128 0xb
+ 280 0023 3E       		.uleb128 0x3e
+ 281 0024 0B       		.uleb128 0xb
+ 282 0025 03       		.uleb128 0x3
+ 283 0026 08       		.uleb128 0x8
+ 284 0027 00       		.byte	0
+ 285 0028 00       		.byte	0
+ 286 0029 04       		.uleb128 0x4
+ 287 002a 16       		.uleb128 0x16
+ 288 002b 00       		.byte	0
+ 289 002c 03       		.uleb128 0x3
+ 290 002d 0E       		.uleb128 0xe
+ 291 002e 3A       		.uleb128 0x3a
+ 292 002f 0B       		.uleb128 0xb
+ 293 0030 3B       		.uleb128 0x3b
+ 294 0031 05       		.uleb128 0x5
+ 295 0032 49       		.uleb128 0x49
+ 296 0033 13       		.uleb128 0x13
+ 297 0034 00       		.byte	0
+ 298 0035 00       		.byte	0
+ 299 0036 05       		.uleb128 0x5
+ 300 0037 2E       		.uleb128 0x2e
+ 301 0038 01       		.byte	0x1
+ 302 0039 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccK17yXV.s 			page 7
+
+
+ 303 003a 19       		.uleb128 0x19
+ 304 003b 03       		.uleb128 0x3
+ 305 003c 0E       		.uleb128 0xe
+ 306 003d 3A       		.uleb128 0x3a
+ 307 003e 0B       		.uleb128 0xb
+ 308 003f 3B       		.uleb128 0x3b
+ 309 0040 0B       		.uleb128 0xb
+ 310 0041 27       		.uleb128 0x27
+ 311 0042 19       		.uleb128 0x19
+ 312 0043 49       		.uleb128 0x49
+ 313 0044 13       		.uleb128 0x13
+ 314 0045 8701     		.uleb128 0x87
+ 315 0047 19       		.uleb128 0x19
+ 316 0048 11       		.uleb128 0x11
+ 317 0049 01       		.uleb128 0x1
+ 318 004a 12       		.uleb128 0x12
+ 319 004b 06       		.uleb128 0x6
+ 320 004c 40       		.uleb128 0x40
+ 321 004d 18       		.uleb128 0x18
+ 322 004e 9742     		.uleb128 0x2117
+ 323 0050 19       		.uleb128 0x19
+ 324 0051 01       		.uleb128 0x1
+ 325 0052 13       		.uleb128 0x13
+ 326 0053 00       		.byte	0
+ 327 0054 00       		.byte	0
+ 328 0055 06       		.uleb128 0x6
+ 329 0056 34       		.uleb128 0x34
+ 330 0057 00       		.byte	0
+ 331 0058 03       		.uleb128 0x3
+ 332 0059 0E       		.uleb128 0xe
+ 333 005a 3A       		.uleb128 0x3a
+ 334 005b 0B       		.uleb128 0xb
+ 335 005c 3B       		.uleb128 0x3b
+ 336 005d 0B       		.uleb128 0xb
+ 337 005e 49       		.uleb128 0x49
+ 338 005f 13       		.uleb128 0x13
+ 339 0060 02       		.uleb128 0x2
+ 340 0061 17       		.uleb128 0x17
+ 341 0062 00       		.byte	0
+ 342 0063 00       		.byte	0
+ 343 0064 07       		.uleb128 0x7
+ 344 0065 898201   		.uleb128 0x4109
+ 345 0068 00       		.byte	0
+ 346 0069 11       		.uleb128 0x11
+ 347 006a 01       		.uleb128 0x1
+ 348 006b 31       		.uleb128 0x31
+ 349 006c 13       		.uleb128 0x13
+ 350 006d 00       		.byte	0
+ 351 006e 00       		.byte	0
+ 352 006f 08       		.uleb128 0x8
+ 353 0070 898201   		.uleb128 0x4109
+ 354 0073 01       		.byte	0x1
+ 355 0074 11       		.uleb128 0x11
+ 356 0075 01       		.uleb128 0x1
+ 357 0076 31       		.uleb128 0x31
+ 358 0077 13       		.uleb128 0x13
+ 359 0078 01       		.uleb128 0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccK17yXV.s 			page 8
+
+
+ 360 0079 13       		.uleb128 0x13
+ 361 007a 00       		.byte	0
+ 362 007b 00       		.byte	0
+ 363 007c 09       		.uleb128 0x9
+ 364 007d 8A8201   		.uleb128 0x410a
+ 365 0080 00       		.byte	0
+ 366 0081 02       		.uleb128 0x2
+ 367 0082 18       		.uleb128 0x18
+ 368 0083 9142     		.uleb128 0x2111
+ 369 0085 18       		.uleb128 0x18
+ 370 0086 00       		.byte	0
+ 371 0087 00       		.byte	0
+ 372 0088 0A       		.uleb128 0xa
+ 373 0089 898201   		.uleb128 0x4109
+ 374 008c 01       		.byte	0x1
+ 375 008d 11       		.uleb128 0x11
+ 376 008e 01       		.uleb128 0x1
+ 377 008f 31       		.uleb128 0x31
+ 378 0090 13       		.uleb128 0x13
+ 379 0091 00       		.byte	0
+ 380 0092 00       		.byte	0
+ 381 0093 0B       		.uleb128 0xb
+ 382 0094 2E       		.uleb128 0x2e
+ 383 0095 00       		.byte	0
+ 384 0096 3F       		.uleb128 0x3f
+ 385 0097 19       		.uleb128 0x19
+ 386 0098 3C       		.uleb128 0x3c
+ 387 0099 19       		.uleb128 0x19
+ 388 009a 6E       		.uleb128 0x6e
+ 389 009b 0E       		.uleb128 0xe
+ 390 009c 03       		.uleb128 0x3
+ 391 009d 0E       		.uleb128 0xe
+ 392 009e 3A       		.uleb128 0x3a
+ 393 009f 0B       		.uleb128 0xb
+ 394 00a0 3B       		.uleb128 0x3b
+ 395 00a1 05       		.uleb128 0x5
+ 396 00a2 00       		.byte	0
+ 397 00a3 00       		.byte	0
+ 398 00a4 0C       		.uleb128 0xc
+ 399 00a5 2E       		.uleb128 0x2e
+ 400 00a6 00       		.byte	0
+ 401 00a7 3F       		.uleb128 0x3f
+ 402 00a8 19       		.uleb128 0x19
+ 403 00a9 3C       		.uleb128 0x3c
+ 404 00aa 19       		.uleb128 0x19
+ 405 00ab 6E       		.uleb128 0x6e
+ 406 00ac 0E       		.uleb128 0xe
+ 407 00ad 03       		.uleb128 0x3
+ 408 00ae 0E       		.uleb128 0xe
+ 409 00af 3A       		.uleb128 0x3a
+ 410 00b0 0B       		.uleb128 0xb
+ 411 00b1 3B       		.uleb128 0x3b
+ 412 00b2 0B       		.uleb128 0xb
+ 413 00b3 00       		.byte	0
+ 414 00b4 00       		.byte	0
+ 415 00b5 00       		.byte	0
+ 416              		.section	.debug_loc,"",%progbits
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccK17yXV.s 			page 9
+
+
+ 417              	.Ldebug_loc0:
+ 418              	.LLST0:
+ 419 0000 04000000 		.4byte	.LVL0
+ 420 0004 0A000000 		.4byte	.LVL2
+ 421 0008 0200     		.2byte	0x2
+ 422 000a 30       		.byte	0x30
+ 423 000b 9F       		.byte	0x9f
+ 424 000c 0A000000 		.4byte	.LVL2
+ 425 0010 18000000 		.4byte	.LVL5
+ 426 0014 0100     		.2byte	0x1
+ 427 0016 54       		.byte	0x54
+ 428 0017 1A000000 		.4byte	.LVL6
+ 429 001b 30000000 		.4byte	.LFE35
+ 430 001f 0100     		.2byte	0x1
+ 431 0021 54       		.byte	0x54
+ 432 0022 00000000 		.4byte	0
+ 433 0026 00000000 		.4byte	0
+ 434              		.section	.debug_aranges,"",%progbits
+ 435 0000 1C000000 		.4byte	0x1c
+ 436 0004 0200     		.2byte	0x2
+ 437 0006 00000000 		.4byte	.Ldebug_info0
+ 438 000a 04       		.byte	0x4
+ 439 000b 00       		.byte	0
+ 440 000c 0000     		.2byte	0
+ 441 000e 0000     		.2byte	0
+ 442 0010 00000000 		.4byte	.LFB35
+ 443 0014 30000000 		.4byte	.LFE35-.LFB35
+ 444 0018 00000000 		.4byte	0
+ 445 001c 00000000 		.4byte	0
+ 446              		.section	.debug_ranges,"",%progbits
+ 447              	.Ldebug_ranges0:
+ 448 0000 00000000 		.4byte	.LFB35
+ 449 0004 30000000 		.4byte	.LFE35
+ 450 0008 00000000 		.4byte	0
+ 451 000c 00000000 		.4byte	0
+ 452              		.section	.debug_line,"",%progbits
+ 453              	.Ldebug_line0:
+ 454 0000 83000000 		.section	.debug_str,"MS",%progbits,1
+ 454      02006200 
+ 454      00000201 
+ 454      FB0E0D00 
+ 454      01010101 
+ 455              	.LASF6:
+ 456 0000 6C6F6E67 		.ascii	"long long int\000"
+ 456      206C6F6E 
+ 456      6720696E 
+ 456      7400
+ 457              	.LASF8:
+ 458 000e 756E7369 		.ascii	"unsigned int\000"
+ 458      676E6564 
+ 458      20696E74 
+ 458      00
+ 459              	.LASF16:
+ 460 001b 436F6E74 		.ascii	"Control_Write\000"
+ 460      726F6C5F 
+ 460      57726974 
+ 460      6500
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccK17yXV.s 			page 10
+
+
+ 461              	.LASF19:
+ 462 0029 6D61696E 		.ascii	"main.c\000"
+ 462      2E6300
+ 463              	.LASF22:
+ 464 0030 6D61696E 		.ascii	"main\000"
+ 464      00
+ 465              	.LASF17:
+ 466 0035 43794465 		.ascii	"CyDelay\000"
+ 466      6C617900 
+ 467              	.LASF21:
+ 468 003d 75696E74 		.ascii	"uint8\000"
+ 468      3800
+ 469              	.LASF5:
+ 470 0043 6C6F6E67 		.ascii	"long unsigned int\000"
+ 470      20756E73 
+ 470      69676E65 
+ 470      6420696E 
+ 470      7400
+ 471              	.LASF7:
+ 472 0055 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 472      206C6F6E 
+ 472      6720756E 
+ 472      7369676E 
+ 472      65642069 
+ 473              	.LASF23:
+ 474 006c 63746C76 		.ascii	"ctlval\000"
+ 474      616C00
+ 475              	.LASF20:
+ 476 0073 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-worl"
+ 476      73657273 
+ 476      5C627279 
+ 476      616E2E6C 
+ 476      65655C44 
+ 477 00a1 645C5073 		.ascii	"d\\Psoc_101_4BLE\\Design15.cydsn\000"
+ 477      6F635F31 
+ 477      30315F34 
+ 477      424C455C 
+ 477      44657369 
+ 478              	.LASF14:
+ 479 00c0 50574D5F 		.ascii	"PWM_Start\000"
+ 479      53746172 
+ 479      7400
+ 480              	.LASF1:
+ 481 00ca 756E7369 		.ascii	"unsigned char\000"
+ 481      676E6564 
+ 481      20636861 
+ 481      7200
+ 482              	.LASF11:
+ 483 00d8 63686172 		.ascii	"char\000"
+ 483      00
+ 484              	.LASF4:
+ 485 00dd 6C6F6E67 		.ascii	"long int\000"
+ 485      20696E74 
+ 485      00
+ 486              	.LASF2:
+ 487 00e6 73686F72 		.ascii	"short int\000"
+ 487      7420696E 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccK17yXV.s 			page 11
+
+
+ 487      7400
+ 488              	.LASF10:
+ 489 00f0 646F7562 		.ascii	"double\000"
+ 489      6C6500
+ 490              	.LASF18:
+ 491 00f7 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 491      43313120 
+ 491      352E342E 
+ 491      31203230 
+ 491      31363036 
+ 492 012a 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 492      20726576 
+ 492      6973696F 
+ 492      6E203233 
+ 492      37373135 
+ 493 015d 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 493      66756E63 
+ 493      74696F6E 
+ 493      2D736563 
+ 493      74696F6E 
+ 494              	.LASF3:
+ 495 0185 73686F72 		.ascii	"short unsigned int\000"
+ 495      7420756E 
+ 495      7369676E 
+ 495      65642069 
+ 495      6E7400
+ 496              	.LASF0:
+ 497 0198 7369676E 		.ascii	"signed char\000"
+ 497      65642063 
+ 497      68617200 
+ 498              	.LASF12:
+ 499 01a4 6C6F6E67 		.ascii	"long double\000"
+ 499      20646F75 
+ 499      626C6500 
+ 500              	.LASF9:
+ 501 01b0 666C6F61 		.ascii	"float\000"
+ 501      7400
+ 502              	.LASF15:
+ 503 01b6 50574D5F 		.ascii	"PWM_WriteCompare\000"
+ 503      57726974 
+ 503      65436F6D 
+ 503      70617265 
+ 503      00
+ 504              	.LASF13:
+ 505 01c7 73697A65 		.ascii	"sizetype\000"
+ 505      74797065 
+ 505      00
+ 506              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
