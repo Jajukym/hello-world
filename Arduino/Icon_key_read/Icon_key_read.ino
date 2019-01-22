@@ -1,13 +1,3 @@
-// Wire Master Reader
-// by Nicholas Zambetti <http://www.zambetti.com>
-
-// Demonstrates use of the Wire library
-// Reads data from an I2C/TWI slave device
-// Refer to the "Wire Slave Sender" example for use with this
-
-// Created 29 March 2006
-
-// This example code is in the public domain.
 //This code reads Icon captouch boards..................
 
 #include <Wire.h>
@@ -27,5 +17,3 @@ void loop() {
   Serial.println("");
   delay(500);
 }
-
-
