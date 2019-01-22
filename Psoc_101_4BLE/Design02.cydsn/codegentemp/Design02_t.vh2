@@ -1,6 +1,6 @@
--- Project:   C:\Users\bryan.lee\Documents\PSoC Creator\Psoc_101\Design02.cydsn\Design02.cyprj
--- Generated: 01/31/2018 12:25:32
--- PSoC Creator  4.1 Update 1
+-- Project:   C:\Users\bryan.lee\Documents\GitHub\hello-world\Psoc_101_4BLE\Design02.cydsn\Design02.cyprj
+-- Generated: 01/10/2019 08:54:07
+-- PSoC Creator  4.2
 
 ENTITY Design02 IS
     PORT(
@@ -56,11 +56,11 @@ ARCHITECTURE __DEFAULT__ OF Design02 IS
     ATTRIBUTE Location OF Pin_SW2(0) : LABEL IS "P2[7]";
     COMPONENT iocell
         PORT (
-            pin_input : IN std_ulogic;
             oe : IN std_ulogic;
             fb : OUT std_ulogic;
-            pad_in : IN std_ulogic;
             pa_out : OUT std_ulogic;
+            pin_input : IN std_ulogic;
+            pad_in : IN std_ulogic;
             pad_out : OUT std_ulogic;
             oe_reg : OUT std_ulogic;
             oe_internal : IN std_ulogic;
