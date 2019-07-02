@@ -1,6 +1,8 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "pch.h"
-extern "C" __declspec(dllexport) int Multiply(int a, int b);
+
+extern "C" __declspec(dllexport) int __cdecl Multiply(int a, int b);
+
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
@@ -17,7 +19,7 @@ BOOL APIENTRY DllMain( HMODULE hModule,
     return TRUE;
 }
 
-int Multiply(int a, int b)
+__declspec(dllexport) int __cdecl Multiply(int a, int b)
 {
 	return a * b;
 }
