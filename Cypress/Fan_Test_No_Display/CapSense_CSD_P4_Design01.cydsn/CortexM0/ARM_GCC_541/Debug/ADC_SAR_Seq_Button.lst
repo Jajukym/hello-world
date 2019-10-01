@@ -1,0 +1,3667 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"ADC_SAR_Seq_Button.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	ADC_SAR_Seq_Button_initVar
+  20              		.bss
+  21              		.type	ADC_SAR_Seq_Button_initVar, %object
+  22              		.size	ADC_SAR_Seq_Button_initVar, 1
+  23              	ADC_SAR_Seq_Button_initVar:
+  24 0000 00       		.space	1
+  25              		.comm	ADC_SAR_Seq_Button_offset,2,4
+  26              		.comm	ADC_SAR_Seq_Button_countsPer10Volt,4,4
+  27              		.section	.rodata
+  28              		.align	2
+  29              		.type	ADC_SAR_Seq_Button_channelsConfig, %object
+  30              		.size	ADC_SAR_Seq_Button_channelsConfig, 4
+  31              	ADC_SAR_Seq_Button_channelsConfig:
+  32 0000 00020000 		.word	512
+  33              		.section	.text.ADC_SAR_Seq_Button_Start,"ax",%progbits
+  34              		.align	2
+  35              		.global	ADC_SAR_Seq_Button_Start
+  36              		.code	16
+  37              		.thumb_func
+  38              		.type	ADC_SAR_Seq_Button_Start, %function
+  39              	ADC_SAR_Seq_Button_Start:
+  40              	.LFB2:
+  41              		.file 1 "Generated_Source\\PSoC4\\ADC_SAR_Seq_Button.c"
+   1:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+   2:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * File Name: ADC_SAR_Seq_Button.c
+   3:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Version 2.40
+   4:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+   5:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Description:
+   6:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  This file provides the source code to the API for the Sequencing Successive
+   7:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Approximation ADC Component Component.
+   8:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+   9:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Note:
+  10:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+  11:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+  12:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  13:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * the software package with which this file was provided.
+  16:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 2
+
+
+  17:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+  18:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** #include "ADC_SAR_Seq_Button.h"
+  19:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+  20:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+  21:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /***************************************
+  22:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Global data allocation
+  23:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ***************************************/
+  24:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** uint8 ADC_SAR_Seq_Button_initVar = 0u;
+  25:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** volatile int16 ADC_SAR_Seq_Button_offset[ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM];
+  26:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** volatile int32 ADC_SAR_Seq_Button_countsPer10Volt[ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM];   /* Gain
+  27:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+  28:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+  29:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /***************************************
+  30:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Local data allocation
+  31:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ***************************************/
+  32:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /* Channels configuration generated by customiser */
+  33:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** static const uint32 CYCODE ADC_SAR_Seq_Button_channelsConfig[] = { 0x00000200u };
+  34:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+  35:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+  36:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+  37:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_Start
+  38:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+  39:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+  40:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+  41:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Performs all required initialization for this component
+  42:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  and enables the power. The power will be set to the appropriate
+  43:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  power based on the clock frequency.
+  44:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+  45:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+  46:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+  47:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+  48:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+  49:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+  50:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+  51:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Global variables:
+  52:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  The ADC_SAR_Seq_Button_initVar variable is used to indicate when/if initial
+  53:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  configuration of this component has happened. The variable is initialized to
+  54:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  zero and set to 1 the first time ADC_Start() is called. This allows for
+  55:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  component Re-Start without re-initialization in all subsequent calls to the
+  56:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  ADC_SAR_Seq_Button_Start() routine.
+  57:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  If re-initialization of the component is required the variable should be set
+  58:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  to zero before call of ADC_SAR_Seq_Button_Start() routine, or the user may call
+  59:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  ADC_SAR_Seq_Button_Init() and ADC_SAR_Seq_Button_Enable() as done in the
+  60:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  ADC_SAR_Seq_Button_Start() routine.
+  61:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+  62:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+  63:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_Start(void)
+  64:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+  42              		.loc 1 64 0
+  43              		.cfi_startproc
+  44              		@ args = 0, pretend = 0, frame = 0
+  45              		@ frame_needed = 1, uses_anonymous_args = 0
+  46 0000 80B5     		push	{r7, lr}
+  47              		.cfi_def_cfa_offset 8
+  48              		.cfi_offset 7, -8
+  49              		.cfi_offset 14, -4
+  50 0002 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 3
+
+
+  51              		.cfi_def_cfa_register 7
+  65:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     /* If not Initialized then initialize all required hardware and software */
+  66:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     if(ADC_SAR_Seq_Button_initVar == 0u)
+  52              		.loc 1 66 0
+  53 0004 064B     		ldr	r3, .L3
+  54 0006 1B78     		ldrb	r3, [r3]
+  55 0008 002B     		cmp	r3, #0
+  56 000a 04D1     		bne	.L2
+  67:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+  68:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_Init();
+  57              		.loc 1 68 0
+  58 000c FFF7FEFF 		bl	ADC_SAR_Seq_Button_Init
+  69:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_initVar = 1u;
+  59              		.loc 1 69 0
+  60 0010 034B     		ldr	r3, .L3
+  61 0012 0122     		movs	r2, #1
+  62 0014 1A70     		strb	r2, [r3]
+  63              	.L2:
+  70:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     }
+  71:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_Enable();
+  64              		.loc 1 71 0
+  65 0016 FFF7FEFF 		bl	ADC_SAR_Seq_Button_Enable
+  72:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+  66              		.loc 1 72 0
+  67 001a C046     		nop
+  68 001c BD46     		mov	sp, r7
+  69              		@ sp needed
+  70 001e 80BD     		pop	{r7, pc}
+  71              	.L4:
+  72              		.align	2
+  73              	.L3:
+  74 0020 00000000 		.word	ADC_SAR_Seq_Button_initVar
+  75              		.cfi_endproc
+  76              	.LFE2:
+  77              		.size	ADC_SAR_Seq_Button_Start, .-ADC_SAR_Seq_Button_Start
+  78              		.global	__aeabi_idiv
+  79              		.section	.text.ADC_SAR_Seq_Button_Init,"ax",%progbits
+  80              		.align	2
+  81              		.global	ADC_SAR_Seq_Button_Init
+  82              		.code	16
+  83              		.thumb_func
+  84              		.type	ADC_SAR_Seq_Button_Init, %function
+  85              	ADC_SAR_Seq_Button_Init:
+  86              	.LFB3:
+  73:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+  74:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+  75:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+  76:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_Init
+  77:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+  78:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+  79:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+  80:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Initialize component's parameters to the parameters set by user in the
+  81:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  customizer of the component placed onto schematic. Usually called in
+  82:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  ADC_SAR_Seq_Button_Start().
+  83:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+  84:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+  85:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 4
+
+
+  86:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+  87:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+  88:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+  89:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+  90:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Global variables:
+  91:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  The ADC_SAR_Seq_Button_offset variable is initialized.
+  92:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+  93:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+  94:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_Init(void)
+  95:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+  87              		.loc 1 95 0
+  88              		.cfi_startproc
+  89              		@ args = 0, pretend = 0, frame = 16
+  90              		@ frame_needed = 1, uses_anonymous_args = 0
+  91 0000 80B5     		push	{r7, lr}
+  92              		.cfi_def_cfa_offset 8
+  93              		.cfi_offset 7, -8
+  94              		.cfi_offset 14, -4
+  95 0002 84B0     		sub	sp, sp, #16
+  96              		.cfi_def_cfa_offset 24
+  97 0004 00AF     		add	r7, sp, #0
+  98              		.cfi_def_cfa_register 7
+  96:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     uint32 chNum;
+  97:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     uint32 tmpRegVal;
+  98:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     int32 counts;
+  99:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 100:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 1u)
+ 101:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         static const uint8 CYCODE ADC_SAR_Seq_Button_InputsPlacement[] =
+ 102:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         {
+ 103:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             (uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_0_PORT << 4u) |
+ 104:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_0_PIN
+ 105:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_1_PORT << 4u) |
+ 106:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****              (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_1_PIN
+ 107:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 2u)
+ 108:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_2_PORT << 4u) |
+ 109:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_2_PIN
+ 110:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 2u */
+ 111:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 3u)
+ 112:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_3_PORT << 4u) |
+ 113:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_3_PIN
+ 114:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 3u */
+ 115:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 4u)
+ 116:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_4_PORT << 4u) |
+ 117:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_4_PIN
+ 118:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 4u */
+ 119:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 5u)
+ 120:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_5_PORT << 4u) |
+ 121:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_5_PIN
+ 122:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 5u */
+ 123:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 6u)
+ 124:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_6_PORT << 4u) |
+ 125:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_6_PIN
+ 126:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 6u */
+ 127:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 7u)
+ 128:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_7_PORT << 4u) |
+ 129:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_7_PIN
+ 130:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 7u */
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 5
+
+
+ 131:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 8u)
+ 132:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_8_PORT << 4u) |
+ 133:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_8_PIN
+ 134:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 8u */
+ 135:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 9u)
+ 136:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_9_PORT << 4u) |
+ 137:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_9_PIN
+ 138:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 9u */
+ 139:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 10u)
+ 140:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_10_PORT << 4u) |
+ 141:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_10_PIN
+ 142:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 10u */
+ 143:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 11u)
+ 144:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_11_PORT << 4u) |
+ 145:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_11_PIN
+ 146:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 11u */
+ 147:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 12u)
+ 148:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_12_PORT << 4u) |
+ 149:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_12_PIN
+ 150:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 12u */
+ 151:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 13u)
+ 152:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_13_PORT << 4u) |
+ 153:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_13_PIN
+ 154:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 13u */
+ 155:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 14u)
+ 156:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_14_PORT << 4u) |
+ 157:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_14_PIN
+ 158:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 14u */
+ 159:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 15u)
+ 160:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_15_PORT << 4u) |
+ 161:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_15_PIN
+ 162:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 15u */
+ 163:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 16u)
+ 164:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ,(uint8)(ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_16_PORT << 4u) |
+ 165:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (uint8)ADC_SAR_Seq_Button_cy_psoc4_sarmux_8__CH_16_PIN
+ 166:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 16u */
+ 167:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         };
+ 168:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 1u */
+ 169:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 170:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #if(ADC_SAR_Seq_Button_IRQ_REMOVE == 0u)
+ 171:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Start and set interrupt vector */
+ 172:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         CyIntSetPriority(ADC_SAR_Seq_Button_INTC_NUMBER, ADC_SAR_Seq_Button_INTC_PRIOR_NUMBER);
+  99              		.loc 1 172 0
+ 100 0006 0321     		movs	r1, #3
+ 101 0008 0F20     		movs	r0, #15
+ 102 000a FFF7FEFF 		bl	CyIntSetPriority
+ 173:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         (void)CyIntSetVector(ADC_SAR_Seq_Button_INTC_NUMBER, &ADC_SAR_Seq_Button_ISR);
+ 103              		.loc 1 173 0
+ 104 000e 584B     		ldr	r3, .L17
+ 105 0010 1900     		movs	r1, r3
+ 106 0012 0F20     		movs	r0, #15
+ 107 0014 FFF7FEFF 		bl	CyIntSetVector
+ 174:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #endif   /* End ADC_SAR_Seq_Button_IRQ_REMOVE */
+ 175:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 176:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     /* Init SAR and MUX registers */
+ 177:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_CHAN_EN_REG = ADC_SAR_Seq_Button_DEFAULT_EN_CHANNELS;
+ 108              		.loc 1 177 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 6
+
+
+ 109 0018 564B     		ldr	r3, .L17+4
+ 110 001a 0122     		movs	r2, #1
+ 111 001c 1A60     		str	r2, [r3]
+ 178:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_CTRL_REG |= ADC_SAR_Seq_Button_DEFAULT_CTRL_REG_CFG | 
+ 179:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Enable the SAR internal pump when global pump is enabled */
+ 180:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         (((ADC_SAR_Seq_Button_PUMP_CTRL_REG & ADC_SAR_Seq_Button_PUMP_CTRL_ENABLED) != 0u) ? 
+ 112              		.loc 1 180 0
+ 113 001e 564B     		ldr	r3, .L17+8
+ 114 0020 1B68     		ldr	r3, [r3]
+ 178:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_CTRL_REG |= ADC_SAR_Seq_Button_DEFAULT_CTRL_REG_CFG | 
+ 115              		.loc 1 178 0
+ 116 0022 002B     		cmp	r3, #0
+ 117 0024 01DA     		bge	.L6
+ 178:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_CTRL_REG |= ADC_SAR_Seq_Button_DEFAULT_CTRL_REG_CFG | 
+ 118              		.loc 1 178 0 is_stmt 0 discriminator 1
+ 119 0026 5549     		ldr	r1, .L17+12
+ 120 0028 00E0     		b	.L7
+ 121              	.L6:
+ 178:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_CTRL_REG |= ADC_SAR_Seq_Button_DEFAULT_CTRL_REG_CFG | 
+ 122              		.loc 1 178 0 discriminator 2
+ 123 002a 5549     		ldr	r1, .L17+16
+ 124              	.L7:
+ 178:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_CTRL_REG |= ADC_SAR_Seq_Button_DEFAULT_CTRL_REG_CFG | 
+ 125              		.loc 1 178 0 discriminator 4
+ 126 002c 554B     		ldr	r3, .L17+20
+ 127 002e 554A     		ldr	r2, .L17+20
+ 128 0030 1268     		ldr	r2, [r2]
+ 129 0032 0A43     		orrs	r2, r1
+ 130 0034 1A60     		str	r2, [r3]
+ 181:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_BOOSTPUMP_EN : 0u);
+ 182:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_SAMPLE_CTRL_REG = ADC_SAR_Seq_Button_DEFAULT_SAMPLE_CTRL_REG_CFG;
+ 131              		.loc 1 182 0 is_stmt 1 discriminator 4
+ 132 0036 544B     		ldr	r3, .L17+24
+ 133 0038 544A     		ldr	r2, .L17+28
+ 134 003a 1A60     		str	r2, [r3]
+ 183:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_RANGE_THRES_REG = ADC_SAR_Seq_Button_DEFAULT_RANGE_THRES_REG_CFG;
+ 135              		.loc 1 183 0 discriminator 4
+ 136 003c 544B     		ldr	r3, .L17+32
+ 137 003e 554A     		ldr	r2, .L17+36
+ 138 0040 1A60     		str	r2, [r3]
+ 184:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_RANGE_COND_REG  = ADC_SAR_Seq_Button_COMPARE_MODE;
+ 139              		.loc 1 184 0 discriminator 4
+ 140 0042 554B     		ldr	r3, .L17+40
+ 141 0044 0022     		movs	r2, #0
+ 142 0046 1A60     		str	r2, [r3]
+ 185:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_SAMPLE_TIME01_REG = ADC_SAR_Seq_Button_DEFAULT_SAMPLE_TIME01_REG_CFG;
+ 143              		.loc 1 185 0 discriminator 4
+ 144 0048 544B     		ldr	r3, .L17+44
+ 145 004a 554A     		ldr	r2, .L17+48
+ 146 004c 1A60     		str	r2, [r3]
+ 186:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_SAMPLE_TIME23_REG = ADC_SAR_Seq_Button_DEFAULT_SAMPLE_TIME23_REG_CFG;
+ 147              		.loc 1 186 0 discriminator 4
+ 148 004e 554B     		ldr	r3, .L17+52
+ 149 0050 534A     		ldr	r2, .L17+48
+ 150 0052 1A60     		str	r2, [r3]
+ 187:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     
+ 188:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     /* Connect Vm to VSSA when even one channel is single-ended or multiple channels configured */
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 7
+
+
+ 189:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #if(ADC_SAR_Seq_Button_DEFAULT_MUX_SWITCH0 != 0u)
+ 190:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_MUX_SWITCH0_REG |= ADC_SAR_Seq_Button_DEFAULT_MUX_SWITCH0;
+ 191:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Set MUX_HW_CTRL_VSSA in MUX_SWITCH_HW_CTRL when multiple channels enabled */
+ 192:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 1u)
+ 193:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             ADC_SAR_Seq_Button_MUX_SWITCH_HW_CTRL_REG |= ADC_SAR_Seq_Button_DEFAULT_MUX_SWITCH0;
+ 194:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 1u */
+ 195:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #endif /*ADC_SAR_Seq_Button_CHANNELS_MODE !=0 */
+ 196:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 197:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_SATURATE_INTR_MASK_REG = 0u;
+ 151              		.loc 1 197 0 discriminator 4
+ 152 0054 544B     		ldr	r3, .L17+56
+ 153 0056 0022     		movs	r2, #0
+ 154 0058 1A60     		str	r2, [r3]
+ 198:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_RANGE_INTR_MASK_REG = 0u;
+ 155              		.loc 1 198 0 discriminator 4
+ 156 005a 544B     		ldr	r3, .L17+60
+ 157 005c 0022     		movs	r2, #0
+ 158 005e 1A60     		str	r2, [r3]
+ 199:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_INTR_MASK_REG = ADC_SAR_Seq_Button_SAR_INTR_MASK;
+ 159              		.loc 1 199 0 discriminator 4
+ 160 0060 534B     		ldr	r3, .L17+64
+ 161 0062 0122     		movs	r2, #1
+ 162 0064 1A60     		str	r2, [r3]
+ 200:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 201:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #if(ADC_SAR_Seq_Button_CY_SAR_IP_VER == ADC_SAR_Seq_Button_CY_SAR_IP_VER0)
+ 202:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_ANA_TRIM_REG = ADC_SAR_Seq_Button_TRIM_COEF;
+ 203:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #endif /* (ADC_SAR_Seq_Button_CY_SAR_IP_VER == ADC_SAR_Seq_Button_CY_SAR_IP_VER0) */
+ 204:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 205:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     /* Read and modify default configuration based on characterization */
+ 206:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     tmpRegVal = ADC_SAR_Seq_Button_SAR_DFT_CTRL_REG;
+ 163              		.loc 1 206 0 discriminator 4
+ 164 0066 534B     		ldr	r3, .L17+68
+ 165 0068 1B68     		ldr	r3, [r3]
+ 166 006a 7B60     		str	r3, [r7, #4]
+ 207:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     tmpRegVal &= (uint32)~ADC_SAR_Seq_Button_DCEN;
+ 167              		.loc 1 207 0 discriminator 4
+ 168 006c 7B68     		ldr	r3, [r7, #4]
+ 169 006e 524A     		ldr	r2, .L17+72
+ 170 0070 1340     		ands	r3, r2
+ 171 0072 7B60     		str	r3, [r7, #4]
+ 208:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     
+ 209:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #if(ADC_SAR_Seq_Button_CY_SAR_IP_VER == ADC_SAR_Seq_Button_CY_SAR_IP_VER0)
+ 210:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if(ADC_SAR_Seq_Button_NOMINAL_CLOCK_FREQ > (ADC_SAR_Seq_Button_MAX_FREQUENCY / 2))
+ 211:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             tmpRegVal |= ADC_SAR_Seq_Button_SEL_CSEL_DFT_CHAR;
+ 212:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #else  /* clock speed < 9 Mhz */
+ 213:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             tmpRegVal |= ADC_SAR_Seq_Button_DLY_INC;
+ 214:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* clock speed > 9 Mhz */
+ 215:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #else
+ 216:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if ((ADC_SAR_Seq_Button_DEFAULT_VREF_SEL == ADC_SAR_Seq_Button__INTERNAL1024) || \
+ 217:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****              (ADC_SAR_Seq_Button_DEFAULT_VREF_SEL == ADC_SAR_Seq_Button__INTERNALVREF))
+ 218:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             tmpRegVal |= ADC_SAR_Seq_Button_DLY_INC;
+ 219:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #else
+ 220:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             tmpRegVal |= ADC_SAR_Seq_Button_DCEN;
+ 172              		.loc 1 220 0 discriminator 4
+ 173 0074 7B68     		ldr	r3, [r7, #4]
+ 174 0076 8022     		movs	r2, #128
+ 175 0078 9205     		lsls	r2, r2, #22
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 8
+
+
+ 176 007a 1343     		orrs	r3, r2
+ 177 007c 7B60     		str	r3, [r7, #4]
+ 221:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             tmpRegVal &= (uint32)~ADC_SAR_Seq_Button_DLY_INC;
+ 178              		.loc 1 221 0 discriminator 4
+ 179 007e 7B68     		ldr	r3, [r7, #4]
+ 180 0080 0122     		movs	r2, #1
+ 181 0082 9343     		bics	r3, r2
+ 182 0084 7B60     		str	r3, [r7, #4]
+ 222:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* ((ADC_SAR_Seq_Button_DEFAULT_VREF_SEL == ADC_SAR_Seq_Button__INTERNAL1024) || \
+ 223:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                    (ADC_SAR_Seq_Button_DEFAULT_VREF_SEL == ADC_SAR_Seq_Button__INTERNALVREF)) */
+ 224:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #endif /* (ADC_SAR_Seq_Button_CY_SAR_IP_VER == ADC_SAR_Seq_Button_CY_SAR_IP_VER0) */
+ 225:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     
+ 226:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_DFT_CTRL_REG = tmpRegVal;
+ 183              		.loc 1 226 0 discriminator 4
+ 184 0086 4B4B     		ldr	r3, .L17+68
+ 185 0088 7A68     		ldr	r2, [r7, #4]
+ 186 008a 1A60     		str	r2, [r3]
+ 227:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 228:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #if(ADC_SAR_Seq_Button_MAX_RESOLUTION != ADC_SAR_Seq_Button_RESOLUTION_12)
+ 229:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_WOUNDING_REG = ADC_SAR_Seq_Button_ALT_WOUNDING;
+ 187              		.loc 1 229 0 discriminator 4
+ 188 008c 4B4B     		ldr	r3, .L17+76
+ 189 008e 0222     		movs	r2, #2
+ 190 0090 1A60     		str	r2, [r3]
+ 230:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #endif /* ADC_SAR_Seq_Button_MAX_RESOLUTION != ADC_SAR_Seq_Button_RESOLUTION_12 */
+ 231:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 232:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     for(chNum = 0u; chNum < ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM; chNum++)
+ 191              		.loc 1 232 0 discriminator 4
+ 192 0092 0023     		movs	r3, #0
+ 193 0094 FB60     		str	r3, [r7, #12]
+ 194 0096 63E0     		b	.L8
+ 195              	.L16:
+ 233:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+ 234:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         tmpRegVal = (ADC_SAR_Seq_Button_channelsConfig[chNum] & ADC_SAR_Seq_Button_CHANNEL_CONFIG_M
+ 196              		.loc 1 234 0
+ 197 0098 8023     		movs	r3, #128
+ 198 009a 9A00     		lsls	r2, r3, #2
+ 199 009c DC23     		movs	r3, #220
+ 200 009e 9B01     		lsls	r3, r3, #6
+ 201 00a0 1340     		ands	r3, r2
+ 202 00a2 7B60     		str	r3, [r7, #4]
+ 235:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if(ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 1u)
+ 236:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             tmpRegVal |= ADC_SAR_Seq_Button_InputsPlacement[chNum];
+ 237:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* End ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM > 1u */
+ 238:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         
+ 239:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         
+ 240:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* When the part is limited to 10-bit then the SUB_RESOLUTION bit
+ 241:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         *  will be ignored and the RESOLUTION bit selects between 10-bit
+ 242:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         *  (0) and 8-bit (1) resolution.
+ 243:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         */
+ 244:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if((ADC_SAR_Seq_Button_MAX_RESOLUTION != ADC_SAR_Seq_Button_RESOLUTION_12) && \
+ 245:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             (ADC_SAR_Seq_Button_ALT_WOUNDING == ADC_SAR_Seq_Button_WOUNDING_10BIT))
+ 246:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             tmpRegVal &= (uint32)(~ADC_SAR_Seq_Button_ALT_RESOLUTION_ON);
+ 247:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* ADC_SAR_Seq_Button_MAX_RESOLUTION != ADC_SAR_Seq_Button_RESOLUTION_12 */
+ 248:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 249:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if(ADC_SAR_Seq_Button_INJ_CHANNEL_ENABLED)
+ 250:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         if(chNum < ADC_SAR_Seq_Button_SEQUENCED_CHANNELS_NUM)
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 9
+
+
+ 251:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* ADC_SAR_Seq_Button_INJ_CHANNEL_ENABLED */
+ 252:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         {
+ 253:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             CY_SET_REG32((reg32 *)(ADC_SAR_Seq_Button_SAR_CHAN_CONFIG_IND + (uint32)(chNum << 2)), 
+ 203              		.loc 1 253 0
+ 204 00a4 FB68     		ldr	r3, [r7, #12]
+ 205 00a6 9B00     		lsls	r3, r3, #2
+ 206 00a8 454A     		ldr	r2, .L17+80
+ 207 00aa 9446     		mov	ip, r2
+ 208 00ac 6344     		add	r3, r3, ip
+ 209 00ae 7A68     		ldr	r2, [r7, #4]
+ 210 00b0 1A60     		str	r2, [r3]
+ 254:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 255:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             if((ADC_SAR_Seq_Button_channelsConfig[chNum] & ADC_SAR_Seq_Button_IS_SATURATE_EN_MASK) 
+ 211              		.loc 1 255 0
+ 212 00b2 8023     		movs	r3, #128
+ 213 00b4 9B00     		lsls	r3, r3, #2
+ 214 00b6 0122     		movs	r2, #1
+ 215 00b8 1340     		ands	r3, r2
+ 216 00ba 0AD0     		beq	.L9
+ 256:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             {
+ 257:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ADC_SAR_Seq_Button_SAR_SATURATE_INTR_MASK_REG |= (uint16)((uint16)1 << chNum);
+ 217              		.loc 1 257 0
+ 218 00bc 3A4B     		ldr	r3, .L17+56
+ 219 00be 3A4A     		ldr	r2, .L17+56
+ 220 00c0 1168     		ldr	r1, [r2]
+ 221 00c2 0120     		movs	r0, #1
+ 222 00c4 FA68     		ldr	r2, [r7, #12]
+ 223 00c6 9040     		lsls	r0, r0, r2
+ 224 00c8 0200     		movs	r2, r0
+ 225 00ca 1204     		lsls	r2, r2, #16
+ 226 00cc 120C     		lsrs	r2, r2, #16
+ 227 00ce 0A43     		orrs	r2, r1
+ 228 00d0 1A60     		str	r2, [r3]
+ 229              	.L9:
+ 258:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             }
+ 259:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 260:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             if((ADC_SAR_Seq_Button_channelsConfig[chNum] & ADC_SAR_Seq_Button_IS_RANGE_CTRL_EN_MASK
+ 230              		.loc 1 260 0
+ 231 00d2 8023     		movs	r3, #128
+ 232 00d4 9B00     		lsls	r3, r3, #2
+ 233 00d6 0222     		movs	r2, #2
+ 234 00d8 1340     		ands	r3, r2
+ 235 00da 0AD0     		beq	.L10
+ 261:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             {
+ 262:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ADC_SAR_Seq_Button_SAR_RANGE_INTR_MASK_REG |= (uint16)((uint16)1 << chNum);
+ 236              		.loc 1 262 0
+ 237 00dc 334B     		ldr	r3, .L17+60
+ 238 00de 334A     		ldr	r2, .L17+60
+ 239 00e0 1168     		ldr	r1, [r2]
+ 240 00e2 0120     		movs	r0, #1
+ 241 00e4 FA68     		ldr	r2, [r7, #12]
+ 242 00e6 9040     		lsls	r0, r0, r2
+ 243 00e8 0200     		movs	r2, r0
+ 244 00ea 1204     		lsls	r2, r2, #16
+ 245 00ec 120C     		lsrs	r2, r2, #16
+ 246 00ee 0A43     		orrs	r2, r1
+ 247 00f0 1A60     		str	r2, [r3]
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 10
+
+
+ 248              	.L10:
+ 263:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             }
+ 264:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         }
+ 265:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if(ADC_SAR_Seq_Button_INJ_CHANNEL_ENABLED)
+ 266:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             else
+ 267:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             {
+ 268:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 CY_SET_REG32(ADC_SAR_Seq_Button_SAR_INJ_CHAN_CONFIG_PTR, tmpRegVal | ADC_SAR_Seq_Bu
+ 269:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 270:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 if((ADC_SAR_Seq_Button_channelsConfig[chNum] & ADC_SAR_Seq_Button_IS_SATURATE_EN_MA
+ 271:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 {
+ 272:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                     ADC_SAR_Seq_Button_SAR_INTR_MASK_REG |= ADC_SAR_Seq_Button_INJ_SATURATE_MASK;
+ 273:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 }
+ 274:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 275:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 if((ADC_SAR_Seq_Button_channelsConfig[chNum] & ADC_SAR_Seq_Button_IS_RANGE_CTRL_EN_
+ 276:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 {
+ 277:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                     ADC_SAR_Seq_Button_SAR_INTR_MASK_REG |= ADC_SAR_Seq_Button_INJ_RANGE_MASK;
+ 278:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 }
+ 279:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             }
+ 280:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* ADC_SAR_Seq_Button_INJ_CHANNEL_ENABLED */
+ 281:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 282:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         if((ADC_SAR_Seq_Button_channelsConfig[chNum] & ADC_SAR_Seq_Button_ALT_RESOLUTION_ON) != 0u)
+ 249              		.loc 1 282 0
+ 250 00f2 8023     		movs	r3, #128
+ 251 00f4 9A00     		lsls	r2, r3, #2
+ 252 00f6 8023     		movs	r3, #128
+ 253 00f8 9B00     		lsls	r3, r3, #2
+ 254 00fa 1340     		ands	r3, r2
+ 255 00fc 03D0     		beq	.L11
+ 283:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         {
+ 284:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                counts = (int32)ADC_SAR_Seq_Button_DEFAULT_MAX_WRK_ALT;
+ 256              		.loc 1 284 0
+ 257 00fe 8023     		movs	r3, #128
+ 258 0100 5B00     		lsls	r3, r3, #1
+ 259 0102 BB60     		str	r3, [r7, #8]
+ 260 0104 02E0     		b	.L12
+ 261              	.L11:
+ 285:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         }
+ 286:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         else
+ 287:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         {
+ 288:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                counts = (int32)ADC_SAR_Seq_Button_SAR_WRK_MAX_12BIT;
+ 262              		.loc 1 288 0
+ 263 0106 8023     		movs	r3, #128
+ 264 0108 5B01     		lsls	r3, r3, #5
+ 265 010a BB60     		str	r3, [r7, #8]
+ 266              	.L12:
+ 289:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         }
+ 290:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 291:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         if((ADC_SAR_Seq_Button_channelsConfig[chNum] & ADC_SAR_Seq_Button_DIFFERENTIAL_EN) == 0u)
+ 267              		.loc 1 291 0
+ 268 010c 8023     		movs	r3, #128
+ 269 010e 9A00     		lsls	r2, r3, #2
+ 270 0110 8023     		movs	r3, #128
+ 271 0112 5B00     		lsls	r3, r3, #1
+ 272 0114 1340     		ands	r3, r2
+ 273 0116 05D1     		bne	.L13
+ 292:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         {
+ 293:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if((ADC_SAR_Seq_Button_DEFAULT_SE_RESULT_FORMAT_SEL == ADC_SAR_Seq_Button__FSIGNED) &&
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 11
+
+
+ 294:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 (ADC_SAR_Seq_Button_DEFAULT_NEG_INPUT_SEL == ADC_SAR_Seq_Button__VREF))
+ 295:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 /* Set offset to the minus half scale to convert results to unsigned format */
+ 296:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ADC_SAR_Seq_Button_offset[chNum] = (int16)(counts / -2);
+ 297:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #else
+ 298:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ADC_SAR_Seq_Button_offset[chNum] = 0;
+ 274              		.loc 1 298 0
+ 275 0118 2A4B     		ldr	r3, .L17+84
+ 276 011a FA68     		ldr	r2, [r7, #12]
+ 277 011c 5200     		lsls	r2, r2, #1
+ 278 011e 0021     		movs	r1, #0
+ 279 0120 D152     		strh	r1, [r2, r3]
+ 280 0122 09E0     		b	.L14
+ 281              	.L13:
+ 299:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* end DEFAULT_SE_RESULT_FORMAT_SEL == ADC_SAR_Seq_Button__FSIGNED */
+ 300:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         }
+ 301:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         else    /* Differential channel */
+ 302:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         {
+ 303:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #if(ADC_SAR_Seq_Button_DEFAULT_DIFF_RESULT_FORMAT_SEL == ADC_SAR_Seq_Button__FUNSIGNED)
+ 304:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 /* Set offset to the half scale to convert results to signed format */
+ 305:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ADC_SAR_Seq_Button_offset[chNum] = (int16)(counts / 2);
+ 282              		.loc 1 305 0
+ 283 0124 BB68     		ldr	r3, [r7, #8]
+ 284 0126 002B     		cmp	r3, #0
+ 285 0128 00DA     		bge	.L15
+ 286 012a 0133     		adds	r3, r3, #1
+ 287              	.L15:
+ 288 012c 5B10     		asrs	r3, r3, #1
+ 289 012e 19B2     		sxth	r1, r3
+ 290 0130 244B     		ldr	r3, .L17+84
+ 291 0132 FA68     		ldr	r2, [r7, #12]
+ 292 0134 5200     		lsls	r2, r2, #1
+ 293 0136 D152     		strh	r1, [r2, r3]
+ 294              	.L14:
+ 306:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #else
+ 307:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ADC_SAR_Seq_Button_offset[chNum] = 0;
+ 308:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             #endif /* end ADC_SAR_Seq_Button_DEFAULT_DIFF_RESULT_FORMAT_SEL == ADC_SAR_Seq_Button__
+ 309:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         }
+ 310:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Calculate gain in counts per 10 volts with rounding */
+ 311:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_countsPer10Volt[chNum] = (int16)(((counts * ADC_SAR_Seq_Button_10MV_COUN
+ 295              		.loc 1 311 0 discriminator 2
+ 296 0138 BB68     		ldr	r3, [r7, #8]
+ 297 013a 234A     		ldr	r2, .L17+88
+ 298 013c 5343     		muls	r3, r2
+ 299 013e 234A     		ldr	r2, .L17+92
+ 300 0140 9446     		mov	ip, r2
+ 301 0142 6344     		add	r3, r3, ip
+ 312:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                             ADC_SAR_Seq_Button_DEFAULT_VREF_MV_VALUE) / (ADC_SAR_Seq_Button_DEFAULT
+ 302              		.loc 1 312 0 discriminator 2
+ 303 0144 2249     		ldr	r1, .L17+96
+ 304 0146 1800     		movs	r0, r3
+ 305 0148 FFF7FEFF 		bl	__aeabi_idiv
+ 306 014c 0300     		movs	r3, r0
+ 311:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                             ADC_SAR_Seq_Button_DEFAULT_VREF_MV_VALUE) / (ADC_SAR_Seq_Button_DEFAULT
+ 307              		.loc 1 311 0 discriminator 2
+ 308 014e 1BB2     		sxth	r3, r3
+ 309 0150 1900     		movs	r1, r3
+ 310 0152 204B     		ldr	r3, .L17+100
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 12
+
+
+ 311 0154 FA68     		ldr	r2, [r7, #12]
+ 312 0156 9200     		lsls	r2, r2, #2
+ 313 0158 D150     		str	r1, [r2, r3]
+ 232:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+ 314              		.loc 1 232 0 discriminator 2
+ 315 015a FB68     		ldr	r3, [r7, #12]
+ 316 015c 0133     		adds	r3, r3, #1
+ 317 015e FB60     		str	r3, [r7, #12]
+ 318              	.L8:
+ 232:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+ 319              		.loc 1 232 0 is_stmt 0 discriminator 1
+ 320 0160 FB68     		ldr	r3, [r7, #12]
+ 321 0162 002B     		cmp	r3, #0
+ 322 0164 98D0     		beq	.L16
+ 313:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     }
+ 314:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 323              		.loc 1 314 0 is_stmt 1
+ 324 0166 C046     		nop
+ 325 0168 BD46     		mov	sp, r7
+ 326 016a 04B0     		add	sp, sp, #16
+ 327              		@ sp needed
+ 328 016c 80BD     		pop	{r7, pc}
+ 329              	.L18:
+ 330 016e C046     		.align	2
+ 331              	.L17:
+ 332 0170 00000000 		.word	ADC_SAR_Seq_Button_ISR
+ 333 0174 20003A40 		.word	1077542944
+ 334 0178 80033A40 		.word	1077543808
+ 335 017c 700E1050 		.word	1343229552
+ 336 0180 700E0050 		.word	1342180976
+ 337 0184 00003A40 		.word	1077542912
+ 338 0188 04003A40 		.word	1077542916
+ 339 018c F0000080 		.word	-2147483408
+ 340 0190 18003A40 		.word	1077542936
+ 341 0194 0000FFFF 		.word	-65536
+ 342 0198 1C003A40 		.word	1077542940
+ 343 019c 10003A40 		.word	1077542928
+ 344 01a0 04000400 		.word	262148
+ 345 01a4 14003A40 		.word	1077542932
+ 346 01a8 28023A40 		.word	1077543464
+ 347 01ac 38023A40 		.word	1077543480
+ 348 01b0 18023A40 		.word	1077543448
+ 349 01b4 30003A40 		.word	1077542960
+ 350 01b8 FFFFFFDF 		.word	-536870913
+ 351 01bc 040F3A40 		.word	1077546756
+ 352 01c0 80003A40 		.word	1077543040
+ 353 01c4 00000000 		.word	ADC_SAR_Seq_Button_offset
+ 354 01c8 10270000 		.word	10000
+ 355 01cc E40C0000 		.word	3300
+ 356 01d0 C8190000 		.word	6600
+ 357 01d4 00000000 		.word	ADC_SAR_Seq_Button_countsPer10Volt
+ 358              		.cfi_endproc
+ 359              	.LFE3:
+ 360              		.size	ADC_SAR_Seq_Button_Init, .-ADC_SAR_Seq_Button_Init
+ 361              		.section	.text.ADC_SAR_Seq_Button_Enable,"ax",%progbits
+ 362              		.align	2
+ 363              		.global	ADC_SAR_Seq_Button_Enable
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 13
+
+
+ 364              		.code	16
+ 365              		.thumb_func
+ 366              		.type	ADC_SAR_Seq_Button_Enable, %function
+ 367              	ADC_SAR_Seq_Button_Enable:
+ 368              	.LFB4:
+ 315:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 316:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 317:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_1_Enable
+ 318:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 319:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 320:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 321:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Enables the clock and analog power for SAR ADC.
+ 322:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 323:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 324:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 325:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 326:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 327:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 328:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 329:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 330:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_Enable(void)
+ 331:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 369              		.loc 1 331 0
+ 370              		.cfi_startproc
+ 371              		@ args = 0, pretend = 0, frame = 0
+ 372              		@ frame_needed = 1, uses_anonymous_args = 0
+ 373 0000 80B5     		push	{r7, lr}
+ 374              		.cfi_def_cfa_offset 8
+ 375              		.cfi_offset 7, -8
+ 376              		.cfi_offset 14, -4
+ 377 0002 00AF     		add	r7, sp, #0
+ 378              		.cfi_def_cfa_register 7
+ 332:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     if (0u == (ADC_SAR_Seq_Button_SAR_CTRL_REG & ADC_SAR_Seq_Button_ENABLE))
+ 379              		.loc 1 332 0
+ 380 0004 0A4B     		ldr	r3, .L23
+ 381 0006 1B68     		ldr	r3, [r3]
+ 382 0008 002B     		cmp	r3, #0
+ 383 000a 0EDB     		blt	.L22
+ 333:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+ 334:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if(ADC_SAR_Seq_Button_CY_SAR_IP_VER != ADC_SAR_Seq_Button_CY_SAR_IP_VER0)
+ 335:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 336:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             while (0u != (ADC_SAR_Seq_Button_SAR_STATUS_REG & ADC_SAR_Seq_Button_STATUS_BUSY))
+ 384              		.loc 1 336 0
+ 385 000c C046     		nop
+ 386              	.L21:
+ 387              		.loc 1 336 0 is_stmt 0 discriminator 1
+ 388 000e 094B     		ldr	r3, .L23+4
+ 389 0010 1B68     		ldr	r3, [r3]
+ 390 0012 002B     		cmp	r3, #0
+ 391 0014 FBDB     		blt	.L21
+ 337:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             {
+ 338:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 /* wait for SAR to go idle to avoid deadlock */
+ 339:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             }
+ 340:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* (ADC_SAR_Seq_Button_CY_SAR_IP_VER != ADC_SAR_Seq_Button_CY_SAR_IP_VER0) */
+ 341:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         
+ 342:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_SAR_CTRL_REG |= ADC_SAR_Seq_Button_ENABLE;
+ 392              		.loc 1 342 0 is_stmt 1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 14
+
+
+ 393 0016 064B     		ldr	r3, .L23
+ 394 0018 054A     		ldr	r2, .L23
+ 395 001a 1268     		ldr	r2, [r2]
+ 396 001c 8021     		movs	r1, #128
+ 397 001e 0906     		lsls	r1, r1, #24
+ 398 0020 0A43     		orrs	r2, r1
+ 399 0022 1A60     		str	r2, [r3]
+ 343:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         
+ 344:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* The block is ready to use 10 us after the enable signal is set high. */
+ 345:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         CyDelayUs(ADC_SAR_Seq_Button_10US_DELAY);         
+ 400              		.loc 1 345 0
+ 401 0024 0A20     		movs	r0, #10
+ 402 0026 FFF7FEFF 		bl	CyDelayUs
+ 403              	.L22:
+ 346:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     }
+ 347:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 404              		.loc 1 347 0
+ 405 002a C046     		nop
+ 406 002c BD46     		mov	sp, r7
+ 407              		@ sp needed
+ 408 002e 80BD     		pop	{r7, pc}
+ 409              	.L24:
+ 410              		.align	2
+ 411              	.L23:
+ 412 0030 00003A40 		.word	1077542912
+ 413 0034 08023A40 		.word	1077543432
+ 414              		.cfi_endproc
+ 415              	.LFE4:
+ 416              		.size	ADC_SAR_Seq_Button_Enable, .-ADC_SAR_Seq_Button_Enable
+ 417              		.section	.text.ADC_SAR_Seq_Button_Stop,"ax",%progbits
+ 418              		.align	2
+ 419              		.global	ADC_SAR_Seq_Button_Stop
+ 420              		.code	16
+ 421              		.thumb_func
+ 422              		.type	ADC_SAR_Seq_Button_Stop, %function
+ 423              	ADC_SAR_Seq_Button_Stop:
+ 424              	.LFB5:
+ 348:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 349:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 350:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 351:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_Stop
+ 352:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 353:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 354:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 355:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  This function stops ADC conversions and puts the ADC into its lowest power
+ 356:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  mode.
+ 357:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 358:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 359:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 360:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 361:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 362:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 363:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 364:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 365:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_Stop(void)
+ 366:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 425              		.loc 1 366 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 15
+
+
+ 426              		.cfi_startproc
+ 427              		@ args = 0, pretend = 0, frame = 0
+ 428              		@ frame_needed = 1, uses_anonymous_args = 0
+ 429 0000 80B5     		push	{r7, lr}
+ 430              		.cfi_def_cfa_offset 8
+ 431              		.cfi_offset 7, -8
+ 432              		.cfi_offset 14, -4
+ 433 0002 00AF     		add	r7, sp, #0
+ 434              		.cfi_def_cfa_register 7
+ 367:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_CTRL_REG &= (uint32)~ADC_SAR_Seq_Button_ENABLE;
+ 435              		.loc 1 367 0
+ 436 0004 044B     		ldr	r3, .L26
+ 437 0006 044A     		ldr	r2, .L26
+ 438 0008 1268     		ldr	r2, [r2]
+ 439 000a 5200     		lsls	r2, r2, #1
+ 440 000c 5208     		lsrs	r2, r2, #1
+ 441 000e 1A60     		str	r2, [r3]
+ 368:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 442              		.loc 1 368 0
+ 443 0010 C046     		nop
+ 444 0012 BD46     		mov	sp, r7
+ 445              		@ sp needed
+ 446 0014 80BD     		pop	{r7, pc}
+ 447              	.L27:
+ 448 0016 C046     		.align	2
+ 449              	.L26:
+ 450 0018 00003A40 		.word	1077542912
+ 451              		.cfi_endproc
+ 452              	.LFE5:
+ 453              		.size	ADC_SAR_Seq_Button_Stop, .-ADC_SAR_Seq_Button_Stop
+ 454              		.section	.text.ADC_SAR_Seq_Button_StartConvert,"ax",%progbits
+ 455              		.align	2
+ 456              		.global	ADC_SAR_Seq_Button_StartConvert
+ 457              		.code	16
+ 458              		.thumb_func
+ 459              		.type	ADC_SAR_Seq_Button_StartConvert, %function
+ 460              	ADC_SAR_Seq_Button_StartConvert:
+ 461              	.LFB6:
+ 369:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 370:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 371:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 372:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_StartConvert
+ 373:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 374:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 375:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 376:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Description:
+ 377:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  For free running mode, this API starts the conversion process and it
+ 378:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  runs continuously.
+ 379:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 380:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  In a triggered mode, this routine triggers every conversion by
+ 381:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  writing into the FW_TRIGGER bit in SAR_START_CTRL reg. In triggered mode,
+ 382:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  every conversion has to start by this API.
+ 383:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 384:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 385:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 386:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 387:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 16
+
+
+ 388:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 389:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 390:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 391:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_StartConvert(void)
+ 392:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 462              		.loc 1 392 0
+ 463              		.cfi_startproc
+ 464              		@ args = 0, pretend = 0, frame = 0
+ 465              		@ frame_needed = 1, uses_anonymous_args = 0
+ 466 0000 80B5     		push	{r7, lr}
+ 467              		.cfi_def_cfa_offset 8
+ 468              		.cfi_offset 7, -8
+ 469              		.cfi_offset 14, -4
+ 470 0002 00AF     		add	r7, sp, #0
+ 471              		.cfi_def_cfa_register 7
+ 393:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #if(ADC_SAR_Seq_Button_DEFAULT_SAMPLE_MODE_SEL == ADC_SAR_Seq_Button__FREERUNNING)
+ 394:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_SAR_SAMPLE_CTRL_REG |= ADC_SAR_Seq_Button_CONTINUOUS_EN;
+ 472              		.loc 1 394 0
+ 473 0004 044B     		ldr	r3, .L29
+ 474 0006 044A     		ldr	r2, .L29
+ 475 0008 1268     		ldr	r2, [r2]
+ 476 000a 8021     		movs	r1, #128
+ 477 000c 4902     		lsls	r1, r1, #9
+ 478 000e 0A43     		orrs	r2, r1
+ 479 0010 1A60     		str	r2, [r3]
+ 395:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #else /* Firmware trigger */
+ 396:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_SAR_START_CTRL_REG = ADC_SAR_Seq_Button_FW_TRIGGER;
+ 397:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #endif /* End ADC_SAR_Seq_Button_DEFAULT_SAMPLE_MODE == ADC_SAR_Seq_Button__FREERUNNING */
+ 398:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 399:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 480              		.loc 1 399 0
+ 481 0012 C046     		nop
+ 482 0014 BD46     		mov	sp, r7
+ 483              		@ sp needed
+ 484 0016 80BD     		pop	{r7, pc}
+ 485              	.L30:
+ 486              		.align	2
+ 487              	.L29:
+ 488 0018 04003A40 		.word	1077542916
+ 489              		.cfi_endproc
+ 490              	.LFE6:
+ 491              		.size	ADC_SAR_Seq_Button_StartConvert, .-ADC_SAR_Seq_Button_StartConvert
+ 492              		.section	.text.ADC_SAR_Seq_Button_StopConvert,"ax",%progbits
+ 493              		.align	2
+ 494              		.global	ADC_SAR_Seq_Button_StopConvert
+ 495              		.code	16
+ 496              		.thumb_func
+ 497              		.type	ADC_SAR_Seq_Button_StopConvert, %function
+ 498              	ADC_SAR_Seq_Button_StopConvert:
+ 499              	.LFB7:
+ 400:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 401:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 402:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 403:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_StopConvert
+ 404:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 405:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 406:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 17
+
+
+ 407:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Forces the ADC to stop all conversions.
+ 408:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 409:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 410:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 411:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 412:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 413:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 414:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 415:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 416:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_StopConvert(void)
+ 417:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 500              		.loc 1 417 0
+ 501              		.cfi_startproc
+ 502              		@ args = 0, pretend = 0, frame = 0
+ 503              		@ frame_needed = 1, uses_anonymous_args = 0
+ 504 0000 80B5     		push	{r7, lr}
+ 505              		.cfi_def_cfa_offset 8
+ 506              		.cfi_offset 7, -8
+ 507              		.cfi_offset 14, -4
+ 508 0002 00AF     		add	r7, sp, #0
+ 509              		.cfi_def_cfa_register 7
+ 418:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #if(ADC_SAR_Seq_Button_DEFAULT_SAMPLE_MODE_SEL == ADC_SAR_Seq_Button__FREERUNNING)
+ 419:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_SAR_SAMPLE_CTRL_REG &= (uint32)(~ADC_SAR_Seq_Button_CONTINUOUS_EN);
+ 510              		.loc 1 419 0
+ 511 0004 044B     		ldr	r3, .L32
+ 512 0006 044A     		ldr	r2, .L32
+ 513 0008 1268     		ldr	r2, [r2]
+ 514 000a 0449     		ldr	r1, .L32+4
+ 515 000c 0A40     		ands	r2, r1
+ 516 000e 1A60     		str	r2, [r3]
+ 420:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #endif /* ADC_SAR_Seq_Button_DEFAULT_SAMPLE_MODE == ADC_SAR_Seq_Button__FREERUNNING */
+ 421:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 517              		.loc 1 421 0
+ 518 0010 C046     		nop
+ 519 0012 BD46     		mov	sp, r7
+ 520              		@ sp needed
+ 521 0014 80BD     		pop	{r7, pc}
+ 522              	.L33:
+ 523 0016 C046     		.align	2
+ 524              	.L32:
+ 525 0018 04003A40 		.word	1077542916
+ 526 001c FFFFFEFF 		.word	-65537
+ 527              		.cfi_endproc
+ 528              	.LFE7:
+ 529              		.size	ADC_SAR_Seq_Button_StopConvert, .-ADC_SAR_Seq_Button_StopConvert
+ 530              		.section	.text.ADC_SAR_Seq_Button_IsEndConversion,"ax",%progbits
+ 531              		.align	2
+ 532              		.global	ADC_SAR_Seq_Button_IsEndConversion
+ 533              		.code	16
+ 534              		.thumb_func
+ 535              		.type	ADC_SAR_Seq_Button_IsEndConversion, %function
+ 536              	ADC_SAR_Seq_Button_IsEndConversion:
+ 537              	.LFB8:
+ 422:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 423:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 424:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 425:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_IsEndConversion
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 18
+
+
+ 426:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 427:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 428:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 429:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Description: Checks for ADC end of conversion for the case one
+ 430:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  channel and end of scan for the case of multiple channels. It acts
+ 431:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  as a software version of the EOC. This function provides the
+ 432:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  programmer with two options. In one mode this function
+ 433:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  immediately returns with the conversion status. In the other mode,
+ 434:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  the function does not return (blocking) until the conversion has
+ 435:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  completed.
+ 436:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 437:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 438:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  ADC_RETURN_STATUS        -> Immediately returns conversion result status
+ 439:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  ADC_WAIT_FOR_RESULT      -> Does not return until ADC complete
+ 440:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  ADC_RETURN_STATUS_INJ    -> Immediately returns conversion result status
+ 441:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *                              for injection channel
+ 442:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  ADC_WAIT_FOR_RESULT_INJ  -> Does not return until ADC completes injection
+ 443:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *                              channel conversion
+ 444:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 445:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 446:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  If a non-zero value is returned, the last conversion or scan has completed.
+ 447:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  If the returned value is zero, the ADC is still in the process of a scan.
+ 448:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 449:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 450:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** uint32 ADC_SAR_Seq_Button_IsEndConversion(uint32 retMode)
+ 451:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 538              		.loc 1 451 0
+ 539              		.cfi_startproc
+ 540              		@ args = 0, pretend = 0, frame = 16
+ 541              		@ frame_needed = 1, uses_anonymous_args = 0
+ 542 0000 80B5     		push	{r7, lr}
+ 543              		.cfi_def_cfa_offset 8
+ 544              		.cfi_offset 7, -8
+ 545              		.cfi_offset 14, -4
+ 546 0002 84B0     		sub	sp, sp, #16
+ 547              		.cfi_def_cfa_offset 24
+ 548 0004 00AF     		add	r7, sp, #0
+ 549              		.cfi_def_cfa_register 7
+ 550 0006 7860     		str	r0, [r7, #4]
+ 452:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     uint32 status = 0u;
+ 551              		.loc 1 452 0
+ 552 0008 0023     		movs	r3, #0
+ 553 000a FB60     		str	r3, [r7, #12]
+ 453:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 454:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     if((retMode & (ADC_SAR_Seq_Button_RETURN_STATUS | ADC_SAR_Seq_Button_WAIT_FOR_RESULT)) != 0u)
+ 554              		.loc 1 454 0
+ 555 000c 7B68     		ldr	r3, [r7, #4]
+ 556 000e 0322     		movs	r2, #3
+ 557 0010 1340     		ands	r3, r2
+ 558 0012 11D0     		beq	.L35
+ 559              	.L37:
+ 455:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+ 456:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         do
+ 457:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         {
+ 458:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             status = ADC_SAR_Seq_Button_SAR_INTR_REG & ADC_SAR_Seq_Button_EOS_MASK;
+ 560              		.loc 1 458 0 discriminator 2
+ 561 0014 0B4B     		ldr	r3, .L39
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 19
+
+
+ 562 0016 1B68     		ldr	r3, [r3]
+ 563 0018 0122     		movs	r2, #1
+ 564 001a 1340     		ands	r3, r2
+ 565 001c FB60     		str	r3, [r7, #12]
+ 459:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         }while((status == 0u) && ((retMode & ADC_SAR_Seq_Button_WAIT_FOR_RESULT) != 0u));
+ 566              		.loc 1 459 0 discriminator 2
+ 567 001e FB68     		ldr	r3, [r7, #12]
+ 568 0020 002B     		cmp	r3, #0
+ 569 0022 03D1     		bne	.L36
+ 570              		.loc 1 459 0 is_stmt 0 discriminator 1
+ 571 0024 7B68     		ldr	r3, [r7, #4]
+ 572 0026 0222     		movs	r2, #2
+ 573 0028 1340     		ands	r3, r2
+ 574 002a F3D1     		bne	.L37
+ 575              	.L36:
+ 460:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 461:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         if(status != 0u)
+ 576              		.loc 1 461 0 is_stmt 1
+ 577 002c FB68     		ldr	r3, [r7, #12]
+ 578 002e 002B     		cmp	r3, #0
+ 579 0030 02D0     		beq	.L35
+ 462:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         {
+ 463:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             /* Clear EOS bit */
+ 464:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             ADC_SAR_Seq_Button_SAR_INTR_REG = ADC_SAR_Seq_Button_EOS_MASK;
+ 580              		.loc 1 464 0
+ 581 0032 044B     		ldr	r3, .L39
+ 582 0034 0122     		movs	r2, #1
+ 583 0036 1A60     		str	r2, [r3]
+ 584              	.L35:
+ 465:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         }
+ 466:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     }
+ 467:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 468:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #if(ADC_SAR_Seq_Button_INJ_CHANNEL_ENABLED)
+ 469:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         if((retMode & (ADC_SAR_Seq_Button_RETURN_STATUS_INJ | ADC_SAR_Seq_Button_WAIT_FOR_RESULT_IN
+ 470:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         {
+ 471:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             do
+ 472:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             {
+ 473:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 status |= ADC_SAR_Seq_Button_SAR_INTR_REG & ADC_SAR_Seq_Button_INJ_EOC_MASK;
+ 474:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             }while(((status & ADC_SAR_Seq_Button_INJ_EOC_MASK) == 0u) &&
+ 475:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                    ((retMode & ADC_SAR_Seq_Button_WAIT_FOR_RESULT_INJ) != 0u));
+ 476:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 477:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             if((status & ADC_SAR_Seq_Button_INJ_EOC_MASK) != 0u)
+ 478:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             {
+ 479:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 /* Clear Injection EOS bit */
+ 480:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ADC_SAR_Seq_Button_SAR_INTR_REG = ADC_SAR_Seq_Button_INJ_EOC_MASK;
+ 481:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             }
+ 482:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         }
+ 483:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     #endif /* ADC_SAR_Seq_Button_INJ_CHANNEL_ENABLED */
+ 484:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 485:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     return (status);
+ 585              		.loc 1 485 0
+ 586 0038 FB68     		ldr	r3, [r7, #12]
+ 486:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 587              		.loc 1 486 0
+ 588 003a 1800     		movs	r0, r3
+ 589 003c BD46     		mov	sp, r7
+ 590 003e 04B0     		add	sp, sp, #16
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 20
+
+
+ 591              		@ sp needed
+ 592 0040 80BD     		pop	{r7, pc}
+ 593              	.L40:
+ 594 0042 C046     		.align	2
+ 595              	.L39:
+ 596 0044 10023A40 		.word	1077543440
+ 597              		.cfi_endproc
+ 598              	.LFE8:
+ 599              		.size	ADC_SAR_Seq_Button_IsEndConversion, .-ADC_SAR_Seq_Button_IsEndConversion
+ 600              		.section	.text.ADC_SAR_Seq_Button_GetResult16,"ax",%progbits
+ 601              		.align	2
+ 602              		.global	ADC_SAR_Seq_Button_GetResult16
+ 603              		.code	16
+ 604              		.thumb_func
+ 605              		.type	ADC_SAR_Seq_Button_GetResult16, %function
+ 606              	ADC_SAR_Seq_Button_GetResult16:
+ 607              	.LFB9:
+ 487:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 488:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 489:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 490:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_GetResult16
+ 491:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 492:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 493:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 494:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Gets the data available in the SAR DATA register.
+ 495:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 496:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 497:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  chan: The ADC channel in which to return the result. The first channel
+ 498:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  is 0 and the injection channel if enabled is the number of valid channels.
+ 499:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 500:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 501:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Returns converted data as a signed 16-bit integer
+ 502:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 503:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 504:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** int16 ADC_SAR_Seq_Button_GetResult16(uint32 chan)
+ 505:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 608              		.loc 1 505 0
+ 609              		.cfi_startproc
+ 610              		@ args = 0, pretend = 0, frame = 16
+ 611              		@ frame_needed = 1, uses_anonymous_args = 0
+ 612 0000 80B5     		push	{r7, lr}
+ 613              		.cfi_def_cfa_offset 8
+ 614              		.cfi_offset 7, -8
+ 615              		.cfi_offset 14, -4
+ 616 0002 84B0     		sub	sp, sp, #16
+ 617              		.cfi_def_cfa_offset 24
+ 618 0004 00AF     		add	r7, sp, #0
+ 619              		.cfi_def_cfa_register 7
+ 620 0006 7860     		str	r0, [r7, #4]
+ 506:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     uint32 result;
+ 507:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 508:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     /* Halt CPU in debug mode if channel is out of valid range */
+ 509:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     CYASSERT(chan < ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM);
+ 621              		.loc 1 509 0
+ 622 0008 7B68     		ldr	r3, [r7, #4]
+ 623 000a 002B     		cmp	r3, #0
+ 624 000c 02D0     		beq	.L42
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 21
+
+
+ 625              		.loc 1 509 0 is_stmt 0 discriminator 1
+ 626 000e 0020     		movs	r0, #0
+ 627 0010 FFF7FEFF 		bl	CyHalt
+ 628              	.L42:
+ 510:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 511:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     if(chan < ADC_SAR_Seq_Button_SEQUENCED_CHANNELS_NUM)
+ 629              		.loc 1 511 0 is_stmt 1
+ 630 0014 7B68     		ldr	r3, [r7, #4]
+ 631 0016 002B     		cmp	r3, #0
+ 632 0018 09D1     		bne	.L43
+ 512:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+ 513:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         result = CY_GET_REG32((reg32 *)(ADC_SAR_Seq_Button_SAR_CHAN_RESULT_IND + (uint32)(chan << 2
+ 633              		.loc 1 513 0
+ 634 001a 7B68     		ldr	r3, [r7, #4]
+ 635 001c 9B00     		lsls	r3, r3, #2
+ 636 001e 084A     		ldr	r2, .L46
+ 637 0020 9446     		mov	ip, r2
+ 638 0022 6344     		add	r3, r3, ip
+ 639 0024 1B68     		ldr	r3, [r3]
+ 640 0026 1B04     		lsls	r3, r3, #16
+ 641 0028 1B0C     		lsrs	r3, r3, #16
+ 642 002a FB60     		str	r3, [r7, #12]
+ 643 002c 01E0     		b	.L44
+ 644              	.L43:
+ 514:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 ADC_SAR_Seq_Button_RESULT_MASK;
+ 515:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     }
+ 516:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     else
+ 517:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+ 518:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if(ADC_SAR_Seq_Button_INJ_CHANNEL_ENABLED)
+ 519:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             result = ADC_SAR_Seq_Button_SAR_INJ_RESULT_REG & ADC_SAR_Seq_Button_RESULT_MASK;
+ 520:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #else
+ 521:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             result = 0u;
+ 645              		.loc 1 521 0
+ 646 002e 0023     		movs	r3, #0
+ 647 0030 FB60     		str	r3, [r7, #12]
+ 648              	.L44:
+ 522:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* ADC_SAR_Seq_Button_INJ_CHANNEL_ENABLED */
+ 523:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     }
+ 524:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 525:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     return ( (int16)result );
+ 649              		.loc 1 525 0
+ 650 0032 FB68     		ldr	r3, [r7, #12]
+ 651 0034 1BB2     		sxth	r3, r3
+ 526:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 652              		.loc 1 526 0
+ 653 0036 1800     		movs	r0, r3
+ 654 0038 BD46     		mov	sp, r7
+ 655 003a 04B0     		add	sp, sp, #16
+ 656              		@ sp needed
+ 657 003c 80BD     		pop	{r7, pc}
+ 658              	.L47:
+ 659 003e C046     		.align	2
+ 660              	.L46:
+ 661 0040 80013A40 		.word	1077543296
+ 662              		.cfi_endproc
+ 663              	.LFE9:
+ 664              		.size	ADC_SAR_Seq_Button_GetResult16, .-ADC_SAR_Seq_Button_GetResult16
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 22
+
+
+ 665              		.section	.text.ADC_SAR_Seq_Button_SetChanMask,"ax",%progbits
+ 666              		.align	2
+ 667              		.global	ADC_SAR_Seq_Button_SetChanMask
+ 668              		.code	16
+ 669              		.thumb_func
+ 670              		.type	ADC_SAR_Seq_Button_SetChanMask, %function
+ 671              	ADC_SAR_Seq_Button_SetChanMask:
+ 672              	.LFB10:
+ 527:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 528:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 529:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 530:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_SetChanMask
+ 531:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 532:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 533:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 534:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Sets the channel enable mask.
+ 535:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 536:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 537:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  mask: Sets which channels that will be
+ 538:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  scanned. Setting bits for channels that do not exist will have no
+ 539:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  effect. For example, if only 6 channels were enabled, setting a
+ 540:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  mask of 0x0103 would only enable the last two channels (0 and 1).
+ 541:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  This API will not enable the injection channel.
+ 542:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Examples: If the component is setup to sequence through 8
+ 543:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  channels, a mask of 0x000F would enable channels 0, 1, 2, and 3.
+ 544:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 545:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 546:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 547:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 548:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 549:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_SetChanMask(uint32 mask)
+ 550:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 673              		.loc 1 550 0
+ 674              		.cfi_startproc
+ 675              		@ args = 0, pretend = 0, frame = 8
+ 676              		@ frame_needed = 1, uses_anonymous_args = 0
+ 677 0000 80B5     		push	{r7, lr}
+ 678              		.cfi_def_cfa_offset 8
+ 679              		.cfi_offset 7, -8
+ 680              		.cfi_offset 14, -4
+ 681 0002 82B0     		sub	sp, sp, #8
+ 682              		.cfi_def_cfa_offset 16
+ 683 0004 00AF     		add	r7, sp, #0
+ 684              		.cfi_def_cfa_register 7
+ 685 0006 7860     		str	r0, [r7, #4]
+ 551:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_CHAN_EN_REG = mask & ADC_SAR_Seq_Button_MAX_CHANNELS_EN_MASK;
+ 686              		.loc 1 551 0
+ 687 0008 044B     		ldr	r3, .L49
+ 688 000a 7A68     		ldr	r2, [r7, #4]
+ 689 000c 0121     		movs	r1, #1
+ 690 000e 0A40     		ands	r2, r1
+ 691 0010 1A60     		str	r2, [r3]
+ 552:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 692              		.loc 1 552 0
+ 693 0012 C046     		nop
+ 694 0014 BD46     		mov	sp, r7
+ 695 0016 02B0     		add	sp, sp, #8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 23
+
+
+ 696              		@ sp needed
+ 697 0018 80BD     		pop	{r7, pc}
+ 698              	.L50:
+ 699 001a C046     		.align	2
+ 700              	.L49:
+ 701 001c 20003A40 		.word	1077542944
+ 702              		.cfi_endproc
+ 703              	.LFE10:
+ 704              		.size	ADC_SAR_Seq_Button_SetChanMask, .-ADC_SAR_Seq_Button_SetChanMask
+ 705              		.section	.text.ADC_SAR_Seq_Button_SetLowLimit,"ax",%progbits
+ 706              		.align	2
+ 707              		.global	ADC_SAR_Seq_Button_SetLowLimit
+ 708              		.code	16
+ 709              		.thumb_func
+ 710              		.type	ADC_SAR_Seq_Button_SetLowLimit, %function
+ 711              	ADC_SAR_Seq_Button_SetLowLimit:
+ 712              	.LFB11:
+ 553:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 554:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** #if(ADC_SAR_Seq_Button_INJ_CHANNEL_ENABLED)
+ 555:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 556:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 557:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     /*******************************************************************************
+ 558:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Function Name: ADC_SAR_Seq_Button_EnableInjection
+ 559:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ********************************************************************************
+ 560:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 561:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Summary:
+ 562:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  Enables the injection channel for the next scan only.
+ 563:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 564:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Parameters:
+ 565:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  None.
+ 566:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 567:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Return:
+ 568:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  None.
+ 569:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 570:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *******************************************************************************/
+ 571:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     void ADC_SAR_Seq_Button_EnableInjection(void)
+ 572:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+ 573:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         ADC_SAR_Seq_Button_SAR_INJ_CHAN_CONFIG_REG |= ADC_SAR_Seq_Button_INJ_CHAN_EN;
+ 574:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     }
+ 575:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 576:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** #endif /* ADC_SAR_Seq_Button_INJ_CHANNEL_ENABLED */
+ 577:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 578:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 579:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 580:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_SetLowLimit
+ 581:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 582:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 583:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 584:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Sets the low limit parameter for a limit condition.
+ 585:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 586:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 587:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  lowLimit: The low limit for a limit condition.
+ 588:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 589:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 590:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 591:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 592:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 24
+
+
+ 593:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_SetLowLimit(uint32 lowLimit)
+ 594:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 713              		.loc 1 594 0
+ 714              		.cfi_startproc
+ 715              		@ args = 0, pretend = 0, frame = 8
+ 716              		@ frame_needed = 1, uses_anonymous_args = 0
+ 717 0000 80B5     		push	{r7, lr}
+ 718              		.cfi_def_cfa_offset 8
+ 719              		.cfi_offset 7, -8
+ 720              		.cfi_offset 14, -4
+ 721 0002 82B0     		sub	sp, sp, #8
+ 722              		.cfi_def_cfa_offset 16
+ 723 0004 00AF     		add	r7, sp, #0
+ 724              		.cfi_def_cfa_register 7
+ 725 0006 7860     		str	r0, [r7, #4]
+ 595:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_RANGE_THRES_REG &= (uint32)(~ADC_SAR_Seq_Button_RANGE_LOW_MASK);
+ 726              		.loc 1 595 0
+ 727 0008 084B     		ldr	r3, .L52
+ 728 000a 084A     		ldr	r2, .L52
+ 729 000c 1268     		ldr	r2, [r2]
+ 730 000e 120C     		lsrs	r2, r2, #16
+ 731 0010 1204     		lsls	r2, r2, #16
+ 732 0012 1A60     		str	r2, [r3]
+ 596:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_RANGE_THRES_REG |= lowLimit & ADC_SAR_Seq_Button_RANGE_LOW_MASK;
+ 733              		.loc 1 596 0
+ 734 0014 054B     		ldr	r3, .L52
+ 735 0016 054A     		ldr	r2, .L52
+ 736 0018 1168     		ldr	r1, [r2]
+ 737 001a 7A68     		ldr	r2, [r7, #4]
+ 738 001c 1204     		lsls	r2, r2, #16
+ 739 001e 120C     		lsrs	r2, r2, #16
+ 740 0020 0A43     		orrs	r2, r1
+ 741 0022 1A60     		str	r2, [r3]
+ 597:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 742              		.loc 1 597 0
+ 743 0024 C046     		nop
+ 744 0026 BD46     		mov	sp, r7
+ 745 0028 02B0     		add	sp, sp, #8
+ 746              		@ sp needed
+ 747 002a 80BD     		pop	{r7, pc}
+ 748              	.L53:
+ 749              		.align	2
+ 750              	.L52:
+ 751 002c 18003A40 		.word	1077542936
+ 752              		.cfi_endproc
+ 753              	.LFE11:
+ 754              		.size	ADC_SAR_Seq_Button_SetLowLimit, .-ADC_SAR_Seq_Button_SetLowLimit
+ 755              		.section	.text.ADC_SAR_Seq_Button_SetHighLimit,"ax",%progbits
+ 756              		.align	2
+ 757              		.global	ADC_SAR_Seq_Button_SetHighLimit
+ 758              		.code	16
+ 759              		.thumb_func
+ 760              		.type	ADC_SAR_Seq_Button_SetHighLimit, %function
+ 761              	ADC_SAR_Seq_Button_SetHighLimit:
+ 762              	.LFB12:
+ 598:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 599:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 25
+
+
+ 600:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 601:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_SetHighLimit
+ 602:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 603:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 604:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 605:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Sets the low limit parameter for a limit condition.
+ 606:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 607:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 608:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  highLimit: The high limit for a limit condition.
+ 609:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 610:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 611:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 612:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 613:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 614:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_SetHighLimit(uint32 highLimit)
+ 615:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 763              		.loc 1 615 0
+ 764              		.cfi_startproc
+ 765              		@ args = 0, pretend = 0, frame = 8
+ 766              		@ frame_needed = 1, uses_anonymous_args = 0
+ 767 0000 80B5     		push	{r7, lr}
+ 768              		.cfi_def_cfa_offset 8
+ 769              		.cfi_offset 7, -8
+ 770              		.cfi_offset 14, -4
+ 771 0002 82B0     		sub	sp, sp, #8
+ 772              		.cfi_def_cfa_offset 16
+ 773 0004 00AF     		add	r7, sp, #0
+ 774              		.cfi_def_cfa_register 7
+ 775 0006 7860     		str	r0, [r7, #4]
+ 616:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_RANGE_THRES_REG &= (uint32)(~ADC_SAR_Seq_Button_RANGE_HIGH_MASK);
+ 776              		.loc 1 616 0
+ 777 0008 084B     		ldr	r3, .L55
+ 778 000a 084A     		ldr	r2, .L55
+ 779 000c 1268     		ldr	r2, [r2]
+ 780 000e 1204     		lsls	r2, r2, #16
+ 781 0010 120C     		lsrs	r2, r2, #16
+ 782 0012 1A60     		str	r2, [r3]
+ 617:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_RANGE_THRES_REG |= (uint32)(highLimit << ADC_SAR_Seq_Button_RANGE_HIGH_O
+ 783              		.loc 1 617 0
+ 784 0014 054B     		ldr	r3, .L55
+ 785 0016 054A     		ldr	r2, .L55
+ 786 0018 1168     		ldr	r1, [r2]
+ 787 001a 7A68     		ldr	r2, [r7, #4]
+ 788 001c 1204     		lsls	r2, r2, #16
+ 789 001e 0A43     		orrs	r2, r1
+ 790 0020 1A60     		str	r2, [r3]
+ 618:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 791              		.loc 1 618 0
+ 792 0022 C046     		nop
+ 793 0024 BD46     		mov	sp, r7
+ 794 0026 02B0     		add	sp, sp, #8
+ 795              		@ sp needed
+ 796 0028 80BD     		pop	{r7, pc}
+ 797              	.L56:
+ 798 002a C046     		.align	2
+ 799              	.L55:
+ 800 002c 18003A40 		.word	1077542936
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 26
+
+
+ 801              		.cfi_endproc
+ 802              	.LFE12:
+ 803              		.size	ADC_SAR_Seq_Button_SetHighLimit, .-ADC_SAR_Seq_Button_SetHighLimit
+ 804              		.section	.text.ADC_SAR_Seq_Button_SetLimitMask,"ax",%progbits
+ 805              		.align	2
+ 806              		.global	ADC_SAR_Seq_Button_SetLimitMask
+ 807              		.code	16
+ 808              		.thumb_func
+ 809              		.type	ADC_SAR_Seq_Button_SetLimitMask, %function
+ 810              	ADC_SAR_Seq_Button_SetLimitMask:
+ 811              	.LFB13:
+ 619:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 620:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 621:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 622:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_SetLimitMask
+ 623:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 624:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 625:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 626:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Sets the channel limit condition mask.
+ 627:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 628:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 629:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  mask: Sets which channels that may cause a
+ 630:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  limit condition interrupt. Setting bits for channels that do not exist
+ 631:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  will have no effect. For example, if only 6 channels were enabled,
+ 632:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  setting a mask of 0x0103 would only enable the last two channels (0 and 1).
+ 633:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 634:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 635:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 636:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 637:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 638:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_SetLimitMask(uint32 mask)
+ 639:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 812              		.loc 1 639 0
+ 813              		.cfi_startproc
+ 814              		@ args = 0, pretend = 0, frame = 8
+ 815              		@ frame_needed = 1, uses_anonymous_args = 0
+ 816 0000 80B5     		push	{r7, lr}
+ 817              		.cfi_def_cfa_offset 8
+ 818              		.cfi_offset 7, -8
+ 819              		.cfi_offset 14, -4
+ 820 0002 82B0     		sub	sp, sp, #8
+ 821              		.cfi_def_cfa_offset 16
+ 822 0004 00AF     		add	r7, sp, #0
+ 823              		.cfi_def_cfa_register 7
+ 824 0006 7860     		str	r0, [r7, #4]
+ 640:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_RANGE_INTR_MASK_REG = mask & ADC_SAR_Seq_Button_MAX_CHANNELS_EN_MASK;
+ 825              		.loc 1 640 0
+ 826 0008 044B     		ldr	r3, .L58
+ 827 000a 7A68     		ldr	r2, [r7, #4]
+ 828 000c 0121     		movs	r1, #1
+ 829 000e 0A40     		ands	r2, r1
+ 830 0010 1A60     		str	r2, [r3]
+ 641:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 831              		.loc 1 641 0
+ 832 0012 C046     		nop
+ 833 0014 BD46     		mov	sp, r7
+ 834 0016 02B0     		add	sp, sp, #8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 27
+
+
+ 835              		@ sp needed
+ 836 0018 80BD     		pop	{r7, pc}
+ 837              	.L59:
+ 838 001a C046     		.align	2
+ 839              	.L58:
+ 840 001c 38023A40 		.word	1077543480
+ 841              		.cfi_endproc
+ 842              	.LFE13:
+ 843              		.size	ADC_SAR_Seq_Button_SetLimitMask, .-ADC_SAR_Seq_Button_SetLimitMask
+ 844              		.section	.text.ADC_SAR_Seq_Button_SetSatMask,"ax",%progbits
+ 845              		.align	2
+ 846              		.global	ADC_SAR_Seq_Button_SetSatMask
+ 847              		.code	16
+ 848              		.thumb_func
+ 849              		.type	ADC_SAR_Seq_Button_SetSatMask, %function
+ 850              	ADC_SAR_Seq_Button_SetSatMask:
+ 851              	.LFB14:
+ 642:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 643:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 644:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 645:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_SetSatMask
+ 646:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 647:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 648:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 649:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Sets the channel saturation event mask.
+ 650:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 651:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 652:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  mask: Sets which channels that may cause a
+ 653:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  saturation event interrupt. Setting bits for channels that do not exist
+ 654:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  will have no effect. For example, if only 8 channels were enabled,
+ 655:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  setting a mask of 0x01C0 would only enable two channels (6 and 7).
+ 656:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 657:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 658:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 659:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 660:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 661:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_SetSatMask(uint32 mask)
+ 662:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 852              		.loc 1 662 0
+ 853              		.cfi_startproc
+ 854              		@ args = 0, pretend = 0, frame = 8
+ 855              		@ frame_needed = 1, uses_anonymous_args = 0
+ 856 0000 80B5     		push	{r7, lr}
+ 857              		.cfi_def_cfa_offset 8
+ 858              		.cfi_offset 7, -8
+ 859              		.cfi_offset 14, -4
+ 860 0002 82B0     		sub	sp, sp, #8
+ 861              		.cfi_def_cfa_offset 16
+ 862 0004 00AF     		add	r7, sp, #0
+ 863              		.cfi_def_cfa_register 7
+ 864 0006 7860     		str	r0, [r7, #4]
+ 663:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_SAR_SATURATE_INTR_MASK_REG = mask & ADC_SAR_Seq_Button_MAX_CHANNELS_EN_MASK;
+ 865              		.loc 1 663 0
+ 866 0008 044B     		ldr	r3, .L61
+ 867 000a 7A68     		ldr	r2, [r7, #4]
+ 868 000c 0121     		movs	r1, #1
+ 869 000e 0A40     		ands	r2, r1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 28
+
+
+ 870 0010 1A60     		str	r2, [r3]
+ 664:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 871              		.loc 1 664 0
+ 872 0012 C046     		nop
+ 873 0014 BD46     		mov	sp, r7
+ 874 0016 02B0     		add	sp, sp, #8
+ 875              		@ sp needed
+ 876 0018 80BD     		pop	{r7, pc}
+ 877              	.L62:
+ 878 001a C046     		.align	2
+ 879              	.L61:
+ 880 001c 28023A40 		.word	1077543464
+ 881              		.cfi_endproc
+ 882              	.LFE14:
+ 883              		.size	ADC_SAR_Seq_Button_SetSatMask, .-ADC_SAR_Seq_Button_SetSatMask
+ 884              		.section	.text.ADC_SAR_Seq_Button_SetOffset,"ax",%progbits
+ 885              		.align	2
+ 886              		.global	ADC_SAR_Seq_Button_SetOffset
+ 887              		.code	16
+ 888              		.thumb_func
+ 889              		.type	ADC_SAR_Seq_Button_SetOffset, %function
+ 890              	ADC_SAR_Seq_Button_SetOffset:
+ 891              	.LFB15:
+ 665:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 666:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 667:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 668:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_SetOffset
+ 669:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 670:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 671:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 672:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *   Description: Sets the ADC offset which is used by the functions
+ 673:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *   ADC_CountsTo_uVolts, ADC_CountsTo_mVolts and ADC_CountsTo_Volts
+ 674:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *   to substract the offset from the given reading
+ 675:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *   before calculating the voltage conversion.
+ 676:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 677:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 678:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  chan: ADC channel number.
+ 679:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  offset: This value is a measured value when the
+ 680:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *          inputs are shorted or connected to the same input voltage.
+ 681:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 682:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 683:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 684:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 685:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Global variables:
+ 686:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  ADC_SAR_Seq_Button_Offset:  Modified to set the user provided offset.
+ 687:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 688:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 689:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_SetOffset(uint32 chan, int16 offset)
+ 690:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 892              		.loc 1 690 0
+ 893              		.cfi_startproc
+ 894              		@ args = 0, pretend = 0, frame = 8
+ 895              		@ frame_needed = 1, uses_anonymous_args = 0
+ 896 0000 80B5     		push	{r7, lr}
+ 897              		.cfi_def_cfa_offset 8
+ 898              		.cfi_offset 7, -8
+ 899              		.cfi_offset 14, -4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 29
+
+
+ 900 0002 82B0     		sub	sp, sp, #8
+ 901              		.cfi_def_cfa_offset 16
+ 902 0004 00AF     		add	r7, sp, #0
+ 903              		.cfi_def_cfa_register 7
+ 904 0006 7860     		str	r0, [r7, #4]
+ 905 0008 0A00     		movs	r2, r1
+ 906 000a BB1C     		adds	r3, r7, #2
+ 907 000c 1A80     		strh	r2, [r3]
+ 691:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     /* Halt CPU in debug mode if channel is out of valid range */
+ 692:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     CYASSERT(chan < ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM);
+ 908              		.loc 1 692 0
+ 909 000e 7B68     		ldr	r3, [r7, #4]
+ 910 0010 002B     		cmp	r3, #0
+ 911 0012 02D0     		beq	.L64
+ 912              		.loc 1 692 0 is_stmt 0 discriminator 1
+ 913 0014 0020     		movs	r0, #0
+ 914 0016 FFF7FEFF 		bl	CyHalt
+ 915              	.L64:
+ 693:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 694:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_offset[chan] = offset;
+ 916              		.loc 1 694 0 is_stmt 1
+ 917 001a 054B     		ldr	r3, .L65
+ 918 001c 7A68     		ldr	r2, [r7, #4]
+ 919 001e 5200     		lsls	r2, r2, #1
+ 920 0020 B91C     		adds	r1, r7, #2
+ 921 0022 0988     		ldrh	r1, [r1]
+ 922 0024 D152     		strh	r1, [r2, r3]
+ 695:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 923              		.loc 1 695 0
+ 924 0026 C046     		nop
+ 925 0028 BD46     		mov	sp, r7
+ 926 002a 02B0     		add	sp, sp, #8
+ 927              		@ sp needed
+ 928 002c 80BD     		pop	{r7, pc}
+ 929              	.L66:
+ 930 002e C046     		.align	2
+ 931              	.L65:
+ 932 0030 00000000 		.word	ADC_SAR_Seq_Button_offset
+ 933              		.cfi_endproc
+ 934              	.LFE15:
+ 935              		.size	ADC_SAR_Seq_Button_SetOffset, .-ADC_SAR_Seq_Button_SetOffset
+ 936              		.section	.text.ADC_SAR_Seq_Button_SetGain,"ax",%progbits
+ 937              		.align	2
+ 938              		.global	ADC_SAR_Seq_Button_SetGain
+ 939              		.code	16
+ 940              		.thumb_func
+ 941              		.type	ADC_SAR_Seq_Button_SetGain, %function
+ 942              	ADC_SAR_Seq_Button_SetGain:
+ 943              	.LFB16:
+ 696:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 697:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 698:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** /*******************************************************************************
+ 699:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Function Name: ADC_SAR_Seq_Button_SetGain
+ 700:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** ********************************************************************************
+ 701:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 702:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Summary:
+ 703:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  Description: Sets the ADC gain in counts per 10 volt for the voltage
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 30
+
+
+ 704:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  conversion functions below. This value is set by default by the
+ 705:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  reference and input range settings. It should only be used to further
+ 706:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  calibrate the ADC with a known input or if an external reference is
+ 707:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  used. Affects the ADC_CountsTo_uVolts, ADC_CountsTo_mVolts
+ 708:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  and ADC_CountsTo_Volts functions by supplying the correct
+ 709:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  conversion between ADC counts and voltage.
+ 710:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 711:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Parameters:
+ 712:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  chan: ADC channel number.
+ 713:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  adcGain: ADC gain in counts per 10 volts.
+ 714:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 715:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Return:
+ 716:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  None.
+ 717:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 718:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** * Global variables:
+ 719:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *  ADC_SAR_Seq_Button_CountsPer10Volt:  modified to set the ADC gain in counts
+ 720:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *   per 10 volt.
+ 721:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *
+ 722:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** *******************************************************************************/
+ 723:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** void ADC_SAR_Seq_Button_SetGain(uint32 chan, int32 adcGain)
+ 724:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** {
+ 944              		.loc 1 724 0
+ 945              		.cfi_startproc
+ 946              		@ args = 0, pretend = 0, frame = 8
+ 947              		@ frame_needed = 1, uses_anonymous_args = 0
+ 948 0000 80B5     		push	{r7, lr}
+ 949              		.cfi_def_cfa_offset 8
+ 950              		.cfi_offset 7, -8
+ 951              		.cfi_offset 14, -4
+ 952 0002 82B0     		sub	sp, sp, #8
+ 953              		.cfi_def_cfa_offset 16
+ 954 0004 00AF     		add	r7, sp, #0
+ 955              		.cfi_def_cfa_register 7
+ 956 0006 7860     		str	r0, [r7, #4]
+ 957 0008 3960     		str	r1, [r7]
+ 725:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     /* Halt CPU in debug mode if channel is out of valid range */
+ 726:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     CYASSERT(chan < ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM);
+ 958              		.loc 1 726 0
+ 959 000a 7B68     		ldr	r3, [r7, #4]
+ 960 000c 002B     		cmp	r3, #0
+ 961 000e 02D0     		beq	.L68
+ 962              		.loc 1 726 0 is_stmt 0 discriminator 1
+ 963 0010 0020     		movs	r0, #0
+ 964 0012 FFF7FEFF 		bl	CyHalt
+ 965              	.L68:
+ 727:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 728:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ADC_SAR_Seq_Button_countsPer10Volt[chan] = adcGain;
+ 966              		.loc 1 728 0 is_stmt 1
+ 967 0016 044B     		ldr	r3, .L69
+ 968 0018 7A68     		ldr	r2, [r7, #4]
+ 969 001a 9200     		lsls	r2, r2, #2
+ 970 001c 3968     		ldr	r1, [r7]
+ 971 001e D150     		str	r1, [r2, r3]
+ 729:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** }
+ 972              		.loc 1 729 0
+ 973 0020 C046     		nop
+ 974 0022 BD46     		mov	sp, r7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 31
+
+
+ 975 0024 02B0     		add	sp, sp, #8
+ 976              		@ sp needed
+ 977 0026 80BD     		pop	{r7, pc}
+ 978              	.L70:
+ 979              		.align	2
+ 980              	.L69:
+ 981 0028 00000000 		.word	ADC_SAR_Seq_Button_countsPer10Volt
+ 982              		.cfi_endproc
+ 983              	.LFE16:
+ 984              		.size	ADC_SAR_Seq_Button_SetGain, .-ADC_SAR_Seq_Button_SetGain
+ 985              		.section	.text.ADC_SAR_Seq_Button_CountsTo_mVolts,"ax",%progbits
+ 986              		.align	2
+ 987              		.global	ADC_SAR_Seq_Button_CountsTo_mVolts
+ 988              		.code	16
+ 989              		.thumb_func
+ 990              		.type	ADC_SAR_Seq_Button_CountsTo_mVolts, %function
+ 991              	ADC_SAR_Seq_Button_CountsTo_mVolts:
+ 992              	.LFB17:
+ 730:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 731:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 732:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** #if(ADC_SAR_Seq_Button_DEFAULT_JUSTIFICATION_SEL == ADC_SAR_Seq_Button__RIGHT)
+ 733:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 734:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 735:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     /*******************************************************************************
+ 736:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Function Name: ADC_SAR_Seq_Button_CountsTo_mVolts
+ 737:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ********************************************************************************
+ 738:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 739:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Summary:
+ 740:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  This function converts ADC counts to mVolts
+ 741:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  This function is not available when left data format justification selected.
+ 742:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 743:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Parameters:
+ 744:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  chan: The ADC channel number.
+ 745:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  adcCounts: Result from the ADC conversion
+ 746:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 747:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Return:
+ 748:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  Results in mVolts
+ 749:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 750:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Global variables:
+ 751:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  ADC_SAR_Seq_Button_countsPer10Volt:  used to convert ADC counts to mVolts.
+ 752:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  ADC_SAR_Seq_Button_Offset:  Used as the offset while converting ADC counts
+ 753:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *   to mVolts.
+ 754:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 755:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *******************************************************************************/
+ 756:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     int16 ADC_SAR_Seq_Button_CountsTo_mVolts(uint32 chan, int16 adcCounts)
+ 757:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+ 993              		.loc 1 757 0
+ 994              		.cfi_startproc
+ 995              		@ args = 0, pretend = 0, frame = 16
+ 996              		@ frame_needed = 1, uses_anonymous_args = 0
+ 997 0000 80B5     		push	{r7, lr}
+ 998              		.cfi_def_cfa_offset 8
+ 999              		.cfi_offset 7, -8
+ 1000              		.cfi_offset 14, -4
+ 1001 0002 84B0     		sub	sp, sp, #16
+ 1002              		.cfi_def_cfa_offset 24
+ 1003 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 32
+
+
+ 1004              		.cfi_def_cfa_register 7
+ 1005 0006 7860     		str	r0, [r7, #4]
+ 1006 0008 0A00     		movs	r2, r1
+ 1007 000a BB1C     		adds	r3, r7, #2
+ 1008 000c 1A80     		strh	r2, [r3]
+ 758:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         int16 mVolts;
+ 759:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 760:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Halt CPU in debug mode if channel is out of valid range */
+ 761:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         CYASSERT(chan < ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM);
+ 1009              		.loc 1 761 0
+ 1010 000e 7B68     		ldr	r3, [r7, #4]
+ 1011 0010 002B     		cmp	r3, #0
+ 1012 0012 02D0     		beq	.L72
+ 1013              		.loc 1 761 0 is_stmt 0 discriminator 1
+ 1014 0014 0020     		movs	r0, #0
+ 1015 0016 FFF7FEFF 		bl	CyHalt
+ 1016              	.L72:
+ 762:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 763:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Divide the adcCount when accumulate averaging mode selected */
+ 764:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if(ADC_SAR_Seq_Button_DEFAULT_AVG_MODE == ADC_SAR_Seq_Button__ACCUMULATE)
+ 765:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             if((ADC_SAR_Seq_Button_channelsConfig[chan] & ADC_SAR_Seq_Button_AVERAGING_EN) != 0u)
+ 766:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             {
+ 767:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 adcCounts /= ADC_SAR_Seq_Button_DEFAULT_AVG_SAMPLES_DIV;
+ 768:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             }
+ 769:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* ADC_SAR_Seq_Button_DEFAULT_AVG_MODE == ADC_SAR_Seq_Button__ACCUMULATE */
+ 770:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 771:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Subtract ADC offset */
+ 772:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         adcCounts -= ADC_SAR_Seq_Button_offset[chan];
+ 1017              		.loc 1 772 0 is_stmt 1
+ 1018 001a 1E4B     		ldr	r3, .L78
+ 1019 001c 7A68     		ldr	r2, [r7, #4]
+ 1020 001e 5200     		lsls	r2, r2, #1
+ 1021 0020 D35A     		ldrh	r3, [r2, r3]
+ 1022 0022 19B2     		sxth	r1, r3
+ 1023 0024 BB1C     		adds	r3, r7, #2
+ 1024 0026 1A88     		ldrh	r2, [r3]
+ 1025 0028 8BB2     		uxth	r3, r1
+ 1026 002a D31A     		subs	r3, r2, r3
+ 1027 002c 9AB2     		uxth	r2, r3
+ 1028 002e BB1C     		adds	r3, r7, #2
+ 1029 0030 1A80     		strh	r2, [r3]
+ 773:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 774:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         mVolts = (int16)((((int32)adcCounts * ADC_SAR_Seq_Button_10MV_COUNTS) + ( (adcCounts > 0) ?
+ 1030              		.loc 1 774 0
+ 1031 0032 BB1C     		adds	r3, r7, #2
+ 1032 0034 0022     		movs	r2, #0
+ 1033 0036 9B5E     		ldrsh	r3, [r3, r2]
+ 1034 0038 174A     		ldr	r2, .L78+4
+ 1035 003a 5A43     		muls	r2, r3
+ 775:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (ADC_SAR_Seq_Button_countsPer10Volt[chan] / 2) : (-(ADC_SAR_Seq_Button_countsPer10
+ 1036              		.loc 1 775 0
+ 1037 003c BB1C     		adds	r3, r7, #2
+ 1038 003e 0021     		movs	r1, #0
+ 1039 0040 5B5E     		ldrsh	r3, [r3, r1]
+ 1040 0042 002B     		cmp	r3, #0
+ 1041 0044 08DD     		ble	.L73
+ 1042              		.loc 1 775 0 is_stmt 0 discriminator 1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 33
+
+
+ 1043 0046 154B     		ldr	r3, .L78+8
+ 1044 0048 7968     		ldr	r1, [r7, #4]
+ 1045 004a 8900     		lsls	r1, r1, #2
+ 1046 004c CB58     		ldr	r3, [r1, r3]
+ 1047 004e 002B     		cmp	r3, #0
+ 1048 0050 00DA     		bge	.L74
+ 1049 0052 0133     		adds	r3, r3, #1
+ 1050              	.L74:
+ 1051 0054 5B10     		asrs	r3, r3, #1
+ 1052 0056 08E0     		b	.L75
+ 1053              	.L73:
+ 1054              		.loc 1 775 0 discriminator 2
+ 1055 0058 104B     		ldr	r3, .L78+8
+ 1056 005a 7968     		ldr	r1, [r7, #4]
+ 1057 005c 8900     		lsls	r1, r1, #2
+ 1058 005e CB58     		ldr	r3, [r1, r3]
+ 1059 0060 002B     		cmp	r3, #0
+ 1060 0062 00DA     		bge	.L76
+ 1061 0064 0133     		adds	r3, r3, #1
+ 1062              	.L76:
+ 1063 0066 5B10     		asrs	r3, r3, #1
+ 1064 0068 5B42     		rsbs	r3, r3, #0
+ 1065              	.L75:
+ 774:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (ADC_SAR_Seq_Button_countsPer10Volt[chan] / 2) : (-(ADC_SAR_Seq_Button_countsPer10
+ 1066              		.loc 1 774 0 is_stmt 1
+ 1067 006a D018     		adds	r0, r2, r3
+ 776:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  / ADC_SAR_Seq_Button_countsPer10Volt[chan]);
+ 1068              		.loc 1 776 0
+ 1069 006c 0B4B     		ldr	r3, .L78+8
+ 1070 006e 7A68     		ldr	r2, [r7, #4]
+ 1071 0070 9200     		lsls	r2, r2, #2
+ 1072 0072 D358     		ldr	r3, [r2, r3]
+ 1073 0074 1900     		movs	r1, r3
+ 1074 0076 FFF7FEFF 		bl	__aeabi_idiv
+ 1075 007a 0300     		movs	r3, r0
+ 1076 007c 1A00     		movs	r2, r3
+ 774:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                  (ADC_SAR_Seq_Button_countsPer10Volt[chan] / 2) : (-(ADC_SAR_Seq_Button_countsPer10
+ 1077              		.loc 1 774 0
+ 1078 007e 0E23     		movs	r3, #14
+ 1079 0080 FB18     		adds	r3, r7, r3
+ 1080 0082 1A80     		strh	r2, [r3]
+ 777:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 778:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         return( mVolts );
+ 1081              		.loc 1 778 0
+ 1082 0084 0E23     		movs	r3, #14
+ 1083 0086 FB18     		adds	r3, r7, r3
+ 1084 0088 0022     		movs	r2, #0
+ 1085 008a 9B5E     		ldrsh	r3, [r3, r2]
+ 779:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     }
+ 1086              		.loc 1 779 0
+ 1087 008c 1800     		movs	r0, r3
+ 1088 008e BD46     		mov	sp, r7
+ 1089 0090 04B0     		add	sp, sp, #16
+ 1090              		@ sp needed
+ 1091 0092 80BD     		pop	{r7, pc}
+ 1092              	.L79:
+ 1093              		.align	2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 34
+
+
+ 1094              	.L78:
+ 1095 0094 00000000 		.word	ADC_SAR_Seq_Button_offset
+ 1096 0098 10270000 		.word	10000
+ 1097 009c 00000000 		.word	ADC_SAR_Seq_Button_countsPer10Volt
+ 1098              		.cfi_endproc
+ 1099              	.LFE17:
+ 1100              		.size	ADC_SAR_Seq_Button_CountsTo_mVolts, .-ADC_SAR_Seq_Button_CountsTo_mVolts
+ 1101              		.global	__aeabi_lmul
+ 1102              		.global	__aeabi_ldivmod
+ 1103              		.section	.text.ADC_SAR_Seq_Button_CountsTo_uVolts,"ax",%progbits
+ 1104              		.align	2
+ 1105              		.global	ADC_SAR_Seq_Button_CountsTo_uVolts
+ 1106              		.code	16
+ 1107              		.thumb_func
+ 1108              		.type	ADC_SAR_Seq_Button_CountsTo_uVolts, %function
+ 1109              	ADC_SAR_Seq_Button_CountsTo_uVolts:
+ 1110              	.LFB18:
+ 780:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 781:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 782:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     /*******************************************************************************
+ 783:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Function Name: ADC_SAR_Seq_Button_CountsTo_uVolts
+ 784:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ********************************************************************************
+ 785:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 786:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Summary:
+ 787:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  This function converts ADC counts to micro Volts
+ 788:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  This function is not available when left data format justification selected.
+ 789:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 790:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Parameters:
+ 791:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  chan: The ADC channel number.
+ 792:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  adcCounts: Result from the ADC conversion
+ 793:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 794:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Return:
+ 795:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  Results in uVolts
+ 796:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 797:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Global variables:
+ 798:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  ADC_SAR_Seq_Button_countsPer10Volt:  used to convert ADC counts to uVolts.
+ 799:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  ADC_SAR_Seq_Button_Offset:  Used as the offset while converting ADC counts
+ 800:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *   to mVolts.
+ 801:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 802:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Theory:
+ 803:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  Care must be taken to not exceed the maximum value for a 31 bit signed
+ 804:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  number in the conversion to uVolts and at the same time not loose
+ 805:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  resolution.
+ 806:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  To convert adcCounts to microVolts it is required to be multiplied
+ 807:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  on 10 million and later divide on gain in counts per 10V.
+ 808:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 809:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *******************************************************************************/
+ 810:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     int32 ADC_SAR_Seq_Button_CountsTo_uVolts(uint32 chan, int16 adcCounts)
+ 811:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+ 1111              		.loc 1 811 0
+ 1112              		.cfi_startproc
+ 1113              		@ args = 0, pretend = 0, frame = 24
+ 1114              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1115 0000 B0B5     		push	{r4, r5, r7, lr}
+ 1116              		.cfi_def_cfa_offset 16
+ 1117              		.cfi_offset 4, -16
+ 1118              		.cfi_offset 5, -12
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 35
+
+
+ 1119              		.cfi_offset 7, -8
+ 1120              		.cfi_offset 14, -4
+ 1121 0002 86B0     		sub	sp, sp, #24
+ 1122              		.cfi_def_cfa_offset 40
+ 1123 0004 00AF     		add	r7, sp, #0
+ 1124              		.cfi_def_cfa_register 7
+ 1125 0006 F860     		str	r0, [r7, #12]
+ 1126 0008 0A00     		movs	r2, r1
+ 1127 000a 0A23     		movs	r3, #10
+ 1128 000c FB18     		adds	r3, r7, r3
+ 1129 000e 1A80     		strh	r2, [r3]
+ 812:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         int64 uVolts;
+ 813:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 814:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Halt CPU in debug mode if channel is out of valid range */
+ 815:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         CYASSERT(chan < ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM);
+ 1130              		.loc 1 815 0
+ 1131 0010 FB68     		ldr	r3, [r7, #12]
+ 1132 0012 002B     		cmp	r3, #0
+ 1133 0014 02D0     		beq	.L81
+ 1134              		.loc 1 815 0 is_stmt 0 discriminator 1
+ 1135 0016 0020     		movs	r0, #0
+ 1136 0018 FFF7FEFF 		bl	CyHalt
+ 1137              	.L81:
+ 816:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 817:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Divide the adcCount when accumulate averaging mode selected */
+ 818:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if(ADC_SAR_Seq_Button_DEFAULT_AVG_MODE == ADC_SAR_Seq_Button__ACCUMULATE)
+ 819:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             if((ADC_SAR_Seq_Button_channelsConfig[chan] & ADC_SAR_Seq_Button_AVERAGING_EN) != 0u)
+ 820:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             {
+ 821:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 adcCounts /= ADC_SAR_Seq_Button_DEFAULT_AVG_SAMPLES_DIV;
+ 822:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             }
+ 823:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* ADC_SAR_Seq_Button_DEFAULT_AVG_MODE == ADC_SAR_Seq_Button__ACCUMULATE */
+ 824:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 825:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Subtract ADC offset */
+ 826:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         adcCounts -= ADC_SAR_Seq_Button_offset[chan];
+ 1138              		.loc 1 826 0 is_stmt 1
+ 1139 001c 194B     		ldr	r3, .L83
+ 1140 001e FA68     		ldr	r2, [r7, #12]
+ 1141 0020 5200     		lsls	r2, r2, #1
+ 1142 0022 D35A     		ldrh	r3, [r2, r3]
+ 1143 0024 19B2     		sxth	r1, r3
+ 1144 0026 0A23     		movs	r3, #10
+ 1145 0028 FB18     		adds	r3, r7, r3
+ 1146 002a 1A88     		ldrh	r2, [r3]
+ 1147 002c 8BB2     		uxth	r3, r1
+ 1148 002e D31A     		subs	r3, r2, r3
+ 1149 0030 9AB2     		uxth	r2, r3
+ 1150 0032 0A23     		movs	r3, #10
+ 1151 0034 FB18     		adds	r3, r7, r3
+ 1152 0036 1A80     		strh	r2, [r3]
+ 827:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 828:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         uVolts = ((int64)adcCounts * ADC_SAR_Seq_Button_10UV_COUNTS) / ADC_SAR_Seq_Button_countsPer
+ 1153              		.loc 1 828 0
+ 1154 0038 0A23     		movs	r3, #10
+ 1155 003a FB18     		adds	r3, r7, r3
+ 1156 003c 1B88     		ldrh	r3, [r3]
+ 1157 003e 1BB2     		sxth	r3, r3
+ 1158 0040 3B60     		str	r3, [r7]
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 36
+
+
+ 1159 0042 DB17     		asrs	r3, r3, #31
+ 1160 0044 7B60     		str	r3, [r7, #4]
+ 1161 0046 104A     		ldr	r2, .L83+4
+ 1162 0048 0023     		movs	r3, #0
+ 1163 004a 3868     		ldr	r0, [r7]
+ 1164 004c 7968     		ldr	r1, [r7, #4]
+ 1165 004e FFF7FEFF 		bl	__aeabi_lmul
+ 1166 0052 0200     		movs	r2, r0
+ 1167 0054 0B00     		movs	r3, r1
+ 1168 0056 1000     		movs	r0, r2
+ 1169 0058 1900     		movs	r1, r3
+ 1170 005a 0C4B     		ldr	r3, .L83+8
+ 1171 005c FA68     		ldr	r2, [r7, #12]
+ 1172 005e 9200     		lsls	r2, r2, #2
+ 1173 0060 D358     		ldr	r3, [r2, r3]
+ 1174 0062 1C00     		movs	r4, r3
+ 1175 0064 DB17     		asrs	r3, r3, #31
+ 1176 0066 1D00     		movs	r5, r3
+ 1177 0068 2200     		movs	r2, r4
+ 1178 006a 2B00     		movs	r3, r5
+ 1179 006c FFF7FEFF 		bl	__aeabi_ldivmod
+ 1180 0070 0300     		movs	r3, r0
+ 1181 0072 0C00     		movs	r4, r1
+ 1182 0074 3B61     		str	r3, [r7, #16]
+ 1183 0076 7C61     		str	r4, [r7, #20]
+ 829:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 830:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         return( (int32)uVolts );
+ 1184              		.loc 1 830 0
+ 1185 0078 3B69     		ldr	r3, [r7, #16]
+ 831:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     }
+ 1186              		.loc 1 831 0
+ 1187 007a 1800     		movs	r0, r3
+ 1188 007c BD46     		mov	sp, r7
+ 1189 007e 06B0     		add	sp, sp, #24
+ 1190              		@ sp needed
+ 1191 0080 B0BD     		pop	{r4, r5, r7, pc}
+ 1192              	.L84:
+ 1193 0082 C046     		.align	2
+ 1194              	.L83:
+ 1195 0084 00000000 		.word	ADC_SAR_Seq_Button_offset
+ 1196 0088 80969800 		.word	10000000
+ 1197 008c 00000000 		.word	ADC_SAR_Seq_Button_countsPer10Volt
+ 1198              		.cfi_endproc
+ 1199              	.LFE18:
+ 1200              		.size	ADC_SAR_Seq_Button_CountsTo_uVolts, .-ADC_SAR_Seq_Button_CountsTo_uVolts
+ 1201              		.global	__aeabi_i2f
+ 1202              		.global	__aeabi_fmul
+ 1203              		.global	__aeabi_fdiv
+ 1204              		.section	.text.ADC_SAR_Seq_Button_CountsTo_Volts,"ax",%progbits
+ 1205              		.align	2
+ 1206              		.global	ADC_SAR_Seq_Button_CountsTo_Volts
+ 1207              		.code	16
+ 1208              		.thumb_func
+ 1209              		.type	ADC_SAR_Seq_Button_CountsTo_Volts, %function
+ 1210              	ADC_SAR_Seq_Button_CountsTo_Volts:
+ 1211              	.LFB19:
+ 832:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 37
+
+
+ 833:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 834:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     /*******************************************************************************
+ 835:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Function Name: ADC_SAR_Seq_Button_CountsTo_Volts
+ 836:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     ********************************************************************************
+ 837:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 838:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Summary:
+ 839:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  Converts the ADC output to Volts as a floating point number.
+ 840:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  This function is not available when left data format justification selected.
+ 841:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 842:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Parameters:
+ 843:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  chan: The ADC channel number.
+ 844:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  Result from the ADC conversion
+ 845:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 846:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Return:
+ 847:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  Results in Volts
+ 848:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 849:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     * Global variables:
+ 850:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  ADC_SAR_Seq_Button_countsPer10Volt:  used to convert ADC counts to Volts.
+ 851:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *  ADC_SAR_Seq_Button_Offset:  Used as the offset while converting ADC counts
+ 852:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *   to mVolts.
+ 853:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *
+ 854:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     *******************************************************************************/
+ 855:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     float32 ADC_SAR_Seq_Button_CountsTo_Volts(uint32 chan, int16 adcCounts)
+ 856:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     {
+ 1212              		.loc 1 856 0
+ 1213              		.cfi_startproc
+ 1214              		@ args = 0, pretend = 0, frame = 16
+ 1215              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1216 0000 90B5     		push	{r4, r7, lr}
+ 1217              		.cfi_def_cfa_offset 12
+ 1218              		.cfi_offset 4, -12
+ 1219              		.cfi_offset 7, -8
+ 1220              		.cfi_offset 14, -4
+ 1221 0002 85B0     		sub	sp, sp, #20
+ 1222              		.cfi_def_cfa_offset 32
+ 1223 0004 00AF     		add	r7, sp, #0
+ 1224              		.cfi_def_cfa_register 7
+ 1225 0006 7860     		str	r0, [r7, #4]
+ 1226 0008 0A00     		movs	r2, r1
+ 1227 000a BB1C     		adds	r3, r7, #2
+ 1228 000c 1A80     		strh	r2, [r3]
+ 857:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         float32 volts;
+ 858:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 859:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Halt CPU in debug mode if channel is out of valid range */
+ 860:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         CYASSERT(chan < ADC_SAR_Seq_Button_TOTAL_CHANNELS_NUM);
+ 1229              		.loc 1 860 0
+ 1230 000e 7B68     		ldr	r3, [r7, #4]
+ 1231 0010 002B     		cmp	r3, #0
+ 1232 0012 02D0     		beq	.L86
+ 1233              		.loc 1 860 0 is_stmt 0 discriminator 1
+ 1234 0014 0020     		movs	r0, #0
+ 1235 0016 FFF7FEFF 		bl	CyHalt
+ 1236              	.L86:
+ 861:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 862:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Divide the adcCount when accumulate averaging mode selected */
+ 863:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #if(ADC_SAR_Seq_Button_DEFAULT_AVG_MODE == ADC_SAR_Seq_Button__ACCUMULATE)
+ 864:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             if((ADC_SAR_Seq_Button_channelsConfig[chan] & ADC_SAR_Seq_Button_AVERAGING_EN) != 0u)
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 38
+
+
+ 865:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             {
+ 866:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****                 adcCounts /= ADC_SAR_Seq_Button_DEFAULT_AVG_SAMPLES_DIV;
+ 867:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****             }
+ 868:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         #endif /* ADC_SAR_Seq_Button_DEFAULT_AVG_MODE == ADC_SAR_Seq_Button__ACCUMULATE */
+ 869:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 870:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         /* Subtract ADC offset */
+ 871:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         adcCounts -= ADC_SAR_Seq_Button_offset[chan];
+ 1237              		.loc 1 871 0 is_stmt 1
+ 1238 001a 164B     		ldr	r3, .L88
+ 1239 001c 7A68     		ldr	r2, [r7, #4]
+ 1240 001e 5200     		lsls	r2, r2, #1
+ 1241 0020 D35A     		ldrh	r3, [r2, r3]
+ 1242 0022 19B2     		sxth	r1, r3
+ 1243 0024 BB1C     		adds	r3, r7, #2
+ 1244 0026 1A88     		ldrh	r2, [r3]
+ 1245 0028 8BB2     		uxth	r3, r1
+ 1246 002a D31A     		subs	r3, r2, r3
+ 1247 002c 9AB2     		uxth	r2, r3
+ 1248 002e BB1C     		adds	r3, r7, #2
+ 1249 0030 1A80     		strh	r2, [r3]
+ 872:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 873:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         volts = ((float32)adcCounts * ADC_SAR_Seq_Button_10V_COUNTS) / (float32)ADC_SAR_Seq_Button_
+ 1250              		.loc 1 873 0
+ 1251 0032 BB1C     		adds	r3, r7, #2
+ 1252 0034 0022     		movs	r2, #0
+ 1253 0036 9B5E     		ldrsh	r3, [r3, r2]
+ 1254 0038 1800     		movs	r0, r3
+ 1255 003a FFF7FEFF 		bl	__aeabi_i2f
+ 1256 003e 031C     		adds	r3, r0, #0
+ 1257 0040 0D49     		ldr	r1, .L88+4
+ 1258 0042 181C     		adds	r0, r3, #0
+ 1259 0044 FFF7FEFF 		bl	__aeabi_fmul
+ 1260 0048 031C     		adds	r3, r0, #0
+ 1261 004a 1C1C     		adds	r4, r3, #0
+ 1262 004c 0B4B     		ldr	r3, .L88+8
+ 1263 004e 7A68     		ldr	r2, [r7, #4]
+ 1264 0050 9200     		lsls	r2, r2, #2
+ 1265 0052 D358     		ldr	r3, [r2, r3]
+ 1266 0054 1800     		movs	r0, r3
+ 1267 0056 FFF7FEFF 		bl	__aeabi_i2f
+ 1268 005a 031C     		adds	r3, r0, #0
+ 1269 005c 191C     		adds	r1, r3, #0
+ 1270 005e 201C     		adds	r0, r4, #0
+ 1271 0060 FFF7FEFF 		bl	__aeabi_fdiv
+ 1272 0064 031C     		adds	r3, r0, #0
+ 1273 0066 FB60     		str	r3, [r7, #12]
+ 874:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c **** 
+ 875:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****         return( volts );
+ 1274              		.loc 1 875 0
+ 1275 0068 FB68     		ldr	r3, [r7, #12]
+ 876:Generated_Source\PSoC4/ADC_SAR_Seq_Button.c ****     }
+ 1276              		.loc 1 876 0
+ 1277 006a 181C     		adds	r0, r3, #0
+ 1278 006c BD46     		mov	sp, r7
+ 1279 006e 05B0     		add	sp, sp, #20
+ 1280              		@ sp needed
+ 1281 0070 90BD     		pop	{r4, r7, pc}
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 39
+
+
+ 1282              	.L89:
+ 1283 0072 C046     		.align	2
+ 1284              	.L88:
+ 1285 0074 00000000 		.word	ADC_SAR_Seq_Button_offset
+ 1286 0078 00002041 		.word	1092616192
+ 1287 007c 00000000 		.word	ADC_SAR_Seq_Button_countsPer10Volt
+ 1288              		.cfi_endproc
+ 1289              	.LFE19:
+ 1290              		.size	ADC_SAR_Seq_Button_CountsTo_Volts, .-ADC_SAR_Seq_Button_CountsTo_Volts
+ 1291              		.text
+ 1292              	.Letext0:
+ 1293              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 1294              		.section	.debug_info,"",%progbits
+ 1295              	.Ldebug_info0:
+ 1296 0000 8D040000 		.4byte	0x48d
+ 1297 0004 0400     		.2byte	0x4
+ 1298 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1299 000a 04       		.byte	0x4
+ 1300 000b 01       		.uleb128 0x1
+ 1301 000c 31020000 		.4byte	.LASF60
+ 1302 0010 0C       		.byte	0xc
+ 1303 0011 59010000 		.4byte	.LASF61
+ 1304 0015 8F010000 		.4byte	.LASF62
+ 1305 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 1306 001d 00000000 		.4byte	0
+ 1307 0021 00000000 		.4byte	.Ldebug_line0
+ 1308 0025 02       		.uleb128 0x2
+ 1309 0026 01       		.byte	0x1
+ 1310 0027 06       		.byte	0x6
+ 1311 0028 7A000000 		.4byte	.LASF0
+ 1312 002c 02       		.uleb128 0x2
+ 1313 002d 01       		.byte	0x1
+ 1314 002e 08       		.byte	0x8
+ 1315 002f F0030000 		.4byte	.LASF1
+ 1316 0033 02       		.uleb128 0x2
+ 1317 0034 02       		.byte	0x2
+ 1318 0035 05       		.byte	0x5
+ 1319 0036 FE030000 		.4byte	.LASF2
+ 1320 003a 02       		.uleb128 0x2
+ 1321 003b 02       		.byte	0x2
+ 1322 003c 07       		.byte	0x7
+ 1323 003d DD010000 		.4byte	.LASF3
+ 1324 0041 02       		.uleb128 0x2
+ 1325 0042 04       		.byte	0x4
+ 1326 0043 05       		.byte	0x5
+ 1327 0044 8C000000 		.4byte	.LASF4
+ 1328 0048 02       		.uleb128 0x2
+ 1329 0049 04       		.byte	0x4
+ 1330 004a 07       		.byte	0x7
+ 1331 004b 47010000 		.4byte	.LASF5
+ 1332 004f 02       		.uleb128 0x2
+ 1333 0050 08       		.byte	0x8
+ 1334 0051 05       		.byte	0x5
+ 1335 0052 6C000000 		.4byte	.LASF6
+ 1336 0056 02       		.uleb128 0x2
+ 1337 0057 08       		.byte	0x8
+ 1338 0058 07       		.byte	0x7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 40
+
+
+ 1339 0059 36000000 		.4byte	.LASF7
+ 1340 005d 03       		.uleb128 0x3
+ 1341 005e 04       		.byte	0x4
+ 1342 005f 05       		.byte	0x5
+ 1343 0060 696E7400 		.ascii	"int\000"
+ 1344 0064 02       		.uleb128 0x2
+ 1345 0065 04       		.byte	0x4
+ 1346 0066 07       		.byte	0x7
+ 1347 0067 16010000 		.4byte	.LASF8
+ 1348 006b 04       		.uleb128 0x4
+ 1349 006c 95000000 		.4byte	.LASF9
+ 1350 0070 02       		.byte	0x2
+ 1351 0071 E401     		.2byte	0x1e4
+ 1352 0073 2C000000 		.4byte	0x2c
+ 1353 0077 04       		.uleb128 0x4
+ 1354 0078 00000000 		.4byte	.LASF10
+ 1355 007c 02       		.byte	0x2
+ 1356 007d E501     		.2byte	0x1e5
+ 1357 007f 3A000000 		.4byte	0x3a
+ 1358 0083 04       		.uleb128 0x4
+ 1359 0084 E4000000 		.4byte	.LASF11
+ 1360 0088 02       		.byte	0x2
+ 1361 0089 E601     		.2byte	0x1e6
+ 1362 008b 48000000 		.4byte	0x48
+ 1363 008f 04       		.uleb128 0x4
+ 1364 0090 EB040000 		.4byte	.LASF12
+ 1365 0094 02       		.byte	0x2
+ 1366 0095 E801     		.2byte	0x1e8
+ 1367 0097 33000000 		.4byte	0x33
+ 1368 009b 04       		.uleb128 0x4
+ 1369 009c 86000000 		.4byte	.LASF13
+ 1370 00a0 02       		.byte	0x2
+ 1371 00a1 E901     		.2byte	0x1e9
+ 1372 00a3 41000000 		.4byte	0x41
+ 1373 00a7 04       		.uleb128 0x4
+ 1374 00a8 0B030000 		.4byte	.LASF14
+ 1375 00ac 02       		.byte	0x2
+ 1376 00ad EA01     		.2byte	0x1ea
+ 1377 00af B3000000 		.4byte	0xb3
+ 1378 00b3 02       		.uleb128 0x2
+ 1379 00b4 04       		.byte	0x4
+ 1380 00b5 04       		.byte	0x4
+ 1381 00b6 C8030000 		.4byte	.LASF15
+ 1382 00ba 02       		.uleb128 0x2
+ 1383 00bb 08       		.byte	0x8
+ 1384 00bc 04       		.byte	0x4
+ 1385 00bd BA000000 		.4byte	.LASF16
+ 1386 00c1 04       		.uleb128 0x4
+ 1387 00c2 A2030000 		.4byte	.LASF17
+ 1388 00c6 02       		.byte	0x2
+ 1389 00c7 EF01     		.2byte	0x1ef
+ 1390 00c9 4F000000 		.4byte	0x4f
+ 1391 00cd 02       		.uleb128 0x2
+ 1392 00ce 01       		.byte	0x1
+ 1393 00cf 08       		.byte	0x8
+ 1394 00d0 70040000 		.4byte	.LASF18
+ 1395 00d4 04       		.uleb128 0x4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 41
+
+
+ 1396 00d5 E5020000 		.4byte	.LASF19
+ 1397 00d9 02       		.byte	0x2
+ 1398 00da 9002     		.2byte	0x290
+ 1399 00dc E0000000 		.4byte	0xe0
+ 1400 00e0 05       		.uleb128 0x5
+ 1401 00e1 83000000 		.4byte	0x83
+ 1402 00e5 02       		.uleb128 0x2
+ 1403 00e6 08       		.byte	0x8
+ 1404 00e7 04       		.byte	0x4
+ 1405 00e8 58030000 		.4byte	.LASF20
+ 1406 00ec 02       		.uleb128 0x2
+ 1407 00ed 04       		.byte	0x4
+ 1408 00ee 07       		.byte	0x7
+ 1409 00ef 13030000 		.4byte	.LASF21
+ 1410 00f3 06       		.uleb128 0x6
+ 1411 00f4 3F030000 		.4byte	.LASF25
+ 1412 00f8 01       		.byte	0x1
+ 1413 00f9 3F       		.byte	0x3f
+ 1414 00fa 00000000 		.4byte	.LFB2
+ 1415 00fe 24000000 		.4byte	.LFE2-.LFB2
+ 1416 0102 01       		.uleb128 0x1
+ 1417 0103 9C       		.byte	0x9c
+ 1418 0104 07       		.uleb128 0x7
+ 1419 0105 58040000 		.4byte	.LASF36
+ 1420 0109 01       		.byte	0x1
+ 1421 010a 5E       		.byte	0x5e
+ 1422 010b 00000000 		.4byte	.LFB3
+ 1423 010f D8010000 		.4byte	.LFE3-.LFB3
+ 1424 0113 01       		.uleb128 0x1
+ 1425 0114 9C       		.byte	0x9c
+ 1426 0115 44010000 		.4byte	0x144
+ 1427 0119 08       		.uleb128 0x8
+ 1428 011a 4D040000 		.4byte	.LASF22
+ 1429 011e 01       		.byte	0x1
+ 1430 011f 60       		.byte	0x60
+ 1431 0120 83000000 		.4byte	0x83
+ 1432 0124 02       		.uleb128 0x2
+ 1433 0125 91       		.byte	0x91
+ 1434 0126 74       		.sleb128 -12
+ 1435 0127 08       		.uleb128 0x8
+ 1436 0128 85010000 		.4byte	.LASF23
+ 1437 012c 01       		.byte	0x1
+ 1438 012d 61       		.byte	0x61
+ 1439 012e 83000000 		.4byte	0x83
+ 1440 0132 02       		.uleb128 0x2
+ 1441 0133 91       		.byte	0x91
+ 1442 0134 6C       		.sleb128 -20
+ 1443 0135 08       		.uleb128 0x8
+ 1444 0136 29000000 		.4byte	.LASF24
+ 1445 013a 01       		.byte	0x1
+ 1446 013b 62       		.byte	0x62
+ 1447 013c 9B000000 		.4byte	0x9b
+ 1448 0140 02       		.uleb128 0x2
+ 1449 0141 91       		.byte	0x91
+ 1450 0142 70       		.sleb128 -16
+ 1451 0143 00       		.byte	0
+ 1452 0144 09       		.uleb128 0x9
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 42
+
+
+ 1453 0145 1C030000 		.4byte	.LASF26
+ 1454 0149 01       		.byte	0x1
+ 1455 014a 4A01     		.2byte	0x14a
+ 1456 014c 00000000 		.4byte	.LFB4
+ 1457 0150 38000000 		.4byte	.LFE4-.LFB4
+ 1458 0154 01       		.uleb128 0x1
+ 1459 0155 9C       		.byte	0x9c
+ 1460 0156 0A       		.uleb128 0xa
+ 1461 0157 CE030000 		.4byte	.LASF27
+ 1462 015b 01       		.byte	0x1
+ 1463 015c 6D01     		.2byte	0x16d
+ 1464 015e 00000000 		.4byte	.LFB5
+ 1465 0162 1C000000 		.4byte	.LFE5-.LFB5
+ 1466 0166 01       		.uleb128 0x1
+ 1467 0167 9C       		.byte	0x9c
+ 1468 0168 0A       		.uleb128 0xa
+ 1469 0169 A8030000 		.4byte	.LASF28
+ 1470 016d 01       		.byte	0x1
+ 1471 016e 8701     		.2byte	0x187
+ 1472 0170 00000000 		.4byte	.LFB6
+ 1473 0174 1C000000 		.4byte	.LFE6-.LFB6
+ 1474 0178 01       		.uleb128 0x1
+ 1475 0179 9C       		.byte	0x9c
+ 1476 017a 0A       		.uleb128 0xa
+ 1477 017b 9B000000 		.4byte	.LASF29
+ 1478 017f 01       		.byte	0x1
+ 1479 0180 A001     		.2byte	0x1a0
+ 1480 0182 00000000 		.4byte	.LFB7
+ 1481 0186 20000000 		.4byte	.LFE7-.LFB7
+ 1482 018a 01       		.uleb128 0x1
+ 1483 018b 9C       		.byte	0x9c
+ 1484 018c 0B       		.uleb128 0xb
+ 1485 018d C8040000 		.4byte	.LASF31
+ 1486 0191 01       		.byte	0x1
+ 1487 0192 C201     		.2byte	0x1c2
+ 1488 0194 83000000 		.4byte	0x83
+ 1489 0198 00000000 		.4byte	.LFB8
+ 1490 019c 48000000 		.4byte	.LFE8-.LFB8
+ 1491 01a0 01       		.uleb128 0x1
+ 1492 01a1 9C       		.byte	0x9c
+ 1493 01a2 C5010000 		.4byte	0x1c5
+ 1494 01a6 0C       		.uleb128 0xc
+ 1495 01a7 0E010000 		.4byte	.LASF33
+ 1496 01ab 01       		.byte	0x1
+ 1497 01ac C201     		.2byte	0x1c2
+ 1498 01ae 83000000 		.4byte	0x83
+ 1499 01b2 02       		.uleb128 0x2
+ 1500 01b3 91       		.byte	0x91
+ 1501 01b4 6C       		.sleb128 -20
+ 1502 01b5 0D       		.uleb128 0xd
+ 1503 01b6 C1040000 		.4byte	.LASF30
+ 1504 01ba 01       		.byte	0x1
+ 1505 01bb C401     		.2byte	0x1c4
+ 1506 01bd 83000000 		.4byte	0x83
+ 1507 01c1 02       		.uleb128 0x2
+ 1508 01c2 91       		.byte	0x91
+ 1509 01c3 74       		.sleb128 -12
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 43
+
+
+ 1510 01c4 00       		.byte	0
+ 1511 01c5 0E       		.uleb128 0xe
+ 1512 01c6 4D000000 		.4byte	.LASF32
+ 1513 01ca 01       		.byte	0x1
+ 1514 01cb F801     		.2byte	0x1f8
+ 1515 01cd 8F000000 		.4byte	0x8f
+ 1516 01d1 00000000 		.4byte	.LFB9
+ 1517 01d5 44000000 		.4byte	.LFE9-.LFB9
+ 1518 01d9 01       		.uleb128 0x1
+ 1519 01da 9C       		.byte	0x9c
+ 1520 01db FE010000 		.4byte	0x1fe
+ 1521 01df 0C       		.uleb128 0xc
+ 1522 01e0 53040000 		.4byte	.LASF34
+ 1523 01e4 01       		.byte	0x1
+ 1524 01e5 F801     		.2byte	0x1f8
+ 1525 01e7 83000000 		.4byte	0x83
+ 1526 01eb 02       		.uleb128 0x2
+ 1527 01ec 91       		.byte	0x91
+ 1528 01ed 6C       		.sleb128 -20
+ 1529 01ee 0D       		.uleb128 0xd
+ 1530 01ef F1040000 		.4byte	.LASF35
+ 1531 01f3 01       		.byte	0x1
+ 1532 01f4 FA01     		.2byte	0x1fa
+ 1533 01f6 83000000 		.4byte	0x83
+ 1534 01fa 02       		.uleb128 0x2
+ 1535 01fb 91       		.byte	0x91
+ 1536 01fc 74       		.sleb128 -12
+ 1537 01fd 00       		.byte	0
+ 1538 01fe 0F       		.uleb128 0xf
+ 1539 01ff F0010000 		.4byte	.LASF37
+ 1540 0203 01       		.byte	0x1
+ 1541 0204 2502     		.2byte	0x225
+ 1542 0206 00000000 		.4byte	.LFB10
+ 1543 020a 20000000 		.4byte	.LFE10-.LFB10
+ 1544 020e 01       		.uleb128 0x1
+ 1545 020f 9C       		.byte	0x9c
+ 1546 0210 24020000 		.4byte	0x224
+ 1547 0214 0C       		.uleb128 0xc
+ 1548 0215 09010000 		.4byte	.LASF38
+ 1549 0219 01       		.byte	0x1
+ 1550 021a 2502     		.2byte	0x225
+ 1551 021c 83000000 		.4byte	0x83
+ 1552 0220 02       		.uleb128 0x2
+ 1553 0221 91       		.byte	0x91
+ 1554 0222 74       		.sleb128 -12
+ 1555 0223 00       		.byte	0
+ 1556 0224 0F       		.uleb128 0xf
+ 1557 0225 C6020000 		.4byte	.LASF39
+ 1558 0229 01       		.byte	0x1
+ 1559 022a 5102     		.2byte	0x251
+ 1560 022c 00000000 		.4byte	.LFB11
+ 1561 0230 30000000 		.4byte	.LFE11-.LFB11
+ 1562 0234 01       		.uleb128 0x1
+ 1563 0235 9C       		.byte	0x9c
+ 1564 0236 4A020000 		.4byte	0x24a
+ 1565 023a 0C       		.uleb128 0xc
+ 1566 023b 36030000 		.4byte	.LASF40
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 44
+
+
+ 1567 023f 01       		.byte	0x1
+ 1568 0240 5102     		.2byte	0x251
+ 1569 0242 83000000 		.4byte	0x83
+ 1570 0246 02       		.uleb128 0x2
+ 1571 0247 91       		.byte	0x91
+ 1572 0248 74       		.sleb128 -12
+ 1573 0249 00       		.byte	0
+ 1574 024a 0F       		.uleb128 0xf
+ 1575 024b 75040000 		.4byte	.LASF41
+ 1576 024f 01       		.byte	0x1
+ 1577 0250 6602     		.2byte	0x266
+ 1578 0252 00000000 		.4byte	.LFB12
+ 1579 0256 30000000 		.4byte	.LFE12-.LFB12
+ 1580 025a 01       		.uleb128 0x1
+ 1581 025b 9C       		.byte	0x9c
+ 1582 025c 70020000 		.4byte	0x270
+ 1583 0260 0C       		.uleb128 0xc
+ 1584 0261 E6030000 		.4byte	.LASF42
+ 1585 0265 01       		.byte	0x1
+ 1586 0266 6602     		.2byte	0x266
+ 1587 0268 83000000 		.4byte	0x83
+ 1588 026c 02       		.uleb128 0x2
+ 1589 026d 91       		.byte	0x91
+ 1590 026e 74       		.sleb128 -12
+ 1591 026f 00       		.byte	0
+ 1592 0270 0F       		.uleb128 0xf
+ 1593 0271 EB020000 		.4byte	.LASF43
+ 1594 0275 01       		.byte	0x1
+ 1595 0276 7E02     		.2byte	0x27e
+ 1596 0278 00000000 		.4byte	.LFB13
+ 1597 027c 20000000 		.4byte	.LFE13-.LFB13
+ 1598 0280 01       		.uleb128 0x1
+ 1599 0281 9C       		.byte	0x9c
+ 1600 0282 96020000 		.4byte	0x296
+ 1601 0286 0C       		.uleb128 0xc
+ 1602 0287 09010000 		.4byte	.LASF38
+ 1603 028b 01       		.byte	0x1
+ 1604 028c 7E02     		.2byte	0x27e
+ 1605 028e 83000000 		.4byte	0x83
+ 1606 0292 02       		.uleb128 0x2
+ 1607 0293 91       		.byte	0x91
+ 1608 0294 74       		.sleb128 -12
+ 1609 0295 00       		.byte	0
+ 1610 0296 0F       		.uleb128 0xf
+ 1611 0297 EB000000 		.4byte	.LASF44
+ 1612 029b 01       		.byte	0x1
+ 1613 029c 9502     		.2byte	0x295
+ 1614 029e 00000000 		.4byte	.LFB14
+ 1615 02a2 20000000 		.4byte	.LFE14-.LFB14
+ 1616 02a6 01       		.uleb128 0x1
+ 1617 02a7 9C       		.byte	0x9c
+ 1618 02a8 BC020000 		.4byte	0x2bc
+ 1619 02ac 0C       		.uleb128 0xc
+ 1620 02ad 09010000 		.4byte	.LASF38
+ 1621 02b1 01       		.byte	0x1
+ 1622 02b2 9502     		.2byte	0x295
+ 1623 02b4 83000000 		.4byte	0x83
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 45
+
+
+ 1624 02b8 02       		.uleb128 0x2
+ 1625 02b9 91       		.byte	0x91
+ 1626 02ba 74       		.sleb128 -12
+ 1627 02bb 00       		.byte	0
+ 1628 02bc 10       		.uleb128 0x10
+ 1629 02bd 23010000 		.4byte	.LASF45
+ 1630 02c1 01       		.byte	0x1
+ 1631 02c2 B102     		.2byte	0x2b1
+ 1632 02c4 00000000 		.4byte	.LFB15
+ 1633 02c8 34000000 		.4byte	.LFE15-.LFB15
+ 1634 02cc 01       		.uleb128 0x1
+ 1635 02cd 9C       		.byte	0x9c
+ 1636 02ce F1020000 		.4byte	0x2f1
+ 1637 02d2 0C       		.uleb128 0xc
+ 1638 02d3 53040000 		.4byte	.LASF34
+ 1639 02d7 01       		.byte	0x1
+ 1640 02d8 B102     		.2byte	0x2b1
+ 1641 02da 83000000 		.4byte	0x83
+ 1642 02de 02       		.uleb128 0x2
+ 1643 02df 91       		.byte	0x91
+ 1644 02e0 74       		.sleb128 -12
+ 1645 02e1 0C       		.uleb128 0xc
+ 1646 02e2 95040000 		.4byte	.LASF46
+ 1647 02e6 01       		.byte	0x1
+ 1648 02e7 B102     		.2byte	0x2b1
+ 1649 02e9 8F000000 		.4byte	0x8f
+ 1650 02ed 02       		.uleb128 0x2
+ 1651 02ee 91       		.byte	0x91
+ 1652 02ef 72       		.sleb128 -14
+ 1653 02f0 00       		.byte	0
+ 1654 02f1 10       		.uleb128 0x10
+ 1655 02f2 A6040000 		.4byte	.LASF47
+ 1656 02f6 01       		.byte	0x1
+ 1657 02f7 D302     		.2byte	0x2d3
+ 1658 02f9 00000000 		.4byte	.LFB16
+ 1659 02fd 2C000000 		.4byte	.LFE16-.LFB16
+ 1660 0301 01       		.uleb128 0x1
+ 1661 0302 9C       		.byte	0x9c
+ 1662 0303 26030000 		.4byte	0x326
+ 1663 0307 0C       		.uleb128 0xc
+ 1664 0308 53040000 		.4byte	.LASF34
+ 1665 030c 01       		.byte	0x1
+ 1666 030d D302     		.2byte	0x2d3
+ 1667 030f 83000000 		.4byte	0x83
+ 1668 0313 02       		.uleb128 0x2
+ 1669 0314 91       		.byte	0x91
+ 1670 0315 74       		.sleb128 -12
+ 1671 0316 0C       		.uleb128 0xc
+ 1672 0317 21000000 		.4byte	.LASF48
+ 1673 031b 01       		.byte	0x1
+ 1674 031c D302     		.2byte	0x2d3
+ 1675 031e 9B000000 		.4byte	0x9b
+ 1676 0322 02       		.uleb128 0x2
+ 1677 0323 91       		.byte	0x91
+ 1678 0324 70       		.sleb128 -16
+ 1679 0325 00       		.byte	0
+ 1680 0326 0E       		.uleb128 0xe
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 46
+
+
+ 1681 0327 08040000 		.4byte	.LASF49
+ 1682 032b 01       		.byte	0x1
+ 1683 032c F402     		.2byte	0x2f4
+ 1684 032e 8F000000 		.4byte	0x8f
+ 1685 0332 00000000 		.4byte	.LFB17
+ 1686 0336 A0000000 		.4byte	.LFE17-.LFB17
+ 1687 033a 01       		.uleb128 0x1
+ 1688 033b 9C       		.byte	0x9c
+ 1689 033c 6E030000 		.4byte	0x36e
+ 1690 0340 0C       		.uleb128 0xc
+ 1691 0341 53040000 		.4byte	.LASF34
+ 1692 0345 01       		.byte	0x1
+ 1693 0346 F402     		.2byte	0x2f4
+ 1694 0348 83000000 		.4byte	0x83
+ 1695 034c 02       		.uleb128 0x2
+ 1696 034d 91       		.byte	0x91
+ 1697 034e 6C       		.sleb128 -20
+ 1698 034f 0C       		.uleb128 0xc
+ 1699 0350 9C040000 		.4byte	.LASF50
+ 1700 0354 01       		.byte	0x1
+ 1701 0355 F402     		.2byte	0x2f4
+ 1702 0357 8F000000 		.4byte	0x8f
+ 1703 035b 02       		.uleb128 0x2
+ 1704 035c 91       		.byte	0x91
+ 1705 035d 6A       		.sleb128 -22
+ 1706 035e 0D       		.uleb128 0xd
+ 1707 035f BF020000 		.4byte	.LASF51
+ 1708 0363 01       		.byte	0x1
+ 1709 0364 F602     		.2byte	0x2f6
+ 1710 0366 8F000000 		.4byte	0x8f
+ 1711 036a 02       		.uleb128 0x2
+ 1712 036b 91       		.byte	0x91
+ 1713 036c 76       		.sleb128 -10
+ 1714 036d 00       		.byte	0
+ 1715 036e 0E       		.uleb128 0xe
+ 1716 036f 7F030000 		.4byte	.LASF52
+ 1717 0373 01       		.byte	0x1
+ 1718 0374 2A03     		.2byte	0x32a
+ 1719 0376 9B000000 		.4byte	0x9b
+ 1720 037a 00000000 		.4byte	.LFB18
+ 1721 037e 90000000 		.4byte	.LFE18-.LFB18
+ 1722 0382 01       		.uleb128 0x1
+ 1723 0383 9C       		.byte	0x9c
+ 1724 0384 B6030000 		.4byte	0x3b6
+ 1725 0388 0C       		.uleb128 0xc
+ 1726 0389 53040000 		.4byte	.LASF34
+ 1727 038d 01       		.byte	0x1
+ 1728 038e 2A03     		.2byte	0x32a
+ 1729 0390 83000000 		.4byte	0x83
+ 1730 0394 02       		.uleb128 0x2
+ 1731 0395 91       		.byte	0x91
+ 1732 0396 64       		.sleb128 -28
+ 1733 0397 0C       		.uleb128 0xc
+ 1734 0398 9C040000 		.4byte	.LASF50
+ 1735 039c 01       		.byte	0x1
+ 1736 039d 2A03     		.2byte	0x32a
+ 1737 039f 8F000000 		.4byte	0x8f
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 47
+
+
+ 1738 03a3 02       		.uleb128 0x2
+ 1739 03a4 91       		.byte	0x91
+ 1740 03a5 62       		.sleb128 -30
+ 1741 03a6 0D       		.uleb128 0xd
+ 1742 03a7 40010000 		.4byte	.LASF53
+ 1743 03ab 01       		.byte	0x1
+ 1744 03ac 2C03     		.2byte	0x32c
+ 1745 03ae C1000000 		.4byte	0xc1
+ 1746 03b2 02       		.uleb128 0x2
+ 1747 03b3 91       		.byte	0x91
+ 1748 03b4 68       		.sleb128 -24
+ 1749 03b5 00       		.byte	0
+ 1750 03b6 0E       		.uleb128 0xe
+ 1751 03b7 2B040000 		.4byte	.LASF54
+ 1752 03bb 01       		.byte	0x1
+ 1753 03bc 5703     		.2byte	0x357
+ 1754 03be A7000000 		.4byte	0xa7
+ 1755 03c2 00000000 		.4byte	.LFB19
+ 1756 03c6 80000000 		.4byte	.LFE19-.LFB19
+ 1757 03ca 01       		.uleb128 0x1
+ 1758 03cb 9C       		.byte	0x9c
+ 1759 03cc FE030000 		.4byte	0x3fe
+ 1760 03d0 0C       		.uleb128 0xc
+ 1761 03d1 53040000 		.4byte	.LASF34
+ 1762 03d5 01       		.byte	0x1
+ 1763 03d6 5703     		.2byte	0x357
+ 1764 03d8 83000000 		.4byte	0x83
+ 1765 03dc 02       		.uleb128 0x2
+ 1766 03dd 91       		.byte	0x91
+ 1767 03de 64       		.sleb128 -28
+ 1768 03df 0C       		.uleb128 0xc
+ 1769 03e0 9C040000 		.4byte	.LASF50
+ 1770 03e4 01       		.byte	0x1
+ 1771 03e5 5703     		.2byte	0x357
+ 1772 03e7 8F000000 		.4byte	0x8f
+ 1773 03eb 02       		.uleb128 0x2
+ 1774 03ec 91       		.byte	0x91
+ 1775 03ed 62       		.sleb128 -30
+ 1776 03ee 0D       		.uleb128 0xd
+ 1777 03ef 30000000 		.4byte	.LASF55
+ 1778 03f3 01       		.byte	0x1
+ 1779 03f4 5903     		.2byte	0x359
+ 1780 03f6 A7000000 		.4byte	0xa7
+ 1781 03fa 02       		.uleb128 0x2
+ 1782 03fb 91       		.byte	0x91
+ 1783 03fc 6C       		.sleb128 -20
+ 1784 03fd 00       		.byte	0
+ 1785 03fe 11       		.uleb128 0x11
+ 1786 03ff 0E040000 		.4byte	0x40e
+ 1787 0403 0E040000 		.4byte	0x40e
+ 1788 0407 12       		.uleb128 0x12
+ 1789 0408 EC000000 		.4byte	0xec
+ 1790 040c 00       		.byte	0
+ 1791 040d 00       		.byte	0
+ 1792 040e 13       		.uleb128 0x13
+ 1793 040f 83000000 		.4byte	0x83
+ 1794 0413 08       		.uleb128 0x8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 48
+
+
+ 1795 0414 0F020000 		.4byte	.LASF56
+ 1796 0418 01       		.byte	0x1
+ 1797 0419 21       		.byte	0x21
+ 1798 041a 24040000 		.4byte	0x424
+ 1799 041e 05       		.uleb128 0x5
+ 1800 041f 03       		.byte	0x3
+ 1801 0420 00000000 		.4byte	ADC_SAR_Seq_Button_channelsConfig
+ 1802 0424 13       		.uleb128 0x13
+ 1803 0425 FE030000 		.4byte	0x3fe
+ 1804 0429 14       		.uleb128 0x14
+ 1805 042a 64030000 		.4byte	.LASF57
+ 1806 042e 01       		.byte	0x1
+ 1807 042f 18       		.byte	0x18
+ 1808 0430 6B000000 		.4byte	0x6b
+ 1809 0434 05       		.uleb128 0x5
+ 1810 0435 03       		.byte	0x3
+ 1811 0436 00000000 		.4byte	ADC_SAR_Seq_Button_initVar
+ 1812 043a 11       		.uleb128 0x11
+ 1813 043b 4A040000 		.4byte	0x44a
+ 1814 043f 4A040000 		.4byte	0x44a
+ 1815 0443 12       		.uleb128 0x12
+ 1816 0444 EC000000 		.4byte	0xec
+ 1817 0448 00       		.byte	0
+ 1818 0449 00       		.byte	0
+ 1819 044a 05       		.uleb128 0x5
+ 1820 044b 8F000000 		.4byte	0x8f
+ 1821 044f 14       		.uleb128 0x14
+ 1822 0450 07000000 		.4byte	.LASF58
+ 1823 0454 01       		.byte	0x1
+ 1824 0455 19       		.byte	0x19
+ 1825 0456 60040000 		.4byte	0x460
+ 1826 045a 05       		.uleb128 0x5
+ 1827 045b 03       		.byte	0x3
+ 1828 045c 00000000 		.4byte	ADC_SAR_Seq_Button_offset
+ 1829 0460 05       		.uleb128 0x5
+ 1830 0461 3A040000 		.4byte	0x43a
+ 1831 0465 11       		.uleb128 0x11
+ 1832 0466 75040000 		.4byte	0x475
+ 1833 046a 75040000 		.4byte	0x475
+ 1834 046e 12       		.uleb128 0x12
+ 1835 046f EC000000 		.4byte	0xec
+ 1836 0473 00       		.byte	0
+ 1837 0474 00       		.byte	0
+ 1838 0475 05       		.uleb128 0x5
+ 1839 0476 9B000000 		.4byte	0x9b
+ 1840 047a 14       		.uleb128 0x14
+ 1841 047b C1000000 		.4byte	.LASF59
+ 1842 047f 01       		.byte	0x1
+ 1843 0480 1A       		.byte	0x1a
+ 1844 0481 8B040000 		.4byte	0x48b
+ 1845 0485 05       		.uleb128 0x5
+ 1846 0486 03       		.byte	0x3
+ 1847 0487 00000000 		.4byte	ADC_SAR_Seq_Button_countsPer10Volt
+ 1848 048b 05       		.uleb128 0x5
+ 1849 048c 65040000 		.4byte	0x465
+ 1850 0490 00       		.byte	0
+ 1851              		.section	.debug_abbrev,"",%progbits
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 49
+
+
+ 1852              	.Ldebug_abbrev0:
+ 1853 0000 01       		.uleb128 0x1
+ 1854 0001 11       		.uleb128 0x11
+ 1855 0002 01       		.byte	0x1
+ 1856 0003 25       		.uleb128 0x25
+ 1857 0004 0E       		.uleb128 0xe
+ 1858 0005 13       		.uleb128 0x13
+ 1859 0006 0B       		.uleb128 0xb
+ 1860 0007 03       		.uleb128 0x3
+ 1861 0008 0E       		.uleb128 0xe
+ 1862 0009 1B       		.uleb128 0x1b
+ 1863 000a 0E       		.uleb128 0xe
+ 1864 000b 55       		.uleb128 0x55
+ 1865 000c 17       		.uleb128 0x17
+ 1866 000d 11       		.uleb128 0x11
+ 1867 000e 01       		.uleb128 0x1
+ 1868 000f 10       		.uleb128 0x10
+ 1869 0010 17       		.uleb128 0x17
+ 1870 0011 00       		.byte	0
+ 1871 0012 00       		.byte	0
+ 1872 0013 02       		.uleb128 0x2
+ 1873 0014 24       		.uleb128 0x24
+ 1874 0015 00       		.byte	0
+ 1875 0016 0B       		.uleb128 0xb
+ 1876 0017 0B       		.uleb128 0xb
+ 1877 0018 3E       		.uleb128 0x3e
+ 1878 0019 0B       		.uleb128 0xb
+ 1879 001a 03       		.uleb128 0x3
+ 1880 001b 0E       		.uleb128 0xe
+ 1881 001c 00       		.byte	0
+ 1882 001d 00       		.byte	0
+ 1883 001e 03       		.uleb128 0x3
+ 1884 001f 24       		.uleb128 0x24
+ 1885 0020 00       		.byte	0
+ 1886 0021 0B       		.uleb128 0xb
+ 1887 0022 0B       		.uleb128 0xb
+ 1888 0023 3E       		.uleb128 0x3e
+ 1889 0024 0B       		.uleb128 0xb
+ 1890 0025 03       		.uleb128 0x3
+ 1891 0026 08       		.uleb128 0x8
+ 1892 0027 00       		.byte	0
+ 1893 0028 00       		.byte	0
+ 1894 0029 04       		.uleb128 0x4
+ 1895 002a 16       		.uleb128 0x16
+ 1896 002b 00       		.byte	0
+ 1897 002c 03       		.uleb128 0x3
+ 1898 002d 0E       		.uleb128 0xe
+ 1899 002e 3A       		.uleb128 0x3a
+ 1900 002f 0B       		.uleb128 0xb
+ 1901 0030 3B       		.uleb128 0x3b
+ 1902 0031 05       		.uleb128 0x5
+ 1903 0032 49       		.uleb128 0x49
+ 1904 0033 13       		.uleb128 0x13
+ 1905 0034 00       		.byte	0
+ 1906 0035 00       		.byte	0
+ 1907 0036 05       		.uleb128 0x5
+ 1908 0037 35       		.uleb128 0x35
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 50
+
+
+ 1909 0038 00       		.byte	0
+ 1910 0039 49       		.uleb128 0x49
+ 1911 003a 13       		.uleb128 0x13
+ 1912 003b 00       		.byte	0
+ 1913 003c 00       		.byte	0
+ 1914 003d 06       		.uleb128 0x6
+ 1915 003e 2E       		.uleb128 0x2e
+ 1916 003f 00       		.byte	0
+ 1917 0040 3F       		.uleb128 0x3f
+ 1918 0041 19       		.uleb128 0x19
+ 1919 0042 03       		.uleb128 0x3
+ 1920 0043 0E       		.uleb128 0xe
+ 1921 0044 3A       		.uleb128 0x3a
+ 1922 0045 0B       		.uleb128 0xb
+ 1923 0046 3B       		.uleb128 0x3b
+ 1924 0047 0B       		.uleb128 0xb
+ 1925 0048 27       		.uleb128 0x27
+ 1926 0049 19       		.uleb128 0x19
+ 1927 004a 11       		.uleb128 0x11
+ 1928 004b 01       		.uleb128 0x1
+ 1929 004c 12       		.uleb128 0x12
+ 1930 004d 06       		.uleb128 0x6
+ 1931 004e 40       		.uleb128 0x40
+ 1932 004f 18       		.uleb128 0x18
+ 1933 0050 9642     		.uleb128 0x2116
+ 1934 0052 19       		.uleb128 0x19
+ 1935 0053 00       		.byte	0
+ 1936 0054 00       		.byte	0
+ 1937 0055 07       		.uleb128 0x7
+ 1938 0056 2E       		.uleb128 0x2e
+ 1939 0057 01       		.byte	0x1
+ 1940 0058 3F       		.uleb128 0x3f
+ 1941 0059 19       		.uleb128 0x19
+ 1942 005a 03       		.uleb128 0x3
+ 1943 005b 0E       		.uleb128 0xe
+ 1944 005c 3A       		.uleb128 0x3a
+ 1945 005d 0B       		.uleb128 0xb
+ 1946 005e 3B       		.uleb128 0x3b
+ 1947 005f 0B       		.uleb128 0xb
+ 1948 0060 27       		.uleb128 0x27
+ 1949 0061 19       		.uleb128 0x19
+ 1950 0062 11       		.uleb128 0x11
+ 1951 0063 01       		.uleb128 0x1
+ 1952 0064 12       		.uleb128 0x12
+ 1953 0065 06       		.uleb128 0x6
+ 1954 0066 40       		.uleb128 0x40
+ 1955 0067 18       		.uleb128 0x18
+ 1956 0068 9642     		.uleb128 0x2116
+ 1957 006a 19       		.uleb128 0x19
+ 1958 006b 01       		.uleb128 0x1
+ 1959 006c 13       		.uleb128 0x13
+ 1960 006d 00       		.byte	0
+ 1961 006e 00       		.byte	0
+ 1962 006f 08       		.uleb128 0x8
+ 1963 0070 34       		.uleb128 0x34
+ 1964 0071 00       		.byte	0
+ 1965 0072 03       		.uleb128 0x3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 51
+
+
+ 1966 0073 0E       		.uleb128 0xe
+ 1967 0074 3A       		.uleb128 0x3a
+ 1968 0075 0B       		.uleb128 0xb
+ 1969 0076 3B       		.uleb128 0x3b
+ 1970 0077 0B       		.uleb128 0xb
+ 1971 0078 49       		.uleb128 0x49
+ 1972 0079 13       		.uleb128 0x13
+ 1973 007a 02       		.uleb128 0x2
+ 1974 007b 18       		.uleb128 0x18
+ 1975 007c 00       		.byte	0
+ 1976 007d 00       		.byte	0
+ 1977 007e 09       		.uleb128 0x9
+ 1978 007f 2E       		.uleb128 0x2e
+ 1979 0080 00       		.byte	0
+ 1980 0081 3F       		.uleb128 0x3f
+ 1981 0082 19       		.uleb128 0x19
+ 1982 0083 03       		.uleb128 0x3
+ 1983 0084 0E       		.uleb128 0xe
+ 1984 0085 3A       		.uleb128 0x3a
+ 1985 0086 0B       		.uleb128 0xb
+ 1986 0087 3B       		.uleb128 0x3b
+ 1987 0088 05       		.uleb128 0x5
+ 1988 0089 27       		.uleb128 0x27
+ 1989 008a 19       		.uleb128 0x19
+ 1990 008b 11       		.uleb128 0x11
+ 1991 008c 01       		.uleb128 0x1
+ 1992 008d 12       		.uleb128 0x12
+ 1993 008e 06       		.uleb128 0x6
+ 1994 008f 40       		.uleb128 0x40
+ 1995 0090 18       		.uleb128 0x18
+ 1996 0091 9642     		.uleb128 0x2116
+ 1997 0093 19       		.uleb128 0x19
+ 1998 0094 00       		.byte	0
+ 1999 0095 00       		.byte	0
+ 2000 0096 0A       		.uleb128 0xa
+ 2001 0097 2E       		.uleb128 0x2e
+ 2002 0098 00       		.byte	0
+ 2003 0099 3F       		.uleb128 0x3f
+ 2004 009a 19       		.uleb128 0x19
+ 2005 009b 03       		.uleb128 0x3
+ 2006 009c 0E       		.uleb128 0xe
+ 2007 009d 3A       		.uleb128 0x3a
+ 2008 009e 0B       		.uleb128 0xb
+ 2009 009f 3B       		.uleb128 0x3b
+ 2010 00a0 05       		.uleb128 0x5
+ 2011 00a1 27       		.uleb128 0x27
+ 2012 00a2 19       		.uleb128 0x19
+ 2013 00a3 11       		.uleb128 0x11
+ 2014 00a4 01       		.uleb128 0x1
+ 2015 00a5 12       		.uleb128 0x12
+ 2016 00a6 06       		.uleb128 0x6
+ 2017 00a7 40       		.uleb128 0x40
+ 2018 00a8 18       		.uleb128 0x18
+ 2019 00a9 9742     		.uleb128 0x2117
+ 2020 00ab 19       		.uleb128 0x19
+ 2021 00ac 00       		.byte	0
+ 2022 00ad 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 52
+
+
+ 2023 00ae 0B       		.uleb128 0xb
+ 2024 00af 2E       		.uleb128 0x2e
+ 2025 00b0 01       		.byte	0x1
+ 2026 00b1 3F       		.uleb128 0x3f
+ 2027 00b2 19       		.uleb128 0x19
+ 2028 00b3 03       		.uleb128 0x3
+ 2029 00b4 0E       		.uleb128 0xe
+ 2030 00b5 3A       		.uleb128 0x3a
+ 2031 00b6 0B       		.uleb128 0xb
+ 2032 00b7 3B       		.uleb128 0x3b
+ 2033 00b8 05       		.uleb128 0x5
+ 2034 00b9 27       		.uleb128 0x27
+ 2035 00ba 19       		.uleb128 0x19
+ 2036 00bb 49       		.uleb128 0x49
+ 2037 00bc 13       		.uleb128 0x13
+ 2038 00bd 11       		.uleb128 0x11
+ 2039 00be 01       		.uleb128 0x1
+ 2040 00bf 12       		.uleb128 0x12
+ 2041 00c0 06       		.uleb128 0x6
+ 2042 00c1 40       		.uleb128 0x40
+ 2043 00c2 18       		.uleb128 0x18
+ 2044 00c3 9742     		.uleb128 0x2117
+ 2045 00c5 19       		.uleb128 0x19
+ 2046 00c6 01       		.uleb128 0x1
+ 2047 00c7 13       		.uleb128 0x13
+ 2048 00c8 00       		.byte	0
+ 2049 00c9 00       		.byte	0
+ 2050 00ca 0C       		.uleb128 0xc
+ 2051 00cb 05       		.uleb128 0x5
+ 2052 00cc 00       		.byte	0
+ 2053 00cd 03       		.uleb128 0x3
+ 2054 00ce 0E       		.uleb128 0xe
+ 2055 00cf 3A       		.uleb128 0x3a
+ 2056 00d0 0B       		.uleb128 0xb
+ 2057 00d1 3B       		.uleb128 0x3b
+ 2058 00d2 05       		.uleb128 0x5
+ 2059 00d3 49       		.uleb128 0x49
+ 2060 00d4 13       		.uleb128 0x13
+ 2061 00d5 02       		.uleb128 0x2
+ 2062 00d6 18       		.uleb128 0x18
+ 2063 00d7 00       		.byte	0
+ 2064 00d8 00       		.byte	0
+ 2065 00d9 0D       		.uleb128 0xd
+ 2066 00da 34       		.uleb128 0x34
+ 2067 00db 00       		.byte	0
+ 2068 00dc 03       		.uleb128 0x3
+ 2069 00dd 0E       		.uleb128 0xe
+ 2070 00de 3A       		.uleb128 0x3a
+ 2071 00df 0B       		.uleb128 0xb
+ 2072 00e0 3B       		.uleb128 0x3b
+ 2073 00e1 05       		.uleb128 0x5
+ 2074 00e2 49       		.uleb128 0x49
+ 2075 00e3 13       		.uleb128 0x13
+ 2076 00e4 02       		.uleb128 0x2
+ 2077 00e5 18       		.uleb128 0x18
+ 2078 00e6 00       		.byte	0
+ 2079 00e7 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 53
+
+
+ 2080 00e8 0E       		.uleb128 0xe
+ 2081 00e9 2E       		.uleb128 0x2e
+ 2082 00ea 01       		.byte	0x1
+ 2083 00eb 3F       		.uleb128 0x3f
+ 2084 00ec 19       		.uleb128 0x19
+ 2085 00ed 03       		.uleb128 0x3
+ 2086 00ee 0E       		.uleb128 0xe
+ 2087 00ef 3A       		.uleb128 0x3a
+ 2088 00f0 0B       		.uleb128 0xb
+ 2089 00f1 3B       		.uleb128 0x3b
+ 2090 00f2 05       		.uleb128 0x5
+ 2091 00f3 27       		.uleb128 0x27
+ 2092 00f4 19       		.uleb128 0x19
+ 2093 00f5 49       		.uleb128 0x49
+ 2094 00f6 13       		.uleb128 0x13
+ 2095 00f7 11       		.uleb128 0x11
+ 2096 00f8 01       		.uleb128 0x1
+ 2097 00f9 12       		.uleb128 0x12
+ 2098 00fa 06       		.uleb128 0x6
+ 2099 00fb 40       		.uleb128 0x40
+ 2100 00fc 18       		.uleb128 0x18
+ 2101 00fd 9642     		.uleb128 0x2116
+ 2102 00ff 19       		.uleb128 0x19
+ 2103 0100 01       		.uleb128 0x1
+ 2104 0101 13       		.uleb128 0x13
+ 2105 0102 00       		.byte	0
+ 2106 0103 00       		.byte	0
+ 2107 0104 0F       		.uleb128 0xf
+ 2108 0105 2E       		.uleb128 0x2e
+ 2109 0106 01       		.byte	0x1
+ 2110 0107 3F       		.uleb128 0x3f
+ 2111 0108 19       		.uleb128 0x19
+ 2112 0109 03       		.uleb128 0x3
+ 2113 010a 0E       		.uleb128 0xe
+ 2114 010b 3A       		.uleb128 0x3a
+ 2115 010c 0B       		.uleb128 0xb
+ 2116 010d 3B       		.uleb128 0x3b
+ 2117 010e 05       		.uleb128 0x5
+ 2118 010f 27       		.uleb128 0x27
+ 2119 0110 19       		.uleb128 0x19
+ 2120 0111 11       		.uleb128 0x11
+ 2121 0112 01       		.uleb128 0x1
+ 2122 0113 12       		.uleb128 0x12
+ 2123 0114 06       		.uleb128 0x6
+ 2124 0115 40       		.uleb128 0x40
+ 2125 0116 18       		.uleb128 0x18
+ 2126 0117 9742     		.uleb128 0x2117
+ 2127 0119 19       		.uleb128 0x19
+ 2128 011a 01       		.uleb128 0x1
+ 2129 011b 13       		.uleb128 0x13
+ 2130 011c 00       		.byte	0
+ 2131 011d 00       		.byte	0
+ 2132 011e 10       		.uleb128 0x10
+ 2133 011f 2E       		.uleb128 0x2e
+ 2134 0120 01       		.byte	0x1
+ 2135 0121 3F       		.uleb128 0x3f
+ 2136 0122 19       		.uleb128 0x19
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 54
+
+
+ 2137 0123 03       		.uleb128 0x3
+ 2138 0124 0E       		.uleb128 0xe
+ 2139 0125 3A       		.uleb128 0x3a
+ 2140 0126 0B       		.uleb128 0xb
+ 2141 0127 3B       		.uleb128 0x3b
+ 2142 0128 05       		.uleb128 0x5
+ 2143 0129 27       		.uleb128 0x27
+ 2144 012a 19       		.uleb128 0x19
+ 2145 012b 11       		.uleb128 0x11
+ 2146 012c 01       		.uleb128 0x1
+ 2147 012d 12       		.uleb128 0x12
+ 2148 012e 06       		.uleb128 0x6
+ 2149 012f 40       		.uleb128 0x40
+ 2150 0130 18       		.uleb128 0x18
+ 2151 0131 9642     		.uleb128 0x2116
+ 2152 0133 19       		.uleb128 0x19
+ 2153 0134 01       		.uleb128 0x1
+ 2154 0135 13       		.uleb128 0x13
+ 2155 0136 00       		.byte	0
+ 2156 0137 00       		.byte	0
+ 2157 0138 11       		.uleb128 0x11
+ 2158 0139 01       		.uleb128 0x1
+ 2159 013a 01       		.byte	0x1
+ 2160 013b 49       		.uleb128 0x49
+ 2161 013c 13       		.uleb128 0x13
+ 2162 013d 01       		.uleb128 0x1
+ 2163 013e 13       		.uleb128 0x13
+ 2164 013f 00       		.byte	0
+ 2165 0140 00       		.byte	0
+ 2166 0141 12       		.uleb128 0x12
+ 2167 0142 21       		.uleb128 0x21
+ 2168 0143 00       		.byte	0
+ 2169 0144 49       		.uleb128 0x49
+ 2170 0145 13       		.uleb128 0x13
+ 2171 0146 2F       		.uleb128 0x2f
+ 2172 0147 0B       		.uleb128 0xb
+ 2173 0148 00       		.byte	0
+ 2174 0149 00       		.byte	0
+ 2175 014a 13       		.uleb128 0x13
+ 2176 014b 26       		.uleb128 0x26
+ 2177 014c 00       		.byte	0
+ 2178 014d 49       		.uleb128 0x49
+ 2179 014e 13       		.uleb128 0x13
+ 2180 014f 00       		.byte	0
+ 2181 0150 00       		.byte	0
+ 2182 0151 14       		.uleb128 0x14
+ 2183 0152 34       		.uleb128 0x34
+ 2184 0153 00       		.byte	0
+ 2185 0154 03       		.uleb128 0x3
+ 2186 0155 0E       		.uleb128 0xe
+ 2187 0156 3A       		.uleb128 0x3a
+ 2188 0157 0B       		.uleb128 0xb
+ 2189 0158 3B       		.uleb128 0x3b
+ 2190 0159 0B       		.uleb128 0xb
+ 2191 015a 49       		.uleb128 0x49
+ 2192 015b 13       		.uleb128 0x13
+ 2193 015c 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 55
+
+
+ 2194 015d 19       		.uleb128 0x19
+ 2195 015e 02       		.uleb128 0x2
+ 2196 015f 18       		.uleb128 0x18
+ 2197 0160 00       		.byte	0
+ 2198 0161 00       		.byte	0
+ 2199 0162 00       		.byte	0
+ 2200              		.section	.debug_aranges,"",%progbits
+ 2201 0000 A4000000 		.4byte	0xa4
+ 2202 0004 0200     		.2byte	0x2
+ 2203 0006 00000000 		.4byte	.Ldebug_info0
+ 2204 000a 04       		.byte	0x4
+ 2205 000b 00       		.byte	0
+ 2206 000c 0000     		.2byte	0
+ 2207 000e 0000     		.2byte	0
+ 2208 0010 00000000 		.4byte	.LFB2
+ 2209 0014 24000000 		.4byte	.LFE2-.LFB2
+ 2210 0018 00000000 		.4byte	.LFB3
+ 2211 001c D8010000 		.4byte	.LFE3-.LFB3
+ 2212 0020 00000000 		.4byte	.LFB4
+ 2213 0024 38000000 		.4byte	.LFE4-.LFB4
+ 2214 0028 00000000 		.4byte	.LFB5
+ 2215 002c 1C000000 		.4byte	.LFE5-.LFB5
+ 2216 0030 00000000 		.4byte	.LFB6
+ 2217 0034 1C000000 		.4byte	.LFE6-.LFB6
+ 2218 0038 00000000 		.4byte	.LFB7
+ 2219 003c 20000000 		.4byte	.LFE7-.LFB7
+ 2220 0040 00000000 		.4byte	.LFB8
+ 2221 0044 48000000 		.4byte	.LFE8-.LFB8
+ 2222 0048 00000000 		.4byte	.LFB9
+ 2223 004c 44000000 		.4byte	.LFE9-.LFB9
+ 2224 0050 00000000 		.4byte	.LFB10
+ 2225 0054 20000000 		.4byte	.LFE10-.LFB10
+ 2226 0058 00000000 		.4byte	.LFB11
+ 2227 005c 30000000 		.4byte	.LFE11-.LFB11
+ 2228 0060 00000000 		.4byte	.LFB12
+ 2229 0064 30000000 		.4byte	.LFE12-.LFB12
+ 2230 0068 00000000 		.4byte	.LFB13
+ 2231 006c 20000000 		.4byte	.LFE13-.LFB13
+ 2232 0070 00000000 		.4byte	.LFB14
+ 2233 0074 20000000 		.4byte	.LFE14-.LFB14
+ 2234 0078 00000000 		.4byte	.LFB15
+ 2235 007c 34000000 		.4byte	.LFE15-.LFB15
+ 2236 0080 00000000 		.4byte	.LFB16
+ 2237 0084 2C000000 		.4byte	.LFE16-.LFB16
+ 2238 0088 00000000 		.4byte	.LFB17
+ 2239 008c A0000000 		.4byte	.LFE17-.LFB17
+ 2240 0090 00000000 		.4byte	.LFB18
+ 2241 0094 90000000 		.4byte	.LFE18-.LFB18
+ 2242 0098 00000000 		.4byte	.LFB19
+ 2243 009c 80000000 		.4byte	.LFE19-.LFB19
+ 2244 00a0 00000000 		.4byte	0
+ 2245 00a4 00000000 		.4byte	0
+ 2246              		.section	.debug_ranges,"",%progbits
+ 2247              	.Ldebug_ranges0:
+ 2248 0000 00000000 		.4byte	.LFB2
+ 2249 0004 24000000 		.4byte	.LFE2
+ 2250 0008 00000000 		.4byte	.LFB3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 56
+
+
+ 2251 000c D8010000 		.4byte	.LFE3
+ 2252 0010 00000000 		.4byte	.LFB4
+ 2253 0014 38000000 		.4byte	.LFE4
+ 2254 0018 00000000 		.4byte	.LFB5
+ 2255 001c 1C000000 		.4byte	.LFE5
+ 2256 0020 00000000 		.4byte	.LFB6
+ 2257 0024 1C000000 		.4byte	.LFE6
+ 2258 0028 00000000 		.4byte	.LFB7
+ 2259 002c 20000000 		.4byte	.LFE7
+ 2260 0030 00000000 		.4byte	.LFB8
+ 2261 0034 48000000 		.4byte	.LFE8
+ 2262 0038 00000000 		.4byte	.LFB9
+ 2263 003c 44000000 		.4byte	.LFE9
+ 2264 0040 00000000 		.4byte	.LFB10
+ 2265 0044 20000000 		.4byte	.LFE10
+ 2266 0048 00000000 		.4byte	.LFB11
+ 2267 004c 30000000 		.4byte	.LFE11
+ 2268 0050 00000000 		.4byte	.LFB12
+ 2269 0054 30000000 		.4byte	.LFE12
+ 2270 0058 00000000 		.4byte	.LFB13
+ 2271 005c 20000000 		.4byte	.LFE13
+ 2272 0060 00000000 		.4byte	.LFB14
+ 2273 0064 20000000 		.4byte	.LFE14
+ 2274 0068 00000000 		.4byte	.LFB15
+ 2275 006c 34000000 		.4byte	.LFE15
+ 2276 0070 00000000 		.4byte	.LFB16
+ 2277 0074 2C000000 		.4byte	.LFE16
+ 2278 0078 00000000 		.4byte	.LFB17
+ 2279 007c A0000000 		.4byte	.LFE17
+ 2280 0080 00000000 		.4byte	.LFB18
+ 2281 0084 90000000 		.4byte	.LFE18
+ 2282 0088 00000000 		.4byte	.LFB19
+ 2283 008c 80000000 		.4byte	.LFE19
+ 2284 0090 00000000 		.4byte	0
+ 2285 0094 00000000 		.4byte	0
+ 2286              		.section	.debug_line,"",%progbits
+ 2287              	.Ldebug_line0:
+ 2288 0000 A7020000 		.section	.debug_str,"MS",%progbits,1
+ 2288      02004F00 
+ 2288      00000201 
+ 2288      FB0E0D00 
+ 2288      01010101 
+ 2289              	.LASF10:
+ 2290 0000 75696E74 		.ascii	"uint16\000"
+ 2290      313600
+ 2291              	.LASF58:
+ 2292 0007 4144435F 		.ascii	"ADC_SAR_Seq_Button_offset\000"
+ 2292      5341525F 
+ 2292      5365715F 
+ 2292      42757474 
+ 2292      6F6E5F6F 
+ 2293              	.LASF48:
+ 2294 0021 61646347 		.ascii	"adcGain\000"
+ 2294      61696E00 
+ 2295              	.LASF24:
+ 2296 0029 636F756E 		.ascii	"counts\000"
+ 2296      747300
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 57
+
+
+ 2297              	.LASF55:
+ 2298 0030 766F6C74 		.ascii	"volts\000"
+ 2298      7300
+ 2299              	.LASF7:
+ 2300 0036 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2300      206C6F6E 
+ 2300      6720756E 
+ 2300      7369676E 
+ 2300      65642069 
+ 2301              	.LASF32:
+ 2302 004d 4144435F 		.ascii	"ADC_SAR_Seq_Button_GetResult16\000"
+ 2302      5341525F 
+ 2302      5365715F 
+ 2302      42757474 
+ 2302      6F6E5F47 
+ 2303              	.LASF6:
+ 2304 006c 6C6F6E67 		.ascii	"long long int\000"
+ 2304      206C6F6E 
+ 2304      6720696E 
+ 2304      7400
+ 2305              	.LASF0:
+ 2306 007a 7369676E 		.ascii	"signed char\000"
+ 2306      65642063 
+ 2306      68617200 
+ 2307              	.LASF13:
+ 2308 0086 696E7433 		.ascii	"int32\000"
+ 2308      3200
+ 2309              	.LASF4:
+ 2310 008c 6C6F6E67 		.ascii	"long int\000"
+ 2310      20696E74 
+ 2310      00
+ 2311              	.LASF9:
+ 2312 0095 75696E74 		.ascii	"uint8\000"
+ 2312      3800
+ 2313              	.LASF29:
+ 2314 009b 4144435F 		.ascii	"ADC_SAR_Seq_Button_StopConvert\000"
+ 2314      5341525F 
+ 2314      5365715F 
+ 2314      42757474 
+ 2314      6F6E5F53 
+ 2315              	.LASF16:
+ 2316 00ba 646F7562 		.ascii	"double\000"
+ 2316      6C6500
+ 2317              	.LASF59:
+ 2318 00c1 4144435F 		.ascii	"ADC_SAR_Seq_Button_countsPer10Volt\000"
+ 2318      5341525F 
+ 2318      5365715F 
+ 2318      42757474 
+ 2318      6F6E5F63 
+ 2319              	.LASF11:
+ 2320 00e4 75696E74 		.ascii	"uint32\000"
+ 2320      333200
+ 2321              	.LASF44:
+ 2322 00eb 4144435F 		.ascii	"ADC_SAR_Seq_Button_SetSatMask\000"
+ 2322      5341525F 
+ 2322      5365715F 
+ 2322      42757474 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 58
+
+
+ 2322      6F6E5F53 
+ 2323              	.LASF38:
+ 2324 0109 6D61736B 		.ascii	"mask\000"
+ 2324      00
+ 2325              	.LASF33:
+ 2326 010e 7265744D 		.ascii	"retMode\000"
+ 2326      6F646500 
+ 2327              	.LASF8:
+ 2328 0116 756E7369 		.ascii	"unsigned int\000"
+ 2328      676E6564 
+ 2328      20696E74 
+ 2328      00
+ 2329              	.LASF45:
+ 2330 0123 4144435F 		.ascii	"ADC_SAR_Seq_Button_SetOffset\000"
+ 2330      5341525F 
+ 2330      5365715F 
+ 2330      42757474 
+ 2330      6F6E5F53 
+ 2331              	.LASF53:
+ 2332 0140 75566F6C 		.ascii	"uVolts\000"
+ 2332      747300
+ 2333              	.LASF5:
+ 2334 0147 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2334      20756E73 
+ 2334      69676E65 
+ 2334      6420696E 
+ 2334      7400
+ 2335              	.LASF61:
+ 2336 0159 47656E65 		.ascii	"Generated_Source\\PSoC4\\ADC_SAR_Seq_Button.c\000"
+ 2336      72617465 
+ 2336      645F536F 
+ 2336      75726365 
+ 2336      5C50536F 
+ 2337              	.LASF23:
+ 2338 0185 746D7052 		.ascii	"tmpRegVal\000"
+ 2338      65675661 
+ 2338      6C00
+ 2339              	.LASF62:
+ 2340 018f 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Desktop\\Fan_Test_No_Display\\"
+ 2340      73657273 
+ 2340      5C627279 
+ 2340      616E2E6C 
+ 2340      65655C44 
+ 2341 01be 43617053 		.ascii	"CapSense_CSD_P4_Design01.cydsn\000"
+ 2341      656E7365 
+ 2341      5F435344 
+ 2341      5F50345F 
+ 2341      44657369 
+ 2342              	.LASF3:
+ 2343 01dd 73686F72 		.ascii	"short unsigned int\000"
+ 2343      7420756E 
+ 2343      7369676E 
+ 2343      65642069 
+ 2343      6E7400
+ 2344              	.LASF37:
+ 2345 01f0 4144435F 		.ascii	"ADC_SAR_Seq_Button_SetChanMask\000"
+ 2345      5341525F 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 59
+
+
+ 2345      5365715F 
+ 2345      42757474 
+ 2345      6F6E5F53 
+ 2346              	.LASF56:
+ 2347 020f 4144435F 		.ascii	"ADC_SAR_Seq_Button_channelsConfig\000"
+ 2347      5341525F 
+ 2347      5365715F 
+ 2347      42757474 
+ 2347      6F6E5F63 
+ 2348              	.LASF60:
+ 2349 0231 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2349      43313120 
+ 2349      352E342E 
+ 2349      31203230 
+ 2349      31363036 
+ 2350 0264 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 2350      20726576 
+ 2350      6973696F 
+ 2350      6E203233 
+ 2350      37373135 
+ 2351 0297 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 2351      66756E63 
+ 2351      74696F6E 
+ 2351      2D736563 
+ 2351      74696F6E 
+ 2352              	.LASF51:
+ 2353 02bf 6D566F6C 		.ascii	"mVolts\000"
+ 2353      747300
+ 2354              	.LASF39:
+ 2355 02c6 4144435F 		.ascii	"ADC_SAR_Seq_Button_SetLowLimit\000"
+ 2355      5341525F 
+ 2355      5365715F 
+ 2355      42757474 
+ 2355      6F6E5F53 
+ 2356              	.LASF19:
+ 2357 02e5 72656733 		.ascii	"reg32\000"
+ 2357      3200
+ 2358              	.LASF43:
+ 2359 02eb 4144435F 		.ascii	"ADC_SAR_Seq_Button_SetLimitMask\000"
+ 2359      5341525F 
+ 2359      5365715F 
+ 2359      42757474 
+ 2359      6F6E5F53 
+ 2360              	.LASF14:
+ 2361 030b 666C6F61 		.ascii	"float32\000"
+ 2361      74333200 
+ 2362              	.LASF21:
+ 2363 0313 73697A65 		.ascii	"sizetype\000"
+ 2363      74797065 
+ 2363      00
+ 2364              	.LASF26:
+ 2365 031c 4144435F 		.ascii	"ADC_SAR_Seq_Button_Enable\000"
+ 2365      5341525F 
+ 2365      5365715F 
+ 2365      42757474 
+ 2365      6F6E5F45 
+ 2366              	.LASF40:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 60
+
+
+ 2367 0336 6C6F774C 		.ascii	"lowLimit\000"
+ 2367      696D6974 
+ 2367      00
+ 2368              	.LASF25:
+ 2369 033f 4144435F 		.ascii	"ADC_SAR_Seq_Button_Start\000"
+ 2369      5341525F 
+ 2369      5365715F 
+ 2369      42757474 
+ 2369      6F6E5F53 
+ 2370              	.LASF20:
+ 2371 0358 6C6F6E67 		.ascii	"long double\000"
+ 2371      20646F75 
+ 2371      626C6500 
+ 2372              	.LASF57:
+ 2373 0364 4144435F 		.ascii	"ADC_SAR_Seq_Button_initVar\000"
+ 2373      5341525F 
+ 2373      5365715F 
+ 2373      42757474 
+ 2373      6F6E5F69 
+ 2374              	.LASF52:
+ 2375 037f 4144435F 		.ascii	"ADC_SAR_Seq_Button_CountsTo_uVolts\000"
+ 2375      5341525F 
+ 2375      5365715F 
+ 2375      42757474 
+ 2375      6F6E5F43 
+ 2376              	.LASF17:
+ 2377 03a2 696E7436 		.ascii	"int64\000"
+ 2377      3400
+ 2378              	.LASF28:
+ 2379 03a8 4144435F 		.ascii	"ADC_SAR_Seq_Button_StartConvert\000"
+ 2379      5341525F 
+ 2379      5365715F 
+ 2379      42757474 
+ 2379      6F6E5F53 
+ 2380              	.LASF15:
+ 2381 03c8 666C6F61 		.ascii	"float\000"
+ 2381      7400
+ 2382              	.LASF27:
+ 2383 03ce 4144435F 		.ascii	"ADC_SAR_Seq_Button_Stop\000"
+ 2383      5341525F 
+ 2383      5365715F 
+ 2383      42757474 
+ 2383      6F6E5F53 
+ 2384              	.LASF42:
+ 2385 03e6 68696768 		.ascii	"highLimit\000"
+ 2385      4C696D69 
+ 2385      7400
+ 2386              	.LASF1:
+ 2387 03f0 756E7369 		.ascii	"unsigned char\000"
+ 2387      676E6564 
+ 2387      20636861 
+ 2387      7200
+ 2388              	.LASF2:
+ 2389 03fe 73686F72 		.ascii	"short int\000"
+ 2389      7420696E 
+ 2389      7400
+ 2390              	.LASF49:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 61
+
+
+ 2391 0408 4144435F 		.ascii	"ADC_SAR_Seq_Button_CountsTo_mVolts\000"
+ 2391      5341525F 
+ 2391      5365715F 
+ 2391      42757474 
+ 2391      6F6E5F43 
+ 2392              	.LASF54:
+ 2393 042b 4144435F 		.ascii	"ADC_SAR_Seq_Button_CountsTo_Volts\000"
+ 2393      5341525F 
+ 2393      5365715F 
+ 2393      42757474 
+ 2393      6F6E5F43 
+ 2394              	.LASF22:
+ 2395 044d 63684E75 		.ascii	"chNum\000"
+ 2395      6D00
+ 2396              	.LASF34:
+ 2397 0453 6368616E 		.ascii	"chan\000"
+ 2397      00
+ 2398              	.LASF36:
+ 2399 0458 4144435F 		.ascii	"ADC_SAR_Seq_Button_Init\000"
+ 2399      5341525F 
+ 2399      5365715F 
+ 2399      42757474 
+ 2399      6F6E5F49 
+ 2400              	.LASF18:
+ 2401 0470 63686172 		.ascii	"char\000"
+ 2401      00
+ 2402              	.LASF41:
+ 2403 0475 4144435F 		.ascii	"ADC_SAR_Seq_Button_SetHighLimit\000"
+ 2403      5341525F 
+ 2403      5365715F 
+ 2403      42757474 
+ 2403      6F6E5F53 
+ 2404              	.LASF46:
+ 2405 0495 6F666673 		.ascii	"offset\000"
+ 2405      657400
+ 2406              	.LASF50:
+ 2407 049c 61646343 		.ascii	"adcCounts\000"
+ 2407      6F756E74 
+ 2407      7300
+ 2408              	.LASF47:
+ 2409 04a6 4144435F 		.ascii	"ADC_SAR_Seq_Button_SetGain\000"
+ 2409      5341525F 
+ 2409      5365715F 
+ 2409      42757474 
+ 2409      6F6E5F53 
+ 2410              	.LASF30:
+ 2411 04c1 73746174 		.ascii	"status\000"
+ 2411      757300
+ 2412              	.LASF31:
+ 2413 04c8 4144435F 		.ascii	"ADC_SAR_Seq_Button_IsEndConversion\000"
+ 2413      5341525F 
+ 2413      5365715F 
+ 2413      42757474 
+ 2413      6F6E5F49 
+ 2414              	.LASF12:
+ 2415 04eb 696E7431 		.ascii	"int16\000"
+ 2415      3600
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccc6AJ9h.s 			page 62
+
+
+ 2416              	.LASF35:
+ 2417 04f1 72657375 		.ascii	"result\000"
+ 2417      6C7400
+ 2418              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
