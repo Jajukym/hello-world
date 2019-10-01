@@ -1,0 +1,1751 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.ButtonFunction,"ax",%progbits
+  20              		.align	2
+  21              		.global	ButtonFunction
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	ButtonFunction, %function
+  25              	ButtonFunction:
+  26              	.LFB38:
+  27              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include <project.h>
+  13:main.c        **** #include <cyapicallbacks.h>
+  14:main.c        **** 
+  15:main.c        **** int16 x = 0;                            //Number of programs
+  16:main.c        **** void ButtonFunction();
+  17:main.c        **** 
+  18:main.c        **** 
+  19:main.c        **** 
+  20:main.c        **** int main()
+  21:main.c        **** {
+  22:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  23:main.c        ****     ADC_SAR_Seq_Button_Start();
+  24:main.c        ****     ADC_SAR_Seq_Button_StartConvert();
+  25:main.c        ****     PWMBacklight_Start();
+  26:main.c        ****     PWMBacklight_WriteCompare(32768);
+  27:main.c        ****     LCD_Start();
+  28:main.c        ****     LCD_ClearDisplay();
+  29:main.c        ****     LCD_Position(0,1);
+  30:main.c        ****     LCD_PrintString("Legacy Program");
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 2
+
+
+  31:main.c        ****     LCD_Position(1,5);
+  32:main.c        ****     LCD_PrintString("Test");
+  33:main.c        ****     CyDelay(2000);
+  34:main.c        ****     LCD_ClearDisplay();
+  35:main.c        ****     LCD_Position(0,0);
+  36:main.c        ****     LCD_PrintString("Program #: ");
+  37:main.c        ****     LCD_Position(0,11);
+  38:main.c        ****     LCD_PrintNumber(x);
+  39:main.c        ****     
+  40:main.c        **** 
+  41:main.c        **** 
+  42:main.c        ****     for(;;)
+  43:main.c        ****     {
+  44:main.c        ****         int16 button = ADC_SAR_Seq_Button_GetResult16(0);
+  45:main.c        ****         LCD_Position(1,0);
+  46:main.c        ****         LCD_PrintString("       ");
+  47:main.c        ****         if (button != NO)
+  48:main.c        ****         {
+  49:main.c        ****             ButtonFunction();
+  50:main.c        ****         }
+  51:main.c        ****         LCD_Position(0,11);
+  52:main.c        ****         if (x < 1000)
+  53:main.c        ****         {
+  54:main.c        ****             pinReset_Write(1);
+  55:main.c        ****             CyDelay(500);
+  56:main.c        ****             pinReset_Write(0);
+  57:main.c        ****             CyDelay(500);
+  58:main.c        ****             pinPower_Write(1);
+  59:main.c        ****             CyDelay(1000);
+  60:main.c        ****             pinPower_Write(0);
+  61:main.c        ****             CyDelay(335000);                  //Programming time
+  62:main.c        ****             x ++;
+  63:main.c        ****             LCD_PrintNumber(x);
+  64:main.c        ****         }
+  65:main.c        ****         else
+  66:main.c        ****         {
+  67:main.c        ****            //do nothing
+  68:main.c        ****         }
+  69:main.c        ****     }
+  70:main.c        **** }
+  71:main.c        **** 
+  72:main.c        **** /* [] END OF FILE */
+  73:main.c        **** 
+  74:main.c        **** /*************************************************************
+  75:main.c        **** Button functions
+  76:main.c        **** *************************************************************/
+  77:main.c        **** void ButtonFunction()
+  78:main.c        **** {
+  28              		.loc 1 78 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  79:main.c        ****     int16 buttonfunction = ADC_SAR_Seq_Button_GetResult16(0);
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 3
+
+
+  36              		.loc 1 79 0
+  37 0002 0020     		movs	r0, #0
+  38 0004 FFF7FEFF 		bl	ADC_SAR_Seq_Button_GetResult16
+  39              	.LVL0:
+  80:main.c        ****     switch (buttonfunction)
+  40              		.loc 1 80 0
+  41 0008 2E28     		cmp	r0, #46
+  42 000a 12D0     		beq	.L3
+  43 000c 04DC     		bgt	.L4
+  44 000e 0028     		cmp	r0, #0
+  45 0010 1FD0     		beq	.L5
+  46 0012 1228     		cmp	r0, #18
+  47 0014 05D0     		beq	.L6
+  48 0016 2CE0     		b	.L2
+  49              	.L4:
+  50 0018 4A28     		cmp	r0, #74
+  51 001a 12D0     		beq	.L7
+  52 001c 7328     		cmp	r0, #115
+  53 001e 20D0     		beq	.L8
+  54 0020 27E0     		b	.L2
+  55              	.L6:
+  81:main.c        ****         {
+  82:main.c        ****             case U:
+  83:main.c        ****             {
+  84:main.c        ****                 LCD_Position(1,0);
+  56              		.loc 1 84 0
+  57 0022 0021     		movs	r1, #0
+  58 0024 0120     		movs	r0, #1
+  59              	.LVL1:
+  60 0026 FFF7FEFF 		bl	LCD_Position
+  61              	.LVL2:
+  85:main.c        ****                 LCD_PrintString("UP");
+  62              		.loc 1 85 0
+  63 002a 1648     		ldr	r0, .L10
+  64 002c FFF7FEFF 		bl	LCD_PrintString
+  65              	.LVL3:
+  86:main.c        ****                 break;
+  66              		.loc 1 86 0
+  67 0030 26E0     		b	.L1
+  68              	.LVL4:
+  69              	.L3:
+  87:main.c        ****             }
+  88:main.c        ****             case D:
+  89:main.c        ****             {
+  90:main.c        ****                 LCD_Position(1,0);
+  70              		.loc 1 90 0
+  71 0032 0021     		movs	r1, #0
+  72 0034 0120     		movs	r0, #1
+  73              	.LVL5:
+  74 0036 FFF7FEFF 		bl	LCD_Position
+  75              	.LVL6:
+  91:main.c        ****                 LCD_PrintString("DOWN");
+  76              		.loc 1 91 0
+  77 003a 1348     		ldr	r0, .L10+4
+  78 003c FFF7FEFF 		bl	LCD_PrintString
+  79              	.LVL7:
+  92:main.c        ****                 break;
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 4
+
+
+  80              		.loc 1 92 0
+  81 0040 1EE0     		b	.L1
+  82              	.LVL8:
+  83              	.L7:
+  93:main.c        ****             }
+  94:main.c        ****             case L:
+  95:main.c        ****             {
+  96:main.c        ****                 LCD_Position(1,0);
+  84              		.loc 1 96 0
+  85 0042 0021     		movs	r1, #0
+  86 0044 0120     		movs	r0, #1
+  87              	.LVL9:
+  88 0046 FFF7FEFF 		bl	LCD_Position
+  89              	.LVL10:
+  97:main.c        ****                 LCD_PrintString("LEFT");
+  90              		.loc 1 97 0
+  91 004a 1048     		ldr	r0, .L10+8
+  92 004c FFF7FEFF 		bl	LCD_PrintString
+  93              	.LVL11:
+  98:main.c        ****                 break;
+  94              		.loc 1 98 0
+  95 0050 16E0     		b	.L1
+  96              	.LVL12:
+  97              	.L5:
+  99:main.c        ****             }
+ 100:main.c        ****             case R:
+ 101:main.c        ****             {
+ 102:main.c        ****                 LCD_Position(1,0);
+  98              		.loc 1 102 0
+  99 0052 0021     		movs	r1, #0
+ 100 0054 0120     		movs	r0, #1
+ 101              	.LVL13:
+ 102 0056 FFF7FEFF 		bl	LCD_Position
+ 103              	.LVL14:
+ 103:main.c        ****                 LCD_PrintString("RIGHT");
+ 104              		.loc 1 103 0
+ 105 005a 0D48     		ldr	r0, .L10+12
+ 106 005c FFF7FEFF 		bl	LCD_PrintString
+ 107              	.LVL15:
+ 104:main.c        ****                 break;
+ 108              		.loc 1 104 0
+ 109 0060 0EE0     		b	.L1
+ 110              	.LVL16:
+ 111              	.L8:
+ 105:main.c        ****             }
+ 106:main.c        ****             case S:
+ 107:main.c        ****             {
+ 108:main.c        ****                 LCD_Position(1,0);
+ 112              		.loc 1 108 0
+ 113 0062 0021     		movs	r1, #0
+ 114 0064 0120     		movs	r0, #1
+ 115              	.LVL17:
+ 116 0066 FFF7FEFF 		bl	LCD_Position
+ 117              	.LVL18:
+ 109:main.c        ****                 LCD_PrintString("SELECT");
+ 118              		.loc 1 109 0
+ 119 006a 0A48     		ldr	r0, .L10+16
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 5
+
+
+ 120 006c FFF7FEFF 		bl	LCD_PrintString
+ 121              	.LVL19:
+ 110:main.c        ****                 break;
+ 122              		.loc 1 110 0
+ 123 0070 06E0     		b	.L1
+ 124              	.LVL20:
+ 125              	.L2:
+ 111:main.c        ****             }
+ 112:main.c        ****             default:
+ 113:main.c        ****             {
+ 114:main.c        ****                 LCD_Position(1,0);
+ 126              		.loc 1 114 0
+ 127 0072 0021     		movs	r1, #0
+ 128 0074 0120     		movs	r0, #1
+ 129              	.LVL21:
+ 130 0076 FFF7FEFF 		bl	LCD_Position
+ 131              	.LVL22:
+ 115:main.c        ****                 LCD_PrintString("       ");
+ 132              		.loc 1 115 0
+ 133 007a 0748     		ldr	r0, .L10+20
+ 134 007c FFF7FEFF 		bl	LCD_PrintString
+ 135              	.LVL23:
+ 136              	.L1:
+ 116:main.c        ****                 break;
+ 117:main.c        ****                
+ 118:main.c        ****             }
+ 119:main.c        ****         }
+ 120:main.c        **** }...
+ 137              		.loc 1 120 0
+ 138              		@ sp needed
+ 139 0080 10BD     		pop	{r4, pc}
+ 140              	.L11:
+ 141 0082 C046     		.align	2
+ 142              	.L10:
+ 143 0084 00000000 		.word	.LC0
+ 144 0088 04000000 		.word	.LC2
+ 145 008c 0C000000 		.word	.LC4
+ 146 0090 14000000 		.word	.LC6
+ 147 0094 1C000000 		.word	.LC8
+ 148 0098 24000000 		.word	.LC10
+ 149              		.cfi_endproc
+ 150              	.LFE38:
+ 151              		.size	ButtonFunction, .-ButtonFunction
+ 152              		.section	.text.main,"ax",%progbits
+ 153              		.align	2
+ 154              		.global	main
+ 155              		.code	16
+ 156              		.thumb_func
+ 157              		.type	main, %function
+ 158              	main:
+ 159              	.LFB37:
+  21:main.c        **** {
+ 160              		.loc 1 21 0
+ 161              		.cfi_startproc
+ 162              		@ args = 0, pretend = 0, frame = 0
+ 163              		@ frame_needed = 0, uses_anonymous_args = 0
+ 164 0000 10B5     		push	{r4, lr}
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 6
+
+
+ 165              		.cfi_def_cfa_offset 8
+ 166              		.cfi_offset 4, -8
+ 167              		.cfi_offset 14, -4
+  22:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+ 168              		.loc 1 22 0
+ 169              		.syntax divided
+ 170              	@ 22 "main.c" 1
+ 171 0002 62B6     		CPSIE   i
+ 172              	@ 0 "" 2
+  23:main.c        ****     ADC_SAR_Seq_Button_Start();
+ 173              		.loc 1 23 0
+ 174              		.thumb
+ 175              		.syntax unified
+ 176 0004 FFF7FEFF 		bl	ADC_SAR_Seq_Button_Start
+ 177              	.LVL24:
+  24:main.c        ****     ADC_SAR_Seq_Button_StartConvert();
+ 178              		.loc 1 24 0
+ 179 0008 FFF7FEFF 		bl	ADC_SAR_Seq_Button_StartConvert
+ 180              	.LVL25:
+  25:main.c        ****     PWMBacklight_Start();
+ 181              		.loc 1 25 0
+ 182 000c FFF7FEFF 		bl	PWMBacklight_Start
+ 183              	.LVL26:
+  26:main.c        ****     PWMBacklight_WriteCompare(32768);
+ 184              		.loc 1 26 0
+ 185 0010 8020     		movs	r0, #128
+ 186 0012 0002     		lsls	r0, r0, #8
+ 187 0014 FFF7FEFF 		bl	PWMBacklight_WriteCompare
+ 188              	.LVL27:
+  27:main.c        ****     LCD_Start();
+ 189              		.loc 1 27 0
+ 190 0018 FFF7FEFF 		bl	LCD_Start
+ 191              	.LVL28:
+  28:main.c        ****     LCD_ClearDisplay();
+ 192              		.loc 1 28 0
+ 193 001c 0120     		movs	r0, #1
+ 194 001e FFF7FEFF 		bl	LCD_WriteControl
+ 195              	.LVL29:
+  29:main.c        ****     LCD_Position(0,1);
+ 196              		.loc 1 29 0
+ 197 0022 0121     		movs	r1, #1
+ 198 0024 0020     		movs	r0, #0
+ 199 0026 FFF7FEFF 		bl	LCD_Position
+ 200              	.LVL30:
+  30:main.c        ****     LCD_PrintString("Legacy Program");
+ 201              		.loc 1 30 0
+ 202 002a 2E48     		ldr	r0, .L16
+ 203 002c FFF7FEFF 		bl	LCD_PrintString
+ 204              	.LVL31:
+  31:main.c        ****     LCD_Position(1,5);
+ 205              		.loc 1 31 0
+ 206 0030 0521     		movs	r1, #5
+ 207 0032 0120     		movs	r0, #1
+ 208 0034 FFF7FEFF 		bl	LCD_Position
+ 209              	.LVL32:
+  32:main.c        ****     LCD_PrintString("Test");
+ 210              		.loc 1 32 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 7
+
+
+ 211 0038 2B48     		ldr	r0, .L16+4
+ 212 003a FFF7FEFF 		bl	LCD_PrintString
+ 213              	.LVL33:
+  33:main.c        ****     CyDelay(2000);
+ 214              		.loc 1 33 0
+ 215 003e FA20     		movs	r0, #250
+ 216 0040 C000     		lsls	r0, r0, #3
+ 217 0042 FFF7FEFF 		bl	CyDelay
+ 218              	.LVL34:
+  34:main.c        ****     LCD_ClearDisplay();
+ 219              		.loc 1 34 0
+ 220 0046 0120     		movs	r0, #1
+ 221 0048 FFF7FEFF 		bl	LCD_WriteControl
+ 222              	.LVL35:
+  35:main.c        ****     LCD_Position(0,0);
+ 223              		.loc 1 35 0
+ 224 004c 0021     		movs	r1, #0
+ 225 004e 0020     		movs	r0, #0
+ 226 0050 FFF7FEFF 		bl	LCD_Position
+ 227              	.LVL36:
+  36:main.c        ****     LCD_PrintString("Program #: ");
+ 228              		.loc 1 36 0
+ 229 0054 2548     		ldr	r0, .L16+8
+ 230 0056 FFF7FEFF 		bl	LCD_PrintString
+ 231              	.LVL37:
+  37:main.c        ****     LCD_Position(0,11);
+ 232              		.loc 1 37 0
+ 233 005a 0B21     		movs	r1, #11
+ 234 005c 0020     		movs	r0, #0
+ 235 005e FFF7FEFF 		bl	LCD_Position
+ 236              	.LVL38:
+  38:main.c        ****     LCD_PrintNumber(x);
+ 237              		.loc 1 38 0
+ 238 0062 234B     		ldr	r3, .L16+12
+ 239 0064 1888     		ldrh	r0, [r3]
+ 240 0066 FFF7FEFF 		bl	LCD_PrintNumber
+ 241              	.LVL39:
+ 242              	.L14:
+ 243              	.LBB2:
+  44:main.c        ****         int16 button = ADC_SAR_Seq_Button_GetResult16(0);
+ 244              		.loc 1 44 0
+ 245 006a 0020     		movs	r0, #0
+ 246 006c FFF7FEFF 		bl	ADC_SAR_Seq_Button_GetResult16
+ 247              	.LVL40:
+ 248 0070 0400     		movs	r4, r0
+ 249              	.LVL41:
+  45:main.c        ****         LCD_Position(1,0);
+ 250              		.loc 1 45 0
+ 251 0072 0021     		movs	r1, #0
+ 252 0074 0120     		movs	r0, #1
+ 253 0076 FFF7FEFF 		bl	LCD_Position
+ 254              	.LVL42:
+  46:main.c        ****         LCD_PrintString("       ");
+ 255              		.loc 1 46 0
+ 256 007a 1E48     		ldr	r0, .L16+16
+ 257 007c FFF7FEFF 		bl	LCD_PrintString
+ 258              	.LVL43:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 8
+
+
+  47:main.c        ****         if (button != NO)
+ 259              		.loc 1 47 0
+ 260 0080 932C     		cmp	r4, #147
+ 261 0082 01D0     		beq	.L13
+  49:main.c        ****             ButtonFunction();
+ 262              		.loc 1 49 0
+ 263 0084 FFF7FEFF 		bl	ButtonFunction
+ 264              	.LVL44:
+ 265              	.L13:
+  51:main.c        ****         LCD_Position(0,11);
+ 266              		.loc 1 51 0
+ 267 0088 0B21     		movs	r1, #11
+ 268 008a 0020     		movs	r0, #0
+ 269 008c FFF7FEFF 		bl	LCD_Position
+ 270              	.LVL45:
+  52:main.c        ****         if (x < 1000)
+ 271              		.loc 1 52 0
+ 272 0090 174B     		ldr	r3, .L16+12
+ 273 0092 0022     		movs	r2, #0
+ 274 0094 9A5E     		ldrsh	r2, [r3, r2]
+ 275 0096 184B     		ldr	r3, .L16+20
+ 276 0098 9A42     		cmp	r2, r3
+ 277 009a E6DC     		bgt	.L14
+  54:main.c        ****             pinReset_Write(1);
+ 278              		.loc 1 54 0
+ 279 009c 0120     		movs	r0, #1
+ 280 009e FFF7FEFF 		bl	pinReset_Write
+ 281              	.LVL46:
+  55:main.c        ****             CyDelay(500);
+ 282              		.loc 1 55 0
+ 283 00a2 FA24     		movs	r4, #250
+ 284              	.LVL47:
+ 285 00a4 6400     		lsls	r4, r4, #1
+ 286 00a6 2000     		movs	r0, r4
+ 287 00a8 FFF7FEFF 		bl	CyDelay
+ 288              	.LVL48:
+  56:main.c        ****             pinReset_Write(0);
+ 289              		.loc 1 56 0
+ 290 00ac 0020     		movs	r0, #0
+ 291 00ae FFF7FEFF 		bl	pinReset_Write
+ 292              	.LVL49:
+  57:main.c        ****             CyDelay(500);
+ 293              		.loc 1 57 0
+ 294 00b2 2000     		movs	r0, r4
+ 295 00b4 FFF7FEFF 		bl	CyDelay
+ 296              	.LVL50:
+  58:main.c        ****             pinPower_Write(1);
+ 297              		.loc 1 58 0
+ 298 00b8 0120     		movs	r0, #1
+ 299 00ba FFF7FEFF 		bl	pinPower_Write
+ 300              	.LVL51:
+  59:main.c        ****             CyDelay(1000);
+ 301              		.loc 1 59 0
+ 302 00be FA20     		movs	r0, #250
+ 303 00c0 8000     		lsls	r0, r0, #2
+ 304 00c2 FFF7FEFF 		bl	CyDelay
+ 305              	.LVL52:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 9
+
+
+  60:main.c        ****             pinPower_Write(0);
+ 306              		.loc 1 60 0
+ 307 00c6 0020     		movs	r0, #0
+ 308 00c8 FFF7FEFF 		bl	pinPower_Write
+ 309              	.LVL53:
+  61:main.c        ****             CyDelay(335000);                  //Programming time
+ 310              		.loc 1 61 0
+ 311 00cc 0B48     		ldr	r0, .L16+24
+ 312 00ce FFF7FEFF 		bl	CyDelay
+ 313              	.LVL54:
+  62:main.c        ****             x ++;
+ 314              		.loc 1 62 0
+ 315 00d2 074B     		ldr	r3, .L16+12
+ 316 00d4 1888     		ldrh	r0, [r3]
+ 317 00d6 0130     		adds	r0, r0, #1
+ 318 00d8 80B2     		uxth	r0, r0
+ 319 00da 1880     		strh	r0, [r3]
+  63:main.c        ****             LCD_PrintNumber(x);
+ 320              		.loc 1 63 0
+ 321 00dc FFF7FEFF 		bl	LCD_PrintNumber
+ 322              	.LVL55:
+ 323 00e0 C3E7     		b	.L14
+ 324              	.L17:
+ 325 00e2 C046     		.align	2
+ 326              	.L16:
+ 327 00e4 2C000000 		.word	.LC12
+ 328 00e8 3C000000 		.word	.LC14
+ 329 00ec 44000000 		.word	.LC16
+ 330 00f0 00000000 		.word	.LANCHOR0
+ 331 00f4 24000000 		.word	.LC10
+ 332 00f8 E7030000 		.word	999
+ 333 00fc 981C0500 		.word	335000
+ 334              	.LBE2:
+ 335              		.cfi_endproc
+ 336              	.LFE37:
+ 337              		.size	main, .-main
+ 338              		.global	x
+ 339              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 340              		.align	2
+ 341              	.LC0:
+ 342 0000 555000   		.ascii	"UP\000"
+ 343 0003 00       		.space	1
+ 344              	.LC2:
+ 345 0004 444F574E 		.ascii	"DOWN\000"
+ 345      00
+ 346 0009 000000   		.space	3
+ 347              	.LC4:
+ 348 000c 4C454654 		.ascii	"LEFT\000"
+ 348      00
+ 349 0011 000000   		.space	3
+ 350              	.LC6:
+ 351 0014 52494748 		.ascii	"RIGHT\000"
+ 351      5400
+ 352 001a 0000     		.space	2
+ 353              	.LC8:
+ 354 001c 53454C45 		.ascii	"SELECT\000"
+ 354      435400
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 10
+
+
+ 355 0023 00       		.space	1
+ 356              	.LC10:
+ 357 0024 20202020 		.ascii	"       \000"
+ 357      20202000 
+ 358              	.LC12:
+ 359 002c 4C656761 		.ascii	"Legacy Program\000"
+ 359      63792050 
+ 359      726F6772 
+ 359      616D00
+ 360 003b 00       		.space	1
+ 361              	.LC14:
+ 362 003c 54657374 		.ascii	"Test\000"
+ 362      00
+ 363 0041 000000   		.space	3
+ 364              	.LC16:
+ 365 0044 50726F67 		.ascii	"Program #: \000"
+ 365      72616D20 
+ 365      233A2000 
+ 366              		.bss
+ 367              		.align	1
+ 368              		.set	.LANCHOR0,. + 0
+ 369              		.type	x, %object
+ 370              		.size	x, 2
+ 371              	x:
+ 372 0000 0000     		.space	2
+ 373              		.text
+ 374              	.Letext0:
+ 375              		.file 2 "Generated_Source\\PSoC4/ADC_SAR_Seq_Button.h"
+ 376              		.file 3 "Generated_Source\\PSoC4/LCD.h"
+ 377              		.file 4 "Generated_Source\\PSoC4/pinReset.h"
+ 378              		.file 5 "Generated_Source\\PSoC4/CyLib.h"
+ 379              		.file 6 "Generated_Source\\PSoC4/pinPower.h"
+ 380              		.file 7 "Generated_Source\\PSoC4/PWMBacklight.h"
+ 381              		.file 8 "Generated_Source\\PSoC4/cytypes.h"
+ 382              		.section	.debug_info,"",%progbits
+ 383              	.Ldebug_info0:
+ 384 0000 EA040000 		.4byte	0x4ea
+ 385 0004 0400     		.2byte	0x4
+ 386 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 387 000a 04       		.byte	0x4
+ 388 000b 01       		.uleb128 0x1
+ 389 000c 91010000 		.4byte	.LASF29
+ 390 0010 0C       		.byte	0xc
+ 391 0011 36020000 		.4byte	.LASF30
+ 392 0015 00000000 		.4byte	.LASF31
+ 393 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 394 001d 00000000 		.4byte	0
+ 395 0021 00000000 		.4byte	.Ldebug_line0
+ 396 0025 02       		.uleb128 0x2
+ 397 0026 01       		.byte	0x1
+ 398 0027 06       		.byte	0x6
+ 399 0028 88020000 		.4byte	.LASF0
+ 400 002c 02       		.uleb128 0x2
+ 401 002d 01       		.byte	0x1
+ 402 002e 08       		.byte	0x8
+ 403 002f D1000000 		.4byte	.LASF1
+ 404 0033 02       		.uleb128 0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 11
+
+
+ 405 0034 02       		.byte	0x2
+ 406 0035 05       		.byte	0x5
+ 407 0036 62020000 		.4byte	.LASF2
+ 408 003a 02       		.uleb128 0x2
+ 409 003b 02       		.byte	0x2
+ 410 003c 07       		.byte	0x7
+ 411 003d F7000000 		.4byte	.LASF3
+ 412 0041 02       		.uleb128 0x2
+ 413 0042 04       		.byte	0x4
+ 414 0043 05       		.byte	0x5
+ 415 0044 6C020000 		.4byte	.LASF4
+ 416 0048 02       		.uleb128 0x2
+ 417 0049 04       		.byte	0x4
+ 418 004a 07       		.byte	0x7
+ 419 004b E5000000 		.4byte	.LASF5
+ 420 004f 02       		.uleb128 0x2
+ 421 0050 08       		.byte	0x8
+ 422 0051 05       		.byte	0x5
+ 423 0052 28020000 		.4byte	.LASF6
+ 424 0056 02       		.uleb128 0x2
+ 425 0057 08       		.byte	0x8
+ 426 0058 07       		.byte	0x7
+ 427 0059 6D010000 		.4byte	.LASF7
+ 428 005d 03       		.uleb128 0x3
+ 429 005e 04       		.byte	0x4
+ 430 005f 05       		.byte	0x5
+ 431 0060 696E7400 		.ascii	"int\000"
+ 432 0064 02       		.uleb128 0x2
+ 433 0065 04       		.byte	0x4
+ 434 0066 07       		.byte	0x7
+ 435 0067 60010000 		.4byte	.LASF8
+ 436 006b 04       		.uleb128 0x4
+ 437 006c DF000000 		.4byte	.LASF32
+ 438 0070 08       		.byte	0x8
+ 439 0071 BD01     		.2byte	0x1bd
+ 440 0073 33000000 		.4byte	0x33
+ 441 0077 02       		.uleb128 0x2
+ 442 0078 04       		.byte	0x4
+ 443 0079 04       		.byte	0x4
+ 444 007a C1000000 		.4byte	.LASF9
+ 445 007e 02       		.uleb128 0x2
+ 446 007f 08       		.byte	0x8
+ 447 0080 04       		.byte	0x4
+ 448 0081 0A010000 		.4byte	.LASF10
+ 449 0085 02       		.uleb128 0x2
+ 450 0086 01       		.byte	0x1
+ 451 0087 08       		.byte	0x8
+ 452 0088 3D020000 		.4byte	.LASF11
+ 453 008c 02       		.uleb128 0x2
+ 454 008d 08       		.byte	0x8
+ 455 008e 04       		.byte	0x4
+ 456 008f 7C020000 		.4byte	.LASF12
+ 457 0093 02       		.uleb128 0x2
+ 458 0094 04       		.byte	0x4
+ 459 0095 07       		.byte	0x7
+ 460 0096 1F020000 		.4byte	.LASF13
+ 461 009a 05       		.uleb128 0x5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 12
+
+
+ 462 009b 94020000 		.4byte	.LASF33
+ 463 009f 01       		.byte	0x1
+ 464 00a0 4D       		.byte	0x4d
+ 465 00a1 00000000 		.4byte	.LFB38
+ 466 00a5 9C000000 		.4byte	.LFE38-.LFB38
+ 467 00a9 01       		.uleb128 0x1
+ 468 00aa 9C       		.byte	0x9c
+ 469 00ab E8010000 		.4byte	0x1e8
+ 470 00af 06       		.uleb128 0x6
+ 471 00b0 B2000000 		.4byte	.LASF14
+ 472 00b4 01       		.byte	0x1
+ 473 00b5 4F       		.byte	0x4f
+ 474 00b6 6B000000 		.4byte	0x6b
+ 475 00ba 00000000 		.4byte	.LLST0
+ 476 00be 07       		.uleb128 0x7
+ 477 00bf 08000000 		.4byte	.LVL0
+ 478 00c3 5C040000 		.4byte	0x45c
+ 479 00c7 D1000000 		.4byte	0xd1
+ 480 00cb 08       		.uleb128 0x8
+ 481 00cc 01       		.uleb128 0x1
+ 482 00cd 50       		.byte	0x50
+ 483 00ce 01       		.uleb128 0x1
+ 484 00cf 30       		.byte	0x30
+ 485 00d0 00       		.byte	0
+ 486 00d1 07       		.uleb128 0x7
+ 487 00d2 2A000000 		.4byte	.LVL2
+ 488 00d6 67040000 		.4byte	0x467
+ 489 00da E9000000 		.4byte	0xe9
+ 490 00de 08       		.uleb128 0x8
+ 491 00df 01       		.uleb128 0x1
+ 492 00e0 50       		.byte	0x50
+ 493 00e1 01       		.uleb128 0x1
+ 494 00e2 31       		.byte	0x31
+ 495 00e3 08       		.uleb128 0x8
+ 496 00e4 01       		.uleb128 0x1
+ 497 00e5 51       		.byte	0x51
+ 498 00e6 01       		.uleb128 0x1
+ 499 00e7 30       		.byte	0x30
+ 500 00e8 00       		.byte	0
+ 501 00e9 07       		.uleb128 0x7
+ 502 00ea 30000000 		.4byte	.LVL3
+ 503 00ee 72040000 		.4byte	0x472
+ 504 00f2 00010000 		.4byte	0x100
+ 505 00f6 08       		.uleb128 0x8
+ 506 00f7 01       		.uleb128 0x1
+ 507 00f8 50       		.byte	0x50
+ 508 00f9 05       		.uleb128 0x5
+ 509 00fa 03       		.byte	0x3
+ 510 00fb 00000000 		.4byte	.LC0
+ 511 00ff 00       		.byte	0
+ 512 0100 07       		.uleb128 0x7
+ 513 0101 3A000000 		.4byte	.LVL6
+ 514 0105 67040000 		.4byte	0x467
+ 515 0109 18010000 		.4byte	0x118
+ 516 010d 08       		.uleb128 0x8
+ 517 010e 01       		.uleb128 0x1
+ 518 010f 50       		.byte	0x50
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 13
+
+
+ 519 0110 01       		.uleb128 0x1
+ 520 0111 31       		.byte	0x31
+ 521 0112 08       		.uleb128 0x8
+ 522 0113 01       		.uleb128 0x1
+ 523 0114 51       		.byte	0x51
+ 524 0115 01       		.uleb128 0x1
+ 525 0116 30       		.byte	0x30
+ 526 0117 00       		.byte	0
+ 527 0118 07       		.uleb128 0x7
+ 528 0119 40000000 		.4byte	.LVL7
+ 529 011d 72040000 		.4byte	0x472
+ 530 0121 2F010000 		.4byte	0x12f
+ 531 0125 08       		.uleb128 0x8
+ 532 0126 01       		.uleb128 0x1
+ 533 0127 50       		.byte	0x50
+ 534 0128 05       		.uleb128 0x5
+ 535 0129 03       		.byte	0x3
+ 536 012a 04000000 		.4byte	.LC2
+ 537 012e 00       		.byte	0
+ 538 012f 07       		.uleb128 0x7
+ 539 0130 4A000000 		.4byte	.LVL10
+ 540 0134 67040000 		.4byte	0x467
+ 541 0138 47010000 		.4byte	0x147
+ 542 013c 08       		.uleb128 0x8
+ 543 013d 01       		.uleb128 0x1
+ 544 013e 50       		.byte	0x50
+ 545 013f 01       		.uleb128 0x1
+ 546 0140 31       		.byte	0x31
+ 547 0141 08       		.uleb128 0x8
+ 548 0142 01       		.uleb128 0x1
+ 549 0143 51       		.byte	0x51
+ 550 0144 01       		.uleb128 0x1
+ 551 0145 30       		.byte	0x30
+ 552 0146 00       		.byte	0
+ 553 0147 07       		.uleb128 0x7
+ 554 0148 50000000 		.4byte	.LVL11
+ 555 014c 72040000 		.4byte	0x472
+ 556 0150 5E010000 		.4byte	0x15e
+ 557 0154 08       		.uleb128 0x8
+ 558 0155 01       		.uleb128 0x1
+ 559 0156 50       		.byte	0x50
+ 560 0157 05       		.uleb128 0x5
+ 561 0158 03       		.byte	0x3
+ 562 0159 0C000000 		.4byte	.LC4
+ 563 015d 00       		.byte	0
+ 564 015e 07       		.uleb128 0x7
+ 565 015f 5A000000 		.4byte	.LVL14
+ 566 0163 67040000 		.4byte	0x467
+ 567 0167 76010000 		.4byte	0x176
+ 568 016b 08       		.uleb128 0x8
+ 569 016c 01       		.uleb128 0x1
+ 570 016d 50       		.byte	0x50
+ 571 016e 01       		.uleb128 0x1
+ 572 016f 31       		.byte	0x31
+ 573 0170 08       		.uleb128 0x8
+ 574 0171 01       		.uleb128 0x1
+ 575 0172 51       		.byte	0x51
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 14
+
+
+ 576 0173 01       		.uleb128 0x1
+ 577 0174 30       		.byte	0x30
+ 578 0175 00       		.byte	0
+ 579 0176 07       		.uleb128 0x7
+ 580 0177 60000000 		.4byte	.LVL15
+ 581 017b 72040000 		.4byte	0x472
+ 582 017f 8D010000 		.4byte	0x18d
+ 583 0183 08       		.uleb128 0x8
+ 584 0184 01       		.uleb128 0x1
+ 585 0185 50       		.byte	0x50
+ 586 0186 05       		.uleb128 0x5
+ 587 0187 03       		.byte	0x3
+ 588 0188 14000000 		.4byte	.LC6
+ 589 018c 00       		.byte	0
+ 590 018d 07       		.uleb128 0x7
+ 591 018e 6A000000 		.4byte	.LVL18
+ 592 0192 67040000 		.4byte	0x467
+ 593 0196 A5010000 		.4byte	0x1a5
+ 594 019a 08       		.uleb128 0x8
+ 595 019b 01       		.uleb128 0x1
+ 596 019c 50       		.byte	0x50
+ 597 019d 01       		.uleb128 0x1
+ 598 019e 31       		.byte	0x31
+ 599 019f 08       		.uleb128 0x8
+ 600 01a0 01       		.uleb128 0x1
+ 601 01a1 51       		.byte	0x51
+ 602 01a2 01       		.uleb128 0x1
+ 603 01a3 30       		.byte	0x30
+ 604 01a4 00       		.byte	0
+ 605 01a5 07       		.uleb128 0x7
+ 606 01a6 70000000 		.4byte	.LVL19
+ 607 01aa 72040000 		.4byte	0x472
+ 608 01ae BC010000 		.4byte	0x1bc
+ 609 01b2 08       		.uleb128 0x8
+ 610 01b3 01       		.uleb128 0x1
+ 611 01b4 50       		.byte	0x50
+ 612 01b5 05       		.uleb128 0x5
+ 613 01b6 03       		.byte	0x3
+ 614 01b7 1C000000 		.4byte	.LC8
+ 615 01bb 00       		.byte	0
+ 616 01bc 07       		.uleb128 0x7
+ 617 01bd 7A000000 		.4byte	.LVL22
+ 618 01c1 67040000 		.4byte	0x467
+ 619 01c5 D4010000 		.4byte	0x1d4
+ 620 01c9 08       		.uleb128 0x8
+ 621 01ca 01       		.uleb128 0x1
+ 622 01cb 50       		.byte	0x50
+ 623 01cc 01       		.uleb128 0x1
+ 624 01cd 31       		.byte	0x31
+ 625 01ce 08       		.uleb128 0x8
+ 626 01cf 01       		.uleb128 0x1
+ 627 01d0 51       		.byte	0x51
+ 628 01d1 01       		.uleb128 0x1
+ 629 01d2 30       		.byte	0x30
+ 630 01d3 00       		.byte	0
+ 631 01d4 09       		.uleb128 0x9
+ 632 01d5 80000000 		.4byte	.LVL23
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 15
+
+
+ 633 01d9 72040000 		.4byte	0x472
+ 634 01dd 08       		.uleb128 0x8
+ 635 01de 01       		.uleb128 0x1
+ 636 01df 50       		.byte	0x50
+ 637 01e0 05       		.uleb128 0x5
+ 638 01e1 03       		.byte	0x3
+ 639 01e2 24000000 		.4byte	.LC10
+ 640 01e6 00       		.byte	0
+ 641 01e7 00       		.byte	0
+ 642 01e8 0A       		.uleb128 0xa
+ 643 01e9 31010000 		.4byte	.LASF34
+ 644 01ed 01       		.byte	0x1
+ 645 01ee 14       		.byte	0x14
+ 646 01ef 5D000000 		.4byte	0x5d
+ 647 01f3 00000000 		.4byte	.LFB37
+ 648 01f7 00010000 		.4byte	.LFE37-.LFB37
+ 649 01fb 01       		.uleb128 0x1
+ 650 01fc 9C       		.byte	0x9c
+ 651 01fd 4D040000 		.4byte	0x44d
+ 652 0201 0B       		.uleb128 0xb
+ 653 0202 6A000000 		.4byte	.LBB2
+ 654 0206 96000000 		.4byte	.LBE2-.LBB2
+ 655 020a 2A030000 		.4byte	0x32a
+ 656 020e 06       		.uleb128 0x6
+ 657 020f 75020000 		.4byte	.LASF15
+ 658 0213 01       		.byte	0x1
+ 659 0214 2C       		.byte	0x2c
+ 660 0215 6B000000 		.4byte	0x6b
+ 661 0219 4A000000 		.4byte	.LLST1
+ 662 021d 07       		.uleb128 0x7
+ 663 021e 70000000 		.4byte	.LVL40
+ 664 0222 5C040000 		.4byte	0x45c
+ 665 0226 30020000 		.4byte	0x230
+ 666 022a 08       		.uleb128 0x8
+ 667 022b 01       		.uleb128 0x1
+ 668 022c 50       		.byte	0x50
+ 669 022d 01       		.uleb128 0x1
+ 670 022e 30       		.byte	0x30
+ 671 022f 00       		.byte	0
+ 672 0230 07       		.uleb128 0x7
+ 673 0231 7A000000 		.4byte	.LVL42
+ 674 0235 67040000 		.4byte	0x467
+ 675 0239 48020000 		.4byte	0x248
+ 676 023d 08       		.uleb128 0x8
+ 677 023e 01       		.uleb128 0x1
+ 678 023f 50       		.byte	0x50
+ 679 0240 01       		.uleb128 0x1
+ 680 0241 31       		.byte	0x31
+ 681 0242 08       		.uleb128 0x8
+ 682 0243 01       		.uleb128 0x1
+ 683 0244 51       		.byte	0x51
+ 684 0245 01       		.uleb128 0x1
+ 685 0246 30       		.byte	0x30
+ 686 0247 00       		.byte	0
+ 687 0248 07       		.uleb128 0x7
+ 688 0249 80000000 		.4byte	.LVL43
+ 689 024d 72040000 		.4byte	0x472
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 16
+
+
+ 690 0251 5F020000 		.4byte	0x25f
+ 691 0255 08       		.uleb128 0x8
+ 692 0256 01       		.uleb128 0x1
+ 693 0257 50       		.byte	0x50
+ 694 0258 05       		.uleb128 0x5
+ 695 0259 03       		.byte	0x3
+ 696 025a 24000000 		.4byte	.LC10
+ 697 025e 00       		.byte	0
+ 698 025f 0C       		.uleb128 0xc
+ 699 0260 88000000 		.4byte	.LVL44
+ 700 0264 9A000000 		.4byte	0x9a
+ 701 0268 07       		.uleb128 0x7
+ 702 0269 90000000 		.4byte	.LVL45
+ 703 026d 67040000 		.4byte	0x467
+ 704 0271 80020000 		.4byte	0x280
+ 705 0275 08       		.uleb128 0x8
+ 706 0276 01       		.uleb128 0x1
+ 707 0277 50       		.byte	0x50
+ 708 0278 01       		.uleb128 0x1
+ 709 0279 30       		.byte	0x30
+ 710 027a 08       		.uleb128 0x8
+ 711 027b 01       		.uleb128 0x1
+ 712 027c 51       		.byte	0x51
+ 713 027d 01       		.uleb128 0x1
+ 714 027e 3B       		.byte	0x3b
+ 715 027f 00       		.byte	0
+ 716 0280 07       		.uleb128 0x7
+ 717 0281 A2000000 		.4byte	.LVL46
+ 718 0285 7D040000 		.4byte	0x47d
+ 719 0289 93020000 		.4byte	0x293
+ 720 028d 08       		.uleb128 0x8
+ 721 028e 01       		.uleb128 0x1
+ 722 028f 50       		.byte	0x50
+ 723 0290 01       		.uleb128 0x1
+ 724 0291 31       		.byte	0x31
+ 725 0292 00       		.byte	0
+ 726 0293 07       		.uleb128 0x7
+ 727 0294 AC000000 		.4byte	.LVL48
+ 728 0298 88040000 		.4byte	0x488
+ 729 029c A7020000 		.4byte	0x2a7
+ 730 02a0 08       		.uleb128 0x8
+ 731 02a1 01       		.uleb128 0x1
+ 732 02a2 50       		.byte	0x50
+ 733 02a3 02       		.uleb128 0x2
+ 734 02a4 74       		.byte	0x74
+ 735 02a5 00       		.sleb128 0
+ 736 02a6 00       		.byte	0
+ 737 02a7 07       		.uleb128 0x7
+ 738 02a8 B2000000 		.4byte	.LVL49
+ 739 02ac 7D040000 		.4byte	0x47d
+ 740 02b0 BA020000 		.4byte	0x2ba
+ 741 02b4 08       		.uleb128 0x8
+ 742 02b5 01       		.uleb128 0x1
+ 743 02b6 50       		.byte	0x50
+ 744 02b7 01       		.uleb128 0x1
+ 745 02b8 30       		.byte	0x30
+ 746 02b9 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 17
+
+
+ 747 02ba 07       		.uleb128 0x7
+ 748 02bb B8000000 		.4byte	.LVL50
+ 749 02bf 88040000 		.4byte	0x488
+ 750 02c3 CE020000 		.4byte	0x2ce
+ 751 02c7 08       		.uleb128 0x8
+ 752 02c8 01       		.uleb128 0x1
+ 753 02c9 50       		.byte	0x50
+ 754 02ca 02       		.uleb128 0x2
+ 755 02cb 74       		.byte	0x74
+ 756 02cc 00       		.sleb128 0
+ 757 02cd 00       		.byte	0
+ 758 02ce 07       		.uleb128 0x7
+ 759 02cf BE000000 		.4byte	.LVL51
+ 760 02d3 93040000 		.4byte	0x493
+ 761 02d7 E1020000 		.4byte	0x2e1
+ 762 02db 08       		.uleb128 0x8
+ 763 02dc 01       		.uleb128 0x1
+ 764 02dd 50       		.byte	0x50
+ 765 02de 01       		.uleb128 0x1
+ 766 02df 31       		.byte	0x31
+ 767 02e0 00       		.byte	0
+ 768 02e1 07       		.uleb128 0x7
+ 769 02e2 C6000000 		.4byte	.LVL52
+ 770 02e6 88040000 		.4byte	0x488
+ 771 02ea F6020000 		.4byte	0x2f6
+ 772 02ee 08       		.uleb128 0x8
+ 773 02ef 01       		.uleb128 0x1
+ 774 02f0 50       		.byte	0x50
+ 775 02f1 03       		.uleb128 0x3
+ 776 02f2 0A       		.byte	0xa
+ 777 02f3 E803     		.2byte	0x3e8
+ 778 02f5 00       		.byte	0
+ 779 02f6 07       		.uleb128 0x7
+ 780 02f7 CC000000 		.4byte	.LVL53
+ 781 02fb 93040000 		.4byte	0x493
+ 782 02ff 09030000 		.4byte	0x309
+ 783 0303 08       		.uleb128 0x8
+ 784 0304 01       		.uleb128 0x1
+ 785 0305 50       		.byte	0x50
+ 786 0306 01       		.uleb128 0x1
+ 787 0307 30       		.byte	0x30
+ 788 0308 00       		.byte	0
+ 789 0309 07       		.uleb128 0x7
+ 790 030a D2000000 		.4byte	.LVL54
+ 791 030e 88040000 		.4byte	0x488
+ 792 0312 20030000 		.4byte	0x320
+ 793 0316 08       		.uleb128 0x8
+ 794 0317 01       		.uleb128 0x1
+ 795 0318 50       		.byte	0x50
+ 796 0319 05       		.uleb128 0x5
+ 797 031a 0C       		.byte	0xc
+ 798 031b 981C0500 		.4byte	0x51c98
+ 799 031f 00       		.byte	0
+ 800 0320 0C       		.uleb128 0xc
+ 801 0321 E0000000 		.4byte	.LVL55
+ 802 0325 9E040000 		.4byte	0x49e
+ 803 0329 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 18
+
+
+ 804 032a 0C       		.uleb128 0xc
+ 805 032b 08000000 		.4byte	.LVL24
+ 806 032f A9040000 		.4byte	0x4a9
+ 807 0333 0C       		.uleb128 0xc
+ 808 0334 0C000000 		.4byte	.LVL25
+ 809 0338 B4040000 		.4byte	0x4b4
+ 810 033c 0C       		.uleb128 0xc
+ 811 033d 10000000 		.4byte	.LVL26
+ 812 0341 BF040000 		.4byte	0x4bf
+ 813 0345 07       		.uleb128 0x7
+ 814 0346 18000000 		.4byte	.LVL27
+ 815 034a CB040000 		.4byte	0x4cb
+ 816 034e 5A030000 		.4byte	0x35a
+ 817 0352 08       		.uleb128 0x8
+ 818 0353 01       		.uleb128 0x1
+ 819 0354 50       		.byte	0x50
+ 820 0355 03       		.uleb128 0x3
+ 821 0356 0A       		.byte	0xa
+ 822 0357 0080     		.2byte	0x8000
+ 823 0359 00       		.byte	0
+ 824 035a 0C       		.uleb128 0xc
+ 825 035b 1C000000 		.4byte	.LVL28
+ 826 035f D7040000 		.4byte	0x4d7
+ 827 0363 07       		.uleb128 0x7
+ 828 0364 22000000 		.4byte	.LVL29
+ 829 0368 E2040000 		.4byte	0x4e2
+ 830 036c 76030000 		.4byte	0x376
+ 831 0370 08       		.uleb128 0x8
+ 832 0371 01       		.uleb128 0x1
+ 833 0372 50       		.byte	0x50
+ 834 0373 01       		.uleb128 0x1
+ 835 0374 31       		.byte	0x31
+ 836 0375 00       		.byte	0
+ 837 0376 07       		.uleb128 0x7
+ 838 0377 2A000000 		.4byte	.LVL30
+ 839 037b 67040000 		.4byte	0x467
+ 840 037f 8E030000 		.4byte	0x38e
+ 841 0383 08       		.uleb128 0x8
+ 842 0384 01       		.uleb128 0x1
+ 843 0385 50       		.byte	0x50
+ 844 0386 01       		.uleb128 0x1
+ 845 0387 30       		.byte	0x30
+ 846 0388 08       		.uleb128 0x8
+ 847 0389 01       		.uleb128 0x1
+ 848 038a 51       		.byte	0x51
+ 849 038b 01       		.uleb128 0x1
+ 850 038c 31       		.byte	0x31
+ 851 038d 00       		.byte	0
+ 852 038e 07       		.uleb128 0x7
+ 853 038f 30000000 		.4byte	.LVL31
+ 854 0393 72040000 		.4byte	0x472
+ 855 0397 A5030000 		.4byte	0x3a5
+ 856 039b 08       		.uleb128 0x8
+ 857 039c 01       		.uleb128 0x1
+ 858 039d 50       		.byte	0x50
+ 859 039e 05       		.uleb128 0x5
+ 860 039f 03       		.byte	0x3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 19
+
+
+ 861 03a0 2C000000 		.4byte	.LC12
+ 862 03a4 00       		.byte	0
+ 863 03a5 07       		.uleb128 0x7
+ 864 03a6 38000000 		.4byte	.LVL32
+ 865 03aa 67040000 		.4byte	0x467
+ 866 03ae BD030000 		.4byte	0x3bd
+ 867 03b2 08       		.uleb128 0x8
+ 868 03b3 01       		.uleb128 0x1
+ 869 03b4 50       		.byte	0x50
+ 870 03b5 01       		.uleb128 0x1
+ 871 03b6 31       		.byte	0x31
+ 872 03b7 08       		.uleb128 0x8
+ 873 03b8 01       		.uleb128 0x1
+ 874 03b9 51       		.byte	0x51
+ 875 03ba 01       		.uleb128 0x1
+ 876 03bb 35       		.byte	0x35
+ 877 03bc 00       		.byte	0
+ 878 03bd 07       		.uleb128 0x7
+ 879 03be 3E000000 		.4byte	.LVL33
+ 880 03c2 72040000 		.4byte	0x472
+ 881 03c6 D4030000 		.4byte	0x3d4
+ 882 03ca 08       		.uleb128 0x8
+ 883 03cb 01       		.uleb128 0x1
+ 884 03cc 50       		.byte	0x50
+ 885 03cd 05       		.uleb128 0x5
+ 886 03ce 03       		.byte	0x3
+ 887 03cf 3C000000 		.4byte	.LC14
+ 888 03d3 00       		.byte	0
+ 889 03d4 07       		.uleb128 0x7
+ 890 03d5 46000000 		.4byte	.LVL34
+ 891 03d9 88040000 		.4byte	0x488
+ 892 03dd E9030000 		.4byte	0x3e9
+ 893 03e1 08       		.uleb128 0x8
+ 894 03e2 01       		.uleb128 0x1
+ 895 03e3 50       		.byte	0x50
+ 896 03e4 03       		.uleb128 0x3
+ 897 03e5 0A       		.byte	0xa
+ 898 03e6 D007     		.2byte	0x7d0
+ 899 03e8 00       		.byte	0
+ 900 03e9 07       		.uleb128 0x7
+ 901 03ea 4C000000 		.4byte	.LVL35
+ 902 03ee E2040000 		.4byte	0x4e2
+ 903 03f2 FC030000 		.4byte	0x3fc
+ 904 03f6 08       		.uleb128 0x8
+ 905 03f7 01       		.uleb128 0x1
+ 906 03f8 50       		.byte	0x50
+ 907 03f9 01       		.uleb128 0x1
+ 908 03fa 31       		.byte	0x31
+ 909 03fb 00       		.byte	0
+ 910 03fc 07       		.uleb128 0x7
+ 911 03fd 54000000 		.4byte	.LVL36
+ 912 0401 67040000 		.4byte	0x467
+ 913 0405 14040000 		.4byte	0x414
+ 914 0409 08       		.uleb128 0x8
+ 915 040a 01       		.uleb128 0x1
+ 916 040b 50       		.byte	0x50
+ 917 040c 01       		.uleb128 0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 20
+
+
+ 918 040d 30       		.byte	0x30
+ 919 040e 08       		.uleb128 0x8
+ 920 040f 01       		.uleb128 0x1
+ 921 0410 51       		.byte	0x51
+ 922 0411 01       		.uleb128 0x1
+ 923 0412 30       		.byte	0x30
+ 924 0413 00       		.byte	0
+ 925 0414 07       		.uleb128 0x7
+ 926 0415 5A000000 		.4byte	.LVL37
+ 927 0419 72040000 		.4byte	0x472
+ 928 041d 2B040000 		.4byte	0x42b
+ 929 0421 08       		.uleb128 0x8
+ 930 0422 01       		.uleb128 0x1
+ 931 0423 50       		.byte	0x50
+ 932 0424 05       		.uleb128 0x5
+ 933 0425 03       		.byte	0x3
+ 934 0426 44000000 		.4byte	.LC16
+ 935 042a 00       		.byte	0
+ 936 042b 07       		.uleb128 0x7
+ 937 042c 62000000 		.4byte	.LVL38
+ 938 0430 67040000 		.4byte	0x467
+ 939 0434 43040000 		.4byte	0x443
+ 940 0438 08       		.uleb128 0x8
+ 941 0439 01       		.uleb128 0x1
+ 942 043a 50       		.byte	0x50
+ 943 043b 01       		.uleb128 0x1
+ 944 043c 30       		.byte	0x30
+ 945 043d 08       		.uleb128 0x8
+ 946 043e 01       		.uleb128 0x1
+ 947 043f 51       		.byte	0x51
+ 948 0440 01       		.uleb128 0x1
+ 949 0441 3B       		.byte	0x3b
+ 950 0442 00       		.byte	0
+ 951 0443 0C       		.uleb128 0xc
+ 952 0444 6A000000 		.4byte	.LVL39
+ 953 0448 9E040000 		.4byte	0x49e
+ 954 044c 00       		.byte	0
+ 955 044d 0D       		.uleb128 0xd
+ 956 044e 7800     		.ascii	"x\000"
+ 957 0450 01       		.byte	0x1
+ 958 0451 0F       		.byte	0xf
+ 959 0452 6B000000 		.4byte	0x6b
+ 960 0456 05       		.uleb128 0x5
+ 961 0457 03       		.byte	0x3
+ 962 0458 00000000 		.4byte	x
+ 963 045c 0E       		.uleb128 0xe
+ 964 045d 58000000 		.4byte	.LASF16
+ 965 0461 58000000 		.4byte	.LASF16
+ 966 0465 02       		.byte	0x2
+ 967 0466 9F       		.byte	0x9f
+ 968 0467 0E       		.uleb128 0xe
+ 969 0468 84010000 		.4byte	.LASF17
+ 970 046c 84010000 		.4byte	.LASF17
+ 971 0470 03       		.byte	0x3
+ 972 0471 3D       		.byte	0x3d
+ 973 0472 0E       		.uleb128 0xe
+ 974 0473 36010000 		.4byte	.LASF18
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 21
+
+
+ 975 0477 36010000 		.4byte	.LASF18
+ 976 047b 03       		.byte	0x3
+ 977 047c 3C       		.byte	0x3c
+ 978 047d 0E       		.uleb128 0xe
+ 979 047e A3000000 		.4byte	.LASF19
+ 980 0482 A3000000 		.4byte	.LASF19
+ 981 0486 04       		.byte	0x4
+ 982 0487 33       		.byte	0x33
+ 983 0488 0E       		.uleb128 0xe
+ 984 0489 B3020000 		.4byte	.LASF20
+ 985 048d B3020000 		.4byte	.LASF20
+ 986 0491 05       		.byte	0x5
+ 987 0492 D9       		.byte	0xd9
+ 988 0493 0E       		.uleb128 0xe
+ 989 0494 53020000 		.4byte	.LASF21
+ 990 0498 53020000 		.4byte	.LASF21
+ 991 049c 06       		.byte	0x6
+ 992 049d 33       		.byte	0x33
+ 993 049e 0E       		.uleb128 0xe
+ 994 049f A3020000 		.4byte	.LASF22
+ 995 04a3 A3020000 		.4byte	.LASF22
+ 996 04a7 03       		.byte	0x3
+ 997 04a8 5F       		.byte	0x5f
+ 998 04a9 0E       		.uleb128 0xe
+ 999 04aa 77000000 		.4byte	.LASF23
+ 1000 04ae 77000000 		.4byte	.LASF23
+ 1001 04b2 02       		.byte	0x2
+ 1002 04b3 98       		.byte	0x98
+ 1003 04b4 0E       		.uleb128 0xe
+ 1004 04b5 11010000 		.4byte	.LASF24
+ 1005 04b9 11010000 		.4byte	.LASF24
+ 1006 04bd 02       		.byte	0x2
+ 1007 04be 9C       		.byte	0x9c
+ 1008 04bf 0F       		.uleb128 0xf
+ 1009 04c0 90000000 		.4byte	.LASF25
+ 1010 04c4 90000000 		.4byte	.LASF25
+ 1011 04c8 07       		.byte	0x7
+ 1012 04c9 3201     		.2byte	0x132
+ 1013 04cb 0F       		.uleb128 0xf
+ 1014 04cc 46010000 		.4byte	.LASF26
+ 1015 04d0 46010000 		.4byte	.LASF26
+ 1016 04d4 07       		.byte	0x7
+ 1017 04d5 5501     		.2byte	0x155
+ 1018 04d7 0E       		.uleb128 0xe
+ 1019 04d8 C7000000 		.4byte	.LASF27
+ 1020 04dc C7000000 		.4byte	.LASF27
+ 1021 04e0 03       		.byte	0x3
+ 1022 04e1 38       		.byte	0x38
+ 1023 04e2 0E       		.uleb128 0xe
+ 1024 04e3 42020000 		.4byte	.LASF28
+ 1025 04e7 42020000 		.4byte	.LASF28
+ 1026 04eb 03       		.byte	0x3
+ 1027 04ec 3A       		.byte	0x3a
+ 1028 04ed 00       		.byte	0
+ 1029              		.section	.debug_abbrev,"",%progbits
+ 1030              	.Ldebug_abbrev0:
+ 1031 0000 01       		.uleb128 0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 22
+
+
+ 1032 0001 11       		.uleb128 0x11
+ 1033 0002 01       		.byte	0x1
+ 1034 0003 25       		.uleb128 0x25
+ 1035 0004 0E       		.uleb128 0xe
+ 1036 0005 13       		.uleb128 0x13
+ 1037 0006 0B       		.uleb128 0xb
+ 1038 0007 03       		.uleb128 0x3
+ 1039 0008 0E       		.uleb128 0xe
+ 1040 0009 1B       		.uleb128 0x1b
+ 1041 000a 0E       		.uleb128 0xe
+ 1042 000b 55       		.uleb128 0x55
+ 1043 000c 17       		.uleb128 0x17
+ 1044 000d 11       		.uleb128 0x11
+ 1045 000e 01       		.uleb128 0x1
+ 1046 000f 10       		.uleb128 0x10
+ 1047 0010 17       		.uleb128 0x17
+ 1048 0011 00       		.byte	0
+ 1049 0012 00       		.byte	0
+ 1050 0013 02       		.uleb128 0x2
+ 1051 0014 24       		.uleb128 0x24
+ 1052 0015 00       		.byte	0
+ 1053 0016 0B       		.uleb128 0xb
+ 1054 0017 0B       		.uleb128 0xb
+ 1055 0018 3E       		.uleb128 0x3e
+ 1056 0019 0B       		.uleb128 0xb
+ 1057 001a 03       		.uleb128 0x3
+ 1058 001b 0E       		.uleb128 0xe
+ 1059 001c 00       		.byte	0
+ 1060 001d 00       		.byte	0
+ 1061 001e 03       		.uleb128 0x3
+ 1062 001f 24       		.uleb128 0x24
+ 1063 0020 00       		.byte	0
+ 1064 0021 0B       		.uleb128 0xb
+ 1065 0022 0B       		.uleb128 0xb
+ 1066 0023 3E       		.uleb128 0x3e
+ 1067 0024 0B       		.uleb128 0xb
+ 1068 0025 03       		.uleb128 0x3
+ 1069 0026 08       		.uleb128 0x8
+ 1070 0027 00       		.byte	0
+ 1071 0028 00       		.byte	0
+ 1072 0029 04       		.uleb128 0x4
+ 1073 002a 16       		.uleb128 0x16
+ 1074 002b 00       		.byte	0
+ 1075 002c 03       		.uleb128 0x3
+ 1076 002d 0E       		.uleb128 0xe
+ 1077 002e 3A       		.uleb128 0x3a
+ 1078 002f 0B       		.uleb128 0xb
+ 1079 0030 3B       		.uleb128 0x3b
+ 1080 0031 05       		.uleb128 0x5
+ 1081 0032 49       		.uleb128 0x49
+ 1082 0033 13       		.uleb128 0x13
+ 1083 0034 00       		.byte	0
+ 1084 0035 00       		.byte	0
+ 1085 0036 05       		.uleb128 0x5
+ 1086 0037 2E       		.uleb128 0x2e
+ 1087 0038 01       		.byte	0x1
+ 1088 0039 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 23
+
+
+ 1089 003a 19       		.uleb128 0x19
+ 1090 003b 03       		.uleb128 0x3
+ 1091 003c 0E       		.uleb128 0xe
+ 1092 003d 3A       		.uleb128 0x3a
+ 1093 003e 0B       		.uleb128 0xb
+ 1094 003f 3B       		.uleb128 0x3b
+ 1095 0040 0B       		.uleb128 0xb
+ 1096 0041 11       		.uleb128 0x11
+ 1097 0042 01       		.uleb128 0x1
+ 1098 0043 12       		.uleb128 0x12
+ 1099 0044 06       		.uleb128 0x6
+ 1100 0045 40       		.uleb128 0x40
+ 1101 0046 18       		.uleb128 0x18
+ 1102 0047 9742     		.uleb128 0x2117
+ 1103 0049 19       		.uleb128 0x19
+ 1104 004a 01       		.uleb128 0x1
+ 1105 004b 13       		.uleb128 0x13
+ 1106 004c 00       		.byte	0
+ 1107 004d 00       		.byte	0
+ 1108 004e 06       		.uleb128 0x6
+ 1109 004f 34       		.uleb128 0x34
+ 1110 0050 00       		.byte	0
+ 1111 0051 03       		.uleb128 0x3
+ 1112 0052 0E       		.uleb128 0xe
+ 1113 0053 3A       		.uleb128 0x3a
+ 1114 0054 0B       		.uleb128 0xb
+ 1115 0055 3B       		.uleb128 0x3b
+ 1116 0056 0B       		.uleb128 0xb
+ 1117 0057 49       		.uleb128 0x49
+ 1118 0058 13       		.uleb128 0x13
+ 1119 0059 02       		.uleb128 0x2
+ 1120 005a 17       		.uleb128 0x17
+ 1121 005b 00       		.byte	0
+ 1122 005c 00       		.byte	0
+ 1123 005d 07       		.uleb128 0x7
+ 1124 005e 898201   		.uleb128 0x4109
+ 1125 0061 01       		.byte	0x1
+ 1126 0062 11       		.uleb128 0x11
+ 1127 0063 01       		.uleb128 0x1
+ 1128 0064 31       		.uleb128 0x31
+ 1129 0065 13       		.uleb128 0x13
+ 1130 0066 01       		.uleb128 0x1
+ 1131 0067 13       		.uleb128 0x13
+ 1132 0068 00       		.byte	0
+ 1133 0069 00       		.byte	0
+ 1134 006a 08       		.uleb128 0x8
+ 1135 006b 8A8201   		.uleb128 0x410a
+ 1136 006e 00       		.byte	0
+ 1137 006f 02       		.uleb128 0x2
+ 1138 0070 18       		.uleb128 0x18
+ 1139 0071 9142     		.uleb128 0x2111
+ 1140 0073 18       		.uleb128 0x18
+ 1141 0074 00       		.byte	0
+ 1142 0075 00       		.byte	0
+ 1143 0076 09       		.uleb128 0x9
+ 1144 0077 898201   		.uleb128 0x4109
+ 1145 007a 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 24
+
+
+ 1146 007b 11       		.uleb128 0x11
+ 1147 007c 01       		.uleb128 0x1
+ 1148 007d 31       		.uleb128 0x31
+ 1149 007e 13       		.uleb128 0x13
+ 1150 007f 00       		.byte	0
+ 1151 0080 00       		.byte	0
+ 1152 0081 0A       		.uleb128 0xa
+ 1153 0082 2E       		.uleb128 0x2e
+ 1154 0083 01       		.byte	0x1
+ 1155 0084 3F       		.uleb128 0x3f
+ 1156 0085 19       		.uleb128 0x19
+ 1157 0086 03       		.uleb128 0x3
+ 1158 0087 0E       		.uleb128 0xe
+ 1159 0088 3A       		.uleb128 0x3a
+ 1160 0089 0B       		.uleb128 0xb
+ 1161 008a 3B       		.uleb128 0x3b
+ 1162 008b 0B       		.uleb128 0xb
+ 1163 008c 49       		.uleb128 0x49
+ 1164 008d 13       		.uleb128 0x13
+ 1165 008e 8701     		.uleb128 0x87
+ 1166 0090 19       		.uleb128 0x19
+ 1167 0091 11       		.uleb128 0x11
+ 1168 0092 01       		.uleb128 0x1
+ 1169 0093 12       		.uleb128 0x12
+ 1170 0094 06       		.uleb128 0x6
+ 1171 0095 40       		.uleb128 0x40
+ 1172 0096 18       		.uleb128 0x18
+ 1173 0097 9742     		.uleb128 0x2117
+ 1174 0099 19       		.uleb128 0x19
+ 1175 009a 01       		.uleb128 0x1
+ 1176 009b 13       		.uleb128 0x13
+ 1177 009c 00       		.byte	0
+ 1178 009d 00       		.byte	0
+ 1179 009e 0B       		.uleb128 0xb
+ 1180 009f 0B       		.uleb128 0xb
+ 1181 00a0 01       		.byte	0x1
+ 1182 00a1 11       		.uleb128 0x11
+ 1183 00a2 01       		.uleb128 0x1
+ 1184 00a3 12       		.uleb128 0x12
+ 1185 00a4 06       		.uleb128 0x6
+ 1186 00a5 01       		.uleb128 0x1
+ 1187 00a6 13       		.uleb128 0x13
+ 1188 00a7 00       		.byte	0
+ 1189 00a8 00       		.byte	0
+ 1190 00a9 0C       		.uleb128 0xc
+ 1191 00aa 898201   		.uleb128 0x4109
+ 1192 00ad 00       		.byte	0
+ 1193 00ae 11       		.uleb128 0x11
+ 1194 00af 01       		.uleb128 0x1
+ 1195 00b0 31       		.uleb128 0x31
+ 1196 00b1 13       		.uleb128 0x13
+ 1197 00b2 00       		.byte	0
+ 1198 00b3 00       		.byte	0
+ 1199 00b4 0D       		.uleb128 0xd
+ 1200 00b5 34       		.uleb128 0x34
+ 1201 00b6 00       		.byte	0
+ 1202 00b7 03       		.uleb128 0x3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 25
+
+
+ 1203 00b8 08       		.uleb128 0x8
+ 1204 00b9 3A       		.uleb128 0x3a
+ 1205 00ba 0B       		.uleb128 0xb
+ 1206 00bb 3B       		.uleb128 0x3b
+ 1207 00bc 0B       		.uleb128 0xb
+ 1208 00bd 49       		.uleb128 0x49
+ 1209 00be 13       		.uleb128 0x13
+ 1210 00bf 3F       		.uleb128 0x3f
+ 1211 00c0 19       		.uleb128 0x19
+ 1212 00c1 02       		.uleb128 0x2
+ 1213 00c2 18       		.uleb128 0x18
+ 1214 00c3 00       		.byte	0
+ 1215 00c4 00       		.byte	0
+ 1216 00c5 0E       		.uleb128 0xe
+ 1217 00c6 2E       		.uleb128 0x2e
+ 1218 00c7 00       		.byte	0
+ 1219 00c8 3F       		.uleb128 0x3f
+ 1220 00c9 19       		.uleb128 0x19
+ 1221 00ca 3C       		.uleb128 0x3c
+ 1222 00cb 19       		.uleb128 0x19
+ 1223 00cc 6E       		.uleb128 0x6e
+ 1224 00cd 0E       		.uleb128 0xe
+ 1225 00ce 03       		.uleb128 0x3
+ 1226 00cf 0E       		.uleb128 0xe
+ 1227 00d0 3A       		.uleb128 0x3a
+ 1228 00d1 0B       		.uleb128 0xb
+ 1229 00d2 3B       		.uleb128 0x3b
+ 1230 00d3 0B       		.uleb128 0xb
+ 1231 00d4 00       		.byte	0
+ 1232 00d5 00       		.byte	0
+ 1233 00d6 0F       		.uleb128 0xf
+ 1234 00d7 2E       		.uleb128 0x2e
+ 1235 00d8 00       		.byte	0
+ 1236 00d9 3F       		.uleb128 0x3f
+ 1237 00da 19       		.uleb128 0x19
+ 1238 00db 3C       		.uleb128 0x3c
+ 1239 00dc 19       		.uleb128 0x19
+ 1240 00dd 6E       		.uleb128 0x6e
+ 1241 00de 0E       		.uleb128 0xe
+ 1242 00df 03       		.uleb128 0x3
+ 1243 00e0 0E       		.uleb128 0xe
+ 1244 00e1 3A       		.uleb128 0x3a
+ 1245 00e2 0B       		.uleb128 0xb
+ 1246 00e3 3B       		.uleb128 0x3b
+ 1247 00e4 05       		.uleb128 0x5
+ 1248 00e5 00       		.byte	0
+ 1249 00e6 00       		.byte	0
+ 1250 00e7 00       		.byte	0
+ 1251              		.section	.debug_loc,"",%progbits
+ 1252              	.Ldebug_loc0:
+ 1253              	.LLST0:
+ 1254 0000 08000000 		.4byte	.LVL0
+ 1255 0004 26000000 		.4byte	.LVL1
+ 1256 0008 0100     		.2byte	0x1
+ 1257 000a 50       		.byte	0x50
+ 1258 000b 32000000 		.4byte	.LVL4
+ 1259 000f 36000000 		.4byte	.LVL5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 26
+
+
+ 1260 0013 0100     		.2byte	0x1
+ 1261 0015 50       		.byte	0x50
+ 1262 0016 42000000 		.4byte	.LVL8
+ 1263 001a 46000000 		.4byte	.LVL9
+ 1264 001e 0100     		.2byte	0x1
+ 1265 0020 50       		.byte	0x50
+ 1266 0021 52000000 		.4byte	.LVL12
+ 1267 0025 56000000 		.4byte	.LVL13
+ 1268 0029 0100     		.2byte	0x1
+ 1269 002b 50       		.byte	0x50
+ 1270 002c 62000000 		.4byte	.LVL16
+ 1271 0030 66000000 		.4byte	.LVL17
+ 1272 0034 0100     		.2byte	0x1
+ 1273 0036 50       		.byte	0x50
+ 1274 0037 72000000 		.4byte	.LVL20
+ 1275 003b 76000000 		.4byte	.LVL21
+ 1276 003f 0100     		.2byte	0x1
+ 1277 0041 50       		.byte	0x50
+ 1278 0042 00000000 		.4byte	0
+ 1279 0046 00000000 		.4byte	0
+ 1280              	.LLST1:
+ 1281 004a 72000000 		.4byte	.LVL41
+ 1282 004e A4000000 		.4byte	.LVL47
+ 1283 0052 0100     		.2byte	0x1
+ 1284 0054 54       		.byte	0x54
+ 1285 0055 00000000 		.4byte	0
+ 1286 0059 00000000 		.4byte	0
+ 1287              		.section	.debug_aranges,"",%progbits
+ 1288 0000 24000000 		.4byte	0x24
+ 1289 0004 0200     		.2byte	0x2
+ 1290 0006 00000000 		.4byte	.Ldebug_info0
+ 1291 000a 04       		.byte	0x4
+ 1292 000b 00       		.byte	0
+ 1293 000c 0000     		.2byte	0
+ 1294 000e 0000     		.2byte	0
+ 1295 0010 00000000 		.4byte	.LFB38
+ 1296 0014 9C000000 		.4byte	.LFE38-.LFB38
+ 1297 0018 00000000 		.4byte	.LFB37
+ 1298 001c 00010000 		.4byte	.LFE37-.LFB37
+ 1299 0020 00000000 		.4byte	0
+ 1300 0024 00000000 		.4byte	0
+ 1301              		.section	.debug_ranges,"",%progbits
+ 1302              	.Ldebug_ranges0:
+ 1303 0000 00000000 		.4byte	.LFB38
+ 1304 0004 9C000000 		.4byte	.LFE38
+ 1305 0008 00000000 		.4byte	.LFB37
+ 1306 000c 00010000 		.4byte	.LFE37
+ 1307 0010 00000000 		.4byte	0
+ 1308 0014 00000000 		.4byte	0
+ 1309              		.section	.debug_line,"",%progbits
+ 1310              	.Ldebug_line0:
+ 1311 0000 F6000000 		.section	.debug_str,"MS",%progbits,1
+ 1311      02009B00 
+ 1311      00000201 
+ 1311      FB0E0D00 
+ 1311      01010101 
+ 1312              	.LASF31:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 27
+
+
+ 1313 0000 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\PSoC Creator\\Lega"
+ 1313      73657273 
+ 1313      5C627279 
+ 1313      616E2E6C 
+ 1313      65655C44 
+ 1314 002e 63795F50 		.ascii	"cy_Program_Test\\Legacy_Program_Test.cydsn\000"
+ 1314      726F6772 
+ 1314      616D5F54 
+ 1314      6573745C 
+ 1314      4C656761 
+ 1315              	.LASF16:
+ 1316 0058 4144435F 		.ascii	"ADC_SAR_Seq_Button_GetResult16\000"
+ 1316      5341525F 
+ 1316      5365715F 
+ 1316      42757474 
+ 1316      6F6E5F47 
+ 1317              	.LASF23:
+ 1318 0077 4144435F 		.ascii	"ADC_SAR_Seq_Button_Start\000"
+ 1318      5341525F 
+ 1318      5365715F 
+ 1318      42757474 
+ 1318      6F6E5F53 
+ 1319              	.LASF25:
+ 1320 0090 50574D42 		.ascii	"PWMBacklight_Start\000"
+ 1320      61636B6C 
+ 1320      69676874 
+ 1320      5F537461 
+ 1320      727400
+ 1321              	.LASF19:
+ 1322 00a3 70696E52 		.ascii	"pinReset_Write\000"
+ 1322      65736574 
+ 1322      5F577269 
+ 1322      746500
+ 1323              	.LASF14:
+ 1324 00b2 62757474 		.ascii	"buttonfunction\000"
+ 1324      6F6E6675 
+ 1324      6E637469 
+ 1324      6F6E00
+ 1325              	.LASF9:
+ 1326 00c1 666C6F61 		.ascii	"float\000"
+ 1326      7400
+ 1327              	.LASF27:
+ 1328 00c7 4C43445F 		.ascii	"LCD_Start\000"
+ 1328      53746172 
+ 1328      7400
+ 1329              	.LASF1:
+ 1330 00d1 756E7369 		.ascii	"unsigned char\000"
+ 1330      676E6564 
+ 1330      20636861 
+ 1330      7200
+ 1331              	.LASF32:
+ 1332 00df 696E7431 		.ascii	"int16\000"
+ 1332      3600
+ 1333              	.LASF5:
+ 1334 00e5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1334      20756E73 
+ 1334      69676E65 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 28
+
+
+ 1334      6420696E 
+ 1334      7400
+ 1335              	.LASF3:
+ 1336 00f7 73686F72 		.ascii	"short unsigned int\000"
+ 1336      7420756E 
+ 1336      7369676E 
+ 1336      65642069 
+ 1336      6E7400
+ 1337              	.LASF10:
+ 1338 010a 646F7562 		.ascii	"double\000"
+ 1338      6C6500
+ 1339              	.LASF24:
+ 1340 0111 4144435F 		.ascii	"ADC_SAR_Seq_Button_StartConvert\000"
+ 1340      5341525F 
+ 1340      5365715F 
+ 1340      42757474 
+ 1340      6F6E5F53 
+ 1341              	.LASF34:
+ 1342 0131 6D61696E 		.ascii	"main\000"
+ 1342      00
+ 1343              	.LASF18:
+ 1344 0136 4C43445F 		.ascii	"LCD_PrintString\000"
+ 1344      5072696E 
+ 1344      74537472 
+ 1344      696E6700 
+ 1345              	.LASF26:
+ 1346 0146 50574D42 		.ascii	"PWMBacklight_WriteCompare\000"
+ 1346      61636B6C 
+ 1346      69676874 
+ 1346      5F577269 
+ 1346      7465436F 
+ 1347              	.LASF8:
+ 1348 0160 756E7369 		.ascii	"unsigned int\000"
+ 1348      676E6564 
+ 1348      20696E74 
+ 1348      00
+ 1349              	.LASF7:
+ 1350 016d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1350      206C6F6E 
+ 1350      6720756E 
+ 1350      7369676E 
+ 1350      65642069 
+ 1351              	.LASF17:
+ 1352 0184 4C43445F 		.ascii	"LCD_Position\000"
+ 1352      506F7369 
+ 1352      74696F6E 
+ 1352      00
+ 1353              	.LASF29:
+ 1354 0191 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1354      43313120 
+ 1354      352E342E 
+ 1354      31203230 
+ 1354      31363036 
+ 1355 01c4 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1355      20726576 
+ 1355      6973696F 
+ 1355      6E203233 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 29
+
+
+ 1355      37373135 
+ 1356 01f7 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1356      66756E63 
+ 1356      74696F6E 
+ 1356      2D736563 
+ 1356      74696F6E 
+ 1357              	.LASF13:
+ 1358 021f 73697A65 		.ascii	"sizetype\000"
+ 1358      74797065 
+ 1358      00
+ 1359              	.LASF6:
+ 1360 0228 6C6F6E67 		.ascii	"long long int\000"
+ 1360      206C6F6E 
+ 1360      6720696E 
+ 1360      7400
+ 1361              	.LASF30:
+ 1362 0236 6D61696E 		.ascii	"main.c\000"
+ 1362      2E6300
+ 1363              	.LASF11:
+ 1364 023d 63686172 		.ascii	"char\000"
+ 1364      00
+ 1365              	.LASF28:
+ 1366 0242 4C43445F 		.ascii	"LCD_WriteControl\000"
+ 1366      57726974 
+ 1366      65436F6E 
+ 1366      74726F6C 
+ 1366      00
+ 1367              	.LASF21:
+ 1368 0253 70696E50 		.ascii	"pinPower_Write\000"
+ 1368      6F776572 
+ 1368      5F577269 
+ 1368      746500
+ 1369              	.LASF2:
+ 1370 0262 73686F72 		.ascii	"short int\000"
+ 1370      7420696E 
+ 1370      7400
+ 1371              	.LASF4:
+ 1372 026c 6C6F6E67 		.ascii	"long int\000"
+ 1372      20696E74 
+ 1372      00
+ 1373              	.LASF15:
+ 1374 0275 62757474 		.ascii	"button\000"
+ 1374      6F6E00
+ 1375              	.LASF12:
+ 1376 027c 6C6F6E67 		.ascii	"long double\000"
+ 1376      20646F75 
+ 1376      626C6500 
+ 1377              	.LASF0:
+ 1378 0288 7369676E 		.ascii	"signed char\000"
+ 1378      65642063 
+ 1378      68617200 
+ 1379              	.LASF33:
+ 1380 0294 42757474 		.ascii	"ButtonFunction\000"
+ 1380      6F6E4675 
+ 1380      6E637469 
+ 1380      6F6E00
+ 1381              	.LASF22:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cce3oDwi.s 			page 30
+
+
+ 1382 02a3 4C43445F 		.ascii	"LCD_PrintNumber\000"
+ 1382      5072696E 
+ 1382      744E756D 
+ 1382      62657200 
+ 1383              	.LASF20:
+ 1384 02b3 43794465 		.ascii	"CyDelay\000"
+ 1384      6C617900 
+ 1385              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -1,0 +1,1394 @@
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.main,"ax",%progbits
+  18              		.align	2
+  19              		.global	main
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	main, %function
+  23              	main:
+  24              	.LFB37:
+  25              		.file 1 "main.c"
+   1:main.c        **** /* ========================================
+   2:main.c        ****  *
+   3:main.c        ****  * Copyright YOUR COMPANY, THE YEAR
+   4:main.c        ****  * All Rights Reserved
+   5:main.c        ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:main.c        ****  *
+   7:main.c        ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:main.c        ****  * WHICH IS THE PROPERTY OF your company.
+   9:main.c        ****  *
+  10:main.c        ****  * ========================================
+  11:main.c        **** */
+  12:main.c        **** #include <project.h>
+  13:main.c        **** #include <cyapicallbacks.h>
+  14:main.c        **** 
+  15:main.c        **** 
+  16:main.c        **** int main()
+  17:main.c        **** {
+  26              		.loc 1 17 0
+  27              		.cfi_startproc
+  28 0000 08B5     		push	{r3, lr}
+  29              		.cfi_def_cfa_offset 8
+  30              		.cfi_offset 3, -8
+  31              		.cfi_offset 14, -4
+  18:main.c        ****     CyGlobalIntEnable; /* Enable global interrupts. */
+  32              		.loc 1 18 0
+  33              	@ 18 "main.c" 1
+  34 0002 62B6     		CPSIE   i
+  35              	@ 0 "" 2
+  19:main.c        ****     ADC_SAR_Seq_Button_Start();
+  36              		.loc 1 19 0
+  37              		.code	16
+  38 0004 FFF7FEFF 		bl	ADC_SAR_Seq_Button_Start
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 2
+
+
+  39              	.LVL0:
+  20:main.c        ****     ADC_SAR_Seq_Button_StartConvert();
+  40              		.loc 1 20 0
+  41 0008 FFF7FEFF 		bl	ADC_SAR_Seq_Button_StartConvert
+  42              	.LVL1:
+  21:main.c        ****     PWMBacklight_Start();
+  43              		.loc 1 21 0
+  44 000c FFF7FEFF 		bl	PWMBacklight_Start
+  45              	.LVL2:
+  22:main.c        ****     PWMBacklight_WriteCompare(250);
+  46              		.loc 1 22 0
+  47 0010 FA20     		mov	r0, #250
+  48 0012 FFF7FEFF 		bl	PWMBacklight_WriteCompare
+  49              	.LVL3:
+  23:main.c        ****     LCD_Start();
+  50              		.loc 1 23 0
+  51 0016 FFF7FEFF 		bl	LCD_Start
+  52              	.LVL4:
+  24:main.c        ****     LCD_ClearDisplay();
+  53              		.loc 1 24 0
+  54 001a 0120     		mov	r0, #1
+  55 001c FFF7FEFF 		bl	LCD_WriteControl
+  56              	.LVL5:
+  25:main.c        ****     LCD_Position(0,3);
+  57              		.loc 1 25 0
+  58 0020 0020     		mov	r0, #0
+  59 0022 0321     		mov	r1, #3
+  60 0024 FFF7FEFF 		bl	LCD_Position
+  61              	.LVL6:
+  26:main.c        ****     LCD_PrintString("Jace Boyd");
+  62              		.loc 1 26 0
+  63 0028 2F48     		ldr	r0, .L11
+  64 002a FFF7FEFF 		bl	LCD_PrintString
+  65              	.LVL7:
+  27:main.c        ****     LCD_Position(1,3);
+  66              		.loc 1 27 0
+  67 002e 0120     		mov	r0, #1
+  68 0030 0321     		mov	r1, #3
+  69 0032 FFF7FEFF 		bl	LCD_Position
+  70              	.LVL8:
+  28:main.c        ****     LCD_PrintString("Is Cool!!!");
+  71              		.loc 1 28 0
+  72 0036 2D48     		ldr	r0, .L11+4
+  73 0038 FFF7FEFF 		bl	LCD_PrintString
+  74              	.LVL9:
+  29:main.c        ****     CyDelay(2000);
+  75              		.loc 1 29 0
+  76 003c FA20     		mov	r0, #250
+  77 003e C000     		lsl	r0, r0, #3
+  78 0040 FFF7FEFF 		bl	CyDelay
+  79              	.LVL10:
+  30:main.c        ****     LCD_ClearDisplay();
+  80              		.loc 1 30 0
+  81 0044 0120     		mov	r0, #1
+  82 0046 FFF7FEFF 		bl	LCD_WriteControl
+  83              	.LVL11:
+  84              	.L10:
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 3
+
+
+  85              	.LBB2:
+  31:main.c        **** 
+  32:main.c        ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  33:main.c        **** 
+  34:main.c        ****     for(;;)
+  35:main.c        ****     {
+  36:main.c        ****         uint16 button = ADC_SAR_Seq_Button_GetResult16(0);
+  86              		.loc 1 36 0
+  87 004a 0020     		mov	r0, #0
+  88 004c FFF7FEFF 		bl	ADC_SAR_Seq_Button_GetResult16
+  89              	.LVL12:
+  90 0050 80B2     		uxth	r0, r0
+  91              	.LVL13:
+  37:main.c        ****         
+  38:main.c        **** 
+  39:main.c        ****         switch (button)
+  92              		.loc 1 39 0
+  93 0052 2F28     		cmp	r0, #47
+  94 0054 12D0     		beq	.L3
+  95 0056 04D8     		bhi	.L4
+  96 0058 0028     		cmp	r0, #0
+  97 005a 1FD0     		beq	.L5
+  98 005c 1228     		cmp	r0, #18
+  99 005e 05D0     		beq	.L6
+ 100 0060 2CE0     		b	.L2
+ 101              	.L4:
+ 102 0062 4B28     		cmp	r0, #75
+ 103 0064 12D0     		beq	.L7
+ 104 0066 7528     		cmp	r0, #117
+ 105 0068 20D0     		beq	.L8
+ 106 006a 27E0     		b	.L2
+ 107              	.L6:
+  40:main.c        ****         {
+  41:main.c        ****             case U:
+  42:main.c        ****             {
+  43:main.c        ****                 LCD_Position(0,0);
+ 108              		.loc 1 43 0
+ 109 006c 0020     		mov	r0, #0
+ 110              	.LVL14:
+ 111 006e 0021     		mov	r1, #0
+ 112 0070 FFF7FEFF 		bl	LCD_Position
+ 113              	.LVL15:
+  44:main.c        ****                 LCD_PrintString("UP");
+ 114              		.loc 1 44 0
+ 115 0074 1E48     		ldr	r0, .L11+8
+ 116 0076 FFF7FEFF 		bl	LCD_PrintString
+ 117              	.LVL16:
+  45:main.c        ****                 break;
+ 118              		.loc 1 45 0
+ 119 007a 26E0     		b	.L9
+ 120              	.LVL17:
+ 121              	.L3:
+  46:main.c        ****             }
+  47:main.c        ****             case D:
+  48:main.c        ****             {
+  49:main.c        ****                 LCD_Position(0,0);
+ 122              		.loc 1 49 0
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 4
+
+
+ 123 007c 0020     		mov	r0, #0
+ 124              	.LVL18:
+ 125 007e 0021     		mov	r1, #0
+ 126 0080 FFF7FEFF 		bl	LCD_Position
+ 127              	.LVL19:
+  50:main.c        ****                 LCD_PrintString("DOWN");
+ 128              		.loc 1 50 0
+ 129 0084 1B48     		ldr	r0, .L11+12
+ 130 0086 FFF7FEFF 		bl	LCD_PrintString
+ 131              	.LVL20:
+  51:main.c        ****                 break;
+ 132              		.loc 1 51 0
+ 133 008a 1EE0     		b	.L9
+ 134              	.LVL21:
+ 135              	.L7:
+  52:main.c        ****             }
+  53:main.c        ****             case L:
+  54:main.c        ****             {
+  55:main.c        ****                 LCD_Position(0,0);
+ 136              		.loc 1 55 0
+ 137 008c 0020     		mov	r0, #0
+ 138              	.LVL22:
+ 139 008e 0021     		mov	r1, #0
+ 140 0090 FFF7FEFF 		bl	LCD_Position
+ 141              	.LVL23:
+  56:main.c        ****                 LCD_PrintString("LEFT");
+ 142              		.loc 1 56 0
+ 143 0094 1848     		ldr	r0, .L11+16
+ 144 0096 FFF7FEFF 		bl	LCD_PrintString
+ 145              	.LVL24:
+  57:main.c        ****                 break;
+ 146              		.loc 1 57 0
+ 147 009a 16E0     		b	.L9
+ 148              	.LVL25:
+ 149              	.L5:
+  58:main.c        ****             }
+  59:main.c        ****             case R:
+  60:main.c        ****             {
+  61:main.c        ****                 LCD_Position(0,0);
+ 150              		.loc 1 61 0
+ 151 009c 0020     		mov	r0, #0
+ 152              	.LVL26:
+ 153 009e 0021     		mov	r1, #0
+ 154 00a0 FFF7FEFF 		bl	LCD_Position
+ 155              	.LVL27:
+  62:main.c        ****                 LCD_PrintString("RIGHT");
+ 156              		.loc 1 62 0
+ 157 00a4 1548     		ldr	r0, .L11+20
+ 158 00a6 FFF7FEFF 		bl	LCD_PrintString
+ 159              	.LVL28:
+  63:main.c        ****                 break;
+ 160              		.loc 1 63 0
+ 161 00aa 0EE0     		b	.L9
+ 162              	.LVL29:
+ 163              	.L8:
+  64:main.c        ****             }
+  65:main.c        ****             case S:
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 5
+
+
+  66:main.c        ****             {
+  67:main.c        ****                 LCD_Position(0,0);
+ 164              		.loc 1 67 0
+ 165 00ac 0020     		mov	r0, #0
+ 166              	.LVL30:
+ 167 00ae 0021     		mov	r1, #0
+ 168 00b0 FFF7FEFF 		bl	LCD_Position
+ 169              	.LVL31:
+  68:main.c        ****                 LCD_PrintString("SELECT");
+ 170              		.loc 1 68 0
+ 171 00b4 1248     		ldr	r0, .L11+24
+ 172 00b6 FFF7FEFF 		bl	LCD_PrintString
+ 173              	.LVL32:
+  69:main.c        ****                 break;
+ 174              		.loc 1 69 0
+ 175 00ba 06E0     		b	.L9
+ 176              	.LVL33:
+ 177              	.L2:
+  70:main.c        ****             }
+  71:main.c        ****             default:
+  72:main.c        ****             {
+  73:main.c        ****                 LCD_Position(0,0);
+ 178              		.loc 1 73 0
+ 179 00bc 0020     		mov	r0, #0
+ 180              	.LVL34:
+ 181 00be 0021     		mov	r1, #0
+ 182 00c0 FFF7FEFF 		bl	LCD_Position
+ 183              	.LVL35:
+  74:main.c        ****                 LCD_PrintString("       ");
+ 184              		.loc 1 74 0
+ 185 00c4 0F48     		ldr	r0, .L11+28
+ 186 00c6 FFF7FEFF 		bl	LCD_PrintString
+ 187              	.LVL36:
+ 188              	.L9:
+  75:main.c        ****                 break;
+  76:main.c        ****                
+  77:main.c        ****             }
+  78:main.c        ****         }   
+  79:main.c        ****         LCD_Position(1,0);
+ 189              		.loc 1 79 0
+ 190 00ca 0120     		mov	r0, #1
+ 191 00cc 0021     		mov	r1, #0
+ 192 00ce FFF7FEFF 		bl	LCD_Position
+ 193              	.LVL37:
+  80:main.c        ****         LCD_PrintString("Button Data:");
+ 194              		.loc 1 80 0
+ 195 00d2 0D48     		ldr	r0, .L11+32
+ 196 00d4 FFF7FEFF 		bl	LCD_PrintString
+ 197              	.LVL38:
+  81:main.c        ****         LCD_PrintInt16(ADC_SAR_Seq_Button_GetResult16(0));
+ 198              		.loc 1 81 0
+ 199 00d8 0020     		mov	r0, #0
+ 200 00da FFF7FEFF 		bl	ADC_SAR_Seq_Button_GetResult16
+ 201              	.LVL39:
+ 202 00de 80B2     		uxth	r0, r0
+ 203 00e0 FFF7FEFF 		bl	LCD_PrintInt16
+ 204              	.LVL40:
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 6
+
+
+ 205              	.LBE2:
+  82:main.c        ****       
+  83:main.c        ****      
+  84:main.c        ****         /* Place your code here. */
+  85:main.c        ****     }
+ 206              		.loc 1 85 0
+ 207 00e4 B1E7     		b	.L10
+ 208              	.L12:
+ 209 00e6 C046     		.align	2
+ 210              	.L11:
+ 211 00e8 00000000 		.word	.LC0
+ 212 00ec 0C000000 		.word	.LC2
+ 213 00f0 18000000 		.word	.LC4
+ 214 00f4 1C000000 		.word	.LC6
+ 215 00f8 24000000 		.word	.LC8
+ 216 00fc 2C000000 		.word	.LC10
+ 217 0100 34000000 		.word	.LC12
+ 218 0104 3C000000 		.word	.LC14
+ 219 0108 44000000 		.word	.LC16
+ 220              		.cfi_endproc
+ 221              	.LFE37:
+ 222              		.size	main, .-main
+ 223              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 224              		.align	2
+ 225              	.LC0:
+ 226 0000 4A616365 		.ascii	"Jace Boyd\000"
+ 226      20426F79 
+ 226      6400
+ 227 000a 0000     		.space	2
+ 228              	.LC2:
+ 229 000c 49732043 		.ascii	"Is Cool!!!\000"
+ 229      6F6F6C21 
+ 229      212100
+ 230 0017 00       		.space	1
+ 231              	.LC4:
+ 232 0018 555000   		.ascii	"UP\000"
+ 233 001b 00       		.space	1
+ 234              	.LC6:
+ 235 001c 444F574E 		.ascii	"DOWN\000"
+ 235      00
+ 236 0021 000000   		.space	3
+ 237              	.LC8:
+ 238 0024 4C454654 		.ascii	"LEFT\000"
+ 238      00
+ 239 0029 000000   		.space	3
+ 240              	.LC10:
+ 241 002c 52494748 		.ascii	"RIGHT\000"
+ 241      5400
+ 242 0032 0000     		.space	2
+ 243              	.LC12:
+ 244 0034 53454C45 		.ascii	"SELECT\000"
+ 244      435400
+ 245 003b 00       		.space	1
+ 246              	.LC14:
+ 247 003c 20202020 		.ascii	"       \000"
+ 247      20202000 
+ 248              	.LC16:
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 7
+
+
+ 249 0044 42757474 		.ascii	"Button Data:\000"
+ 249      6F6E2044 
+ 249      6174613A 
+ 249      00
+ 250 0051 000000   		.text
+ 251              	.Letext0:
+ 252              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 253              		.file 3 "Generated_Source\\PSoC4/LCD.h"
+ 254              		.file 4 "Generated_Source\\PSoC4/ADC_SAR_Seq_Button.h"
+ 255              		.file 5 "Generated_Source\\PSoC4/PWMBacklight.h"
+ 256              		.file 6 "Generated_Source\\PSoC4/CyLib.h"
+ 257              		.section	.debug_info,"",%progbits
+ 258              	.Ldebug_info0:
+ 259 0000 DF030000 		.4byte	0x3df
+ 260 0004 0400     		.2byte	0x4
+ 261 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 262 000a 04       		.byte	0x4
+ 263 000b 01       		.uleb128 0x1
+ 264 000c AD010000 		.4byte	.LASF27
+ 265 0010 01       		.byte	0x1
+ 266 0011 90010000 		.4byte	.LASF28
+ 267 0015 6D000000 		.4byte	.LASF29
+ 268 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 269 001d 00000000 		.4byte	0
+ 270 0021 00000000 		.4byte	.Ldebug_line0
+ 271 0025 02       		.uleb128 0x2
+ 272 0026 01       		.byte	0x1
+ 273 0027 06       		.byte	0x6
+ 274 0028 55020000 		.4byte	.LASF0
+ 275 002c 02       		.uleb128 0x2
+ 276 002d 01       		.byte	0x1
+ 277 002e 08       		.byte	0x8
+ 278 002f B2000000 		.4byte	.LASF1
+ 279 0033 02       		.uleb128 0x2
+ 280 0034 02       		.byte	0x2
+ 281 0035 05       		.byte	0x5
+ 282 0036 3B020000 		.4byte	.LASF2
+ 283 003a 02       		.uleb128 0x2
+ 284 003b 02       		.byte	0x2
+ 285 003c 07       		.byte	0x7
+ 286 003d 5A000000 		.4byte	.LASF3
+ 287 0041 02       		.uleb128 0x2
+ 288 0042 04       		.byte	0x4
+ 289 0043 05       		.byte	0x5
+ 290 0044 45020000 		.4byte	.LASF4
+ 291 0048 02       		.uleb128 0x2
+ 292 0049 04       		.byte	0x4
+ 293 004a 07       		.byte	0x7
+ 294 004b CC000000 		.4byte	.LASF5
+ 295 004f 02       		.uleb128 0x2
+ 296 0050 08       		.byte	0x8
+ 297 0051 05       		.byte	0x5
+ 298 0052 82010000 		.4byte	.LASF6
+ 299 0056 02       		.uleb128 0x2
+ 300 0057 08       		.byte	0x8
+ 301 0058 07       		.byte	0x7
+ 302 0059 55010000 		.4byte	.LASF7
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 8
+
+
+ 303 005d 03       		.uleb128 0x3
+ 304 005e 04       		.byte	0x4
+ 305 005f 05       		.byte	0x5
+ 306 0060 696E7400 		.ascii	"int\000"
+ 307 0064 02       		.uleb128 0x2
+ 308 0065 04       		.byte	0x4
+ 309 0066 07       		.byte	0x7
+ 310 0067 48010000 		.4byte	.LASF8
+ 311 006b 04       		.uleb128 0x4
+ 312 006c DE000000 		.4byte	.LASF9
+ 313 0070 02       		.byte	0x2
+ 314 0071 B901     		.2byte	0x1b9
+ 315 0073 2C000000 		.4byte	0x2c
+ 316 0077 04       		.uleb128 0x4
+ 317 0078 20010000 		.4byte	.LASF10
+ 318 007c 02       		.byte	0x2
+ 319 007d BA01     		.2byte	0x1ba
+ 320 007f 3A000000 		.4byte	0x3a
+ 321 0083 04       		.uleb128 0x4
+ 322 0084 27010000 		.4byte	.LASF11
+ 323 0088 02       		.byte	0x2
+ 324 0089 BB01     		.2byte	0x1bb
+ 325 008b 48000000 		.4byte	0x48
+ 326 008f 04       		.uleb128 0x4
+ 327 0090 C6000000 		.4byte	.LASF12
+ 328 0094 02       		.byte	0x2
+ 329 0095 BD01     		.2byte	0x1bd
+ 330 0097 33000000 		.4byte	0x33
+ 331 009b 02       		.uleb128 0x2
+ 332 009c 04       		.byte	0x4
+ 333 009d 04       		.byte	0x4
+ 334 009e A2000000 		.4byte	.LASF13
+ 335 00a2 02       		.uleb128 0x2
+ 336 00a3 08       		.byte	0x8
+ 337 00a4 04       		.byte	0x4
+ 338 00a5 E4000000 		.4byte	.LASF14
+ 339 00a9 04       		.uleb128 0x4
+ 340 00aa C0000000 		.4byte	.LASF15
+ 341 00ae 02       		.byte	0x2
+ 342 00af CA01     		.2byte	0x1ca
+ 343 00b1 B5000000 		.4byte	0xb5
+ 344 00b5 02       		.uleb128 0x2
+ 345 00b6 01       		.byte	0x1
+ 346 00b7 08       		.byte	0x8
+ 347 00b8 97010000 		.4byte	.LASF16
+ 348 00bc 02       		.uleb128 0x2
+ 349 00bd 04       		.byte	0x4
+ 350 00be 07       		.byte	0x7
+ 351 00bf 79010000 		.4byte	.LASF17
+ 352 00c3 05       		.uleb128 0x5
+ 353 00c4 0B010000 		.4byte	.LASF30
+ 354 00c8 01       		.byte	0x1
+ 355 00c9 10       		.byte	0x10
+ 356 00ca 5D000000 		.4byte	0x5d
+ 357 00ce 00000000 		.4byte	.LFB37
+ 358 00d2 0C010000 		.4byte	.LFE37-.LFB37
+ 359 00d6 01       		.uleb128 0x1
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 9
+
+
+ 360 00d7 9C       		.byte	0x9c
+ 361 00d8 3F030000 		.4byte	0x33f
+ 362 00dc 06       		.uleb128 0x6
+ 363 00dd 4A000000 		.4byte	.LBB2
+ 364 00e1 9A000000 		.4byte	.LBE2-.LBB2
+ 365 00e5 71020000 		.4byte	0x271
+ 366 00e9 07       		.uleb128 0x7
+ 367 00ea 4E020000 		.4byte	.LASF31
+ 368 00ee 01       		.byte	0x1
+ 369 00ef 24       		.byte	0x24
+ 370 00f0 77000000 		.4byte	0x77
+ 371 00f4 00000000 		.4byte	.LLST0
+ 372 00f8 08       		.uleb128 0x8
+ 373 00f9 50000000 		.4byte	.LVL12
+ 374 00fd 3F030000 		.4byte	0x33f
+ 375 0101 0B010000 		.4byte	0x10b
+ 376 0105 09       		.uleb128 0x9
+ 377 0106 01       		.uleb128 0x1
+ 378 0107 50       		.byte	0x50
+ 379 0108 01       		.uleb128 0x1
+ 380 0109 30       		.byte	0x30
+ 381 010a 00       		.byte	0
+ 382 010b 08       		.uleb128 0x8
+ 383 010c 74000000 		.4byte	.LVL15
+ 384 0110 54030000 		.4byte	0x354
+ 385 0114 23010000 		.4byte	0x123
+ 386 0118 09       		.uleb128 0x9
+ 387 0119 01       		.uleb128 0x1
+ 388 011a 51       		.byte	0x51
+ 389 011b 01       		.uleb128 0x1
+ 390 011c 30       		.byte	0x30
+ 391 011d 09       		.uleb128 0x9
+ 392 011e 01       		.uleb128 0x1
+ 393 011f 50       		.byte	0x50
+ 394 0120 01       		.uleb128 0x1
+ 395 0121 30       		.byte	0x30
+ 396 0122 00       		.byte	0
+ 397 0123 08       		.uleb128 0x8
+ 398 0124 7A000000 		.4byte	.LVL16
+ 399 0128 6A030000 		.4byte	0x36a
+ 400 012c 3A010000 		.4byte	0x13a
+ 401 0130 09       		.uleb128 0x9
+ 402 0131 01       		.uleb128 0x1
+ 403 0132 50       		.byte	0x50
+ 404 0133 05       		.uleb128 0x5
+ 405 0134 03       		.byte	0x3
+ 406 0135 18000000 		.4byte	.LC4
+ 407 0139 00       		.byte	0
+ 408 013a 08       		.uleb128 0x8
+ 409 013b 84000000 		.4byte	.LVL19
+ 410 013f 54030000 		.4byte	0x354
+ 411 0143 52010000 		.4byte	0x152
+ 412 0147 09       		.uleb128 0x9
+ 413 0148 01       		.uleb128 0x1
+ 414 0149 51       		.byte	0x51
+ 415 014a 01       		.uleb128 0x1
+ 416 014b 30       		.byte	0x30
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 10
+
+
+ 417 014c 09       		.uleb128 0x9
+ 418 014d 01       		.uleb128 0x1
+ 419 014e 50       		.byte	0x50
+ 420 014f 01       		.uleb128 0x1
+ 421 0150 30       		.byte	0x30
+ 422 0151 00       		.byte	0
+ 423 0152 08       		.uleb128 0x8
+ 424 0153 8A000000 		.4byte	.LVL20
+ 425 0157 6A030000 		.4byte	0x36a
+ 426 015b 69010000 		.4byte	0x169
+ 427 015f 09       		.uleb128 0x9
+ 428 0160 01       		.uleb128 0x1
+ 429 0161 50       		.byte	0x50
+ 430 0162 05       		.uleb128 0x5
+ 431 0163 03       		.byte	0x3
+ 432 0164 1C000000 		.4byte	.LC6
+ 433 0168 00       		.byte	0
+ 434 0169 08       		.uleb128 0x8
+ 435 016a 94000000 		.4byte	.LVL23
+ 436 016e 54030000 		.4byte	0x354
+ 437 0172 81010000 		.4byte	0x181
+ 438 0176 09       		.uleb128 0x9
+ 439 0177 01       		.uleb128 0x1
+ 440 0178 51       		.byte	0x51
+ 441 0179 01       		.uleb128 0x1
+ 442 017a 30       		.byte	0x30
+ 443 017b 09       		.uleb128 0x9
+ 444 017c 01       		.uleb128 0x1
+ 445 017d 50       		.byte	0x50
+ 446 017e 01       		.uleb128 0x1
+ 447 017f 30       		.byte	0x30
+ 448 0180 00       		.byte	0
+ 449 0181 08       		.uleb128 0x8
+ 450 0182 9A000000 		.4byte	.LVL24
+ 451 0186 6A030000 		.4byte	0x36a
+ 452 018a 98010000 		.4byte	0x198
+ 453 018e 09       		.uleb128 0x9
+ 454 018f 01       		.uleb128 0x1
+ 455 0190 50       		.byte	0x50
+ 456 0191 05       		.uleb128 0x5
+ 457 0192 03       		.byte	0x3
+ 458 0193 24000000 		.4byte	.LC8
+ 459 0197 00       		.byte	0
+ 460 0198 08       		.uleb128 0x8
+ 461 0199 A4000000 		.4byte	.LVL27
+ 462 019d 54030000 		.4byte	0x354
+ 463 01a1 B0010000 		.4byte	0x1b0
+ 464 01a5 09       		.uleb128 0x9
+ 465 01a6 01       		.uleb128 0x1
+ 466 01a7 51       		.byte	0x51
+ 467 01a8 01       		.uleb128 0x1
+ 468 01a9 30       		.byte	0x30
+ 469 01aa 09       		.uleb128 0x9
+ 470 01ab 01       		.uleb128 0x1
+ 471 01ac 50       		.byte	0x50
+ 472 01ad 01       		.uleb128 0x1
+ 473 01ae 30       		.byte	0x30
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 11
+
+
+ 474 01af 00       		.byte	0
+ 475 01b0 08       		.uleb128 0x8
+ 476 01b1 AA000000 		.4byte	.LVL28
+ 477 01b5 6A030000 		.4byte	0x36a
+ 478 01b9 C7010000 		.4byte	0x1c7
+ 479 01bd 09       		.uleb128 0x9
+ 480 01be 01       		.uleb128 0x1
+ 481 01bf 50       		.byte	0x50
+ 482 01c0 05       		.uleb128 0x5
+ 483 01c1 03       		.byte	0x3
+ 484 01c2 2C000000 		.4byte	.LC10
+ 485 01c6 00       		.byte	0
+ 486 01c7 08       		.uleb128 0x8
+ 487 01c8 B4000000 		.4byte	.LVL31
+ 488 01cc 54030000 		.4byte	0x354
+ 489 01d0 DF010000 		.4byte	0x1df
+ 490 01d4 09       		.uleb128 0x9
+ 491 01d5 01       		.uleb128 0x1
+ 492 01d6 51       		.byte	0x51
+ 493 01d7 01       		.uleb128 0x1
+ 494 01d8 30       		.byte	0x30
+ 495 01d9 09       		.uleb128 0x9
+ 496 01da 01       		.uleb128 0x1
+ 497 01db 50       		.byte	0x50
+ 498 01dc 01       		.uleb128 0x1
+ 499 01dd 30       		.byte	0x30
+ 500 01de 00       		.byte	0
+ 501 01df 08       		.uleb128 0x8
+ 502 01e0 BA000000 		.4byte	.LVL32
+ 503 01e4 6A030000 		.4byte	0x36a
+ 504 01e8 F6010000 		.4byte	0x1f6
+ 505 01ec 09       		.uleb128 0x9
+ 506 01ed 01       		.uleb128 0x1
+ 507 01ee 50       		.byte	0x50
+ 508 01ef 05       		.uleb128 0x5
+ 509 01f0 03       		.byte	0x3
+ 510 01f1 34000000 		.4byte	.LC12
+ 511 01f5 00       		.byte	0
+ 512 01f6 08       		.uleb128 0x8
+ 513 01f7 C4000000 		.4byte	.LVL35
+ 514 01fb 54030000 		.4byte	0x354
+ 515 01ff 0E020000 		.4byte	0x20e
+ 516 0203 09       		.uleb128 0x9
+ 517 0204 01       		.uleb128 0x1
+ 518 0205 51       		.byte	0x51
+ 519 0206 01       		.uleb128 0x1
+ 520 0207 30       		.byte	0x30
+ 521 0208 09       		.uleb128 0x9
+ 522 0209 01       		.uleb128 0x1
+ 523 020a 50       		.byte	0x50
+ 524 020b 01       		.uleb128 0x1
+ 525 020c 30       		.byte	0x30
+ 526 020d 00       		.byte	0
+ 527 020e 08       		.uleb128 0x8
+ 528 020f CA000000 		.4byte	.LVL36
+ 529 0213 6A030000 		.4byte	0x36a
+ 530 0217 25020000 		.4byte	0x225
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 12
+
+
+ 531 021b 09       		.uleb128 0x9
+ 532 021c 01       		.uleb128 0x1
+ 533 021d 50       		.byte	0x50
+ 534 021e 05       		.uleb128 0x5
+ 535 021f 03       		.byte	0x3
+ 536 0220 3C000000 		.4byte	.LC14
+ 537 0224 00       		.byte	0
+ 538 0225 08       		.uleb128 0x8
+ 539 0226 D2000000 		.4byte	.LVL37
+ 540 022a 54030000 		.4byte	0x354
+ 541 022e 3D020000 		.4byte	0x23d
+ 542 0232 09       		.uleb128 0x9
+ 543 0233 01       		.uleb128 0x1
+ 544 0234 51       		.byte	0x51
+ 545 0235 01       		.uleb128 0x1
+ 546 0236 30       		.byte	0x30
+ 547 0237 09       		.uleb128 0x9
+ 548 0238 01       		.uleb128 0x1
+ 549 0239 50       		.byte	0x50
+ 550 023a 01       		.uleb128 0x1
+ 551 023b 31       		.byte	0x31
+ 552 023c 00       		.byte	0
+ 553 023d 08       		.uleb128 0x8
+ 554 023e D8000000 		.4byte	.LVL38
+ 555 0242 6A030000 		.4byte	0x36a
+ 556 0246 54020000 		.4byte	0x254
+ 557 024a 09       		.uleb128 0x9
+ 558 024b 01       		.uleb128 0x1
+ 559 024c 50       		.byte	0x50
+ 560 024d 05       		.uleb128 0x5
+ 561 024e 03       		.byte	0x3
+ 562 024f 44000000 		.4byte	.LC16
+ 563 0253 00       		.byte	0
+ 564 0254 08       		.uleb128 0x8
+ 565 0255 DE000000 		.4byte	.LVL39
+ 566 0259 3F030000 		.4byte	0x33f
+ 567 025d 67020000 		.4byte	0x267
+ 568 0261 09       		.uleb128 0x9
+ 569 0262 01       		.uleb128 0x1
+ 570 0263 50       		.byte	0x50
+ 571 0264 01       		.uleb128 0x1
+ 572 0265 30       		.byte	0x30
+ 573 0266 00       		.byte	0
+ 574 0267 0A       		.uleb128 0xa
+ 575 0268 E4000000 		.4byte	.LVL40
+ 576 026c 86030000 		.4byte	0x386
+ 577 0270 00       		.byte	0
+ 578 0271 0A       		.uleb128 0xa
+ 579 0272 08000000 		.4byte	.LVL0
+ 580 0276 97030000 		.4byte	0x397
+ 581 027a 0A       		.uleb128 0xa
+ 582 027b 0C000000 		.4byte	.LVL1
+ 583 027f 9E030000 		.4byte	0x39e
+ 584 0283 0A       		.uleb128 0xa
+ 585 0284 10000000 		.4byte	.LVL2
+ 586 0288 A5030000 		.4byte	0x3a5
+ 587 028c 08       		.uleb128 0x8
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 13
+
+
+ 588 028d 16000000 		.4byte	.LVL3
+ 589 0291 AC030000 		.4byte	0x3ac
+ 590 0295 A0020000 		.4byte	0x2a0
+ 591 0299 09       		.uleb128 0x9
+ 592 029a 01       		.uleb128 0x1
+ 593 029b 50       		.byte	0x50
+ 594 029c 02       		.uleb128 0x2
+ 595 029d 09       		.byte	0x9
+ 596 029e FA       		.byte	0xfa
+ 597 029f 00       		.byte	0
+ 598 02a0 0A       		.uleb128 0xa
+ 599 02a1 1A000000 		.4byte	.LVL4
+ 600 02a5 BD030000 		.4byte	0x3bd
+ 601 02a9 08       		.uleb128 0x8
+ 602 02aa 20000000 		.4byte	.LVL5
+ 603 02ae C4030000 		.4byte	0x3c4
+ 604 02b2 BC020000 		.4byte	0x2bc
+ 605 02b6 09       		.uleb128 0x9
+ 606 02b7 01       		.uleb128 0x1
+ 607 02b8 50       		.byte	0x50
+ 608 02b9 01       		.uleb128 0x1
+ 609 02ba 31       		.byte	0x31
+ 610 02bb 00       		.byte	0
+ 611 02bc 08       		.uleb128 0x8
+ 612 02bd 28000000 		.4byte	.LVL6
+ 613 02c1 54030000 		.4byte	0x354
+ 614 02c5 D4020000 		.4byte	0x2d4
+ 615 02c9 09       		.uleb128 0x9
+ 616 02ca 01       		.uleb128 0x1
+ 617 02cb 51       		.byte	0x51
+ 618 02cc 01       		.uleb128 0x1
+ 619 02cd 33       		.byte	0x33
+ 620 02ce 09       		.uleb128 0x9
+ 621 02cf 01       		.uleb128 0x1
+ 622 02d0 50       		.byte	0x50
+ 623 02d1 01       		.uleb128 0x1
+ 624 02d2 30       		.byte	0x30
+ 625 02d3 00       		.byte	0
+ 626 02d4 08       		.uleb128 0x8
+ 627 02d5 2E000000 		.4byte	.LVL7
+ 628 02d9 6A030000 		.4byte	0x36a
+ 629 02dd EB020000 		.4byte	0x2eb
+ 630 02e1 09       		.uleb128 0x9
+ 631 02e2 01       		.uleb128 0x1
+ 632 02e3 50       		.byte	0x50
+ 633 02e4 05       		.uleb128 0x5
+ 634 02e5 03       		.byte	0x3
+ 635 02e6 00000000 		.4byte	.LC0
+ 636 02ea 00       		.byte	0
+ 637 02eb 08       		.uleb128 0x8
+ 638 02ec 36000000 		.4byte	.LVL8
+ 639 02f0 54030000 		.4byte	0x354
+ 640 02f4 03030000 		.4byte	0x303
+ 641 02f8 09       		.uleb128 0x9
+ 642 02f9 01       		.uleb128 0x1
+ 643 02fa 51       		.byte	0x51
+ 644 02fb 01       		.uleb128 0x1
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 14
+
+
+ 645 02fc 33       		.byte	0x33
+ 646 02fd 09       		.uleb128 0x9
+ 647 02fe 01       		.uleb128 0x1
+ 648 02ff 50       		.byte	0x50
+ 649 0300 01       		.uleb128 0x1
+ 650 0301 31       		.byte	0x31
+ 651 0302 00       		.byte	0
+ 652 0303 08       		.uleb128 0x8
+ 653 0304 3C000000 		.4byte	.LVL9
+ 654 0308 6A030000 		.4byte	0x36a
+ 655 030c 1A030000 		.4byte	0x31a
+ 656 0310 09       		.uleb128 0x9
+ 657 0311 01       		.uleb128 0x1
+ 658 0312 50       		.byte	0x50
+ 659 0313 05       		.uleb128 0x5
+ 660 0314 03       		.byte	0x3
+ 661 0315 0C000000 		.4byte	.LC2
+ 662 0319 00       		.byte	0
+ 663 031a 08       		.uleb128 0x8
+ 664 031b 44000000 		.4byte	.LVL10
+ 665 031f D5030000 		.4byte	0x3d5
+ 666 0323 2F030000 		.4byte	0x32f
+ 667 0327 09       		.uleb128 0x9
+ 668 0328 01       		.uleb128 0x1
+ 669 0329 50       		.byte	0x50
+ 670 032a 03       		.uleb128 0x3
+ 671 032b 0A       		.byte	0xa
+ 672 032c D007     		.2byte	0x7d0
+ 673 032e 00       		.byte	0
+ 674 032f 0B       		.uleb128 0xb
+ 675 0330 4A000000 		.4byte	.LVL11
+ 676 0334 C4030000 		.4byte	0x3c4
+ 677 0338 09       		.uleb128 0x9
+ 678 0339 01       		.uleb128 0x1
+ 679 033a 50       		.byte	0x50
+ 680 033b 01       		.uleb128 0x1
+ 681 033c 31       		.byte	0x31
+ 682 033d 00       		.byte	0
+ 683 033e 00       		.byte	0
+ 684 033f 0C       		.uleb128 0xc
+ 685 0340 0F000000 		.4byte	.LASF32
+ 686 0344 04       		.byte	0x4
+ 687 0345 9F       		.byte	0x9f
+ 688 0346 8F000000 		.4byte	0x8f
+ 689 034a 54030000 		.4byte	0x354
+ 690 034e 0D       		.uleb128 0xd
+ 691 034f 83000000 		.4byte	0x83
+ 692 0353 00       		.byte	0
+ 693 0354 0E       		.uleb128 0xe
+ 694 0355 6C010000 		.4byte	.LASF18
+ 695 0359 03       		.byte	0x3
+ 696 035a 3D       		.byte	0x3d
+ 697 035b 6A030000 		.4byte	0x36a
+ 698 035f 0D       		.uleb128 0xd
+ 699 0360 6B000000 		.4byte	0x6b
+ 700 0364 0D       		.uleb128 0xd
+ 701 0365 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 15
+
+
+ 702 0369 00       		.byte	0
+ 703 036a 0E       		.uleb128 0xe
+ 704 036b 10010000 		.4byte	.LASF19
+ 705 036f 03       		.byte	0x3
+ 706 0370 3C       		.byte	0x3c
+ 707 0371 7B030000 		.4byte	0x37b
+ 708 0375 0D       		.uleb128 0xd
+ 709 0376 7B030000 		.4byte	0x37b
+ 710 037a 00       		.byte	0
+ 711 037b 0F       		.uleb128 0xf
+ 712 037c 04       		.byte	0x4
+ 713 037d 81030000 		.4byte	0x381
+ 714 0381 10       		.uleb128 0x10
+ 715 0382 A9000000 		.4byte	0xa9
+ 716 0386 0E       		.uleb128 0xe
+ 717 0387 00000000 		.4byte	.LASF20
+ 718 038b 03       		.byte	0x3
+ 719 038c 5E       		.byte	0x5e
+ 720 038d 97030000 		.4byte	0x397
+ 721 0391 0D       		.uleb128 0xd
+ 722 0392 77000000 		.4byte	0x77
+ 723 0396 00       		.byte	0
+ 724 0397 11       		.uleb128 0x11
+ 725 0398 2E000000 		.4byte	.LASF21
+ 726 039c 04       		.byte	0x4
+ 727 039d 98       		.byte	0x98
+ 728 039e 11       		.uleb128 0x11
+ 729 039f EB000000 		.4byte	.LASF22
+ 730 03a3 04       		.byte	0x4
+ 731 03a4 9C       		.byte	0x9c
+ 732 03a5 11       		.uleb128 0x11
+ 733 03a6 47000000 		.4byte	.LASF23
+ 734 03aa 05       		.byte	0x5
+ 735 03ab 92       		.byte	0x92
+ 736 03ac 0E       		.uleb128 0xe
+ 737 03ad 2E010000 		.4byte	.LASF24
+ 738 03b1 05       		.byte	0x5
+ 739 03b2 C3       		.byte	0xc3
+ 740 03b3 BD030000 		.4byte	0x3bd
+ 741 03b7 0D       		.uleb128 0xd
+ 742 03b8 6B000000 		.4byte	0x6b
+ 743 03bc 00       		.byte	0
+ 744 03bd 11       		.uleb128 0x11
+ 745 03be A8000000 		.4byte	.LASF25
+ 746 03c2 03       		.byte	0x3
+ 747 03c3 38       		.byte	0x38
+ 748 03c4 0E       		.uleb128 0xe
+ 749 03c5 9C010000 		.4byte	.LASF26
+ 750 03c9 03       		.byte	0x3
+ 751 03ca 3A       		.byte	0x3a
+ 752 03cb D5030000 		.4byte	0x3d5
+ 753 03cf 0D       		.uleb128 0xd
+ 754 03d0 6B000000 		.4byte	0x6b
+ 755 03d4 00       		.byte	0
+ 756 03d5 12       		.uleb128 0x12
+ 757 03d6 61020000 		.4byte	.LASF33
+ 758 03da 06       		.byte	0x6
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 16
+
+
+ 759 03db D9       		.byte	0xd9
+ 760 03dc 0D       		.uleb128 0xd
+ 761 03dd 83000000 		.4byte	0x83
+ 762 03e1 00       		.byte	0
+ 763 03e2 00       		.byte	0
+ 764              		.section	.debug_abbrev,"",%progbits
+ 765              	.Ldebug_abbrev0:
+ 766 0000 01       		.uleb128 0x1
+ 767 0001 11       		.uleb128 0x11
+ 768 0002 01       		.byte	0x1
+ 769 0003 25       		.uleb128 0x25
+ 770 0004 0E       		.uleb128 0xe
+ 771 0005 13       		.uleb128 0x13
+ 772 0006 0B       		.uleb128 0xb
+ 773 0007 03       		.uleb128 0x3
+ 774 0008 0E       		.uleb128 0xe
+ 775 0009 1B       		.uleb128 0x1b
+ 776 000a 0E       		.uleb128 0xe
+ 777 000b 55       		.uleb128 0x55
+ 778 000c 17       		.uleb128 0x17
+ 779 000d 11       		.uleb128 0x11
+ 780 000e 01       		.uleb128 0x1
+ 781 000f 10       		.uleb128 0x10
+ 782 0010 17       		.uleb128 0x17
+ 783 0011 00       		.byte	0
+ 784 0012 00       		.byte	0
+ 785 0013 02       		.uleb128 0x2
+ 786 0014 24       		.uleb128 0x24
+ 787 0015 00       		.byte	0
+ 788 0016 0B       		.uleb128 0xb
+ 789 0017 0B       		.uleb128 0xb
+ 790 0018 3E       		.uleb128 0x3e
+ 791 0019 0B       		.uleb128 0xb
+ 792 001a 03       		.uleb128 0x3
+ 793 001b 0E       		.uleb128 0xe
+ 794 001c 00       		.byte	0
+ 795 001d 00       		.byte	0
+ 796 001e 03       		.uleb128 0x3
+ 797 001f 24       		.uleb128 0x24
+ 798 0020 00       		.byte	0
+ 799 0021 0B       		.uleb128 0xb
+ 800 0022 0B       		.uleb128 0xb
+ 801 0023 3E       		.uleb128 0x3e
+ 802 0024 0B       		.uleb128 0xb
+ 803 0025 03       		.uleb128 0x3
+ 804 0026 08       		.uleb128 0x8
+ 805 0027 00       		.byte	0
+ 806 0028 00       		.byte	0
+ 807 0029 04       		.uleb128 0x4
+ 808 002a 16       		.uleb128 0x16
+ 809 002b 00       		.byte	0
+ 810 002c 03       		.uleb128 0x3
+ 811 002d 0E       		.uleb128 0xe
+ 812 002e 3A       		.uleb128 0x3a
+ 813 002f 0B       		.uleb128 0xb
+ 814 0030 3B       		.uleb128 0x3b
+ 815 0031 05       		.uleb128 0x5
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 17
+
+
+ 816 0032 49       		.uleb128 0x49
+ 817 0033 13       		.uleb128 0x13
+ 818 0034 00       		.byte	0
+ 819 0035 00       		.byte	0
+ 820 0036 05       		.uleb128 0x5
+ 821 0037 2E       		.uleb128 0x2e
+ 822 0038 01       		.byte	0x1
+ 823 0039 3F       		.uleb128 0x3f
+ 824 003a 19       		.uleb128 0x19
+ 825 003b 03       		.uleb128 0x3
+ 826 003c 0E       		.uleb128 0xe
+ 827 003d 3A       		.uleb128 0x3a
+ 828 003e 0B       		.uleb128 0xb
+ 829 003f 3B       		.uleb128 0x3b
+ 830 0040 0B       		.uleb128 0xb
+ 831 0041 49       		.uleb128 0x49
+ 832 0042 13       		.uleb128 0x13
+ 833 0043 11       		.uleb128 0x11
+ 834 0044 01       		.uleb128 0x1
+ 835 0045 12       		.uleb128 0x12
+ 836 0046 06       		.uleb128 0x6
+ 837 0047 40       		.uleb128 0x40
+ 838 0048 18       		.uleb128 0x18
+ 839 0049 9742     		.uleb128 0x2117
+ 840 004b 19       		.uleb128 0x19
+ 841 004c 01       		.uleb128 0x1
+ 842 004d 13       		.uleb128 0x13
+ 843 004e 00       		.byte	0
+ 844 004f 00       		.byte	0
+ 845 0050 06       		.uleb128 0x6
+ 846 0051 0B       		.uleb128 0xb
+ 847 0052 01       		.byte	0x1
+ 848 0053 11       		.uleb128 0x11
+ 849 0054 01       		.uleb128 0x1
+ 850 0055 12       		.uleb128 0x12
+ 851 0056 06       		.uleb128 0x6
+ 852 0057 01       		.uleb128 0x1
+ 853 0058 13       		.uleb128 0x13
+ 854 0059 00       		.byte	0
+ 855 005a 00       		.byte	0
+ 856 005b 07       		.uleb128 0x7
+ 857 005c 34       		.uleb128 0x34
+ 858 005d 00       		.byte	0
+ 859 005e 03       		.uleb128 0x3
+ 860 005f 0E       		.uleb128 0xe
+ 861 0060 3A       		.uleb128 0x3a
+ 862 0061 0B       		.uleb128 0xb
+ 863 0062 3B       		.uleb128 0x3b
+ 864 0063 0B       		.uleb128 0xb
+ 865 0064 49       		.uleb128 0x49
+ 866 0065 13       		.uleb128 0x13
+ 867 0066 02       		.uleb128 0x2
+ 868 0067 17       		.uleb128 0x17
+ 869 0068 00       		.byte	0
+ 870 0069 00       		.byte	0
+ 871 006a 08       		.uleb128 0x8
+ 872 006b 898201   		.uleb128 0x4109
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 18
+
+
+ 873 006e 01       		.byte	0x1
+ 874 006f 11       		.uleb128 0x11
+ 875 0070 01       		.uleb128 0x1
+ 876 0071 31       		.uleb128 0x31
+ 877 0072 13       		.uleb128 0x13
+ 878 0073 01       		.uleb128 0x1
+ 879 0074 13       		.uleb128 0x13
+ 880 0075 00       		.byte	0
+ 881 0076 00       		.byte	0
+ 882 0077 09       		.uleb128 0x9
+ 883 0078 8A8201   		.uleb128 0x410a
+ 884 007b 00       		.byte	0
+ 885 007c 02       		.uleb128 0x2
+ 886 007d 18       		.uleb128 0x18
+ 887 007e 9142     		.uleb128 0x2111
+ 888 0080 18       		.uleb128 0x18
+ 889 0081 00       		.byte	0
+ 890 0082 00       		.byte	0
+ 891 0083 0A       		.uleb128 0xa
+ 892 0084 898201   		.uleb128 0x4109
+ 893 0087 00       		.byte	0
+ 894 0088 11       		.uleb128 0x11
+ 895 0089 01       		.uleb128 0x1
+ 896 008a 31       		.uleb128 0x31
+ 897 008b 13       		.uleb128 0x13
+ 898 008c 00       		.byte	0
+ 899 008d 00       		.byte	0
+ 900 008e 0B       		.uleb128 0xb
+ 901 008f 898201   		.uleb128 0x4109
+ 902 0092 01       		.byte	0x1
+ 903 0093 11       		.uleb128 0x11
+ 904 0094 01       		.uleb128 0x1
+ 905 0095 31       		.uleb128 0x31
+ 906 0096 13       		.uleb128 0x13
+ 907 0097 00       		.byte	0
+ 908 0098 00       		.byte	0
+ 909 0099 0C       		.uleb128 0xc
+ 910 009a 2E       		.uleb128 0x2e
+ 911 009b 01       		.byte	0x1
+ 912 009c 3F       		.uleb128 0x3f
+ 913 009d 19       		.uleb128 0x19
+ 914 009e 03       		.uleb128 0x3
+ 915 009f 0E       		.uleb128 0xe
+ 916 00a0 3A       		.uleb128 0x3a
+ 917 00a1 0B       		.uleb128 0xb
+ 918 00a2 3B       		.uleb128 0x3b
+ 919 00a3 0B       		.uleb128 0xb
+ 920 00a4 27       		.uleb128 0x27
+ 921 00a5 19       		.uleb128 0x19
+ 922 00a6 49       		.uleb128 0x49
+ 923 00a7 13       		.uleb128 0x13
+ 924 00a8 3C       		.uleb128 0x3c
+ 925 00a9 19       		.uleb128 0x19
+ 926 00aa 01       		.uleb128 0x1
+ 927 00ab 13       		.uleb128 0x13
+ 928 00ac 00       		.byte	0
+ 929 00ad 00       		.byte	0
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 19
+
+
+ 930 00ae 0D       		.uleb128 0xd
+ 931 00af 05       		.uleb128 0x5
+ 932 00b0 00       		.byte	0
+ 933 00b1 49       		.uleb128 0x49
+ 934 00b2 13       		.uleb128 0x13
+ 935 00b3 00       		.byte	0
+ 936 00b4 00       		.byte	0
+ 937 00b5 0E       		.uleb128 0xe
+ 938 00b6 2E       		.uleb128 0x2e
+ 939 00b7 01       		.byte	0x1
+ 940 00b8 3F       		.uleb128 0x3f
+ 941 00b9 19       		.uleb128 0x19
+ 942 00ba 03       		.uleb128 0x3
+ 943 00bb 0E       		.uleb128 0xe
+ 944 00bc 3A       		.uleb128 0x3a
+ 945 00bd 0B       		.uleb128 0xb
+ 946 00be 3B       		.uleb128 0x3b
+ 947 00bf 0B       		.uleb128 0xb
+ 948 00c0 27       		.uleb128 0x27
+ 949 00c1 19       		.uleb128 0x19
+ 950 00c2 3C       		.uleb128 0x3c
+ 951 00c3 19       		.uleb128 0x19
+ 952 00c4 01       		.uleb128 0x1
+ 953 00c5 13       		.uleb128 0x13
+ 954 00c6 00       		.byte	0
+ 955 00c7 00       		.byte	0
+ 956 00c8 0F       		.uleb128 0xf
+ 957 00c9 0F       		.uleb128 0xf
+ 958 00ca 00       		.byte	0
+ 959 00cb 0B       		.uleb128 0xb
+ 960 00cc 0B       		.uleb128 0xb
+ 961 00cd 49       		.uleb128 0x49
+ 962 00ce 13       		.uleb128 0x13
+ 963 00cf 00       		.byte	0
+ 964 00d0 00       		.byte	0
+ 965 00d1 10       		.uleb128 0x10
+ 966 00d2 26       		.uleb128 0x26
+ 967 00d3 00       		.byte	0
+ 968 00d4 49       		.uleb128 0x49
+ 969 00d5 13       		.uleb128 0x13
+ 970 00d6 00       		.byte	0
+ 971 00d7 00       		.byte	0
+ 972 00d8 11       		.uleb128 0x11
+ 973 00d9 2E       		.uleb128 0x2e
+ 974 00da 00       		.byte	0
+ 975 00db 3F       		.uleb128 0x3f
+ 976 00dc 19       		.uleb128 0x19
+ 977 00dd 03       		.uleb128 0x3
+ 978 00de 0E       		.uleb128 0xe
+ 979 00df 3A       		.uleb128 0x3a
+ 980 00e0 0B       		.uleb128 0xb
+ 981 00e1 3B       		.uleb128 0x3b
+ 982 00e2 0B       		.uleb128 0xb
+ 983 00e3 27       		.uleb128 0x27
+ 984 00e4 19       		.uleb128 0x19
+ 985 00e5 3C       		.uleb128 0x3c
+ 986 00e6 19       		.uleb128 0x19
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 20
+
+
+ 987 00e7 00       		.byte	0
+ 988 00e8 00       		.byte	0
+ 989 00e9 12       		.uleb128 0x12
+ 990 00ea 2E       		.uleb128 0x2e
+ 991 00eb 01       		.byte	0x1
+ 992 00ec 3F       		.uleb128 0x3f
+ 993 00ed 19       		.uleb128 0x19
+ 994 00ee 03       		.uleb128 0x3
+ 995 00ef 0E       		.uleb128 0xe
+ 996 00f0 3A       		.uleb128 0x3a
+ 997 00f1 0B       		.uleb128 0xb
+ 998 00f2 3B       		.uleb128 0x3b
+ 999 00f3 0B       		.uleb128 0xb
+ 1000 00f4 27       		.uleb128 0x27
+ 1001 00f5 19       		.uleb128 0x19
+ 1002 00f6 3C       		.uleb128 0x3c
+ 1003 00f7 19       		.uleb128 0x19
+ 1004 00f8 00       		.byte	0
+ 1005 00f9 00       		.byte	0
+ 1006 00fa 00       		.byte	0
+ 1007              		.section	.debug_loc,"",%progbits
+ 1008              	.Ldebug_loc0:
+ 1009              	.LLST0:
+ 1010 0000 52000000 		.4byte	.LVL13
+ 1011 0004 6E000000 		.4byte	.LVL14
+ 1012 0008 0100     		.2byte	0x1
+ 1013 000a 50       		.byte	0x50
+ 1014 000b 7C000000 		.4byte	.LVL17
+ 1015 000f 7E000000 		.4byte	.LVL18
+ 1016 0013 0100     		.2byte	0x1
+ 1017 0015 50       		.byte	0x50
+ 1018 0016 8C000000 		.4byte	.LVL21
+ 1019 001a 8E000000 		.4byte	.LVL22
+ 1020 001e 0100     		.2byte	0x1
+ 1021 0020 50       		.byte	0x50
+ 1022 0021 9C000000 		.4byte	.LVL25
+ 1023 0025 9E000000 		.4byte	.LVL26
+ 1024 0029 0100     		.2byte	0x1
+ 1025 002b 50       		.byte	0x50
+ 1026 002c AC000000 		.4byte	.LVL29
+ 1027 0030 AE000000 		.4byte	.LVL30
+ 1028 0034 0100     		.2byte	0x1
+ 1029 0036 50       		.byte	0x50
+ 1030 0037 BC000000 		.4byte	.LVL33
+ 1031 003b BE000000 		.4byte	.LVL34
+ 1032 003f 0100     		.2byte	0x1
+ 1033 0041 50       		.byte	0x50
+ 1034 0042 00000000 		.4byte	0
+ 1035 0046 00000000 		.4byte	0
+ 1036              		.section	.debug_aranges,"",%progbits
+ 1037 0000 1C000000 		.4byte	0x1c
+ 1038 0004 0200     		.2byte	0x2
+ 1039 0006 00000000 		.4byte	.Ldebug_info0
+ 1040 000a 04       		.byte	0x4
+ 1041 000b 00       		.byte	0
+ 1042 000c 0000     		.2byte	0
+ 1043 000e 0000     		.2byte	0
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 21
+
+
+ 1044 0010 00000000 		.4byte	.LFB37
+ 1045 0014 0C010000 		.4byte	.LFE37-.LFB37
+ 1046 0018 00000000 		.4byte	0
+ 1047 001c 00000000 		.4byte	0
+ 1048              		.section	.debug_ranges,"",%progbits
+ 1049              	.Ldebug_ranges0:
+ 1050 0000 00000000 		.4byte	.LFB37
+ 1051 0004 0C010000 		.4byte	.LFE37
+ 1052 0008 00000000 		.4byte	0
+ 1053 000c 00000000 		.4byte	0
+ 1054              		.section	.debug_line,"",%progbits
+ 1055              	.Ldebug_line0:
+ 1056 0000 B8000000 		.section	.debug_str,"MS",%progbits,1
+ 1056      02007F00 
+ 1056      00000201 
+ 1056      FB0E0D00 
+ 1056      01010101 
+ 1057              	.LASF20:
+ 1058 0000 4C43445F 		.ascii	"LCD_PrintInt16\000"
+ 1058      5072696E 
+ 1058      74496E74 
+ 1058      313600
+ 1059              	.LASF32:
+ 1060 000f 4144435F 		.ascii	"ADC_SAR_Seq_Button_GetResult16\000"
+ 1060      5341525F 
+ 1060      5365715F 
+ 1060      42757474 
+ 1060      6F6E5F47 
+ 1061              	.LASF21:
+ 1062 002e 4144435F 		.ascii	"ADC_SAR_Seq_Button_Start\000"
+ 1062      5341525F 
+ 1062      5365715F 
+ 1062      42757474 
+ 1062      6F6E5F53 
+ 1063              	.LASF23:
+ 1064 0047 50574D42 		.ascii	"PWMBacklight_Start\000"
+ 1064      61636B6C 
+ 1064      69676874 
+ 1064      5F537461 
+ 1064      727400
+ 1065              	.LASF3:
+ 1066 005a 73686F72 		.ascii	"short unsigned int\000"
+ 1066      7420756E 
+ 1066      7369676E 
+ 1066      65642069 
+ 1066      6E7400
+ 1067              	.LASF29:
+ 1068 006d 433A5C55 		.ascii	"C:\\Users\\Bryan\\Desktop\\RFRobotics LCD\\Design01"
+ 1068      73657273 
+ 1068      5C427279 
+ 1068      616E5C44 
+ 1068      65736B74 
+ 1069 009b 2E637964 		.ascii	".cydsn\000"
+ 1069      736E00
+ 1070              	.LASF13:
+ 1071 00a2 666C6F61 		.ascii	"float\000"
+ 1071      7400
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 22
+
+
+ 1072              	.LASF25:
+ 1073 00a8 4C43445F 		.ascii	"LCD_Start\000"
+ 1073      53746172 
+ 1073      7400
+ 1074              	.LASF1:
+ 1075 00b2 756E7369 		.ascii	"unsigned char\000"
+ 1075      676E6564 
+ 1075      20636861 
+ 1075      7200
+ 1076              	.LASF15:
+ 1077 00c0 63686172 		.ascii	"char8\000"
+ 1077      3800
+ 1078              	.LASF12:
+ 1079 00c6 696E7431 		.ascii	"int16\000"
+ 1079      3600
+ 1080              	.LASF5:
+ 1081 00cc 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1081      20756E73 
+ 1081      69676E65 
+ 1081      6420696E 
+ 1081      7400
+ 1082              	.LASF9:
+ 1083 00de 75696E74 		.ascii	"uint8\000"
+ 1083      3800
+ 1084              	.LASF14:
+ 1085 00e4 646F7562 		.ascii	"double\000"
+ 1085      6C6500
+ 1086              	.LASF22:
+ 1087 00eb 4144435F 		.ascii	"ADC_SAR_Seq_Button_StartConvert\000"
+ 1087      5341525F 
+ 1087      5365715F 
+ 1087      42757474 
+ 1087      6F6E5F53 
+ 1088              	.LASF30:
+ 1089 010b 6D61696E 		.ascii	"main\000"
+ 1089      00
+ 1090              	.LASF19:
+ 1091 0110 4C43445F 		.ascii	"LCD_PrintString\000"
+ 1091      5072696E 
+ 1091      74537472 
+ 1091      696E6700 
+ 1092              	.LASF10:
+ 1093 0120 75696E74 		.ascii	"uint16\000"
+ 1093      313600
+ 1094              	.LASF11:
+ 1095 0127 75696E74 		.ascii	"uint32\000"
+ 1095      333200
+ 1096              	.LASF24:
+ 1097 012e 50574D42 		.ascii	"PWMBacklight_WriteCompare\000"
+ 1097      61636B6C 
+ 1097      69676874 
+ 1097      5F577269 
+ 1097      7465436F 
+ 1098              	.LASF8:
+ 1099 0148 756E7369 		.ascii	"unsigned int\000"
+ 1099      676E6564 
+ 1099      20696E74 
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 23
+
+
+ 1099      00
+ 1100              	.LASF7:
+ 1101 0155 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1101      206C6F6E 
+ 1101      6720756E 
+ 1101      7369676E 
+ 1101      65642069 
+ 1102              	.LASF18:
+ 1103 016c 4C43445F 		.ascii	"LCD_Position\000"
+ 1103      506F7369 
+ 1103      74696F6E 
+ 1103      00
+ 1104              	.LASF17:
+ 1105 0179 73697A65 		.ascii	"sizetype\000"
+ 1105      74797065 
+ 1105      00
+ 1106              	.LASF6:
+ 1107 0182 6C6F6E67 		.ascii	"long long int\000"
+ 1107      206C6F6E 
+ 1107      6720696E 
+ 1107      7400
+ 1108              	.LASF28:
+ 1109 0190 6D61696E 		.ascii	"main.c\000"
+ 1109      2E6300
+ 1110              	.LASF16:
+ 1111 0197 63686172 		.ascii	"char\000"
+ 1111      00
+ 1112              	.LASF26:
+ 1113 019c 4C43445F 		.ascii	"LCD_WriteControl\000"
+ 1113      57726974 
+ 1113      65436F6E 
+ 1113      74726F6C 
+ 1113      00
+ 1114              	.LASF27:
+ 1115 01ad 474E5520 		.ascii	"GNU C 4.9.3 20150303 (release) [ARM/embedded-4_9-br"
+ 1115      4320342E 
+ 1115      392E3320 
+ 1115      32303135 
+ 1115      30333033 
+ 1116 01e0 616E6368 		.ascii	"anch revision 221220] -mcpu=cortex-m0 -mthumb -g -O"
+ 1116      20726576 
+ 1116      6973696F 
+ 1116      6E203232 
+ 1116      31323230 
+ 1117 0213 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1117      66756E63 
+ 1117      74696F6E 
+ 1117      2D736563 
+ 1117      74696F6E 
+ 1118              	.LASF2:
+ 1119 023b 73686F72 		.ascii	"short int\000"
+ 1119      7420696E 
+ 1119      7400
+ 1120              	.LASF4:
+ 1121 0245 6C6F6E67 		.ascii	"long int\000"
+ 1121      20696E74 
+ 1121      00
+ARM GAS  C:\Users\Bryan\AppData\Local\Temp\ccFJOoic.s 			page 24
+
+
+ 1122              	.LASF31:
+ 1123 024e 62757474 		.ascii	"button\000"
+ 1123      6F6E00
+ 1124              	.LASF0:
+ 1125 0255 7369676E 		.ascii	"signed char\000"
+ 1125      65642063 
+ 1125      68617200 
+ 1126              	.LASF33:
+ 1127 0261 43794465 		.ascii	"CyDelay\000"
+ 1127      6C617900 
+ 1128              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.9.3 20150303 (release) [ARM/embedded-4_9-br
