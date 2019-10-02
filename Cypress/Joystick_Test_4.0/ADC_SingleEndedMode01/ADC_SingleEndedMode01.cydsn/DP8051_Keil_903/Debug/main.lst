@@ -1,0 +1,170 @@
+C51 COMPILER V9.03   MAIN                                                                  05/12/2015 09:24:13 PAGE 1   
+
+
+C51 COMPILER V9.03, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\DP8051_Keil_903\Debug\main.obj
+COMPILER INVOKED BY: C:\Program Files (x86)\Cypress\PSoC Creator\2.2\PSoC Creator\import\keil\pk51\9.03\C51\BIN\c51.exe 
+                    -.\main.c NOIV LARGE MODDP2 OMF2 VB(1) PR(.\DP8051_Keil_903\Debug\main.lst) CD DB NOIP OT(2,SIZE) INCDIR(Generated_Source
+                    -\PSoC3) OJ(.\DP8051_Keil_903\Debug\main.obj)
+
+line level    source
+
+   1          /*******************************************************************************
+   2          * File Name: main.c
+   3          *
+   4          * Version: 2.20
+   5          *
+   6          * Description:
+   7          *   This is a source code for example project of ADC single ended mode.
+   8          *
+   9          *   Variable resistor(pot) is connected to +ve input of ADC using the I/O pin.
+  10          *   P0.0. When voltage to positive terminal of ADC is 0, the output displayed
+  11          *   on the LCD pannel is 0x0000. As voltage on positive terminal goes on
+  12          *   increasing, the  converted value goes on increasing from 0x0000 and reaches
+  13          *   0xFFFF when voltage becomes 1.024V. Futher increase in voltage value,
+  14          *   doesn't cause any changes to values displayed in the LCD.
+  15          *
+  16          * Hardware Connections:
+  17          *  Connect analog input from Variable resistor to port P0[0] of DVK1 board.
+  18          *
+  19          ********************************************************************************
+  20          * Copyright 2012, Cypress Semiconductor Corporation. All rights reserved.
+  21          * This software is owned by Cypress Semiconductor Corporation and is protected
+  22          * by and subject to worldwide patent and copyright laws and treaties.
+  23          * Therefore, you may use this software only as provided in the license agreement
+  24          * accompanying the software package from which you obtained this software.
+  25          * CYPRESS AND ITS SUPPLIERS MAKE NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+  26          * WITH REGARD TO THIS SOFTWARE, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT,
+  27          * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  28          *******************************************************************************/
+  29          
+  30          #include <device.h>
+  31          
+  32          
+  33          /*******************************************************************************
+  34          * Function Name: main
+  35          ********************************************************************************
+  36          *
+  37          * Summary:
+  38          *  main() performs following functions:
+  39          *  1: Initializes the LCD
+  40          *  2: Starts ADC
+  41          *  3: Starts ADC converstion.
+  42          *  4: Gets the converted result and displays it in LCD.
+  43          *
+  44          * Parameters:
+  45          *  None.
+  46          *
+  47          * Return:
+  48          *  None.
+  49          *
+  50          *******************************************************************************/
+  51          void main()
+  52          {
+  53   1          uint16 output;
+C51 COMPILER V9.03   MAIN                                                                  05/12/2015 09:24:13 PAGE 2   
+
+  54   1      
+  55   1          /* Start the components */
+  56   1      
+  57   1          LCD_Start();
+  58   1          ADC_DelSig_1_Start();
+  59   1      
+  60   1          /* Start the ADC conversion */
+  61   1          ADC_DelSig_1_StartConvert();
+  62   1      
+  63   1          /* Display the value of ADC output on LCD */
+  64   1          LCD_Position(0u, 0u);
+  65   1          LCD_PrintString("ADC_Output");
+  66   1      
+  67   1          for(;;)
+  68   1          {
+  69   2              if(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS))
+  70   2              {
+  71   3                  output = ADC_DelSig_1_GetResult16();
+  72   3                  LCD_Position(1u, 0u);
+  73   3                  LCD_PrintInt16(output);
+  74   3              }
+  75   2          }
+  76   1      }
+  77          
+  78          
+  79          /* [] END OF FILE */
+C51 COMPILER V9.03   MAIN                                                                  05/12/2015 09:24:13 PAGE 3   
+
+ASSEMBLY LISTING OF GENERATED OBJECT CODE
+
+
+             ; FUNCTION main (BEGIN)
+                                           ; SOURCE LINE # 51
+                                           ; SOURCE LINE # 52
+                                           ; SOURCE LINE # 57
+0000 120000      E     LCALL   LCD_Start
+                                           ; SOURCE LINE # 58
+0003 120000      E     LCALL   ADC_DelSig_1_Start
+                                           ; SOURCE LINE # 61
+0006 120000      E     LCALL   ADC_DelSig_1_StartConvert
+                                           ; SOURCE LINE # 64
+0009 7D00              MOV     R5,#00H
+000B 7F00              MOV     R7,#00H
+000D 120000      E     LCALL   _LCD_Position
+                                           ; SOURCE LINE # 65
+0010 7BFF              MOV     R3,#0FFH
+0012 7A00        R     MOV     R2,#HIGH ?SC_0
+0014 7900        R     MOV     R1,#LOW ?SC_0
+0016 120000      E     LCALL   _LCD_PrintString
+                                           ; SOURCE LINE # 67
+0019         ?C0001:
+                                           ; SOURCE LINE # 68
+                                           ; SOURCE LINE # 69
+0019 7F01              MOV     R7,#01H
+001B 120000      E     LCALL   _ADC_DelSig_1_IsEndConversion
+001E EF                MOV     A,R7
+001F 60F8              JZ      ?C0001
+                                           ; SOURCE LINE # 70
+                                           ; SOURCE LINE # 71
+0021 120000      E     LCALL   ADC_DelSig_1_GetResult16
+0024 900000      R     MOV     DPTR,#output
+0027 EE                MOV     A,R6
+0028 F0                MOVX    @DPTR,A
+0029 A3                INC     DPTR
+002A EF                MOV     A,R7
+002B F0                MOVX    @DPTR,A
+                                           ; SOURCE LINE # 72
+002C 7D00              MOV     R5,#00H
+002E 7F01              MOV     R7,#01H
+0030 120000      E     LCALL   _LCD_Position
+                                           ; SOURCE LINE # 73
+0033 900000      R     MOV     DPTR,#output
+0036 E0                MOVX    A,@DPTR
+0037 FE                MOV     R6,A
+0038 A3                INC     DPTR
+0039 E0                MOVX    A,@DPTR
+003A FF                MOV     R7,A
+003B 120000      E     LCALL   _LCD_PrintInt16
+                                           ; SOURCE LINE # 74
+                                           ; SOURCE LINE # 75
+003E 80D9              SJMP    ?C0001
+0040 22                RET     
+             ; FUNCTION main (END)
+
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     65    ----
+   CONSTANT SIZE    =     11    ----
+   XDATA SIZE       =   ----       2
+C51 COMPILER V9.03   MAIN                                                                  05/12/2015 09:24:13 PAGE 4   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
