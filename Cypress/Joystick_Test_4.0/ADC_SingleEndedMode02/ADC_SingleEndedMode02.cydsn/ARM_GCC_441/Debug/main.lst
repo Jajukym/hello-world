@@ -1,0 +1,704 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"main.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 88000000 		.text
+  20      02005300 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.section	.rodata
+  24              		.align	2
+  25              	.LC0:
+  26 0000 4144435F 		.ascii	"ADC_Output\000"
+  26      4F757470 
+  26      757400
+  27 000b 00       		.align	2
+  28              	.LC1:
+  29 000c 20202020 		.ascii	"         DEAD          \000"
+  29      20202020 
+  29      20444541 
+  29      44202020 
+  29      20202020 
+  30              		.align	2
+  31              	.LC2:
+  32 0024 20202020 		.ascii	"                      \000"
+  32      20202020 
+  32      20202020 
+  32      20202020 
+  32      20202020 
+  33 003b 00       		.align	2
+  34              	.LC3:
+  35 003c 446F776E 		.ascii	"Down\000"
+  35      00
+  36 0041 000000   		.align	2
+  37              	.LC4:
+  38 0044 20202020 		.ascii	"     \000"
+  38      2000
+  39 004a 0000     		.align	2
+  40              	.LC5:
+  41 004c 557000   		.ascii	"Up\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 2
+
+
+  42 004f 00       		.section	.text.main,"ax",%progbits
+  43              		.align	2
+  44              		.global	main
+  45              		.thumb
+  46              		.thumb_func
+  47              		.type	main, %function
+  48              	main:
+  49              	.LFB29:
+  50              		.file 1 ".\\main.c"
+   1:.\main.c      **** 
+   2:.\main.c      **** #include <device.h>
+   3:.\main.c      **** 
+   4:.\main.c      **** 
+   5:.\main.c      **** 
+   6:.\main.c      **** void main()
+   7:.\main.c      **** {
+  51              		.loc 1 7 0
+  52              		.cfi_startproc
+  53              		@ args = 0, pretend = 0, frame = 8
+  54              		@ frame_needed = 1, uses_anonymous_args = 0
+  55 0000 80B5     		push	{r7, lr}
+  56              	.LCFI0:
+  57              		.cfi_def_cfa_offset 8
+  58 0002 82B0     		sub	sp, sp, #8
+  59              	.LCFI1:
+  60              		.cfi_def_cfa_offset 16
+  61 0004 00AF     		add	r7, sp, #0
+  62              		.cfi_offset 14, -4
+  63              		.cfi_offset 7, -8
+  64              	.LCFI2:
+  65              		.cfi_def_cfa_register 7
+   8:.\main.c      ****     uint8 output;
+   9:.\main.c      ****     uint8 lastread;
+  10:.\main.c      ****     
+  11:.\main.c      ****  
+  12:.\main.c      ****     /* Start the components */
+  13:.\main.c      **** 
+  14:.\main.c      ****     LCD_Start();
+  66              		.loc 1 14 0
+  67 0006 FFF7FEFF 		bl	LCD_Start
+  15:.\main.c      ****     ADC_DelSig_1_Start();
+  68              		.loc 1 15 0
+  69 000a FFF7FEFF 		bl	ADC_DelSig_1_Start
+  16:.\main.c      ****    
+  17:.\main.c      **** 
+  18:.\main.c      ****     /* Start the ADC conversion */
+  19:.\main.c      ****     ADC_DelSig_1_StartConvert();
+  70              		.loc 1 19 0
+  71 000e FFF7FEFF 		bl	ADC_DelSig_1_StartConvert
+  20:.\main.c      ****     
+  21:.\main.c      **** 
+  22:.\main.c      ****     /* Display the value of ADC output on LCD */
+  23:.\main.c      ****     LCD_Position(0u, 0u);
+  72              		.loc 1 23 0
+  73 0012 4FF00000 		mov	r0, #0
+  74 0016 4FF00001 		mov	r1, #0
+  75 001a FFF7FEFF 		bl	LCD_Position
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 3
+
+
+  24:.\main.c      ****     LCD_PrintString("ADC_Output");
+  76              		.loc 1 24 0
+  77 001e 40F20000 		movw	r0, #:lower16:.LC0
+  78 0022 C0F20000 		movt	r0, #:upper16:.LC0
+  79 0026 FFF7FEFF 		bl	LCD_PrintString
+  80 002a 00E0     		b	.L10
+  81              	.L12:
+  25:.\main.c      **** 
+  26:.\main.c      ****     for(;;)
+  27:.\main.c      ****     {
+  28:.\main.c      ****         if(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS))
+  29:.\main.c      ****         {
+  30:.\main.c      ****             output = ADC_DelSig_1_GetResult8();
+  31:.\main.c      ****             LCD_Position(1u, 0u);
+  32:.\main.c      ****             LCD_PrintInt8(output); 
+  33:.\main.c      ****            
+  34:.\main.c      ****             if ((lastread >= 0xFD) && (output < 0x03))
+  35:.\main.c      ****             {
+  36:.\main.c      ****                 output = 0xFF;
+  37:.\main.c      ****             }
+  38:.\main.c      ****             if ((output < 0xAA) && (output > 0x55))
+  39:.\main.c      ****             {
+  40:.\main.c      ****                 LCD_Position(2,0);
+  41:.\main.c      ****                 LCD_PrintString("         DEAD          ");
+  42:.\main.c      ****             }
+  43:.\main.c      ****             else
+  44:.\main.c      ****             {
+  45:.\main.c      ****                 LCD_Position(2,0);
+  46:.\main.c      ****                 LCD_PrintString("                      ");
+  47:.\main.c      ****             }
+  48:.\main.c      ****             if(output <= 0x55)
+  49:.\main.c      ****             {
+  50:.\main.c      ****                 LCD_Position(3,10);
+  51:.\main.c      ****                 LCD_PrintString("Down");
+  52:.\main.c      ****             }
+  53:.\main.c      ****              else
+  54:.\main.c      ****             {
+  55:.\main.c      ****                 LCD_Position(3,10);
+  56:.\main.c      ****                 LCD_PrintString("     ");
+  57:.\main.c      ****             }
+  58:.\main.c      ****             if(output >= 0xAA)
+  59:.\main.c      ****             {
+  60:.\main.c      ****                 LCD_Position(3,0);
+  61:.\main.c      ****                 LCD_PrintString("Up");
+  62:.\main.c      ****             }
+  63:.\main.c      ****             else
+  64:.\main.c      ****             {
+  65:.\main.c      ****             LCD_Position(3,0);
+  66:.\main.c      ****             LCD_PrintString("     ");
+  67:.\main.c      ****             }
+  68:.\main.c      ****             lastread = output;
+  69:.\main.c      ****         }
+  70:.\main.c      ****     }
+  82              		.loc 1 70 0
+  83 002c 00BF     		nop
+  84              	.L10:
+  85              		.loc 1 28 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 4
+
+
+  86 002e 4FF00100 		mov	r0, #1
+  87 0032 FFF7FEFF 		bl	ADC_DelSig_1_IsEndConversion
+  88 0036 0346     		mov	r3, r0
+  89 0038 002B     		cmp	r3, #0
+  90 003a F7D0     		beq	.L12
+  91              		.loc 1 30 0
+  92 003c FFF7FEFF 		bl	ADC_DelSig_1_GetResult8
+  93 0040 0346     		mov	r3, r0
+  94 0042 DBB2     		uxtb	r3, r3
+  95 0044 BB71     		strb	r3, [r7, #6]
+  96              		.loc 1 31 0
+  97 0046 4FF00100 		mov	r0, #1
+  98 004a 4FF00001 		mov	r1, #0
+  99 004e FFF7FEFF 		bl	LCD_Position
+ 100              		.loc 1 32 0
+ 101 0052 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 102 0054 1846     		mov	r0, r3
+ 103 0056 FFF7FEFF 		bl	LCD_PrintInt8
+ 104              		.loc 1 34 0
+ 105 005a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 106 005c FC2B     		cmp	r3, #252
+ 107 005e 05D9     		bls	.L3
+ 108 0060 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 109 0062 022B     		cmp	r3, #2
+ 110 0064 02D8     		bhi	.L3
+ 111              		.loc 1 36 0
+ 112 0066 4FF0FF33 		mov	r3, #-1
+ 113 006a BB71     		strb	r3, [r7, #6]
+ 114              	.L3:
+ 115              		.loc 1 38 0
+ 116 006c BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 117 006e A92B     		cmp	r3, #169
+ 118 0070 0FD8     		bhi	.L4
+ 119 0072 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 120 0074 552B     		cmp	r3, #85
+ 121 0076 0CD9     		bls	.L4
+ 122              		.loc 1 40 0
+ 123 0078 4FF00200 		mov	r0, #2
+ 124 007c 4FF00001 		mov	r1, #0
+ 125 0080 FFF7FEFF 		bl	LCD_Position
+ 126              		.loc 1 41 0
+ 127 0084 40F20000 		movw	r0, #:lower16:.LC1
+ 128 0088 C0F20000 		movt	r0, #:upper16:.LC1
+ 129 008c FFF7FEFF 		bl	LCD_PrintString
+ 130              		.loc 1 38 0
+ 131 0090 0BE0     		b	.L5
+ 132              	.L4:
+ 133              		.loc 1 45 0
+ 134 0092 4FF00200 		mov	r0, #2
+ 135 0096 4FF00001 		mov	r1, #0
+ 136 009a FFF7FEFF 		bl	LCD_Position
+ 137              		.loc 1 46 0
+ 138 009e 40F20000 		movw	r0, #:lower16:.LC2
+ 139 00a2 C0F20000 		movt	r0, #:upper16:.LC2
+ 140 00a6 FFF7FEFF 		bl	LCD_PrintString
+ 141              	.L5:
+ 142              		.loc 1 48 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 5
+
+
+ 143 00aa BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 144 00ac 552B     		cmp	r3, #85
+ 145 00ae 0CD8     		bhi	.L6
+ 146              		.loc 1 50 0
+ 147 00b0 4FF00300 		mov	r0, #3
+ 148 00b4 4FF00A01 		mov	r1, #10
+ 149 00b8 FFF7FEFF 		bl	LCD_Position
+ 150              		.loc 1 51 0
+ 151 00bc 40F20000 		movw	r0, #:lower16:.LC3
+ 152 00c0 C0F20000 		movt	r0, #:upper16:.LC3
+ 153 00c4 FFF7FEFF 		bl	LCD_PrintString
+ 154 00c8 0BE0     		b	.L7
+ 155              	.L6:
+ 156              		.loc 1 55 0
+ 157 00ca 4FF00300 		mov	r0, #3
+ 158 00ce 4FF00A01 		mov	r1, #10
+ 159 00d2 FFF7FEFF 		bl	LCD_Position
+ 160              		.loc 1 56 0
+ 161 00d6 40F20000 		movw	r0, #:lower16:.LC4
+ 162 00da C0F20000 		movt	r0, #:upper16:.LC4
+ 163 00de FFF7FEFF 		bl	LCD_PrintString
+ 164              	.L7:
+ 165              		.loc 1 58 0
+ 166 00e2 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 167 00e4 A92B     		cmp	r3, #169
+ 168 00e6 0CD9     		bls	.L8
+ 169              		.loc 1 60 0
+ 170 00e8 4FF00300 		mov	r0, #3
+ 171 00ec 4FF00001 		mov	r1, #0
+ 172 00f0 FFF7FEFF 		bl	LCD_Position
+ 173              		.loc 1 61 0
+ 174 00f4 40F20000 		movw	r0, #:lower16:.LC5
+ 175 00f8 C0F20000 		movt	r0, #:upper16:.LC5
+ 176 00fc FFF7FEFF 		bl	LCD_PrintString
+ 177 0100 0BE0     		b	.L9
+ 178              	.L8:
+ 179              		.loc 1 65 0
+ 180 0102 4FF00300 		mov	r0, #3
+ 181 0106 4FF00001 		mov	r1, #0
+ 182 010a FFF7FEFF 		bl	LCD_Position
+ 183              		.loc 1 66 0
+ 184 010e 40F20000 		movw	r0, #:lower16:.LC4
+ 185 0112 C0F20000 		movt	r0, #:upper16:.LC4
+ 186 0116 FFF7FEFF 		bl	LCD_PrintString
+ 187              	.L9:
+ 188              		.loc 1 68 0
+ 189 011a BB79     		ldrb	r3, [r7, #6]
+ 190 011c FB71     		strb	r3, [r7, #7]
+ 191              		.loc 1 70 0
+ 192 011e 86E7     		b	.L10
+ 193              		.cfi_endproc
+ 194              	.LFE29:
+ 195              		.size	main, .-main
+ 196              		.text
+ 197              	.Letext0:
+ 198              		.section	.debug_loc,"",%progbits
+ 199              	.Ldebug_loc0:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 6
+
+
+ 200              	.LLST0:
+ 201 0000 00000000 		.4byte	.LFB29
+ 202 0004 02000000 		.4byte	.LCFI0
+ 203 0008 0100     		.2byte	0x1
+ 204 000a 5D       		.byte	0x5d
+ 205 000b 02000000 		.4byte	.LCFI0
+ 206 000f 04000000 		.4byte	.LCFI1
+ 207 0013 0200     		.2byte	0x2
+ 208 0015 7D       		.byte	0x7d
+ 209 0016 08       		.sleb128 8
+ 210 0017 04000000 		.4byte	.LCFI1
+ 211 001b 06000000 		.4byte	.LCFI2
+ 212 001f 0200     		.2byte	0x2
+ 213 0021 7D       		.byte	0x7d
+ 214 0022 10       		.sleb128 16
+ 215 0023 06000000 		.4byte	.LCFI2
+ 216 0027 20010000 		.4byte	.LFE29
+ 217 002b 0200     		.2byte	0x2
+ 218 002d 77       		.byte	0x77
+ 219 002e 10       		.sleb128 16
+ 220 002f 00000000 		.4byte	0x0
+ 221 0033 00000000 		.4byte	0x0
+ 222              		.file 2 "./Generated_Source/PSoC5/cytypes.h"
+ 223              		.file 3 "./Generated_Source/PSoC5/core_cm3.h"
+ 224              		.section	.debug_info
+ 225 0000 D7000000 		.4byte	0xd7
+ 226 0004 0200     		.2byte	0x2
+ 227 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 228 000a 04       		.byte	0x4
+ 229 000b 01       		.uleb128 0x1
+ 230 000c F5000000 		.4byte	.LASF14
+ 231 0010 01       		.byte	0x1
+ 232 0011 26010000 		.4byte	.LASF15
+ 233 0015 0E000000 		.4byte	.LASF16
+ 234 0019 00000000 		.4byte	0x0
+ 235 001d 00000000 		.4byte	0x0
+ 236 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 237 0025 00000000 		.4byte	.Ldebug_line0
+ 238 0029 02       		.uleb128 0x2
+ 239 002a 01       		.byte	0x1
+ 240 002b 06       		.byte	0x6
+ 241 002c 14010000 		.4byte	.LASF0
+ 242 0030 02       		.uleb128 0x2
+ 243 0031 01       		.byte	0x1
+ 244 0032 08       		.byte	0x8
+ 245 0033 BB000000 		.4byte	.LASF1
+ 246 0037 02       		.uleb128 0x2
+ 247 0038 02       		.byte	0x2
+ 248 0039 05       		.byte	0x5
+ 249 003a DB000000 		.4byte	.LASF2
+ 250 003e 02       		.uleb128 0x2
+ 251 003f 02       		.byte	0x2
+ 252 0040 07       		.byte	0x7
+ 253 0041 01010000 		.4byte	.LASF3
+ 254 0045 02       		.uleb128 0x2
+ 255 0046 04       		.byte	0x4
+ 256 0047 05       		.byte	0x5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 7
+
+
+ 257 0048 EC000000 		.4byte	.LASF4
+ 258 004c 02       		.uleb128 0x2
+ 259 004d 04       		.byte	0x4
+ 260 004e 07       		.byte	0x7
+ 261 004f 82000000 		.4byte	.LASF5
+ 262 0053 02       		.uleb128 0x2
+ 263 0054 08       		.byte	0x8
+ 264 0055 05       		.byte	0x5
+ 265 0056 00000000 		.4byte	.LASF6
+ 266 005a 02       		.uleb128 0x2
+ 267 005b 08       		.byte	0x8
+ 268 005c 07       		.byte	0x7
+ 269 005d 94000000 		.4byte	.LASF7
+ 270 0061 03       		.uleb128 0x3
+ 271 0062 04       		.byte	0x4
+ 272 0063 05       		.byte	0x5
+ 273 0064 696E7400 		.ascii	"int\000"
+ 274 0068 02       		.uleb128 0x2
+ 275 0069 04       		.byte	0x4
+ 276 006a 07       		.byte	0x7
+ 277 006b 6A000000 		.4byte	.LASF8
+ 278 006f 04       		.uleb128 0x4
+ 279 0070 7C000000 		.4byte	.LASF17
+ 280 0074 02       		.byte	0x2
+ 281 0075 4C       		.byte	0x4c
+ 282 0076 30000000 		.4byte	0x30
+ 283 007a 02       		.uleb128 0x2
+ 284 007b 04       		.byte	0x4
+ 285 007c 04       		.byte	0x4
+ 286 007d 20010000 		.4byte	.LASF9
+ 287 0081 02       		.uleb128 0x2
+ 288 0082 08       		.byte	0x8
+ 289 0083 04       		.byte	0x4
+ 290 0084 E5000000 		.4byte	.LASF10
+ 291 0088 02       		.uleb128 0x2
+ 292 0089 01       		.byte	0x1
+ 293 008a 08       		.byte	0x8
+ 294 008b C9000000 		.4byte	.LASF11
+ 295 008f 05       		.uleb128 0x5
+ 296 0090 04       		.byte	0x4
+ 297 0091 07       		.byte	0x7
+ 298 0092 06       		.uleb128 0x6
+ 299 0093 01       		.byte	0x1
+ 300 0094 77000000 		.4byte	.LASF18
+ 301 0098 01       		.byte	0x1
+ 302 0099 06       		.byte	0x6
+ 303 009a 00000000 		.4byte	.LFB29
+ 304 009e 20010000 		.4byte	.LFE29
+ 305 00a2 00000000 		.4byte	.LLST0
+ 306 00a6 C7000000 		.4byte	0xc7
+ 307 00aa 07       		.uleb128 0x7
+ 308 00ab B4000000 		.4byte	.LASF12
+ 309 00af 01       		.byte	0x1
+ 310 00b0 08       		.byte	0x8
+ 311 00b1 6F000000 		.4byte	0x6f
+ 312 00b5 02       		.byte	0x2
+ 313 00b6 91       		.byte	0x91
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 8
+
+
+ 314 00b7 76       		.sleb128 -10
+ 315 00b8 07       		.uleb128 0x7
+ 316 00b9 AB000000 		.4byte	.LASF13
+ 317 00bd 01       		.byte	0x1
+ 318 00be 09       		.byte	0x9
+ 319 00bf 6F000000 		.4byte	0x6f
+ 320 00c3 02       		.byte	0x2
+ 321 00c4 91       		.byte	0x91
+ 322 00c5 77       		.sleb128 -9
+ 323 00c6 00       		.byte	0x0
+ 324 00c7 08       		.uleb128 0x8
+ 325 00c8 CE000000 		.4byte	.LASF19
+ 326 00cc 03       		.byte	0x3
+ 327 00cd CE06     		.2byte	0x6ce
+ 328 00cf D5000000 		.4byte	0xd5
+ 329 00d3 01       		.byte	0x1
+ 330 00d4 01       		.byte	0x1
+ 331 00d5 09       		.uleb128 0x9
+ 332 00d6 61000000 		.4byte	0x61
+ 333 00da 00       		.byte	0x0
+ 334              		.section	.debug_abbrev
+ 335 0000 01       		.uleb128 0x1
+ 336 0001 11       		.uleb128 0x11
+ 337 0002 01       		.byte	0x1
+ 338 0003 25       		.uleb128 0x25
+ 339 0004 0E       		.uleb128 0xe
+ 340 0005 13       		.uleb128 0x13
+ 341 0006 0B       		.uleb128 0xb
+ 342 0007 03       		.uleb128 0x3
+ 343 0008 0E       		.uleb128 0xe
+ 344 0009 1B       		.uleb128 0x1b
+ 345 000a 0E       		.uleb128 0xe
+ 346 000b 11       		.uleb128 0x11
+ 347 000c 01       		.uleb128 0x1
+ 348 000d 52       		.uleb128 0x52
+ 349 000e 01       		.uleb128 0x1
+ 350 000f 55       		.uleb128 0x55
+ 351 0010 06       		.uleb128 0x6
+ 352 0011 10       		.uleb128 0x10
+ 353 0012 06       		.uleb128 0x6
+ 354 0013 00       		.byte	0x0
+ 355 0014 00       		.byte	0x0
+ 356 0015 02       		.uleb128 0x2
+ 357 0016 24       		.uleb128 0x24
+ 358 0017 00       		.byte	0x0
+ 359 0018 0B       		.uleb128 0xb
+ 360 0019 0B       		.uleb128 0xb
+ 361 001a 3E       		.uleb128 0x3e
+ 362 001b 0B       		.uleb128 0xb
+ 363 001c 03       		.uleb128 0x3
+ 364 001d 0E       		.uleb128 0xe
+ 365 001e 00       		.byte	0x0
+ 366 001f 00       		.byte	0x0
+ 367 0020 03       		.uleb128 0x3
+ 368 0021 24       		.uleb128 0x24
+ 369 0022 00       		.byte	0x0
+ 370 0023 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 9
+
+
+ 371 0024 0B       		.uleb128 0xb
+ 372 0025 3E       		.uleb128 0x3e
+ 373 0026 0B       		.uleb128 0xb
+ 374 0027 03       		.uleb128 0x3
+ 375 0028 08       		.uleb128 0x8
+ 376 0029 00       		.byte	0x0
+ 377 002a 00       		.byte	0x0
+ 378 002b 04       		.uleb128 0x4
+ 379 002c 16       		.uleb128 0x16
+ 380 002d 00       		.byte	0x0
+ 381 002e 03       		.uleb128 0x3
+ 382 002f 0E       		.uleb128 0xe
+ 383 0030 3A       		.uleb128 0x3a
+ 384 0031 0B       		.uleb128 0xb
+ 385 0032 3B       		.uleb128 0x3b
+ 386 0033 0B       		.uleb128 0xb
+ 387 0034 49       		.uleb128 0x49
+ 388 0035 13       		.uleb128 0x13
+ 389 0036 00       		.byte	0x0
+ 390 0037 00       		.byte	0x0
+ 391 0038 05       		.uleb128 0x5
+ 392 0039 24       		.uleb128 0x24
+ 393 003a 00       		.byte	0x0
+ 394 003b 0B       		.uleb128 0xb
+ 395 003c 0B       		.uleb128 0xb
+ 396 003d 3E       		.uleb128 0x3e
+ 397 003e 0B       		.uleb128 0xb
+ 398 003f 00       		.byte	0x0
+ 399 0040 00       		.byte	0x0
+ 400 0041 06       		.uleb128 0x6
+ 401 0042 2E       		.uleb128 0x2e
+ 402 0043 01       		.byte	0x1
+ 403 0044 3F       		.uleb128 0x3f
+ 404 0045 0C       		.uleb128 0xc
+ 405 0046 03       		.uleb128 0x3
+ 406 0047 0E       		.uleb128 0xe
+ 407 0048 3A       		.uleb128 0x3a
+ 408 0049 0B       		.uleb128 0xb
+ 409 004a 3B       		.uleb128 0x3b
+ 410 004b 0B       		.uleb128 0xb
+ 411 004c 11       		.uleb128 0x11
+ 412 004d 01       		.uleb128 0x1
+ 413 004e 12       		.uleb128 0x12
+ 414 004f 01       		.uleb128 0x1
+ 415 0050 40       		.uleb128 0x40
+ 416 0051 06       		.uleb128 0x6
+ 417 0052 01       		.uleb128 0x1
+ 418 0053 13       		.uleb128 0x13
+ 419 0054 00       		.byte	0x0
+ 420 0055 00       		.byte	0x0
+ 421 0056 07       		.uleb128 0x7
+ 422 0057 34       		.uleb128 0x34
+ 423 0058 00       		.byte	0x0
+ 424 0059 03       		.uleb128 0x3
+ 425 005a 0E       		.uleb128 0xe
+ 426 005b 3A       		.uleb128 0x3a
+ 427 005c 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 10
+
+
+ 428 005d 3B       		.uleb128 0x3b
+ 429 005e 0B       		.uleb128 0xb
+ 430 005f 49       		.uleb128 0x49
+ 431 0060 13       		.uleb128 0x13
+ 432 0061 02       		.uleb128 0x2
+ 433 0062 0A       		.uleb128 0xa
+ 434 0063 00       		.byte	0x0
+ 435 0064 00       		.byte	0x0
+ 436 0065 08       		.uleb128 0x8
+ 437 0066 34       		.uleb128 0x34
+ 438 0067 00       		.byte	0x0
+ 439 0068 03       		.uleb128 0x3
+ 440 0069 0E       		.uleb128 0xe
+ 441 006a 3A       		.uleb128 0x3a
+ 442 006b 0B       		.uleb128 0xb
+ 443 006c 3B       		.uleb128 0x3b
+ 444 006d 05       		.uleb128 0x5
+ 445 006e 49       		.uleb128 0x49
+ 446 006f 13       		.uleb128 0x13
+ 447 0070 3F       		.uleb128 0x3f
+ 448 0071 0C       		.uleb128 0xc
+ 449 0072 3C       		.uleb128 0x3c
+ 450 0073 0C       		.uleb128 0xc
+ 451 0074 00       		.byte	0x0
+ 452 0075 00       		.byte	0x0
+ 453 0076 09       		.uleb128 0x9
+ 454 0077 35       		.uleb128 0x35
+ 455 0078 00       		.byte	0x0
+ 456 0079 49       		.uleb128 0x49
+ 457 007a 13       		.uleb128 0x13
+ 458 007b 00       		.byte	0x0
+ 459 007c 00       		.byte	0x0
+ 460 007d 00       		.byte	0x0
+ 461              		.section	.debug_pubnames,"",%progbits
+ 462 0000 17000000 		.4byte	0x17
+ 463 0004 0200     		.2byte	0x2
+ 464 0006 00000000 		.4byte	.Ldebug_info0
+ 465 000a DB000000 		.4byte	0xdb
+ 466 000e 92000000 		.4byte	0x92
+ 467 0012 6D61696E 		.ascii	"main\000"
+ 467      00
+ 468 0017 00000000 		.4byte	0x0
+ 469              		.section	.debug_aranges,"",%progbits
+ 470 0000 1C000000 		.4byte	0x1c
+ 471 0004 0200     		.2byte	0x2
+ 472 0006 00000000 		.4byte	.Ldebug_info0
+ 473 000a 04       		.byte	0x4
+ 474 000b 00       		.byte	0x0
+ 475 000c 0000     		.2byte	0x0
+ 476 000e 0000     		.2byte	0x0
+ 477 0010 00000000 		.4byte	.LFB29
+ 478 0014 20010000 		.4byte	.LFE29-.LFB29
+ 479 0018 00000000 		.4byte	0x0
+ 480 001c 00000000 		.4byte	0x0
+ 481              		.section	.debug_ranges,"",%progbits
+ 482              	.Ldebug_ranges0:
+ 483 0000 00000000 		.4byte	.Ltext0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 11
+
+
+ 484 0004 00000000 		.4byte	.Letext0
+ 485 0008 00000000 		.4byte	.LFB29
+ 486 000c 20010000 		.4byte	.LFE29
+ 487 0010 00000000 		.4byte	0x0
+ 488 0014 00000000 		.4byte	0x0
+ 489              		.section	.debug_str,"MS",%progbits,1
+ 490              	.LASF6:
+ 491 0000 6C6F6E67 		.ascii	"long long int\000"
+ 491      206C6F6E 
+ 491      6720696E 
+ 491      7400
+ 492              	.LASF16:
+ 493 000e 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\PSoC Creator\\ADC_"
+ 493      73657273 
+ 493      5C627279 
+ 493      616E2E6C 
+ 493      65655C44 
+ 494 003c 53696E67 		.ascii	"SingleEndedMode02\\ADC_SingleEndedMode02.cydsn\000"
+ 494      6C65456E 
+ 494      6465644D 
+ 494      6F646530 
+ 494      325C4144 
+ 495              	.LASF8:
+ 496 006a 756E7369 		.ascii	"unsigned int\000"
+ 496      676E6564 
+ 496      20696E74 
+ 496      00
+ 497              	.LASF18:
+ 498 0077 6D61696E 		.ascii	"main\000"
+ 498      00
+ 499              	.LASF17:
+ 500 007c 75696E74 		.ascii	"uint8\000"
+ 500      3800
+ 501              	.LASF5:
+ 502 0082 6C6F6E67 		.ascii	"long unsigned int\000"
+ 502      20756E73 
+ 502      69676E65 
+ 502      6420696E 
+ 502      7400
+ 503              	.LASF7:
+ 504 0094 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 504      206C6F6E 
+ 504      6720756E 
+ 504      7369676E 
+ 504      65642069 
+ 505              	.LASF13:
+ 506 00ab 6C617374 		.ascii	"lastread\000"
+ 506      72656164 
+ 506      00
+ 507              	.LASF12:
+ 508 00b4 6F757470 		.ascii	"output\000"
+ 508      757400
+ 509              	.LASF1:
+ 510 00bb 756E7369 		.ascii	"unsigned char\000"
+ 510      676E6564 
+ 510      20636861 
+ 510      7200
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cchRMhis.s 			page 12
+
+
+ 511              	.LASF11:
+ 512 00c9 63686172 		.ascii	"char\000"
+ 512      00
+ 513              	.LASF19:
+ 514 00ce 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 514      52784275 
+ 514      66666572 
+ 514      00
+ 515              	.LASF2:
+ 516 00db 73686F72 		.ascii	"short int\000"
+ 516      7420696E 
+ 516      7400
+ 517              	.LASF10:
+ 518 00e5 646F7562 		.ascii	"double\000"
+ 518      6C6500
+ 519              	.LASF4:
+ 520 00ec 6C6F6E67 		.ascii	"long int\000"
+ 520      20696E74 
+ 520      00
+ 521              	.LASF14:
+ 522 00f5 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 522      4320342E 
+ 522      342E3100 
+ 523              	.LASF3:
+ 524 0101 73686F72 		.ascii	"short unsigned int\000"
+ 524      7420756E 
+ 524      7369676E 
+ 524      65642069 
+ 524      6E7400
+ 525              	.LASF0:
+ 526 0114 7369676E 		.ascii	"signed char\000"
+ 526      65642063 
+ 526      68617200 
+ 527              	.LASF9:
+ 528 0120 666C6F61 		.ascii	"float\000"
+ 528      7400
+ 529              	.LASF15:
+ 530 0126 2E5C6D61 		.ascii	".\\main.c\000"
+ 530      696E2E63 
+ 530      00
+ 531              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"

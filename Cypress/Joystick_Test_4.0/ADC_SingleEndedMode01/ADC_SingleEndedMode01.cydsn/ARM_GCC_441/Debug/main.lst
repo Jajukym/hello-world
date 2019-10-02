@@ -1,0 +1,686 @@
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"main.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 8B000000 		.text
+  20      02005300 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.comm	output,2,2
+  24              		.comm	DEC,2,2
+  25              		.section	.rodata
+  26              		.align	2
+  27              	.LC0:
+  28 0000 4144435F 		.ascii	"ADC_Output\000"
+  28      4F757470 
+  28      757400
+  29 000b 00       		.align	2
+  30              	.LC1:
+  31 000c 4D494E00 		.ascii	"MIN\000"
+  32              		.align	2
+  33              	.LC2:
+  34 0010 4D415800 		.ascii	"MAX\000"
+  35              		.align	2
+  36              	.LC3:
+  37 0014 20202000 		.ascii	"   \000"
+  38              		.section	.text.main,"ax",%progbits
+  39              		.align	2
+  40              		.global	main
+  41              		.thumb
+  42              		.thumb_func
+  43              		.type	main, %function
+  44              	main:
+  45              	.LFB29:
+  46              		.file 1 ".\\main.c"
+   1:.\main.c      **** /*******************************************************************************
+   2:.\main.c      **** * File Name: main.c
+   3:.\main.c      **** *
+   4:.\main.c      **** * Version: 2.20
+   5:.\main.c      **** *
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 2
+
+
+   6:.\main.c      **** * Description:
+   7:.\main.c      **** *   This is a source code for example project of ADC single ended mode.
+   8:.\main.c      **** *
+   9:.\main.c      **** *   Variable resistor(pot) is connected to +ve input of ADC using the I/O pin.
+  10:.\main.c      **** *   P0.0. When voltage to positive terminal of ADC is 0, the output displayed
+  11:.\main.c      **** *   on the LCD pannel is 0x0000. As voltage on positive terminal goes on
+  12:.\main.c      **** *   increasing, the  converted value goes on increasing from 0x0000 and reaches
+  13:.\main.c      **** *   0xFFFF when voltage becomes 1.024V. Futher increase in voltage value,
+  14:.\main.c      **** *   doesn't cause any changes to values displayed in the LCD.
+  15:.\main.c      **** *
+  16:.\main.c      **** * Hardware Connections:
+  17:.\main.c      **** *  Connect analog input from Variable resistor to port P0[0] of DVK1 board.
+  18:.\main.c      **** *
+  19:.\main.c      **** ********************************************************************************
+  20:.\main.c      **** * Copyright 2012, Cypress Semiconductor Corporation. All rights reserved.
+  21:.\main.c      **** * This software is owned by Cypress Semiconductor Corporation and is protected
+  22:.\main.c      **** * by and subject to worldwide patent and copyright laws and treaties.
+  23:.\main.c      **** * Therefore, you may use this software only as provided in the license agreement
+  24:.\main.c      **** * accompanying the software package from which you obtained this software.
+  25:.\main.c      **** * CYPRESS AND ITS SUPPLIERS MAKE NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+  26:.\main.c      **** * WITH REGARD TO THIS SOFTWARE, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT,
+  27:.\main.c      **** * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  28:.\main.c      **** *******************************************************************************/
+  29:.\main.c      **** 
+  30:.\main.c      **** #include <device.h>
+  31:.\main.c      **** uint16 output;
+  32:.\main.c      **** uint16 DEC;
+  33:.\main.c      **** 
+  34:.\main.c      **** 
+  35:.\main.c      **** 
+  36:.\main.c      **** void main()
+  37:.\main.c      **** {
+  47              		.loc 1 37 0
+  48              		.cfi_startproc
+  49              		@ args = 0, pretend = 0, frame = 0
+  50              		@ frame_needed = 1, uses_anonymous_args = 0
+  51 0000 80B5     		push	{r7, lr}
+  52              	.LCFI0:
+  53              		.cfi_def_cfa_offset 8
+  54 0002 00AF     		add	r7, sp, #0
+  55              		.cfi_offset 14, -4
+  56              		.cfi_offset 7, -8
+  57              	.LCFI1:
+  58              		.cfi_def_cfa_register 7
+  38:.\main.c      ****     
+  39:.\main.c      **** 
+  40:.\main.c      ****     /* Start the components */
+  41:.\main.c      **** 
+  42:.\main.c      ****     LCD_Start();
+  59              		.loc 1 42 0
+  60 0004 FFF7FEFF 		bl	LCD_Start
+  43:.\main.c      ****     ADC_DelSig_1_Start();
+  61              		.loc 1 43 0
+  62 0008 FFF7FEFF 		bl	ADC_DelSig_1_Start
+  44:.\main.c      ****     PWM_Start();
+  63              		.loc 1 44 0
+  64 000c FFF7FEFF 		bl	PWM_Start
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 3
+
+
+  45:.\main.c      ****    
+  46:.\main.c      **** 
+  47:.\main.c      ****     /* Start the ADC conversion */
+  48:.\main.c      ****     ADC_DelSig_1_StartConvert();
+  65              		.loc 1 48 0
+  66 0010 FFF7FEFF 		bl	ADC_DelSig_1_StartConvert
+  49:.\main.c      **** 
+  50:.\main.c      ****     /* Display the value of ADC output on LCD */
+  51:.\main.c      ****     LCD_Position(0u, 0u);
+  67              		.loc 1 51 0
+  68 0014 4FF00000 		mov	r0, #0
+  69 0018 4FF00001 		mov	r1, #0
+  70 001c FFF7FEFF 		bl	LCD_Position
+  52:.\main.c      ****     LCD_PrintString("ADC_Output");
+  71              		.loc 1 52 0
+  72 0020 40F20000 		movw	r0, #:lower16:.LC0
+  73 0024 C0F20000 		movt	r0, #:upper16:.LC0
+  74 0028 FFF7FEFF 		bl	LCD_PrintString
+  75 002c 00E0     		b	.L5
+  76              	.L7:
+  53:.\main.c      **** 
+  54:.\main.c      ****     for(;;)
+  55:.\main.c      ****     {
+  56:.\main.c      ****         if(ADC_DelSig_1_IsEndConversion(ADC_DelSig_1_RETURN_STATUS))
+  57:.\main.c      ****         {
+  58:.\main.c      ****             output = ADC_DelSig_1_GetResult16();
+  59:.\main.c      ****             LCD_Position(1u, 0u);
+  60:.\main.c      ****             LCD_PrintInt16(output);
+  61:.\main.c      ****             if (output < 0x0033)
+  62:.\main.c      ****             {
+  63:.\main.c      ****             PWM_WriteCompare(0);
+  64:.\main.c      ****             LCD_Position(3,0);
+  65:.\main.c      ****             LCD_PrintString("MIN");
+  66:.\main.c      ****             }
+  67:.\main.c      ****             else if (output > 0x00CD)
+  68:.\main.c      ****             {
+  69:.\main.c      ****             PWM_WriteCompare(0x00CD * 64);
+  70:.\main.c      ****             LCD_Position(3,0);
+  71:.\main.c      ****             LCD_PrintString("MAX");
+  72:.\main.c      ****             }
+  73:.\main.c      ****             else
+  74:.\main.c      ****             {
+  75:.\main.c      ****             PWM_WriteCompare(output * 64);
+  76:.\main.c      ****             LCD_Position(3,0);
+  77:.\main.c      ****             LCD_PrintString("   ");
+  78:.\main.c      ****             }
+  79:.\main.c      ****         }
+  80:.\main.c      ****     }
+  77              		.loc 1 80 0
+  78 002e 00BF     		nop
+  79              	.L5:
+  80              		.loc 1 56 0
+  81 0030 4FF00100 		mov	r0, #1
+  82 0034 FFF7FEFF 		bl	ADC_DelSig_1_IsEndConversion
+  83 0038 0346     		mov	r3, r0
+  84 003a 002B     		cmp	r3, #0
+  85 003c F7D0     		beq	.L7
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 4
+
+
+  86              		.loc 1 58 0
+  87 003e FFF7FEFF 		bl	ADC_DelSig_1_GetResult16
+  88 0042 0346     		mov	r3, r0
+  89 0044 9BB2     		uxth	r3, r3
+  90 0046 9AB2     		uxth	r2, r3
+  91 0048 40F20003 		movw	r3, #:lower16:output
+  92 004c C0F20003 		movt	r3, #:upper16:output
+  93 0050 1A80     		strh	r2, [r3, #0]	@ movhi
+  94              		.loc 1 59 0
+  95 0052 4FF00100 		mov	r0, #1
+  96 0056 4FF00001 		mov	r1, #0
+  97 005a FFF7FEFF 		bl	LCD_Position
+  98              		.loc 1 60 0
+  99 005e 40F20003 		movw	r3, #:lower16:output
+ 100 0062 C0F20003 		movt	r3, #:upper16:output
+ 101 0066 1B88     		ldrh	r3, [r3, #0]
+ 102 0068 1846     		mov	r0, r3
+ 103 006a FFF7FEFF 		bl	LCD_PrintInt16
+ 104              		.loc 1 61 0
+ 105 006e 40F20003 		movw	r3, #:lower16:output
+ 106 0072 C0F20003 		movt	r3, #:upper16:output
+ 107 0076 1B88     		ldrh	r3, [r3, #0]
+ 108 0078 322B     		cmp	r3, #50
+ 109 007a 10D8     		bhi	.L3
+ 110              		.loc 1 63 0
+ 111 007c 4FF00000 		mov	r0, #0
+ 112 0080 FFF7FEFF 		bl	PWM_WriteCompare
+ 113              		.loc 1 64 0
+ 114 0084 4FF00300 		mov	r0, #3
+ 115 0088 4FF00001 		mov	r1, #0
+ 116 008c FFF7FEFF 		bl	LCD_Position
+ 117              		.loc 1 65 0
+ 118 0090 40F20000 		movw	r0, #:lower16:.LC1
+ 119 0094 C0F20000 		movt	r0, #:upper16:.LC1
+ 120 0098 FFF7FEFF 		bl	LCD_PrintString
+ 121              		.loc 1 80 0
+ 122 009c C8E7     		b	.L5
+ 123              	.L3:
+ 124              		.loc 1 67 0
+ 125 009e 40F20003 		movw	r3, #:lower16:output
+ 126 00a2 C0F20003 		movt	r3, #:upper16:output
+ 127 00a6 1B88     		ldrh	r3, [r3, #0]
+ 128 00a8 CD2B     		cmp	r3, #205
+ 129 00aa 10D9     		bls	.L4
+ 130              		.loc 1 69 0
+ 131 00ac 4FF44D50 		mov	r0, #13120
+ 132 00b0 FFF7FEFF 		bl	PWM_WriteCompare
+ 133              		.loc 1 70 0
+ 134 00b4 4FF00300 		mov	r0, #3
+ 135 00b8 4FF00001 		mov	r1, #0
+ 136 00bc FFF7FEFF 		bl	LCD_Position
+ 137              		.loc 1 71 0
+ 138 00c0 40F20000 		movw	r0, #:lower16:.LC2
+ 139 00c4 C0F20000 		movt	r0, #:upper16:.LC2
+ 140 00c8 FFF7FEFF 		bl	LCD_PrintString
+ 141              		.loc 1 80 0
+ 142 00cc B0E7     		b	.L5
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 5
+
+
+ 143              	.L4:
+ 144              		.loc 1 75 0
+ 145 00ce 40F20003 		movw	r3, #:lower16:output
+ 146 00d2 C0F20003 		movt	r3, #:upper16:output
+ 147 00d6 1B88     		ldrh	r3, [r3, #0]
+ 148 00d8 4FEA8313 		lsl	r3, r3, #6
+ 149 00dc 9BB2     		uxth	r3, r3
+ 150 00de 1846     		mov	r0, r3
+ 151 00e0 FFF7FEFF 		bl	PWM_WriteCompare
+ 152              		.loc 1 76 0
+ 153 00e4 4FF00300 		mov	r0, #3
+ 154 00e8 4FF00001 		mov	r1, #0
+ 155 00ec FFF7FEFF 		bl	LCD_Position
+ 156              		.loc 1 77 0
+ 157 00f0 40F20000 		movw	r0, #:lower16:.LC3
+ 158 00f4 C0F20000 		movt	r0, #:upper16:.LC3
+ 159 00f8 FFF7FEFF 		bl	LCD_PrintString
+ 160              		.loc 1 80 0
+ 161 00fc 98E7     		b	.L5
+ 162              		.cfi_endproc
+ 163              	.LFE29:
+ 164              		.size	main, .-main
+ 165 00fe 00BF     		.text
+ 166              	.Letext0:
+ 167              		.section	.debug_loc,"",%progbits
+ 168              	.Ldebug_loc0:
+ 169              	.LLST0:
+ 170 0000 00000000 		.4byte	.LFB29
+ 171 0004 02000000 		.4byte	.LCFI0
+ 172 0008 0100     		.2byte	0x1
+ 173 000a 5D       		.byte	0x5d
+ 174 000b 02000000 		.4byte	.LCFI0
+ 175 000f 04000000 		.4byte	.LCFI1
+ 176 0013 0200     		.2byte	0x2
+ 177 0015 7D       		.byte	0x7d
+ 178 0016 08       		.sleb128 8
+ 179 0017 04000000 		.4byte	.LCFI1
+ 180 001b FE000000 		.4byte	.LFE29
+ 181 001f 0200     		.2byte	0x2
+ 182 0021 77       		.byte	0x77
+ 183 0022 08       		.sleb128 8
+ 184 0023 00000000 		.4byte	0x0
+ 185 0027 00000000 		.4byte	0x0
+ 186              		.file 2 "./Generated_Source/PSoC5/core_cm3.h"
+ 187              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 188              		.section	.debug_info
+ 189 0000 DA000000 		.4byte	0xda
+ 190 0004 0200     		.2byte	0x2
+ 191 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 192 000a 04       		.byte	0x4
+ 193 000b 01       		.uleb128 0x1
+ 194 000c 49000000 		.4byte	.LASF14
+ 195 0010 01       		.byte	0x1
+ 196 0011 17010000 		.4byte	.LASF15
+ 197 0015 96000000 		.4byte	.LASF16
+ 198 0019 00000000 		.4byte	0x0
+ 199 001d 00000000 		.4byte	0x0
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 6
+
+
+ 200 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 201 0025 00000000 		.4byte	.Ldebug_line0
+ 202 0029 02       		.uleb128 0x2
+ 203 002a 01       		.byte	0x1
+ 204 002b 06       		.byte	0x6
+ 205 002c 05010000 		.4byte	.LASF0
+ 206 0030 02       		.uleb128 0x2
+ 207 0031 01       		.byte	0x1
+ 208 0032 08       		.byte	0x8
+ 209 0033 5C000000 		.4byte	.LASF1
+ 210 0037 02       		.uleb128 0x2
+ 211 0038 02       		.byte	0x2
+ 212 0039 05       		.byte	0x5
+ 213 003a 7C000000 		.4byte	.LASF2
+ 214 003e 02       		.uleb128 0x2
+ 215 003f 02       		.byte	0x2
+ 216 0040 07       		.byte	0x7
+ 217 0041 F2000000 		.4byte	.LASF3
+ 218 0045 02       		.uleb128 0x2
+ 219 0046 04       		.byte	0x4
+ 220 0047 05       		.byte	0x5
+ 221 0048 8D000000 		.4byte	.LASF4
+ 222 004c 02       		.uleb128 0x2
+ 223 004d 04       		.byte	0x4
+ 224 004e 07       		.byte	0x7
+ 225 004f 20000000 		.4byte	.LASF5
+ 226 0053 02       		.uleb128 0x2
+ 227 0054 08       		.byte	0x8
+ 228 0055 05       		.byte	0x5
+ 229 0056 00000000 		.4byte	.LASF6
+ 230 005a 02       		.uleb128 0x2
+ 231 005b 08       		.byte	0x8
+ 232 005c 07       		.byte	0x7
+ 233 005d 32000000 		.4byte	.LASF7
+ 234 0061 03       		.uleb128 0x3
+ 235 0062 04       		.byte	0x4
+ 236 0063 05       		.byte	0x5
+ 237 0064 696E7400 		.ascii	"int\000"
+ 238 0068 02       		.uleb128 0x2
+ 239 0069 04       		.byte	0x4
+ 240 006a 07       		.byte	0x7
+ 241 006b 0E000000 		.4byte	.LASF8
+ 242 006f 04       		.uleb128 0x4
+ 243 0070 20010000 		.4byte	.LASF17
+ 244 0074 03       		.byte	0x3
+ 245 0075 4D       		.byte	0x4d
+ 246 0076 3E000000 		.4byte	0x3e
+ 247 007a 02       		.uleb128 0x2
+ 248 007b 04       		.byte	0x4
+ 249 007c 04       		.byte	0x4
+ 250 007d 11010000 		.4byte	.LASF9
+ 251 0081 02       		.uleb128 0x2
+ 252 0082 08       		.byte	0x8
+ 253 0083 04       		.byte	0x4
+ 254 0084 86000000 		.4byte	.LASF10
+ 255 0088 02       		.uleb128 0x2
+ 256 0089 01       		.byte	0x1
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 7
+
+
+ 257 008a 08       		.byte	0x8
+ 258 008b 6A000000 		.4byte	.LASF11
+ 259 008f 05       		.uleb128 0x5
+ 260 0090 04       		.byte	0x4
+ 261 0091 07       		.byte	0x7
+ 262 0092 06       		.uleb128 0x6
+ 263 0093 01       		.byte	0x1
+ 264 0094 1B000000 		.4byte	.LASF18
+ 265 0098 01       		.byte	0x1
+ 266 0099 24       		.byte	0x24
+ 267 009a 00000000 		.4byte	.LFB29
+ 268 009e FE000000 		.4byte	.LFE29
+ 269 00a2 00000000 		.4byte	.LLST0
+ 270 00a6 07       		.uleb128 0x7
+ 271 00a7 6F000000 		.4byte	.LASF12
+ 272 00ab 02       		.byte	0x2
+ 273 00ac CE06     		.2byte	0x6ce
+ 274 00ae B4000000 		.4byte	0xb4
+ 275 00b2 01       		.byte	0x1
+ 276 00b3 01       		.byte	0x1
+ 277 00b4 08       		.uleb128 0x8
+ 278 00b5 61000000 		.4byte	0x61
+ 279 00b9 09       		.uleb128 0x9
+ 280 00ba 55000000 		.4byte	.LASF13
+ 281 00be 01       		.byte	0x1
+ 282 00bf 1F       		.byte	0x1f
+ 283 00c0 6F000000 		.4byte	0x6f
+ 284 00c4 01       		.byte	0x1
+ 285 00c5 05       		.byte	0x5
+ 286 00c6 03       		.byte	0x3
+ 287 00c7 00000000 		.4byte	output
+ 288 00cb 0A       		.uleb128 0xa
+ 289 00cc 44454300 		.ascii	"DEC\000"
+ 290 00d0 01       		.byte	0x1
+ 291 00d1 20       		.byte	0x20
+ 292 00d2 6F000000 		.4byte	0x6f
+ 293 00d6 01       		.byte	0x1
+ 294 00d7 05       		.byte	0x5
+ 295 00d8 03       		.byte	0x3
+ 296 00d9 00000000 		.4byte	DEC
+ 297 00dd 00       		.byte	0x0
+ 298              		.section	.debug_abbrev
+ 299 0000 01       		.uleb128 0x1
+ 300 0001 11       		.uleb128 0x11
+ 301 0002 01       		.byte	0x1
+ 302 0003 25       		.uleb128 0x25
+ 303 0004 0E       		.uleb128 0xe
+ 304 0005 13       		.uleb128 0x13
+ 305 0006 0B       		.uleb128 0xb
+ 306 0007 03       		.uleb128 0x3
+ 307 0008 0E       		.uleb128 0xe
+ 308 0009 1B       		.uleb128 0x1b
+ 309 000a 0E       		.uleb128 0xe
+ 310 000b 11       		.uleb128 0x11
+ 311 000c 01       		.uleb128 0x1
+ 312 000d 52       		.uleb128 0x52
+ 313 000e 01       		.uleb128 0x1
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 8
+
+
+ 314 000f 55       		.uleb128 0x55
+ 315 0010 06       		.uleb128 0x6
+ 316 0011 10       		.uleb128 0x10
+ 317 0012 06       		.uleb128 0x6
+ 318 0013 00       		.byte	0x0
+ 319 0014 00       		.byte	0x0
+ 320 0015 02       		.uleb128 0x2
+ 321 0016 24       		.uleb128 0x24
+ 322 0017 00       		.byte	0x0
+ 323 0018 0B       		.uleb128 0xb
+ 324 0019 0B       		.uleb128 0xb
+ 325 001a 3E       		.uleb128 0x3e
+ 326 001b 0B       		.uleb128 0xb
+ 327 001c 03       		.uleb128 0x3
+ 328 001d 0E       		.uleb128 0xe
+ 329 001e 00       		.byte	0x0
+ 330 001f 00       		.byte	0x0
+ 331 0020 03       		.uleb128 0x3
+ 332 0021 24       		.uleb128 0x24
+ 333 0022 00       		.byte	0x0
+ 334 0023 0B       		.uleb128 0xb
+ 335 0024 0B       		.uleb128 0xb
+ 336 0025 3E       		.uleb128 0x3e
+ 337 0026 0B       		.uleb128 0xb
+ 338 0027 03       		.uleb128 0x3
+ 339 0028 08       		.uleb128 0x8
+ 340 0029 00       		.byte	0x0
+ 341 002a 00       		.byte	0x0
+ 342 002b 04       		.uleb128 0x4
+ 343 002c 16       		.uleb128 0x16
+ 344 002d 00       		.byte	0x0
+ 345 002e 03       		.uleb128 0x3
+ 346 002f 0E       		.uleb128 0xe
+ 347 0030 3A       		.uleb128 0x3a
+ 348 0031 0B       		.uleb128 0xb
+ 349 0032 3B       		.uleb128 0x3b
+ 350 0033 0B       		.uleb128 0xb
+ 351 0034 49       		.uleb128 0x49
+ 352 0035 13       		.uleb128 0x13
+ 353 0036 00       		.byte	0x0
+ 354 0037 00       		.byte	0x0
+ 355 0038 05       		.uleb128 0x5
+ 356 0039 24       		.uleb128 0x24
+ 357 003a 00       		.byte	0x0
+ 358 003b 0B       		.uleb128 0xb
+ 359 003c 0B       		.uleb128 0xb
+ 360 003d 3E       		.uleb128 0x3e
+ 361 003e 0B       		.uleb128 0xb
+ 362 003f 00       		.byte	0x0
+ 363 0040 00       		.byte	0x0
+ 364 0041 06       		.uleb128 0x6
+ 365 0042 2E       		.uleb128 0x2e
+ 366 0043 00       		.byte	0x0
+ 367 0044 3F       		.uleb128 0x3f
+ 368 0045 0C       		.uleb128 0xc
+ 369 0046 03       		.uleb128 0x3
+ 370 0047 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 9
+
+
+ 371 0048 3A       		.uleb128 0x3a
+ 372 0049 0B       		.uleb128 0xb
+ 373 004a 3B       		.uleb128 0x3b
+ 374 004b 0B       		.uleb128 0xb
+ 375 004c 11       		.uleb128 0x11
+ 376 004d 01       		.uleb128 0x1
+ 377 004e 12       		.uleb128 0x12
+ 378 004f 01       		.uleb128 0x1
+ 379 0050 40       		.uleb128 0x40
+ 380 0051 06       		.uleb128 0x6
+ 381 0052 00       		.byte	0x0
+ 382 0053 00       		.byte	0x0
+ 383 0054 07       		.uleb128 0x7
+ 384 0055 34       		.uleb128 0x34
+ 385 0056 00       		.byte	0x0
+ 386 0057 03       		.uleb128 0x3
+ 387 0058 0E       		.uleb128 0xe
+ 388 0059 3A       		.uleb128 0x3a
+ 389 005a 0B       		.uleb128 0xb
+ 390 005b 3B       		.uleb128 0x3b
+ 391 005c 05       		.uleb128 0x5
+ 392 005d 49       		.uleb128 0x49
+ 393 005e 13       		.uleb128 0x13
+ 394 005f 3F       		.uleb128 0x3f
+ 395 0060 0C       		.uleb128 0xc
+ 396 0061 3C       		.uleb128 0x3c
+ 397 0062 0C       		.uleb128 0xc
+ 398 0063 00       		.byte	0x0
+ 399 0064 00       		.byte	0x0
+ 400 0065 08       		.uleb128 0x8
+ 401 0066 35       		.uleb128 0x35
+ 402 0067 00       		.byte	0x0
+ 403 0068 49       		.uleb128 0x49
+ 404 0069 13       		.uleb128 0x13
+ 405 006a 00       		.byte	0x0
+ 406 006b 00       		.byte	0x0
+ 407 006c 09       		.uleb128 0x9
+ 408 006d 34       		.uleb128 0x34
+ 409 006e 00       		.byte	0x0
+ 410 006f 03       		.uleb128 0x3
+ 411 0070 0E       		.uleb128 0xe
+ 412 0071 3A       		.uleb128 0x3a
+ 413 0072 0B       		.uleb128 0xb
+ 414 0073 3B       		.uleb128 0x3b
+ 415 0074 0B       		.uleb128 0xb
+ 416 0075 49       		.uleb128 0x49
+ 417 0076 13       		.uleb128 0x13
+ 418 0077 3F       		.uleb128 0x3f
+ 419 0078 0C       		.uleb128 0xc
+ 420 0079 02       		.uleb128 0x2
+ 421 007a 0A       		.uleb128 0xa
+ 422 007b 00       		.byte	0x0
+ 423 007c 00       		.byte	0x0
+ 424 007d 0A       		.uleb128 0xa
+ 425 007e 34       		.uleb128 0x34
+ 426 007f 00       		.byte	0x0
+ 427 0080 03       		.uleb128 0x3
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 10
+
+
+ 428 0081 08       		.uleb128 0x8
+ 429 0082 3A       		.uleb128 0x3a
+ 430 0083 0B       		.uleb128 0xb
+ 431 0084 3B       		.uleb128 0x3b
+ 432 0085 0B       		.uleb128 0xb
+ 433 0086 49       		.uleb128 0x49
+ 434 0087 13       		.uleb128 0x13
+ 435 0088 3F       		.uleb128 0x3f
+ 436 0089 0C       		.uleb128 0xc
+ 437 008a 02       		.uleb128 0x2
+ 438 008b 0A       		.uleb128 0xa
+ 439 008c 00       		.byte	0x0
+ 440 008d 00       		.byte	0x0
+ 441 008e 00       		.byte	0x0
+ 442              		.section	.debug_pubnames,"",%progbits
+ 443 0000 2A000000 		.4byte	0x2a
+ 444 0004 0200     		.2byte	0x2
+ 445 0006 00000000 		.4byte	.Ldebug_info0
+ 446 000a DE000000 		.4byte	0xde
+ 447 000e 92000000 		.4byte	0x92
+ 448 0012 6D61696E 		.ascii	"main\000"
+ 448      00
+ 449 0017 B9000000 		.4byte	0xb9
+ 450 001b 6F757470 		.ascii	"output\000"
+ 450      757400
+ 451 0022 CB000000 		.4byte	0xcb
+ 452 0026 44454300 		.ascii	"DEC\000"
+ 453 002a 00000000 		.4byte	0x0
+ 454              		.section	.debug_aranges,"",%progbits
+ 455 0000 1C000000 		.4byte	0x1c
+ 456 0004 0200     		.2byte	0x2
+ 457 0006 00000000 		.4byte	.Ldebug_info0
+ 458 000a 04       		.byte	0x4
+ 459 000b 00       		.byte	0x0
+ 460 000c 0000     		.2byte	0x0
+ 461 000e 0000     		.2byte	0x0
+ 462 0010 00000000 		.4byte	.LFB29
+ 463 0014 FE000000 		.4byte	.LFE29-.LFB29
+ 464 0018 00000000 		.4byte	0x0
+ 465 001c 00000000 		.4byte	0x0
+ 466              		.section	.debug_ranges,"",%progbits
+ 467              	.Ldebug_ranges0:
+ 468 0000 00000000 		.4byte	.Ltext0
+ 469 0004 00000000 		.4byte	.Letext0
+ 470 0008 00000000 		.4byte	.LFB29
+ 471 000c FE000000 		.4byte	.LFE29
+ 472 0010 00000000 		.4byte	0x0
+ 473 0014 00000000 		.4byte	0x0
+ 474              		.section	.debug_str,"MS",%progbits,1
+ 475              	.LASF6:
+ 476 0000 6C6F6E67 		.ascii	"long long int\000"
+ 476      206C6F6E 
+ 476      6720696E 
+ 476      7400
+ 477              	.LASF8:
+ 478 000e 756E7369 		.ascii	"unsigned int\000"
+ 478      676E6564 
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 11
+
+
+ 478      20696E74 
+ 478      00
+ 479              	.LASF18:
+ 480 001b 6D61696E 		.ascii	"main\000"
+ 480      00
+ 481              	.LASF5:
+ 482 0020 6C6F6E67 		.ascii	"long unsigned int\000"
+ 482      20756E73 
+ 482      69676E65 
+ 482      6420696E 
+ 482      7400
+ 483              	.LASF7:
+ 484 0032 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 484      206C6F6E 
+ 484      6720756E 
+ 484      7369676E 
+ 484      65642069 
+ 485              	.LASF14:
+ 486 0049 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 486      4320342E 
+ 486      342E3100 
+ 487              	.LASF13:
+ 488 0055 6F757470 		.ascii	"output\000"
+ 488      757400
+ 489              	.LASF1:
+ 490 005c 756E7369 		.ascii	"unsigned char\000"
+ 490      676E6564 
+ 490      20636861 
+ 490      7200
+ 491              	.LASF11:
+ 492 006a 63686172 		.ascii	"char\000"
+ 492      00
+ 493              	.LASF12:
+ 494 006f 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 494      52784275 
+ 494      66666572 
+ 494      00
+ 495              	.LASF2:
+ 496 007c 73686F72 		.ascii	"short int\000"
+ 496      7420696E 
+ 496      7400
+ 497              	.LASF10:
+ 498 0086 646F7562 		.ascii	"double\000"
+ 498      6C6500
+ 499              	.LASF4:
+ 500 008d 6C6F6E67 		.ascii	"long int\000"
+ 500      20696E74 
+ 500      00
+ 501              	.LASF16:
+ 502 0096 433A5C55 		.ascii	"C:\\Users\\Bryan.Lee\\Documents\\PSoC Creator\\ADC_"
+ 502      73657273 
+ 502      5C427279 
+ 502      616E2E4C 
+ 502      65655C44 
+ 503 00c4 53696E67 		.ascii	"SingleEndedMode01\\ADC_SingleEndedMode01.cydsn\000"
+ 503      6C65456E 
+ 503      6465644D 
+ARM GAS  C:\Users\Bryan.Lee\AppData\Local\Temp\cc3aBWav.s 			page 12
+
+
+ 503      6F646530 
+ 503      315C4144 
+ 504              	.LASF3:
+ 505 00f2 73686F72 		.ascii	"short unsigned int\000"
+ 505      7420756E 
+ 505      7369676E 
+ 505      65642069 
+ 505      6E7400
+ 506              	.LASF0:
+ 507 0105 7369676E 		.ascii	"signed char\000"
+ 507      65642063 
+ 507      68617200 
+ 508              	.LASF9:
+ 509 0111 666C6F61 		.ascii	"float\000"
+ 509      7400
+ 510              	.LASF15:
+ 511 0117 2E5C6D61 		.ascii	".\\main.c\000"
+ 511      696E2E63 
+ 511      00
+ 512              	.LASF17:
+ 513 0120 75696E74 		.ascii	"uint16\000"
+ 513      313600
+ 514              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
