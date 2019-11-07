@@ -1,0 +1,31 @@
+net ClockBlock_HFClk
+	term   ":m0s8clockblockcell.hfclk"
+	switch ":m0s8clockblockcell.hfclk==>:interrupt_12.clock"
+	term   ":interrupt_12.clock"
+	switch ":m0s8clockblockcell.hfclk==>:interrupt_17.clock"
+	term   ":interrupt_17.clock"
+end ClockBlock_HFClk
+net Net_25
+	term   ":m0s8tcpwmcell_0.interrupt"
+	switch ":m0s8tcpwmcell_0.interrupt==>:interrupt_idmux_17.in_0"
+	switch ":interrupt_idmux_17.interrupt_idmux_17__out==>:interrupt_17.interrupt"
+	term   ":interrupt_17.interrupt"
+end Net_25
+net Net_3
+	term   ":m0s8tcpwmcell_1.line_compl"
+	switch ":m0s8tcpwmcell_1.line_compl==>Stub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v25+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v27"
+	switch "OStub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v25+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v27"
+	switch ":dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:27,12"
+	switch ":dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:100,12_f"
+	switch "IStub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v100+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v102+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v98"
+	switch "Stub-:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v100+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v102+:dsiswitch_top@[DSI=(0,1)][side=top]:dsihc_top:v98==>:ioport2:inputs2_mux.in_2"
+	switch ":ioport2:inputs2_mux.pin6__pin_input==>:ioport2:hsiom_out6.dsi"
+	switch ":ioport2:hsiom_out6.hsiom6_out==>:ioport2:pin6.pin_input"
+	term   ":ioport2:pin6.pin_input"
+end Net_3
+net \BLE_1:Net_15\
+	term   ":p4blecell.interrupt"
+	switch ":p4blecell.interrupt==>:interrupt_idmux_12.in_0"
+	switch ":interrupt_idmux_12.interrupt_idmux_12__out==>:interrupt_12.interrupt"
+	term   ":interrupt_12.interrupt"
+end \BLE_1:Net_15\

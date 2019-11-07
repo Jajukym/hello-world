@@ -2,7 +2,7 @@
 #include <math.h> /*This does not work in VS on C files*/
 
 
-double M_PI =3.14;
+double M_PI = 3.14;
 
 int main(void)
 {
