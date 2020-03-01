@@ -1,0 +1,2413 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.eabi_attribute 27, 1
+   4              		.fpu fpv4-sp-d16
+   5              		.eabi_attribute 20, 1
+   6              		.eabi_attribute 21, 1
+   7              		.eabi_attribute 23, 3
+   8              		.eabi_attribute 24, 1
+   9              		.eabi_attribute 25, 1
+  10              		.eabi_attribute 26, 1
+  11              		.eabi_attribute 30, 1
+  12              		.eabi_attribute 34, 1
+  13              		.eabi_attribute 18, 4
+  14              		.thumb
+  15              		.syntax unified
+  16              		.file	"touch.c"
+  17              		.text
+  18              	.Ltext0:
+  19              		.cfi_sections	.debug_frame
+  20              		.section	.text.GetcapSenseData,"ax",%progbits
+  21              		.align	2
+  22              		.global	GetcapSenseData
+  23              		.thumb
+  24              		.thumb_func
+  25              		.type	GetcapSenseData, %function
+  26              	GetcapSenseData:
+  27              	.LFB703:
+  28              		.file 1 "touch.c"
+   1:touch.c       **** /******************************************************************************
+   2:touch.c       **** * File Name: touch.c
+   3:touch.c       **** *
+   4:touch.c       **** * Version: 1.10
+   5:touch.c       **** *
+   6:touch.c       **** * Description: This file contains functions that handle the initialization and
+   7:touch.c       **** *              the scanning of the CapSense Slider and the Buttons
+   8:touch.c       **** *
+   9:touch.c       **** * Related Document: CE220167_BLE_UI.pdf
+  10:touch.c       **** *
+  11:touch.c       **** * Hardware Dependency: CY8CKIT-062-BLE PSoC 6 BLE Pioneer Kit
+  12:touch.c       **** *                      CY8CKIT-028-EPD E-INK Display Shield
+  13:touch.c       **** *
+  14:touch.c       **** *******************************************************************************
+  15:touch.c       **** * Copyright (2017), Cypress Semiconductor Corporation. All rights reserved.
+  16:touch.c       **** *******************************************************************************
+  17:touch.c       **** * This software, including source code, documentation and related materials
+  18:touch.c       **** * (“Software”), is owned by Cypress Semiconductor Corporation or one of its
+  19:touch.c       **** * subsidiaries (“Cypress”) and is protected by and subject to worldwide patent
+  20:touch.c       **** * protection (United States and foreign), United States copyright laws and
+  21:touch.c       **** * international treaty provisions. Therefore, you may use this Software only
+  22:touch.c       **** * as provided in the license agreement accompanying the software package from
+  23:touch.c       **** * which you obtained this Software (“EULA”).
+  24:touch.c       **** *
+  25:touch.c       **** * If no EULA applies, Cypress hereby grants you a personal, nonexclusive,
+  26:touch.c       **** * non-transferable license to copy, modify, and compile the Software source
+  27:touch.c       **** * code solely for use in connection with Cypress’s integrated circuit products.
+  28:touch.c       **** * Any reproduction, modification, translation, compilation, or representation
+  29:touch.c       **** * of this Software except as specified above is prohibited without the express
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 2
+
+
+  30:touch.c       **** * written permission of Cypress.
+  31:touch.c       **** *
+  32:touch.c       **** * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND, 
+  33:touch.c       **** * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED 
+  34:touch.c       **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress 
+  35:touch.c       **** * reserves the right to make changes to the Software without notice. Cypress 
+  36:touch.c       **** * does not assume any liability arising out of the application or use of the 
+  37:touch.c       **** * Software or any product or circuit described in the Software. Cypress does 
+  38:touch.c       **** * not authorize its products for use in any products where a malfunction or 
+  39:touch.c       **** * failure of the Cypress product may reasonably be expected to result in 
+  40:touch.c       **** * significant property damage, injury or death (“High Risk Product”). By 
+  41:touch.c       **** * including Cypress’s product in a High Risk Product, the manufacturer of such 
+  42:touch.c       **** * system or application assumes all risk of such use and in doing so agrees to 
+  43:touch.c       **** * indemnify Cypress against all liability.
+  44:touch.c       **** *******************************************************************************/
+  45:touch.c       **** /******************************************************************************
+  46:touch.c       **** * This file contains functions that handle the initialization and the scanning of 
+  47:touch.c       **** * the CapSense Slider and the Buttons
+  48:touch.c       **** *******************************************************************************/
+  49:touch.c       **** 
+  50:touch.c       **** /* Header file includes */
+  51:touch.c       **** #include <project.h>
+  52:touch.c       **** #include "touch.h"
+  53:touch.c       **** 
+  54:touch.c       **** /* For more details on the data format of CapSense buttons and slider required
+  55:touch.c       ****    for Cypress's Custom BLE Profiles, see Cypress CapSense profile specification
+  56:touch.c       ****    available at:
+  57:touch.c       ****    http://www.cypress.com/documentation/software-and-drivers/cypresss-custom-ble-profiles-and-servi
+  58:touch.c       **** */
+  59:touch.c       **** 
+  60:touch.c       **** /* CapSense Button macros */
+  61:touch.c       **** /* Header (position 0)contains the number of buttons */
+  62:touch.c       **** #define BUTTON_DATA_HEADER  (uint8_t) (0x02u)
+  63:touch.c       **** #define BUTTON_HEADER_POS   (uint8_t) (0x00u)
+  64:touch.c       **** /* Buttons masks store the touch data  */
+  65:touch.c       **** #define BUTTON0_MASK        (uint8_t) (0x01u)
+  66:touch.c       **** #define BUTTON1_MASK        (uint8_t) (0x02u)
+  67:touch.c       **** #define BUTTON_MASK_POS0    (uint8_t) (0x02u)
+  68:touch.c       **** #define BUTTON_MASK_POS1    (uint8_t) (0x01u)
+  69:touch.c       **** /* Macro used to clear button masks */
+  70:touch.c       **** #define BUTTON_MASK_CLEAR   (uint8_t) (0x00u)
+  71:touch.c       **** 
+  72:touch.c       **** /* Slider position value received from the CapSense Component when the slider is 
+  73:touch.c       ****    not touched */
+  74:touch.c       **** #define NO_SLIDER_TOUCH   	(uint8_t) (0xFFu)
+  75:touch.c       **** 
+  76:touch.c       **** /*******************************************************************************
+  77:touch.c       **** * Function Name: touch_data_t* GetcapSenseData(void)
+  78:touch.c       **** ********************************************************************************
+  79:touch.c       **** * Summary:
+  80:touch.c       **** *  Function that scans CapSense sensors, processes touch information and then
+  81:touch.c       **** *  returns the touch information
+  82:touch.c       **** *
+  83:touch.c       **** * Parameters:
+  84:touch.c       **** *  None
+  85:touch.c       **** *
+  86:touch.c       **** * Return:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 3
+
+
+  87:touch.c       **** *  touch_data_t*  : address of the data-structure that stores touch 
+  88:touch.c       **** *                   information
+  89:touch.c       **** *
+  90:touch.c       **** *******************************************************************************/
+  91:touch.c       **** touch_data_t* GetcapSenseData(void)
+  92:touch.c       **** {
+  29              		.loc 1 92 0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33 0000 08B5     		push	{r3, lr}
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+  93:touch.c       ****     /* Structure that stores the current CapSense touch information */
+  94:touch.c       ****     touch_data_t  static currentCapSenseData = 
+  95:touch.c       ****     {    
+  96:touch.c       ****         /* Initialize the flags that track updates to touch information */
+  97:touch.c       ****         .buttonDataUpdated = false,
+  98:touch.c       ****         .sliderDataUpdated = false,
+  99:touch.c       ****         /* Initialize the button and slider touch information */
+ 100:touch.c       ****         .sliderData = NO_SLIDER_TOUCH,
+ 101:touch.c       ****         .buttonData[BUTTON_HEADER_POS]  = BUTTON_DATA_HEADER,
+ 102:touch.c       ****         .buttonData[BUTTON_MASK_POS0]   = BUTTON_MASK_CLEAR,
+ 103:touch.c       ****         .buttonData[BUTTON_MASK_POS1]   = BUTTON_MASK_CLEAR
+ 104:touch.c       ****     };
+ 105:touch.c       ****         
+ 106:touch.c       ****     /* Variables used to store the button and slider touch information */
+ 107:touch.c       ****     uint8_t  static buttonMask      = BUTTON_MASK_CLEAR;
+ 108:touch.c       ****     uint8_t  static sliderPosition  = NO_SLIDER_TOUCH;
+ 109:touch.c       **** 
+ 110:touch.c       ****     /* Do this only when the CapSense isn't busy with a previous operation */
+ 111:touch.c       ****     if (CapSense_IsBusy() == CapSense_NOT_BUSY)
+  37              		.loc 1 111 0
+  38 0002 FFF7FEFF 		bl	CapSense_IsBusy
+  39              	.LVL0:
+  40 0006 E0B9     		cbnz	r0, .L2
+ 112:touch.c       ****     {
+ 113:touch.c       ****         /* Process data from both the slider and the buttons */
+ 114:touch.c       **** 		CapSense_ProcessAllWidgets();
+  41              		.loc 1 114 0
+  42 0008 FFF7FEFF 		bl	CapSense_ProcessAllWidgets
+  43              	.LVL1:
+ 115:touch.c       ****         
+ 116:touch.c       ****         /* Read the finger position on the slider */
+ 117:touch.c       ****         sliderPosition = (uint8_t)CapSense_GetCentroidPos
+  44              		.loc 1 117 0
+  45 000c 0220     		movs	r0, #2
+  46 000e FFF7FEFF 		bl	CapSense_GetCentroidPos
+  47              	.LVL2:
+  48 0012 1A4B     		ldr	r3, .L10
+  49 0014 1870     		strb	r0, [r3]
+ 118:touch.c       ****                                     (CapSense_LINEARSLIDER0_WDGT_ID);
+ 119:touch.c       ****                                                
+ 120:touch.c       ****         /* Clear the button masks to acquire new data */
+ 121:touch.c       ****         buttonMask = BUTTON_MASK_CLEAR;
+  50              		.loc 1 121 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 4
+
+
+  51 0016 0020     		movs	r0, #0
+  52 0018 194B     		ldr	r3, .L10+4
+  53 001a 1870     		strb	r0, [r3]
+ 122:touch.c       ****                             
+ 123:touch.c       ****         /* Get the touch status of button 0 */
+ 124:touch.c       ****         if (CapSense_IsWidgetActive(CapSense_BUTTON0_WDGT_ID))
+  54              		.loc 1 124 0
+  55 001c FFF7FEFF 		bl	CapSense_IsWidgetActive
+  56              	.LVL3:
+  57 0020 20B1     		cbz	r0, .L3
+ 125:touch.c       ****         {
+ 126:touch.c       ****             buttonMask |= BUTTON0_MASK;
+  58              		.loc 1 126 0
+  59 0022 174A     		ldr	r2, .L10+4
+  60 0024 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  61 0026 43F00103 		orr	r3, r3, #1
+  62 002a 1370     		strb	r3, [r2]
+  63              	.L3:
+ 127:touch.c       ****         }          
+ 128:touch.c       ****         /* Get the touch status of button 1 */
+ 129:touch.c       ****         if (CapSense_IsWidgetActive(CapSense_BUTTON1_WDGT_ID))
+  64              		.loc 1 129 0
+  65 002c 0120     		movs	r0, #1
+  66 002e FFF7FEFF 		bl	CapSense_IsWidgetActive
+  67              	.LVL4:
+  68 0032 20B1     		cbz	r0, .L4
+ 130:touch.c       ****         {
+ 131:touch.c       ****             buttonMask |= BUTTON1_MASK;
+  69              		.loc 1 131 0
+  70 0034 124A     		ldr	r2, .L10+4
+  71 0036 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  72 0038 43F00203 		orr	r3, r3, #2
+  73 003c 1370     		strb	r3, [r2]
+  74              	.L4:
+ 132:touch.c       ****         }                    
+ 133:touch.c       **** 
+ 134:touch.c       ****         /* Start the next CapSense scan */
+ 135:touch.c       ****         CapSense_ScanAllWidgets();
+  75              		.loc 1 135 0
+  76 003e FFF7FEFF 		bl	CapSense_ScanAllWidgets
+  77              	.LVL5:
+  78              	.L2:
+ 136:touch.c       ****     }
+ 137:touch.c       ****                       
+ 138:touch.c       ****     /* Check if the finger position on the slider has changed */
+ 139:touch.c       ****     if (sliderPosition != currentCapSenseData.sliderData)
+  79              		.loc 1 139 0
+  80 0042 0E4B     		ldr	r3, .L10
+  81 0044 9A79     		ldrb	r2, [r3, #6]	@ zero_extendqisi2
+  82 0046 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  83 0048 9A42     		cmp	r2, r3
+  84 004a 04D0     		beq	.L5
+ 140:touch.c       ****     {
+ 141:touch.c       ****         /* Slider touch position */
+ 142:touch.c       ****         currentCapSenseData.sliderData = (uint8_t)sliderPosition;
+  85              		.loc 1 142 0
+  86 004c 0B4A     		ldr	r2, .L10
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 5
+
+
+  87 004e 9371     		strb	r3, [r2, #6]
+ 143:touch.c       ****         /* Slider data updated */
+ 144:touch.c       ****         currentCapSenseData.sliderDataUpdated = true;
+  88              		.loc 1 144 0
+  89 0050 0123     		movs	r3, #1
+  90 0052 1371     		strb	r3, [r2, #4]
+  91 0054 02E0     		b	.L6
+  92              	.L5:
+ 145:touch.c       ****     }
+ 146:touch.c       ****     else
+ 147:touch.c       ****     {  
+ 148:touch.c       ****        /* Slider data not updated */
+ 149:touch.c       ****        currentCapSenseData.sliderDataUpdated = false; 
+  93              		.loc 1 149 0
+  94 0056 0022     		movs	r2, #0
+  95 0058 084B     		ldr	r3, .L10
+  96 005a 1A71     		strb	r2, [r3, #4]
+  97              	.L6:
+ 150:touch.c       ****     }
+ 151:touch.c       ****     /* Check for a change in the button mask */
+ 152:touch.c       ****     if (buttonMask != currentCapSenseData.buttonData[BUTTON_MASK_POS0])
+  98              		.loc 1 152 0
+  99 005c 074B     		ldr	r3, .L10
+ 100 005e 5A7A     		ldrb	r2, [r3, #9]	@ zero_extendqisi2
+ 101 0060 074B     		ldr	r3, .L10+4
+ 102 0062 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 103 0064 9A42     		cmp	r2, r3
+ 104 0066 04D0     		beq	.L7
+ 153:touch.c       ****     {
+ 154:touch.c       ****         /* Button mask for BUTTON0 and BUTTON1 */
+ 155:touch.c       ****         currentCapSenseData.buttonData[BUTTON_MASK_POS0] = buttonMask;
+ 105              		.loc 1 155 0
+ 106 0068 044A     		ldr	r2, .L10
+ 107 006a 5372     		strb	r3, [r2, #9]
+ 156:touch.c       ****         /* Button data updated */
+ 157:touch.c       ****         currentCapSenseData.buttonDataUpdated = true;
+ 108              		.loc 1 157 0
+ 109 006c 0123     		movs	r3, #1
+ 110 006e 5371     		strb	r3, [r2, #5]
+ 111 0070 02E0     		b	.L8
+ 112              	.L7:
+ 158:touch.c       ****     }
+ 159:touch.c       ****     else
+ 160:touch.c       ****     {
+ 161:touch.c       ****         /* Button data not updated */
+ 162:touch.c       ****         currentCapSenseData.buttonDataUpdated = false; 
+ 113              		.loc 1 162 0
+ 114 0072 0022     		movs	r2, #0
+ 115 0074 014B     		ldr	r3, .L10
+ 116 0076 5A71     		strb	r2, [r3, #5]
+ 117              	.L8:
+ 163:touch.c       ****     }
+ 164:touch.c       ****     
+ 165:touch.c       ****     /* return the touch information */
+ 166:touch.c       ****     return &currentCapSenseData;
+ 167:touch.c       **** }
+ 118              		.loc 1 167 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 6
+
+
+ 119 0078 0248     		ldr	r0, .L10+8
+ 120 007a 08BD     		pop	{r3, pc}
+ 121              	.L11:
+ 122              		.align	2
+ 123              	.L10:
+ 124 007c 00000000 		.word	.LANCHOR0
+ 125 0080 00000000 		.word	.LANCHOR1
+ 126 0084 04000000 		.word	.LANCHOR0+4
+ 127              		.cfi_endproc
+ 128              	.LFE703:
+ 129              		.size	GetcapSenseData, .-GetcapSenseData
+ 130              		.section	.text.IsCapSenseReadyForLowPowerMode,"ax",%progbits
+ 131              		.align	2
+ 132              		.global	IsCapSenseReadyForLowPowerMode
+ 133              		.thumb
+ 134              		.thumb_func
+ 135              		.type	IsCapSenseReadyForLowPowerMode, %function
+ 136              	IsCapSenseReadyForLowPowerMode:
+ 137              	.LFB704:
+ 168:touch.c       **** 
+ 169:touch.c       **** /*******************************************************************************
+ 170:touch.c       **** * Function Name: bool IsCapSenseReadyForLowPowerMode(void)
+ 171:touch.c       **** ********************************************************************************
+ 172:touch.c       **** *
+ 173:touch.c       **** * Summary:
+ 174:touch.c       **** *  Function to check if CapSense is ready to enter low power mode
+ 175:touch.c       **** *
+ 176:touch.c       **** * Parameters:
+ 177:touch.c       **** *  None
+ 178:touch.c       **** *
+ 179:touch.c       **** * Return:
+ 180:touch.c       **** *  bool     : true if ready to enter low power mode, false otherwise
+ 181:touch.c       **** *
+ 182:touch.c       **** * Side Effects:
+ 183:touch.c       **** *  None
+ 184:touch.c       **** *
+ 185:touch.c       **** *******************************************************************************/
+ 186:touch.c       **** bool  IsCapSenseReadyForLowPowerMode(void)
+ 187:touch.c       **** {
+ 138              		.loc 1 187 0
+ 139              		.cfi_startproc
+ 140              		@ args = 0, pretend = 0, frame = 0
+ 141              		@ frame_needed = 0, uses_anonymous_args = 0
+ 142 0000 08B5     		push	{r3, lr}
+ 143              		.cfi_def_cfa_offset 8
+ 144              		.cfi_offset 3, -8
+ 145              		.cfi_offset 14, -4
+ 188:touch.c       ****     /* Variable that stores the return flag */
+ 189:touch.c       ****     bool lowPowerModeReady;
+ 190:touch.c       ****     
+ 191:touch.c       ****     /* Don't enter low power mode if CapSense is busy with a scan */
+ 192:touch.c       ****     if(CapSense_IsBusy() != CapSense_NOT_BUSY)
+ 146              		.loc 1 192 0
+ 147 0002 FFF7FEFF 		bl	CapSense_IsBusy
+ 148              	.LVL6:
+ 149 0006 08B1     		cbz	r0, .L14
+ 193:touch.c       ****     {
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 7
+
+
+ 194:touch.c       ****         lowPowerModeReady=false;
+ 150              		.loc 1 194 0
+ 151 0008 0020     		movs	r0, #0
+ 152 000a 08BD     		pop	{r3, pc}
+ 153              	.L14:
+ 195:touch.c       ****     }
+ 196:touch.c       ****     else
+ 197:touch.c       ****     {
+ 198:touch.c       ****         lowPowerModeReady=true;
+ 154              		.loc 1 198 0
+ 155 000c 0120     		movs	r0, #1
+ 156              	.LVL7:
+ 199:touch.c       ****     }
+ 200:touch.c       ****     
+ 201:touch.c       ****     /* Return  the low power mode entry readiness */
+ 202:touch.c       ****     return lowPowerModeReady;
+ 203:touch.c       **** }
+ 157              		.loc 1 203 0
+ 158 000e 08BD     		pop	{r3, pc}
+ 159              		.cfi_endproc
+ 160              	.LFE704:
+ 161              		.size	IsCapSenseReadyForLowPowerMode, .-IsCapSenseReadyForLowPowerMode
+ 162              		.section	.text.InitCapSense,"ax",%progbits
+ 163              		.align	2
+ 164              		.global	InitCapSense
+ 165              		.thumb
+ 166              		.thumb_func
+ 167              		.type	InitCapSense, %function
+ 168              	InitCapSense:
+ 169              	.LFB705:
+ 204:touch.c       **** 
+ 205:touch.c       **** /*******************************************************************************
+ 206:touch.c       **** * Function Name: void InitCapSense(void)
+ 207:touch.c       **** ********************************************************************************
+ 208:touch.c       **** * Summary:
+ 209:touch.c       **** *  Initializes CapSense touch sensing
+ 210:touch.c       **** *
+ 211:touch.c       **** * Parameters:
+ 212:touch.c       **** *  void
+ 213:touch.c       **** *
+ 214:touch.c       **** * Return:
+ 215:touch.c       **** *  void
+ 216:touch.c       **** *
+ 217:touch.c       **** *******************************************************************************/
+ 218:touch.c       **** void InitCapSense(void)
+ 219:touch.c       **** {
+ 170              		.loc 1 219 0
+ 171              		.cfi_startproc
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174 0000 08B5     		push	{r3, lr}
+ 175              		.cfi_def_cfa_offset 8
+ 176              		.cfi_offset 3, -8
+ 177              		.cfi_offset 14, -4
+ 220:touch.c       ****     /* Start the CapSense component and initialize the baselines */
+ 221:touch.c       ****     CapSense_Start();
+ 178              		.loc 1 221 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 8
+
+
+ 179 0002 FFF7FEFF 		bl	CapSense_Start
+ 180              	.LVL8:
+ 181 0006 08BD     		pop	{r3, pc}
+ 182              		.cfi_endproc
+ 183              	.LFE705:
+ 184              		.size	InitCapSense, .-InitCapSense
+ 185              		.data
+ 186              		.align	2
+ 187              		.set	.LANCHOR0,. + 0
+ 188              		.type	sliderPosition.18352, %object
+ 189              		.size	sliderPosition.18352, 1
+ 190              	sliderPosition.18352:
+ 191 0000 FF       		.byte	-1
+ 192 0001 000000   		.space	3
+ 193              		.type	currentCapSenseData.18350, %object
+ 194              		.size	currentCapSenseData.18350, 6
+ 195              	currentCapSenseData.18350:
+ 196 0004 00       		.byte	0
+ 197 0005 00       		.byte	0
+ 198 0006 FF       		.byte	-1
+ 199 0007 02       		.byte	2
+ 200 0008 00       		.byte	0
+ 201 0009 00       		.byte	0
+ 202              		.bss
+ 203              		.set	.LANCHOR1,. + 0
+ 204              		.type	buttonMask.18351, %object
+ 205              		.size	buttonMask.18351, 1
+ 206              	buttonMask.18351:
+ 207 0000 00       		.space	1
+ 208              		.text
+ 209              	.Letext0:
+ 210              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 211              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 212              		.file 4 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/tcpwm/cy_tcpwm_counter.h"
+ 213              		.file 5 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/tcpwm/cy_tcpwm_pwm.h"
+ 214              		.file 6 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/scb/cy_scb_spi.h"
+ 215              		.file 7 "Generated_Source\\PSoC6\\pdl\\middleware/ble/cy_ble_stack_host_main.h"
+ 216              		.file 8 "Generated_Source\\PSoC6\\pdl\\middleware/ble/cy_ble_gap.h"
+ 217              		.file 9 "touch.h"
+ 218              		.file 10 "Generated_Source\\PSoC6\\pdl\\cmsis/include/core_cm4.h"
+ 219              		.file 11 "Generated_Source\\PSoC6/PWM_Red.h"
+ 220              		.file 12 "Generated_Source\\PSoC6/PWM_Blue.h"
+ 221              		.file 13 "Generated_Source\\PSoC6/PWM_Green.h"
+ 222              		.file 14 "Generated_Source\\PSoC6/CY_EINK_SPIM.h"
+ 223              		.file 15 "Generated_Source\\PSoC6/CY_EINK_Timer.h"
+ 224              		.file 16 "Generated_Source\\PSoC6/CapSense_Sensing.h"
+ 225              		.file 17 "Generated_Source\\PSoC6/CapSense_Control.h"
+ 226              		.file 18 "Generated_Source\\PSoC6/CapSense_Structure.h"
+ 227              		.section	.debug_info,"",%progbits
+ 228              	.Ldebug_info0:
+ 229 0000 93060000 		.4byte	0x693
+ 230 0004 0400     		.2byte	0x4
+ 231 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 232 000a 04       		.byte	0x4
+ 233 000b 01       		.uleb128 0x1
+ 234 000c 1E010000 		.4byte	.LASF112
+ 235 0010 0C       		.byte	0xc
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 9
+
+
+ 236 0011 00000000 		.4byte	.LASF113
+ 237 0015 1C040000 		.4byte	.LASF114
+ 238 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 239 001d 00000000 		.4byte	0
+ 240 0021 00000000 		.4byte	.Ldebug_line0
+ 241 0025 02       		.uleb128 0x2
+ 242 0026 02       		.byte	0x2
+ 243 0027 05       		.byte	0x5
+ 244 0028 A7000000 		.4byte	.LASF0
+ 245 002c 02       		.uleb128 0x2
+ 246 002d 01       		.byte	0x1
+ 247 002e 06       		.byte	0x6
+ 248 002f 2F050000 		.4byte	.LASF1
+ 249 0033 03       		.uleb128 0x3
+ 250 0034 D2030000 		.4byte	.LASF4
+ 251 0038 02       		.byte	0x2
+ 252 0039 1D       		.byte	0x1d
+ 253 003a 3E000000 		.4byte	0x3e
+ 254 003e 02       		.uleb128 0x2
+ 255 003f 01       		.byte	0x1
+ 256 0040 08       		.byte	0x8
+ 257 0041 CF040000 		.4byte	.LASF2
+ 258 0045 02       		.uleb128 0x2
+ 259 0046 02       		.byte	0x2
+ 260 0047 07       		.byte	0x7
+ 261 0048 EB050000 		.4byte	.LASF3
+ 262 004c 03       		.uleb128 0x3
+ 263 004d 3E070000 		.4byte	.LASF5
+ 264 0051 02       		.byte	0x2
+ 265 0052 3F       		.byte	0x3f
+ 266 0053 57000000 		.4byte	0x57
+ 267 0057 02       		.uleb128 0x2
+ 268 0058 04       		.byte	0x4
+ 269 0059 05       		.byte	0x5
+ 270 005a 7D020000 		.4byte	.LASF6
+ 271 005e 03       		.uleb128 0x3
+ 272 005f F6010000 		.4byte	.LASF7
+ 273 0063 02       		.byte	0x2
+ 274 0064 41       		.byte	0x41
+ 275 0065 69000000 		.4byte	0x69
+ 276 0069 02       		.uleb128 0x2
+ 277 006a 04       		.byte	0x4
+ 278 006b 07       		.byte	0x7
+ 279 006c C3060000 		.4byte	.LASF8
+ 280 0070 02       		.uleb128 0x2
+ 281 0071 08       		.byte	0x8
+ 282 0072 05       		.byte	0x5
+ 283 0073 49030000 		.4byte	.LASF9
+ 284 0077 02       		.uleb128 0x2
+ 285 0078 08       		.byte	0x8
+ 286 0079 07       		.byte	0x7
+ 287 007a 3B050000 		.4byte	.LASF10
+ 288 007e 04       		.uleb128 0x4
+ 289 007f 04       		.byte	0x4
+ 290 0080 05       		.byte	0x5
+ 291 0081 696E7400 		.ascii	"int\000"
+ 292 0085 02       		.uleb128 0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 10
+
+
+ 293 0086 04       		.byte	0x4
+ 294 0087 07       		.byte	0x7
+ 295 0088 6A050000 		.4byte	.LASF11
+ 296 008c 03       		.uleb128 0x3
+ 297 008d 93020000 		.4byte	.LASF12
+ 298 0091 03       		.byte	0x3
+ 299 0092 18       		.byte	0x18
+ 300 0093 33000000 		.4byte	0x33
+ 301 0097 03       		.uleb128 0x3
+ 302 0098 39060000 		.4byte	.LASF13
+ 303 009c 03       		.byte	0x3
+ 304 009d 2C       		.byte	0x2c
+ 305 009e 4C000000 		.4byte	0x4c
+ 306 00a2 03       		.uleb128 0x3
+ 307 00a3 52050000 		.4byte	.LASF14
+ 308 00a7 03       		.byte	0x3
+ 309 00a8 30       		.byte	0x30
+ 310 00a9 5E000000 		.4byte	0x5e
+ 311 00ad 02       		.uleb128 0x2
+ 312 00ae 04       		.byte	0x4
+ 313 00af 07       		.byte	0x7
+ 314 00b0 B9000000 		.4byte	.LASF15
+ 315 00b4 05       		.uleb128 0x5
+ 316 00b5 A2000000 		.4byte	0xa2
+ 317 00b9 06       		.uleb128 0x6
+ 318 00ba 8C000000 		.4byte	0x8c
+ 319 00be C9000000 		.4byte	0xc9
+ 320 00c2 07       		.uleb128 0x7
+ 321 00c3 AD000000 		.4byte	0xad
+ 322 00c7 02       		.byte	0x2
+ 323 00c8 00       		.byte	0
+ 324 00c9 02       		.uleb128 0x2
+ 325 00ca 08       		.byte	0x8
+ 326 00cb 04       		.byte	0x4
+ 327 00cc 98040000 		.4byte	.LASF16
+ 328 00d0 02       		.uleb128 0x2
+ 329 00d1 01       		.byte	0x1
+ 330 00d2 08       		.byte	0x8
+ 331 00d3 1C060000 		.4byte	.LASF17
+ 332 00d7 02       		.uleb128 0x2
+ 333 00d8 04       		.byte	0x4
+ 334 00d9 04       		.byte	0x4
+ 335 00da 2D030000 		.4byte	.LASF18
+ 336 00de 02       		.uleb128 0x2
+ 337 00df 08       		.byte	0x8
+ 338 00e0 04       		.byte	0x4
+ 339 00e1 D5060000 		.4byte	.LASF19
+ 340 00e5 08       		.uleb128 0x8
+ 341 00e6 04       		.byte	0x4
+ 342 00e7 02       		.uleb128 0x2
+ 343 00e8 01       		.byte	0x1
+ 344 00e9 02       		.byte	0x2
+ 345 00ea 5F060000 		.4byte	.LASF20
+ 346 00ee 09       		.uleb128 0x9
+ 347 00ef 01070000 		.4byte	.LASF41
+ 348 00f3 4C       		.byte	0x4c
+ 349 00f4 04       		.byte	0x4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 11
+
+
+ 350 00f5 2B       		.byte	0x2b
+ 351 00f6 DF010000 		.4byte	0x1df
+ 352 00fa 0A       		.uleb128 0xa
+ 353 00fb CB030000 		.4byte	.LASF21
+ 354 00ff 04       		.byte	0x4
+ 355 0100 2D       		.byte	0x2d
+ 356 0101 A2000000 		.4byte	0xa2
+ 357 0105 00       		.byte	0
+ 358 0106 0A       		.uleb128 0xa
+ 359 0107 2B000000 		.4byte	.LASF22
+ 360 010b 04       		.byte	0x4
+ 361 010c 2F       		.byte	0x2f
+ 362 010d A2000000 		.4byte	0xa2
+ 363 0111 04       		.byte	0x4
+ 364 0112 0A       		.uleb128 0xa
+ 365 0113 41030000 		.4byte	.LASF23
+ 366 0117 04       		.byte	0x4
+ 367 0118 30       		.byte	0x30
+ 368 0119 A2000000 		.4byte	0xa2
+ 369 011d 08       		.byte	0x8
+ 370 011e 0A       		.uleb128 0xa
+ 371 011f DD040000 		.4byte	.LASF24
+ 372 0123 04       		.byte	0x4
+ 373 0124 31       		.byte	0x31
+ 374 0125 A2000000 		.4byte	0xa2
+ 375 0129 0C       		.byte	0xc
+ 376 012a 0A       		.uleb128 0xa
+ 377 012b 41060000 		.4byte	.LASF25
+ 378 012f 04       		.byte	0x4
+ 379 0130 33       		.byte	0x33
+ 380 0131 A2000000 		.4byte	0xa2
+ 381 0135 10       		.byte	0x10
+ 382 0136 0A       		.uleb128 0xa
+ 383 0137 49000000 		.4byte	.LASF26
+ 384 013b 04       		.byte	0x4
+ 385 013c 34       		.byte	0x34
+ 386 013d A2000000 		.4byte	0xa2
+ 387 0141 14       		.byte	0x14
+ 388 0142 0A       		.uleb128 0xa
+ 389 0143 52000000 		.4byte	.LASF27
+ 390 0147 04       		.byte	0x4
+ 391 0148 35       		.byte	0x35
+ 392 0149 A2000000 		.4byte	0xa2
+ 393 014d 18       		.byte	0x18
+ 394 014e 0A       		.uleb128 0xa
+ 395 014f 77050000 		.4byte	.LASF28
+ 396 0153 04       		.byte	0x4
+ 397 0154 36       		.byte	0x36
+ 398 0155 E7000000 		.4byte	0xe7
+ 399 0159 1C       		.byte	0x1c
+ 400 015a 0A       		.uleb128 0xa
+ 401 015b 87060000 		.4byte	.LASF29
+ 402 015f 04       		.byte	0x4
+ 403 0160 38       		.byte	0x38
+ 404 0161 A2000000 		.4byte	0xa2
+ 405 0165 20       		.byte	0x20
+ 406 0166 0A       		.uleb128 0xa
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 12
+
+
+ 407 0167 76060000 		.4byte	.LASF30
+ 408 016b 04       		.byte	0x4
+ 409 016c 39       		.byte	0x39
+ 410 016d A2000000 		.4byte	0xa2
+ 411 0171 24       		.byte	0x24
+ 412 0172 0A       		.uleb128 0xa
+ 413 0173 01020000 		.4byte	.LASF31
+ 414 0177 04       		.byte	0x4
+ 415 0178 3B       		.byte	0x3b
+ 416 0179 A2000000 		.4byte	0xa2
+ 417 017d 28       		.byte	0x28
+ 418 017e 0A       		.uleb128 0xa
+ 419 017f 81000000 		.4byte	.LASF32
+ 420 0183 04       		.byte	0x4
+ 421 0184 3C       		.byte	0x3c
+ 422 0185 A2000000 		.4byte	0xa2
+ 423 0189 2C       		.byte	0x2c
+ 424 018a 0A       		.uleb128 0xa
+ 425 018b B7060000 		.4byte	.LASF33
+ 426 018f 04       		.byte	0x4
+ 427 0190 3E       		.byte	0x3e
+ 428 0191 A2000000 		.4byte	0xa2
+ 429 0195 30       		.byte	0x30
+ 430 0196 0A       		.uleb128 0xa
+ 431 0197 05010000 		.4byte	.LASF34
+ 432 019b 04       		.byte	0x4
+ 433 019c 3F       		.byte	0x3f
+ 434 019d A2000000 		.4byte	0xa2
+ 435 01a1 34       		.byte	0x34
+ 436 01a2 0A       		.uleb128 0xa
+ 437 01a3 33070000 		.4byte	.LASF35
+ 438 01a7 04       		.byte	0x4
+ 439 01a8 41       		.byte	0x41
+ 440 01a9 A2000000 		.4byte	0xa2
+ 441 01ad 38       		.byte	0x38
+ 442 01ae 0A       		.uleb128 0xa
+ 443 01af 48070000 		.4byte	.LASF36
+ 444 01b3 04       		.byte	0x4
+ 445 01b4 42       		.byte	0x42
+ 446 01b5 A2000000 		.4byte	0xa2
+ 447 01b9 3C       		.byte	0x3c
+ 448 01ba 0A       		.uleb128 0xa
+ 449 01bb DC030000 		.4byte	.LASF37
+ 450 01bf 04       		.byte	0x4
+ 451 01c0 44       		.byte	0x44
+ 452 01c1 A2000000 		.4byte	0xa2
+ 453 01c5 40       		.byte	0x40
+ 454 01c6 0A       		.uleb128 0xa
+ 455 01c7 3A000000 		.4byte	.LASF38
+ 456 01cb 04       		.byte	0x4
+ 457 01cc 45       		.byte	0x45
+ 458 01cd A2000000 		.4byte	0xa2
+ 459 01d1 44       		.byte	0x44
+ 460 01d2 0A       		.uleb128 0xa
+ 461 01d3 1D070000 		.4byte	.LASF39
+ 462 01d7 04       		.byte	0x4
+ 463 01d8 47       		.byte	0x47
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 13
+
+
+ 464 01d9 A2000000 		.4byte	0xa2
+ 465 01dd 48       		.byte	0x48
+ 466 01de 00       		.byte	0
+ 467 01df 03       		.uleb128 0x3
+ 468 01e0 8F050000 		.4byte	.LASF40
+ 469 01e4 04       		.byte	0x4
+ 470 01e5 48       		.byte	0x48
+ 471 01e6 EE000000 		.4byte	0xee
+ 472 01ea 09       		.uleb128 0x9
+ 473 01eb D1010000 		.4byte	.LASF42
+ 474 01ef 64       		.byte	0x64
+ 475 01f0 05       		.byte	0x5
+ 476 01f1 2B       		.byte	0x2b
+ 477 01f2 23030000 		.4byte	0x323
+ 478 01f6 0A       		.uleb128 0xa
+ 479 01f7 B3070000 		.4byte	.LASF43
+ 480 01fb 05       		.byte	0x5
+ 481 01fc 2D       		.byte	0x2d
+ 482 01fd A2000000 		.4byte	0xa2
+ 483 0201 00       		.byte	0
+ 484 0202 0A       		.uleb128 0xa
+ 485 0203 2B000000 		.4byte	.LASF22
+ 486 0207 05       		.byte	0x5
+ 487 0208 2F       		.byte	0x2f
+ 488 0209 A2000000 		.4byte	0xa2
+ 489 020d 04       		.byte	0x4
+ 490 020e 0A       		.uleb128 0xa
+ 491 020f 86020000 		.4byte	.LASF44
+ 492 0213 05       		.byte	0x5
+ 493 0214 30       		.byte	0x30
+ 494 0215 A2000000 		.4byte	0xa2
+ 495 0219 08       		.byte	0x8
+ 496 021a 0A       		.uleb128 0xa
+ 497 021b 2A060000 		.4byte	.LASF45
+ 498 021f 05       		.byte	0x5
+ 499 0220 31       		.byte	0x31
+ 500 0221 A2000000 		.4byte	0xa2
+ 501 0225 0C       		.byte	0xc
+ 502 0226 0A       		.uleb128 0xa
+ 503 0227 41030000 		.4byte	.LASF23
+ 504 022b 05       		.byte	0x5
+ 505 022c 32       		.byte	0x32
+ 506 022d A2000000 		.4byte	0xa2
+ 507 0231 10       		.byte	0x10
+ 508 0232 0A       		.uleb128 0xa
+ 509 0233 B1000000 		.4byte	.LASF46
+ 510 0237 05       		.byte	0x5
+ 511 0238 33       		.byte	0x33
+ 512 0239 A2000000 		.4byte	0xa2
+ 513 023d 14       		.byte	0x14
+ 514 023e 0A       		.uleb128 0xa
+ 515 023f 39030000 		.4byte	.LASF47
+ 516 0243 05       		.byte	0x5
+ 517 0244 34       		.byte	0x34
+ 518 0245 A2000000 		.4byte	0xa2
+ 519 0249 18       		.byte	0x18
+ 520 024a 0A       		.uleb128 0xa
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 14
+
+
+ 521 024b C2020000 		.4byte	.LASF48
+ 522 024f 05       		.byte	0x5
+ 523 0250 35       		.byte	0x35
+ 524 0251 E7000000 		.4byte	0xe7
+ 525 0255 1C       		.byte	0x1c
+ 526 0256 0A       		.uleb128 0xa
+ 527 0257 49000000 		.4byte	.LASF26
+ 528 025b 05       		.byte	0x5
+ 529 025c 36       		.byte	0x36
+ 530 025d A2000000 		.4byte	0xa2
+ 531 0261 20       		.byte	0x20
+ 532 0262 0A       		.uleb128 0xa
+ 533 0263 52000000 		.4byte	.LASF27
+ 534 0267 05       		.byte	0x5
+ 535 0268 37       		.byte	0x37
+ 536 0269 A2000000 		.4byte	0xa2
+ 537 026d 24       		.byte	0x24
+ 538 026e 0A       		.uleb128 0xa
+ 539 026f 77050000 		.4byte	.LASF28
+ 540 0273 05       		.byte	0x5
+ 541 0274 38       		.byte	0x38
+ 542 0275 E7000000 		.4byte	0xe7
+ 543 0279 28       		.byte	0x28
+ 544 027a 0A       		.uleb128 0xa
+ 545 027b 87060000 		.4byte	.LASF29
+ 546 027f 05       		.byte	0x5
+ 547 0280 3A       		.byte	0x3a
+ 548 0281 A2000000 		.4byte	0xa2
+ 549 0285 2C       		.byte	0x2c
+ 550 0286 0A       		.uleb128 0xa
+ 551 0287 E9010000 		.4byte	.LASF49
+ 552 028b 05       		.byte	0x5
+ 553 028c 3B       		.byte	0x3b
+ 554 028d A2000000 		.4byte	0xa2
+ 555 0291 30       		.byte	0x30
+ 556 0292 0A       		.uleb128 0xa
+ 557 0293 6A080000 		.4byte	.LASF50
+ 558 0297 05       		.byte	0x5
+ 559 0298 3C       		.byte	0x3c
+ 560 0299 A2000000 		.4byte	0xa2
+ 561 029d 34       		.byte	0x34
+ 562 029e 0A       		.uleb128 0xa
+ 563 029f D3020000 		.4byte	.LASF51
+ 564 02a3 05       		.byte	0x5
+ 565 02a4 3D       		.byte	0x3d
+ 566 02a5 A2000000 		.4byte	0xa2
+ 567 02a9 38       		.byte	0x38
+ 568 02aa 0A       		.uleb128 0xa
+ 569 02ab DC060000 		.4byte	.LASF52
+ 570 02af 05       		.byte	0x5
+ 571 02b0 3E       		.byte	0x3e
+ 572 02b1 A2000000 		.4byte	0xa2
+ 573 02b5 3C       		.byte	0x3c
+ 574 02b6 0A       		.uleb128 0xa
+ 575 02b7 87070000 		.4byte	.LASF53
+ 576 02bb 05       		.byte	0x5
+ 577 02bc 40       		.byte	0x40
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 15
+
+
+ 578 02bd A2000000 		.4byte	0xa2
+ 579 02c1 40       		.byte	0x40
+ 580 02c2 0A       		.uleb128 0xa
+ 581 02c3 81000000 		.4byte	.LASF32
+ 582 02c7 05       		.byte	0x5
+ 583 02c8 41       		.byte	0x41
+ 584 02c9 A2000000 		.4byte	0xa2
+ 585 02cd 44       		.byte	0x44
+ 586 02ce 0A       		.uleb128 0xa
+ 587 02cf B7060000 		.4byte	.LASF33
+ 588 02d3 05       		.byte	0x5
+ 589 02d4 43       		.byte	0x43
+ 590 02d5 A2000000 		.4byte	0xa2
+ 591 02d9 48       		.byte	0x48
+ 592 02da 0A       		.uleb128 0xa
+ 593 02db 05010000 		.4byte	.LASF34
+ 594 02df 05       		.byte	0x5
+ 595 02e0 44       		.byte	0x44
+ 596 02e1 A2000000 		.4byte	0xa2
+ 597 02e5 4C       		.byte	0x4c
+ 598 02e6 0A       		.uleb128 0xa
+ 599 02e7 33070000 		.4byte	.LASF35
+ 600 02eb 05       		.byte	0x5
+ 601 02ec 46       		.byte	0x46
+ 602 02ed A2000000 		.4byte	0xa2
+ 603 02f1 50       		.byte	0x50
+ 604 02f2 0A       		.uleb128 0xa
+ 605 02f3 21050000 		.4byte	.LASF54
+ 606 02f7 05       		.byte	0x5
+ 607 02f8 47       		.byte	0x47
+ 608 02f9 A2000000 		.4byte	0xa2
+ 609 02fd 54       		.byte	0x54
+ 610 02fe 0A       		.uleb128 0xa
+ 611 02ff 9B020000 		.4byte	.LASF55
+ 612 0303 05       		.byte	0x5
+ 613 0304 49       		.byte	0x49
+ 614 0305 A2000000 		.4byte	0xa2
+ 615 0309 58       		.byte	0x58
+ 616 030a 0A       		.uleb128 0xa
+ 617 030b 3A000000 		.4byte	.LASF38
+ 618 030f 05       		.byte	0x5
+ 619 0310 4A       		.byte	0x4a
+ 620 0311 A2000000 		.4byte	0xa2
+ 621 0315 5C       		.byte	0x5c
+ 622 0316 0A       		.uleb128 0xa
+ 623 0317 1D070000 		.4byte	.LASF39
+ 624 031b 05       		.byte	0x5
+ 625 031c 4C       		.byte	0x4c
+ 626 031d A2000000 		.4byte	0xa2
+ 627 0321 60       		.byte	0x60
+ 628 0322 00       		.byte	0
+ 629 0323 03       		.uleb128 0x3
+ 630 0324 A8030000 		.4byte	.LASF56
+ 631 0328 05       		.byte	0x5
+ 632 0329 4D       		.byte	0x4d
+ 633 032a EA010000 		.4byte	0x1ea
+ 634 032e 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 16
+
+
+ 635 032f 04       		.byte	0x4
+ 636 0330 34030000 		.4byte	0x334
+ 637 0334 0C       		.uleb128 0xc
+ 638 0335 3F030000 		.4byte	0x33f
+ 639 0339 0D       		.uleb128 0xd
+ 640 033a A2000000 		.4byte	0xa2
+ 641 033e 00       		.byte	0
+ 642 033f 0E       		.uleb128 0xe
+ 643 0340 E7020000 		.4byte	.LASF57
+ 644 0344 06       		.byte	0x6
+ 645 0345 BF01     		.2byte	0x1bf
+ 646 0347 2E030000 		.4byte	0x32e
+ 647 034b 0F       		.uleb128 0xf
+ 648 034c EA060000 		.4byte	.LASF58
+ 649 0350 24       		.byte	0x24
+ 650 0351 06       		.byte	0x6
+ 651 0352 4102     		.2byte	0x241
+ 652 0354 CE030000 		.4byte	0x3ce
+ 653 0358 10       		.uleb128 0x10
+ 654 0359 E4050000 		.4byte	.LASF59
+ 655 035d 06       		.byte	0x6
+ 656 035e 4402     		.2byte	0x244
+ 657 0360 B4000000 		.4byte	0xb4
+ 658 0364 00       		.byte	0
+ 659 0365 10       		.uleb128 0x10
+ 660 0366 FE050000 		.4byte	.LASF60
+ 661 036a 06       		.byte	0x6
+ 662 036b 4602     		.2byte	0x246
+ 663 036d E5000000 		.4byte	0xe5
+ 664 0371 04       		.byte	0x4
+ 665 0372 10       		.uleb128 0x10
+ 666 0373 77000000 		.4byte	.LASF61
+ 667 0377 06       		.byte	0x6
+ 668 0378 4702     		.2byte	0x247
+ 669 037a A2000000 		.4byte	0xa2
+ 670 037e 08       		.byte	0x8
+ 671 037f 10       		.uleb128 0x10
+ 672 0380 74020000 		.4byte	.LASF62
+ 673 0384 06       		.byte	0x6
+ 674 0385 4802     		.2byte	0x248
+ 675 0387 B4000000 		.4byte	0xb4
+ 676 038b 0C       		.byte	0xc
+ 677 038c 10       		.uleb128 0x10
+ 678 038d 33030000 		.4byte	.LASF63
+ 679 0391 06       		.byte	0x6
+ 680 0392 4A02     		.2byte	0x24a
+ 681 0394 E5000000 		.4byte	0xe5
+ 682 0398 10       		.byte	0x10
+ 683 0399 10       		.uleb128 0x10
+ 684 039a 14010000 		.4byte	.LASF64
+ 685 039e 06       		.byte	0x6
+ 686 039f 4B02     		.2byte	0x24b
+ 687 03a1 A2000000 		.4byte	0xa2
+ 688 03a5 14       		.byte	0x14
+ 689 03a6 10       		.uleb128 0x10
+ 690 03a7 C2030000 		.4byte	.LASF65
+ 691 03ab 06       		.byte	0x6
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 17
+
+
+ 692 03ac 4C02     		.2byte	0x24c
+ 693 03ae B4000000 		.4byte	0xb4
+ 694 03b2 18       		.byte	0x18
+ 695 03b3 10       		.uleb128 0x10
+ 696 03b4 21060000 		.4byte	.LASF66
+ 697 03b8 06       		.byte	0x6
+ 698 03b9 5202     		.2byte	0x252
+ 699 03bb 3F030000 		.4byte	0x33f
+ 700 03bf 1C       		.byte	0x1c
+ 701 03c0 10       		.uleb128 0x10
+ 702 03c1 6F070000 		.4byte	.LASF67
+ 703 03c5 06       		.byte	0x6
+ 704 03c6 5502     		.2byte	0x255
+ 705 03c8 A2000000 		.4byte	0xa2
+ 706 03cc 20       		.byte	0x20
+ 707 03cd 00       		.byte	0
+ 708 03ce 0E       		.uleb128 0xe
+ 709 03cf EC000000 		.4byte	.LASF68
+ 710 03d3 06       		.byte	0x6
+ 711 03d4 5802     		.2byte	0x258
+ 712 03d6 4B030000 		.4byte	0x34b
+ 713 03da 11       		.uleb128 0x11
+ 714 03db 02       		.byte	0x2
+ 715 03dc 07       		.byte	0x7
+ 716 03dd 5B01     		.2byte	0x15b
+ 717 03df FE030000 		.4byte	0x3fe
+ 718 03e3 10       		.uleb128 0x10
+ 719 03e4 24030000 		.4byte	.LASF69
+ 720 03e8 07       		.byte	0x7
+ 721 03e9 6501     		.2byte	0x165
+ 722 03eb 8C000000 		.4byte	0x8c
+ 723 03ef 00       		.byte	0
+ 724 03f0 10       		.uleb128 0x10
+ 725 03f1 89050000 		.4byte	.LASF70
+ 726 03f5 07       		.byte	0x7
+ 727 03f6 6901     		.2byte	0x169
+ 728 03f8 8C000000 		.4byte	0x8c
+ 729 03fc 01       		.byte	0x1
+ 730 03fd 00       		.byte	0
+ 731 03fe 0E       		.uleb128 0xe
+ 732 03ff D2070000 		.4byte	.LASF71
+ 733 0403 07       		.byte	0x7
+ 734 0404 6B01     		.2byte	0x16b
+ 735 0406 DA030000 		.4byte	0x3da
+ 736 040a 12       		.uleb128 0x12
+ 737 040b 01       		.byte	0x1
+ 738 040c 3E000000 		.4byte	0x3e
+ 739 0410 08       		.byte	0x8
+ 740 0411 7E       		.byte	0x7e
+ 741 0412 2F040000 		.4byte	0x42f
+ 742 0416 13       		.uleb128 0x13
+ 743 0417 56070000 		.4byte	.LASF72
+ 744 041b 00       		.byte	0
+ 745 041c 13       		.uleb128 0x13
+ 746 041d 98060000 		.4byte	.LASF73
+ 747 0421 01       		.byte	0x1
+ 748 0422 13       		.uleb128 0x13
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 18
+
+
+ 749 0423 35080000 		.4byte	.LASF74
+ 750 0427 02       		.byte	0x2
+ 751 0428 13       		.uleb128 0x13
+ 752 0429 EC040000 		.4byte	.LASF75
+ 753 042d 03       		.byte	0x3
+ 754 042e 00       		.byte	0
+ 755 042f 03       		.uleb128 0x3
+ 756 0430 91000000 		.4byte	.LASF76
+ 757 0434 08       		.byte	0x8
+ 758 0435 83       		.byte	0x83
+ 759 0436 0A040000 		.4byte	0x40a
+ 760 043a 12       		.uleb128 0x12
+ 761 043b 01       		.byte	0x1
+ 762 043c 3E000000 		.4byte	0x3e
+ 763 0440 08       		.byte	0x8
+ 764 0441 87       		.byte	0x87
+ 765 0442 77040000 		.4byte	0x477
+ 766 0446 13       		.uleb128 0x13
+ 767 0447 05030000 		.4byte	.LASF77
+ 768 044b 00       		.byte	0
+ 769 044c 13       		.uleb128 0x13
+ 770 044d 19020000 		.4byte	.LASF78
+ 771 0451 01       		.byte	0x1
+ 772 0452 13       		.uleb128 0x13
+ 773 0453 5B000000 		.4byte	.LASF79
+ 774 0457 02       		.byte	0x2
+ 775 0458 13       		.uleb128 0x13
+ 776 0459 C2000000 		.4byte	.LASF80
+ 777 045d 03       		.byte	0x3
+ 778 045e 13       		.uleb128 0x13
+ 779 045f 7E030000 		.4byte	.LASF81
+ 780 0463 04       		.byte	0x4
+ 781 0464 13       		.uleb128 0x13
+ 782 0465 4A020000 		.4byte	.LASF82
+ 783 0469 05       		.byte	0x5
+ 784 046a 13       		.uleb128 0x13
+ 785 046b A4040000 		.4byte	.LASF83
+ 786 046f 06       		.byte	0x6
+ 787 0470 13       		.uleb128 0x13
+ 788 0471 E6030000 		.4byte	.LASF84
+ 789 0475 07       		.byte	0x7
+ 790 0476 00       		.byte	0
+ 791 0477 03       		.uleb128 0x3
+ 792 0478 BB070000 		.4byte	.LASF85
+ 793 047c 08       		.byte	0x8
+ 794 047d 90       		.byte	0x90
+ 795 047e 3A040000 		.4byte	0x43a
+ 796 0482 14       		.uleb128 0x14
+ 797 0483 06       		.byte	0x6
+ 798 0484 09       		.byte	0x9
+ 799 0485 41       		.byte	0x41
+ 800 0486 BB040000 		.4byte	0x4bb
+ 801 048a 0A       		.uleb128 0xa
+ 802 048b 91070000 		.4byte	.LASF86
+ 803 048f 09       		.byte	0x9
+ 804 0490 44       		.byte	0x44
+ 805 0491 E7000000 		.4byte	0xe7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 19
+
+
+ 806 0495 00       		.byte	0
+ 807 0496 0A       		.uleb128 0xa
+ 808 0497 0A040000 		.4byte	.LASF87
+ 809 049b 09       		.byte	0x9
+ 810 049c 45       		.byte	0x45
+ 811 049d E7000000 		.4byte	0xe7
+ 812 04a1 01       		.byte	0x1
+ 813 04a2 0A       		.uleb128 0xa
+ 814 04a3 28070000 		.4byte	.LASF88
+ 815 04a7 09       		.byte	0x9
+ 816 04a8 47       		.byte	0x47
+ 817 04a9 8C000000 		.4byte	0x8c
+ 818 04ad 02       		.byte	0x2
+ 819 04ae 0A       		.uleb128 0xa
+ 820 04af 0E020000 		.4byte	.LASF89
+ 821 04b3 09       		.byte	0x9
+ 822 04b4 48       		.byte	0x48
+ 823 04b5 B9000000 		.4byte	0xb9
+ 824 04b9 03       		.byte	0x3
+ 825 04ba 00       		.byte	0
+ 826 04bb 03       		.uleb128 0x3
+ 827 04bc B5020000 		.4byte	.LASF90
+ 828 04c0 09       		.byte	0x9
+ 829 04c1 49       		.byte	0x49
+ 830 04c2 82040000 		.4byte	0x482
+ 831 04c6 15       		.uleb128 0x15
+ 832 04c7 A3070000 		.4byte	.LASF94
+ 833 04cb 01       		.byte	0x1
+ 834 04cc 5B       		.byte	0x5b
+ 835 04cd 67050000 		.4byte	0x567
+ 836 04d1 00000000 		.4byte	.LFB703
+ 837 04d5 88000000 		.4byte	.LFE703-.LFB703
+ 838 04d9 01       		.uleb128 0x1
+ 839 04da 9C       		.byte	0x9c
+ 840 04db 67050000 		.4byte	0x567
+ 841 04df 16       		.uleb128 0x16
+ 842 04e0 17000000 		.4byte	.LASF91
+ 843 04e4 01       		.byte	0x1
+ 844 04e5 5E       		.byte	0x5e
+ 845 04e6 BB040000 		.4byte	0x4bb
+ 846 04ea 05       		.uleb128 0x5
+ 847 04eb 03       		.byte	0x3
+ 848 04ec 04000000 		.4byte	currentCapSenseData.18350
+ 849 04f0 16       		.uleb128 0x16
+ 850 04f1 DC020000 		.4byte	.LASF92
+ 851 04f5 01       		.byte	0x1
+ 852 04f6 6B       		.byte	0x6b
+ 853 04f7 8C000000 		.4byte	0x8c
+ 854 04fb 05       		.uleb128 0x5
+ 855 04fc 03       		.byte	0x3
+ 856 04fd 00000000 		.4byte	buttonMask.18351
+ 857 0501 16       		.uleb128 0x16
+ 858 0502 08000000 		.4byte	.LASF93
+ 859 0506 01       		.byte	0x1
+ 860 0507 6C       		.byte	0x6c
+ 861 0508 8C000000 		.4byte	0x8c
+ 862 050c 05       		.uleb128 0x5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 20
+
+
+ 863 050d 03       		.byte	0x3
+ 864 050e 00000000 		.4byte	sliderPosition.18352
+ 865 0512 17       		.uleb128 0x17
+ 866 0513 06000000 		.4byte	.LVL0
+ 867 0517 52060000 		.4byte	0x652
+ 868 051b 17       		.uleb128 0x17
+ 869 051c 0C000000 		.4byte	.LVL1
+ 870 0520 5D060000 		.4byte	0x65d
+ 871 0524 18       		.uleb128 0x18
+ 872 0525 12000000 		.4byte	.LVL2
+ 873 0529 68060000 		.4byte	0x668
+ 874 052d 37050000 		.4byte	0x537
+ 875 0531 19       		.uleb128 0x19
+ 876 0532 01       		.uleb128 0x1
+ 877 0533 50       		.byte	0x50
+ 878 0534 01       		.uleb128 0x1
+ 879 0535 32       		.byte	0x32
+ 880 0536 00       		.byte	0
+ 881 0537 18       		.uleb128 0x18
+ 882 0538 20000000 		.4byte	.LVL3
+ 883 053c 74060000 		.4byte	0x674
+ 884 0540 4A050000 		.4byte	0x54a
+ 885 0544 19       		.uleb128 0x19
+ 886 0545 01       		.uleb128 0x1
+ 887 0546 50       		.byte	0x50
+ 888 0547 01       		.uleb128 0x1
+ 889 0548 30       		.byte	0x30
+ 890 0549 00       		.byte	0
+ 891 054a 18       		.uleb128 0x18
+ 892 054b 32000000 		.4byte	.LVL4
+ 893 054f 74060000 		.4byte	0x674
+ 894 0553 5D050000 		.4byte	0x55d
+ 895 0557 19       		.uleb128 0x19
+ 896 0558 01       		.uleb128 0x1
+ 897 0559 50       		.byte	0x50
+ 898 055a 01       		.uleb128 0x1
+ 899 055b 31       		.byte	0x31
+ 900 055c 00       		.byte	0
+ 901 055d 17       		.uleb128 0x17
+ 902 055e 42000000 		.4byte	.LVL5
+ 903 0562 80060000 		.4byte	0x680
+ 904 0566 00       		.byte	0
+ 905 0567 0B       		.uleb128 0xb
+ 906 0568 04       		.byte	0x4
+ 907 0569 BB040000 		.4byte	0x4bb
+ 908 056d 15       		.uleb128 0x15
+ 909 056e AD050000 		.4byte	.LASF95
+ 910 0572 01       		.byte	0x1
+ 911 0573 BA       		.byte	0xba
+ 912 0574 E7000000 		.4byte	0xe7
+ 913 0578 00000000 		.4byte	.LFB704
+ 914 057c 10000000 		.4byte	.LFE704-.LFB704
+ 915 0580 01       		.uleb128 0x1
+ 916 0581 9C       		.byte	0x9c
+ 917 0582 9D050000 		.4byte	0x59d
+ 918 0586 16       		.uleb128 0x16
+ 919 0587 13080000 		.4byte	.LASF96
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 21
+
+
+ 920 058b 01       		.byte	0x1
+ 921 058c BD       		.byte	0xbd
+ 922 058d E7000000 		.4byte	0xe7
+ 923 0591 01       		.uleb128 0x1
+ 924 0592 50       		.byte	0x50
+ 925 0593 17       		.uleb128 0x17
+ 926 0594 06000000 		.4byte	.LVL6
+ 927 0598 52060000 		.4byte	0x652
+ 928 059c 00       		.byte	0
+ 929 059d 1A       		.uleb128 0x1a
+ 930 059e 52060000 		.4byte	.LASF115
+ 931 05a2 01       		.byte	0x1
+ 932 05a3 DA       		.byte	0xda
+ 933 05a4 00000000 		.4byte	.LFB705
+ 934 05a8 08000000 		.4byte	.LFE705-.LFB705
+ 935 05ac 01       		.uleb128 0x1
+ 936 05ad 9C       		.byte	0x9c
+ 937 05ae BC050000 		.4byte	0x5bc
+ 938 05b2 17       		.uleb128 0x17
+ 939 05b3 06000000 		.4byte	.LVL8
+ 940 05b7 8B060000 		.4byte	0x68b
+ 941 05bb 00       		.byte	0
+ 942 05bc 1B       		.uleb128 0x1b
+ 943 05bd 06080000 		.4byte	.LASF97
+ 944 05c1 0A       		.byte	0xa
+ 945 05c2 EA07     		.2byte	0x7ea
+ 946 05c4 C8050000 		.4byte	0x5c8
+ 947 05c8 05       		.uleb128 0x5
+ 948 05c9 97000000 		.4byte	0x97
+ 949 05cd 1B       		.uleb128 0x1b
+ 950 05ce A5020000 		.4byte	.LASF98
+ 951 05d2 08       		.byte	0x8
+ 952 05d3 2202     		.2byte	0x222
+ 953 05d5 2F040000 		.4byte	0x42f
+ 954 05d9 06       		.uleb128 0x6
+ 955 05da FE030000 		.4byte	0x3fe
+ 956 05de E9050000 		.4byte	0x5e9
+ 957 05e2 07       		.uleb128 0x7
+ 958 05e3 AD000000 		.4byte	0xad
+ 959 05e7 00       		.byte	0
+ 960 05e8 00       		.byte	0
+ 961 05e9 1B       		.uleb128 0x1b
+ 962 05ea 6C030000 		.4byte	.LASF99
+ 963 05ee 08       		.byte	0x8
+ 964 05ef 2C02     		.2byte	0x22c
+ 965 05f1 D9050000 		.4byte	0x5d9
+ 966 05f5 06       		.uleb128 0x6
+ 967 05f6 77040000 		.4byte	0x477
+ 968 05fa 05060000 		.4byte	0x605
+ 969 05fe 07       		.uleb128 0x7
+ 970 05ff AD000000 		.4byte	0xad
+ 971 0603 00       		.byte	0
+ 972 0604 00       		.byte	0
+ 973 0605 1B       		.uleb128 0x1b
+ 974 0606 65060000 		.4byte	.LASF100
+ 975 060a 08       		.byte	0x8
+ 976 060b 2D02     		.2byte	0x22d
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 22
+
+
+ 977 060d F5050000 		.4byte	0x5f5
+ 978 0611 1C       		.uleb128 0x1c
+ 979 0612 89080000 		.4byte	.LASF101
+ 980 0616 0B       		.byte	0xb
+ 981 0617 1F       		.byte	0x1f
+ 982 0618 1C060000 		.4byte	0x61c
+ 983 061c 1D       		.uleb128 0x1d
+ 984 061d 23030000 		.4byte	0x323
+ 985 0621 1C       		.uleb128 0x1c
+ 986 0622 25080000 		.4byte	.LASF102
+ 987 0626 0C       		.byte	0xc
+ 988 0627 1F       		.byte	0x1f
+ 989 0628 1C060000 		.4byte	0x61c
+ 990 062c 1C       		.uleb128 0x1c
+ 991 062d 78080000 		.4byte	.LASF103
+ 992 0631 0D       		.byte	0xd
+ 993 0632 1F       		.byte	0x1f
+ 994 0633 1C060000 		.4byte	0x61c
+ 995 0637 1C       		.uleb128 0x1c
+ 996 0638 0C050000 		.4byte	.LASF104
+ 997 063c 0E       		.byte	0xe
+ 998 063d 5E       		.byte	0x5e
+ 999 063e CE030000 		.4byte	0x3ce
+ 1000 0642 1C       		.uleb128 0x1c
+ 1001 0643 57030000 		.4byte	.LASF105
+ 1002 0647 0F       		.byte	0xf
+ 1003 0648 1F       		.byte	0x1f
+ 1004 0649 4D060000 		.4byte	0x64d
+ 1005 064d 1D       		.uleb128 0x1d
+ 1006 064e DF010000 		.4byte	0x1df
+ 1007 0652 1E       		.uleb128 0x1e
+ 1008 0653 77070000 		.4byte	.LASF106
+ 1009 0657 77070000 		.4byte	.LASF106
+ 1010 065b 10       		.byte	0x10
+ 1011 065c 56       		.byte	0x56
+ 1012 065d 1E       		.uleb128 0x1e
+ 1013 065e EB070000 		.4byte	.LASF107
+ 1014 0662 EB070000 		.4byte	.LASF107
+ 1015 0666 11       		.byte	0x11
+ 1016 0667 3E       		.byte	0x3e
+ 1017 0668 1F       		.uleb128 0x1f
+ 1018 0669 04060000 		.4byte	.LASF108
+ 1019 066d 04060000 		.4byte	.LASF108
+ 1020 0671 12       		.byte	0x12
+ 1021 0672 B304     		.2byte	0x4b3
+ 1022 0674 1F       		.uleb128 0x1f
+ 1023 0675 52080000 		.4byte	.LASF109
+ 1024 0679 52080000 		.4byte	.LASF109
+ 1025 067d 12       		.byte	0x12
+ 1026 067e A704     		.2byte	0x4a7
+ 1027 0680 1E       		.uleb128 0x1e
+ 1028 0681 CC050000 		.4byte	.LASF110
+ 1029 0685 CC050000 		.4byte	.LASF110
+ 1030 0689 10       		.byte	0x10
+ 1031 068a 55       		.byte	0x55
+ 1032 068b 1E       		.uleb128 0x1e
+ 1033 068c 5B050000 		.4byte	.LASF111
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 23
+
+
+ 1034 0690 5B050000 		.4byte	.LASF111
+ 1035 0694 11       		.byte	0x11
+ 1036 0695 3A       		.byte	0x3a
+ 1037 0696 00       		.byte	0
+ 1038              		.section	.debug_abbrev,"",%progbits
+ 1039              	.Ldebug_abbrev0:
+ 1040 0000 01       		.uleb128 0x1
+ 1041 0001 11       		.uleb128 0x11
+ 1042 0002 01       		.byte	0x1
+ 1043 0003 25       		.uleb128 0x25
+ 1044 0004 0E       		.uleb128 0xe
+ 1045 0005 13       		.uleb128 0x13
+ 1046 0006 0B       		.uleb128 0xb
+ 1047 0007 03       		.uleb128 0x3
+ 1048 0008 0E       		.uleb128 0xe
+ 1049 0009 1B       		.uleb128 0x1b
+ 1050 000a 0E       		.uleb128 0xe
+ 1051 000b 55       		.uleb128 0x55
+ 1052 000c 17       		.uleb128 0x17
+ 1053 000d 11       		.uleb128 0x11
+ 1054 000e 01       		.uleb128 0x1
+ 1055 000f 10       		.uleb128 0x10
+ 1056 0010 17       		.uleb128 0x17
+ 1057 0011 00       		.byte	0
+ 1058 0012 00       		.byte	0
+ 1059 0013 02       		.uleb128 0x2
+ 1060 0014 24       		.uleb128 0x24
+ 1061 0015 00       		.byte	0
+ 1062 0016 0B       		.uleb128 0xb
+ 1063 0017 0B       		.uleb128 0xb
+ 1064 0018 3E       		.uleb128 0x3e
+ 1065 0019 0B       		.uleb128 0xb
+ 1066 001a 03       		.uleb128 0x3
+ 1067 001b 0E       		.uleb128 0xe
+ 1068 001c 00       		.byte	0
+ 1069 001d 00       		.byte	0
+ 1070 001e 03       		.uleb128 0x3
+ 1071 001f 16       		.uleb128 0x16
+ 1072 0020 00       		.byte	0
+ 1073 0021 03       		.uleb128 0x3
+ 1074 0022 0E       		.uleb128 0xe
+ 1075 0023 3A       		.uleb128 0x3a
+ 1076 0024 0B       		.uleb128 0xb
+ 1077 0025 3B       		.uleb128 0x3b
+ 1078 0026 0B       		.uleb128 0xb
+ 1079 0027 49       		.uleb128 0x49
+ 1080 0028 13       		.uleb128 0x13
+ 1081 0029 00       		.byte	0
+ 1082 002a 00       		.byte	0
+ 1083 002b 04       		.uleb128 0x4
+ 1084 002c 24       		.uleb128 0x24
+ 1085 002d 00       		.byte	0
+ 1086 002e 0B       		.uleb128 0xb
+ 1087 002f 0B       		.uleb128 0xb
+ 1088 0030 3E       		.uleb128 0x3e
+ 1089 0031 0B       		.uleb128 0xb
+ 1090 0032 03       		.uleb128 0x3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 24
+
+
+ 1091 0033 08       		.uleb128 0x8
+ 1092 0034 00       		.byte	0
+ 1093 0035 00       		.byte	0
+ 1094 0036 05       		.uleb128 0x5
+ 1095 0037 35       		.uleb128 0x35
+ 1096 0038 00       		.byte	0
+ 1097 0039 49       		.uleb128 0x49
+ 1098 003a 13       		.uleb128 0x13
+ 1099 003b 00       		.byte	0
+ 1100 003c 00       		.byte	0
+ 1101 003d 06       		.uleb128 0x6
+ 1102 003e 01       		.uleb128 0x1
+ 1103 003f 01       		.byte	0x1
+ 1104 0040 49       		.uleb128 0x49
+ 1105 0041 13       		.uleb128 0x13
+ 1106 0042 01       		.uleb128 0x1
+ 1107 0043 13       		.uleb128 0x13
+ 1108 0044 00       		.byte	0
+ 1109 0045 00       		.byte	0
+ 1110 0046 07       		.uleb128 0x7
+ 1111 0047 21       		.uleb128 0x21
+ 1112 0048 00       		.byte	0
+ 1113 0049 49       		.uleb128 0x49
+ 1114 004a 13       		.uleb128 0x13
+ 1115 004b 2F       		.uleb128 0x2f
+ 1116 004c 0B       		.uleb128 0xb
+ 1117 004d 00       		.byte	0
+ 1118 004e 00       		.byte	0
+ 1119 004f 08       		.uleb128 0x8
+ 1120 0050 0F       		.uleb128 0xf
+ 1121 0051 00       		.byte	0
+ 1122 0052 0B       		.uleb128 0xb
+ 1123 0053 0B       		.uleb128 0xb
+ 1124 0054 00       		.byte	0
+ 1125 0055 00       		.byte	0
+ 1126 0056 09       		.uleb128 0x9
+ 1127 0057 13       		.uleb128 0x13
+ 1128 0058 01       		.byte	0x1
+ 1129 0059 03       		.uleb128 0x3
+ 1130 005a 0E       		.uleb128 0xe
+ 1131 005b 0B       		.uleb128 0xb
+ 1132 005c 0B       		.uleb128 0xb
+ 1133 005d 3A       		.uleb128 0x3a
+ 1134 005e 0B       		.uleb128 0xb
+ 1135 005f 3B       		.uleb128 0x3b
+ 1136 0060 0B       		.uleb128 0xb
+ 1137 0061 01       		.uleb128 0x1
+ 1138 0062 13       		.uleb128 0x13
+ 1139 0063 00       		.byte	0
+ 1140 0064 00       		.byte	0
+ 1141 0065 0A       		.uleb128 0xa
+ 1142 0066 0D       		.uleb128 0xd
+ 1143 0067 00       		.byte	0
+ 1144 0068 03       		.uleb128 0x3
+ 1145 0069 0E       		.uleb128 0xe
+ 1146 006a 3A       		.uleb128 0x3a
+ 1147 006b 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 25
+
+
+ 1148 006c 3B       		.uleb128 0x3b
+ 1149 006d 0B       		.uleb128 0xb
+ 1150 006e 49       		.uleb128 0x49
+ 1151 006f 13       		.uleb128 0x13
+ 1152 0070 38       		.uleb128 0x38
+ 1153 0071 0B       		.uleb128 0xb
+ 1154 0072 00       		.byte	0
+ 1155 0073 00       		.byte	0
+ 1156 0074 0B       		.uleb128 0xb
+ 1157 0075 0F       		.uleb128 0xf
+ 1158 0076 00       		.byte	0
+ 1159 0077 0B       		.uleb128 0xb
+ 1160 0078 0B       		.uleb128 0xb
+ 1161 0079 49       		.uleb128 0x49
+ 1162 007a 13       		.uleb128 0x13
+ 1163 007b 00       		.byte	0
+ 1164 007c 00       		.byte	0
+ 1165 007d 0C       		.uleb128 0xc
+ 1166 007e 15       		.uleb128 0x15
+ 1167 007f 01       		.byte	0x1
+ 1168 0080 27       		.uleb128 0x27
+ 1169 0081 19       		.uleb128 0x19
+ 1170 0082 01       		.uleb128 0x1
+ 1171 0083 13       		.uleb128 0x13
+ 1172 0084 00       		.byte	0
+ 1173 0085 00       		.byte	0
+ 1174 0086 0D       		.uleb128 0xd
+ 1175 0087 05       		.uleb128 0x5
+ 1176 0088 00       		.byte	0
+ 1177 0089 49       		.uleb128 0x49
+ 1178 008a 13       		.uleb128 0x13
+ 1179 008b 00       		.byte	0
+ 1180 008c 00       		.byte	0
+ 1181 008d 0E       		.uleb128 0xe
+ 1182 008e 16       		.uleb128 0x16
+ 1183 008f 00       		.byte	0
+ 1184 0090 03       		.uleb128 0x3
+ 1185 0091 0E       		.uleb128 0xe
+ 1186 0092 3A       		.uleb128 0x3a
+ 1187 0093 0B       		.uleb128 0xb
+ 1188 0094 3B       		.uleb128 0x3b
+ 1189 0095 05       		.uleb128 0x5
+ 1190 0096 49       		.uleb128 0x49
+ 1191 0097 13       		.uleb128 0x13
+ 1192 0098 00       		.byte	0
+ 1193 0099 00       		.byte	0
+ 1194 009a 0F       		.uleb128 0xf
+ 1195 009b 13       		.uleb128 0x13
+ 1196 009c 01       		.byte	0x1
+ 1197 009d 03       		.uleb128 0x3
+ 1198 009e 0E       		.uleb128 0xe
+ 1199 009f 0B       		.uleb128 0xb
+ 1200 00a0 0B       		.uleb128 0xb
+ 1201 00a1 3A       		.uleb128 0x3a
+ 1202 00a2 0B       		.uleb128 0xb
+ 1203 00a3 3B       		.uleb128 0x3b
+ 1204 00a4 05       		.uleb128 0x5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 26
+
+
+ 1205 00a5 01       		.uleb128 0x1
+ 1206 00a6 13       		.uleb128 0x13
+ 1207 00a7 00       		.byte	0
+ 1208 00a8 00       		.byte	0
+ 1209 00a9 10       		.uleb128 0x10
+ 1210 00aa 0D       		.uleb128 0xd
+ 1211 00ab 00       		.byte	0
+ 1212 00ac 03       		.uleb128 0x3
+ 1213 00ad 0E       		.uleb128 0xe
+ 1214 00ae 3A       		.uleb128 0x3a
+ 1215 00af 0B       		.uleb128 0xb
+ 1216 00b0 3B       		.uleb128 0x3b
+ 1217 00b1 05       		.uleb128 0x5
+ 1218 00b2 49       		.uleb128 0x49
+ 1219 00b3 13       		.uleb128 0x13
+ 1220 00b4 38       		.uleb128 0x38
+ 1221 00b5 0B       		.uleb128 0xb
+ 1222 00b6 00       		.byte	0
+ 1223 00b7 00       		.byte	0
+ 1224 00b8 11       		.uleb128 0x11
+ 1225 00b9 13       		.uleb128 0x13
+ 1226 00ba 01       		.byte	0x1
+ 1227 00bb 0B       		.uleb128 0xb
+ 1228 00bc 0B       		.uleb128 0xb
+ 1229 00bd 3A       		.uleb128 0x3a
+ 1230 00be 0B       		.uleb128 0xb
+ 1231 00bf 3B       		.uleb128 0x3b
+ 1232 00c0 05       		.uleb128 0x5
+ 1233 00c1 01       		.uleb128 0x1
+ 1234 00c2 13       		.uleb128 0x13
+ 1235 00c3 00       		.byte	0
+ 1236 00c4 00       		.byte	0
+ 1237 00c5 12       		.uleb128 0x12
+ 1238 00c6 04       		.uleb128 0x4
+ 1239 00c7 01       		.byte	0x1
+ 1240 00c8 0B       		.uleb128 0xb
+ 1241 00c9 0B       		.uleb128 0xb
+ 1242 00ca 49       		.uleb128 0x49
+ 1243 00cb 13       		.uleb128 0x13
+ 1244 00cc 3A       		.uleb128 0x3a
+ 1245 00cd 0B       		.uleb128 0xb
+ 1246 00ce 3B       		.uleb128 0x3b
+ 1247 00cf 0B       		.uleb128 0xb
+ 1248 00d0 01       		.uleb128 0x1
+ 1249 00d1 13       		.uleb128 0x13
+ 1250 00d2 00       		.byte	0
+ 1251 00d3 00       		.byte	0
+ 1252 00d4 13       		.uleb128 0x13
+ 1253 00d5 28       		.uleb128 0x28
+ 1254 00d6 00       		.byte	0
+ 1255 00d7 03       		.uleb128 0x3
+ 1256 00d8 0E       		.uleb128 0xe
+ 1257 00d9 1C       		.uleb128 0x1c
+ 1258 00da 0B       		.uleb128 0xb
+ 1259 00db 00       		.byte	0
+ 1260 00dc 00       		.byte	0
+ 1261 00dd 14       		.uleb128 0x14
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 27
+
+
+ 1262 00de 13       		.uleb128 0x13
+ 1263 00df 01       		.byte	0x1
+ 1264 00e0 0B       		.uleb128 0xb
+ 1265 00e1 0B       		.uleb128 0xb
+ 1266 00e2 3A       		.uleb128 0x3a
+ 1267 00e3 0B       		.uleb128 0xb
+ 1268 00e4 3B       		.uleb128 0x3b
+ 1269 00e5 0B       		.uleb128 0xb
+ 1270 00e6 01       		.uleb128 0x1
+ 1271 00e7 13       		.uleb128 0x13
+ 1272 00e8 00       		.byte	0
+ 1273 00e9 00       		.byte	0
+ 1274 00ea 15       		.uleb128 0x15
+ 1275 00eb 2E       		.uleb128 0x2e
+ 1276 00ec 01       		.byte	0x1
+ 1277 00ed 3F       		.uleb128 0x3f
+ 1278 00ee 19       		.uleb128 0x19
+ 1279 00ef 03       		.uleb128 0x3
+ 1280 00f0 0E       		.uleb128 0xe
+ 1281 00f1 3A       		.uleb128 0x3a
+ 1282 00f2 0B       		.uleb128 0xb
+ 1283 00f3 3B       		.uleb128 0x3b
+ 1284 00f4 0B       		.uleb128 0xb
+ 1285 00f5 27       		.uleb128 0x27
+ 1286 00f6 19       		.uleb128 0x19
+ 1287 00f7 49       		.uleb128 0x49
+ 1288 00f8 13       		.uleb128 0x13
+ 1289 00f9 11       		.uleb128 0x11
+ 1290 00fa 01       		.uleb128 0x1
+ 1291 00fb 12       		.uleb128 0x12
+ 1292 00fc 06       		.uleb128 0x6
+ 1293 00fd 40       		.uleb128 0x40
+ 1294 00fe 18       		.uleb128 0x18
+ 1295 00ff 9742     		.uleb128 0x2117
+ 1296 0101 19       		.uleb128 0x19
+ 1297 0102 01       		.uleb128 0x1
+ 1298 0103 13       		.uleb128 0x13
+ 1299 0104 00       		.byte	0
+ 1300 0105 00       		.byte	0
+ 1301 0106 16       		.uleb128 0x16
+ 1302 0107 34       		.uleb128 0x34
+ 1303 0108 00       		.byte	0
+ 1304 0109 03       		.uleb128 0x3
+ 1305 010a 0E       		.uleb128 0xe
+ 1306 010b 3A       		.uleb128 0x3a
+ 1307 010c 0B       		.uleb128 0xb
+ 1308 010d 3B       		.uleb128 0x3b
+ 1309 010e 0B       		.uleb128 0xb
+ 1310 010f 49       		.uleb128 0x49
+ 1311 0110 13       		.uleb128 0x13
+ 1312 0111 02       		.uleb128 0x2
+ 1313 0112 18       		.uleb128 0x18
+ 1314 0113 00       		.byte	0
+ 1315 0114 00       		.byte	0
+ 1316 0115 17       		.uleb128 0x17
+ 1317 0116 898201   		.uleb128 0x4109
+ 1318 0119 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 28
+
+
+ 1319 011a 11       		.uleb128 0x11
+ 1320 011b 01       		.uleb128 0x1
+ 1321 011c 31       		.uleb128 0x31
+ 1322 011d 13       		.uleb128 0x13
+ 1323 011e 00       		.byte	0
+ 1324 011f 00       		.byte	0
+ 1325 0120 18       		.uleb128 0x18
+ 1326 0121 898201   		.uleb128 0x4109
+ 1327 0124 01       		.byte	0x1
+ 1328 0125 11       		.uleb128 0x11
+ 1329 0126 01       		.uleb128 0x1
+ 1330 0127 31       		.uleb128 0x31
+ 1331 0128 13       		.uleb128 0x13
+ 1332 0129 01       		.uleb128 0x1
+ 1333 012a 13       		.uleb128 0x13
+ 1334 012b 00       		.byte	0
+ 1335 012c 00       		.byte	0
+ 1336 012d 19       		.uleb128 0x19
+ 1337 012e 8A8201   		.uleb128 0x410a
+ 1338 0131 00       		.byte	0
+ 1339 0132 02       		.uleb128 0x2
+ 1340 0133 18       		.uleb128 0x18
+ 1341 0134 9142     		.uleb128 0x2111
+ 1342 0136 18       		.uleb128 0x18
+ 1343 0137 00       		.byte	0
+ 1344 0138 00       		.byte	0
+ 1345 0139 1A       		.uleb128 0x1a
+ 1346 013a 2E       		.uleb128 0x2e
+ 1347 013b 01       		.byte	0x1
+ 1348 013c 3F       		.uleb128 0x3f
+ 1349 013d 19       		.uleb128 0x19
+ 1350 013e 03       		.uleb128 0x3
+ 1351 013f 0E       		.uleb128 0xe
+ 1352 0140 3A       		.uleb128 0x3a
+ 1353 0141 0B       		.uleb128 0xb
+ 1354 0142 3B       		.uleb128 0x3b
+ 1355 0143 0B       		.uleb128 0xb
+ 1356 0144 27       		.uleb128 0x27
+ 1357 0145 19       		.uleb128 0x19
+ 1358 0146 11       		.uleb128 0x11
+ 1359 0147 01       		.uleb128 0x1
+ 1360 0148 12       		.uleb128 0x12
+ 1361 0149 06       		.uleb128 0x6
+ 1362 014a 40       		.uleb128 0x40
+ 1363 014b 18       		.uleb128 0x18
+ 1364 014c 9742     		.uleb128 0x2117
+ 1365 014e 19       		.uleb128 0x19
+ 1366 014f 01       		.uleb128 0x1
+ 1367 0150 13       		.uleb128 0x13
+ 1368 0151 00       		.byte	0
+ 1369 0152 00       		.byte	0
+ 1370 0153 1B       		.uleb128 0x1b
+ 1371 0154 34       		.uleb128 0x34
+ 1372 0155 00       		.byte	0
+ 1373 0156 03       		.uleb128 0x3
+ 1374 0157 0E       		.uleb128 0xe
+ 1375 0158 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 29
+
+
+ 1376 0159 0B       		.uleb128 0xb
+ 1377 015a 3B       		.uleb128 0x3b
+ 1378 015b 05       		.uleb128 0x5
+ 1379 015c 49       		.uleb128 0x49
+ 1380 015d 13       		.uleb128 0x13
+ 1381 015e 3F       		.uleb128 0x3f
+ 1382 015f 19       		.uleb128 0x19
+ 1383 0160 3C       		.uleb128 0x3c
+ 1384 0161 19       		.uleb128 0x19
+ 1385 0162 00       		.byte	0
+ 1386 0163 00       		.byte	0
+ 1387 0164 1C       		.uleb128 0x1c
+ 1388 0165 34       		.uleb128 0x34
+ 1389 0166 00       		.byte	0
+ 1390 0167 03       		.uleb128 0x3
+ 1391 0168 0E       		.uleb128 0xe
+ 1392 0169 3A       		.uleb128 0x3a
+ 1393 016a 0B       		.uleb128 0xb
+ 1394 016b 3B       		.uleb128 0x3b
+ 1395 016c 0B       		.uleb128 0xb
+ 1396 016d 49       		.uleb128 0x49
+ 1397 016e 13       		.uleb128 0x13
+ 1398 016f 3F       		.uleb128 0x3f
+ 1399 0170 19       		.uleb128 0x19
+ 1400 0171 3C       		.uleb128 0x3c
+ 1401 0172 19       		.uleb128 0x19
+ 1402 0173 00       		.byte	0
+ 1403 0174 00       		.byte	0
+ 1404 0175 1D       		.uleb128 0x1d
+ 1405 0176 26       		.uleb128 0x26
+ 1406 0177 00       		.byte	0
+ 1407 0178 49       		.uleb128 0x49
+ 1408 0179 13       		.uleb128 0x13
+ 1409 017a 00       		.byte	0
+ 1410 017b 00       		.byte	0
+ 1411 017c 1E       		.uleb128 0x1e
+ 1412 017d 2E       		.uleb128 0x2e
+ 1413 017e 00       		.byte	0
+ 1414 017f 3F       		.uleb128 0x3f
+ 1415 0180 19       		.uleb128 0x19
+ 1416 0181 3C       		.uleb128 0x3c
+ 1417 0182 19       		.uleb128 0x19
+ 1418 0183 6E       		.uleb128 0x6e
+ 1419 0184 0E       		.uleb128 0xe
+ 1420 0185 03       		.uleb128 0x3
+ 1421 0186 0E       		.uleb128 0xe
+ 1422 0187 3A       		.uleb128 0x3a
+ 1423 0188 0B       		.uleb128 0xb
+ 1424 0189 3B       		.uleb128 0x3b
+ 1425 018a 0B       		.uleb128 0xb
+ 1426 018b 00       		.byte	0
+ 1427 018c 00       		.byte	0
+ 1428 018d 1F       		.uleb128 0x1f
+ 1429 018e 2E       		.uleb128 0x2e
+ 1430 018f 00       		.byte	0
+ 1431 0190 3F       		.uleb128 0x3f
+ 1432 0191 19       		.uleb128 0x19
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 30
+
+
+ 1433 0192 3C       		.uleb128 0x3c
+ 1434 0193 19       		.uleb128 0x19
+ 1435 0194 6E       		.uleb128 0x6e
+ 1436 0195 0E       		.uleb128 0xe
+ 1437 0196 03       		.uleb128 0x3
+ 1438 0197 0E       		.uleb128 0xe
+ 1439 0198 3A       		.uleb128 0x3a
+ 1440 0199 0B       		.uleb128 0xb
+ 1441 019a 3B       		.uleb128 0x3b
+ 1442 019b 05       		.uleb128 0x5
+ 1443 019c 00       		.byte	0
+ 1444 019d 00       		.byte	0
+ 1445 019e 00       		.byte	0
+ 1446              		.section	.debug_aranges,"",%progbits
+ 1447 0000 2C000000 		.4byte	0x2c
+ 1448 0004 0200     		.2byte	0x2
+ 1449 0006 00000000 		.4byte	.Ldebug_info0
+ 1450 000a 04       		.byte	0x4
+ 1451 000b 00       		.byte	0
+ 1452 000c 0000     		.2byte	0
+ 1453 000e 0000     		.2byte	0
+ 1454 0010 00000000 		.4byte	.LFB703
+ 1455 0014 88000000 		.4byte	.LFE703-.LFB703
+ 1456 0018 00000000 		.4byte	.LFB704
+ 1457 001c 10000000 		.4byte	.LFE704-.LFB704
+ 1458 0020 00000000 		.4byte	.LFB705
+ 1459 0024 08000000 		.4byte	.LFE705-.LFB705
+ 1460 0028 00000000 		.4byte	0
+ 1461 002c 00000000 		.4byte	0
+ 1462              		.section	.debug_ranges,"",%progbits
+ 1463              	.Ldebug_ranges0:
+ 1464 0000 00000000 		.4byte	.LFB703
+ 1465 0004 88000000 		.4byte	.LFE703
+ 1466 0008 00000000 		.4byte	.LFB704
+ 1467 000c 10000000 		.4byte	.LFE704
+ 1468 0010 00000000 		.4byte	.LFB705
+ 1469 0014 08000000 		.4byte	.LFE705
+ 1470 0018 00000000 		.4byte	0
+ 1471 001c 00000000 		.4byte	0
+ 1472              		.section	.debug_line,"",%progbits
+ 1473              	.Ldebug_line0:
+ 1474 0000 4A030000 		.section	.debug_str,"MS",%progbits,1
+ 1474      0200FB02 
+ 1474      00000201 
+ 1474      FB0E0D00 
+ 1474      01010101 
+ 1475              	.LASF113:
+ 1476 0000 746F7563 		.ascii	"touch.c\000"
+ 1476      682E6300 
+ 1477              	.LASF93:
+ 1478 0008 736C6964 		.ascii	"sliderPosition\000"
+ 1478      6572506F 
+ 1478      73697469 
+ 1478      6F6E00
+ 1479              	.LASF91:
+ 1480 0017 63757272 		.ascii	"currentCapSenseData\000"
+ 1480      656E7443 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 31
+
+
+ 1480      61705365 
+ 1480      6E736544 
+ 1480      61746100 
+ 1481              	.LASF22:
+ 1482 002b 636C6F63 		.ascii	"clockPrescaler\000"
+ 1482      6B507265 
+ 1482      7363616C 
+ 1482      657200
+ 1483              	.LASF38:
+ 1484 003a 636F756E 		.ascii	"countInputMode\000"
+ 1484      74496E70 
+ 1484      75744D6F 
+ 1484      646500
+ 1485              	.LASF26:
+ 1486 0049 636F6D70 		.ascii	"compare0\000"
+ 1486      61726530 
+ 1486      00
+ 1487              	.LASF27:
+ 1488 0052 636F6D70 		.ascii	"compare1\000"
+ 1488      61726531 
+ 1488      00
+ 1489              	.LASF79:
+ 1490 005b 43595F42 		.ascii	"CY_BLE_CONN_STATE_CONNECTED\000"
+ 1490      4C455F43 
+ 1490      4F4E4E5F 
+ 1490      53544154 
+ 1490      455F434F 
+ 1491              	.LASF61:
+ 1492 0077 72784275 		.ascii	"rxBufSize\000"
+ 1492      6653697A 
+ 1492      6500
+ 1493              	.LASF32:
+ 1494 0081 72656C6F 		.ascii	"reloadInputMode\000"
+ 1494      6164496E 
+ 1494      7075744D 
+ 1494      6F646500 
+ 1495              	.LASF76:
+ 1496 0091 63795F65 		.ascii	"cy_en_ble_adv_state_t\000"
+ 1496      6E5F626C 
+ 1496      655F6164 
+ 1496      765F7374 
+ 1496      6174655F 
+ 1497              	.LASF0:
+ 1498 00a7 73686F72 		.ascii	"short int\000"
+ 1498      7420696E 
+ 1498      7400
+ 1499              	.LASF46:
+ 1500 00b1 70657269 		.ascii	"period0\000"
+ 1500      6F643000 
+ 1501              	.LASF15:
+ 1502 00b9 73697A65 		.ascii	"sizetype\000"
+ 1502      74797065 
+ 1502      00
+ 1503              	.LASF80:
+ 1504 00c2 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_SRVC_DISCOVERING\000"
+ 1504      4C455F43 
+ 1504      4F4E4E5F 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 32
+
+
+ 1504      53544154 
+ 1504      455F434C 
+ 1505              	.LASF68:
+ 1506 00ec 63795F73 		.ascii	"cy_stc_scb_spi_context_t\000"
+ 1506      74635F73 
+ 1506      63625F73 
+ 1506      70695F63 
+ 1506      6F6E7465 
+ 1507              	.LASF34:
+ 1508 0105 73746172 		.ascii	"startInputMode\000"
+ 1508      74496E70 
+ 1508      75744D6F 
+ 1508      646500
+ 1509              	.LASF64:
+ 1510 0114 74784275 		.ascii	"txBufSize\000"
+ 1510      6653697A 
+ 1510      6500
+ 1511              	.LASF112:
+ 1512 011e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1512      43313120 
+ 1512      352E342E 
+ 1512      31203230 
+ 1512      31363036 
+ 1513 0151 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m4 -mfloat-abi=s"
+ 1513      20726576 
+ 1513      6973696F 
+ 1513      6E203233 
+ 1513      37373135 
+ 1514 0184 6F667466 		.ascii	"oftfp -mfpu=fpv4-sp-d16 -mthumb -g -Og -ffunction-s"
+ 1514      70202D6D 
+ 1514      6670753D 
+ 1514      66707634 
+ 1514      2D73702D 
+ 1515 01b7 65637469 		.ascii	"ections -ffat-lto-objects\000"
+ 1515      6F6E7320 
+ 1515      2D666661 
+ 1515      742D6C74 
+ 1515      6F2D6F62 
+ 1516              	.LASF42:
+ 1517 01d1 63795F73 		.ascii	"cy_stc_tcpwm_pwm_config\000"
+ 1517      74635F74 
+ 1517      6370776D 
+ 1517      5F70776D 
+ 1517      5F636F6E 
+ 1518              	.LASF49:
+ 1519 01e9 696E7665 		.ascii	"invertPWMOut\000"
+ 1519      72745057 
+ 1519      4D4F7574 
+ 1519      00
+ 1520              	.LASF7:
+ 1521 01f6 5F5F7569 		.ascii	"__uint32_t\000"
+ 1521      6E743332 
+ 1521      5F7400
+ 1522              	.LASF31:
+ 1523 0201 63617074 		.ascii	"captureInput\000"
+ 1523      75726549 
+ 1523      6E707574 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 33
+
+
+ 1523      00
+ 1524              	.LASF89:
+ 1525 020e 62757474 		.ascii	"buttonData\000"
+ 1525      6F6E4461 
+ 1525      746100
+ 1526              	.LASF78:
+ 1527 0219 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_DISCONNECTED_DISCOVERED\000"
+ 1527      4C455F43 
+ 1527      4F4E4E5F 
+ 1527      53544154 
+ 1527      455F434C 
+ 1528              	.LASF82:
+ 1529 024a 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_CHAR_DISCOVERING\000"
+ 1529      4C455F43 
+ 1529      4F4E4E5F 
+ 1529      53544154 
+ 1529      455F434C 
+ 1530              	.LASF62:
+ 1531 0274 72784275 		.ascii	"rxBufIdx\000"
+ 1531      66496478 
+ 1531      00
+ 1532              	.LASF6:
+ 1533 027d 6C6F6E67 		.ascii	"long int\000"
+ 1533      20696E74 
+ 1533      00
+ 1534              	.LASF44:
+ 1535 0286 70776D41 		.ascii	"pwmAlignment\000"
+ 1535      6C69676E 
+ 1535      6D656E74 
+ 1535      00
+ 1536              	.LASF12:
+ 1537 0293 75696E74 		.ascii	"uint8_t\000"
+ 1537      385F7400 
+ 1538              	.LASF55:
+ 1539 029b 6B696C6C 		.ascii	"killInput\000"
+ 1539      496E7075 
+ 1539      7400
+ 1540              	.LASF98:
+ 1541 02a5 63795F62 		.ascii	"cy_ble_advState\000"
+ 1541      6C655F61 
+ 1541      64765374 
+ 1541      61746500 
+ 1542              	.LASF90:
+ 1543 02b5 746F7563 		.ascii	"touch_data_t\000"
+ 1543      685F6461 
+ 1543      74615F74 
+ 1543      00
+ 1544              	.LASF48:
+ 1545 02c2 656E6162 		.ascii	"enablePeriodSwap\000"
+ 1545      6C655065 
+ 1545      72696F64 
+ 1545      53776170 
+ 1545      00
+ 1546              	.LASF51:
+ 1547 02d3 6B696C6C 		.ascii	"killMode\000"
+ 1547      4D6F6465 
+ 1547      00
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 34
+
+
+ 1548              	.LASF92:
+ 1549 02dc 62757474 		.ascii	"buttonMask\000"
+ 1549      6F6E4D61 
+ 1549      736B00
+ 1550              	.LASF57:
+ 1551 02e7 63795F63 		.ascii	"cy_cb_scb_spi_handle_events_t\000"
+ 1551      625F7363 
+ 1551      625F7370 
+ 1551      695F6861 
+ 1551      6E646C65 
+ 1552              	.LASF77:
+ 1553 0305 43595F42 		.ascii	"CY_BLE_CONN_STATE_DISCONNECTED\000"
+ 1553      4C455F43 
+ 1553      4F4E4E5F 
+ 1553      53544154 
+ 1553      455F4449 
+ 1554              	.LASF69:
+ 1555 0324 62644861 		.ascii	"bdHandle\000"
+ 1555      6E646C65 
+ 1555      00
+ 1556              	.LASF18:
+ 1557 032d 666C6F61 		.ascii	"float\000"
+ 1557      7400
+ 1558              	.LASF63:
+ 1559 0333 74784275 		.ascii	"txBuf\000"
+ 1559      6600
+ 1560              	.LASF47:
+ 1561 0339 70657269 		.ascii	"period1\000"
+ 1561      6F643100 
+ 1562              	.LASF23:
+ 1563 0341 72756E4D 		.ascii	"runMode\000"
+ 1563      6F646500 
+ 1564              	.LASF9:
+ 1565 0349 6C6F6E67 		.ascii	"long long int\000"
+ 1565      206C6F6E 
+ 1565      6720696E 
+ 1565      7400
+ 1566              	.LASF105:
+ 1567 0357 43595F45 		.ascii	"CY_EINK_Timer_config\000"
+ 1567      494E4B5F 
+ 1567      54696D65 
+ 1567      725F636F 
+ 1567      6E666967 
+ 1568              	.LASF99:
+ 1569 036c 63795F62 		.ascii	"cy_ble_connHandle\000"
+ 1569      6C655F63 
+ 1569      6F6E6E48 
+ 1569      616E646C 
+ 1569      6500
+ 1570              	.LASF81:
+ 1571 037e 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_INCL_DISCOVERING\000"
+ 1571      4C455F43 
+ 1571      4F4E4E5F 
+ 1571      53544154 
+ 1571      455F434C 
+ 1572              	.LASF56:
+ 1573 03a8 63795F73 		.ascii	"cy_stc_tcpwm_pwm_config_t\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 35
+
+
+ 1573      74635F74 
+ 1573      6370776D 
+ 1573      5F70776D 
+ 1573      5F636F6E 
+ 1574              	.LASF65:
+ 1575 03c2 74784275 		.ascii	"txBufIdx\000"
+ 1575      66496478 
+ 1575      00
+ 1576              	.LASF21:
+ 1577 03cb 70657269 		.ascii	"period\000"
+ 1577      6F6400
+ 1578              	.LASF4:
+ 1579 03d2 5F5F7569 		.ascii	"__uint8_t\000"
+ 1579      6E74385F 
+ 1579      7400
+ 1580              	.LASF37:
+ 1581 03dc 73746F70 		.ascii	"stopInput\000"
+ 1581      496E7075 
+ 1581      7400
+ 1582              	.LASF84:
+ 1583 03e6 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_DISCOVERED\000"
+ 1583      4C455F43 
+ 1583      4F4E4E5F 
+ 1583      53544154 
+ 1583      455F434C 
+ 1584              	.LASF87:
+ 1585 040a 62757474 		.ascii	"buttonDataUpdated\000"
+ 1585      6F6E4461 
+ 1585      74615570 
+ 1585      64617465 
+ 1585      6400
+ 1586              	.LASF114:
+ 1587 041c 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Desktop\\PSoC-6-MCU-Pioneer-K"
+ 1587      73657273 
+ 1587      5C627279 
+ 1587      616E2E6C 
+ 1587      65655C44 
+ 1588 044b 6974732D 		.ascii	"its-master\\CY8CKIT-062-BLE Pioneer Kit\\CE220167_B"
+ 1588      6D617374 
+ 1588      65725C43 
+ 1588      5938434B 
+ 1588      49542D30 
+ 1589 047c 4C455F55 		.ascii	"LE_UI\\CE220167_BLE_UI.cydsn\000"
+ 1589      495C4345 
+ 1589      32323031 
+ 1589      36375F42 
+ 1589      4C455F55 
+ 1590              	.LASF16:
+ 1591 0498 6C6F6E67 		.ascii	"long double\000"
+ 1591      20646F75 
+ 1591      626C6500 
+ 1592              	.LASF83:
+ 1593 04a4 43595F42 		.ascii	"CY_BLE_CONN_STATE_CLIENT_DESCR_DISCOVERING\000"
+ 1593      4C455F43 
+ 1593      4F4E4E5F 
+ 1593      53544154 
+ 1593      455F434C 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 36
+
+
+ 1594              	.LASF2:
+ 1595 04cf 756E7369 		.ascii	"unsigned char\000"
+ 1595      676E6564 
+ 1595      20636861 
+ 1595      7200
+ 1596              	.LASF24:
+ 1597 04dd 636F756E 		.ascii	"countDirection\000"
+ 1597      74446972 
+ 1597      65637469 
+ 1597      6F6E00
+ 1598              	.LASF75:
+ 1599 04ec 43595F42 		.ascii	"CY_BLE_ADV_STATE_STOP_INITIATED\000"
+ 1599      4C455F41 
+ 1599      44565F53 
+ 1599      54415445 
+ 1599      5F53544F 
+ 1600              	.LASF104:
+ 1601 050c 43595F45 		.ascii	"CY_EINK_SPIM_context\000"
+ 1601      494E4B5F 
+ 1601      5350494D 
+ 1601      5F636F6E 
+ 1601      74657874 
+ 1602              	.LASF54:
+ 1603 0521 6B696C6C 		.ascii	"killInputMode\000"
+ 1603      496E7075 
+ 1603      744D6F64 
+ 1603      6500
+ 1604              	.LASF1:
+ 1605 052f 7369676E 		.ascii	"signed char\000"
+ 1605      65642063 
+ 1605      68617200 
+ 1606              	.LASF10:
+ 1607 053b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1607      206C6F6E 
+ 1607      6720756E 
+ 1607      7369676E 
+ 1607      65642069 
+ 1608              	.LASF14:
+ 1609 0552 75696E74 		.ascii	"uint32_t\000"
+ 1609      33325F74 
+ 1609      00
+ 1610              	.LASF111:
+ 1611 055b 43617053 		.ascii	"CapSense_Start\000"
+ 1611      656E7365 
+ 1611      5F537461 
+ 1611      727400
+ 1612              	.LASF11:
+ 1613 056a 756E7369 		.ascii	"unsigned int\000"
+ 1613      676E6564 
+ 1613      20696E74 
+ 1613      00
+ 1614              	.LASF28:
+ 1615 0577 656E6162 		.ascii	"enableCompareSwap\000"
+ 1615      6C65436F 
+ 1615      6D706172 
+ 1615      65537761 
+ 1615      7000
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 37
+
+
+ 1616              	.LASF70:
+ 1617 0589 61747449 		.ascii	"attId\000"
+ 1617      6400
+ 1618              	.LASF40:
+ 1619 058f 63795F73 		.ascii	"cy_stc_tcpwm_counter_config_t\000"
+ 1619      74635F74 
+ 1619      6370776D 
+ 1619      5F636F75 
+ 1619      6E746572 
+ 1620              	.LASF95:
+ 1621 05ad 49734361 		.ascii	"IsCapSenseReadyForLowPowerMode\000"
+ 1621      7053656E 
+ 1621      73655265 
+ 1621      61647946 
+ 1621      6F724C6F 
+ 1622              	.LASF110:
+ 1623 05cc 43617053 		.ascii	"CapSense_ScanAllWidgets\000"
+ 1623      656E7365 
+ 1623      5F536361 
+ 1623      6E416C6C 
+ 1623      57696467 
+ 1624              	.LASF59:
+ 1625 05e4 73746174 		.ascii	"status\000"
+ 1625      757300
+ 1626              	.LASF3:
+ 1627 05eb 73686F72 		.ascii	"short unsigned int\000"
+ 1627      7420756E 
+ 1627      7369676E 
+ 1627      65642069 
+ 1627      6E7400
+ 1628              	.LASF60:
+ 1629 05fe 72784275 		.ascii	"rxBuf\000"
+ 1629      6600
+ 1630              	.LASF108:
+ 1631 0604 43617053 		.ascii	"CapSense_GetCentroidPos\000"
+ 1631      656E7365 
+ 1631      5F476574 
+ 1631      43656E74 
+ 1631      726F6964 
+ 1632              	.LASF17:
+ 1633 061c 63686172 		.ascii	"char\000"
+ 1633      00
+ 1634              	.LASF66:
+ 1635 0621 63624576 		.ascii	"cbEvents\000"
+ 1635      656E7473 
+ 1635      00
+ 1636              	.LASF45:
+ 1637 062a 64656164 		.ascii	"deadTimeClocks\000"
+ 1637      54696D65 
+ 1637      436C6F63 
+ 1637      6B7300
+ 1638              	.LASF13:
+ 1639 0639 696E7433 		.ascii	"int32_t\000"
+ 1639      325F7400 
+ 1640              	.LASF25:
+ 1641 0641 636F6D70 		.ascii	"compareOrCapture\000"
+ 1641      6172654F 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 38
+
+
+ 1641      72436170 
+ 1641      74757265 
+ 1641      00
+ 1642              	.LASF115:
+ 1643 0652 496E6974 		.ascii	"InitCapSense\000"
+ 1643      43617053 
+ 1643      656E7365 
+ 1643      00
+ 1644              	.LASF20:
+ 1645 065f 5F426F6F 		.ascii	"_Bool\000"
+ 1645      6C00
+ 1646              	.LASF100:
+ 1647 0665 63795F62 		.ascii	"cy_ble_connState\000"
+ 1647      6C655F63 
+ 1647      6F6E6E53 
+ 1647      74617465 
+ 1647      00
+ 1648              	.LASF30:
+ 1649 0676 63617074 		.ascii	"captureInputMode\000"
+ 1649      75726549 
+ 1649      6E707574 
+ 1649      4D6F6465 
+ 1649      00
+ 1650              	.LASF29:
+ 1651 0687 696E7465 		.ascii	"interruptSources\000"
+ 1651      72727570 
+ 1651      74536F75 
+ 1651      72636573 
+ 1651      00
+ 1652              	.LASF73:
+ 1653 0698 43595F42 		.ascii	"CY_BLE_ADV_STATE_ADV_INITIATED\000"
+ 1653      4C455F41 
+ 1653      44565F53 
+ 1653      54415445 
+ 1653      5F414456 
+ 1654              	.LASF33:
+ 1655 06b7 72656C6F 		.ascii	"reloadInput\000"
+ 1655      6164496E 
+ 1655      70757400 
+ 1656              	.LASF8:
+ 1657 06c3 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1657      20756E73 
+ 1657      69676E65 
+ 1657      6420696E 
+ 1657      7400
+ 1658              	.LASF19:
+ 1659 06d5 646F7562 		.ascii	"double\000"
+ 1659      6C6500
+ 1660              	.LASF52:
+ 1661 06dc 73776170 		.ascii	"swapInputMode\000"
+ 1661      496E7075 
+ 1661      744D6F64 
+ 1661      6500
+ 1662              	.LASF58:
+ 1663 06ea 63795F73 		.ascii	"cy_stc_scb_spi_context\000"
+ 1663      74635F73 
+ 1663      63625F73 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 39
+
+
+ 1663      70695F63 
+ 1663      6F6E7465 
+ 1664              	.LASF41:
+ 1665 0701 63795F73 		.ascii	"cy_stc_tcpwm_counter_config\000"
+ 1665      74635F74 
+ 1665      6370776D 
+ 1665      5F636F75 
+ 1665      6E746572 
+ 1666              	.LASF39:
+ 1667 071d 636F756E 		.ascii	"countInput\000"
+ 1667      74496E70 
+ 1667      757400
+ 1668              	.LASF88:
+ 1669 0728 736C6964 		.ascii	"sliderData\000"
+ 1669      65724461 
+ 1669      746100
+ 1670              	.LASF35:
+ 1671 0733 73746172 		.ascii	"startInput\000"
+ 1671      74496E70 
+ 1671      757400
+ 1672              	.LASF5:
+ 1673 073e 5F5F696E 		.ascii	"__int32_t\000"
+ 1673      7433325F 
+ 1673      7400
+ 1674              	.LASF36:
+ 1675 0748 73746F70 		.ascii	"stopInputMode\000"
+ 1675      496E7075 
+ 1675      744D6F64 
+ 1675      6500
+ 1676              	.LASF72:
+ 1677 0756 43595F42 		.ascii	"CY_BLE_ADV_STATE_STOPPED\000"
+ 1677      4C455F41 
+ 1677      44565F53 
+ 1677      54415445 
+ 1677      5F53544F 
+ 1678              	.LASF67:
+ 1679 076f 696E6974 		.ascii	"initKey\000"
+ 1679      4B657900 
+ 1680              	.LASF106:
+ 1681 0777 43617053 		.ascii	"CapSense_IsBusy\000"
+ 1681      656E7365 
+ 1681      5F497342 
+ 1681      75737900 
+ 1682              	.LASF53:
+ 1683 0787 73776170 		.ascii	"swapInput\000"
+ 1683      496E7075 
+ 1683      7400
+ 1684              	.LASF86:
+ 1685 0791 736C6964 		.ascii	"sliderDataUpdated\000"
+ 1685      65724461 
+ 1685      74615570 
+ 1685      64617465 
+ 1685      6400
+ 1686              	.LASF94:
+ 1687 07a3 47657463 		.ascii	"GetcapSenseData\000"
+ 1687      61705365 
+ 1687      6E736544 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 40
+
+
+ 1687      61746100 
+ 1688              	.LASF43:
+ 1689 07b3 70776D4D 		.ascii	"pwmMode\000"
+ 1689      6F646500 
+ 1690              	.LASF85:
+ 1691 07bb 63795F65 		.ascii	"cy_en_ble_conn_state_t\000"
+ 1691      6E5F626C 
+ 1691      655F636F 
+ 1691      6E6E5F73 
+ 1691      74617465 
+ 1692              	.LASF71:
+ 1693 07d2 63795F73 		.ascii	"cy_stc_ble_conn_handle_t\000"
+ 1693      74635F62 
+ 1693      6C655F63 
+ 1693      6F6E6E5F 
+ 1693      68616E64 
+ 1694              	.LASF107:
+ 1695 07eb 43617053 		.ascii	"CapSense_ProcessAllWidgets\000"
+ 1695      656E7365 
+ 1695      5F50726F 
+ 1695      63657373 
+ 1695      416C6C57 
+ 1696              	.LASF97:
+ 1697 0806 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1697      52784275 
+ 1697      66666572 
+ 1697      00
+ 1698              	.LASF96:
+ 1699 0813 6C6F7750 		.ascii	"lowPowerModeReady\000"
+ 1699      6F776572 
+ 1699      4D6F6465 
+ 1699      52656164 
+ 1699      7900
+ 1700              	.LASF102:
+ 1701 0825 50574D5F 		.ascii	"PWM_Blue_config\000"
+ 1701      426C7565 
+ 1701      5F636F6E 
+ 1701      66696700 
+ 1702              	.LASF74:
+ 1703 0835 43595F42 		.ascii	"CY_BLE_ADV_STATE_ADVERTISING\000"
+ 1703      4C455F41 
+ 1703      44565F53 
+ 1703      54415445 
+ 1703      5F414456 
+ 1704              	.LASF109:
+ 1705 0852 43617053 		.ascii	"CapSense_IsWidgetActive\000"
+ 1705      656E7365 
+ 1705      5F497357 
+ 1705      69646765 
+ 1705      74416374 
+ 1706              	.LASF50:
+ 1707 086a 696E7665 		.ascii	"invertPWMOutN\000"
+ 1707      72745057 
+ 1707      4D4F7574 
+ 1707      4E00
+ 1708              	.LASF103:
+ 1709 0878 50574D5F 		.ascii	"PWM_Green_config\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccvISkkr.s 			page 41
+
+
+ 1709      47726565 
+ 1709      6E5F636F 
+ 1709      6E666967 
+ 1709      00
+ 1710              	.LASF101:
+ 1711 0889 50574D5F 		.ascii	"PWM_Red_config\000"
+ 1711      5265645F 
+ 1711      636F6E66 
+ 1711      696700
+ 1712              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
