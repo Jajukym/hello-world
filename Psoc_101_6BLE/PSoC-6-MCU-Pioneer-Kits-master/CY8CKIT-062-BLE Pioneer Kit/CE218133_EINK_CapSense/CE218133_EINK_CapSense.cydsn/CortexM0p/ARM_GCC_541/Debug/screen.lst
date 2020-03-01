@@ -1,0 +1,3189 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0plus
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"screen.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.NoScreenChange,"ax",%progbits
+  20              		.align	2
+  21              		.global	NoScreenChange
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	NoScreenChange, %function
+  25              	NoScreenChange:
+  26              	.LFB456:
+  27              		.file 1 "screen.c"
+   1:screen.c      **** /******************************************************************************
+   2:screen.c      **** * File Name: screen.c
+   3:screen.c      **** *
+   4:screen.c      **** * Version: 1.10
+   5:screen.c      **** *
+   6:screen.c      **** * Description: This file contains the functions used to update the screen 
+   7:screen.c      **** *              according to a touch input.
+   8:screen.c      **** *
+   9:screen.c      **** * Related Document: CE218133_EINK_CapSense.pdf
+  10:screen.c      **** *
+  11:screen.c      **** * Hardware Dependency: CY8CKIT-062-BLE PSoC 6 BLE Pioneer Kit
+  12:screen.c      **** *                      CY8CKIT-028-EPD E-INK Display Shield
+  13:screen.c      **** *
+  14:screen.c      **** *******************************************************************************
+  15:screen.c      **** * Copyright (2017), Cypress Semiconductor Corporation. All rights reserved.
+  16:screen.c      **** *******************************************************************************
+  17:screen.c      **** * This software, including source code, documentation and related materials
+  18:screen.c      **** * (“Software”), is owned by Cypress Semiconductor Corporation or one of its
+  19:screen.c      **** * subsidiaries (“Cypress”) and is protected by and subject to worldwide patent
+  20:screen.c      **** * protection (United States and foreign), United States copyright laws and
+  21:screen.c      **** * international treaty provisions. Therefore, you may use this Software only
+  22:screen.c      **** * as provided in the license agreement accompanying the software package from
+  23:screen.c      **** * which you obtained this Software (“EULA”).
+  24:screen.c      **** *
+  25:screen.c      **** * If no EULA applies, Cypress hereby grants you a personal, nonexclusive,
+  26:screen.c      **** * non-transferable license to copy, modify, and compile the Software source
+  27:screen.c      **** * code solely for use in connection with Cypress’s integrated circuit products.
+  28:screen.c      **** * Any reproduction, modification, translation, compilation, or representation
+  29:screen.c      **** * of this Software except as specified above is prohibited without the express
+  30:screen.c      **** * written permission of Cypress.
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 2
+
+
+  31:screen.c      **** *
+  32:screen.c      **** * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND, 
+  33:screen.c      **** * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED 
+  34:screen.c      **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. Cypress 
+  35:screen.c      **** * reserves the right to make changes to the Software without notice. Cypress 
+  36:screen.c      **** * does not assume any liability arising out of the application or use of the 
+  37:screen.c      **** * Software or any product or circuit described in the Software. Cypress does 
+  38:screen.c      **** * not authorize its products for use in any products where a malfunction or 
+  39:screen.c      **** * failure of the Cypress product may reasonably be expected to result in 
+  40:screen.c      **** * significant property damage, injury or death (“High Risk Product”). By 
+  41:screen.c      **** * including Cypress’s product in a High Risk Product, the manufacturer of such 
+  42:screen.c      **** * system or application assumes all risk of such use and in doing so agrees to 
+  43:screen.c      **** * indemnify Cypress against all liability.
+  44:screen.c      **** *******************************************************************************/
+  45:screen.c      **** /******************************************************************************
+  46:screen.c      **** * This file contains the functions used to update the screen according to a
+  47:screen.c      **** * touch input.
+  48:screen.c      **** *******************************************************************************/
+  49:screen.c      **** 
+  50:screen.c      **** /* Header file includes */
+  51:screen.c      **** #include <project.h>
+  52:screen.c      **** #include "screen.h"
+  53:screen.c      **** #include "screen_contents.h"
+  54:screen.c      **** #include "display.h"
+  55:screen.c      **** 
+  56:screen.c      **** /* Time in mS during which the logo will be displayed during startup */
+  57:screen.c      **** #define LOGO_DELAY                      (uint16_t) (3000u)
+  58:screen.c      **** 
+  59:screen.c      **** /* Start and maximum indexes of the main menu items */
+  60:screen.c      **** #define MAIN_MENU_INDEX_START           (uint8_t) (0x00u)
+  61:screen.c      **** #define MAIN_MENU_MAX_INDEX             (NUMBER_OF_MAIN_MENU_ITEMS - 1)
+  62:screen.c      **** 
+  63:screen.c      **** /* Start page number of the text pages */
+  64:screen.c      **** #define TEXT_PAGE_INDEX_START           (uint8_t) (0x00u)
+  65:screen.c      **** 
+  66:screen.c      **** /* Number of screen types consisting of the main menu and text pages */
+  67:screen.c      **** #define NUMBER_OF_SCREEN_TYPES          (uint8_t) (0x02u)
+  68:screen.c      **** 
+  69:screen.c      **** /* Enumerated data-type for the screen type, consists of main menu and the
+  70:screen.c      ****    text page */
+  71:screen.c      **** typedef enum
+  72:screen.c      **** {
+  73:screen.c      ****     MAIN_MENU   = 0x00u,
+  74:screen.c      ****     TEXT_PAGE   = 0x01u
+  75:screen.c      **** }   screen_type_t;
+  76:screen.c      **** 
+  77:screen.c      **** /* Datatype for the screen information */
+  78:screen.c      **** typedef struct
+  79:screen.c      **** {
+  80:screen.c      ****     screen_type_t   screen;
+  81:screen.c      ****     uint8_t         menuItem;
+  82:screen.c      ****     uint8_t         textPage;
+  83:screen.c      **** }   screen_t;
+  84:screen.c      **** 
+  85:screen.c      **** /* Variable that stores the details of the current screen */
+  86:screen.c      **** screen_t  currentScreen =
+  87:screen.c      **** {
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 3
+
+
+  88:screen.c      ****     .screen     = MAIN_MENU,
+  89:screen.c      ****     .menuItem   = MAIN_MENU_INDEX_START,
+  90:screen.c      ****     .textPage   = TEXT_PAGE_INDEX_START
+  91:screen.c      **** };
+  92:screen.c      **** 
+  93:screen.c      **** /*******************************************************************************
+  94:screen.c      **** * Function Name: void InitScreen(void)
+  95:screen.c      **** ********************************************************************************
+  96:screen.c      **** *
+  97:screen.c      **** * Summary:
+  98:screen.c      **** *  Initializes the display and clears the screen
+  99:screen.c      **** *
+ 100:screen.c      **** * Parameters:
+ 101:screen.c      **** *  None
+ 102:screen.c      **** *
+ 103:screen.c      **** * Return:
+ 104:screen.c      **** *  None
+ 105:screen.c      **** *
+ 106:screen.c      **** * Side Effects:
+ 107:screen.c      **** *  None
+ 108:screen.c      **** *
+ 109:screen.c      **** *******************************************************************************/
+ 110:screen.c      **** void InitScreen(void)
+ 111:screen.c      **** {
+ 112:screen.c      ****     /* Initialize the display hardware and clear to screen to white */
+ 113:screen.c      ****     InitDisplay();
+ 114:screen.c      **** }
+ 115:screen.c      **** 
+ 116:screen.c      **** /*******************************************************************************
+ 117:screen.c      **** * Function Name: void ShowStartupScreen(void)
+ 118:screen.c      **** ********************************************************************************
+ 119:screen.c      **** *
+ 120:screen.c      **** * Summary:
+ 121:screen.c      **** *  Shows the Cypress logo for a certain period of time and then transitions to
+ 122:screen.c      **** *  the default main menu screen
+ 123:screen.c      **** *
+ 124:screen.c      **** * Parameters:
+ 125:screen.c      **** *  None
+ 126:screen.c      **** *
+ 127:screen.c      **** * Return:
+ 128:screen.c      **** *  None
+ 129:screen.c      **** *
+ 130:screen.c      **** * Side Effects:
+ 131:screen.c      **** *  None
+ 132:screen.c      **** *
+ 133:screen.c      **** *******************************************************************************/
+ 134:screen.c      **** void ShowStartupScreen(void)
+ 135:screen.c      **** {
+ 136:screen.c      ****     /* Show the logo */
+ 137:screen.c      ****     DisplayImage((image*) logo);
+ 138:screen.c      **** 
+ 139:screen.c      ****     /* Keep the logo on for a specific time*/
+ 140:screen.c      ****     Cy_SysLib_Delay(LOGO_DELAY);
+ 141:screen.c      **** 
+ 142:screen.c      ****     /* Show the default main menu image*/
+ 143:screen.c      ****     DisplayImage((image*) mainMenuImage[MAIN_MENU_INDEX_START]);
+ 144:screen.c      **** }
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 4
+
+
+ 145:screen.c      **** 
+ 146:screen.c      **** /*******************************************************************************
+ 147:screen.c      **** * Function Name: void NoScreenChange(void)
+ 148:screen.c      **** ********************************************************************************
+ 149:screen.c      **** *
+ 150:screen.c      **** * Summary:
+ 151:screen.c      **** *  Null function that is called by the "ScreenUpdatePointer" function pointer when 
+ 152:screen.c      **** *  no screen change is required
+ 153:screen.c      **** *
+ 154:screen.c      **** * Parameters:
+ 155:screen.c      **** *  None
+ 156:screen.c      **** *
+ 157:screen.c      **** * Return:
+ 158:screen.c      **** *  None
+ 159:screen.c      **** *
+ 160:screen.c      **** * Side Effects:
+ 161:screen.c      **** *  None
+ 162:screen.c      **** *
+ 163:screen.c      **** *******************************************************************************/
+ 164:screen.c      **** void NoScreenChange(void)
+ 165:screen.c      **** {
+  28              		.loc 1 165 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+ 166:screen.c      **** }
+  33              		.loc 1 166 0
+  34              		@ sp needed
+  35 0000 7047     		bx	lr
+  36              		.cfi_endproc
+  37              	.LFE456:
+  38              		.size	NoScreenChange, .-NoScreenChange
+  39 0002 C046     		.section	.text.BackToMainMenu,"ax",%progbits
+  40              		.align	2
+  41              		.global	BackToMainMenu
+  42              		.code	16
+  43              		.thumb_func
+  44              		.type	BackToMainMenu, %function
+  45              	BackToMainMenu:
+  46              	.LFB458:
+ 167:screen.c      **** 
+ 168:screen.c      **** /*******************************************************************************
+ 169:screen.c      **** * Function Name: void GoToTextPage(void)
+ 170:screen.c      **** ********************************************************************************
+ 171:screen.c      **** *
+ 172:screen.c      **** * Summary:
+ 173:screen.c      **** *  Performs transition from the main menu to the text page
+ 174:screen.c      **** *
+ 175:screen.c      **** * Parameters:
+ 176:screen.c      **** *  None
+ 177:screen.c      **** *
+ 178:screen.c      **** * Return:
+ 179:screen.c      **** *  None
+ 180:screen.c      **** *
+ 181:screen.c      **** * Side Effects:
+ 182:screen.c      **** *  None
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 5
+
+
+ 183:screen.c      **** *
+ 184:screen.c      **** *******************************************************************************/
+ 185:screen.c      **** void GoToTextPage(void)
+ 186:screen.c      **** {
+ 187:screen.c      ****     /* Variable that stores the index of the character array, which in turn 
+ 188:screen.c      ****        stores the current text page as a string */
+ 189:screen.c      ****     uint8_t currentPageIndex;
+ 190:screen.c      ****     
+ 191:screen.c      ****     /* Change the current screen type to text page */
+ 192:screen.c      ****     currentScreen.screen = TEXT_PAGE;
+ 193:screen.c      **** 
+ 194:screen.c      ****     /* Re-initialize the text page index to point to the start page */
+ 195:screen.c      ****     currentScreen.textPage = TEXT_PAGE_INDEX_START;
+ 196:screen.c      ****     
+ 197:screen.c      ****     /* Access the index array and fetch the index of the character array that 
+ 198:screen.c      ****       stores the current text page as a string */
+ 199:screen.c      ****     currentPageIndex = textPageIndex[currentScreen.menuItem]
+ 200:screen.c      ****                                     [currentScreen.textPage];
+ 201:screen.c      ****     
+ 202:screen.c      ****     /* Check if the fetched index is valid */
+ 203:screen.c      ****     if (currentPageIndex != INVALID_PAGE_INDEX)
+ 204:screen.c      ****     {
+ 205:screen.c      ****         /* Display the text page with background image */
+ 206:screen.c      ****         DisplayImageAndText((char*) textPage[currentPageIndex],
+ 207:screen.c      ****                             (image*) textPageBackground);
+ 208:screen.c      ****     }
+ 209:screen.c      **** }
+ 210:screen.c      **** 
+ 211:screen.c      **** /*******************************************************************************
+ 212:screen.c      **** * Function Name: void BackToMainMenu(void)
+ 213:screen.c      **** ********************************************************************************
+ 214:screen.c      **** *
+ 215:screen.c      **** * Summary:
+ 216:screen.c      **** *  Returns to the main menu from a text page
+ 217:screen.c      **** *
+ 218:screen.c      **** * Parameters:
+ 219:screen.c      **** *  None
+ 220:screen.c      **** *
+ 221:screen.c      **** * Return:
+ 222:screen.c      **** *  None
+ 223:screen.c      **** *
+ 224:screen.c      **** * Side Effects:
+ 225:screen.c      **** *  None
+ 226:screen.c      **** *
+ 227:screen.c      **** *******************************************************************************/
+ 228:screen.c      **** void BackToMainMenu(void)
+ 229:screen.c      **** {
+  47              		.loc 1 229 0
+  48              		.cfi_startproc
+  49              		@ args = 0, pretend = 0, frame = 0
+  50              		@ frame_needed = 0, uses_anonymous_args = 0
+  51 0000 10B5     		push	{r4, lr}
+  52              		.cfi_def_cfa_offset 8
+  53              		.cfi_offset 4, -8
+  54              		.cfi_offset 14, -4
+ 230:screen.c      ****     /* Change the current screen type to main menu */
+ 231:screen.c      ****     currentScreen.screen = MAIN_MENU;
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 6
+
+
+  55              		.loc 1 231 0
+  56 0002 054B     		ldr	r3, .L3
+  57 0004 0022     		movs	r2, #0
+  58 0006 1A70     		strb	r2, [r3]
+ 232:screen.c      ****     
+ 233:screen.c      ****     /* Display the current main menu image */
+ 234:screen.c      ****     DisplayImage((image*) mainMenuImage[currentScreen.menuItem]);
+  59              		.loc 1 234 0
+  60 0008 5878     		ldrb	r0, [r3, #1]
+  61 000a 044B     		ldr	r3, .L3+4
+  62 000c 5843     		muls	r0, r3
+  63 000e 044B     		ldr	r3, .L3+8
+  64 0010 C018     		adds	r0, r0, r3
+  65 0012 FFF7FEFF 		bl	DisplayImage
+  66              	.LVL0:
+ 235:screen.c      **** }
+  67              		.loc 1 235 0
+  68              		@ sp needed
+  69 0016 10BD     		pop	{r4, pc}
+  70              	.L4:
+  71              		.align	2
+  72              	.L3:
+  73 0018 00000000 		.word	.LANCHOR0
+  74 001c B0160000 		.word	5808
+  75 0020 00000000 		.word	mainMenuImage
+  76              		.cfi_endproc
+  77              	.LFE458:
+  78              		.size	BackToMainMenu, .-BackToMainMenu
+  79              		.section	.text.MoveArrowUp,"ax",%progbits
+  80              		.align	2
+  81              		.global	MoveArrowUp
+  82              		.code	16
+  83              		.thumb_func
+  84              		.type	MoveArrowUp, %function
+  85              	MoveArrowUp:
+  86              	.LFB459:
+ 236:screen.c      **** 
+ 237:screen.c      **** /*******************************************************************************
+ 238:screen.c      **** * Function Name: void MoveArrowUp(void)
+ 239:screen.c      **** ********************************************************************************
+ 240:screen.c      **** *
+ 241:screen.c      **** * Summary:
+ 242:screen.c      **** *  Moves the selection arrow of the main menu upwards
+ 243:screen.c      **** *
+ 244:screen.c      **** * Parameters:
+ 245:screen.c      **** *  None
+ 246:screen.c      **** *
+ 247:screen.c      **** * Return:
+ 248:screen.c      **** *  None
+ 249:screen.c      **** *
+ 250:screen.c      **** * Side Effects:
+ 251:screen.c      **** *  None
+ 252:screen.c      **** *
+ 253:screen.c      **** *******************************************************************************/
+ 254:screen.c      **** void MoveArrowUp(void)
+ 255:screen.c      **** {
+  87              		.loc 1 255 0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 7
+
+
+  88              		.cfi_startproc
+  89              		@ args = 0, pretend = 0, frame = 0
+  90              		@ frame_needed = 0, uses_anonymous_args = 0
+  91 0000 10B5     		push	{r4, lr}
+  92              		.cfi_def_cfa_offset 8
+  93              		.cfi_offset 4, -8
+  94              		.cfi_offset 14, -4
+ 256:screen.c      ****     
+ 257:screen.c      ****     /* If the beginning of the main menu is reached, then move the arrow to the
+ 258:screen.c      ****        final item of the main menu by selecting the maximum index */
+ 259:screen.c      ****     if (currentScreen.menuItem == MAIN_MENU_INDEX_START)
+  95              		.loc 1 259 0
+  96 0002 0A4B     		ldr	r3, .L8
+  97 0004 5B78     		ldrb	r3, [r3, #1]
+  98 0006 002B     		cmp	r3, #0
+  99 0008 03D1     		bne	.L6
+ 260:screen.c      ****     {
+ 261:screen.c      ****         currentScreen.menuItem = MAIN_MENU_MAX_INDEX;
+ 100              		.loc 1 261 0
+ 101 000a 0322     		movs	r2, #3
+ 102 000c 074B     		ldr	r3, .L8
+ 103 000e 5A70     		strb	r2, [r3, #1]
+ 104 0010 02E0     		b	.L7
+ 105              	.L6:
+ 262:screen.c      ****     }
+ 263:screen.c      ****     /* Otherwise, decrement the index to move the arrow up */
+ 264:screen.c      ****     else
+ 265:screen.c      ****     {
+ 266:screen.c      ****         currentScreen.menuItem--;
+ 106              		.loc 1 266 0
+ 107 0012 013B     		subs	r3, r3, #1
+ 108 0014 054A     		ldr	r2, .L8
+ 109 0016 5370     		strb	r3, [r2, #1]
+ 110              	.L7:
+ 267:screen.c      ****     }
+ 268:screen.c      ****     
+ 269:screen.c      ****     /* Display the current main menu image */
+ 270:screen.c      ****     DisplayImage((image*) mainMenuImage[currentScreen.menuItem]);
+ 111              		.loc 1 270 0
+ 112 0018 044B     		ldr	r3, .L8
+ 113 001a 5878     		ldrb	r0, [r3, #1]
+ 114 001c 044B     		ldr	r3, .L8+4
+ 115 001e 5843     		muls	r0, r3
+ 116 0020 044B     		ldr	r3, .L8+8
+ 117 0022 C018     		adds	r0, r0, r3
+ 118 0024 FFF7FEFF 		bl	DisplayImage
+ 119              	.LVL1:
+ 271:screen.c      **** }
+ 120              		.loc 1 271 0
+ 121              		@ sp needed
+ 122 0028 10BD     		pop	{r4, pc}
+ 123              	.L9:
+ 124 002a C046     		.align	2
+ 125              	.L8:
+ 126 002c 00000000 		.word	.LANCHOR0
+ 127 0030 B0160000 		.word	5808
+ 128 0034 00000000 		.word	mainMenuImage
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 8
+
+
+ 129              		.cfi_endproc
+ 130              	.LFE459:
+ 131              		.size	MoveArrowUp, .-MoveArrowUp
+ 132              		.section	.text.MoveArrowDown,"ax",%progbits
+ 133              		.align	2
+ 134              		.global	MoveArrowDown
+ 135              		.code	16
+ 136              		.thumb_func
+ 137              		.type	MoveArrowDown, %function
+ 138              	MoveArrowDown:
+ 139              	.LFB460:
+ 272:screen.c      **** 
+ 273:screen.c      **** /*******************************************************************************
+ 274:screen.c      **** * Function Name: void MoveArrowDown(void)
+ 275:screen.c      **** ********************************************************************************
+ 276:screen.c      **** *
+ 277:screen.c      **** * Summary:
+ 278:screen.c      **** *  Moves the selection arrow of the main menu downwards
+ 279:screen.c      **** *
+ 280:screen.c      **** * Parameters:
+ 281:screen.c      **** *  None
+ 282:screen.c      **** *
+ 283:screen.c      **** * Return:
+ 284:screen.c      **** *  None
+ 285:screen.c      **** *
+ 286:screen.c      **** * Side Effects:
+ 287:screen.c      **** *  None
+ 288:screen.c      **** *
+ 289:screen.c      **** *******************************************************************************/
+ 290:screen.c      **** void MoveArrowDown(void)
+ 291:screen.c      **** {
+ 140              		.loc 1 291 0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144 0000 10B5     		push	{r4, lr}
+ 145              		.cfi_def_cfa_offset 8
+ 146              		.cfi_offset 4, -8
+ 147              		.cfi_offset 14, -4
+ 292:screen.c      ****     
+ 293:screen.c      ****     /* If the final item of the main menu is reached, then move the arrow to the
+ 294:screen.c      ****        beginning of the main menu by selecting the starting index */
+ 295:screen.c      ****     if (currentScreen.menuItem >= MAIN_MENU_MAX_INDEX)
+ 148              		.loc 1 295 0
+ 149 0002 0A4B     		ldr	r3, .L13
+ 150 0004 5B78     		ldrb	r3, [r3, #1]
+ 151 0006 022B     		cmp	r3, #2
+ 152 0008 03D9     		bls	.L11
+ 296:screen.c      ****     {
+ 297:screen.c      ****         currentScreen.menuItem = MAIN_MENU_INDEX_START;
+ 153              		.loc 1 297 0
+ 154 000a 0022     		movs	r2, #0
+ 155 000c 074B     		ldr	r3, .L13
+ 156 000e 5A70     		strb	r2, [r3, #1]
+ 157 0010 02E0     		b	.L12
+ 158              	.L11:
+ 298:screen.c      ****     }
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 9
+
+
+ 299:screen.c      ****     /* Otherwise, increment the index to move the arrow down */
+ 300:screen.c      ****     else
+ 301:screen.c      ****     {
+ 302:screen.c      ****         currentScreen.menuItem++;
+ 159              		.loc 1 302 0
+ 160 0012 0133     		adds	r3, r3, #1
+ 161 0014 054A     		ldr	r2, .L13
+ 162 0016 5370     		strb	r3, [r2, #1]
+ 163              	.L12:
+ 303:screen.c      ****     }
+ 304:screen.c      ****     
+ 305:screen.c      ****     /* Display the current main menu image */
+ 306:screen.c      ****     DisplayImage((image*) mainMenuImage[currentScreen.menuItem]);
+ 164              		.loc 1 306 0
+ 165 0018 044B     		ldr	r3, .L13
+ 166 001a 5878     		ldrb	r0, [r3, #1]
+ 167 001c 044B     		ldr	r3, .L13+4
+ 168 001e 5843     		muls	r0, r3
+ 169 0020 044B     		ldr	r3, .L13+8
+ 170 0022 C018     		adds	r0, r0, r3
+ 171 0024 FFF7FEFF 		bl	DisplayImage
+ 172              	.LVL2:
+ 307:screen.c      **** }
+ 173              		.loc 1 307 0
+ 174              		@ sp needed
+ 175 0028 10BD     		pop	{r4, pc}
+ 176              	.L14:
+ 177 002a C046     		.align	2
+ 178              	.L13:
+ 179 002c 00000000 		.word	.LANCHOR0
+ 180 0030 B0160000 		.word	5808
+ 181 0034 00000000 		.word	mainMenuImage
+ 182              		.cfi_endproc
+ 183              	.LFE460:
+ 184              		.size	MoveArrowDown, .-MoveArrowDown
+ 185              		.section	.text.GoToTextPage,"ax",%progbits
+ 186              		.align	2
+ 187              		.global	GoToTextPage
+ 188              		.code	16
+ 189              		.thumb_func
+ 190              		.type	GoToTextPage, %function
+ 191              	GoToTextPage:
+ 192              	.LFB457:
+ 186:screen.c      ****     /* Variable that stores the index of the character array, which in turn 
+ 193              		.loc 1 186 0
+ 194              		.cfi_startproc
+ 195              		@ args = 0, pretend = 0, frame = 0
+ 196              		@ frame_needed = 0, uses_anonymous_args = 0
+ 197 0000 10B5     		push	{r4, lr}
+ 198              		.cfi_def_cfa_offset 8
+ 199              		.cfi_offset 4, -8
+ 200              		.cfi_offset 14, -4
+ 192:screen.c      **** 
+ 201              		.loc 1 192 0
+ 202 0002 0A4B     		ldr	r3, .L17
+ 203 0004 0122     		movs	r2, #1
+ 204 0006 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 10
+
+
+ 195:screen.c      ****     
+ 205              		.loc 1 195 0
+ 206 0008 0022     		movs	r2, #0
+ 207 000a 9A70     		strb	r2, [r3, #2]
+ 199:screen.c      ****                                     [currentScreen.textPage];
+ 208              		.loc 1 199 0
+ 209 000c 5B78     		ldrb	r3, [r3, #1]
+ 210 000e DB00     		lsls	r3, r3, #3
+ 211 0010 074A     		ldr	r2, .L17+4
+ 212 0012 985C     		ldrb	r0, [r3, r2]
+ 213              	.LVL3:
+ 203:screen.c      ****     {
+ 214              		.loc 1 203 0
+ 215 0014 FF28     		cmp	r0, #255
+ 216 0016 07D0     		beq	.L15
+ 206:screen.c      ****                             (image*) textPageBackground);
+ 217              		.loc 1 206 0
+ 218 0018 8E23     		movs	r3, #142
+ 219 001a FF33     		adds	r3, r3, #255
+ 220 001c 5843     		muls	r0, r3
+ 221              	.LVL4:
+ 222 001e 054B     		ldr	r3, .L17+8
+ 223 0020 C018     		adds	r0, r0, r3
+ 224 0022 0549     		ldr	r1, .L17+12
+ 225 0024 FFF7FEFF 		bl	DisplayImageAndText
+ 226              	.LVL5:
+ 227              	.L15:
+ 209:screen.c      **** 
+ 228              		.loc 1 209 0
+ 229              		@ sp needed
+ 230 0028 10BD     		pop	{r4, pc}
+ 231              	.L18:
+ 232 002a C046     		.align	2
+ 233              	.L17:
+ 234 002c 00000000 		.word	.LANCHOR0
+ 235 0030 00000000 		.word	textPageIndex
+ 236 0034 00000000 		.word	textPage
+ 237 0038 00000000 		.word	textPageBackground
+ 238              		.cfi_endproc
+ 239              	.LFE457:
+ 240              		.size	GoToTextPage, .-GoToTextPage
+ 241              		.section	.text.PreviousTextPage,"ax",%progbits
+ 242              		.align	2
+ 243              		.global	PreviousTextPage
+ 244              		.code	16
+ 245              		.thumb_func
+ 246              		.type	PreviousTextPage, %function
+ 247              	PreviousTextPage:
+ 248              	.LFB461:
+ 308:screen.c      **** 
+ 309:screen.c      **** /*******************************************************************************
+ 310:screen.c      **** * Function Name: void PreviousTextPage(void)
+ 311:screen.c      **** ********************************************************************************
+ 312:screen.c      **** *
+ 313:screen.c      **** * Summary:
+ 314:screen.c      **** *  Performs the transition to the previous text page
+ 315:screen.c      **** *
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 11
+
+
+ 316:screen.c      **** * Parameters:
+ 317:screen.c      **** *  None
+ 318:screen.c      **** *
+ 319:screen.c      **** * Return:
+ 320:screen.c      **** *  None
+ 321:screen.c      **** *
+ 322:screen.c      **** * Side Effects:
+ 323:screen.c      **** *  None
+ 324:screen.c      **** *
+ 325:screen.c      **** *******************************************************************************/
+ 326:screen.c      **** void PreviousTextPage(void)
+ 327:screen.c      **** {
+ 249              		.loc 1 327 0
+ 250              		.cfi_startproc
+ 251              		@ args = 0, pretend = 0, frame = 0
+ 252              		@ frame_needed = 0, uses_anonymous_args = 0
+ 253 0000 10B5     		push	{r4, lr}
+ 254              		.cfi_def_cfa_offset 8
+ 255              		.cfi_offset 4, -8
+ 256              		.cfi_offset 14, -4
+ 328:screen.c      ****     
+ 329:screen.c      ****     /* Variable that stores the index of the character array, which in turn 
+ 330:screen.c      ****        stores the current text page as a string */
+ 331:screen.c      ****     uint8_t currentPageIndex;
+ 332:screen.c      ****     
+ 333:screen.c      ****     /* If the start page is reached, then go to the final page by selecting the 
+ 334:screen.c      ****        maximum index of the text pages */
+ 335:screen.c      ****     if (currentScreen.textPage == TEXT_PAGE_INDEX_START)
+ 257              		.loc 1 335 0
+ 258 0002 0F4B     		ldr	r3, .L23
+ 259 0004 9B78     		ldrb	r3, [r3, #2]
+ 260 0006 002B     		cmp	r3, #0
+ 261 0008 05D1     		bne	.L20
+ 336:screen.c      ****     {
+ 337:screen.c      ****         currentScreen.textPage = maxTextPageIndexes[currentScreen.menuItem];
+ 262              		.loc 1 337 0
+ 263 000a 0D4B     		ldr	r3, .L23
+ 264 000c 5A78     		ldrb	r2, [r3, #1]
+ 265 000e 0D49     		ldr	r1, .L23+4
+ 266 0010 8A5C     		ldrb	r2, [r1, r2]
+ 267 0012 9A70     		strb	r2, [r3, #2]
+ 268 0014 02E0     		b	.L21
+ 269              	.L20:
+ 338:screen.c      ****     }
+ 339:screen.c      ****     /* Otherwise, select the previous page by decrementing the index */
+ 340:screen.c      ****     else
+ 341:screen.c      ****     {
+ 342:screen.c      ****         currentScreen.textPage--;
+ 270              		.loc 1 342 0
+ 271 0016 013B     		subs	r3, r3, #1
+ 272 0018 094A     		ldr	r2, .L23
+ 273 001a 9370     		strb	r3, [r2, #2]
+ 274              	.L21:
+ 343:screen.c      ****     }
+ 344:screen.c      **** 
+ 345:screen.c      ****     /* Access the index array and fetch the index of the character array that
+ 346:screen.c      ****         stores the current text page as a string */
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 12
+
+
+ 347:screen.c      ****     currentPageIndex = textPageIndex[currentScreen.menuItem]
+ 275              		.loc 1 347 0
+ 276 001c 084A     		ldr	r2, .L23
+ 277 001e 5378     		ldrb	r3, [r2, #1]
+ 348:screen.c      ****                                     [currentScreen.textPage];
+ 278              		.loc 1 348 0
+ 279 0020 9278     		ldrb	r2, [r2, #2]
+ 347:screen.c      ****                                     [currentScreen.textPage];
+ 280              		.loc 1 347 0
+ 281 0022 DB00     		lsls	r3, r3, #3
+ 282 0024 0849     		ldr	r1, .L23+8
+ 283 0026 CB18     		adds	r3, r1, r3
+ 284 0028 985C     		ldrb	r0, [r3, r2]
+ 285              	.LVL6:
+ 349:screen.c      ****     
+ 350:screen.c      ****     /* Check if the fetched index is valid */
+ 351:screen.c      ****     if (currentPageIndex != INVALID_PAGE_INDEX)
+ 286              		.loc 1 351 0
+ 287 002a FF28     		cmp	r0, #255
+ 288 002c 07D0     		beq	.L19
+ 352:screen.c      ****     {
+ 353:screen.c      ****         /* Display the text page with background image */
+ 354:screen.c      ****         DisplayImageAndText((char*) textPage[currentPageIndex],
+ 289              		.loc 1 354 0
+ 290 002e 8E23     		movs	r3, #142
+ 291 0030 FF33     		adds	r3, r3, #255
+ 292 0032 5843     		muls	r0, r3
+ 293              	.LVL7:
+ 294 0034 054B     		ldr	r3, .L23+12
+ 295 0036 C018     		adds	r0, r0, r3
+ 296 0038 0549     		ldr	r1, .L23+16
+ 297              	.LVL8:
+ 298 003a FFF7FEFF 		bl	DisplayImageAndText
+ 299              	.LVL9:
+ 300              	.L19:
+ 355:screen.c      ****                             (image*) textPageBackground);
+ 356:screen.c      ****     }
+ 357:screen.c      **** }
+ 301              		.loc 1 357 0
+ 302              		@ sp needed
+ 303 003e 10BD     		pop	{r4, pc}
+ 304              	.L24:
+ 305              		.align	2
+ 306              	.L23:
+ 307 0040 00000000 		.word	.LANCHOR0
+ 308 0044 00000000 		.word	maxTextPageIndexes
+ 309 0048 00000000 		.word	textPageIndex
+ 310 004c 00000000 		.word	textPage
+ 311 0050 00000000 		.word	textPageBackground
+ 312              		.cfi_endproc
+ 313              	.LFE461:
+ 314              		.size	PreviousTextPage, .-PreviousTextPage
+ 315              		.section	.text.NextTextPage,"ax",%progbits
+ 316              		.align	2
+ 317              		.global	NextTextPage
+ 318              		.code	16
+ 319              		.thumb_func
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 13
+
+
+ 320              		.type	NextTextPage, %function
+ 321              	NextTextPage:
+ 322              	.LFB462:
+ 358:screen.c      **** 
+ 359:screen.c      **** /*******************************************************************************
+ 360:screen.c      **** * Function Name: void NextTextPage(void)
+ 361:screen.c      **** ********************************************************************************
+ 362:screen.c      **** *
+ 363:screen.c      **** * Summary:
+ 364:screen.c      **** *  Performs the transition to the next text page
+ 365:screen.c      **** *
+ 366:screen.c      **** * Parameters:
+ 367:screen.c      **** *  None
+ 368:screen.c      **** *
+ 369:screen.c      **** * Return:
+ 370:screen.c      **** *  None
+ 371:screen.c      **** *
+ 372:screen.c      **** * Side Effects:
+ 373:screen.c      **** *  None
+ 374:screen.c      **** *
+ 375:screen.c      **** *******************************************************************************/
+ 376:screen.c      **** void NextTextPage(void)
+ 377:screen.c      **** {
+ 323              		.loc 1 377 0
+ 324              		.cfi_startproc
+ 325              		@ args = 0, pretend = 0, frame = 0
+ 326              		@ frame_needed = 0, uses_anonymous_args = 0
+ 327 0000 10B5     		push	{r4, lr}
+ 328              		.cfi_def_cfa_offset 8
+ 329              		.cfi_offset 4, -8
+ 330              		.cfi_offset 14, -4
+ 378:screen.c      ****     /* Variable that stores the index of the character array, which in turn 
+ 379:screen.c      ****        stores the current text page as a string */
+ 380:screen.c      ****     uint8_t currentPageIndex;
+ 381:screen.c      ****     
+ 382:screen.c      ****     /* If the final page is reached, then go to the start page by selecting 
+ 383:screen.c      ****        the starting index of the text pages */
+ 384:screen.c      ****     if (currentScreen.textPage >= maxTextPageIndexes[currentScreen.menuItem])
+ 331              		.loc 1 384 0
+ 332 0002 0F4B     		ldr	r3, .L29
+ 333 0004 9A78     		ldrb	r2, [r3, #2]
+ 334 0006 5B78     		ldrb	r3, [r3, #1]
+ 335 0008 0E49     		ldr	r1, .L29+4
+ 336 000a C95C     		ldrb	r1, [r1, r3]
+ 337 000c 8A42     		cmp	r2, r1
+ 338 000e 03D3     		bcc	.L26
+ 385:screen.c      ****     {
+ 386:screen.c      ****         currentScreen.textPage = TEXT_PAGE_INDEX_START;
+ 339              		.loc 1 386 0
+ 340 0010 0021     		movs	r1, #0
+ 341 0012 0B4A     		ldr	r2, .L29
+ 342 0014 9170     		strb	r1, [r2, #2]
+ 343 0016 02E0     		b	.L27
+ 344              	.L26:
+ 387:screen.c      ****     }
+ 388:screen.c      ****      /* Otherwise, select the next page by incrementing the index */
+ 389:screen.c      ****     else
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 14
+
+
+ 390:screen.c      ****     {
+ 391:screen.c      ****         currentScreen.textPage++;
+ 345              		.loc 1 391 0
+ 346 0018 0132     		adds	r2, r2, #1
+ 347 001a 0949     		ldr	r1, .L29
+ 348 001c 8A70     		strb	r2, [r1, #2]
+ 349              	.L27:
+ 392:screen.c      ****     }
+ 393:screen.c      **** 
+ 394:screen.c      ****     /* Access the index array and fetch the index of the character array that
+ 395:screen.c      ****         stores the current text page as a string */
+ 396:screen.c      ****     currentPageIndex = textPageIndex[currentScreen.menuItem]
+ 397:screen.c      ****                                     [currentScreen.textPage];
+ 350              		.loc 1 397 0
+ 351 001e 084A     		ldr	r2, .L29
+ 352 0020 9278     		ldrb	r2, [r2, #2]
+ 396:screen.c      ****                                     [currentScreen.textPage];
+ 353              		.loc 1 396 0
+ 354 0022 DB00     		lsls	r3, r3, #3
+ 355 0024 0849     		ldr	r1, .L29+8
+ 356 0026 CB18     		adds	r3, r1, r3
+ 357 0028 985C     		ldrb	r0, [r3, r2]
+ 358              	.LVL10:
+ 398:screen.c      ****     
+ 399:screen.c      ****     /* Check if the fetched index is valid */
+ 400:screen.c      ****     if (currentPageIndex != INVALID_PAGE_INDEX)
+ 359              		.loc 1 400 0
+ 360 002a FF28     		cmp	r0, #255
+ 361 002c 07D0     		beq	.L25
+ 401:screen.c      ****     {
+ 402:screen.c      ****         /* Display the text page with background image */
+ 403:screen.c      ****         DisplayImageAndText((char*) textPage[currentPageIndex],
+ 362              		.loc 1 403 0
+ 363 002e 8E23     		movs	r3, #142
+ 364 0030 FF33     		adds	r3, r3, #255
+ 365 0032 5843     		muls	r0, r3
+ 366              	.LVL11:
+ 367 0034 054B     		ldr	r3, .L29+12
+ 368 0036 C018     		adds	r0, r0, r3
+ 369 0038 0549     		ldr	r1, .L29+16
+ 370              	.LVL12:
+ 371 003a FFF7FEFF 		bl	DisplayImageAndText
+ 372              	.LVL13:
+ 373              	.L25:
+ 404:screen.c      ****                             (image*) textPageBackground);
+ 405:screen.c      ****     }
+ 406:screen.c      **** }
+ 374              		.loc 1 406 0
+ 375              		@ sp needed
+ 376 003e 10BD     		pop	{r4, pc}
+ 377              	.L30:
+ 378              		.align	2
+ 379              	.L29:
+ 380 0040 00000000 		.word	.LANCHOR0
+ 381 0044 00000000 		.word	maxTextPageIndexes
+ 382 0048 00000000 		.word	textPageIndex
+ 383 004c 00000000 		.word	textPage
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 15
+
+
+ 384 0050 00000000 		.word	textPageBackground
+ 385              		.cfi_endproc
+ 386              	.LFE462:
+ 387              		.size	NextTextPage, .-NextTextPage
+ 388              		.section	.text.InitScreen,"ax",%progbits
+ 389              		.align	2
+ 390              		.global	InitScreen
+ 391              		.code	16
+ 392              		.thumb_func
+ 393              		.type	InitScreen, %function
+ 394              	InitScreen:
+ 395              	.LFB454:
+ 111:screen.c      ****     /* Initialize the display hardware and clear to screen to white */
+ 396              		.loc 1 111 0
+ 397              		.cfi_startproc
+ 398              		@ args = 0, pretend = 0, frame = 0
+ 399              		@ frame_needed = 0, uses_anonymous_args = 0
+ 400 0000 10B5     		push	{r4, lr}
+ 401              		.cfi_def_cfa_offset 8
+ 402              		.cfi_offset 4, -8
+ 403              		.cfi_offset 14, -4
+ 113:screen.c      **** }
+ 404              		.loc 1 113 0
+ 405 0002 FFF7FEFF 		bl	InitDisplay
+ 406              	.LVL14:
+ 114:screen.c      **** 
+ 407              		.loc 1 114 0
+ 408              		@ sp needed
+ 409 0006 10BD     		pop	{r4, pc}
+ 410              		.cfi_endproc
+ 411              	.LFE454:
+ 412              		.size	InitScreen, .-InitScreen
+ 413              		.section	.text.ShowStartupScreen,"ax",%progbits
+ 414              		.align	2
+ 415              		.global	ShowStartupScreen
+ 416              		.code	16
+ 417              		.thumb_func
+ 418              		.type	ShowStartupScreen, %function
+ 419              	ShowStartupScreen:
+ 420              	.LFB455:
+ 135:screen.c      ****     /* Show the logo */
+ 421              		.loc 1 135 0
+ 422              		.cfi_startproc
+ 423              		@ args = 0, pretend = 0, frame = 0
+ 424              		@ frame_needed = 0, uses_anonymous_args = 0
+ 425 0000 10B5     		push	{r4, lr}
+ 426              		.cfi_def_cfa_offset 8
+ 427              		.cfi_offset 4, -8
+ 428              		.cfi_offset 14, -4
+ 137:screen.c      **** 
+ 429              		.loc 1 137 0
+ 430 0002 0548     		ldr	r0, .L33
+ 431 0004 FFF7FEFF 		bl	DisplayImage
+ 432              	.LVL15:
+ 140:screen.c      **** 
+ 433              		.loc 1 140 0
+ 434 0008 0448     		ldr	r0, .L33+4
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 16
+
+
+ 435 000a FFF7FEFF 		bl	Cy_SysLib_Delay
+ 436              	.LVL16:
+ 143:screen.c      **** }
+ 437              		.loc 1 143 0
+ 438 000e 0448     		ldr	r0, .L33+8
+ 439 0010 FFF7FEFF 		bl	DisplayImage
+ 440              	.LVL17:
+ 144:screen.c      **** 
+ 441              		.loc 1 144 0
+ 442              		@ sp needed
+ 443 0014 10BD     		pop	{r4, pc}
+ 444              	.L34:
+ 445 0016 C046     		.align	2
+ 446              	.L33:
+ 447 0018 00000000 		.word	logo
+ 448 001c B80B0000 		.word	3000
+ 449 0020 00000000 		.word	mainMenuImage
+ 450              		.cfi_endproc
+ 451              	.LFE455:
+ 452              		.size	ShowStartupScreen, .-ShowStartupScreen
+ 453              		.section	.text.UpdateScreen,"ax",%progbits
+ 454              		.align	2
+ 455              		.global	UpdateScreen
+ 456              		.code	16
+ 457              		.thumb_func
+ 458              		.type	UpdateScreen, %function
+ 459              	UpdateScreen:
+ 460              	.LFB463:
+ 407:screen.c      **** 
+ 408:screen.c      **** /*******************************************************************************
+ 409:screen.c      **** * Function Name: void UpdateScreen (touch_data_t touchInfo)
+ 410:screen.c      **** ********************************************************************************
+ 411:screen.c      **** *
+ 412:screen.c      **** * Summary:
+ 413:screen.c      **** *  Updates the screen according to the touch_data_t input
+ 414:screen.c      **** *
+ 415:screen.c      **** * Parameters:
+ 416:screen.c      **** *  touch_data_t :  slider swipe / button touched / no touch
+ 417:screen.c      **** *
+ 418:screen.c      **** * Return:
+ 419:screen.c      **** *  None
+ 420:screen.c      **** *
+ 421:screen.c      **** * Side Effects:
+ 422:screen.c      **** *  None
+ 423:screen.c      **** *
+ 424:screen.c      **** *******************************************************************************/
+ 425:screen.c      **** void UpdateScreen(touch_data_t touchInfo)
+ 426:screen.c      **** {
+ 461              		.loc 1 426 0
+ 462              		.cfi_startproc
+ 463              		@ args = 0, pretend = 0, frame = 8
+ 464              		@ frame_needed = 0, uses_anonymous_args = 0
+ 465 0000 00B5     		push	{lr}
+ 466              		.cfi_def_cfa_offset 4
+ 467              		.cfi_offset 14, -4
+ 468 0002 83B0     		sub	sp, sp, #12
+ 469              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 17
+
+
+ 470 0004 01AB     		add	r3, sp, #4
+ 471 0006 1880     		strh	r0, [r3]
+ 427:screen.c      ****     /* Function pointer that selects a screen update function based on the 
+ 428:screen.c      ****       current screen type and the touch input:
+ 429:screen.c      ****     ________________________________________________________
+ 430:screen.c      ****     |                               |                       |
+ 431:screen.c      ****     |          Parameters           |   Selected Function   |
+ 432:screen.c      ****     |_______________________________|_______________________|
+ 433:screen.c      ****     |                               |                       |
+ 434:screen.c      ****     |   [MAIN_MENU][NO_TOUCH])      |   NoScreenChange      |
+ 435:screen.c      ****     |   [MAIN_MENU][SELECT_BUTTON]) |   GoToTextPage        |
+ 436:screen.c      ****     |   [MAIN_MENU][BACK_BUTTON])   |   NoScreenChange      |
+ 437:screen.c      ****     |   [MAIN_MENU][SLIDER_LEFT])   |   MoveArrowUp         |
+ 438:screen.c      ****     |   [MAIN_MENU][SLIDER_RIGHT])  |   MoveArrowDown       |
+ 439:screen.c      ****     |                               |                       |
+ 440:screen.c      ****     |   [TEXT_PAGE][NO_TOUCH])      |   NoScreenChange      |
+ 441:screen.c      ****     |   [TEXT_PAGE][SELECT_BUTTON]) |   NoScreenChange      |
+ 442:screen.c      ****     |   [TEXT_PAGE][BACK_BUTTON])   |   BackToMainMenu      |
+ 443:screen.c      ****     |   [TEXT_PAGE][SLIDER_LEFT])   |   PreviousTextPage    |
+ 444:screen.c      ****     |   [TEXT_PAGE][SLIDER_RIGHT])  |   NextTextPage        |
+ 445:screen.c      ****     |_______________________________|_______________________|*/
+ 446:screen.c      ****     static void (*ScreenUpdatePointer[NUMBER_OF_SCREEN_TYPES]
+ 447:screen.c      ****                                      [NUMBER_OF_TOUCH_TYPES]) (void) =
+ 448:screen.c      ****     {
+ 449:screen.c      ****         { NoScreenChange, GoToTextPage, NoScreenChange, MoveArrowUp, MoveArrowDown },
+ 450:screen.c      ****         { NoScreenChange, NoScreenChange, BackToMainMenu, PreviousTextPage, NextTextPage }
+ 451:screen.c      ****     };
+ 452:screen.c      **** 
+ 453:screen.c      ****     /* Flag used to determine when this function is called for the first time */
+ 454:screen.c      ****     bool static firstTime = true;
+ 455:screen.c      ****     
+ 456:screen.c      ****     /* If this function  is called for the first time, show the startup screen,
+ 457:screen.c      ****        and then clear the firstTime flag */
+ 458:screen.c      ****     if (firstTime)
+ 472              		.loc 1 458 0
+ 473 0008 0F4B     		ldr	r3, .L39
+ 474 000a 1B78     		ldrb	r3, [r3]
+ 475 000c 002B     		cmp	r3, #0
+ 476 000e 05D0     		beq	.L36
+ 459:screen.c      ****     {
+ 460:screen.c      ****         ShowStartupScreen();
+ 477              		.loc 1 460 0
+ 478 0010 FFF7FEFF 		bl	ShowStartupScreen
+ 479              	.LVL18:
+ 461:screen.c      ****         firstTime = false;
+ 480              		.loc 1 461 0
+ 481 0014 0022     		movs	r2, #0
+ 482 0016 0C4B     		ldr	r3, .L39
+ 483 0018 1A70     		strb	r2, [r3]
+ 484 001a 12E0     		b	.L35
+ 485              	.L36:
+ 462:screen.c      ****     }
+ 463:screen.c      ****     else
+ 464:screen.c      ****     {
+ 465:screen.c      ****         /* Enter sleep mode if CapSense is busy with a scan. CapSense interrupt 
+ 466:screen.c      ****            will automatically wake up the system */
+ 467:screen.c      ****         if (touchInfo.scanBusy == true)
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 18
+
+
+ 486              		.loc 1 467 0
+ 487 001c 01AB     		add	r3, sp, #4
+ 488 001e 5B78     		ldrb	r3, [r3, #1]
+ 489 0020 002B     		cmp	r3, #0
+ 490 0022 03D0     		beq	.L38
+ 468:screen.c      ****         {
+ 469:screen.c      ****             Cy_SysPm_Sleep(CY_SYSPM_WAIT_FOR_INTERRUPT);
+ 491              		.loc 1 469 0
+ 492 0024 0020     		movs	r0, #0
+ 493 0026 FFF7FEFF 		bl	Cy_SysPm_Sleep
+ 494              	.LVL19:
+ 495 002a 0AE0     		b	.L35
+ 496              	.L38:
+ 470:screen.c      ****         }
+ 471:screen.c      ****         /* Otherwise, call the function pointer that selects a screen update function
+ 472:screen.c      ****         according to the touch input */     
+ 473:screen.c      ****         else
+ 474:screen.c      ****         { 
+ 475:screen.c      ****             /* See the function pointer definition for details */
+ 476:screen.c      ****             (*ScreenUpdatePointer[currentScreen.screen][touchInfo.touchType])();
+ 497              		.loc 1 476 0
+ 498 002c 074B     		ldr	r3, .L39+4
+ 499 002e 1B78     		ldrb	r3, [r3]
+ 500 0030 01AA     		add	r2, sp, #4
+ 501 0032 1278     		ldrb	r2, [r2]
+ 502 0034 9900     		lsls	r1, r3, #2
+ 503 0036 CB18     		adds	r3, r1, r3
+ 504 0038 9B18     		adds	r3, r3, r2
+ 505 003a 9B00     		lsls	r3, r3, #2
+ 506 003c 044A     		ldr	r2, .L39+8
+ 507 003e 9B58     		ldr	r3, [r3, r2]
+ 508 0040 9847     		blx	r3
+ 509              	.LVL20:
+ 510              	.L35:
+ 477:screen.c      ****         }
+ 478:screen.c      ****     }
+ 479:screen.c      **** }
+ 511              		.loc 1 479 0
+ 512 0042 03B0     		add	sp, sp, #12
+ 513              		@ sp needed
+ 514 0044 00BD     		pop	{pc}
+ 515              	.L40:
+ 516 0046 C046     		.align	2
+ 517              	.L39:
+ 518 0048 00000000 		.word	.LANCHOR1
+ 519 004c 00000000 		.word	.LANCHOR0
+ 520 0050 00000000 		.word	.LANCHOR2
+ 521              		.cfi_endproc
+ 522              	.LFE463:
+ 523              		.size	UpdateScreen, .-UpdateScreen
+ 524              		.global	currentScreen
+ 525              		.section	.rodata
+ 526              		.align	2
+ 527              		.set	.LANCHOR2,. + 0
+ 528              		.type	ScreenUpdatePointer.15469, %object
+ 529              		.size	ScreenUpdatePointer.15469, 40
+ 530              	ScreenUpdatePointer.15469:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 19
+
+
+ 531 0000 00000000 		.word	NoScreenChange
+ 532 0004 00000000 		.word	GoToTextPage
+ 533 0008 00000000 		.word	NoScreenChange
+ 534 000c 00000000 		.word	MoveArrowUp
+ 535 0010 00000000 		.word	MoveArrowDown
+ 536 0014 00000000 		.word	NoScreenChange
+ 537 0018 00000000 		.word	NoScreenChange
+ 538 001c 00000000 		.word	BackToMainMenu
+ 539 0020 00000000 		.word	PreviousTextPage
+ 540 0024 00000000 		.word	NextTextPage
+ 541              		.data
+ 542              		.set	.LANCHOR1,. + 0
+ 543              		.type	firstTime.15470, %object
+ 544              		.size	firstTime.15470, 1
+ 545              	firstTime.15470:
+ 546 0000 01       		.byte	1
+ 547              		.bss
+ 548              		.align	2
+ 549              		.set	.LANCHOR0,. + 0
+ 550              		.type	currentScreen, %object
+ 551              		.size	currentScreen, 3
+ 552              	currentScreen:
+ 553 0000 000000   		.space	3
+ 554              		.text
+ 555              	.Letext0:
+ 556              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 557              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 558              		.file 4 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/syslib/cy_syslib.h"
+ 559              		.file 5 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/tcpwm/cy_tcpwm_counter.h"
+ 560              		.file 6 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/scb/cy_scb_spi.h"
+ 561              		.file 7 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/syspm/cy_syspm.h"
+ 562              		.file 8 "touch.h"
+ 563              		.file 9 "pervasive_eink_hardware_driver.h"
+ 564              		.file 10 "cy_eink_library.h"
+ 565              		.file 11 "display.h"
+ 566              		.file 12 "Generated_Source\\PSoC6/CY_EINK_Timer.h"
+ 567              		.file 13 "Generated_Source\\PSoC6/CY_EINK_SPIM.h"
+ 568              		.file 14 "screen_contents.h"
+ 569              		.section	.debug_info,"",%progbits
+ 570              	.Ldebug_info0:
+ 571 0000 9E060000 		.4byte	0x69e
+ 572 0004 0400     		.2byte	0x4
+ 573 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 574 000a 04       		.byte	0x4
+ 575 000b 01       		.uleb128 0x1
+ 576 000c CE000000 		.4byte	.LASF101
+ 577 0010 0C       		.byte	0xc
+ 578 0011 A5010000 		.4byte	.LASF102
+ 579 0015 47040000 		.4byte	.LASF103
+ 580 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 581 001d 00000000 		.4byte	0
+ 582 0021 00000000 		.4byte	.Ldebug_line0
+ 583 0025 02       		.uleb128 0x2
+ 584 0026 02       		.byte	0x2
+ 585 0027 05       		.byte	0x5
+ 586 0028 8E000000 		.4byte	.LASF0
+ 587 002c 02       		.uleb128 0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 20
+
+
+ 588 002d 01       		.byte	0x1
+ 589 002e 08       		.byte	0x8
+ 590 002f 42030000 		.4byte	.LASF1
+ 591 0033 02       		.uleb128 0x2
+ 592 0034 01       		.byte	0x1
+ 593 0035 06       		.byte	0x6
+ 594 0036 88030000 		.4byte	.LASF2
+ 595 003a 03       		.uleb128 0x3
+ 596 003b 7A060000 		.4byte	.LASF3
+ 597 003f 02       		.byte	0x2
+ 598 0040 1D       		.byte	0x1d
+ 599 0041 2C000000 		.4byte	0x2c
+ 600 0045 03       		.uleb128 0x3
+ 601 0046 BE010000 		.4byte	.LASF4
+ 602 004a 02       		.byte	0x2
+ 603 004b 2B       		.byte	0x2b
+ 604 004c 50000000 		.4byte	0x50
+ 605 0050 02       		.uleb128 0x2
+ 606 0051 02       		.byte	0x2
+ 607 0052 07       		.byte	0x7
+ 608 0053 FA040000 		.4byte	.LASF5
+ 609 0057 02       		.uleb128 0x2
+ 610 0058 04       		.byte	0x4
+ 611 0059 05       		.byte	0x5
+ 612 005a B9020000 		.4byte	.LASF6
+ 613 005e 03       		.uleb128 0x3
+ 614 005f 8C010000 		.4byte	.LASF7
+ 615 0063 02       		.byte	0x2
+ 616 0064 41       		.byte	0x41
+ 617 0065 69000000 		.4byte	0x69
+ 618 0069 02       		.uleb128 0x2
+ 619 006a 04       		.byte	0x4
+ 620 006b 07       		.byte	0x7
+ 621 006c 6D050000 		.4byte	.LASF8
+ 622 0070 02       		.uleb128 0x2
+ 623 0071 08       		.byte	0x8
+ 624 0072 05       		.byte	0x5
+ 625 0073 99020000 		.4byte	.LASF9
+ 626 0077 02       		.uleb128 0x2
+ 627 0078 08       		.byte	0x8
+ 628 0079 07       		.byte	0x7
+ 629 007a 94030000 		.4byte	.LASF10
+ 630 007e 04       		.uleb128 0x4
+ 631 007f 04       		.byte	0x4
+ 632 0080 05       		.byte	0x5
+ 633 0081 696E7400 		.ascii	"int\000"
+ 634 0085 02       		.uleb128 0x2
+ 635 0086 04       		.byte	0x4
+ 636 0087 07       		.byte	0x7
+ 637 0088 49060000 		.4byte	.LASF11
+ 638 008c 03       		.uleb128 0x3
+ 639 008d 01020000 		.4byte	.LASF12
+ 640 0091 03       		.byte	0x3
+ 641 0092 18       		.byte	0x18
+ 642 0093 3A000000 		.4byte	0x3a
+ 643 0097 03       		.uleb128 0x3
+ 644 0098 D3030000 		.4byte	.LASF13
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 21
+
+
+ 645 009c 03       		.byte	0x3
+ 646 009d 24       		.byte	0x24
+ 647 009e 45000000 		.4byte	0x45
+ 648 00a2 03       		.uleb128 0x3
+ 649 00a3 B9030000 		.4byte	.LASF14
+ 650 00a7 03       		.byte	0x3
+ 651 00a8 30       		.byte	0x30
+ 652 00a9 5E000000 		.4byte	0x5e
+ 653 00ad 02       		.uleb128 0x2
+ 654 00ae 04       		.byte	0x4
+ 655 00af 07       		.byte	0x7
+ 656 00b0 A1000000 		.4byte	.LASF15
+ 657 00b4 05       		.uleb128 0x5
+ 658 00b5 A2000000 		.4byte	0xa2
+ 659 00b9 02       		.uleb128 0x2
+ 660 00ba 08       		.byte	0x8
+ 661 00bb 04       		.byte	0x4
+ 662 00bc 27030000 		.4byte	.LASF16
+ 663 00c0 06       		.uleb128 0x6
+ 664 00c1 04       		.byte	0x4
+ 665 00c2 C6000000 		.4byte	0xc6
+ 666 00c6 07       		.uleb128 0x7
+ 667 00c7 02       		.uleb128 0x2
+ 668 00c8 01       		.byte	0x1
+ 669 00c9 08       		.byte	0x8
+ 670 00ca B4020000 		.4byte	.LASF17
+ 671 00ce 02       		.uleb128 0x2
+ 672 00cf 04       		.byte	0x4
+ 673 00d0 04       		.byte	0x4
+ 674 00d1 7D020000 		.4byte	.LASF18
+ 675 00d5 02       		.uleb128 0x2
+ 676 00d6 08       		.byte	0x8
+ 677 00d7 04       		.byte	0x4
+ 678 00d8 7F050000 		.4byte	.LASF19
+ 679 00dc 08       		.uleb128 0x8
+ 680 00dd 18020000 		.4byte	.LASF20
+ 681 00e1 04       		.byte	0x4
+ 682 00e2 8503     		.2byte	0x385
+ 683 00e4 8C000000 		.4byte	0x8c
+ 684 00e8 09       		.uleb128 0x9
+ 685 00e9 01       		.byte	0x1
+ 686 00ea 2C000000 		.4byte	0x2c
+ 687 00ee 07       		.byte	0x7
+ 688 00ef CE03     		.2byte	0x3ce
+ 689 00f1 02010000 		.4byte	0x102
+ 690 00f5 0A       		.uleb128 0xa
+ 691 00f6 05060000 		.4byte	.LASF21
+ 692 00fa 00       		.byte	0
+ 693 00fb 0A       		.uleb128 0xa
+ 694 00fc 28040000 		.4byte	.LASF22
+ 695 0100 01       		.byte	0x1
+ 696 0101 00       		.byte	0
+ 697 0102 0B       		.uleb128 0xb
+ 698 0103 04       		.byte	0x4
+ 699 0104 02       		.uleb128 0x2
+ 700 0105 01       		.byte	0x1
+ 701 0106 02       		.byte	0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 22
+
+
+ 702 0107 1C050000 		.4byte	.LASF23
+ 703 010b 0C       		.uleb128 0xc
+ 704 010c 8C050000 		.4byte	.LASF45
+ 705 0110 4C       		.byte	0x4c
+ 706 0111 05       		.byte	0x5
+ 707 0112 2B       		.byte	0x2b
+ 708 0113 FC010000 		.4byte	0x1fc
+ 709 0117 0D       		.uleb128 0xd
+ 710 0118 CB020000 		.4byte	.LASF24
+ 711 011c 05       		.byte	0x5
+ 712 011d 2D       		.byte	0x2d
+ 713 011e A2000000 		.4byte	0xa2
+ 714 0122 00       		.byte	0
+ 715 0123 0D       		.uleb128 0xd
+ 716 0124 35000000 		.4byte	.LASF25
+ 717 0128 05       		.byte	0x5
+ 718 0129 2F       		.byte	0x2f
+ 719 012a A2000000 		.4byte	0xa2
+ 720 012e 04       		.byte	0x4
+ 721 012f 0D       		.uleb128 0xd
+ 722 0130 1E020000 		.4byte	.LASF26
+ 723 0134 05       		.byte	0x5
+ 724 0135 30       		.byte	0x30
+ 725 0136 A2000000 		.4byte	0xa2
+ 726 013a 08       		.byte	0x8
+ 727 013b 0D       		.uleb128 0xd
+ 728 013c 50030000 		.4byte	.LASF27
+ 729 0140 05       		.byte	0x5
+ 730 0141 31       		.byte	0x31
+ 731 0142 A2000000 		.4byte	0xa2
+ 732 0146 0C       		.byte	0xc
+ 733 0147 0D       		.uleb128 0xd
+ 734 0148 C2030000 		.4byte	.LASF28
+ 735 014c 05       		.byte	0x5
+ 736 014d 33       		.byte	0x33
+ 737 014e A2000000 		.4byte	0xa2
+ 738 0152 10       		.byte	0x10
+ 739 0153 0D       		.uleb128 0xd
+ 740 0154 53000000 		.4byte	.LASF29
+ 741 0158 05       		.byte	0x5
+ 742 0159 34       		.byte	0x34
+ 743 015a A2000000 		.4byte	0xa2
+ 744 015e 14       		.byte	0x14
+ 745 015f 0D       		.uleb128 0xd
+ 746 0160 5C000000 		.4byte	.LASF30
+ 747 0164 05       		.byte	0x5
+ 748 0165 35       		.byte	0x35
+ 749 0166 A2000000 		.4byte	0xa2
+ 750 016a 18       		.byte	0x18
+ 751 016b 0D       		.uleb128 0xd
+ 752 016c 21060000 		.4byte	.LASF31
+ 753 0170 05       		.byte	0x5
+ 754 0171 36       		.byte	0x36
+ 755 0172 04010000 		.4byte	0x104
+ 756 0176 1C       		.byte	0x1c
+ 757 0177 0D       		.uleb128 0xd
+ 758 0178 57050000 		.4byte	.LASF32
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 23
+
+
+ 759 017c 05       		.byte	0x5
+ 760 017d 38       		.byte	0x38
+ 761 017e A2000000 		.4byte	0xa2
+ 762 0182 20       		.byte	0x20
+ 763 0183 0D       		.uleb128 0xd
+ 764 0184 35050000 		.4byte	.LASF33
+ 765 0188 05       		.byte	0x5
+ 766 0189 39       		.byte	0x39
+ 767 018a A2000000 		.4byte	0xa2
+ 768 018e 24       		.byte	0x24
+ 769 018f 0D       		.uleb128 0xd
+ 770 0190 22050000 		.4byte	.LASF34
+ 771 0194 05       		.byte	0x5
+ 772 0195 3B       		.byte	0x3b
+ 773 0196 A2000000 		.4byte	0xa2
+ 774 019a 28       		.byte	0x28
+ 775 019b 0D       		.uleb128 0xd
+ 776 019c 89020000 		.4byte	.LASF35
+ 777 01a0 05       		.byte	0x5
+ 778 01a1 3C       		.byte	0x3c
+ 779 01a2 A2000000 		.4byte	0xa2
+ 780 01a6 2C       		.byte	0x2c
+ 781 01a7 0D       		.uleb128 0xd
+ 782 01a8 00000000 		.4byte	.LASF36
+ 783 01ac 05       		.byte	0x5
+ 784 01ad 3E       		.byte	0x3e
+ 785 01ae A2000000 		.4byte	0xa2
+ 786 01b2 30       		.byte	0x30
+ 787 01b3 0D       		.uleb128 0xd
+ 788 01b4 33030000 		.4byte	.LASF37
+ 789 01b8 05       		.byte	0x5
+ 790 01b9 3F       		.byte	0x3f
+ 791 01ba A2000000 		.4byte	0xa2
+ 792 01be 34       		.byte	0x34
+ 793 01bf 0D       		.uleb128 0xd
+ 794 01c0 B6050000 		.4byte	.LASF38
+ 795 01c4 05       		.byte	0x5
+ 796 01c5 41       		.byte	0x41
+ 797 01c6 A2000000 		.4byte	0xa2
+ 798 01ca 38       		.byte	0x38
+ 799 01cb 0D       		.uleb128 0xd
+ 800 01cc C1050000 		.4byte	.LASF39
+ 801 01d0 05       		.byte	0x5
+ 802 01d1 42       		.byte	0x42
+ 803 01d2 A2000000 		.4byte	0xa2
+ 804 01d6 3C       		.byte	0x3c
+ 805 01d7 0D       		.uleb128 0xd
+ 806 01d8 DE020000 		.4byte	.LASF40
+ 807 01dc 05       		.byte	0x5
+ 808 01dd 44       		.byte	0x44
+ 809 01de A2000000 		.4byte	0xa2
+ 810 01e2 40       		.byte	0x40
+ 811 01e3 0D       		.uleb128 0xd
+ 812 01e4 44000000 		.4byte	.LASF41
+ 813 01e8 05       		.byte	0x5
+ 814 01e9 45       		.byte	0x45
+ 815 01ea A2000000 		.4byte	0xa2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 24
+
+
+ 816 01ee 44       		.byte	0x44
+ 817 01ef 0D       		.uleb128 0xd
+ 818 01f0 33060000 		.4byte	.LASF42
+ 819 01f4 05       		.byte	0x5
+ 820 01f5 47       		.byte	0x47
+ 821 01f6 A2000000 		.4byte	0xa2
+ 822 01fa 48       		.byte	0x48
+ 823 01fb 00       		.byte	0
+ 824 01fc 03       		.uleb128 0x3
+ 825 01fd E6030000 		.4byte	.LASF43
+ 826 0201 05       		.byte	0x5
+ 827 0202 48       		.byte	0x48
+ 828 0203 0B010000 		.4byte	0x10b
+ 829 0207 06       		.uleb128 0x6
+ 830 0208 04       		.byte	0x4
+ 831 0209 0D020000 		.4byte	0x20d
+ 832 020d 0E       		.uleb128 0xe
+ 833 020e 18020000 		.4byte	0x218
+ 834 0212 0F       		.uleb128 0xf
+ 835 0213 A2000000 		.4byte	0xa2
+ 836 0217 00       		.byte	0
+ 837 0218 08       		.uleb128 0x8
+ 838 0219 3A020000 		.4byte	.LASF44
+ 839 021d 06       		.byte	0x6
+ 840 021e BF01     		.2byte	0x1bf
+ 841 0220 07020000 		.4byte	0x207
+ 842 0224 10       		.uleb128 0x10
+ 843 0225 B7000000 		.4byte	.LASF46
+ 844 0229 24       		.byte	0x24
+ 845 022a 06       		.byte	0x6
+ 846 022b 4102     		.2byte	0x241
+ 847 022d A7020000 		.4byte	0x2a7
+ 848 0231 11       		.uleb128 0x11
+ 849 0232 40040000 		.4byte	.LASF47
+ 850 0236 06       		.byte	0x6
+ 851 0237 4402     		.2byte	0x244
+ 852 0239 B4000000 		.4byte	0xb4
+ 853 023d 00       		.byte	0
+ 854 023e 11       		.uleb128 0x11
+ 855 023f 2F050000 		.4byte	.LASF48
+ 856 0243 06       		.byte	0x6
+ 857 0244 4602     		.2byte	0x246
+ 858 0246 02010000 		.4byte	0x102
+ 859 024a 04       		.byte	0x4
+ 860 024b 11       		.uleb128 0x11
+ 861 024c 7B000000 		.4byte	.LASF49
+ 862 0250 06       		.byte	0x6
+ 863 0251 4702     		.2byte	0x247
+ 864 0253 A2000000 		.4byte	0xa2
+ 865 0257 08       		.byte	0x8
+ 866 0258 11       		.uleb128 0x11
+ 867 0259 C9010000 		.4byte	.LASF50
+ 868 025d 06       		.byte	0x6
+ 869 025e 4802     		.2byte	0x248
+ 870 0260 B4000000 		.4byte	0xb4
+ 871 0264 0C       		.byte	0xc
+ 872 0265 11       		.uleb128 0x11
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 25
+
+
+ 873 0266 83020000 		.4byte	.LASF51
+ 874 026a 06       		.byte	0x6
+ 875 026b 4A02     		.2byte	0x24a
+ 876 026d 02010000 		.4byte	0x102
+ 877 0271 10       		.byte	0x10
+ 878 0272 11       		.uleb128 0x11
+ 879 0273 79010000 		.4byte	.LASF52
+ 880 0277 06       		.byte	0x6
+ 881 0278 4B02     		.2byte	0x24b
+ 882 027a A2000000 		.4byte	0xa2
+ 883 027e 14       		.byte	0x14
+ 884 027f 11       		.uleb128 0x11
+ 885 0280 C2020000 		.4byte	.LASF53
+ 886 0284 06       		.byte	0x6
+ 887 0285 4C02     		.2byte	0x24c
+ 888 0287 B4000000 		.4byte	0xb4
+ 889 028b 18       		.byte	0x18
+ 890 028c 11       		.uleb128 0x11
+ 891 028d E4040000 		.4byte	.LASF54
+ 892 0291 06       		.byte	0x6
+ 893 0292 5202     		.2byte	0x252
+ 894 0294 18020000 		.4byte	0x218
+ 895 0298 1C       		.byte	0x1c
+ 896 0299 11       		.uleb128 0x11
+ 897 029a DB050000 		.4byte	.LASF55
+ 898 029e 06       		.byte	0x6
+ 899 029f 5502     		.2byte	0x255
+ 900 02a1 A2000000 		.4byte	0xa2
+ 901 02a5 20       		.byte	0x20
+ 902 02a6 00       		.byte	0
+ 903 02a7 08       		.uleb128 0x8
+ 904 02a8 60010000 		.4byte	.LASF56
+ 905 02ac 06       		.byte	0x6
+ 906 02ad 5802     		.2byte	0x258
+ 907 02af 24020000 		.4byte	0x224
+ 908 02b3 12       		.uleb128 0x12
+ 909 02b4 01       		.byte	0x1
+ 910 02b5 2C000000 		.4byte	0x2c
+ 911 02b9 08       		.byte	0x8
+ 912 02ba 3E       		.byte	0x3e
+ 913 02bb DE020000 		.4byte	0x2de
+ 914 02bf 0A       		.uleb128 0xa
+ 915 02c0 56060000 		.4byte	.LASF57
+ 916 02c4 00       		.byte	0
+ 917 02c5 0A       		.uleb128 0xa
+ 918 02c6 97010000 		.4byte	.LASF58
+ 919 02ca 01       		.byte	0x1
+ 920 02cb 0A       		.uleb128 0xa
+ 921 02cc D2020000 		.4byte	.LASF59
+ 922 02d0 02       		.byte	0x2
+ 923 02d1 0A       		.uleb128 0xa
+ 924 02d2 65000000 		.4byte	.LASF60
+ 925 02d6 03       		.byte	0x3
+ 926 02d7 0A       		.uleb128 0xa
+ 927 02d8 AA000000 		.4byte	.LASF61
+ 928 02dc 04       		.byte	0x4
+ 929 02dd 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 26
+
+
+ 930 02de 03       		.uleb128 0x3
+ 931 02df D2010000 		.4byte	.LASF62
+ 932 02e3 08       		.byte	0x8
+ 933 02e4 44       		.byte	0x44
+ 934 02e5 B3020000 		.4byte	0x2b3
+ 935 02e9 13       		.uleb128 0x13
+ 936 02ea 02       		.byte	0x2
+ 937 02eb 08       		.byte	0x8
+ 938 02ec 47       		.byte	0x47
+ 939 02ed 0A030000 		.4byte	0x30a
+ 940 02f1 0D       		.uleb128 0xd
+ 941 02f2 30020000 		.4byte	.LASF63
+ 942 02f6 08       		.byte	0x8
+ 943 02f7 49       		.byte	0x49
+ 944 02f8 DE020000 		.4byte	0x2de
+ 945 02fc 00       		.byte	0
+ 946 02fd 0D       		.uleb128 0xd
+ 947 02fe 85000000 		.4byte	.LASF64
+ 948 0302 08       		.byte	0x8
+ 949 0303 4A       		.byte	0x4a
+ 950 0304 04010000 		.4byte	0x104
+ 951 0308 01       		.byte	0x1
+ 952 0309 00       		.byte	0
+ 953 030a 03       		.uleb128 0x3
+ 954 030b A7020000 		.4byte	.LASF65
+ 955 030f 08       		.byte	0x8
+ 956 0310 4B       		.byte	0x4b
+ 957 0311 E9020000 		.4byte	0x2e9
+ 958 0315 14       		.uleb128 0x14
+ 959 0316 C7000000 		.4byte	0xc7
+ 960 031a 03       		.uleb128 0x3
+ 961 031b 58020000 		.4byte	.LASF66
+ 962 031f 09       		.byte	0x9
+ 963 0320 35       		.byte	0x35
+ 964 0321 2C000000 		.4byte	0x2c
+ 965 0325 03       		.uleb128 0x3
+ 966 0326 6D020000 		.4byte	.LASF67
+ 967 032a 0A       		.byte	0xa
+ 968 032b 6A       		.byte	0x6a
+ 969 032c 1A030000 		.4byte	0x31a
+ 970 0330 03       		.uleb128 0x3
+ 971 0331 86050000 		.4byte	.LASF68
+ 972 0335 0B       		.byte	0xb
+ 973 0336 3B       		.byte	0x3b
+ 974 0337 25030000 		.4byte	0x325
+ 975 033b 12       		.uleb128 0x12
+ 976 033c 01       		.byte	0x1
+ 977 033d 2C000000 		.4byte	0x2c
+ 978 0341 01       		.byte	0x1
+ 979 0342 48       		.byte	0x48
+ 980 0343 54030000 		.4byte	0x354
+ 981 0347 0A       		.uleb128 0xa
+ 982 0348 DC030000 		.4byte	.LASF69
+ 983 034c 00       		.byte	0
+ 984 034d 0A       		.uleb128 0xa
+ 985 034e 26020000 		.4byte	.LASF70
+ 986 0352 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 27
+
+
+ 987 0353 00       		.byte	0
+ 988 0354 03       		.uleb128 0x3
+ 989 0355 AB030000 		.4byte	.LASF71
+ 990 0359 01       		.byte	0x1
+ 991 035a 4B       		.byte	0x4b
+ 992 035b 3B030000 		.4byte	0x33b
+ 993 035f 13       		.uleb128 0x13
+ 994 0360 03       		.byte	0x3
+ 995 0361 01       		.byte	0x1
+ 996 0362 4E       		.byte	0x4e
+ 997 0363 8C030000 		.4byte	0x38c
+ 998 0367 0D       		.uleb128 0xd
+ 999 0368 6C030000 		.4byte	.LASF72
+ 1000 036c 01       		.byte	0x1
+ 1001 036d 50       		.byte	0x50
+ 1002 036e 54030000 		.4byte	0x354
+ 1003 0372 00       		.byte	0
+ 1004 0373 0D       		.uleb128 0xd
+ 1005 0374 1F040000 		.4byte	.LASF73
+ 1006 0378 01       		.byte	0x1
+ 1007 0379 51       		.byte	0x51
+ 1008 037a 8C000000 		.4byte	0x8c
+ 1009 037e 01       		.byte	0x1
+ 1010 037f 0D       		.uleb128 0xd
+ 1011 0380 98000000 		.4byte	.LASF74
+ 1012 0384 01       		.byte	0x1
+ 1013 0385 52       		.byte	0x52
+ 1014 0386 8C000000 		.4byte	0x8c
+ 1015 038a 02       		.byte	0x2
+ 1016 038b 00       		.byte	0
+ 1017 038c 03       		.uleb128 0x3
+ 1018 038d 83010000 		.4byte	.LASF75
+ 1019 0391 01       		.byte	0x1
+ 1020 0392 53       		.byte	0x53
+ 1021 0393 5F030000 		.4byte	0x35f
+ 1022 0397 15       		.uleb128 0x15
+ 1023 0398 09020000 		.4byte	.LASF104
+ 1024 039c 01       		.byte	0x1
+ 1025 039d A4       		.byte	0xa4
+ 1026 039e 00000000 		.4byte	.LFB456
+ 1027 03a2 02000000 		.4byte	.LFE456-.LFB456
+ 1028 03a6 01       		.uleb128 0x1
+ 1029 03a7 9C       		.byte	0x9c
+ 1030 03a8 16       		.uleb128 0x16
+ 1031 03a9 0D050000 		.4byte	.LASF76
+ 1032 03ad 01       		.byte	0x1
+ 1033 03ae E4       		.byte	0xe4
+ 1034 03af 00000000 		.4byte	.LFB458
+ 1035 03b3 24000000 		.4byte	.LFE458-.LFB458
+ 1036 03b7 01       		.uleb128 0x1
+ 1037 03b8 9C       		.byte	0x9c
+ 1038 03b9 C7030000 		.4byte	0x3c7
+ 1039 03bd 17       		.uleb128 0x17
+ 1040 03be 16000000 		.4byte	.LVL0
+ 1041 03c2 68060000 		.4byte	0x668
+ 1042 03c6 00       		.byte	0
+ 1043 03c7 16       		.uleb128 0x16
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 28
+
+
+ 1044 03c8 CF050000 		.4byte	.LASF77
+ 1045 03cc 01       		.byte	0x1
+ 1046 03cd FE       		.byte	0xfe
+ 1047 03ce 00000000 		.4byte	.LFB459
+ 1048 03d2 38000000 		.4byte	.LFE459-.LFB459
+ 1049 03d6 01       		.uleb128 0x1
+ 1050 03d7 9C       		.byte	0x9c
+ 1051 03d8 E6030000 		.4byte	0x3e6
+ 1052 03dc 17       		.uleb128 0x17
+ 1053 03dd 28000000 		.4byte	.LVL1
+ 1054 03e1 68060000 		.4byte	0x668
+ 1055 03e5 00       		.byte	0
+ 1056 03e6 18       		.uleb128 0x18
+ 1057 03e7 6C060000 		.4byte	.LASF78
+ 1058 03eb 01       		.byte	0x1
+ 1059 03ec 2201     		.2byte	0x122
+ 1060 03ee 00000000 		.4byte	.LFB460
+ 1061 03f2 38000000 		.4byte	.LFE460-.LFB460
+ 1062 03f6 01       		.uleb128 0x1
+ 1063 03f7 9C       		.byte	0x9c
+ 1064 03f8 06040000 		.4byte	0x406
+ 1065 03fc 17       		.uleb128 0x17
+ 1066 03fd 28000000 		.4byte	.LVL2
+ 1067 0401 68060000 		.4byte	0x668
+ 1068 0405 00       		.byte	0
+ 1069 0406 16       		.uleb128 0x16
+ 1070 0407 ED040000 		.4byte	.LASF79
+ 1071 040b 01       		.byte	0x1
+ 1072 040c B9       		.byte	0xb9
+ 1073 040d 00000000 		.4byte	.LFB457
+ 1074 0411 3C000000 		.4byte	.LFE457-.LFB457
+ 1075 0415 01       		.uleb128 0x1
+ 1076 0416 9C       		.byte	0x9c
+ 1077 0417 34040000 		.4byte	0x434
+ 1078 041b 19       		.uleb128 0x19
+ 1079 041c 16030000 		.4byte	.LASF81
+ 1080 0420 01       		.byte	0x1
+ 1081 0421 BD       		.byte	0xbd
+ 1082 0422 8C000000 		.4byte	0x8c
+ 1083 0426 00000000 		.4byte	.LLST0
+ 1084 042a 17       		.uleb128 0x17
+ 1085 042b 28000000 		.4byte	.LVL5
+ 1086 042f 73060000 		.4byte	0x673
+ 1087 0433 00       		.byte	0
+ 1088 0434 18       		.uleb128 0x18
+ 1089 0435 46050000 		.4byte	.LASF80
+ 1090 0439 01       		.byte	0x1
+ 1091 043a 4601     		.2byte	0x146
+ 1092 043c 00000000 		.4byte	.LFB461
+ 1093 0440 54000000 		.4byte	.LFE461-.LFB461
+ 1094 0444 01       		.uleb128 0x1
+ 1095 0445 9C       		.byte	0x9c
+ 1096 0446 64040000 		.4byte	0x464
+ 1097 044a 1A       		.uleb128 0x1a
+ 1098 044b 16030000 		.4byte	.LASF81
+ 1099 044f 01       		.byte	0x1
+ 1100 0450 4B01     		.2byte	0x14b
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 29
+
+
+ 1101 0452 8C000000 		.4byte	0x8c
+ 1102 0456 2C000000 		.4byte	.LLST1
+ 1103 045a 17       		.uleb128 0x17
+ 1104 045b 3E000000 		.4byte	.LVL9
+ 1105 045f 73060000 		.4byte	0x673
+ 1106 0463 00       		.byte	0
+ 1107 0464 18       		.uleb128 0x18
+ 1108 0465 5F030000 		.4byte	.LASF82
+ 1109 0469 01       		.byte	0x1
+ 1110 046a 7801     		.2byte	0x178
+ 1111 046c 00000000 		.4byte	.LFB462
+ 1112 0470 54000000 		.4byte	.LFE462-.LFB462
+ 1113 0474 01       		.uleb128 0x1
+ 1114 0475 9C       		.byte	0x9c
+ 1115 0476 94040000 		.4byte	0x494
+ 1116 047a 1A       		.uleb128 0x1a
+ 1117 047b 16030000 		.4byte	.LASF81
+ 1118 047f 01       		.byte	0x1
+ 1119 0480 7C01     		.2byte	0x17c
+ 1120 0482 8C000000 		.4byte	0x8c
+ 1121 0486 5B000000 		.4byte	.LLST2
+ 1122 048a 17       		.uleb128 0x17
+ 1123 048b 3E000000 		.4byte	.LVL13
+ 1124 048f 73060000 		.4byte	0x673
+ 1125 0493 00       		.byte	0
+ 1126 0494 16       		.uleb128 0x16
+ 1127 0495 3E060000 		.4byte	.LASF83
+ 1128 0499 01       		.byte	0x1
+ 1129 049a 6E       		.byte	0x6e
+ 1130 049b 00000000 		.4byte	.LFB454
+ 1131 049f 08000000 		.4byte	.LFE454-.LFB454
+ 1132 04a3 01       		.uleb128 0x1
+ 1133 04a4 9C       		.byte	0x9c
+ 1134 04a5 B3040000 		.4byte	0x4b3
+ 1135 04a9 17       		.uleb128 0x17
+ 1136 04aa 06000000 		.4byte	.LVL14
+ 1137 04ae 7E060000 		.4byte	0x67e
+ 1138 04b2 00       		.byte	0
+ 1139 04b3 16       		.uleb128 0x16
+ 1140 04b4 E5010000 		.4byte	.LASF84
+ 1141 04b8 01       		.byte	0x1
+ 1142 04b9 86       		.byte	0x86
+ 1143 04ba 00000000 		.4byte	.LFB455
+ 1144 04be 24000000 		.4byte	.LFE455-.LFB455
+ 1145 04c2 01       		.uleb128 0x1
+ 1146 04c3 9C       		.byte	0x9c
+ 1147 04c4 F0040000 		.4byte	0x4f0
+ 1148 04c8 17       		.uleb128 0x17
+ 1149 04c9 08000000 		.4byte	.LVL15
+ 1150 04cd 68060000 		.4byte	0x668
+ 1151 04d1 1B       		.uleb128 0x1b
+ 1152 04d2 0E000000 		.4byte	.LVL16
+ 1153 04d6 89060000 		.4byte	0x689
+ 1154 04da E6040000 		.4byte	0x4e6
+ 1155 04de 1C       		.uleb128 0x1c
+ 1156 04df 01       		.uleb128 0x1
+ 1157 04e0 50       		.byte	0x50
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 30
+
+
+ 1158 04e1 03       		.uleb128 0x3
+ 1159 04e2 0A       		.byte	0xa
+ 1160 04e3 B80B     		.2byte	0xbb8
+ 1161 04e5 00       		.byte	0
+ 1162 04e6 17       		.uleb128 0x17
+ 1163 04e7 14000000 		.4byte	.LVL17
+ 1164 04eb 68060000 		.4byte	0x668
+ 1165 04ef 00       		.byte	0
+ 1166 04f0 1D       		.uleb128 0x1d
+ 1167 04f1 12040000 		.4byte	.LASF85
+ 1168 04f5 01       		.byte	0x1
+ 1169 04f6 A901     		.2byte	0x1a9
+ 1170 04f8 00000000 		.4byte	.LFB463
+ 1171 04fc 54000000 		.4byte	.LFE463-.LFB463
+ 1172 0500 01       		.uleb128 0x1
+ 1173 0501 9C       		.byte	0x9c
+ 1174 0502 52050000 		.4byte	0x552
+ 1175 0506 1E       		.uleb128 0x1e
+ 1176 0507 71000000 		.4byte	.LASF105
+ 1177 050b 01       		.byte	0x1
+ 1178 050c A901     		.2byte	0x1a9
+ 1179 050e 0A030000 		.4byte	0x30a
+ 1180 0512 02       		.uleb128 0x2
+ 1181 0513 91       		.byte	0x91
+ 1182 0514 74       		.sleb128 -12
+ 1183 0515 1F       		.uleb128 0x1f
+ 1184 0516 21000000 		.4byte	.LASF86
+ 1185 051a 01       		.byte	0x1
+ 1186 051b BE01     		.2byte	0x1be
+ 1187 051d 68050000 		.4byte	0x568
+ 1188 0521 05       		.uleb128 0x5
+ 1189 0522 03       		.byte	0x3
+ 1190 0523 00000000 		.4byte	ScreenUpdatePointer.15469
+ 1191 0527 1F       		.uleb128 0x1f
+ 1192 0528 F7010000 		.4byte	.LASF87
+ 1193 052c 01       		.byte	0x1
+ 1194 052d C601     		.2byte	0x1c6
+ 1195 052f 04010000 		.4byte	0x104
+ 1196 0533 05       		.uleb128 0x5
+ 1197 0534 03       		.byte	0x3
+ 1198 0535 00000000 		.4byte	firstTime.15470
+ 1199 0539 17       		.uleb128 0x17
+ 1200 053a 14000000 		.4byte	.LVL18
+ 1201 053e B3040000 		.4byte	0x4b3
+ 1202 0542 20       		.uleb128 0x20
+ 1203 0543 2A000000 		.4byte	.LVL19
+ 1204 0547 95060000 		.4byte	0x695
+ 1205 054b 1C       		.uleb128 0x1c
+ 1206 054c 01       		.uleb128 0x1
+ 1207 054d 50       		.byte	0x50
+ 1208 054e 01       		.uleb128 0x1
+ 1209 054f 30       		.byte	0x30
+ 1210 0550 00       		.byte	0
+ 1211 0551 00       		.byte	0
+ 1212 0552 21       		.uleb128 0x21
+ 1213 0553 C0000000 		.4byte	0xc0
+ 1214 0557 68050000 		.4byte	0x568
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 31
+
+
+ 1215 055b 22       		.uleb128 0x22
+ 1216 055c AD000000 		.4byte	0xad
+ 1217 0560 01       		.byte	0x1
+ 1218 0561 22       		.uleb128 0x22
+ 1219 0562 AD000000 		.4byte	0xad
+ 1220 0566 04       		.byte	0x4
+ 1221 0567 00       		.byte	0
+ 1222 0568 14       		.uleb128 0x14
+ 1223 0569 52050000 		.4byte	0x552
+ 1224 056d 23       		.uleb128 0x23
+ 1225 056e 0C000000 		.4byte	.LASF88
+ 1226 0572 0C       		.byte	0xc
+ 1227 0573 1F       		.byte	0x1f
+ 1228 0574 78050000 		.4byte	0x578
+ 1229 0578 14       		.uleb128 0x14
+ 1230 0579 FC010000 		.4byte	0x1fc
+ 1231 057d 23       		.uleb128 0x23
+ 1232 057e 73030000 		.4byte	.LASF89
+ 1233 0582 0D       		.byte	0xd
+ 1234 0583 5E       		.byte	0x5e
+ 1235 0584 A7020000 		.4byte	0x2a7
+ 1236 0588 21       		.uleb128 0x21
+ 1237 0589 98050000 		.4byte	0x598
+ 1238 058d 98050000 		.4byte	0x598
+ 1239 0591 22       		.uleb128 0x22
+ 1240 0592 AD000000 		.4byte	0xad
+ 1241 0596 03       		.byte	0x3
+ 1242 0597 00       		.byte	0
+ 1243 0598 14       		.uleb128 0x14
+ 1244 0599 8C000000 		.4byte	0x8c
+ 1245 059d 23       		.uleb128 0x23
+ 1246 059e F2050000 		.4byte	.LASF90
+ 1247 05a2 0E       		.byte	0xe
+ 1248 05a3 56       		.byte	0x56
+ 1249 05a4 A8050000 		.4byte	0x5a8
+ 1250 05a8 14       		.uleb128 0x14
+ 1251 05a9 88050000 		.4byte	0x588
+ 1252 05ad 21       		.uleb128 0x21
+ 1253 05ae 15030000 		.4byte	0x315
+ 1254 05b2 C4050000 		.4byte	0x5c4
+ 1255 05b6 22       		.uleb128 0x22
+ 1256 05b7 AD000000 		.4byte	0xad
+ 1257 05bb 19       		.byte	0x19
+ 1258 05bc 24       		.uleb128 0x24
+ 1259 05bd AD000000 		.4byte	0xad
+ 1260 05c1 8C01     		.2byte	0x18c
+ 1261 05c3 00       		.byte	0
+ 1262 05c4 23       		.uleb128 0x23
+ 1263 05c5 98000000 		.4byte	.LASF74
+ 1264 05c9 0E       		.byte	0xe
+ 1265 05ca 5A       		.byte	0x5a
+ 1266 05cb CF050000 		.4byte	0x5cf
+ 1267 05cf 14       		.uleb128 0x14
+ 1268 05d0 AD050000 		.4byte	0x5ad
+ 1269 05d4 21       		.uleb128 0x21
+ 1270 05d5 98050000 		.4byte	0x598
+ 1271 05d9 EA050000 		.4byte	0x5ea
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 32
+
+
+ 1272 05dd 22       		.uleb128 0x22
+ 1273 05de AD000000 		.4byte	0xad
+ 1274 05e2 03       		.byte	0x3
+ 1275 05e3 22       		.uleb128 0x22
+ 1276 05e4 AD000000 		.4byte	0xad
+ 1277 05e8 07       		.byte	0x7
+ 1278 05e9 00       		.byte	0
+ 1279 05ea 23       		.uleb128 0x23
+ 1280 05eb A8050000 		.4byte	.LASF91
+ 1281 05ef 0E       		.byte	0xe
+ 1282 05f0 5C       		.byte	0x5c
+ 1283 05f1 F5050000 		.4byte	0x5f5
+ 1284 05f5 14       		.uleb128 0x14
+ 1285 05f6 D4050000 		.4byte	0x5d4
+ 1286 05fa 21       		.uleb128 0x21
+ 1287 05fb 0B060000 		.4byte	0x60b
+ 1288 05ff 0B060000 		.4byte	0x60b
+ 1289 0603 24       		.uleb128 0x24
+ 1290 0604 AD000000 		.4byte	0xad
+ 1291 0608 AF16     		.2byte	0x16af
+ 1292 060a 00       		.byte	0
+ 1293 060b 14       		.uleb128 0x14
+ 1294 060c 25030000 		.4byte	0x325
+ 1295 0610 23       		.uleb128 0x23
+ 1296 0611 68050000 		.4byte	.LASF92
+ 1297 0615 0E       		.byte	0xe
+ 1298 0616 60       		.byte	0x60
+ 1299 0617 1B060000 		.4byte	0x61b
+ 1300 061b 14       		.uleb128 0x14
+ 1301 061c FA050000 		.4byte	0x5fa
+ 1302 0620 23       		.uleb128 0x23
+ 1303 0621 D1040000 		.4byte	.LASF93
+ 1304 0625 0E       		.byte	0xe
+ 1305 0626 61       		.byte	0x61
+ 1306 0627 2B060000 		.4byte	0x62b
+ 1307 062b 14       		.uleb128 0x14
+ 1308 062c FA050000 		.4byte	0x5fa
+ 1309 0630 21       		.uleb128 0x21
+ 1310 0631 0B060000 		.4byte	0x60b
+ 1311 0635 47060000 		.4byte	0x647
+ 1312 0639 22       		.uleb128 0x22
+ 1313 063a AD000000 		.4byte	0xad
+ 1314 063e 03       		.byte	0x3
+ 1315 063f 24       		.uleb128 0x24
+ 1316 0640 AD000000 		.4byte	0xad
+ 1317 0644 AF16     		.2byte	0x16af
+ 1318 0646 00       		.byte	0
+ 1319 0647 23       		.uleb128 0x23
+ 1320 0648 08030000 		.4byte	.LASF94
+ 1321 064c 0E       		.byte	0xe
+ 1322 064d 62       		.byte	0x62
+ 1323 064e 52060000 		.4byte	0x652
+ 1324 0652 14       		.uleb128 0x14
+ 1325 0653 30060000 		.4byte	0x630
+ 1326 0657 25       		.uleb128 0x25
+ 1327 0658 04040000 		.4byte	.LASF95
+ 1328 065c 01       		.byte	0x1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 33
+
+
+ 1329 065d 56       		.byte	0x56
+ 1330 065e 8C030000 		.4byte	0x38c
+ 1331 0662 05       		.uleb128 0x5
+ 1332 0663 03       		.byte	0x3
+ 1333 0664 00000000 		.4byte	currentScreen
+ 1334 0668 26       		.uleb128 0x26
+ 1335 0669 5F060000 		.4byte	.LASF96
+ 1336 066d 5F060000 		.4byte	.LASF96
+ 1337 0671 0B       		.byte	0xb
+ 1338 0672 41       		.byte	0x41
+ 1339 0673 26       		.uleb128 0x26
+ 1340 0674 F4020000 		.4byte	.LASF97
+ 1341 0678 F4020000 		.4byte	.LASF97
+ 1342 067c 0B       		.byte	0xb
+ 1343 067d 44       		.byte	0x44
+ 1344 067e 26       		.uleb128 0x26
+ 1345 067f E8020000 		.4byte	.LASF98
+ 1346 0683 E8020000 		.4byte	.LASF98
+ 1347 0687 0B       		.byte	0xb
+ 1348 0688 3E       		.byte	0x3e
+ 1349 0689 27       		.uleb128 0x27
+ 1350 068a AE010000 		.4byte	.LASF99
+ 1351 068e AE010000 		.4byte	.LASF99
+ 1352 0692 04       		.byte	0x4
+ 1353 0693 2103     		.2byte	0x321
+ 1354 0695 27       		.uleb128 0x27
+ 1355 0696 E3050000 		.4byte	.LASF100
+ 1356 069a E3050000 		.4byte	.LASF100
+ 1357 069e 07       		.byte	0x7
+ 1358 069f EF04     		.2byte	0x4ef
+ 1359 06a1 00       		.byte	0
+ 1360              		.section	.debug_abbrev,"",%progbits
+ 1361              	.Ldebug_abbrev0:
+ 1362 0000 01       		.uleb128 0x1
+ 1363 0001 11       		.uleb128 0x11
+ 1364 0002 01       		.byte	0x1
+ 1365 0003 25       		.uleb128 0x25
+ 1366 0004 0E       		.uleb128 0xe
+ 1367 0005 13       		.uleb128 0x13
+ 1368 0006 0B       		.uleb128 0xb
+ 1369 0007 03       		.uleb128 0x3
+ 1370 0008 0E       		.uleb128 0xe
+ 1371 0009 1B       		.uleb128 0x1b
+ 1372 000a 0E       		.uleb128 0xe
+ 1373 000b 55       		.uleb128 0x55
+ 1374 000c 17       		.uleb128 0x17
+ 1375 000d 11       		.uleb128 0x11
+ 1376 000e 01       		.uleb128 0x1
+ 1377 000f 10       		.uleb128 0x10
+ 1378 0010 17       		.uleb128 0x17
+ 1379 0011 00       		.byte	0
+ 1380 0012 00       		.byte	0
+ 1381 0013 02       		.uleb128 0x2
+ 1382 0014 24       		.uleb128 0x24
+ 1383 0015 00       		.byte	0
+ 1384 0016 0B       		.uleb128 0xb
+ 1385 0017 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 34
+
+
+ 1386 0018 3E       		.uleb128 0x3e
+ 1387 0019 0B       		.uleb128 0xb
+ 1388 001a 03       		.uleb128 0x3
+ 1389 001b 0E       		.uleb128 0xe
+ 1390 001c 00       		.byte	0
+ 1391 001d 00       		.byte	0
+ 1392 001e 03       		.uleb128 0x3
+ 1393 001f 16       		.uleb128 0x16
+ 1394 0020 00       		.byte	0
+ 1395 0021 03       		.uleb128 0x3
+ 1396 0022 0E       		.uleb128 0xe
+ 1397 0023 3A       		.uleb128 0x3a
+ 1398 0024 0B       		.uleb128 0xb
+ 1399 0025 3B       		.uleb128 0x3b
+ 1400 0026 0B       		.uleb128 0xb
+ 1401 0027 49       		.uleb128 0x49
+ 1402 0028 13       		.uleb128 0x13
+ 1403 0029 00       		.byte	0
+ 1404 002a 00       		.byte	0
+ 1405 002b 04       		.uleb128 0x4
+ 1406 002c 24       		.uleb128 0x24
+ 1407 002d 00       		.byte	0
+ 1408 002e 0B       		.uleb128 0xb
+ 1409 002f 0B       		.uleb128 0xb
+ 1410 0030 3E       		.uleb128 0x3e
+ 1411 0031 0B       		.uleb128 0xb
+ 1412 0032 03       		.uleb128 0x3
+ 1413 0033 08       		.uleb128 0x8
+ 1414 0034 00       		.byte	0
+ 1415 0035 00       		.byte	0
+ 1416 0036 05       		.uleb128 0x5
+ 1417 0037 35       		.uleb128 0x35
+ 1418 0038 00       		.byte	0
+ 1419 0039 49       		.uleb128 0x49
+ 1420 003a 13       		.uleb128 0x13
+ 1421 003b 00       		.byte	0
+ 1422 003c 00       		.byte	0
+ 1423 003d 06       		.uleb128 0x6
+ 1424 003e 0F       		.uleb128 0xf
+ 1425 003f 00       		.byte	0
+ 1426 0040 0B       		.uleb128 0xb
+ 1427 0041 0B       		.uleb128 0xb
+ 1428 0042 49       		.uleb128 0x49
+ 1429 0043 13       		.uleb128 0x13
+ 1430 0044 00       		.byte	0
+ 1431 0045 00       		.byte	0
+ 1432 0046 07       		.uleb128 0x7
+ 1433 0047 15       		.uleb128 0x15
+ 1434 0048 00       		.byte	0
+ 1435 0049 27       		.uleb128 0x27
+ 1436 004a 19       		.uleb128 0x19
+ 1437 004b 00       		.byte	0
+ 1438 004c 00       		.byte	0
+ 1439 004d 08       		.uleb128 0x8
+ 1440 004e 16       		.uleb128 0x16
+ 1441 004f 00       		.byte	0
+ 1442 0050 03       		.uleb128 0x3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 35
+
+
+ 1443 0051 0E       		.uleb128 0xe
+ 1444 0052 3A       		.uleb128 0x3a
+ 1445 0053 0B       		.uleb128 0xb
+ 1446 0054 3B       		.uleb128 0x3b
+ 1447 0055 05       		.uleb128 0x5
+ 1448 0056 49       		.uleb128 0x49
+ 1449 0057 13       		.uleb128 0x13
+ 1450 0058 00       		.byte	0
+ 1451 0059 00       		.byte	0
+ 1452 005a 09       		.uleb128 0x9
+ 1453 005b 04       		.uleb128 0x4
+ 1454 005c 01       		.byte	0x1
+ 1455 005d 0B       		.uleb128 0xb
+ 1456 005e 0B       		.uleb128 0xb
+ 1457 005f 49       		.uleb128 0x49
+ 1458 0060 13       		.uleb128 0x13
+ 1459 0061 3A       		.uleb128 0x3a
+ 1460 0062 0B       		.uleb128 0xb
+ 1461 0063 3B       		.uleb128 0x3b
+ 1462 0064 05       		.uleb128 0x5
+ 1463 0065 01       		.uleb128 0x1
+ 1464 0066 13       		.uleb128 0x13
+ 1465 0067 00       		.byte	0
+ 1466 0068 00       		.byte	0
+ 1467 0069 0A       		.uleb128 0xa
+ 1468 006a 28       		.uleb128 0x28
+ 1469 006b 00       		.byte	0
+ 1470 006c 03       		.uleb128 0x3
+ 1471 006d 0E       		.uleb128 0xe
+ 1472 006e 1C       		.uleb128 0x1c
+ 1473 006f 0B       		.uleb128 0xb
+ 1474 0070 00       		.byte	0
+ 1475 0071 00       		.byte	0
+ 1476 0072 0B       		.uleb128 0xb
+ 1477 0073 0F       		.uleb128 0xf
+ 1478 0074 00       		.byte	0
+ 1479 0075 0B       		.uleb128 0xb
+ 1480 0076 0B       		.uleb128 0xb
+ 1481 0077 00       		.byte	0
+ 1482 0078 00       		.byte	0
+ 1483 0079 0C       		.uleb128 0xc
+ 1484 007a 13       		.uleb128 0x13
+ 1485 007b 01       		.byte	0x1
+ 1486 007c 03       		.uleb128 0x3
+ 1487 007d 0E       		.uleb128 0xe
+ 1488 007e 0B       		.uleb128 0xb
+ 1489 007f 0B       		.uleb128 0xb
+ 1490 0080 3A       		.uleb128 0x3a
+ 1491 0081 0B       		.uleb128 0xb
+ 1492 0082 3B       		.uleb128 0x3b
+ 1493 0083 0B       		.uleb128 0xb
+ 1494 0084 01       		.uleb128 0x1
+ 1495 0085 13       		.uleb128 0x13
+ 1496 0086 00       		.byte	0
+ 1497 0087 00       		.byte	0
+ 1498 0088 0D       		.uleb128 0xd
+ 1499 0089 0D       		.uleb128 0xd
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 36
+
+
+ 1500 008a 00       		.byte	0
+ 1501 008b 03       		.uleb128 0x3
+ 1502 008c 0E       		.uleb128 0xe
+ 1503 008d 3A       		.uleb128 0x3a
+ 1504 008e 0B       		.uleb128 0xb
+ 1505 008f 3B       		.uleb128 0x3b
+ 1506 0090 0B       		.uleb128 0xb
+ 1507 0091 49       		.uleb128 0x49
+ 1508 0092 13       		.uleb128 0x13
+ 1509 0093 38       		.uleb128 0x38
+ 1510 0094 0B       		.uleb128 0xb
+ 1511 0095 00       		.byte	0
+ 1512 0096 00       		.byte	0
+ 1513 0097 0E       		.uleb128 0xe
+ 1514 0098 15       		.uleb128 0x15
+ 1515 0099 01       		.byte	0x1
+ 1516 009a 27       		.uleb128 0x27
+ 1517 009b 19       		.uleb128 0x19
+ 1518 009c 01       		.uleb128 0x1
+ 1519 009d 13       		.uleb128 0x13
+ 1520 009e 00       		.byte	0
+ 1521 009f 00       		.byte	0
+ 1522 00a0 0F       		.uleb128 0xf
+ 1523 00a1 05       		.uleb128 0x5
+ 1524 00a2 00       		.byte	0
+ 1525 00a3 49       		.uleb128 0x49
+ 1526 00a4 13       		.uleb128 0x13
+ 1527 00a5 00       		.byte	0
+ 1528 00a6 00       		.byte	0
+ 1529 00a7 10       		.uleb128 0x10
+ 1530 00a8 13       		.uleb128 0x13
+ 1531 00a9 01       		.byte	0x1
+ 1532 00aa 03       		.uleb128 0x3
+ 1533 00ab 0E       		.uleb128 0xe
+ 1534 00ac 0B       		.uleb128 0xb
+ 1535 00ad 0B       		.uleb128 0xb
+ 1536 00ae 3A       		.uleb128 0x3a
+ 1537 00af 0B       		.uleb128 0xb
+ 1538 00b0 3B       		.uleb128 0x3b
+ 1539 00b1 05       		.uleb128 0x5
+ 1540 00b2 01       		.uleb128 0x1
+ 1541 00b3 13       		.uleb128 0x13
+ 1542 00b4 00       		.byte	0
+ 1543 00b5 00       		.byte	0
+ 1544 00b6 11       		.uleb128 0x11
+ 1545 00b7 0D       		.uleb128 0xd
+ 1546 00b8 00       		.byte	0
+ 1547 00b9 03       		.uleb128 0x3
+ 1548 00ba 0E       		.uleb128 0xe
+ 1549 00bb 3A       		.uleb128 0x3a
+ 1550 00bc 0B       		.uleb128 0xb
+ 1551 00bd 3B       		.uleb128 0x3b
+ 1552 00be 05       		.uleb128 0x5
+ 1553 00bf 49       		.uleb128 0x49
+ 1554 00c0 13       		.uleb128 0x13
+ 1555 00c1 38       		.uleb128 0x38
+ 1556 00c2 0B       		.uleb128 0xb
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 37
+
+
+ 1557 00c3 00       		.byte	0
+ 1558 00c4 00       		.byte	0
+ 1559 00c5 12       		.uleb128 0x12
+ 1560 00c6 04       		.uleb128 0x4
+ 1561 00c7 01       		.byte	0x1
+ 1562 00c8 0B       		.uleb128 0xb
+ 1563 00c9 0B       		.uleb128 0xb
+ 1564 00ca 49       		.uleb128 0x49
+ 1565 00cb 13       		.uleb128 0x13
+ 1566 00cc 3A       		.uleb128 0x3a
+ 1567 00cd 0B       		.uleb128 0xb
+ 1568 00ce 3B       		.uleb128 0x3b
+ 1569 00cf 0B       		.uleb128 0xb
+ 1570 00d0 01       		.uleb128 0x1
+ 1571 00d1 13       		.uleb128 0x13
+ 1572 00d2 00       		.byte	0
+ 1573 00d3 00       		.byte	0
+ 1574 00d4 13       		.uleb128 0x13
+ 1575 00d5 13       		.uleb128 0x13
+ 1576 00d6 01       		.byte	0x1
+ 1577 00d7 0B       		.uleb128 0xb
+ 1578 00d8 0B       		.uleb128 0xb
+ 1579 00d9 3A       		.uleb128 0x3a
+ 1580 00da 0B       		.uleb128 0xb
+ 1581 00db 3B       		.uleb128 0x3b
+ 1582 00dc 0B       		.uleb128 0xb
+ 1583 00dd 01       		.uleb128 0x1
+ 1584 00de 13       		.uleb128 0x13
+ 1585 00df 00       		.byte	0
+ 1586 00e0 00       		.byte	0
+ 1587 00e1 14       		.uleb128 0x14
+ 1588 00e2 26       		.uleb128 0x26
+ 1589 00e3 00       		.byte	0
+ 1590 00e4 49       		.uleb128 0x49
+ 1591 00e5 13       		.uleb128 0x13
+ 1592 00e6 00       		.byte	0
+ 1593 00e7 00       		.byte	0
+ 1594 00e8 15       		.uleb128 0x15
+ 1595 00e9 2E       		.uleb128 0x2e
+ 1596 00ea 00       		.byte	0
+ 1597 00eb 3F       		.uleb128 0x3f
+ 1598 00ec 19       		.uleb128 0x19
+ 1599 00ed 03       		.uleb128 0x3
+ 1600 00ee 0E       		.uleb128 0xe
+ 1601 00ef 3A       		.uleb128 0x3a
+ 1602 00f0 0B       		.uleb128 0xb
+ 1603 00f1 3B       		.uleb128 0x3b
+ 1604 00f2 0B       		.uleb128 0xb
+ 1605 00f3 27       		.uleb128 0x27
+ 1606 00f4 19       		.uleb128 0x19
+ 1607 00f5 11       		.uleb128 0x11
+ 1608 00f6 01       		.uleb128 0x1
+ 1609 00f7 12       		.uleb128 0x12
+ 1610 00f8 06       		.uleb128 0x6
+ 1611 00f9 40       		.uleb128 0x40
+ 1612 00fa 18       		.uleb128 0x18
+ 1613 00fb 9742     		.uleb128 0x2117
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 38
+
+
+ 1614 00fd 19       		.uleb128 0x19
+ 1615 00fe 00       		.byte	0
+ 1616 00ff 00       		.byte	0
+ 1617 0100 16       		.uleb128 0x16
+ 1618 0101 2E       		.uleb128 0x2e
+ 1619 0102 01       		.byte	0x1
+ 1620 0103 3F       		.uleb128 0x3f
+ 1621 0104 19       		.uleb128 0x19
+ 1622 0105 03       		.uleb128 0x3
+ 1623 0106 0E       		.uleb128 0xe
+ 1624 0107 3A       		.uleb128 0x3a
+ 1625 0108 0B       		.uleb128 0xb
+ 1626 0109 3B       		.uleb128 0x3b
+ 1627 010a 0B       		.uleb128 0xb
+ 1628 010b 27       		.uleb128 0x27
+ 1629 010c 19       		.uleb128 0x19
+ 1630 010d 11       		.uleb128 0x11
+ 1631 010e 01       		.uleb128 0x1
+ 1632 010f 12       		.uleb128 0x12
+ 1633 0110 06       		.uleb128 0x6
+ 1634 0111 40       		.uleb128 0x40
+ 1635 0112 18       		.uleb128 0x18
+ 1636 0113 9742     		.uleb128 0x2117
+ 1637 0115 19       		.uleb128 0x19
+ 1638 0116 01       		.uleb128 0x1
+ 1639 0117 13       		.uleb128 0x13
+ 1640 0118 00       		.byte	0
+ 1641 0119 00       		.byte	0
+ 1642 011a 17       		.uleb128 0x17
+ 1643 011b 898201   		.uleb128 0x4109
+ 1644 011e 00       		.byte	0
+ 1645 011f 11       		.uleb128 0x11
+ 1646 0120 01       		.uleb128 0x1
+ 1647 0121 31       		.uleb128 0x31
+ 1648 0122 13       		.uleb128 0x13
+ 1649 0123 00       		.byte	0
+ 1650 0124 00       		.byte	0
+ 1651 0125 18       		.uleb128 0x18
+ 1652 0126 2E       		.uleb128 0x2e
+ 1653 0127 01       		.byte	0x1
+ 1654 0128 3F       		.uleb128 0x3f
+ 1655 0129 19       		.uleb128 0x19
+ 1656 012a 03       		.uleb128 0x3
+ 1657 012b 0E       		.uleb128 0xe
+ 1658 012c 3A       		.uleb128 0x3a
+ 1659 012d 0B       		.uleb128 0xb
+ 1660 012e 3B       		.uleb128 0x3b
+ 1661 012f 05       		.uleb128 0x5
+ 1662 0130 27       		.uleb128 0x27
+ 1663 0131 19       		.uleb128 0x19
+ 1664 0132 11       		.uleb128 0x11
+ 1665 0133 01       		.uleb128 0x1
+ 1666 0134 12       		.uleb128 0x12
+ 1667 0135 06       		.uleb128 0x6
+ 1668 0136 40       		.uleb128 0x40
+ 1669 0137 18       		.uleb128 0x18
+ 1670 0138 9742     		.uleb128 0x2117
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 39
+
+
+ 1671 013a 19       		.uleb128 0x19
+ 1672 013b 01       		.uleb128 0x1
+ 1673 013c 13       		.uleb128 0x13
+ 1674 013d 00       		.byte	0
+ 1675 013e 00       		.byte	0
+ 1676 013f 19       		.uleb128 0x19
+ 1677 0140 34       		.uleb128 0x34
+ 1678 0141 00       		.byte	0
+ 1679 0142 03       		.uleb128 0x3
+ 1680 0143 0E       		.uleb128 0xe
+ 1681 0144 3A       		.uleb128 0x3a
+ 1682 0145 0B       		.uleb128 0xb
+ 1683 0146 3B       		.uleb128 0x3b
+ 1684 0147 0B       		.uleb128 0xb
+ 1685 0148 49       		.uleb128 0x49
+ 1686 0149 13       		.uleb128 0x13
+ 1687 014a 02       		.uleb128 0x2
+ 1688 014b 17       		.uleb128 0x17
+ 1689 014c 00       		.byte	0
+ 1690 014d 00       		.byte	0
+ 1691 014e 1A       		.uleb128 0x1a
+ 1692 014f 34       		.uleb128 0x34
+ 1693 0150 00       		.byte	0
+ 1694 0151 03       		.uleb128 0x3
+ 1695 0152 0E       		.uleb128 0xe
+ 1696 0153 3A       		.uleb128 0x3a
+ 1697 0154 0B       		.uleb128 0xb
+ 1698 0155 3B       		.uleb128 0x3b
+ 1699 0156 05       		.uleb128 0x5
+ 1700 0157 49       		.uleb128 0x49
+ 1701 0158 13       		.uleb128 0x13
+ 1702 0159 02       		.uleb128 0x2
+ 1703 015a 17       		.uleb128 0x17
+ 1704 015b 00       		.byte	0
+ 1705 015c 00       		.byte	0
+ 1706 015d 1B       		.uleb128 0x1b
+ 1707 015e 898201   		.uleb128 0x4109
+ 1708 0161 01       		.byte	0x1
+ 1709 0162 11       		.uleb128 0x11
+ 1710 0163 01       		.uleb128 0x1
+ 1711 0164 31       		.uleb128 0x31
+ 1712 0165 13       		.uleb128 0x13
+ 1713 0166 01       		.uleb128 0x1
+ 1714 0167 13       		.uleb128 0x13
+ 1715 0168 00       		.byte	0
+ 1716 0169 00       		.byte	0
+ 1717 016a 1C       		.uleb128 0x1c
+ 1718 016b 8A8201   		.uleb128 0x410a
+ 1719 016e 00       		.byte	0
+ 1720 016f 02       		.uleb128 0x2
+ 1721 0170 18       		.uleb128 0x18
+ 1722 0171 9142     		.uleb128 0x2111
+ 1723 0173 18       		.uleb128 0x18
+ 1724 0174 00       		.byte	0
+ 1725 0175 00       		.byte	0
+ 1726 0176 1D       		.uleb128 0x1d
+ 1727 0177 2E       		.uleb128 0x2e
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 40
+
+
+ 1728 0178 01       		.byte	0x1
+ 1729 0179 3F       		.uleb128 0x3f
+ 1730 017a 19       		.uleb128 0x19
+ 1731 017b 03       		.uleb128 0x3
+ 1732 017c 0E       		.uleb128 0xe
+ 1733 017d 3A       		.uleb128 0x3a
+ 1734 017e 0B       		.uleb128 0xb
+ 1735 017f 3B       		.uleb128 0x3b
+ 1736 0180 05       		.uleb128 0x5
+ 1737 0181 27       		.uleb128 0x27
+ 1738 0182 19       		.uleb128 0x19
+ 1739 0183 11       		.uleb128 0x11
+ 1740 0184 01       		.uleb128 0x1
+ 1741 0185 12       		.uleb128 0x12
+ 1742 0186 06       		.uleb128 0x6
+ 1743 0187 40       		.uleb128 0x40
+ 1744 0188 18       		.uleb128 0x18
+ 1745 0189 9642     		.uleb128 0x2116
+ 1746 018b 19       		.uleb128 0x19
+ 1747 018c 01       		.uleb128 0x1
+ 1748 018d 13       		.uleb128 0x13
+ 1749 018e 00       		.byte	0
+ 1750 018f 00       		.byte	0
+ 1751 0190 1E       		.uleb128 0x1e
+ 1752 0191 05       		.uleb128 0x5
+ 1753 0192 00       		.byte	0
+ 1754 0193 03       		.uleb128 0x3
+ 1755 0194 0E       		.uleb128 0xe
+ 1756 0195 3A       		.uleb128 0x3a
+ 1757 0196 0B       		.uleb128 0xb
+ 1758 0197 3B       		.uleb128 0x3b
+ 1759 0198 05       		.uleb128 0x5
+ 1760 0199 49       		.uleb128 0x49
+ 1761 019a 13       		.uleb128 0x13
+ 1762 019b 02       		.uleb128 0x2
+ 1763 019c 18       		.uleb128 0x18
+ 1764 019d 00       		.byte	0
+ 1765 019e 00       		.byte	0
+ 1766 019f 1F       		.uleb128 0x1f
+ 1767 01a0 34       		.uleb128 0x34
+ 1768 01a1 00       		.byte	0
+ 1769 01a2 03       		.uleb128 0x3
+ 1770 01a3 0E       		.uleb128 0xe
+ 1771 01a4 3A       		.uleb128 0x3a
+ 1772 01a5 0B       		.uleb128 0xb
+ 1773 01a6 3B       		.uleb128 0x3b
+ 1774 01a7 05       		.uleb128 0x5
+ 1775 01a8 49       		.uleb128 0x49
+ 1776 01a9 13       		.uleb128 0x13
+ 1777 01aa 02       		.uleb128 0x2
+ 1778 01ab 18       		.uleb128 0x18
+ 1779 01ac 00       		.byte	0
+ 1780 01ad 00       		.byte	0
+ 1781 01ae 20       		.uleb128 0x20
+ 1782 01af 898201   		.uleb128 0x4109
+ 1783 01b2 01       		.byte	0x1
+ 1784 01b3 11       		.uleb128 0x11
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 41
+
+
+ 1785 01b4 01       		.uleb128 0x1
+ 1786 01b5 31       		.uleb128 0x31
+ 1787 01b6 13       		.uleb128 0x13
+ 1788 01b7 00       		.byte	0
+ 1789 01b8 00       		.byte	0
+ 1790 01b9 21       		.uleb128 0x21
+ 1791 01ba 01       		.uleb128 0x1
+ 1792 01bb 01       		.byte	0x1
+ 1793 01bc 49       		.uleb128 0x49
+ 1794 01bd 13       		.uleb128 0x13
+ 1795 01be 01       		.uleb128 0x1
+ 1796 01bf 13       		.uleb128 0x13
+ 1797 01c0 00       		.byte	0
+ 1798 01c1 00       		.byte	0
+ 1799 01c2 22       		.uleb128 0x22
+ 1800 01c3 21       		.uleb128 0x21
+ 1801 01c4 00       		.byte	0
+ 1802 01c5 49       		.uleb128 0x49
+ 1803 01c6 13       		.uleb128 0x13
+ 1804 01c7 2F       		.uleb128 0x2f
+ 1805 01c8 0B       		.uleb128 0xb
+ 1806 01c9 00       		.byte	0
+ 1807 01ca 00       		.byte	0
+ 1808 01cb 23       		.uleb128 0x23
+ 1809 01cc 34       		.uleb128 0x34
+ 1810 01cd 00       		.byte	0
+ 1811 01ce 03       		.uleb128 0x3
+ 1812 01cf 0E       		.uleb128 0xe
+ 1813 01d0 3A       		.uleb128 0x3a
+ 1814 01d1 0B       		.uleb128 0xb
+ 1815 01d2 3B       		.uleb128 0x3b
+ 1816 01d3 0B       		.uleb128 0xb
+ 1817 01d4 49       		.uleb128 0x49
+ 1818 01d5 13       		.uleb128 0x13
+ 1819 01d6 3F       		.uleb128 0x3f
+ 1820 01d7 19       		.uleb128 0x19
+ 1821 01d8 3C       		.uleb128 0x3c
+ 1822 01d9 19       		.uleb128 0x19
+ 1823 01da 00       		.byte	0
+ 1824 01db 00       		.byte	0
+ 1825 01dc 24       		.uleb128 0x24
+ 1826 01dd 21       		.uleb128 0x21
+ 1827 01de 00       		.byte	0
+ 1828 01df 49       		.uleb128 0x49
+ 1829 01e0 13       		.uleb128 0x13
+ 1830 01e1 2F       		.uleb128 0x2f
+ 1831 01e2 05       		.uleb128 0x5
+ 1832 01e3 00       		.byte	0
+ 1833 01e4 00       		.byte	0
+ 1834 01e5 25       		.uleb128 0x25
+ 1835 01e6 34       		.uleb128 0x34
+ 1836 01e7 00       		.byte	0
+ 1837 01e8 03       		.uleb128 0x3
+ 1838 01e9 0E       		.uleb128 0xe
+ 1839 01ea 3A       		.uleb128 0x3a
+ 1840 01eb 0B       		.uleb128 0xb
+ 1841 01ec 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 42
+
+
+ 1842 01ed 0B       		.uleb128 0xb
+ 1843 01ee 49       		.uleb128 0x49
+ 1844 01ef 13       		.uleb128 0x13
+ 1845 01f0 3F       		.uleb128 0x3f
+ 1846 01f1 19       		.uleb128 0x19
+ 1847 01f2 02       		.uleb128 0x2
+ 1848 01f3 18       		.uleb128 0x18
+ 1849 01f4 00       		.byte	0
+ 1850 01f5 00       		.byte	0
+ 1851 01f6 26       		.uleb128 0x26
+ 1852 01f7 2E       		.uleb128 0x2e
+ 1853 01f8 00       		.byte	0
+ 1854 01f9 3F       		.uleb128 0x3f
+ 1855 01fa 19       		.uleb128 0x19
+ 1856 01fb 3C       		.uleb128 0x3c
+ 1857 01fc 19       		.uleb128 0x19
+ 1858 01fd 6E       		.uleb128 0x6e
+ 1859 01fe 0E       		.uleb128 0xe
+ 1860 01ff 03       		.uleb128 0x3
+ 1861 0200 0E       		.uleb128 0xe
+ 1862 0201 3A       		.uleb128 0x3a
+ 1863 0202 0B       		.uleb128 0xb
+ 1864 0203 3B       		.uleb128 0x3b
+ 1865 0204 0B       		.uleb128 0xb
+ 1866 0205 00       		.byte	0
+ 1867 0206 00       		.byte	0
+ 1868 0207 27       		.uleb128 0x27
+ 1869 0208 2E       		.uleb128 0x2e
+ 1870 0209 00       		.byte	0
+ 1871 020a 3F       		.uleb128 0x3f
+ 1872 020b 19       		.uleb128 0x19
+ 1873 020c 3C       		.uleb128 0x3c
+ 1874 020d 19       		.uleb128 0x19
+ 1875 020e 6E       		.uleb128 0x6e
+ 1876 020f 0E       		.uleb128 0xe
+ 1877 0210 03       		.uleb128 0x3
+ 1878 0211 0E       		.uleb128 0xe
+ 1879 0212 3A       		.uleb128 0x3a
+ 1880 0213 0B       		.uleb128 0xb
+ 1881 0214 3B       		.uleb128 0x3b
+ 1882 0215 05       		.uleb128 0x5
+ 1883 0216 00       		.byte	0
+ 1884 0217 00       		.byte	0
+ 1885 0218 00       		.byte	0
+ 1886              		.section	.debug_loc,"",%progbits
+ 1887              	.Ldebug_loc0:
+ 1888              	.LLST0:
+ 1889 0000 14000000 		.4byte	.LVL3
+ 1890 0004 1E000000 		.4byte	.LVL4
+ 1891 0008 0100     		.2byte	0x1
+ 1892 000a 50       		.byte	0x50
+ 1893 000b 1E000000 		.4byte	.LVL4
+ 1894 000f 27000000 		.4byte	.LVL5-1
+ 1895 0013 0F00     		.2byte	0xf
+ 1896 0015 03       		.byte	0x3
+ 1897 0016 01000000 		.4byte	.LANCHOR0+1
+ 1898 001a 94       		.byte	0x94
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 43
+
+
+ 1899 001b 01       		.byte	0x1
+ 1900 001c 08       		.byte	0x8
+ 1901 001d FF       		.byte	0xff
+ 1902 001e 1A       		.byte	0x1a
+ 1903 001f 33       		.byte	0x33
+ 1904 0020 24       		.byte	0x24
+ 1905 0021 72       		.byte	0x72
+ 1906 0022 00       		.sleb128 0
+ 1907 0023 22       		.byte	0x22
+ 1908 0024 00000000 		.4byte	0
+ 1909 0028 00000000 		.4byte	0
+ 1910              	.LLST1:
+ 1911 002c 2A000000 		.4byte	.LVL6
+ 1912 0030 34000000 		.4byte	.LVL7
+ 1913 0034 0100     		.2byte	0x1
+ 1914 0036 50       		.byte	0x50
+ 1915 0037 34000000 		.4byte	.LVL7
+ 1916 003b 3A000000 		.4byte	.LVL8
+ 1917 003f 1200     		.2byte	0x12
+ 1918 0041 03       		.byte	0x3
+ 1919 0042 01000000 		.4byte	.LANCHOR0+1
+ 1920 0046 94       		.byte	0x94
+ 1921 0047 01       		.byte	0x1
+ 1922 0048 08       		.byte	0x8
+ 1923 0049 FF       		.byte	0xff
+ 1924 004a 1A       		.byte	0x1a
+ 1925 004b 33       		.byte	0x33
+ 1926 004c 24       		.byte	0x24
+ 1927 004d 71       		.byte	0x71
+ 1928 004e 00       		.sleb128 0
+ 1929 004f 22       		.byte	0x22
+ 1930 0050 72       		.byte	0x72
+ 1931 0051 00       		.sleb128 0
+ 1932 0052 22       		.byte	0x22
+ 1933 0053 00000000 		.4byte	0
+ 1934 0057 00000000 		.4byte	0
+ 1935              	.LLST2:
+ 1936 005b 2A000000 		.4byte	.LVL10
+ 1937 005f 34000000 		.4byte	.LVL11
+ 1938 0063 0100     		.2byte	0x1
+ 1939 0065 50       		.byte	0x50
+ 1940 0066 34000000 		.4byte	.LVL11
+ 1941 006a 3A000000 		.4byte	.LVL12
+ 1942 006e 1200     		.2byte	0x12
+ 1943 0070 03       		.byte	0x3
+ 1944 0071 01000000 		.4byte	.LANCHOR0+1
+ 1945 0075 94       		.byte	0x94
+ 1946 0076 01       		.byte	0x1
+ 1947 0077 08       		.byte	0x8
+ 1948 0078 FF       		.byte	0xff
+ 1949 0079 1A       		.byte	0x1a
+ 1950 007a 33       		.byte	0x33
+ 1951 007b 24       		.byte	0x24
+ 1952 007c 71       		.byte	0x71
+ 1953 007d 00       		.sleb128 0
+ 1954 007e 22       		.byte	0x22
+ 1955 007f 72       		.byte	0x72
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 44
+
+
+ 1956 0080 00       		.sleb128 0
+ 1957 0081 22       		.byte	0x22
+ 1958 0082 00000000 		.4byte	0
+ 1959 0086 00000000 		.4byte	0
+ 1960              		.section	.debug_aranges,"",%progbits
+ 1961 0000 64000000 		.4byte	0x64
+ 1962 0004 0200     		.2byte	0x2
+ 1963 0006 00000000 		.4byte	.Ldebug_info0
+ 1964 000a 04       		.byte	0x4
+ 1965 000b 00       		.byte	0
+ 1966 000c 0000     		.2byte	0
+ 1967 000e 0000     		.2byte	0
+ 1968 0010 00000000 		.4byte	.LFB456
+ 1969 0014 02000000 		.4byte	.LFE456-.LFB456
+ 1970 0018 00000000 		.4byte	.LFB458
+ 1971 001c 24000000 		.4byte	.LFE458-.LFB458
+ 1972 0020 00000000 		.4byte	.LFB459
+ 1973 0024 38000000 		.4byte	.LFE459-.LFB459
+ 1974 0028 00000000 		.4byte	.LFB460
+ 1975 002c 38000000 		.4byte	.LFE460-.LFB460
+ 1976 0030 00000000 		.4byte	.LFB457
+ 1977 0034 3C000000 		.4byte	.LFE457-.LFB457
+ 1978 0038 00000000 		.4byte	.LFB461
+ 1979 003c 54000000 		.4byte	.LFE461-.LFB461
+ 1980 0040 00000000 		.4byte	.LFB462
+ 1981 0044 54000000 		.4byte	.LFE462-.LFB462
+ 1982 0048 00000000 		.4byte	.LFB454
+ 1983 004c 08000000 		.4byte	.LFE454-.LFB454
+ 1984 0050 00000000 		.4byte	.LFB455
+ 1985 0054 24000000 		.4byte	.LFE455-.LFB455
+ 1986 0058 00000000 		.4byte	.LFB463
+ 1987 005c 54000000 		.4byte	.LFE463-.LFB463
+ 1988 0060 00000000 		.4byte	0
+ 1989 0064 00000000 		.4byte	0
+ 1990              		.section	.debug_ranges,"",%progbits
+ 1991              	.Ldebug_ranges0:
+ 1992 0000 00000000 		.4byte	.LFB456
+ 1993 0004 02000000 		.4byte	.LFE456
+ 1994 0008 00000000 		.4byte	.LFB458
+ 1995 000c 24000000 		.4byte	.LFE458
+ 1996 0010 00000000 		.4byte	.LFB459
+ 1997 0014 38000000 		.4byte	.LFE459
+ 1998 0018 00000000 		.4byte	.LFB460
+ 1999 001c 38000000 		.4byte	.LFE460
+ 2000 0020 00000000 		.4byte	.LFB457
+ 2001 0024 3C000000 		.4byte	.LFE457
+ 2002 0028 00000000 		.4byte	.LFB461
+ 2003 002c 54000000 		.4byte	.LFE461
+ 2004 0030 00000000 		.4byte	.LFB462
+ 2005 0034 54000000 		.4byte	.LFE462
+ 2006 0038 00000000 		.4byte	.LFB454
+ 2007 003c 08000000 		.4byte	.LFE454
+ 2008 0040 00000000 		.4byte	.LFB455
+ 2009 0044 24000000 		.4byte	.LFE455
+ 2010 0048 00000000 		.4byte	.LFB463
+ 2011 004c 54000000 		.4byte	.LFE463
+ 2012 0050 00000000 		.4byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 45
+
+
+ 2013 0054 00000000 		.4byte	0
+ 2014              		.section	.debug_line,"",%progbits
+ 2015              	.Ldebug_line0:
+ 2016 0000 AA030000 		.section	.debug_str,"MS",%progbits,1
+ 2016      0200D002 
+ 2016      00000201 
+ 2016      FB0E0D00 
+ 2016      01010101 
+ 2017              	.LASF36:
+ 2018 0000 72656C6F 		.ascii	"reloadInput\000"
+ 2018      6164496E 
+ 2018      70757400 
+ 2019              	.LASF88:
+ 2020 000c 43595F45 		.ascii	"CY_EINK_Timer_config\000"
+ 2020      494E4B5F 
+ 2020      54696D65 
+ 2020      725F636F 
+ 2020      6E666967 
+ 2021              	.LASF86:
+ 2022 0021 53637265 		.ascii	"ScreenUpdatePointer\000"
+ 2022      656E5570 
+ 2022      64617465 
+ 2022      506F696E 
+ 2022      74657200 
+ 2023              	.LASF25:
+ 2024 0035 636C6F63 		.ascii	"clockPrescaler\000"
+ 2024      6B507265 
+ 2024      7363616C 
+ 2024      657200
+ 2025              	.LASF41:
+ 2026 0044 636F756E 		.ascii	"countInputMode\000"
+ 2026      74496E70 
+ 2026      75744D6F 
+ 2026      646500
+ 2027              	.LASF29:
+ 2028 0053 636F6D70 		.ascii	"compare0\000"
+ 2028      61726530 
+ 2028      00
+ 2029              	.LASF30:
+ 2030 005c 636F6D70 		.ascii	"compare1\000"
+ 2030      61726531 
+ 2030      00
+ 2031              	.LASF60:
+ 2032 0065 534C4944 		.ascii	"SLIDER_LEFT\000"
+ 2032      45525F4C 
+ 2032      45465400 
+ 2033              	.LASF105:
+ 2034 0071 746F7563 		.ascii	"touchInfo\000"
+ 2034      68496E66 
+ 2034      6F00
+ 2035              	.LASF49:
+ 2036 007b 72784275 		.ascii	"rxBufSize\000"
+ 2036      6653697A 
+ 2036      6500
+ 2037              	.LASF64:
+ 2038 0085 7363616E 		.ascii	"scanBusy\000"
+ 2038      42757379 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 46
+
+
+ 2038      00
+ 2039              	.LASF0:
+ 2040 008e 73686F72 		.ascii	"short int\000"
+ 2040      7420696E 
+ 2040      7400
+ 2041              	.LASF74:
+ 2042 0098 74657874 		.ascii	"textPage\000"
+ 2042      50616765 
+ 2042      00
+ 2043              	.LASF15:
+ 2044 00a1 73697A65 		.ascii	"sizetype\000"
+ 2044      74797065 
+ 2044      00
+ 2045              	.LASF61:
+ 2046 00aa 534C4944 		.ascii	"SLIDER_RIGHT\000"
+ 2046      45525F52 
+ 2046      49474854 
+ 2046      00
+ 2047              	.LASF46:
+ 2048 00b7 63795F73 		.ascii	"cy_stc_scb_spi_context\000"
+ 2048      74635F73 
+ 2048      63625F73 
+ 2048      70695F63 
+ 2048      6F6E7465 
+ 2049              	.LASF101:
+ 2050 00ce 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2050      43313120 
+ 2050      352E342E 
+ 2050      31203230 
+ 2050      31363036 
+ 2051 0101 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0plus -mthumb -"
+ 2051      20726576 
+ 2051      6973696F 
+ 2051      6E203233 
+ 2051      37373135 
+ 2052 0134 67202D4F 		.ascii	"g -Og -ffunction-sections -ffat-lto-objects\000"
+ 2052      67202D66 
+ 2052      66756E63 
+ 2052      74696F6E 
+ 2052      2D736563 
+ 2053              	.LASF56:
+ 2054 0160 63795F73 		.ascii	"cy_stc_scb_spi_context_t\000"
+ 2054      74635F73 
+ 2054      63625F73 
+ 2054      70695F63 
+ 2054      6F6E7465 
+ 2055              	.LASF52:
+ 2056 0179 74784275 		.ascii	"txBufSize\000"
+ 2056      6653697A 
+ 2056      6500
+ 2057              	.LASF75:
+ 2058 0183 73637265 		.ascii	"screen_t\000"
+ 2058      656E5F74 
+ 2058      00
+ 2059              	.LASF7:
+ 2060 018c 5F5F7569 		.ascii	"__uint32_t\000"
+ 2060      6E743332 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 47
+
+
+ 2060      5F7400
+ 2061              	.LASF58:
+ 2062 0197 53454C45 		.ascii	"SELECT_BUTTON\000"
+ 2062      43545F42 
+ 2062      5554544F 
+ 2062      4E00
+ 2063              	.LASF102:
+ 2064 01a5 73637265 		.ascii	"screen.c\000"
+ 2064      656E2E63 
+ 2064      00
+ 2065              	.LASF99:
+ 2066 01ae 43795F53 		.ascii	"Cy_SysLib_Delay\000"
+ 2066      79734C69 
+ 2066      625F4465 
+ 2066      6C617900 
+ 2067              	.LASF4:
+ 2068 01be 5F5F7569 		.ascii	"__uint16_t\000"
+ 2068      6E743136 
+ 2068      5F7400
+ 2069              	.LASF50:
+ 2070 01c9 72784275 		.ascii	"rxBufIdx\000"
+ 2070      66496478 
+ 2070      00
+ 2071              	.LASF62:
+ 2072 01d2 746F7563 		.ascii	"touch_data_types_t\000"
+ 2072      685F6461 
+ 2072      74615F74 
+ 2072      79706573 
+ 2072      5F7400
+ 2073              	.LASF84:
+ 2074 01e5 53686F77 		.ascii	"ShowStartupScreen\000"
+ 2074      53746172 
+ 2074      74757053 
+ 2074      63726565 
+ 2074      6E00
+ 2075              	.LASF87:
+ 2076 01f7 66697273 		.ascii	"firstTime\000"
+ 2076      7454696D 
+ 2076      6500
+ 2077              	.LASF12:
+ 2078 0201 75696E74 		.ascii	"uint8_t\000"
+ 2078      385F7400 
+ 2079              	.LASF104:
+ 2080 0209 4E6F5363 		.ascii	"NoScreenChange\000"
+ 2080      7265656E 
+ 2080      4368616E 
+ 2080      676500
+ 2081              	.LASF20:
+ 2082 0218 75696E74 		.ascii	"uint8\000"
+ 2082      3800
+ 2083              	.LASF26:
+ 2084 021e 72756E4D 		.ascii	"runMode\000"
+ 2084      6F646500 
+ 2085              	.LASF70:
+ 2086 0226 54455854 		.ascii	"TEXT_PAGE\000"
+ 2086      5F504147 
+ 2086      4500
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 48
+
+
+ 2087              	.LASF63:
+ 2088 0230 746F7563 		.ascii	"touchType\000"
+ 2088      68547970 
+ 2088      6500
+ 2089              	.LASF44:
+ 2090 023a 63795F63 		.ascii	"cy_cb_scb_spi_handle_events_t\000"
+ 2090      625F7363 
+ 2090      625F7370 
+ 2090      695F6861 
+ 2090      6E646C65 
+ 2091              	.LASF66:
+ 2092 0258 70765F65 		.ascii	"pv_eink_frame_data_t\000"
+ 2092      696E6B5F 
+ 2092      6672616D 
+ 2092      655F6461 
+ 2092      74615F74 
+ 2093              	.LASF67:
+ 2094 026d 63795F65 		.ascii	"cy_eink_image_t\000"
+ 2094      696E6B5F 
+ 2094      696D6167 
+ 2094      655F7400 
+ 2095              	.LASF18:
+ 2096 027d 666C6F61 		.ascii	"float\000"
+ 2096      7400
+ 2097              	.LASF51:
+ 2098 0283 74784275 		.ascii	"txBuf\000"
+ 2098      6600
+ 2099              	.LASF35:
+ 2100 0289 72656C6F 		.ascii	"reloadInputMode\000"
+ 2100      6164496E 
+ 2100      7075744D 
+ 2100      6F646500 
+ 2101              	.LASF9:
+ 2102 0299 6C6F6E67 		.ascii	"long long int\000"
+ 2102      206C6F6E 
+ 2102      6720696E 
+ 2102      7400
+ 2103              	.LASF65:
+ 2104 02a7 746F7563 		.ascii	"touch_data_t\000"
+ 2104      685F6461 
+ 2104      74615F74 
+ 2104      00
+ 2105              	.LASF17:
+ 2106 02b4 63686172 		.ascii	"char\000"
+ 2106      00
+ 2107              	.LASF6:
+ 2108 02b9 6C6F6E67 		.ascii	"long int\000"
+ 2108      20696E74 
+ 2108      00
+ 2109              	.LASF53:
+ 2110 02c2 74784275 		.ascii	"txBufIdx\000"
+ 2110      66496478 
+ 2110      00
+ 2111              	.LASF24:
+ 2112 02cb 70657269 		.ascii	"period\000"
+ 2112      6F6400
+ 2113              	.LASF59:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 49
+
+
+ 2114 02d2 4241434B 		.ascii	"BACK_BUTTON\000"
+ 2114      5F425554 
+ 2114      544F4E00 
+ 2115              	.LASF40:
+ 2116 02de 73746F70 		.ascii	"stopInput\000"
+ 2116      496E7075 
+ 2116      7400
+ 2117              	.LASF98:
+ 2118 02e8 496E6974 		.ascii	"InitDisplay\000"
+ 2118      44697370 
+ 2118      6C617900 
+ 2119              	.LASF97:
+ 2120 02f4 44697370 		.ascii	"DisplayImageAndText\000"
+ 2120      6C617949 
+ 2120      6D616765 
+ 2120      416E6454 
+ 2120      65787400 
+ 2121              	.LASF94:
+ 2122 0308 6D61696E 		.ascii	"mainMenuImage\000"
+ 2122      4D656E75 
+ 2122      496D6167 
+ 2122      6500
+ 2123              	.LASF81:
+ 2124 0316 63757272 		.ascii	"currentPageIndex\000"
+ 2124      656E7450 
+ 2124      61676549 
+ 2124      6E646578 
+ 2124      00
+ 2125              	.LASF16:
+ 2126 0327 6C6F6E67 		.ascii	"long double\000"
+ 2126      20646F75 
+ 2126      626C6500 
+ 2127              	.LASF37:
+ 2128 0333 73746172 		.ascii	"startInputMode\000"
+ 2128      74496E70 
+ 2128      75744D6F 
+ 2128      646500
+ 2129              	.LASF1:
+ 2130 0342 756E7369 		.ascii	"unsigned char\000"
+ 2130      676E6564 
+ 2130      20636861 
+ 2130      7200
+ 2131              	.LASF27:
+ 2132 0350 636F756E 		.ascii	"countDirection\000"
+ 2132      74446972 
+ 2132      65637469 
+ 2132      6F6E00
+ 2133              	.LASF82:
+ 2134 035f 4E657874 		.ascii	"NextTextPage\000"
+ 2134      54657874 
+ 2134      50616765 
+ 2134      00
+ 2135              	.LASF72:
+ 2136 036c 73637265 		.ascii	"screen\000"
+ 2136      656E00
+ 2137              	.LASF89:
+ 2138 0373 43595F45 		.ascii	"CY_EINK_SPIM_context\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 50
+
+
+ 2138      494E4B5F 
+ 2138      5350494D 
+ 2138      5F636F6E 
+ 2138      74657874 
+ 2139              	.LASF2:
+ 2140 0388 7369676E 		.ascii	"signed char\000"
+ 2140      65642063 
+ 2140      68617200 
+ 2141              	.LASF10:
+ 2142 0394 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2142      206C6F6E 
+ 2142      6720756E 
+ 2142      7369676E 
+ 2142      65642069 
+ 2143              	.LASF71:
+ 2144 03ab 73637265 		.ascii	"screen_type_t\000"
+ 2144      656E5F74 
+ 2144      7970655F 
+ 2144      7400
+ 2145              	.LASF14:
+ 2146 03b9 75696E74 		.ascii	"uint32_t\000"
+ 2146      33325F74 
+ 2146      00
+ 2147              	.LASF28:
+ 2148 03c2 636F6D70 		.ascii	"compareOrCapture\000"
+ 2148      6172654F 
+ 2148      72436170 
+ 2148      74757265 
+ 2148      00
+ 2149              	.LASF13:
+ 2150 03d3 75696E74 		.ascii	"uint16_t\000"
+ 2150      31365F74 
+ 2150      00
+ 2151              	.LASF69:
+ 2152 03dc 4D41494E 		.ascii	"MAIN_MENU\000"
+ 2152      5F4D454E 
+ 2152      5500
+ 2153              	.LASF43:
+ 2154 03e6 63795F73 		.ascii	"cy_stc_tcpwm_counter_config_t\000"
+ 2154      74635F74 
+ 2154      6370776D 
+ 2154      5F636F75 
+ 2154      6E746572 
+ 2155              	.LASF95:
+ 2156 0404 63757272 		.ascii	"currentScreen\000"
+ 2156      656E7453 
+ 2156      63726565 
+ 2156      6E00
+ 2157              	.LASF85:
+ 2158 0412 55706461 		.ascii	"UpdateScreen\000"
+ 2158      74655363 
+ 2158      7265656E 
+ 2158      00
+ 2159              	.LASF73:
+ 2160 041f 6D656E75 		.ascii	"menuItem\000"
+ 2160      4974656D 
+ 2160      00
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 51
+
+
+ 2161              	.LASF22:
+ 2162 0428 43595F53 		.ascii	"CY_SYSPM_WAIT_FOR_EVENT\000"
+ 2162      5953504D 
+ 2162      5F574149 
+ 2162      545F464F 
+ 2162      525F4556 
+ 2163              	.LASF47:
+ 2164 0440 73746174 		.ascii	"status\000"
+ 2164      757300
+ 2165              	.LASF103:
+ 2166 0447 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Desktop\\PSoC-6-MCU-Pioneer-K"
+ 2166      73657273 
+ 2166      5C627279 
+ 2166      616E2E6C 
+ 2166      65655C44 
+ 2167 0476 6974732D 		.ascii	"its-master\\CY8CKIT-062-BLE Pioneer Kit\\CE218133_E"
+ 2167      6D617374 
+ 2167      65725C43 
+ 2167      5938434B 
+ 2167      49542D30 
+ 2168 04a7 494E4B5F 		.ascii	"INK_CapSense\\CE218133_EINK_CapSense.cydsn\000"
+ 2168      43617053 
+ 2168      656E7365 
+ 2168      5C434532 
+ 2168      31383133 
+ 2169              	.LASF93:
+ 2170 04d1 74657874 		.ascii	"textPageBackground\000"
+ 2170      50616765 
+ 2170      4261636B 
+ 2170      67726F75 
+ 2170      6E6400
+ 2171              	.LASF54:
+ 2172 04e4 63624576 		.ascii	"cbEvents\000"
+ 2172      656E7473 
+ 2172      00
+ 2173              	.LASF79:
+ 2174 04ed 476F546F 		.ascii	"GoToTextPage\000"
+ 2174      54657874 
+ 2174      50616765 
+ 2174      00
+ 2175              	.LASF5:
+ 2176 04fa 73686F72 		.ascii	"short unsigned int\000"
+ 2176      7420756E 
+ 2176      7369676E 
+ 2176      65642069 
+ 2176      6E7400
+ 2177              	.LASF76:
+ 2178 050d 4261636B 		.ascii	"BackToMainMenu\000"
+ 2178      546F4D61 
+ 2178      696E4D65 
+ 2178      6E7500
+ 2179              	.LASF23:
+ 2180 051c 5F426F6F 		.ascii	"_Bool\000"
+ 2180      6C00
+ 2181              	.LASF34:
+ 2182 0522 63617074 		.ascii	"captureInput\000"
+ 2182      75726549 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 52
+
+
+ 2182      6E707574 
+ 2182      00
+ 2183              	.LASF48:
+ 2184 052f 72784275 		.ascii	"rxBuf\000"
+ 2184      6600
+ 2185              	.LASF33:
+ 2186 0535 63617074 		.ascii	"captureInputMode\000"
+ 2186      75726549 
+ 2186      6E707574 
+ 2186      4D6F6465 
+ 2186      00
+ 2187              	.LASF80:
+ 2188 0546 50726576 		.ascii	"PreviousTextPage\000"
+ 2188      696F7573 
+ 2188      54657874 
+ 2188      50616765 
+ 2188      00
+ 2189              	.LASF32:
+ 2190 0557 696E7465 		.ascii	"interruptSources\000"
+ 2190      72727570 
+ 2190      74536F75 
+ 2190      72636573 
+ 2190      00
+ 2191              	.LASF92:
+ 2192 0568 6C6F676F 		.ascii	"logo\000"
+ 2192      00
+ 2193              	.LASF8:
+ 2194 056d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2194      20756E73 
+ 2194      69676E65 
+ 2194      6420696E 
+ 2194      7400
+ 2195              	.LASF19:
+ 2196 057f 646F7562 		.ascii	"double\000"
+ 2196      6C6500
+ 2197              	.LASF68:
+ 2198 0586 696D6167 		.ascii	"image\000"
+ 2198      6500
+ 2199              	.LASF45:
+ 2200 058c 63795F73 		.ascii	"cy_stc_tcpwm_counter_config\000"
+ 2200      74635F74 
+ 2200      6370776D 
+ 2200      5F636F75 
+ 2200      6E746572 
+ 2201              	.LASF91:
+ 2202 05a8 74657874 		.ascii	"textPageIndex\000"
+ 2202      50616765 
+ 2202      496E6465 
+ 2202      7800
+ 2203              	.LASF38:
+ 2204 05b6 73746172 		.ascii	"startInput\000"
+ 2204      74496E70 
+ 2204      757400
+ 2205              	.LASF39:
+ 2206 05c1 73746F70 		.ascii	"stopInputMode\000"
+ 2206      496E7075 
+ 2206      744D6F64 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 53
+
+
+ 2206      6500
+ 2207              	.LASF77:
+ 2208 05cf 4D6F7665 		.ascii	"MoveArrowUp\000"
+ 2208      4172726F 
+ 2208      77557000 
+ 2209              	.LASF55:
+ 2210 05db 696E6974 		.ascii	"initKey\000"
+ 2210      4B657900 
+ 2211              	.LASF100:
+ 2212 05e3 43795F53 		.ascii	"Cy_SysPm_Sleep\000"
+ 2212      7973506D 
+ 2212      5F536C65 
+ 2212      657000
+ 2213              	.LASF90:
+ 2214 05f2 6D617854 		.ascii	"maxTextPageIndexes\000"
+ 2214      65787450 
+ 2214      61676549 
+ 2214      6E646578 
+ 2214      657300
+ 2215              	.LASF21:
+ 2216 0605 43595F53 		.ascii	"CY_SYSPM_WAIT_FOR_INTERRUPT\000"
+ 2216      5953504D 
+ 2216      5F574149 
+ 2216      545F464F 
+ 2216      525F494E 
+ 2217              	.LASF31:
+ 2218 0621 656E6162 		.ascii	"enableCompareSwap\000"
+ 2218      6C65436F 
+ 2218      6D706172 
+ 2218      65537761 
+ 2218      7000
+ 2219              	.LASF42:
+ 2220 0633 636F756E 		.ascii	"countInput\000"
+ 2220      74496E70 
+ 2220      757400
+ 2221              	.LASF83:
+ 2222 063e 496E6974 		.ascii	"InitScreen\000"
+ 2222      53637265 
+ 2222      656E00
+ 2223              	.LASF11:
+ 2224 0649 756E7369 		.ascii	"unsigned int\000"
+ 2224      676E6564 
+ 2224      20696E74 
+ 2224      00
+ 2225              	.LASF57:
+ 2226 0656 4E4F5F54 		.ascii	"NO_TOUCH\000"
+ 2226      4F554348 
+ 2226      00
+ 2227              	.LASF96:
+ 2228 065f 44697370 		.ascii	"DisplayImage\000"
+ 2228      6C617949 
+ 2228      6D616765 
+ 2228      00
+ 2229              	.LASF78:
+ 2230 066c 4D6F7665 		.ascii	"MoveArrowDown\000"
+ 2230      4172726F 
+ 2230      77446F77 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccoB5YNO.s 			page 54
+
+
+ 2230      6E00
+ 2231              	.LASF3:
+ 2232 067a 5F5F7569 		.ascii	"__uint8_t\000"
+ 2232      6E74385F 
+ 2232      7400
+ 2233              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

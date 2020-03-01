@@ -1,0 +1,2763 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0plus
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"CapSense_Tuner.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.CapSense_TuInitialize,"ax",%progbits
+  20              		.align	2
+  21              		.global	CapSense_TuInitialize
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	CapSense_TuInitialize, %function
+  25              	CapSense_TuInitialize:
+  26              	.LFB69:
+  27              		.file 1 "Generated_Source\\PSoC6\\CapSense_Tuner.c"
+   1:Generated_Source\PSoC6/CapSense_Tuner.c **** /***************************************************************************//**
+   2:Generated_Source\PSoC6/CapSense_Tuner.c **** * \file CapSense_Tuner.c
+   3:Generated_Source\PSoC6/CapSense_Tuner.c **** * \version 2.0
+   4:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+   5:Generated_Source\PSoC6/CapSense_Tuner.c **** * \brief
+   6:Generated_Source\PSoC6/CapSense_Tuner.c **** *   This file provides the source code for the Tuner module API of the 
+   7:Generated_Source\PSoC6/CapSense_Tuner.c **** *   Component.
+   8:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+   9:Generated_Source\PSoC6/CapSense_Tuner.c **** * \see CapSense v2.0 Datasheet
+  10:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+  11:Generated_Source\PSoC6/CapSense_Tuner.c **** *//*****************************************************************************
+  12:Generated_Source\PSoC6/CapSense_Tuner.c **** * Copyright (2016-2017), Cypress Semiconductor Corporation.
+  13:Generated_Source\PSoC6/CapSense_Tuner.c **** ********************************************************************************
+  14:Generated_Source\PSoC6/CapSense_Tuner.c **** * This software is owned by Cypress Semiconductor Corporation (Cypress) and is
+  15:Generated_Source\PSoC6/CapSense_Tuner.c **** * protected by and subject to worldwide patent protection (United States and
+  16:Generated_Source\PSoC6/CapSense_Tuner.c **** * foreign), United States copyright laws and international treaty provisions.
+  17:Generated_Source\PSoC6/CapSense_Tuner.c **** * Cypress hereby grants to licensee a personal, non-exclusive, non-transferable
+  18:Generated_Source\PSoC6/CapSense_Tuner.c **** * license to copy, use, modify, create derivative works of, and compile the
+  19:Generated_Source\PSoC6/CapSense_Tuner.c **** * Cypress Source Code and derivative works for the sole purpose of creating
+  20:Generated_Source\PSoC6/CapSense_Tuner.c **** * custom software in support of licensee product to be used only in conjunction
+  21:Generated_Source\PSoC6/CapSense_Tuner.c **** * with a Cypress integrated circuit as specified in the applicable agreement.
+  22:Generated_Source\PSoC6/CapSense_Tuner.c **** * Any reproduction, modification, translation, compilation, or representation of
+  23:Generated_Source\PSoC6/CapSense_Tuner.c **** * this software except as specified above is prohibited without the express
+  24:Generated_Source\PSoC6/CapSense_Tuner.c **** * written permission of Cypress.
+  25:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+  26:Generated_Source\PSoC6/CapSense_Tuner.c **** * Disclaimer: CYPRESS MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, WITH
+  27:Generated_Source\PSoC6/CapSense_Tuner.c **** * REGARD TO THIS MATERIAL, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  28:Generated_Source\PSoC6/CapSense_Tuner.c **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  29:Generated_Source\PSoC6/CapSense_Tuner.c **** * Cypress reserves the right to make changes without further notice to the
+  30:Generated_Source\PSoC6/CapSense_Tuner.c **** * materials described herein. Cypress does not assume any liability arising out
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 2
+
+
+  31:Generated_Source\PSoC6/CapSense_Tuner.c **** * of the application or use of any product or circuit described herein. Cypress
+  32:Generated_Source\PSoC6/CapSense_Tuner.c **** * does not authorize its products for use as critical components in life-support
+  33:Generated_Source\PSoC6/CapSense_Tuner.c **** * systems where a malfunction or failure may reasonably be expected to result in
+  34:Generated_Source\PSoC6/CapSense_Tuner.c **** * significant injury to the user. The inclusion of Cypress' product in a life-
+  35:Generated_Source\PSoC6/CapSense_Tuner.c **** * support systems application implies that the manufacturer assumes all risk of
+  36:Generated_Source\PSoC6/CapSense_Tuner.c **** * such use and in doing so indemnifies Cypress against all charges. Use may be
+  37:Generated_Source\PSoC6/CapSense_Tuner.c **** * limited by and subject to the applicable Cypress software license agreement.
+  38:Generated_Source\PSoC6/CapSense_Tuner.c **** *******************************************************************************/
+  39:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+  40:Generated_Source\PSoC6/CapSense_Tuner.c **** #include "syslib/cy_syslib.h"
+  41:Generated_Source\PSoC6/CapSense_Tuner.c **** #include "CapSense_Structure.h"
+  42:Generated_Source\PSoC6/CapSense_Tuner.c **** #include "CapSense_Tuner.h"
+  43:Generated_Source\PSoC6/CapSense_Tuner.c **** #include "CapSense_Control.h"
+  44:Generated_Source\PSoC6/CapSense_Tuner.c **** #include "CapSense_Configuration.h"
+  45:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+  46:Generated_Source\PSoC6/CapSense_Tuner.c **** /* Tuner states definition */
+  47:Generated_Source\PSoC6/CapSense_Tuner.c **** #define TU_FSM_RUNNING      (0u)
+  48:Generated_Source\PSoC6/CapSense_Tuner.c **** #define TU_FSM_SUSPENDED    (1u)
+  49:Generated_Source\PSoC6/CapSense_Tuner.c **** #define TU_FSM_SNR_TEST     (2u)
+  50:Generated_Source\PSoC6/CapSense_Tuner.c **** #define TU_FSM_ONE_SCAN     (3u)
+  51:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+  52:Generated_Source\PSoC6/CapSense_Tuner.c **** /* Tuner state variable */
+  53:Generated_Source\PSoC6/CapSense_Tuner.c **** static uint32 tunerFsm = TU_FSM_RUNNING;
+  54:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+  55:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+  56:Generated_Source\PSoC6/CapSense_Tuner.c **** /*******************************************************************************
+  57:Generated_Source\PSoC6/CapSense_Tuner.c **** * Function Name: CapSense_TuInitialize
+  58:Generated_Source\PSoC6/CapSense_Tuner.c **** ****************************************************************************//**
+  59:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+  60:Generated_Source\PSoC6/CapSense_Tuner.c **** * \brief
+  61:Generated_Source\PSoC6/CapSense_Tuner.c **** *   This function initializes the communication interface with the Tuner GUI.
+  62:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+  63:Generated_Source\PSoC6/CapSense_Tuner.c **** * \details
+  64:Generated_Source\PSoC6/CapSense_Tuner.c **** *   This API sets the tuner state machine to the default state. It is called by
+  65:Generated_Source\PSoC6/CapSense_Tuner.c **** *   the CapSense_Start() API.
+  66:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+  67:Generated_Source\PSoC6/CapSense_Tuner.c **** *******************************************************************************/
+  68:Generated_Source\PSoC6/CapSense_Tuner.c **** void CapSense_TuInitialize(void)
+  69:Generated_Source\PSoC6/CapSense_Tuner.c **** {
+  28              		.loc 1 69 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  70:Generated_Source\PSoC6/CapSense_Tuner.c ****     volatile CapSense_RAM_STRUCT *ptrDsRam = &CapSense_dsRam;
+  71:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+  72:Generated_Source\PSoC6/CapSense_Tuner.c ****     ptrDsRam->tunerCmd = (uint16)CapSense_TU_CMD_NONE_E;
+  34              		.loc 1 72 0
+  35 0000 0023     		movs	r3, #0
+  36 0002 024A     		ldr	r2, .L2
+  37 0004 D380     		strh	r3, [r2, #6]
+  73:Generated_Source\PSoC6/CapSense_Tuner.c ****     tunerFsm = TU_FSM_RUNNING;
+  38              		.loc 1 73 0
+  39 0006 024A     		ldr	r2, .L2+4
+  40 0008 1360     		str	r3, [r2]
+  74:Generated_Source\PSoC6/CapSense_Tuner.c **** }
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 3
+
+
+  41              		.loc 1 74 0
+  42              		@ sp needed
+  43 000a 7047     		bx	lr
+  44              	.L3:
+  45              		.align	2
+  46              	.L2:
+  47 000c 00000000 		.word	CapSense_dsRam
+  48 0010 00000000 		.word	.LANCHOR0
+  49              		.cfi_endproc
+  50              	.LFE69:
+  51              		.size	CapSense_TuInitialize, .-CapSense_TuInitialize
+  52              		.section	.text.CapSense_RunTuner,"ax",%progbits
+  53              		.align	2
+  54              		.global	CapSense_RunTuner
+  55              		.code	16
+  56              		.thumb_func
+  57              		.type	CapSense_RunTuner, %function
+  58              	CapSense_RunTuner:
+  59              	.LFB70:
+  75:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+  76:Generated_Source\PSoC6/CapSense_Tuner.c **** /*******************************************************************************
+  77:Generated_Source\PSoC6/CapSense_Tuner.c **** * Function Name: CapSense_RunTuner
+  78:Generated_Source\PSoC6/CapSense_Tuner.c **** ****************************************************************************//**
+  79:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+  80:Generated_Source\PSoC6/CapSense_Tuner.c **** * \brief
+  81:Generated_Source\PSoC6/CapSense_Tuner.c **** *  Establishes synchronized communication with the Tuner application.
+  82:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+  83:Generated_Source\PSoC6/CapSense_Tuner.c **** * \details
+  84:Generated_Source\PSoC6/CapSense_Tuner.c **** *  This function is used to establish synchronized communication between the
+  85:Generated_Source\PSoC6/CapSense_Tuner.c **** *  CapSense Component and Tuner application (or other host controllers).
+  86:Generated_Source\PSoC6/CapSense_Tuner.c **** *  This function is called periodically in the application program loop
+  87:Generated_Source\PSoC6/CapSense_Tuner.c **** *  to serve the Tuner application (or host controller) requests and commands.
+  88:Generated_Source\PSoC6/CapSense_Tuner.c **** *  In most cases, the best place to call this function is after processing and
+  89:Generated_Source\PSoC6/CapSense_Tuner.c **** *  before next scanning.
+  90:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+  91:Generated_Source\PSoC6/CapSense_Tuner.c **** *  If this function is absent in the application program, then communication is
+  92:Generated_Source\PSoC6/CapSense_Tuner.c **** *  asynchronous and the following disadvantages are applicable:
+  93:Generated_Source\PSoC6/CapSense_Tuner.c **** *    - The raw counts displayed in the tuner may be filtered and/or unfiltered.
+  94:Generated_Source\PSoC6/CapSense_Tuner.c **** *      As a result, noise and SNR measurements will not be accurate.
+  95:Generated_Source\PSoC6/CapSense_Tuner.c **** *    - The Tuner tool may read the sensor data such as raw counts from a scan
+  96:Generated_Source\PSoC6/CapSense_Tuner.c **** *      multiple times, as a result, noise and SNR measurement will not be
+  97:Generated_Source\PSoC6/CapSense_Tuner.c **** *      accurate.
+  98:Generated_Source\PSoC6/CapSense_Tuner.c **** *    - The Tuner tool and host controller should not change the Component parameters
+  99:Generated_Source\PSoC6/CapSense_Tuner.c **** *      via the tuner interface. Changing the Component parameters via the tuner
+ 100:Generated_Source\PSoC6/CapSense_Tuner.c **** *      interface in the async mode will result in Component abnormal behavior.
+ 101:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+ 102:Generated_Source\PSoC6/CapSense_Tuner.c **** *  Note that calling this function is not mandatory for the application, but
+ 103:Generated_Source\PSoC6/CapSense_Tuner.c **** *  required only to synchronize the communication with the host controller or
+ 104:Generated_Source\PSoC6/CapSense_Tuner.c **** *  tuner application.
+ 105:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+ 106:Generated_Source\PSoC6/CapSense_Tuner.c **** * \return
+ 107:Generated_Source\PSoC6/CapSense_Tuner.c **** *  In some cases, the application program may need to know if the Component was
+ 108:Generated_Source\PSoC6/CapSense_Tuner.c **** *  re-initialized. The return indicates if a restart command was executed or not:
+ 109:Generated_Source\PSoC6/CapSense_Tuner.c **** *    - CapSense_STATUS_RESTART_DONE - Based on a received command, the
+ 110:Generated_Source\PSoC6/CapSense_Tuner.c **** *      Component was restarted.
+ 111:Generated_Source\PSoC6/CapSense_Tuner.c **** *    -  CapSense_STATUS_RESTART_NONE - No restart was executed by this
+ 112:Generated_Source\PSoC6/CapSense_Tuner.c **** *      function.
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 4
+
+
+ 113:Generated_Source\PSoC6/CapSense_Tuner.c **** *
+ 114:Generated_Source\PSoC6/CapSense_Tuner.c **** *******************************************************************************/
+ 115:Generated_Source\PSoC6/CapSense_Tuner.c **** uint32 CapSense_RunTuner(void)
+ 116:Generated_Source\PSoC6/CapSense_Tuner.c **** {
+  60              		.loc 1 116 0
+  61              		.cfi_startproc
+  62              		@ args = 0, pretend = 0, frame = 0
+  63              		@ frame_needed = 0, uses_anonymous_args = 0
+  64 0000 70B5     		push	{r4, r5, r6, lr}
+  65              		.cfi_def_cfa_offset 16
+  66              		.cfi_offset 4, -16
+  67              		.cfi_offset 5, -12
+  68              		.cfi_offset 6, -8
+  69              		.cfi_offset 14, -4
+  70              	.LVL1:
+ 117:Generated_Source\PSoC6/CapSense_Tuner.c ****     uint32 interruptState;
+ 118:Generated_Source\PSoC6/CapSense_Tuner.c ****     uint32 widgetId;
+ 119:Generated_Source\PSoC6/CapSense_Tuner.c ****     uint32 sensorId;
+ 120:Generated_Source\PSoC6/CapSense_Tuner.c ****     uint32 updateFlag = 0Lu;
+ 121:Generated_Source\PSoC6/CapSense_Tuner.c ****     CapSense_TU_CMD_ENUM command;
+ 122:Generated_Source\PSoC6/CapSense_Tuner.c ****     uint32 tunerStatus = CapSense_STATUS_RESTART_NONE;
+  71              		.loc 1 122 0
+  72 0002 0025     		movs	r5, #0
+ 120:Generated_Source\PSoC6/CapSense_Tuner.c ****     CapSense_TU_CMD_ENUM command;
+  73              		.loc 1 120 0
+  74 0004 0026     		movs	r6, #0
+  75              	.LVL2:
+  76              	.L16:
+ 123:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 124:Generated_Source\PSoC6/CapSense_Tuner.c ****     volatile CapSense_RAM_STRUCT *ptrDsRam;
+ 125:Generated_Source\PSoC6/CapSense_Tuner.c ****     volatile CapSense_RAM_SNS_STRUCT *ptrSnsTmp;
+ 126:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 127:Generated_Source\PSoC6/CapSense_Tuner.c ****     ptrDsRam = &CapSense_dsRam;
+ 128:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 129:Generated_Source\PSoC6/CapSense_Tuner.c ****     do
+ 130:Generated_Source\PSoC6/CapSense_Tuner.c ****     {
+ 131:Generated_Source\PSoC6/CapSense_Tuner.c ****         /* ONE_SCAN command could be interpreted as two commands:
+ 132:Generated_Source\PSoC6/CapSense_Tuner.c ****         * RESUME till next call of this function and then
+ 133:Generated_Source\PSoC6/CapSense_Tuner.c ****         * SUSPEND till next command receiving.
+ 134:Generated_Source\PSoC6/CapSense_Tuner.c ****         */
+ 135:Generated_Source\PSoC6/CapSense_Tuner.c ****         if (TU_FSM_ONE_SCAN == tunerFsm)
+  77              		.loc 1 135 0
+  78 0006 3F4B     		ldr	r3, .L18
+  79 0008 1B68     		ldr	r3, [r3]
+  80 000a 032B     		cmp	r3, #3
+  81 000c 06D1     		bne	.L5
+ 136:Generated_Source\PSoC6/CapSense_Tuner.c ****         {
+ 137:Generated_Source\PSoC6/CapSense_Tuner.c ****             interruptState = Cy_SysLib_EnterCriticalSection();
+  82              		.loc 1 137 0
+  83 000e FFF7FEFF 		bl	Cy_SysLib_EnterCriticalSection
+  84              	.LVL3:
+ 138:Generated_Source\PSoC6/CapSense_Tuner.c ****             ptrDsRam->tunerCmd = (uint16)CapSense_TU_CMD_SUSPEND_E;
+  85              		.loc 1 138 0
+  86 0012 0122     		movs	r2, #1
+  87 0014 3C4B     		ldr	r3, .L18+4
+  88 0016 DA80     		strh	r2, [r3, #6]
+ 139:Generated_Source\PSoC6/CapSense_Tuner.c ****             Cy_SysLib_ExitCriticalSection(interruptState);
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 5
+
+
+  89              		.loc 1 139 0
+  90 0018 FFF7FEFF 		bl	Cy_SysLib_ExitCriticalSection
+  91              	.LVL4:
+  92              	.L5:
+ 140:Generated_Source\PSoC6/CapSense_Tuner.c ****         }
+ 141:Generated_Source\PSoC6/CapSense_Tuner.c ****         command = (CapSense_TU_CMD_ENUM)ptrDsRam->tunerCmd;
+  93              		.loc 1 141 0
+  94 001c 3A4B     		ldr	r3, .L18+4
+  95 001e DC88     		ldrh	r4, [r3, #6]
+  96 0020 E4B2     		uxtb	r4, r4
+  97              	.LVL5:
+ 142:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 143:Generated_Source\PSoC6/CapSense_Tuner.c ****         /* Check command register */
+ 144:Generated_Source\PSoC6/CapSense_Tuner.c ****         switch (command)
+  98              		.loc 1 144 0
+  99 0022 062C     		cmp	r4, #6
+ 100 0024 23D8     		bhi	.L6
+ 101 0026 A300     		lsls	r3, r4, #2
+ 102 0028 384A     		ldr	r2, .L18+8
+ 103 002a D358     		ldr	r3, [r2, r3]
+ 104 002c 9F46     		mov	pc, r3
+ 105              		.section	.rodata
+ 106              		.align	2
+ 107              	.L8:
+ 108 0000 6E000000 		.word	.L6
+ 109 0004 2E000000 		.word	.L7
+ 110 0008 38000000 		.word	.L9
+ 111 000c 42000000 		.word	.L10
+ 112 0010 52000000 		.word	.L11
+ 113 0014 5C000000 		.word	.L12
+ 114 0018 66000000 		.word	.L13
+ 115              		.section	.text.CapSense_RunTuner
+ 116              	.L7:
+ 145:Generated_Source\PSoC6/CapSense_Tuner.c ****         {
+ 146:Generated_Source\PSoC6/CapSense_Tuner.c ****         case CapSense_TU_CMD_SUSPEND_E:
+ 147:Generated_Source\PSoC6/CapSense_Tuner.c ****             tunerFsm = TU_FSM_SUSPENDED;
+ 117              		.loc 1 147 0
+ 118 002e 0122     		movs	r2, #1
+ 119 0030 344B     		ldr	r3, .L18
+ 120 0032 1A60     		str	r2, [r3]
+ 121              	.LVL6:
+ 148:Generated_Source\PSoC6/CapSense_Tuner.c ****             updateFlag = 1Lu;
+ 122              		.loc 1 148 0
+ 123 0034 0126     		movs	r6, #1
+ 149:Generated_Source\PSoC6/CapSense_Tuner.c ****             break;
+ 124              		.loc 1 149 0
+ 125 0036 1AE0     		b	.L6
+ 126              	.LVL7:
+ 127              	.L9:
+ 150:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 151:Generated_Source\PSoC6/CapSense_Tuner.c ****         case CapSense_TU_CMD_RESUME_E:
+ 152:Generated_Source\PSoC6/CapSense_Tuner.c ****             tunerFsm = TU_FSM_RUNNING;
+ 128              		.loc 1 152 0
+ 129 0038 0022     		movs	r2, #0
+ 130 003a 324B     		ldr	r3, .L18
+ 131 003c 1A60     		str	r2, [r3]
+ 132              	.LVL8:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 6
+
+
+ 153:Generated_Source\PSoC6/CapSense_Tuner.c ****             updateFlag = 1Lu;
+ 133              		.loc 1 153 0
+ 134 003e 0126     		movs	r6, #1
+ 154:Generated_Source\PSoC6/CapSense_Tuner.c ****             break;
+ 135              		.loc 1 154 0
+ 136 0040 15E0     		b	.L6
+ 137              	.LVL9:
+ 138              	.L10:
+ 155:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 156:Generated_Source\PSoC6/CapSense_Tuner.c ****         case CapSense_TU_CMD_RESTART_E:
+ 157:Generated_Source\PSoC6/CapSense_Tuner.c ****             (void)CapSense_Start();
+ 139              		.loc 1 157 0
+ 140 0042 FFF7FEFF 		bl	CapSense_Start
+ 141              	.LVL10:
+ 158:Generated_Source\PSoC6/CapSense_Tuner.c ****             tunerStatus = CapSense_STATUS_RESTART_DONE;
+ 159:Generated_Source\PSoC6/CapSense_Tuner.c ****             tunerFsm = TU_FSM_RUNNING;
+ 142              		.loc 1 159 0
+ 143 0046 0022     		movs	r2, #0
+ 144 0048 2E4B     		ldr	r3, .L18
+ 145 004a 1A60     		str	r2, [r3]
+ 146              	.LVL11:
+ 158:Generated_Source\PSoC6/CapSense_Tuner.c ****             tunerStatus = CapSense_STATUS_RESTART_DONE;
+ 147              		.loc 1 158 0
+ 148 004c 0125     		movs	r5, #1
+ 160:Generated_Source\PSoC6/CapSense_Tuner.c ****             updateFlag = 1Lu;
+ 149              		.loc 1 160 0
+ 150 004e 0126     		movs	r6, #1
+ 161:Generated_Source\PSoC6/CapSense_Tuner.c ****             break;
+ 151              		.loc 1 161 0
+ 152 0050 0DE0     		b	.L6
+ 153              	.LVL12:
+ 154              	.L11:
+ 162:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 163:Generated_Source\PSoC6/CapSense_Tuner.c ****         case CapSense_TU_CMD_RUN_SNR_TEST_E:
+ 164:Generated_Source\PSoC6/CapSense_Tuner.c ****             tunerFsm = TU_FSM_SNR_TEST;
+ 155              		.loc 1 164 0
+ 156 0052 0222     		movs	r2, #2
+ 157 0054 2B4B     		ldr	r3, .L18
+ 158 0056 1A60     		str	r2, [r3]
+ 159              	.LVL13:
+ 165:Generated_Source\PSoC6/CapSense_Tuner.c ****             updateFlag = 1Lu;
+ 160              		.loc 1 165 0
+ 161 0058 0126     		movs	r6, #1
+ 166:Generated_Source\PSoC6/CapSense_Tuner.c ****             break;
+ 162              		.loc 1 166 0
+ 163 005a 08E0     		b	.L6
+ 164              	.LVL14:
+ 165              	.L12:
+ 167:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 168:Generated_Source\PSoC6/CapSense_Tuner.c ****         case CapSense_TU_CMD_PING_E:
+ 169:Generated_Source\PSoC6/CapSense_Tuner.c ****             tunerFsm = TU_FSM_RUNNING;
+ 166              		.loc 1 169 0
+ 167 005c 0022     		movs	r2, #0
+ 168 005e 294B     		ldr	r3, .L18
+ 169 0060 1A60     		str	r2, [r3]
+ 170              	.LVL15:
+ 170:Generated_Source\PSoC6/CapSense_Tuner.c ****             updateFlag = 1Lu;
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 7
+
+
+ 171              		.loc 1 170 0
+ 172 0062 0126     		movs	r6, #1
+ 171:Generated_Source\PSoC6/CapSense_Tuner.c ****             break;
+ 173              		.loc 1 171 0
+ 174 0064 03E0     		b	.L6
+ 175              	.LVL16:
+ 176              	.L13:
+ 172:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 173:Generated_Source\PSoC6/CapSense_Tuner.c ****         case CapSense_TU_CMD_ONE_SCAN_E:
+ 174:Generated_Source\PSoC6/CapSense_Tuner.c ****             tunerFsm = TU_FSM_ONE_SCAN;
+ 177              		.loc 1 174 0
+ 178 0066 0322     		movs	r2, #3
+ 179 0068 264B     		ldr	r3, .L18
+ 180 006a 1A60     		str	r2, [r3]
+ 181              	.LVL17:
+ 175:Generated_Source\PSoC6/CapSense_Tuner.c ****             updateFlag = 0Lu;
+ 182              		.loc 1 175 0
+ 183 006c 0026     		movs	r6, #0
+ 184              	.LVL18:
+ 185              	.L6:
+ 176:Generated_Source\PSoC6/CapSense_Tuner.c ****             break;
+ 177:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 178:Generated_Source\PSoC6/CapSense_Tuner.c ****         default:
+ 179:Generated_Source\PSoC6/CapSense_Tuner.c ****             break;
+ 180:Generated_Source\PSoC6/CapSense_Tuner.c ****         }
+ 181:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 182:Generated_Source\PSoC6/CapSense_Tuner.c ****         /* Set Complete flag in command register if needed */
+ 183:Generated_Source\PSoC6/CapSense_Tuner.c ****         if (0Lu != updateFlag)
+ 186              		.loc 1 183 0
+ 187 006e 002E     		cmp	r6, #0
+ 188 0070 0FD0     		beq	.L14
+ 184:Generated_Source\PSoC6/CapSense_Tuner.c ****         {
+ 185:Generated_Source\PSoC6/CapSense_Tuner.c ****             interruptState = Cy_SysLib_EnterCriticalSection();
+ 189              		.loc 1 185 0
+ 190 0072 FFF7FEFF 		bl	Cy_SysLib_EnterCriticalSection
+ 191              	.LVL19:
+ 186:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 187:Generated_Source\PSoC6/CapSense_Tuner.c ****             /* Check if command wasn't overwritten with new command */
+ 188:Generated_Source\PSoC6/CapSense_Tuner.c ****             if (command == (CapSense_TU_CMD_ENUM)ptrDsRam->tunerCmd)
+ 192              		.loc 1 188 0
+ 193 0076 244B     		ldr	r3, .L18+4
+ 194 0078 DB88     		ldrh	r3, [r3, #6]
+ 195 007a DBB2     		uxtb	r3, r3
+ 196 007c 9C42     		cmp	r4, r3
+ 197 007e 05D1     		bne	.L15
+ 189:Generated_Source\PSoC6/CapSense_Tuner.c ****             {
+ 190:Generated_Source\PSoC6/CapSense_Tuner.c ****                 ptrDsRam->tunerCmd |= CapSense_TU_CMD_COMPLETE_BIT;
+ 198              		.loc 1 190 0
+ 199 0080 214A     		ldr	r2, .L18+4
+ 200 0082 D188     		ldrh	r1, [r2, #6]
+ 201 0084 224B     		ldr	r3, .L18+12
+ 202 0086 0B43     		orrs	r3, r1
+ 203 0088 9BB2     		uxth	r3, r3
+ 204 008a D380     		strh	r3, [r2, #6]
+ 205              	.L15:
+ 191:Generated_Source\PSoC6/CapSense_Tuner.c ****             }
+ 192:Generated_Source\PSoC6/CapSense_Tuner.c ****             Cy_SysLib_ExitCriticalSection(interruptState);
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 8
+
+
+ 206              		.loc 1 192 0
+ 207 008c FFF7FEFF 		bl	Cy_SysLib_ExitCriticalSection
+ 208              	.LVL20:
+ 193:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 194:Generated_Source\PSoC6/CapSense_Tuner.c ****             updateFlag = 0Lu;
+ 209              		.loc 1 194 0
+ 210 0090 0026     		movs	r6, #0
+ 211              	.LVL21:
+ 212              	.L14:
+ 195:Generated_Source\PSoC6/CapSense_Tuner.c ****         }
+ 196:Generated_Source\PSoC6/CapSense_Tuner.c ****     } while (TU_FSM_SUSPENDED == tunerFsm);
+ 213              		.loc 1 196 0
+ 214 0092 1C4B     		ldr	r3, .L18
+ 215 0094 1B68     		ldr	r3, [r3]
+ 216 0096 012B     		cmp	r3, #1
+ 217 0098 B5D0     		beq	.L16
+ 197:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 198:Generated_Source\PSoC6/CapSense_Tuner.c ****     /* Check for SNR Test mode and do appropriate actions */
+ 199:Generated_Source\PSoC6/CapSense_Tuner.c ****     if (TU_FSM_SNR_TEST == tunerFsm)
+ 218              		.loc 1 199 0
+ 219 009a 022B     		cmp	r3, #2
+ 220 009c 2FD1     		bne	.L17
+ 200:Generated_Source\PSoC6/CapSense_Tuner.c ****     {
+ 201:Generated_Source\PSoC6/CapSense_Tuner.c ****         widgetId = ptrDsRam->snrTestWidgetId;
+ 221              		.loc 1 201 0
+ 222 009e 1A4A     		ldr	r2, .L18+4
+ 223 00a0 9C33     		adds	r3, r3, #156
+ 224 00a2 D35C     		ldrb	r3, [r2, r3]
+ 225 00a4 DBB2     		uxtb	r3, r3
+ 226              	.LVL22:
+ 202:Generated_Source\PSoC6/CapSense_Tuner.c ****         sensorId = ptrDsRam->snrTestSensorId;
+ 227              		.loc 1 202 0
+ 228 00a6 9F21     		movs	r1, #159
+ 229 00a8 525C     		ldrb	r2, [r2, r1]
+ 230 00aa D2B2     		uxtb	r2, r2
+ 231              	.LVL23:
+ 203:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 204:Generated_Source\PSoC6/CapSense_Tuner.c ****         /* Check if widgetId and sensorId are in range,
+ 205:Generated_Source\PSoC6/CapSense_Tuner.c ****          * and data was updated in RAM (scan counter changed)
+ 206:Generated_Source\PSoC6/CapSense_Tuner.c ****          */
+ 207:Generated_Source\PSoC6/CapSense_Tuner.c ****         if ((widgetId < CapSense_TOTAL_WIDGETS)              &&
+ 232              		.loc 1 207 0
+ 233 00ac 022B     		cmp	r3, #2
+ 234 00ae 26D8     		bhi	.L17
+ 208:Generated_Source\PSoC6/CapSense_Tuner.c ****             (sensorId < CapSense_GET_SENSOR_COUNT(widgetId)) &&
+ 235              		.loc 1 208 0 discriminator 1
+ 236 00b0 5800     		lsls	r0, r3, #1
+ 237 00b2 C018     		adds	r0, r0, r3
+ 238 00b4 0101     		lsls	r1, r0, #4
+ 239 00b6 1748     		ldr	r0, .L18+16
+ 240 00b8 4118     		adds	r1, r0, r1
+ 241 00ba 098B     		ldrh	r1, [r1, #24]
+ 207:Generated_Source\PSoC6/CapSense_Tuner.c ****             (sensorId < CapSense_GET_SENSOR_COUNT(widgetId)) &&
+ 242              		.loc 1 207 0 discriminator 1
+ 243 00bc 8A42     		cmp	r2, r1
+ 244 00be 1ED2     		bcs	.L17
+ 209:Generated_Source\PSoC6/CapSense_Tuner.c ****             (ptrDsRam->scanCounter != ptrDsRam->snrTestScanCounter))
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 9
+
+
+ 245              		.loc 1 209 0
+ 246 00c0 1149     		ldr	r1, .L18+4
+ 247 00c2 0889     		ldrh	r0, [r1, #8]
+ 248 00c4 80B2     		uxth	r0, r0
+ 249 00c6 A024     		movs	r4, #160
+ 250              	.LVL24:
+ 251 00c8 095B     		ldrh	r1, [r1, r4]
+ 252 00ca 89B2     		uxth	r1, r1
+ 208:Generated_Source\PSoC6/CapSense_Tuner.c ****             (sensorId < CapSense_GET_SENSOR_COUNT(widgetId)) &&
+ 253              		.loc 1 208 0
+ 254 00cc 8842     		cmp	r0, r1
+ 255 00ce 16D0     		beq	.L17
+ 210:Generated_Source\PSoC6/CapSense_Tuner.c ****         {
+ 211:Generated_Source\PSoC6/CapSense_Tuner.c ****             /* Get access to the Sensor Object */
+ 212:Generated_Source\PSoC6/CapSense_Tuner.c ****             ptrSnsTmp = CapSense_dsFlash.wdgtArray[widgetId].ptr2SnsRam;
+ 256              		.loc 1 212 0
+ 257 00d0 5900     		lsls	r1, r3, #1
+ 258 00d2 CB18     		adds	r3, r1, r3
+ 259              	.LVL25:
+ 260 00d4 1901     		lsls	r1, r3, #4
+ 261 00d6 0F4B     		ldr	r3, .L18+16
+ 262 00d8 5918     		adds	r1, r3, r1
+ 263 00da 8C68     		ldr	r4, [r1, #8]
+ 264              	.LVL26:
+ 213:Generated_Source\PSoC6/CapSense_Tuner.c ****             ptrSnsTmp += sensorId;
+ 265              		.loc 1 213 0
+ 266 00dc 9300     		lsls	r3, r2, #2
+ 267 00de 9A18     		adds	r2, r3, r2
+ 268              	.LVL27:
+ 269 00e0 5300     		lsls	r3, r2, #1
+ 270 00e2 E418     		adds	r4, r4, r3
+ 271              	.LVL28:
+ 214:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 215:Generated_Source\PSoC6/CapSense_Tuner.c ****             /* Update data in SNR Test Object */
+ 216:Generated_Source\PSoC6/CapSense_Tuner.c ****             interruptState = Cy_SysLib_EnterCriticalSection();
+ 272              		.loc 1 216 0
+ 273 00e4 FFF7FEFF 		bl	Cy_SysLib_EnterCriticalSection
+ 274              	.LVL29:
+ 217:Generated_Source\PSoC6/CapSense_Tuner.c ****             ptrDsRam->snrTestScanCounter = ptrDsRam->scanCounter;
+ 275              		.loc 1 217 0
+ 276 00e8 074B     		ldr	r3, .L18+4
+ 277 00ea 1A89     		ldrh	r2, [r3, #8]
+ 278 00ec 92B2     		uxth	r2, r2
+ 279 00ee A021     		movs	r1, #160
+ 280 00f0 5A52     		strh	r2, [r3, r1]
+ 218:Generated_Source\PSoC6/CapSense_Tuner.c ****             ptrDsRam->snrTestRawCount[0u] = ptrSnsTmp->raw[0u];
+ 281              		.loc 1 218 0
+ 282 00f2 2288     		ldrh	r2, [r4]
+ 283 00f4 92B2     		uxth	r2, r2
+ 284 00f6 0231     		adds	r1, r1, #2
+ 285 00f8 5A52     		strh	r2, [r3, r1]
+ 219:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ 220:Generated_Source\PSoC6/CapSense_Tuner.c ****             #if (0u != CapSense_MULTI_FREQ_SCAN_EN)
+ 221:Generated_Source\PSoC6/CapSense_Tuner.c ****                 ptrDsRam->snrTestRawCount[1u] = ptrSnsTmp->raw[1u];
+ 222:Generated_Source\PSoC6/CapSense_Tuner.c ****                 ptrDsRam->snrTestRawCount[2u] = ptrSnsTmp->raw[2u];
+ 223:Generated_Source\PSoC6/CapSense_Tuner.c ****             #endif
+ 224:Generated_Source\PSoC6/CapSense_Tuner.c **** 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 10
+
+
+ 225:Generated_Source\PSoC6/CapSense_Tuner.c ****             Cy_SysLib_ExitCriticalSection(interruptState);
+ 286              		.loc 1 225 0
+ 287 00fa FFF7FEFF 		bl	Cy_SysLib_ExitCriticalSection
+ 288              	.LVL30:
+ 289              	.L17:
+ 226:Generated_Source\PSoC6/CapSense_Tuner.c ****         }
+ 227:Generated_Source\PSoC6/CapSense_Tuner.c ****     }
+ 228:Generated_Source\PSoC6/CapSense_Tuner.c ****     return tunerStatus;
+ 229:Generated_Source\PSoC6/CapSense_Tuner.c **** }
+ 290              		.loc 1 229 0
+ 291 00fe 2800     		movs	r0, r5
+ 292              		@ sp needed
+ 293              	.LVL31:
+ 294              	.LVL32:
+ 295 0100 70BD     		pop	{r4, r5, r6, pc}
+ 296              	.L19:
+ 297 0102 C046     		.align	2
+ 298              	.L18:
+ 299 0104 00000000 		.word	.LANCHOR0
+ 300 0108 00000000 		.word	CapSense_dsRam
+ 301 010c 00000000 		.word	.L8
+ 302 0110 0080FFFF 		.word	-32768
+ 303 0114 00000000 		.word	CapSense_dsFlash
+ 304              		.cfi_endproc
+ 305              	.LFE70:
+ 306              		.size	CapSense_RunTuner, .-CapSense_RunTuner
+ 307              		.bss
+ 308              		.align	2
+ 309              		.set	.LANCHOR0,. + 0
+ 310              		.type	tunerFsm, %object
+ 311              		.size	tunerFsm, 4
+ 312              	tunerFsm:
+ 313 0000 00000000 		.space	4
+ 314              		.text
+ 315              	.Letext0:
+ 316              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 317              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 318              		.file 4 "Generated_Source\\PSoC6\\pdl\\drivers/peripheral/syslib/cy_syslib.h"
+ 319              		.file 5 "Generated_Source\\PSoC6\\CapSense_Configuration.h"
+ 320              		.file 6 "Generated_Source\\PSoC6\\CapSense_SmartSense_LL.h"
+ 321              		.file 7 "Generated_Source\\PSoC6\\CapSense_Structure.h"
+ 322              		.file 8 "Generated_Source\\PSoC6\\CapSense_Tuner.h"
+ 323              		.file 9 "Generated_Source\\PSoC6\\CapSense_Control.h"
+ 324              		.section	.debug_info,"",%progbits
+ 325              	.Ldebug_info0:
+ 326 0000 F7070000 		.4byte	0x7f7
+ 327 0004 0400     		.2byte	0x4
+ 328 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 329 000a 04       		.byte	0x4
+ 330 000b 01       		.uleb128 0x1
+ 331 000c E7050000 		.4byte	.LASF119
+ 332 0010 0C       		.byte	0xc
+ 333 0011 34000000 		.4byte	.LASF120
+ 334 0015 44040000 		.4byte	.LASF121
+ 335 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 336 001d 00000000 		.4byte	0
+ 337 0021 00000000 		.4byte	.Ldebug_line0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 11
+
+
+ 338 0025 02       		.uleb128 0x2
+ 339 0026 01       		.byte	0x1
+ 340 0027 06       		.byte	0x6
+ 341 0028 20010000 		.4byte	.LASF0
+ 342 002c 03       		.uleb128 0x3
+ 343 002d 20000000 		.4byte	.LASF3
+ 344 0031 02       		.byte	0x2
+ 345 0032 1D       		.byte	0x1d
+ 346 0033 37000000 		.4byte	0x37
+ 347 0037 02       		.uleb128 0x2
+ 348 0038 01       		.byte	0x1
+ 349 0039 08       		.byte	0x8
+ 350 003a C8060000 		.4byte	.LASF1
+ 351 003e 02       		.uleb128 0x2
+ 352 003f 02       		.byte	0x2
+ 353 0040 05       		.byte	0x5
+ 354 0041 0A030000 		.4byte	.LASF2
+ 355 0045 03       		.uleb128 0x3
+ 356 0046 97060000 		.4byte	.LASF4
+ 357 004a 02       		.byte	0x2
+ 358 004b 2B       		.byte	0x2b
+ 359 004c 50000000 		.4byte	0x50
+ 360 0050 02       		.uleb128 0x2
+ 361 0051 02       		.byte	0x2
+ 362 0052 07       		.byte	0x7
+ 363 0053 CF020000 		.4byte	.LASF5
+ 364 0057 02       		.uleb128 0x2
+ 365 0058 04       		.byte	0x4
+ 366 0059 05       		.byte	0x5
+ 367 005a 67010000 		.4byte	.LASF6
+ 368 005e 03       		.uleb128 0x3
+ 369 005f F8010000 		.4byte	.LASF7
+ 370 0063 02       		.byte	0x2
+ 371 0064 41       		.byte	0x41
+ 372 0065 69000000 		.4byte	0x69
+ 373 0069 02       		.uleb128 0x2
+ 374 006a 04       		.byte	0x4
+ 375 006b 07       		.byte	0x7
+ 376 006c 82020000 		.4byte	.LASF8
+ 377 0070 02       		.uleb128 0x2
+ 378 0071 08       		.byte	0x8
+ 379 0072 05       		.byte	0x5
+ 380 0073 12010000 		.4byte	.LASF9
+ 381 0077 02       		.uleb128 0x2
+ 382 0078 08       		.byte	0x8
+ 383 0079 07       		.byte	0x7
+ 384 007a 83000000 		.4byte	.LASF10
+ 385 007e 04       		.uleb128 0x4
+ 386 007f 04       		.byte	0x4
+ 387 0080 05       		.byte	0x5
+ 388 0081 696E7400 		.ascii	"int\000"
+ 389 0085 02       		.uleb128 0x2
+ 390 0086 04       		.byte	0x4
+ 391 0087 07       		.byte	0x7
+ 392 0088 8A060000 		.4byte	.LASF11
+ 393 008c 03       		.uleb128 0x3
+ 394 008d 30070000 		.4byte	.LASF12
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 12
+
+
+ 395 0091 03       		.byte	0x3
+ 396 0092 18       		.byte	0x18
+ 397 0093 2C000000 		.4byte	0x2c
+ 398 0097 03       		.uleb128 0x3
+ 399 0098 97010000 		.4byte	.LASF13
+ 400 009c 03       		.byte	0x3
+ 401 009d 24       		.byte	0x24
+ 402 009e 45000000 		.4byte	0x45
+ 403 00a2 03       		.uleb128 0x3
+ 404 00a3 97050000 		.4byte	.LASF14
+ 405 00a7 03       		.byte	0x3
+ 406 00a8 30       		.byte	0x30
+ 407 00a9 5E000000 		.4byte	0x5e
+ 408 00ad 02       		.uleb128 0x2
+ 409 00ae 04       		.byte	0x4
+ 410 00af 07       		.byte	0x7
+ 411 00b0 84030000 		.4byte	.LASF15
+ 412 00b4 02       		.uleb128 0x2
+ 413 00b5 01       		.byte	0x1
+ 414 00b6 08       		.byte	0x8
+ 415 00b7 85060000 		.4byte	.LASF16
+ 416 00bb 02       		.uleb128 0x2
+ 417 00bc 04       		.byte	0x4
+ 418 00bd 04       		.byte	0x4
+ 419 00be 19040000 		.4byte	.LASF17
+ 420 00c2 02       		.uleb128 0x2
+ 421 00c3 08       		.byte	0x8
+ 422 00c4 04       		.byte	0x4
+ 423 00c5 A0010000 		.4byte	.LASF18
+ 424 00c9 05       		.uleb128 0x5
+ 425 00ca 91010000 		.4byte	.LASF19
+ 426 00ce 04       		.byte	0x4
+ 427 00cf 8503     		.2byte	0x385
+ 428 00d1 8C000000 		.4byte	0x8c
+ 429 00d5 05       		.uleb128 0x5
+ 430 00d6 0A000000 		.4byte	.LASF20
+ 431 00da 04       		.byte	0x4
+ 432 00db 8603     		.2byte	0x386
+ 433 00dd 97000000 		.4byte	0x97
+ 434 00e1 05       		.uleb128 0x5
+ 435 00e2 2C010000 		.4byte	.LASF21
+ 436 00e6 04       		.byte	0x4
+ 437 00e7 8703     		.2byte	0x387
+ 438 00e9 A2000000 		.4byte	0xa2
+ 439 00ed 03       		.uleb128 0x3
+ 440 00ee FA000000 		.4byte	.LASF22
+ 441 00f2 05       		.byte	0x5
+ 442 00f3 F2       		.byte	0xf2
+ 443 00f4 D5000000 		.4byte	0xd5
+ 444 00f8 03       		.uleb128 0x3
+ 445 00f9 BE000000 		.4byte	.LASF23
+ 446 00fd 05       		.byte	0x5
+ 447 00fe F6       		.byte	0xf6
+ 448 00ff C9000000 		.4byte	0xc9
+ 449 0103 06       		.uleb128 0x6
+ 450 0104 0C       		.byte	0xc
+ 451 0105 06       		.byte	0x6
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 13
+
+
+ 452 0106 6E       		.byte	0x6e
+ 453 0107 60010000 		.4byte	0x160
+ 454 010b 07       		.uleb128 0x7
+ 455 010c FF040000 		.4byte	.LASF24
+ 456 0110 06       		.byte	0x6
+ 457 0111 73       		.byte	0x73
+ 458 0112 D5000000 		.4byte	0xd5
+ 459 0116 00       		.byte	0
+ 460 0117 07       		.uleb128 0x7
+ 461 0118 06050000 		.4byte	.LASF25
+ 462 011c 06       		.byte	0x6
+ 463 011d 77       		.byte	0x77
+ 464 011e D5000000 		.4byte	0xd5
+ 465 0122 02       		.byte	0x2
+ 466 0123 07       		.uleb128 0x7
+ 467 0124 0D050000 		.4byte	.LASF26
+ 468 0128 06       		.byte	0x6
+ 469 0129 7B       		.byte	0x7b
+ 470 012a D5000000 		.4byte	0xd5
+ 471 012e 04       		.byte	0x4
+ 472 012f 07       		.uleb128 0x7
+ 473 0130 14050000 		.4byte	.LASF27
+ 474 0134 06       		.byte	0x6
+ 475 0135 7F       		.byte	0x7f
+ 476 0136 D5000000 		.4byte	0xd5
+ 477 013a 06       		.byte	0x6
+ 478 013b 07       		.uleb128 0x7
+ 479 013c 1B050000 		.4byte	.LASF28
+ 480 0140 06       		.byte	0x6
+ 481 0141 83       		.byte	0x83
+ 482 0142 D5000000 		.4byte	0xd5
+ 483 0146 08       		.byte	0x8
+ 484 0147 07       		.uleb128 0x7
+ 485 0148 22050000 		.4byte	.LASF29
+ 486 014c 06       		.byte	0x6
+ 487 014d 87       		.byte	0x87
+ 488 014e C9000000 		.4byte	0xc9
+ 489 0152 0A       		.byte	0xa
+ 490 0153 07       		.uleb128 0x7
+ 491 0154 29050000 		.4byte	.LASF30
+ 492 0158 06       		.byte	0x6
+ 493 0159 8B       		.byte	0x8b
+ 494 015a C9000000 		.4byte	0xc9
+ 495 015e 0B       		.byte	0xb
+ 496 015f 00       		.byte	0
+ 497 0160 03       		.uleb128 0x3
+ 498 0161 1F040000 		.4byte	.LASF31
+ 499 0165 06       		.byte	0x6
+ 500 0166 8C       		.byte	0x8c
+ 501 0167 03010000 		.4byte	0x103
+ 502 016b 08       		.uleb128 0x8
+ 503 016c C9000000 		.4byte	0xc9
+ 504 0170 7B010000 		.4byte	0x17b
+ 505 0174 09       		.uleb128 0x9
+ 506 0175 AD000000 		.4byte	0xad
+ 507 0179 00       		.byte	0
+ 508 017a 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 14
+
+
+ 509 017b 06       		.uleb128 0x6
+ 510 017c 12       		.byte	0x12
+ 511 017d 07       		.byte	0x7
+ 512 017e DA       		.byte	0xda
+ 513 017f 1A020000 		.4byte	0x21a
+ 514 0183 07       		.uleb128 0x7
+ 515 0184 A9060000 		.4byte	.LASF32
+ 516 0188 07       		.byte	0x7
+ 517 0189 E0       		.byte	0xe0
+ 518 018a D5000000 		.4byte	0xd5
+ 519 018e 00       		.byte	0
+ 520 018f 07       		.uleb128 0x7
+ 521 0190 75070000 		.4byte	.LASF33
+ 522 0194 07       		.byte	0x7
+ 523 0195 E5       		.byte	0xe5
+ 524 0196 ED000000 		.4byte	0xed
+ 525 019a 02       		.byte	0x2
+ 526 019b 07       		.uleb128 0x7
+ 527 019c AD070000 		.4byte	.LASF34
+ 528 01a0 07       		.byte	0x7
+ 529 01a1 EA       		.byte	0xea
+ 530 01a2 C9000000 		.4byte	0xc9
+ 531 01a6 04       		.byte	0x4
+ 532 01a7 07       		.uleb128 0x7
+ 533 01a8 9A030000 		.4byte	.LASF35
+ 534 01ac 07       		.byte	0x7
+ 535 01ad EF       		.byte	0xef
+ 536 01ae C9000000 		.4byte	0xc9
+ 537 01b2 05       		.byte	0x5
+ 538 01b3 07       		.uleb128 0x7
+ 539 01b4 ED010000 		.4byte	.LASF36
+ 540 01b8 07       		.byte	0x7
+ 541 01b9 F4       		.byte	0xf4
+ 542 01ba C9000000 		.4byte	0xc9
+ 543 01be 06       		.byte	0x6
+ 544 01bf 07       		.uleb128 0x7
+ 545 01c0 B4060000 		.4byte	.LASF37
+ 546 01c4 07       		.byte	0x7
+ 547 01c5 F9       		.byte	0xf9
+ 548 01c6 C9000000 		.4byte	0xc9
+ 549 01ca 07       		.byte	0x7
+ 550 01cb 0A       		.uleb128 0xa
+ 551 01cc BA020000 		.4byte	.LASF38
+ 552 01d0 07       		.byte	0x7
+ 553 01d1 0001     		.2byte	0x100
+ 554 01d3 F8000000 		.4byte	0xf8
+ 555 01d7 08       		.byte	0x8
+ 556 01d8 0A       		.uleb128 0xa
+ 557 01d9 44030000 		.4byte	.LASF39
+ 558 01dd 07       		.byte	0x7
+ 559 01de 0801     		.2byte	0x108
+ 560 01e0 6B010000 		.4byte	0x16b
+ 561 01e4 09       		.byte	0x9
+ 562 01e5 0A       		.uleb128 0xa
+ 563 01e6 A2060000 		.4byte	.LASF40
+ 564 01ea 07       		.byte	0x7
+ 565 01eb 1101     		.2byte	0x111
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 15
+
+
+ 566 01ed D5000000 		.4byte	0xd5
+ 567 01f1 0A       		.byte	0xa
+ 568 01f2 0A       		.uleb128 0xa
+ 569 01f3 51070000 		.4byte	.LASF41
+ 570 01f7 07       		.byte	0x7
+ 571 01f8 1601     		.2byte	0x116
+ 572 01fa C9000000 		.4byte	0xc9
+ 573 01fe 0C       		.byte	0xc
+ 574 01ff 0A       		.uleb128 0xa
+ 575 0200 2A000000 		.4byte	.LASF42
+ 576 0204 07       		.byte	0x7
+ 577 0205 1D01     		.2byte	0x11d
+ 578 0207 D5000000 		.4byte	0xd5
+ 579 020b 0E       		.byte	0xe
+ 580 020c 0A       		.uleb128 0xa
+ 581 020d B9030000 		.4byte	.LASF43
+ 582 0211 07       		.byte	0x7
+ 583 0212 2201     		.2byte	0x122
+ 584 0214 D5000000 		.4byte	0xd5
+ 585 0218 10       		.byte	0x10
+ 586 0219 00       		.byte	0
+ 587 021a 05       		.uleb128 0x5
+ 588 021b 1D030000 		.4byte	.LASF44
+ 589 021f 07       		.byte	0x7
+ 590 0220 2301     		.2byte	0x123
+ 591 0222 7B010000 		.4byte	0x17b
+ 592 0226 0B       		.uleb128 0xb
+ 593 0227 14       		.byte	0x14
+ 594 0228 07       		.byte	0x7
+ 595 0229 2801     		.2byte	0x128
+ 596 022b D9020000 		.4byte	0x2d9
+ 597 022f 0A       		.uleb128 0xa
+ 598 0230 A9060000 		.4byte	.LASF32
+ 599 0234 07       		.byte	0x7
+ 600 0235 2E01     		.2byte	0x12e
+ 601 0237 D5000000 		.4byte	0xd5
+ 602 023b 00       		.byte	0
+ 603 023c 0A       		.uleb128 0xa
+ 604 023d 75070000 		.4byte	.LASF33
+ 605 0241 07       		.byte	0x7
+ 606 0242 3301     		.2byte	0x133
+ 607 0244 ED000000 		.4byte	0xed
+ 608 0248 02       		.byte	0x2
+ 609 0249 0A       		.uleb128 0xa
+ 610 024a AD070000 		.4byte	.LASF34
+ 611 024e 07       		.byte	0x7
+ 612 024f 3801     		.2byte	0x138
+ 613 0251 C9000000 		.4byte	0xc9
+ 614 0255 04       		.byte	0x4
+ 615 0256 0A       		.uleb128 0xa
+ 616 0257 9A030000 		.4byte	.LASF35
+ 617 025b 07       		.byte	0x7
+ 618 025c 3D01     		.2byte	0x13d
+ 619 025e C9000000 		.4byte	0xc9
+ 620 0262 05       		.byte	0x5
+ 621 0263 0A       		.uleb128 0xa
+ 622 0264 ED010000 		.4byte	.LASF36
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 16
+
+
+ 623 0268 07       		.byte	0x7
+ 624 0269 4201     		.2byte	0x142
+ 625 026b C9000000 		.4byte	0xc9
+ 626 026f 06       		.byte	0x6
+ 627 0270 0A       		.uleb128 0xa
+ 628 0271 B4060000 		.4byte	.LASF37
+ 629 0275 07       		.byte	0x7
+ 630 0276 4701     		.2byte	0x147
+ 631 0278 C9000000 		.4byte	0xc9
+ 632 027c 07       		.byte	0x7
+ 633 027d 0A       		.uleb128 0xa
+ 634 027e BA020000 		.4byte	.LASF38
+ 635 0282 07       		.byte	0x7
+ 636 0283 4E01     		.2byte	0x14e
+ 637 0285 F8000000 		.4byte	0xf8
+ 638 0289 08       		.byte	0x8
+ 639 028a 0A       		.uleb128 0xa
+ 640 028b 44030000 		.4byte	.LASF39
+ 641 028f 07       		.byte	0x7
+ 642 0290 5601     		.2byte	0x156
+ 643 0292 6B010000 		.4byte	0x16b
+ 644 0296 09       		.byte	0x9
+ 645 0297 0A       		.uleb128 0xa
+ 646 0298 A2060000 		.4byte	.LASF40
+ 647 029c 07       		.byte	0x7
+ 648 029d 5F01     		.2byte	0x15f
+ 649 029f D5000000 		.4byte	0xd5
+ 650 02a3 0A       		.byte	0xa
+ 651 02a4 0A       		.uleb128 0xa
+ 652 02a5 51070000 		.4byte	.LASF41
+ 653 02a9 07       		.byte	0x7
+ 654 02aa 6401     		.2byte	0x164
+ 655 02ac C9000000 		.4byte	0xc9
+ 656 02b0 0C       		.byte	0xc
+ 657 02b1 0A       		.uleb128 0xa
+ 658 02b2 2A000000 		.4byte	.LASF42
+ 659 02b6 07       		.byte	0x7
+ 660 02b7 6B01     		.2byte	0x16b
+ 661 02b9 D5000000 		.4byte	0xd5
+ 662 02bd 0E       		.byte	0xe
+ 663 02be 0A       		.uleb128 0xa
+ 664 02bf B9030000 		.4byte	.LASF43
+ 665 02c3 07       		.byte	0x7
+ 666 02c4 7001     		.2byte	0x170
+ 667 02c6 D5000000 		.4byte	0xd5
+ 668 02ca 10       		.byte	0x10
+ 669 02cb 0A       		.uleb128 0xa
+ 670 02cc 52020000 		.4byte	.LASF45
+ 671 02d0 07       		.byte	0x7
+ 672 02d1 7501     		.2byte	0x175
+ 673 02d3 D9020000 		.4byte	0x2d9
+ 674 02d7 12       		.byte	0x12
+ 675 02d8 00       		.byte	0
+ 676 02d9 08       		.uleb128 0x8
+ 677 02da D5000000 		.4byte	0xd5
+ 678 02de E9020000 		.4byte	0x2e9
+ 679 02e2 09       		.uleb128 0x9
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 17
+
+
+ 680 02e3 AD000000 		.4byte	0xad
+ 681 02e7 00       		.byte	0
+ 682 02e8 00       		.byte	0
+ 683 02e9 05       		.uleb128 0x5
+ 684 02ea 4C030000 		.4byte	.LASF46
+ 685 02ee 07       		.byte	0x7
+ 686 02ef 7601     		.2byte	0x176
+ 687 02f1 26020000 		.4byte	0x226
+ 688 02f5 0B       		.uleb128 0xb
+ 689 02f6 38       		.byte	0x38
+ 690 02f7 07       		.byte	0x7
+ 691 02f8 7C01     		.2byte	0x17c
+ 692 02fa 26030000 		.4byte	0x326
+ 693 02fe 0A       		.uleb128 0xa
+ 694 02ff 33010000 		.4byte	.LASF47
+ 695 0303 07       		.byte	0x7
+ 696 0304 8101     		.2byte	0x181
+ 697 0306 1A020000 		.4byte	0x21a
+ 698 030a 00       		.byte	0
+ 699 030b 0A       		.uleb128 0xa
+ 700 030c 3B010000 		.4byte	.LASF48
+ 701 0310 07       		.byte	0x7
+ 702 0311 8601     		.2byte	0x186
+ 703 0313 1A020000 		.4byte	0x21a
+ 704 0317 12       		.byte	0x12
+ 705 0318 0A       		.uleb128 0xa
+ 706 0319 5E070000 		.4byte	.LASF49
+ 707 031d 07       		.byte	0x7
+ 708 031e 8B01     		.2byte	0x18b
+ 709 0320 E9020000 		.4byte	0x2e9
+ 710 0324 24       		.byte	0x24
+ 711 0325 00       		.byte	0
+ 712 0326 05       		.uleb128 0x5
+ 713 0327 7E070000 		.4byte	.LASF50
+ 714 032b 07       		.byte	0x7
+ 715 032c 8C01     		.2byte	0x18c
+ 716 032e F5020000 		.4byte	0x2f5
+ 717 0332 0B       		.uleb128 0xb
+ 718 0333 0A       		.byte	0xa
+ 719 0334 07       		.byte	0x7
+ 720 0335 9201     		.2byte	0x192
+ 721 0337 8A030000 		.4byte	0x38a
+ 722 033b 0C       		.uleb128 0xc
+ 723 033c 72617700 		.ascii	"raw\000"
+ 724 0340 07       		.byte	0x7
+ 725 0341 9701     		.2byte	0x197
+ 726 0343 D9020000 		.4byte	0x2d9
+ 727 0347 00       		.byte	0
+ 728 0348 0A       		.uleb128 0xa
+ 729 0349 3E020000 		.4byte	.LASF51
+ 730 034d 07       		.byte	0x7
+ 731 034e 9C01     		.2byte	0x19c
+ 732 0350 D9020000 		.4byte	0x2d9
+ 733 0354 02       		.byte	0x2
+ 734 0355 0A       		.uleb128 0xa
+ 735 0356 BE010000 		.4byte	.LASF52
+ 736 035a 07       		.byte	0x7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 18
+
+
+ 737 035b A201     		.2byte	0x1a2
+ 738 035d 6B010000 		.4byte	0x16b
+ 739 0361 04       		.byte	0x4
+ 740 0362 0A       		.uleb128 0xa
+ 741 0363 B9000000 		.4byte	.LASF53
+ 742 0367 07       		.byte	0x7
+ 743 0368 A701     		.2byte	0x1a7
+ 744 036a ED000000 		.4byte	0xed
+ 745 036e 06       		.byte	0x6
+ 746 036f 0A       		.uleb128 0xa
+ 747 0370 D6060000 		.4byte	.LASF54
+ 748 0374 07       		.byte	0x7
+ 749 0375 AC01     		.2byte	0x1ac
+ 750 0377 8A030000 		.4byte	0x38a
+ 751 037b 08       		.byte	0x8
+ 752 037c 0A       		.uleb128 0xa
+ 753 037d BF060000 		.4byte	.LASF55
+ 754 0381 07       		.byte	0x7
+ 755 0382 B201     		.2byte	0x1b2
+ 756 0384 6B010000 		.4byte	0x16b
+ 757 0388 09       		.byte	0x9
+ 758 0389 00       		.byte	0
+ 759 038a 08       		.uleb128 0x8
+ 760 038b F8000000 		.4byte	0xf8
+ 761 038f 9A030000 		.4byte	0x39a
+ 762 0393 09       		.uleb128 0x9
+ 763 0394 AD000000 		.4byte	0xad
+ 764 0398 00       		.byte	0
+ 765 0399 00       		.byte	0
+ 766 039a 05       		.uleb128 0x5
+ 767 039b 6B000000 		.4byte	.LASF56
+ 768 039f 07       		.byte	0x7
+ 769 03a0 B301     		.2byte	0x1b3
+ 770 03a2 32030000 		.4byte	0x332
+ 771 03a6 0B       		.uleb128 0xb
+ 772 03a7 46       		.byte	0x46
+ 773 03a8 07       		.byte	0x7
+ 774 03a9 B901     		.2byte	0x1b9
+ 775 03ab D7030000 		.4byte	0x3d7
+ 776 03af 0A       		.uleb128 0xa
+ 777 03b0 33010000 		.4byte	.LASF47
+ 778 03b4 07       		.byte	0x7
+ 779 03b5 BE01     		.2byte	0x1be
+ 780 03b7 D7030000 		.4byte	0x3d7
+ 781 03bb 00       		.byte	0
+ 782 03bc 0A       		.uleb128 0xa
+ 783 03bd 3B010000 		.4byte	.LASF48
+ 784 03c1 07       		.byte	0x7
+ 785 03c2 C301     		.2byte	0x1c3
+ 786 03c4 D7030000 		.4byte	0x3d7
+ 787 03c8 0A       		.byte	0xa
+ 788 03c9 0A       		.uleb128 0xa
+ 789 03ca 5E070000 		.4byte	.LASF49
+ 790 03ce 07       		.byte	0x7
+ 791 03cf C801     		.2byte	0x1c8
+ 792 03d1 E7030000 		.4byte	0x3e7
+ 793 03d5 14       		.byte	0x14
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 19
+
+
+ 794 03d6 00       		.byte	0
+ 795 03d7 08       		.uleb128 0x8
+ 796 03d8 9A030000 		.4byte	0x39a
+ 797 03dc E7030000 		.4byte	0x3e7
+ 798 03e0 09       		.uleb128 0x9
+ 799 03e1 AD000000 		.4byte	0xad
+ 800 03e5 00       		.byte	0
+ 801 03e6 00       		.byte	0
+ 802 03e7 08       		.uleb128 0x8
+ 803 03e8 9A030000 		.4byte	0x39a
+ 804 03ec F7030000 		.4byte	0x3f7
+ 805 03f0 09       		.uleb128 0x9
+ 806 03f1 AD000000 		.4byte	0xad
+ 807 03f5 04       		.byte	0x4
+ 808 03f6 00       		.byte	0
+ 809 03f7 05       		.uleb128 0x5
+ 810 03f8 CE040000 		.4byte	.LASF57
+ 811 03fc 07       		.byte	0x7
+ 812 03fd C901     		.2byte	0x1c9
+ 813 03ff A6030000 		.4byte	0x3a6
+ 814 0403 0B       		.uleb128 0xb
+ 815 0404 A4       		.byte	0xa4
+ 816 0405 07       		.byte	0x7
+ 817 0406 CF01     		.2byte	0x1cf
+ 818 0408 F7040000 		.4byte	0x4f7
+ 819 040c 0A       		.uleb128 0xa
+ 820 040d EA020000 		.4byte	.LASF58
+ 821 0411 07       		.byte	0x7
+ 822 0412 D701     		.2byte	0x1d7
+ 823 0414 D5000000 		.4byte	0xd5
+ 824 0418 00       		.byte	0
+ 825 0419 0A       		.uleb128 0xa
+ 826 041a 14030000 		.4byte	.LASF59
+ 827 041e 07       		.byte	0x7
+ 828 041f DC01     		.2byte	0x1dc
+ 829 0421 D5000000 		.4byte	0xd5
+ 830 0425 02       		.byte	0x2
+ 831 0426 0A       		.uleb128 0xa
+ 832 0427 C0030000 		.4byte	.LASF60
+ 833 042b 07       		.byte	0x7
+ 834 042c E101     		.2byte	0x1e1
+ 835 042e D5000000 		.4byte	0xd5
+ 836 0432 04       		.byte	0x4
+ 837 0433 0A       		.uleb128 0xa
+ 838 0434 10040000 		.4byte	.LASF61
+ 839 0438 07       		.byte	0x7
+ 840 0439 E701     		.2byte	0x1e7
+ 841 043b D5000000 		.4byte	0xd5
+ 842 043f 06       		.byte	0x6
+ 843 0440 0A       		.uleb128 0xa
+ 844 0441 E5030000 		.4byte	.LASF62
+ 845 0445 07       		.byte	0x7
+ 846 0446 EC01     		.2byte	0x1ec
+ 847 0448 D5000000 		.4byte	0xd5
+ 848 044c 08       		.byte	0x8
+ 849 044d 0A       		.uleb128 0xa
+ 850 044e 1F070000 		.4byte	.LASF63
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 20
+
+
+ 851 0452 07       		.byte	0x7
+ 852 0453 F101     		.2byte	0x1f1
+ 853 0455 F7040000 		.4byte	0x4f7
+ 854 0459 0C       		.byte	0xc
+ 855 045a 0A       		.uleb128 0xa
+ 856 045b 94020000 		.4byte	.LASF64
+ 857 045f 07       		.byte	0x7
+ 858 0460 F701     		.2byte	0x1f7
+ 859 0462 FC040000 		.4byte	0x4fc
+ 860 0466 10       		.byte	0x10
+ 861 0467 0A       		.uleb128 0xa
+ 862 0468 2B020000 		.4byte	.LASF65
+ 863 046c 07       		.byte	0x7
+ 864 046d FD01     		.2byte	0x1fd
+ 865 046f FC040000 		.4byte	0x4fc
+ 866 0473 14       		.byte	0x14
+ 867 0474 0A       		.uleb128 0xa
+ 868 0475 5D010000 		.4byte	.LASF66
+ 869 0479 07       		.byte	0x7
+ 870 047a 0F02     		.2byte	0x20f
+ 871 047c 0C050000 		.4byte	0x50c
+ 872 0480 18       		.byte	0x18
+ 873 0481 0A       		.uleb128 0xa
+ 874 0482 F3020000 		.4byte	.LASF67
+ 875 0486 07       		.byte	0x7
+ 876 0487 1402     		.2byte	0x214
+ 877 0489 D5000000 		.4byte	0xd5
+ 878 048d 1C       		.byte	0x1c
+ 879 048e 0A       		.uleb128 0xa
+ 880 048f 70010000 		.4byte	.LASF68
+ 881 0493 07       		.byte	0x7
+ 882 0494 1902     		.2byte	0x219
+ 883 0496 C9000000 		.4byte	0xc9
+ 884 049a 1E       		.byte	0x1e
+ 885 049b 0A       		.uleb128 0xa
+ 886 049c 00000000 		.4byte	.LASF69
+ 887 04a0 07       		.byte	0x7
+ 888 04a1 1E02     		.2byte	0x21e
+ 889 04a3 C9000000 		.4byte	0xc9
+ 890 04a7 1F       		.byte	0x1f
+ 891 04a8 0A       		.uleb128 0xa
+ 892 04a9 A0050000 		.4byte	.LASF70
+ 893 04ad 07       		.byte	0x7
+ 894 04ae 2302     		.2byte	0x223
+ 895 04b0 26030000 		.4byte	0x326
+ 896 04b4 20       		.byte	0x20
+ 897 04b5 0A       		.uleb128 0xa
+ 898 04b6 E2020000 		.4byte	.LASF71
+ 899 04ba 07       		.byte	0x7
+ 900 04bb 2802     		.2byte	0x228
+ 901 04bd F7030000 		.4byte	0x3f7
+ 902 04c1 58       		.byte	0x58
+ 903 04c2 0A       		.uleb128 0xa
+ 904 04c3 5B020000 		.4byte	.LASF72
+ 905 04c7 07       		.byte	0x7
+ 906 04c8 2D02     		.2byte	0x22d
+ 907 04ca C9000000 		.4byte	0xc9
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 21
+
+
+ 908 04ce 9E       		.byte	0x9e
+ 909 04cf 0A       		.uleb128 0xa
+ 910 04d0 D9000000 		.4byte	.LASF73
+ 911 04d4 07       		.byte	0x7
+ 912 04d5 3202     		.2byte	0x232
+ 913 04d7 C9000000 		.4byte	0xc9
+ 914 04db 9F       		.byte	0x9f
+ 915 04dc 0A       		.uleb128 0xa
+ 916 04dd 9A070000 		.4byte	.LASF74
+ 917 04e1 07       		.byte	0x7
+ 918 04e2 3702     		.2byte	0x237
+ 919 04e4 D5000000 		.4byte	0xd5
+ 920 04e8 A0       		.byte	0xa0
+ 921 04e9 0A       		.uleb128 0xa
+ 922 04ea 00040000 		.4byte	.LASF75
+ 923 04ee 07       		.byte	0x7
+ 924 04ef 3C02     		.2byte	0x23c
+ 925 04f1 D9020000 		.4byte	0x2d9
+ 926 04f5 A2       		.byte	0xa2
+ 927 04f6 00       		.byte	0
+ 928 04f7 0D       		.uleb128 0xd
+ 929 04f8 E1000000 		.4byte	0xe1
+ 930 04fc 08       		.uleb128 0x8
+ 931 04fd E1000000 		.4byte	0xe1
+ 932 0501 0C050000 		.4byte	0x50c
+ 933 0505 09       		.uleb128 0x9
+ 934 0506 AD000000 		.4byte	0xad
+ 935 050a 00       		.byte	0
+ 936 050b 00       		.byte	0
+ 937 050c 08       		.uleb128 0x8
+ 938 050d C9000000 		.4byte	0xc9
+ 939 0511 1C050000 		.4byte	0x51c
+ 940 0515 09       		.uleb128 0x9
+ 941 0516 AD000000 		.4byte	0xad
+ 942 051a 02       		.byte	0x2
+ 943 051b 00       		.byte	0
+ 944 051c 05       		.uleb128 0x5
+ 945 051d EB040000 		.4byte	.LASF76
+ 946 0521 07       		.byte	0x7
+ 947 0522 3D02     		.2byte	0x23d
+ 948 0524 03040000 		.4byte	0x403
+ 949 0528 0B       		.uleb128 0xb
+ 950 0529 30       		.byte	0x30
+ 951 052a 07       		.byte	0x7
+ 952 052b 7B02     		.2byte	0x27b
+ 953 052d 02060000 		.4byte	0x602
+ 954 0531 0A       		.uleb128 0xa
+ 955 0532 AC000000 		.4byte	.LASF77
+ 956 0536 07       		.byte	0x7
+ 957 0537 8402     		.2byte	0x284
+ 958 0539 02060000 		.4byte	0x602
+ 959 053d 00       		.byte	0
+ 960 053e 0A       		.uleb128 0xa
+ 961 053f FE020000 		.4byte	.LASF78
+ 962 0543 07       		.byte	0x7
+ 963 0544 8B02     		.2byte	0x28b
+ 964 0546 09060000 		.4byte	0x609
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 22
+
+
+ 965 054a 04       		.byte	0x4
+ 966 054b 0A       		.uleb128 0xa
+ 967 054c 7A010000 		.4byte	.LASF79
+ 968 0550 07       		.byte	0x7
+ 969 0551 9102     		.2byte	0x291
+ 970 0553 0B060000 		.4byte	0x60b
+ 971 0557 08       		.byte	0x8
+ 972 0558 0A       		.uleb128 0xa
+ 973 0559 7B050000 		.4byte	.LASF80
+ 974 055d 07       		.byte	0x7
+ 975 055e 9602     		.2byte	0x296
+ 976 0560 09060000 		.4byte	0x609
+ 977 0564 0C       		.byte	0xc
+ 978 0565 0A       		.uleb128 0xa
+ 979 0566 F0060000 		.4byte	.LASF81
+ 980 056a 07       		.byte	0x7
+ 981 056b 9D02     		.2byte	0x29d
+ 982 056d 11060000 		.4byte	0x611
+ 983 0571 10       		.byte	0x10
+ 984 0572 0A       		.uleb128 0xa
+ 985 0573 8D030000 		.4byte	.LASF82
+ 986 0577 07       		.byte	0x7
+ 987 0578 A202     		.2byte	0x2a2
+ 988 057a E1000000 		.4byte	0xe1
+ 989 057e 14       		.byte	0x14
+ 990 057f 0A       		.uleb128 0xa
+ 991 0580 E4060000 		.4byte	.LASF83
+ 992 0584 07       		.byte	0x7
+ 993 0585 A902     		.2byte	0x2a9
+ 994 0587 D5000000 		.4byte	0xd5
+ 995 058b 18       		.byte	0x18
+ 996 058c 0A       		.uleb128 0xa
+ 997 058d C8030000 		.4byte	.LASF84
+ 998 0591 07       		.byte	0x7
+ 999 0592 B402     		.2byte	0x2b4
+ 1000 0594 C9000000 		.4byte	0xc9
+ 1001 0598 1A       		.byte	0x1a
+ 1002 0599 0A       		.uleb128 0xa
+ 1003 059a AE020000 		.4byte	.LASF85
+ 1004 059e 07       		.byte	0x7
+ 1005 059f B902     		.2byte	0x2b9
+ 1006 05a1 C9000000 		.4byte	0xc9
+ 1007 05a5 1B       		.byte	0x1b
+ 1008 05a6 0A       		.uleb128 0xa
+ 1009 05a7 36020000 		.4byte	.LASF86
+ 1010 05ab 07       		.byte	0x7
+ 1011 05ac C102     		.2byte	0x2c1
+ 1012 05ae C9000000 		.4byte	0xc9
+ 1013 05b2 1C       		.byte	0x1c
+ 1014 05b3 0A       		.uleb128 0xa
+ 1015 05b4 23020000 		.4byte	.LASF87
+ 1016 05b8 07       		.byte	0x7
+ 1017 05b9 C802     		.2byte	0x2c8
+ 1018 05bb C9000000 		.4byte	0xc9
+ 1019 05bf 1D       		.byte	0x1d
+ 1020 05c0 0A       		.uleb128 0xa
+ 1021 05c1 85010000 		.4byte	.LASF88
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 23
+
+
+ 1022 05c5 07       		.byte	0x7
+ 1023 05c6 CE02     		.2byte	0x2ce
+ 1024 05c8 D5000000 		.4byte	0xd5
+ 1025 05cc 1E       		.byte	0x1e
+ 1026 05cd 0A       		.uleb128 0xa
+ 1027 05ce D1030000 		.4byte	.LASF89
+ 1028 05d2 07       		.byte	0x7
+ 1029 05d3 D802     		.2byte	0x2d8
+ 1030 05d5 E1000000 		.4byte	0xe1
+ 1031 05d9 20       		.byte	0x20
+ 1032 05da 0A       		.uleb128 0xa
+ 1033 05db 73020000 		.4byte	.LASF90
+ 1034 05df 07       		.byte	0x7
+ 1035 05e0 E002     		.2byte	0x2e0
+ 1036 05e2 17060000 		.4byte	0x617
+ 1037 05e6 24       		.byte	0x24
+ 1038 05e7 0A       		.uleb128 0xa
+ 1039 05e8 11000000 		.4byte	.LASF91
+ 1040 05ec 07       		.byte	0x7
+ 1041 05ed E502     		.2byte	0x2e5
+ 1042 05ef 09060000 		.4byte	0x609
+ 1043 05f3 28       		.byte	0x28
+ 1044 05f4 0A       		.uleb128 0xa
+ 1045 05f5 5C000000 		.4byte	.LASF92
+ 1046 05f9 07       		.byte	0x7
+ 1047 05fa EA02     		.2byte	0x2ea
+ 1048 05fc C9000000 		.4byte	0xc9
+ 1049 0600 2C       		.byte	0x2c
+ 1050 0601 00       		.byte	0
+ 1051 0602 0E       		.uleb128 0xe
+ 1052 0603 04       		.byte	0x4
+ 1053 0604 08060000 		.4byte	0x608
+ 1054 0608 0F       		.uleb128 0xf
+ 1055 0609 10       		.uleb128 0x10
+ 1056 060a 04       		.byte	0x4
+ 1057 060b 0E       		.uleb128 0xe
+ 1058 060c 04       		.byte	0x4
+ 1059 060d 9A030000 		.4byte	0x39a
+ 1060 0611 0E       		.uleb128 0xe
+ 1061 0612 04       		.byte	0x4
+ 1062 0613 C9000000 		.4byte	0xc9
+ 1063 0617 0E       		.uleb128 0xe
+ 1064 0618 04       		.byte	0x4
+ 1065 0619 60010000 		.4byte	0x160
+ 1066 061d 05       		.uleb128 0x5
+ 1067 061e 47050000 		.4byte	.LASF93
+ 1068 0622 07       		.byte	0x7
+ 1069 0623 EB02     		.2byte	0x2eb
+ 1070 0625 28050000 		.4byte	0x528
+ 1071 0629 0B       		.uleb128 0xb
+ 1072 062a 90       		.byte	0x90
+ 1073 062b 07       		.byte	0x7
+ 1074 062c F102     		.2byte	0x2f1
+ 1075 062e 40060000 		.4byte	0x640
+ 1076 0632 0A       		.uleb128 0xa
+ 1077 0633 26070000 		.4byte	.LASF94
+ 1078 0637 07       		.byte	0x7
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 24
+
+
+ 1079 0638 F602     		.2byte	0x2f6
+ 1080 063a 40060000 		.4byte	0x640
+ 1081 063e 00       		.byte	0
+ 1082 063f 00       		.byte	0
+ 1083 0640 08       		.uleb128 0x8
+ 1084 0641 1D060000 		.4byte	0x61d
+ 1085 0645 50060000 		.4byte	0x650
+ 1086 0649 09       		.uleb128 0x9
+ 1087 064a AD000000 		.4byte	0xad
+ 1088 064e 02       		.byte	0x2
+ 1089 064f 00       		.byte	0
+ 1090 0650 05       		.uleb128 0x5
+ 1091 0651 00070000 		.4byte	.LASF95
+ 1092 0655 07       		.byte	0x7
+ 1093 0656 F702     		.2byte	0x2f7
+ 1094 0658 29060000 		.4byte	0x629
+ 1095 065c 11       		.uleb128 0x11
+ 1096 065d 01       		.byte	0x1
+ 1097 065e 37000000 		.4byte	0x37
+ 1098 0662 08       		.byte	0x8
+ 1099 0663 2E       		.byte	0x2e
+ 1100 0664 93060000 		.4byte	0x693
+ 1101 0668 12       		.uleb128 0x12
+ 1102 0669 A7010000 		.4byte	.LASF96
+ 1103 066d 00       		.byte	0
+ 1104 066e 12       		.uleb128 0x12
+ 1105 066f 43010000 		.4byte	.LASF97
+ 1106 0673 01       		.byte	0x1
+ 1107 0674 12       		.uleb128 0x12
+ 1108 0675 38070000 		.4byte	.LASF98
+ 1109 0679 02       		.byte	0x2
+ 1110 067a 12       		.uleb128 0x12
+ 1111 067b 6A030000 		.4byte	.LASF99
+ 1112 067f 03       		.byte	0x3
+ 1113 0680 12       		.uleb128 0x12
+ 1114 0681 A9050000 		.4byte	.LASF100
+ 1115 0685 04       		.byte	0x4
+ 1116 0686 12       		.uleb128 0x12
+ 1117 0687 30050000 		.4byte	.LASF101
+ 1118 068b 05       		.byte	0x5
+ 1119 068c 12       		.uleb128 0x12
+ 1120 068d 60050000 		.4byte	.LASF102
+ 1121 0691 06       		.byte	0x6
+ 1122 0692 00       		.byte	0
+ 1123 0693 03       		.uleb128 0x3
+ 1124 0694 03020000 		.4byte	.LASF103
+ 1125 0698 08       		.byte	0x8
+ 1126 0699 36       		.byte	0x36
+ 1127 069a 5C060000 		.4byte	0x65c
+ 1128 069e 02       		.uleb128 0x2
+ 1129 069f 08       		.byte	0x8
+ 1130 06a0 04       		.byte	0x4
+ 1131 06a1 79060000 		.4byte	.LASF104
+ 1132 06a5 13       		.uleb128 0x13
+ 1133 06a6 A3030000 		.4byte	.LASF122
+ 1134 06aa 01       		.byte	0x1
+ 1135 06ab 44       		.byte	0x44
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 25
+
+
+ 1136 06ac 00000000 		.4byte	.LFB69
+ 1137 06b0 14000000 		.4byte	.LFE69-.LFB69
+ 1138 06b4 01       		.uleb128 0x1
+ 1139 06b5 9C       		.byte	0x9c
+ 1140 06b6 C6060000 		.4byte	0x6c6
+ 1141 06ba 14       		.uleb128 0x14
+ 1142 06bb 6C070000 		.4byte	.LASF111
+ 1143 06bf 01       		.byte	0x1
+ 1144 06c0 46       		.byte	0x46
+ 1145 06c1 C6060000 		.4byte	0x6c6
+ 1146 06c5 00       		.byte	0
+ 1147 06c6 0E       		.uleb128 0xe
+ 1148 06c7 04       		.byte	0x4
+ 1149 06c8 CC060000 		.4byte	0x6cc
+ 1150 06cc 0D       		.uleb128 0xd
+ 1151 06cd 1C050000 		.4byte	0x51c
+ 1152 06d1 15       		.uleb128 0x15
+ 1153 06d2 9A000000 		.4byte	.LASF123
+ 1154 06d6 01       		.byte	0x1
+ 1155 06d7 73       		.byte	0x73
+ 1156 06d8 E1000000 		.4byte	0xe1
+ 1157 06dc 00000000 		.4byte	.LFB70
+ 1158 06e0 18010000 		.4byte	.LFE70-.LFB70
+ 1159 06e4 01       		.uleb128 0x1
+ 1160 06e5 9C       		.byte	0x9c
+ 1161 06e6 9E070000 		.4byte	0x79e
+ 1162 06ea 16       		.uleb128 0x16
+ 1163 06eb 9F020000 		.4byte	.LASF105
+ 1164 06ef 01       		.byte	0x1
+ 1165 06f0 75       		.byte	0x75
+ 1166 06f1 E1000000 		.4byte	0xe1
+ 1167 06f5 00000000 		.4byte	.LLST0
+ 1168 06f9 16       		.uleb128 0x16
+ 1169 06fa 3B030000 		.4byte	.LASF106
+ 1170 06fe 01       		.byte	0x1
+ 1171 06ff 76       		.byte	0x76
+ 1172 0700 E1000000 		.4byte	0xe1
+ 1173 0704 29000000 		.4byte	.LLST1
+ 1174 0708 16       		.uleb128 0x16
+ 1175 0709 C6010000 		.4byte	.LASF107
+ 1176 070d 01       		.byte	0x1
+ 1177 070e 77       		.byte	0x77
+ 1178 070f E1000000 		.4byte	0xe1
+ 1179 0713 3C000000 		.4byte	.LLST2
+ 1180 0717 16       		.uleb128 0x16
+ 1181 0718 18020000 		.4byte	.LASF108
+ 1182 071c 01       		.byte	0x1
+ 1183 071d 78       		.byte	0x78
+ 1184 071e E1000000 		.4byte	0xe1
+ 1185 0722 4F000000 		.4byte	.LLST3
+ 1186 0726 16       		.uleb128 0x16
+ 1187 0727 6B020000 		.4byte	.LASF109
+ 1188 072b 01       		.byte	0x1
+ 1189 072c 79       		.byte	0x79
+ 1190 072d 93060000 		.4byte	0x693
+ 1191 0731 0F010000 		.4byte	.LLST4
+ 1192 0735 16       		.uleb128 0x16
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 26
+
+
+ 1193 0736 8B050000 		.4byte	.LASF110
+ 1194 073a 01       		.byte	0x1
+ 1195 073b 7A       		.byte	0x7a
+ 1196 073c E1000000 		.4byte	0xe1
+ 1197 0740 22010000 		.4byte	.LLST5
+ 1198 0744 14       		.uleb128 0x14
+ 1199 0745 6C070000 		.4byte	.LASF111
+ 1200 0749 01       		.byte	0x1
+ 1201 074a 7C       		.byte	0x7c
+ 1202 074b C6060000 		.4byte	0x6c6
+ 1203 074f 16       		.uleb128 0x16
+ 1204 0750 C5020000 		.4byte	.LASF112
+ 1205 0754 01       		.byte	0x1
+ 1206 0755 7D       		.byte	0x7d
+ 1207 0756 9E070000 		.4byte	0x79e
+ 1208 075a 63010000 		.4byte	.LLST6
+ 1209 075e 17       		.uleb128 0x17
+ 1210 075f 12000000 		.4byte	.LVL3
+ 1211 0763 D7070000 		.4byte	0x7d7
+ 1212 0767 17       		.uleb128 0x17
+ 1213 0768 1C000000 		.4byte	.LVL4
+ 1214 076c E3070000 		.4byte	0x7e3
+ 1215 0770 17       		.uleb128 0x17
+ 1216 0771 46000000 		.4byte	.LVL10
+ 1217 0775 EF070000 		.4byte	0x7ef
+ 1218 0779 17       		.uleb128 0x17
+ 1219 077a 76000000 		.4byte	.LVL19
+ 1220 077e D7070000 		.4byte	0x7d7
+ 1221 0782 17       		.uleb128 0x17
+ 1222 0783 90000000 		.4byte	.LVL20
+ 1223 0787 E3070000 		.4byte	0x7e3
+ 1224 078b 17       		.uleb128 0x17
+ 1225 078c E8000000 		.4byte	.LVL29
+ 1226 0790 D7070000 		.4byte	0x7d7
+ 1227 0794 17       		.uleb128 0x17
+ 1228 0795 FE000000 		.4byte	.LVL30
+ 1229 0799 E3070000 		.4byte	0x7e3
+ 1230 079d 00       		.byte	0
+ 1231 079e 0E       		.uleb128 0xe
+ 1232 079f 04       		.byte	0x4
+ 1233 07a0 A4070000 		.4byte	0x7a4
+ 1234 07a4 0D       		.uleb128 0xd
+ 1235 07a5 9A030000 		.4byte	0x39a
+ 1236 07a9 18       		.uleb128 0x18
+ 1237 07aa 16070000 		.4byte	.LASF113
+ 1238 07ae 01       		.byte	0x1
+ 1239 07af 35       		.byte	0x35
+ 1240 07b0 E1000000 		.4byte	0xe1
+ 1241 07b4 05       		.uleb128 0x5
+ 1242 07b5 03       		.byte	0x3
+ 1243 07b6 00000000 		.4byte	tunerFsm
+ 1244 07ba 19       		.uleb128 0x19
+ 1245 07bb F1030000 		.4byte	.LASF114
+ 1246 07bf 07       		.byte	0x7
+ 1247 07c0 8D04     		.2byte	0x48d
+ 1248 07c2 1C050000 		.4byte	0x51c
+ 1249 07c6 19       		.uleb128 0x19
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 27
+
+
+ 1250 07c7 E9000000 		.4byte	.LASF115
+ 1251 07cb 07       		.byte	0x7
+ 1252 07cc 8E04     		.2byte	0x48e
+ 1253 07ce D2070000 		.4byte	0x7d2
+ 1254 07d2 1A       		.uleb128 0x1a
+ 1255 07d3 50060000 		.4byte	0x650
+ 1256 07d7 1B       		.uleb128 0x1b
+ 1257 07d8 C8050000 		.4byte	.LASF116
+ 1258 07dc C8050000 		.4byte	.LASF116
+ 1259 07e0 04       		.byte	0x4
+ 1260 07e1 4D03     		.2byte	0x34d
+ 1261 07e3 1B       		.uleb128 0x1b
+ 1262 07e4 CF010000 		.4byte	.LASF117
+ 1263 07e8 CF010000 		.4byte	.LASF117
+ 1264 07ec 04       		.byte	0x4
+ 1265 07ed 5C03     		.2byte	0x35c
+ 1266 07ef 1C       		.uleb128 0x1c
+ 1267 07f0 43020000 		.4byte	.LASF118
+ 1268 07f4 43020000 		.4byte	.LASF118
+ 1269 07f8 09       		.byte	0x9
+ 1270 07f9 3A       		.byte	0x3a
+ 1271 07fa 00       		.byte	0
+ 1272              		.section	.debug_abbrev,"",%progbits
+ 1273              	.Ldebug_abbrev0:
+ 1274 0000 01       		.uleb128 0x1
+ 1275 0001 11       		.uleb128 0x11
+ 1276 0002 01       		.byte	0x1
+ 1277 0003 25       		.uleb128 0x25
+ 1278 0004 0E       		.uleb128 0xe
+ 1279 0005 13       		.uleb128 0x13
+ 1280 0006 0B       		.uleb128 0xb
+ 1281 0007 03       		.uleb128 0x3
+ 1282 0008 0E       		.uleb128 0xe
+ 1283 0009 1B       		.uleb128 0x1b
+ 1284 000a 0E       		.uleb128 0xe
+ 1285 000b 55       		.uleb128 0x55
+ 1286 000c 17       		.uleb128 0x17
+ 1287 000d 11       		.uleb128 0x11
+ 1288 000e 01       		.uleb128 0x1
+ 1289 000f 10       		.uleb128 0x10
+ 1290 0010 17       		.uleb128 0x17
+ 1291 0011 00       		.byte	0
+ 1292 0012 00       		.byte	0
+ 1293 0013 02       		.uleb128 0x2
+ 1294 0014 24       		.uleb128 0x24
+ 1295 0015 00       		.byte	0
+ 1296 0016 0B       		.uleb128 0xb
+ 1297 0017 0B       		.uleb128 0xb
+ 1298 0018 3E       		.uleb128 0x3e
+ 1299 0019 0B       		.uleb128 0xb
+ 1300 001a 03       		.uleb128 0x3
+ 1301 001b 0E       		.uleb128 0xe
+ 1302 001c 00       		.byte	0
+ 1303 001d 00       		.byte	0
+ 1304 001e 03       		.uleb128 0x3
+ 1305 001f 16       		.uleb128 0x16
+ 1306 0020 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 28
+
+
+ 1307 0021 03       		.uleb128 0x3
+ 1308 0022 0E       		.uleb128 0xe
+ 1309 0023 3A       		.uleb128 0x3a
+ 1310 0024 0B       		.uleb128 0xb
+ 1311 0025 3B       		.uleb128 0x3b
+ 1312 0026 0B       		.uleb128 0xb
+ 1313 0027 49       		.uleb128 0x49
+ 1314 0028 13       		.uleb128 0x13
+ 1315 0029 00       		.byte	0
+ 1316 002a 00       		.byte	0
+ 1317 002b 04       		.uleb128 0x4
+ 1318 002c 24       		.uleb128 0x24
+ 1319 002d 00       		.byte	0
+ 1320 002e 0B       		.uleb128 0xb
+ 1321 002f 0B       		.uleb128 0xb
+ 1322 0030 3E       		.uleb128 0x3e
+ 1323 0031 0B       		.uleb128 0xb
+ 1324 0032 03       		.uleb128 0x3
+ 1325 0033 08       		.uleb128 0x8
+ 1326 0034 00       		.byte	0
+ 1327 0035 00       		.byte	0
+ 1328 0036 05       		.uleb128 0x5
+ 1329 0037 16       		.uleb128 0x16
+ 1330 0038 00       		.byte	0
+ 1331 0039 03       		.uleb128 0x3
+ 1332 003a 0E       		.uleb128 0xe
+ 1333 003b 3A       		.uleb128 0x3a
+ 1334 003c 0B       		.uleb128 0xb
+ 1335 003d 3B       		.uleb128 0x3b
+ 1336 003e 05       		.uleb128 0x5
+ 1337 003f 49       		.uleb128 0x49
+ 1338 0040 13       		.uleb128 0x13
+ 1339 0041 00       		.byte	0
+ 1340 0042 00       		.byte	0
+ 1341 0043 06       		.uleb128 0x6
+ 1342 0044 13       		.uleb128 0x13
+ 1343 0045 01       		.byte	0x1
+ 1344 0046 0B       		.uleb128 0xb
+ 1345 0047 0B       		.uleb128 0xb
+ 1346 0048 3A       		.uleb128 0x3a
+ 1347 0049 0B       		.uleb128 0xb
+ 1348 004a 3B       		.uleb128 0x3b
+ 1349 004b 0B       		.uleb128 0xb
+ 1350 004c 01       		.uleb128 0x1
+ 1351 004d 13       		.uleb128 0x13
+ 1352 004e 00       		.byte	0
+ 1353 004f 00       		.byte	0
+ 1354 0050 07       		.uleb128 0x7
+ 1355 0051 0D       		.uleb128 0xd
+ 1356 0052 00       		.byte	0
+ 1357 0053 03       		.uleb128 0x3
+ 1358 0054 0E       		.uleb128 0xe
+ 1359 0055 3A       		.uleb128 0x3a
+ 1360 0056 0B       		.uleb128 0xb
+ 1361 0057 3B       		.uleb128 0x3b
+ 1362 0058 0B       		.uleb128 0xb
+ 1363 0059 49       		.uleb128 0x49
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 29
+
+
+ 1364 005a 13       		.uleb128 0x13
+ 1365 005b 38       		.uleb128 0x38
+ 1366 005c 0B       		.uleb128 0xb
+ 1367 005d 00       		.byte	0
+ 1368 005e 00       		.byte	0
+ 1369 005f 08       		.uleb128 0x8
+ 1370 0060 01       		.uleb128 0x1
+ 1371 0061 01       		.byte	0x1
+ 1372 0062 49       		.uleb128 0x49
+ 1373 0063 13       		.uleb128 0x13
+ 1374 0064 01       		.uleb128 0x1
+ 1375 0065 13       		.uleb128 0x13
+ 1376 0066 00       		.byte	0
+ 1377 0067 00       		.byte	0
+ 1378 0068 09       		.uleb128 0x9
+ 1379 0069 21       		.uleb128 0x21
+ 1380 006a 00       		.byte	0
+ 1381 006b 49       		.uleb128 0x49
+ 1382 006c 13       		.uleb128 0x13
+ 1383 006d 2F       		.uleb128 0x2f
+ 1384 006e 0B       		.uleb128 0xb
+ 1385 006f 00       		.byte	0
+ 1386 0070 00       		.byte	0
+ 1387 0071 0A       		.uleb128 0xa
+ 1388 0072 0D       		.uleb128 0xd
+ 1389 0073 00       		.byte	0
+ 1390 0074 03       		.uleb128 0x3
+ 1391 0075 0E       		.uleb128 0xe
+ 1392 0076 3A       		.uleb128 0x3a
+ 1393 0077 0B       		.uleb128 0xb
+ 1394 0078 3B       		.uleb128 0x3b
+ 1395 0079 05       		.uleb128 0x5
+ 1396 007a 49       		.uleb128 0x49
+ 1397 007b 13       		.uleb128 0x13
+ 1398 007c 38       		.uleb128 0x38
+ 1399 007d 0B       		.uleb128 0xb
+ 1400 007e 00       		.byte	0
+ 1401 007f 00       		.byte	0
+ 1402 0080 0B       		.uleb128 0xb
+ 1403 0081 13       		.uleb128 0x13
+ 1404 0082 01       		.byte	0x1
+ 1405 0083 0B       		.uleb128 0xb
+ 1406 0084 0B       		.uleb128 0xb
+ 1407 0085 3A       		.uleb128 0x3a
+ 1408 0086 0B       		.uleb128 0xb
+ 1409 0087 3B       		.uleb128 0x3b
+ 1410 0088 05       		.uleb128 0x5
+ 1411 0089 01       		.uleb128 0x1
+ 1412 008a 13       		.uleb128 0x13
+ 1413 008b 00       		.byte	0
+ 1414 008c 00       		.byte	0
+ 1415 008d 0C       		.uleb128 0xc
+ 1416 008e 0D       		.uleb128 0xd
+ 1417 008f 00       		.byte	0
+ 1418 0090 03       		.uleb128 0x3
+ 1419 0091 08       		.uleb128 0x8
+ 1420 0092 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 30
+
+
+ 1421 0093 0B       		.uleb128 0xb
+ 1422 0094 3B       		.uleb128 0x3b
+ 1423 0095 05       		.uleb128 0x5
+ 1424 0096 49       		.uleb128 0x49
+ 1425 0097 13       		.uleb128 0x13
+ 1426 0098 38       		.uleb128 0x38
+ 1427 0099 0B       		.uleb128 0xb
+ 1428 009a 00       		.byte	0
+ 1429 009b 00       		.byte	0
+ 1430 009c 0D       		.uleb128 0xd
+ 1431 009d 35       		.uleb128 0x35
+ 1432 009e 00       		.byte	0
+ 1433 009f 49       		.uleb128 0x49
+ 1434 00a0 13       		.uleb128 0x13
+ 1435 00a1 00       		.byte	0
+ 1436 00a2 00       		.byte	0
+ 1437 00a3 0E       		.uleb128 0xe
+ 1438 00a4 0F       		.uleb128 0xf
+ 1439 00a5 00       		.byte	0
+ 1440 00a6 0B       		.uleb128 0xb
+ 1441 00a7 0B       		.uleb128 0xb
+ 1442 00a8 49       		.uleb128 0x49
+ 1443 00a9 13       		.uleb128 0x13
+ 1444 00aa 00       		.byte	0
+ 1445 00ab 00       		.byte	0
+ 1446 00ac 0F       		.uleb128 0xf
+ 1447 00ad 26       		.uleb128 0x26
+ 1448 00ae 00       		.byte	0
+ 1449 00af 00       		.byte	0
+ 1450 00b0 00       		.byte	0
+ 1451 00b1 10       		.uleb128 0x10
+ 1452 00b2 0F       		.uleb128 0xf
+ 1453 00b3 00       		.byte	0
+ 1454 00b4 0B       		.uleb128 0xb
+ 1455 00b5 0B       		.uleb128 0xb
+ 1456 00b6 00       		.byte	0
+ 1457 00b7 00       		.byte	0
+ 1458 00b8 11       		.uleb128 0x11
+ 1459 00b9 04       		.uleb128 0x4
+ 1460 00ba 01       		.byte	0x1
+ 1461 00bb 0B       		.uleb128 0xb
+ 1462 00bc 0B       		.uleb128 0xb
+ 1463 00bd 49       		.uleb128 0x49
+ 1464 00be 13       		.uleb128 0x13
+ 1465 00bf 3A       		.uleb128 0x3a
+ 1466 00c0 0B       		.uleb128 0xb
+ 1467 00c1 3B       		.uleb128 0x3b
+ 1468 00c2 0B       		.uleb128 0xb
+ 1469 00c3 01       		.uleb128 0x1
+ 1470 00c4 13       		.uleb128 0x13
+ 1471 00c5 00       		.byte	0
+ 1472 00c6 00       		.byte	0
+ 1473 00c7 12       		.uleb128 0x12
+ 1474 00c8 28       		.uleb128 0x28
+ 1475 00c9 00       		.byte	0
+ 1476 00ca 03       		.uleb128 0x3
+ 1477 00cb 0E       		.uleb128 0xe
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 31
+
+
+ 1478 00cc 1C       		.uleb128 0x1c
+ 1479 00cd 0B       		.uleb128 0xb
+ 1480 00ce 00       		.byte	0
+ 1481 00cf 00       		.byte	0
+ 1482 00d0 13       		.uleb128 0x13
+ 1483 00d1 2E       		.uleb128 0x2e
+ 1484 00d2 01       		.byte	0x1
+ 1485 00d3 3F       		.uleb128 0x3f
+ 1486 00d4 19       		.uleb128 0x19
+ 1487 00d5 03       		.uleb128 0x3
+ 1488 00d6 0E       		.uleb128 0xe
+ 1489 00d7 3A       		.uleb128 0x3a
+ 1490 00d8 0B       		.uleb128 0xb
+ 1491 00d9 3B       		.uleb128 0x3b
+ 1492 00da 0B       		.uleb128 0xb
+ 1493 00db 27       		.uleb128 0x27
+ 1494 00dc 19       		.uleb128 0x19
+ 1495 00dd 11       		.uleb128 0x11
+ 1496 00de 01       		.uleb128 0x1
+ 1497 00df 12       		.uleb128 0x12
+ 1498 00e0 06       		.uleb128 0x6
+ 1499 00e1 40       		.uleb128 0x40
+ 1500 00e2 18       		.uleb128 0x18
+ 1501 00e3 9742     		.uleb128 0x2117
+ 1502 00e5 19       		.uleb128 0x19
+ 1503 00e6 01       		.uleb128 0x1
+ 1504 00e7 13       		.uleb128 0x13
+ 1505 00e8 00       		.byte	0
+ 1506 00e9 00       		.byte	0
+ 1507 00ea 14       		.uleb128 0x14
+ 1508 00eb 34       		.uleb128 0x34
+ 1509 00ec 00       		.byte	0
+ 1510 00ed 03       		.uleb128 0x3
+ 1511 00ee 0E       		.uleb128 0xe
+ 1512 00ef 3A       		.uleb128 0x3a
+ 1513 00f0 0B       		.uleb128 0xb
+ 1514 00f1 3B       		.uleb128 0x3b
+ 1515 00f2 0B       		.uleb128 0xb
+ 1516 00f3 49       		.uleb128 0x49
+ 1517 00f4 13       		.uleb128 0x13
+ 1518 00f5 00       		.byte	0
+ 1519 00f6 00       		.byte	0
+ 1520 00f7 15       		.uleb128 0x15
+ 1521 00f8 2E       		.uleb128 0x2e
+ 1522 00f9 01       		.byte	0x1
+ 1523 00fa 3F       		.uleb128 0x3f
+ 1524 00fb 19       		.uleb128 0x19
+ 1525 00fc 03       		.uleb128 0x3
+ 1526 00fd 0E       		.uleb128 0xe
+ 1527 00fe 3A       		.uleb128 0x3a
+ 1528 00ff 0B       		.uleb128 0xb
+ 1529 0100 3B       		.uleb128 0x3b
+ 1530 0101 0B       		.uleb128 0xb
+ 1531 0102 27       		.uleb128 0x27
+ 1532 0103 19       		.uleb128 0x19
+ 1533 0104 49       		.uleb128 0x49
+ 1534 0105 13       		.uleb128 0x13
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 32
+
+
+ 1535 0106 11       		.uleb128 0x11
+ 1536 0107 01       		.uleb128 0x1
+ 1537 0108 12       		.uleb128 0x12
+ 1538 0109 06       		.uleb128 0x6
+ 1539 010a 40       		.uleb128 0x40
+ 1540 010b 18       		.uleb128 0x18
+ 1541 010c 9742     		.uleb128 0x2117
+ 1542 010e 19       		.uleb128 0x19
+ 1543 010f 01       		.uleb128 0x1
+ 1544 0110 13       		.uleb128 0x13
+ 1545 0111 00       		.byte	0
+ 1546 0112 00       		.byte	0
+ 1547 0113 16       		.uleb128 0x16
+ 1548 0114 34       		.uleb128 0x34
+ 1549 0115 00       		.byte	0
+ 1550 0116 03       		.uleb128 0x3
+ 1551 0117 0E       		.uleb128 0xe
+ 1552 0118 3A       		.uleb128 0x3a
+ 1553 0119 0B       		.uleb128 0xb
+ 1554 011a 3B       		.uleb128 0x3b
+ 1555 011b 0B       		.uleb128 0xb
+ 1556 011c 49       		.uleb128 0x49
+ 1557 011d 13       		.uleb128 0x13
+ 1558 011e 02       		.uleb128 0x2
+ 1559 011f 17       		.uleb128 0x17
+ 1560 0120 00       		.byte	0
+ 1561 0121 00       		.byte	0
+ 1562 0122 17       		.uleb128 0x17
+ 1563 0123 898201   		.uleb128 0x4109
+ 1564 0126 00       		.byte	0
+ 1565 0127 11       		.uleb128 0x11
+ 1566 0128 01       		.uleb128 0x1
+ 1567 0129 31       		.uleb128 0x31
+ 1568 012a 13       		.uleb128 0x13
+ 1569 012b 00       		.byte	0
+ 1570 012c 00       		.byte	0
+ 1571 012d 18       		.uleb128 0x18
+ 1572 012e 34       		.uleb128 0x34
+ 1573 012f 00       		.byte	0
+ 1574 0130 03       		.uleb128 0x3
+ 1575 0131 0E       		.uleb128 0xe
+ 1576 0132 3A       		.uleb128 0x3a
+ 1577 0133 0B       		.uleb128 0xb
+ 1578 0134 3B       		.uleb128 0x3b
+ 1579 0135 0B       		.uleb128 0xb
+ 1580 0136 49       		.uleb128 0x49
+ 1581 0137 13       		.uleb128 0x13
+ 1582 0138 02       		.uleb128 0x2
+ 1583 0139 18       		.uleb128 0x18
+ 1584 013a 00       		.byte	0
+ 1585 013b 00       		.byte	0
+ 1586 013c 19       		.uleb128 0x19
+ 1587 013d 34       		.uleb128 0x34
+ 1588 013e 00       		.byte	0
+ 1589 013f 03       		.uleb128 0x3
+ 1590 0140 0E       		.uleb128 0xe
+ 1591 0141 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 33
+
+
+ 1592 0142 0B       		.uleb128 0xb
+ 1593 0143 3B       		.uleb128 0x3b
+ 1594 0144 05       		.uleb128 0x5
+ 1595 0145 49       		.uleb128 0x49
+ 1596 0146 13       		.uleb128 0x13
+ 1597 0147 3F       		.uleb128 0x3f
+ 1598 0148 19       		.uleb128 0x19
+ 1599 0149 3C       		.uleb128 0x3c
+ 1600 014a 19       		.uleb128 0x19
+ 1601 014b 00       		.byte	0
+ 1602 014c 00       		.byte	0
+ 1603 014d 1A       		.uleb128 0x1a
+ 1604 014e 26       		.uleb128 0x26
+ 1605 014f 00       		.byte	0
+ 1606 0150 49       		.uleb128 0x49
+ 1607 0151 13       		.uleb128 0x13
+ 1608 0152 00       		.byte	0
+ 1609 0153 00       		.byte	0
+ 1610 0154 1B       		.uleb128 0x1b
+ 1611 0155 2E       		.uleb128 0x2e
+ 1612 0156 00       		.byte	0
+ 1613 0157 3F       		.uleb128 0x3f
+ 1614 0158 19       		.uleb128 0x19
+ 1615 0159 3C       		.uleb128 0x3c
+ 1616 015a 19       		.uleb128 0x19
+ 1617 015b 6E       		.uleb128 0x6e
+ 1618 015c 0E       		.uleb128 0xe
+ 1619 015d 03       		.uleb128 0x3
+ 1620 015e 0E       		.uleb128 0xe
+ 1621 015f 3A       		.uleb128 0x3a
+ 1622 0160 0B       		.uleb128 0xb
+ 1623 0161 3B       		.uleb128 0x3b
+ 1624 0162 05       		.uleb128 0x5
+ 1625 0163 00       		.byte	0
+ 1626 0164 00       		.byte	0
+ 1627 0165 1C       		.uleb128 0x1c
+ 1628 0166 2E       		.uleb128 0x2e
+ 1629 0167 00       		.byte	0
+ 1630 0168 3F       		.uleb128 0x3f
+ 1631 0169 19       		.uleb128 0x19
+ 1632 016a 3C       		.uleb128 0x3c
+ 1633 016b 19       		.uleb128 0x19
+ 1634 016c 6E       		.uleb128 0x6e
+ 1635 016d 0E       		.uleb128 0xe
+ 1636 016e 03       		.uleb128 0x3
+ 1637 016f 0E       		.uleb128 0xe
+ 1638 0170 3A       		.uleb128 0x3a
+ 1639 0171 0B       		.uleb128 0xb
+ 1640 0172 3B       		.uleb128 0x3b
+ 1641 0173 0B       		.uleb128 0xb
+ 1642 0174 00       		.byte	0
+ 1643 0175 00       		.byte	0
+ 1644 0176 00       		.byte	0
+ 1645              		.section	.debug_loc,"",%progbits
+ 1646              	.Ldebug_loc0:
+ 1647              	.LLST0:
+ 1648 0000 12000000 		.4byte	.LVL3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 34
+
+
+ 1649 0004 1B000000 		.4byte	.LVL4-1
+ 1650 0008 0100     		.2byte	0x1
+ 1651 000a 50       		.byte	0x50
+ 1652 000b 76000000 		.4byte	.LVL19
+ 1653 000f 8F000000 		.4byte	.LVL20-1
+ 1654 0013 0100     		.2byte	0x1
+ 1655 0015 50       		.byte	0x50
+ 1656 0016 E8000000 		.4byte	.LVL29
+ 1657 001a FD000000 		.4byte	.LVL30-1
+ 1658 001e 0100     		.2byte	0x1
+ 1659 0020 50       		.byte	0x50
+ 1660 0021 00000000 		.4byte	0
+ 1661 0025 00000000 		.4byte	0
+ 1662              	.LLST1:
+ 1663 0029 A6000000 		.4byte	.LVL22
+ 1664 002d D4000000 		.4byte	.LVL25
+ 1665 0031 0100     		.2byte	0x1
+ 1666 0033 53       		.byte	0x53
+ 1667 0034 00000000 		.4byte	0
+ 1668 0038 00000000 		.4byte	0
+ 1669              	.LLST2:
+ 1670 003c AC000000 		.4byte	.LVL23
+ 1671 0040 E0000000 		.4byte	.LVL27
+ 1672 0044 0100     		.2byte	0x1
+ 1673 0046 52       		.byte	0x52
+ 1674 0047 00000000 		.4byte	0
+ 1675 004b 00000000 		.4byte	0
+ 1676              	.LLST3:
+ 1677 004f 02000000 		.4byte	.LVL1
+ 1678 0053 06000000 		.4byte	.LVL2
+ 1679 0057 0200     		.2byte	0x2
+ 1680 0059 30       		.byte	0x30
+ 1681 005a 9F       		.byte	0x9f
+ 1682 005b 06000000 		.4byte	.LVL2
+ 1683 005f 34000000 		.4byte	.LVL6
+ 1684 0063 0100     		.2byte	0x1
+ 1685 0065 56       		.byte	0x56
+ 1686 0066 34000000 		.4byte	.LVL6
+ 1687 006a 38000000 		.4byte	.LVL7
+ 1688 006e 0200     		.2byte	0x2
+ 1689 0070 31       		.byte	0x31
+ 1690 0071 9F       		.byte	0x9f
+ 1691 0072 38000000 		.4byte	.LVL7
+ 1692 0076 3E000000 		.4byte	.LVL8
+ 1693 007a 0100     		.2byte	0x1
+ 1694 007c 56       		.byte	0x56
+ 1695 007d 3E000000 		.4byte	.LVL8
+ 1696 0081 42000000 		.4byte	.LVL9
+ 1697 0085 0200     		.2byte	0x2
+ 1698 0087 31       		.byte	0x31
+ 1699 0088 9F       		.byte	0x9f
+ 1700 0089 42000000 		.4byte	.LVL9
+ 1701 008d 4C000000 		.4byte	.LVL11
+ 1702 0091 0100     		.2byte	0x1
+ 1703 0093 56       		.byte	0x56
+ 1704 0094 4C000000 		.4byte	.LVL11
+ 1705 0098 52000000 		.4byte	.LVL12
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 35
+
+
+ 1706 009c 0200     		.2byte	0x2
+ 1707 009e 31       		.byte	0x31
+ 1708 009f 9F       		.byte	0x9f
+ 1709 00a0 52000000 		.4byte	.LVL12
+ 1710 00a4 58000000 		.4byte	.LVL13
+ 1711 00a8 0100     		.2byte	0x1
+ 1712 00aa 56       		.byte	0x56
+ 1713 00ab 58000000 		.4byte	.LVL13
+ 1714 00af 5C000000 		.4byte	.LVL14
+ 1715 00b3 0200     		.2byte	0x2
+ 1716 00b5 31       		.byte	0x31
+ 1717 00b6 9F       		.byte	0x9f
+ 1718 00b7 5C000000 		.4byte	.LVL14
+ 1719 00bb 62000000 		.4byte	.LVL15
+ 1720 00bf 0100     		.2byte	0x1
+ 1721 00c1 56       		.byte	0x56
+ 1722 00c2 62000000 		.4byte	.LVL15
+ 1723 00c6 66000000 		.4byte	.LVL16
+ 1724 00ca 0200     		.2byte	0x2
+ 1725 00cc 31       		.byte	0x31
+ 1726 00cd 9F       		.byte	0x9f
+ 1727 00ce 66000000 		.4byte	.LVL16
+ 1728 00d2 6C000000 		.4byte	.LVL17
+ 1729 00d6 0100     		.2byte	0x1
+ 1730 00d8 56       		.byte	0x56
+ 1731 00d9 6C000000 		.4byte	.LVL17
+ 1732 00dd 6E000000 		.4byte	.LVL18
+ 1733 00e1 0200     		.2byte	0x2
+ 1734 00e3 30       		.byte	0x30
+ 1735 00e4 9F       		.byte	0x9f
+ 1736 00e5 6E000000 		.4byte	.LVL18
+ 1737 00e9 90000000 		.4byte	.LVL20
+ 1738 00ed 0100     		.2byte	0x1
+ 1739 00ef 56       		.byte	0x56
+ 1740 00f0 90000000 		.4byte	.LVL20
+ 1741 00f4 92000000 		.4byte	.LVL21
+ 1742 00f8 0200     		.2byte	0x2
+ 1743 00fa 30       		.byte	0x30
+ 1744 00fb 9F       		.byte	0x9f
+ 1745 00fc 92000000 		.4byte	.LVL21
+ 1746 0100 00010000 		.4byte	.LVL32
+ 1747 0104 0100     		.2byte	0x1
+ 1748 0106 56       		.byte	0x56
+ 1749 0107 00000000 		.4byte	0
+ 1750 010b 00000000 		.4byte	0
+ 1751              	.LLST4:
+ 1752 010f 22000000 		.4byte	.LVL5
+ 1753 0113 C8000000 		.4byte	.LVL24
+ 1754 0117 0100     		.2byte	0x1
+ 1755 0119 54       		.byte	0x54
+ 1756 011a 00000000 		.4byte	0
+ 1757 011e 00000000 		.4byte	0
+ 1758              	.LLST5:
+ 1759 0122 02000000 		.4byte	.LVL1
+ 1760 0126 06000000 		.4byte	.LVL2
+ 1761 012a 0200     		.2byte	0x2
+ 1762 012c 30       		.byte	0x30
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 36
+
+
+ 1763 012d 9F       		.byte	0x9f
+ 1764 012e 06000000 		.4byte	.LVL2
+ 1765 0132 46000000 		.4byte	.LVL10
+ 1766 0136 0100     		.2byte	0x1
+ 1767 0138 55       		.byte	0x55
+ 1768 0139 46000000 		.4byte	.LVL10
+ 1769 013d 52000000 		.4byte	.LVL12
+ 1770 0141 0200     		.2byte	0x2
+ 1771 0143 31       		.byte	0x31
+ 1772 0144 9F       		.byte	0x9f
+ 1773 0145 52000000 		.4byte	.LVL12
+ 1774 0149 00010000 		.4byte	.LVL31
+ 1775 014d 0100     		.2byte	0x1
+ 1776 014f 55       		.byte	0x55
+ 1777 0150 00010000 		.4byte	.LVL31
+ 1778 0154 18010000 		.4byte	.LFE70
+ 1779 0158 0100     		.2byte	0x1
+ 1780 015a 50       		.byte	0x50
+ 1781 015b 00000000 		.4byte	0
+ 1782 015f 00000000 		.4byte	0
+ 1783              	.LLST6:
+ 1784 0163 DC000000 		.4byte	.LVL26
+ 1785 0167 FE000000 		.4byte	.LVL30
+ 1786 016b 0100     		.2byte	0x1
+ 1787 016d 54       		.byte	0x54
+ 1788 016e 00000000 		.4byte	0
+ 1789 0172 00000000 		.4byte	0
+ 1790              		.section	.debug_aranges,"",%progbits
+ 1791 0000 24000000 		.4byte	0x24
+ 1792 0004 0200     		.2byte	0x2
+ 1793 0006 00000000 		.4byte	.Ldebug_info0
+ 1794 000a 04       		.byte	0x4
+ 1795 000b 00       		.byte	0
+ 1796 000c 0000     		.2byte	0
+ 1797 000e 0000     		.2byte	0
+ 1798 0010 00000000 		.4byte	.LFB69
+ 1799 0014 14000000 		.4byte	.LFE69-.LFB69
+ 1800 0018 00000000 		.4byte	.LFB70
+ 1801 001c 18010000 		.4byte	.LFE70-.LFB70
+ 1802 0020 00000000 		.4byte	0
+ 1803 0024 00000000 		.4byte	0
+ 1804              		.section	.debug_ranges,"",%progbits
+ 1805              	.Ldebug_ranges0:
+ 1806 0000 00000000 		.4byte	.LFB69
+ 1807 0004 14000000 		.4byte	.LFE69
+ 1808 0008 00000000 		.4byte	.LFB70
+ 1809 000c 18010000 		.4byte	.LFE70
+ 1810 0010 00000000 		.4byte	0
+ 1811 0014 00000000 		.4byte	0
+ 1812              		.section	.debug_line,"",%progbits
+ 1813              	.Ldebug_line0:
+ 1814 0000 5D020000 		.section	.debug_str,"MS",%progbits,1
+ 1814      0200F901 
+ 1814      00000201 
+ 1814      FB0E0D00 
+ 1814      01010101 
+ 1815              	.LASF69:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 37
+
+
+ 1816 0000 6D6F6443 		.ascii	"modCsxClk\000"
+ 1816      7378436C 
+ 1816      6B00
+ 1817              	.LASF20:
+ 1818 000a 75696E74 		.ascii	"uint16\000"
+ 1818      313600
+ 1819              	.LASF91:
+ 1820 0011 70747232 		.ascii	"ptr2PosHistory\000"
+ 1820      506F7348 
+ 1820      6973746F 
+ 1820      727900
+ 1821              	.LASF3:
+ 1822 0020 5F5F7569 		.ascii	"__uint8_t\000"
+ 1822      6E74385F 
+ 1822      7400
+ 1823              	.LASF42:
+ 1824 002a 66696E67 		.ascii	"fingerCap\000"
+ 1824      65724361 
+ 1824      7000
+ 1825              	.LASF120:
+ 1826 0034 47656E65 		.ascii	"Generated_Source\\PSoC6\\CapSense_Tuner.c\000"
+ 1826      72617465 
+ 1826      645F536F 
+ 1826      75726365 
+ 1826      5C50536F 
+ 1827              	.LASF92:
+ 1828 005c 69697246 		.ascii	"iirFilterCoeff\000"
+ 1828      696C7465 
+ 1828      72436F65 
+ 1828      666600
+ 1829              	.LASF56:
+ 1830 006b 43617053 		.ascii	"CapSense_RAM_SNS_STRUCT\000"
+ 1830      656E7365 
+ 1830      5F52414D 
+ 1830      5F534E53 
+ 1830      5F535452 
+ 1831              	.LASF10:
+ 1832 0083 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1832      206C6F6E 
+ 1832      6720756E 
+ 1832      7369676E 
+ 1832      65642069 
+ 1833              	.LASF123:
+ 1834 009a 43617053 		.ascii	"CapSense_RunTuner\000"
+ 1834      656E7365 
+ 1834      5F52756E 
+ 1834      54756E65 
+ 1834      7200
+ 1835              	.LASF77:
+ 1836 00ac 70747232 		.ascii	"ptr2SnsFlash\000"
+ 1836      536E7346 
+ 1836      6C617368 
+ 1836      00
+ 1837              	.LASF53:
+ 1838 00b9 64696666 		.ascii	"diff\000"
+ 1838      00
+ 1839              	.LASF23:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 38
+
+
+ 1840 00be 43617053 		.ascii	"CapSense_LOW_BSLN_RST_TYPE\000"
+ 1840      656E7365 
+ 1840      5F4C4F57 
+ 1840      5F42534C 
+ 1840      4E5F5253 
+ 1841              	.LASF73:
+ 1842 00d9 736E7254 		.ascii	"snrTestSensorId\000"
+ 1842      65737453 
+ 1842      656E736F 
+ 1842      72496400 
+ 1843              	.LASF115:
+ 1844 00e9 43617053 		.ascii	"CapSense_dsFlash\000"
+ 1844      656E7365 
+ 1844      5F647346 
+ 1844      6C617368 
+ 1844      00
+ 1845              	.LASF22:
+ 1846 00fa 43617053 		.ascii	"CapSense_THRESHOLD_TYPE\000"
+ 1846      656E7365 
+ 1846      5F544852 
+ 1846      4553484F 
+ 1846      4C445F54 
+ 1847              	.LASF9:
+ 1848 0112 6C6F6E67 		.ascii	"long long int\000"
+ 1848      206C6F6E 
+ 1848      6720696E 
+ 1848      7400
+ 1849              	.LASF0:
+ 1850 0120 7369676E 		.ascii	"signed char\000"
+ 1850      65642063 
+ 1850      68617200 
+ 1851              	.LASF21:
+ 1852 012c 75696E74 		.ascii	"uint32\000"
+ 1852      333200
+ 1853              	.LASF47:
+ 1854 0133 62757474 		.ascii	"button0\000"
+ 1854      6F6E3000 
+ 1855              	.LASF48:
+ 1856 013b 62757474 		.ascii	"button1\000"
+ 1856      6F6E3100 
+ 1857              	.LASF97:
+ 1858 0143 43617053 		.ascii	"CapSense_TU_CMD_SUSPEND_E\000"
+ 1858      656E7365 
+ 1858      5F54555F 
+ 1858      434D445F 
+ 1858      53555350 
+ 1859              	.LASF66:
+ 1860 015d 736E7353 		.ascii	"snsStatus\000"
+ 1860      74617475 
+ 1860      7300
+ 1861              	.LASF6:
+ 1862 0167 6C6F6E67 		.ascii	"long int\000"
+ 1862      20696E74 
+ 1862      00
+ 1863              	.LASF68:
+ 1864 0170 6D6F6443 		.ascii	"modCsdClk\000"
+ 1864      7364436C 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 39
+
+
+ 1864      6B00
+ 1865              	.LASF79:
+ 1866 017a 70747232 		.ascii	"ptr2SnsRam\000"
+ 1866      536E7352 
+ 1866      616D00
+ 1867              	.LASF88:
+ 1868 0185 78526573 		.ascii	"xResolution\000"
+ 1868      6F6C7574 
+ 1868      696F6E00 
+ 1869              	.LASF19:
+ 1870 0191 75696E74 		.ascii	"uint8\000"
+ 1870      3800
+ 1871              	.LASF13:
+ 1872 0197 75696E74 		.ascii	"uint16_t\000"
+ 1872      31365F74 
+ 1872      00
+ 1873              	.LASF18:
+ 1874 01a0 646F7562 		.ascii	"double\000"
+ 1874      6C6500
+ 1875              	.LASF96:
+ 1876 01a7 43617053 		.ascii	"CapSense_TU_CMD_NONE_E\000"
+ 1876      656E7365 
+ 1876      5F54555F 
+ 1876      434D445F 
+ 1876      4E4F4E45 
+ 1877              	.LASF52:
+ 1878 01be 62736C6E 		.ascii	"bslnExt\000"
+ 1878      45787400 
+ 1879              	.LASF107:
+ 1880 01c6 73656E73 		.ascii	"sensorId\000"
+ 1880      6F724964 
+ 1880      00
+ 1881              	.LASF117:
+ 1882 01cf 43795F53 		.ascii	"Cy_SysLib_ExitCriticalSection\000"
+ 1882      79734C69 
+ 1882      625F4578 
+ 1882      69744372 
+ 1882      69746963 
+ 1883              	.LASF36:
+ 1884 01ed 68797374 		.ascii	"hysteresis\000"
+ 1884      65726573 
+ 1884      697300
+ 1885              	.LASF7:
+ 1886 01f8 5F5F7569 		.ascii	"__uint32_t\000"
+ 1886      6E743332 
+ 1886      5F7400
+ 1887              	.LASF103:
+ 1888 0203 43617053 		.ascii	"CapSense_TU_CMD_ENUM\000"
+ 1888      656E7365 
+ 1888      5F54555F 
+ 1888      434D445F 
+ 1888      454E554D 
+ 1889              	.LASF108:
+ 1890 0218 75706461 		.ascii	"updateFlag\000"
+ 1890      7465466C 
+ 1890      616700
+ 1891              	.LASF87:
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 40
+
+
+ 1892 0223 6E756D52 		.ascii	"numRows\000"
+ 1892      6F777300 
+ 1893              	.LASF65:
+ 1894 022b 77646774 		.ascii	"wdgtStatus\000"
+ 1894      53746174 
+ 1894      757300
+ 1895              	.LASF86:
+ 1896 0236 6E756D43 		.ascii	"numCols\000"
+ 1896      6F6C7300 
+ 1897              	.LASF51:
+ 1898 023e 62736C6E 		.ascii	"bsln\000"
+ 1898      00
+ 1899              	.LASF118:
+ 1900 0243 43617053 		.ascii	"CapSense_Start\000"
+ 1900      656E7365 
+ 1900      5F537461 
+ 1900      727400
+ 1901              	.LASF45:
+ 1902 0252 706F7369 		.ascii	"position\000"
+ 1902      74696F6E 
+ 1902      00
+ 1903              	.LASF72:
+ 1904 025b 736E7254 		.ascii	"snrTestWidgetId\000"
+ 1904      65737457 
+ 1904      69646765 
+ 1904      74496400 
+ 1905              	.LASF109:
+ 1906 026b 636F6D6D 		.ascii	"command\000"
+ 1906      616E6400 
+ 1907              	.LASF90:
+ 1908 0273 70747232 		.ascii	"ptr2NoiseEnvlp\000"
+ 1908      4E6F6973 
+ 1908      65456E76 
+ 1908      6C7000
+ 1909              	.LASF8:
+ 1910 0282 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1910      20756E73 
+ 1910      69676E65 
+ 1910      6420696E 
+ 1910      7400
+ 1911              	.LASF64:
+ 1912 0294 77646774 		.ascii	"wdgtEnable\000"
+ 1912      456E6162 
+ 1912      6C6500
+ 1913              	.LASF105:
+ 1914 029f 696E7465 		.ascii	"interruptState\000"
+ 1914      72727570 
+ 1914      74537461 
+ 1914      746500
+ 1915              	.LASF85:
+ 1916 02ae 73656E73 		.ascii	"senseMethod\000"
+ 1916      654D6574 
+ 1916      686F6400 
+ 1917              	.LASF38:
+ 1918 02ba 6C6F7742 		.ascii	"lowBslnRst\000"
+ 1918      736C6E52 
+ 1918      737400
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 41
+
+
+ 1919              	.LASF112:
+ 1920 02c5 70747253 		.ascii	"ptrSnsTmp\000"
+ 1920      6E73546D 
+ 1920      7000
+ 1921              	.LASF5:
+ 1922 02cf 73686F72 		.ascii	"short unsigned int\000"
+ 1922      7420756E 
+ 1922      7369676E 
+ 1922      65642069 
+ 1922      6E7400
+ 1923              	.LASF71:
+ 1924 02e2 736E734C 		.ascii	"snsList\000"
+ 1924      69737400 
+ 1925              	.LASF58:
+ 1926 02ea 636F6E66 		.ascii	"configId\000"
+ 1926      69674964 
+ 1926      00
+ 1927              	.LASF67:
+ 1928 02f3 63736430 		.ascii	"csd0Config\000"
+ 1928      436F6E66 
+ 1928      696700
+ 1929              	.LASF78:
+ 1930 02fe 70747232 		.ascii	"ptr2WdgtRam\000"
+ 1930      57646774 
+ 1930      52616D00 
+ 1931              	.LASF2:
+ 1932 030a 73686F72 		.ascii	"short int\000"
+ 1932      7420696E 
+ 1932      7400
+ 1933              	.LASF59:
+ 1934 0314 64657669 		.ascii	"deviceId\000"
+ 1934      63654964 
+ 1934      00
+ 1935              	.LASF44:
+ 1936 031d 43617053 		.ascii	"CapSense_RAM_WD_BUTTON_STRUCT\000"
+ 1936      656E7365 
+ 1936      5F52414D 
+ 1936      5F57445F 
+ 1936      42555454 
+ 1937              	.LASF106:
+ 1938 033b 77696467 		.ascii	"widgetId\000"
+ 1938      65744964 
+ 1938      00
+ 1939              	.LASF39:
+ 1940 0344 69646163 		.ascii	"idacMod\000"
+ 1940      4D6F6400 
+ 1941              	.LASF46:
+ 1942 034c 43617053 		.ascii	"CapSense_RAM_WD_SLIDER_STRUCT\000"
+ 1942      656E7365 
+ 1942      5F52414D 
+ 1942      5F57445F 
+ 1942      534C4944 
+ 1943              	.LASF99:
+ 1944 036a 43617053 		.ascii	"CapSense_TU_CMD_RESTART_E\000"
+ 1944      656E7365 
+ 1944      5F54555F 
+ 1944      434D445F 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 42
+
+
+ 1944      52455354 
+ 1945              	.LASF15:
+ 1946 0384 73697A65 		.ascii	"sizetype\000"
+ 1946      74797065 
+ 1946      00
+ 1947              	.LASF82:
+ 1948 038d 73746174 		.ascii	"staticConfig\000"
+ 1948      6963436F 
+ 1948      6E666967 
+ 1948      00
+ 1949              	.LASF35:
+ 1950 039a 6E4E6F69 		.ascii	"nNoiseTh\000"
+ 1950      73655468 
+ 1950      00
+ 1951              	.LASF122:
+ 1952 03a3 43617053 		.ascii	"CapSense_TuInitialize\000"
+ 1952      656E7365 
+ 1952      5F547549 
+ 1952      6E697469 
+ 1952      616C697A 
+ 1953              	.LASF43:
+ 1954 03b9 73696750 		.ascii	"sigPFC\000"
+ 1954      464300
+ 1955              	.LASF60:
+ 1956 03c0 6877436C 		.ascii	"hwClock\000"
+ 1956      6F636B00 
+ 1957              	.LASF84:
+ 1958 03c8 77646774 		.ascii	"wdgtType\000"
+ 1958      54797065 
+ 1958      00
+ 1959              	.LASF89:
+ 1960 03d1 7843656E 		.ascii	"xCentroidMultiplier\000"
+ 1960      74726F69 
+ 1960      644D756C 
+ 1960      7469706C 
+ 1960      69657200 
+ 1961              	.LASF62:
+ 1962 03e5 7363616E 		.ascii	"scanCounter\000"
+ 1962      436F756E 
+ 1962      74657200 
+ 1963              	.LASF114:
+ 1964 03f1 43617053 		.ascii	"CapSense_dsRam\000"
+ 1964      656E7365 
+ 1964      5F647352 
+ 1964      616D00
+ 1965              	.LASF75:
+ 1966 0400 736E7254 		.ascii	"snrTestRawCount\000"
+ 1966      65737452 
+ 1966      6177436F 
+ 1966      756E7400 
+ 1967              	.LASF61:
+ 1968 0410 74756E65 		.ascii	"tunerCmd\000"
+ 1968      72436D64 
+ 1968      00
+ 1969              	.LASF17:
+ 1970 0419 666C6F61 		.ascii	"float\000"
+ 1970      7400
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 43
+
+
+ 1971              	.LASF31:
+ 1972 041f 534D4152 		.ascii	"SMARTSENSE_CSD_NOISE_ENVELOPE_STRUCT\000"
+ 1972      5453454E 
+ 1972      53455F43 
+ 1972      53445F4E 
+ 1972      4F495345 
+ 1973              	.LASF121:
+ 1974 0444 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Desktop\\PSoC-6-MCU-Pioneer-K"
+ 1974      73657273 
+ 1974      5C627279 
+ 1974      616E2E6C 
+ 1974      65655C44 
+ 1975 0473 6974732D 		.ascii	"its-master\\CY8CKIT-062-BLE Pioneer Kit\\CE218133_E"
+ 1975      6D617374 
+ 1975      65725C43 
+ 1975      5938434B 
+ 1975      49542D30 
+ 1976 04a4 494E4B5F 		.ascii	"INK_CapSense\\CE218133_EINK_CapSense.cydsn\000"
+ 1976      43617053 
+ 1976      656E7365 
+ 1976      5C434532 
+ 1976      31383133 
+ 1977              	.LASF57:
+ 1978 04ce 43617053 		.ascii	"CapSense_RAM_SNS_LIST_STRUCT\000"
+ 1978      656E7365 
+ 1978      5F52414D 
+ 1978      5F534E53 
+ 1978      5F4C4953 
+ 1979              	.LASF76:
+ 1980 04eb 43617053 		.ascii	"CapSense_RAM_STRUCT\000"
+ 1980      656E7365 
+ 1980      5F52414D 
+ 1980      5F535452 
+ 1980      55435400 
+ 1981              	.LASF24:
+ 1982 04ff 70617261 		.ascii	"param0\000"
+ 1982      6D3000
+ 1983              	.LASF25:
+ 1984 0506 70617261 		.ascii	"param1\000"
+ 1984      6D3100
+ 1985              	.LASF26:
+ 1986 050d 70617261 		.ascii	"param2\000"
+ 1986      6D3200
+ 1987              	.LASF27:
+ 1988 0514 70617261 		.ascii	"param3\000"
+ 1988      6D3300
+ 1989              	.LASF28:
+ 1990 051b 70617261 		.ascii	"param4\000"
+ 1990      6D3400
+ 1991              	.LASF29:
+ 1992 0522 70617261 		.ascii	"param5\000"
+ 1992      6D3500
+ 1993              	.LASF30:
+ 1994 0529 70617261 		.ascii	"param6\000"
+ 1994      6D3600
+ 1995              	.LASF101:
+ 1996 0530 43617053 		.ascii	"CapSense_TU_CMD_PING_E\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 44
+
+
+ 1996      656E7365 
+ 1996      5F54555F 
+ 1996      434D445F 
+ 1996      50494E47 
+ 1997              	.LASF93:
+ 1998 0547 43617053 		.ascii	"CapSense_FLASH_WD_STRUCT\000"
+ 1998      656E7365 
+ 1998      5F464C41 
+ 1998      53485F57 
+ 1998      445F5354 
+ 1999              	.LASF102:
+ 2000 0560 43617053 		.ascii	"CapSense_TU_CMD_ONE_SCAN_E\000"
+ 2000      656E7365 
+ 2000      5F54555F 
+ 2000      434D445F 
+ 2000      4F4E455F 
+ 2001              	.LASF80:
+ 2002 057b 70747232 		.ascii	"ptr2FltrHistory\000"
+ 2002      466C7472 
+ 2002      48697374 
+ 2002      6F727900 
+ 2003              	.LASF110:
+ 2004 058b 74756E65 		.ascii	"tunerStatus\000"
+ 2004      72537461 
+ 2004      74757300 
+ 2005              	.LASF14:
+ 2006 0597 75696E74 		.ascii	"uint32_t\000"
+ 2006      33325F74 
+ 2006      00
+ 2007              	.LASF70:
+ 2008 05a0 77646774 		.ascii	"wdgtList\000"
+ 2008      4C697374 
+ 2008      00
+ 2009              	.LASF100:
+ 2010 05a9 43617053 		.ascii	"CapSense_TU_CMD_RUN_SNR_TEST_E\000"
+ 2010      656E7365 
+ 2010      5F54555F 
+ 2010      434D445F 
+ 2010      52554E5F 
+ 2011              	.LASF116:
+ 2012 05c8 43795F53 		.ascii	"Cy_SysLib_EnterCriticalSection\000"
+ 2012      79734C69 
+ 2012      625F456E 
+ 2012      74657243 
+ 2012      72697469 
+ 2013              	.LASF119:
+ 2014 05e7 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2014      43313120 
+ 2014      352E342E 
+ 2014      31203230 
+ 2014      31363036 
+ 2015 061a 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0plus -mthumb -"
+ 2015      20726576 
+ 2015      6973696F 
+ 2015      6E203233 
+ 2015      37373135 
+ 2016 064d 67202D4F 		.ascii	"g -Og -ffunction-sections -ffat-lto-objects\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 45
+
+
+ 2016      67202D66 
+ 2016      66756E63 
+ 2016      74696F6E 
+ 2016      2D736563 
+ 2017              	.LASF104:
+ 2018 0679 6C6F6E67 		.ascii	"long double\000"
+ 2018      20646F75 
+ 2018      626C6500 
+ 2019              	.LASF16:
+ 2020 0685 63686172 		.ascii	"char\000"
+ 2020      00
+ 2021              	.LASF11:
+ 2022 068a 756E7369 		.ascii	"unsigned int\000"
+ 2022      676E6564 
+ 2022      20696E74 
+ 2022      00
+ 2023              	.LASF4:
+ 2024 0697 5F5F7569 		.ascii	"__uint16_t\000"
+ 2024      6E743136 
+ 2024      5F7400
+ 2025              	.LASF40:
+ 2026 06a2 736E7343 		.ascii	"snsClk\000"
+ 2026      6C6B00
+ 2027              	.LASF32:
+ 2028 06a9 7265736F 		.ascii	"resolution\000"
+ 2028      6C757469 
+ 2028      6F6E00
+ 2029              	.LASF37:
+ 2030 06b4 6F6E4465 		.ascii	"onDebounce\000"
+ 2030      626F756E 
+ 2030      636500
+ 2031              	.LASF55:
+ 2032 06bf 69646163 		.ascii	"idacComp\000"
+ 2032      436F6D70 
+ 2032      00
+ 2033              	.LASF1:
+ 2034 06c8 756E7369 		.ascii	"unsigned char\000"
+ 2034      676E6564 
+ 2034      20636861 
+ 2034      7200
+ 2035              	.LASF54:
+ 2036 06d6 6E656742 		.ascii	"negBslnRstCnt\000"
+ 2036      736C6E52 
+ 2036      7374436E 
+ 2036      7400
+ 2037              	.LASF83:
+ 2038 06e4 746F7461 		.ascii	"totalNumSns\000"
+ 2038      6C4E756D 
+ 2038      536E7300 
+ 2039              	.LASF81:
+ 2040 06f0 70747232 		.ascii	"ptr2DebounceArr\000"
+ 2040      4465626F 
+ 2040      756E6365 
+ 2040      41727200 
+ 2041              	.LASF95:
+ 2042 0700 43617053 		.ascii	"CapSense_FLASH_STRUCT\000"
+ 2042      656E7365 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 46
+
+
+ 2042      5F464C41 
+ 2042      53485F53 
+ 2042      54525543 
+ 2043              	.LASF113:
+ 2044 0716 74756E65 		.ascii	"tunerFsm\000"
+ 2044      7246736D 
+ 2044      00
+ 2045              	.LASF63:
+ 2046 071f 73746174 		.ascii	"status\000"
+ 2046      757300
+ 2047              	.LASF94:
+ 2048 0726 77646774 		.ascii	"wdgtArray\000"
+ 2048      41727261 
+ 2048      7900
+ 2049              	.LASF12:
+ 2050 0730 75696E74 		.ascii	"uint8_t\000"
+ 2050      385F7400 
+ 2051              	.LASF98:
+ 2052 0738 43617053 		.ascii	"CapSense_TU_CMD_RESUME_E\000"
+ 2052      656E7365 
+ 2052      5F54555F 
+ 2052      434D445F 
+ 2052      52455355 
+ 2053              	.LASF41:
+ 2054 0751 736E7343 		.ascii	"snsClkSource\000"
+ 2054      6C6B536F 
+ 2054      75726365 
+ 2054      00
+ 2055              	.LASF49:
+ 2056 075e 6C696E65 		.ascii	"linearslider0\000"
+ 2056      6172736C 
+ 2056      69646572 
+ 2056      3000
+ 2057              	.LASF111:
+ 2058 076c 70747244 		.ascii	"ptrDsRam\000"
+ 2058      7352616D 
+ 2058      00
+ 2059              	.LASF33:
+ 2060 0775 66696E67 		.ascii	"fingerTh\000"
+ 2060      65725468 
+ 2060      00
+ 2061              	.LASF50:
+ 2062 077e 43617053 		.ascii	"CapSense_RAM_WD_LIST_STRUCT\000"
+ 2062      656E7365 
+ 2062      5F52414D 
+ 2062      5F57445F 
+ 2062      4C495354 
+ 2063              	.LASF74:
+ 2064 079a 736E7254 		.ascii	"snrTestScanCounter\000"
+ 2064      65737453 
+ 2064      63616E43 
+ 2064      6F756E74 
+ 2064      657200
+ 2065              	.LASF34:
+ 2066 07ad 6E6F6973 		.ascii	"noiseTh\000"
+ 2066      65546800 
+ 2067              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cc3NYkZ3.s 			page 47
+
+
