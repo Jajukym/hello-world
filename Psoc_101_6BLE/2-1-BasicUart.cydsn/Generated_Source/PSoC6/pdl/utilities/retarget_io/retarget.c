@@ -1,6 +1,6 @@
 /***************************************************************************//**
 * \file retarget.c
-* \version 1.20
+* \version 1.10
 *
 * \brief
 * 'Retarget' layer for target-dependent low level function.
@@ -140,7 +140,7 @@ extern "C" {
             {
                 *ptr = (char)STDIO_GetChar();
                 ++nChars;
-                if((*ptr == '\n') || (*ptr == '\r'))
+                if(*ptr == '\n')
                 {
                     break;
                 }

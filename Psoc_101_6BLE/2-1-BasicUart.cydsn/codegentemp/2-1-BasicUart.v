@@ -1,6 +1,6 @@
 // ======================================================================
 // 2-1-BasicUart.v generated from TopDesign.cysch
-// 02/20/2020 at 11:53
+// 03/01/2020 at 16:16
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
