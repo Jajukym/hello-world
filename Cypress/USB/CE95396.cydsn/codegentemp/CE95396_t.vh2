@@ -1,16 +1,16 @@
 -- Project:   C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\USB\CE95396.cydsn\CE95396.cyprj
--- Generated: 04/02/2020 16:36:24
+-- Generated: 04/03/2020 11:06:35
 -- PSoC Creator  4.3
 
 ENTITY CE95396 IS
     PORT(
-        \LCD:LCDPort(0)_PAD\ : OUT std_ulogic;
-        \LCD:LCDPort(1)_PAD\ : OUT std_ulogic;
-        \LCD:LCDPort(2)_PAD\ : OUT std_ulogic;
-        \LCD:LCDPort(3)_PAD\ : OUT std_ulogic;
-        \LCD:LCDPort(4)_PAD\ : OUT std_ulogic;
-        \LCD:LCDPort(5)_PAD\ : OUT std_ulogic;
-        \LCD:LCDPort(6)_PAD\ : OUT std_ulogic;
+        \LCD_Char:LCDPort(0)_PAD\ : OUT std_ulogic;
+        \LCD_Char:LCDPort(1)_PAD\ : OUT std_ulogic;
+        \LCD_Char:LCDPort(2)_PAD\ : OUT std_ulogic;
+        \LCD_Char:LCDPort(3)_PAD\ : OUT std_ulogic;
+        \LCD_Char:LCDPort(4)_PAD\ : OUT std_ulogic;
+        \LCD_Char:LCDPort(5)_PAD\ : OUT std_ulogic;
+        \LCD_Char:LCDPort(6)_PAD\ : OUT std_ulogic;
         MOSI(0)_PAD : OUT std_ulogic;
         SS(0)_PAD : OUT std_ulogic;
         SCLK(0)_PAD : OUT std_ulogic;
@@ -102,13 +102,13 @@ ARCHITECTURE __DEFAULT__ OF CE95396 IS
     SIGNAL \ADC_SAR_1:Net_385\ : bit;
     ATTRIBUTE global_signal OF \ADC_SAR_1:Net_385\ : SIGNAL IS true;
     SIGNAL \ADC_SAR_1:Net_385_local\ : bit;
-    SIGNAL \\\LCD:LCDPort(0)\\__PA\ : bit;
-    SIGNAL \\\LCD:LCDPort(1)\\__PA\ : bit;
-    SIGNAL \\\LCD:LCDPort(2)\\__PA\ : bit;
-    SIGNAL \\\LCD:LCDPort(3)\\__PA\ : bit;
-    SIGNAL \\\LCD:LCDPort(4)\\__PA\ : bit;
-    SIGNAL \\\LCD:LCDPort(5)\\__PA\ : bit;
-    SIGNAL \\\LCD:LCDPort(6)\\__PA\ : bit;
+    SIGNAL \\\LCD_Char:LCDPort(0)\\__PA\ : bit;
+    SIGNAL \\\LCD_Char:LCDPort(1)\\__PA\ : bit;
+    SIGNAL \\\LCD_Char:LCDPort(2)\\__PA\ : bit;
+    SIGNAL \\\LCD_Char:LCDPort(3)\\__PA\ : bit;
+    SIGNAL \\\LCD_Char:LCDPort(4)\\__PA\ : bit;
+    SIGNAL \\\LCD_Char:LCDPort(5)\\__PA\ : bit;
+    SIGNAL \\\LCD_Char:LCDPort(6)\\__PA\ : bit;
     SIGNAL \PWM_Load:Net_54\ : bit;
     SIGNAL \PWM_Load:Net_63\ : bit;
     SIGNAL \SPIM:BSPIM:cnt_enable\ : bit;
@@ -207,20 +207,20 @@ ARCHITECTURE __DEFAULT__ OF CE95396 IS
     ATTRIBUTE Location OF \USBUART_1:Dp\ : LABEL IS "F(PICU,8)";
     ATTRIBUTE lib_model OF \USBUART_1:Dp(0)\ : LABEL IS "iocell2";
     ATTRIBUTE Location OF \USBUART_1:Dp(0)\ : LABEL IS "P15[6]";
-    ATTRIBUTE lib_model OF \LCD:LCDPort(0)\ : LABEL IS "iocell3";
-    ATTRIBUTE Location OF \LCD:LCDPort(0)\ : LABEL IS "P2[0]";
-    ATTRIBUTE lib_model OF \LCD:LCDPort(1)\ : LABEL IS "iocell4";
-    ATTRIBUTE Location OF \LCD:LCDPort(1)\ : LABEL IS "P2[1]";
-    ATTRIBUTE lib_model OF \LCD:LCDPort(2)\ : LABEL IS "iocell5";
-    ATTRIBUTE Location OF \LCD:LCDPort(2)\ : LABEL IS "P2[2]";
-    ATTRIBUTE lib_model OF \LCD:LCDPort(3)\ : LABEL IS "iocell6";
-    ATTRIBUTE Location OF \LCD:LCDPort(3)\ : LABEL IS "P2[3]";
-    ATTRIBUTE lib_model OF \LCD:LCDPort(4)\ : LABEL IS "iocell7";
-    ATTRIBUTE Location OF \LCD:LCDPort(4)\ : LABEL IS "P2[4]";
-    ATTRIBUTE lib_model OF \LCD:LCDPort(5)\ : LABEL IS "iocell8";
-    ATTRIBUTE Location OF \LCD:LCDPort(5)\ : LABEL IS "P2[5]";
-    ATTRIBUTE lib_model OF \LCD:LCDPort(6)\ : LABEL IS "iocell9";
-    ATTRIBUTE Location OF \LCD:LCDPort(6)\ : LABEL IS "P2[6]";
+    ATTRIBUTE lib_model OF \LCD_Char:LCDPort(0)\ : LABEL IS "iocell3";
+    ATTRIBUTE Location OF \LCD_Char:LCDPort(0)\ : LABEL IS "P2[0]";
+    ATTRIBUTE lib_model OF \LCD_Char:LCDPort(1)\ : LABEL IS "iocell4";
+    ATTRIBUTE Location OF \LCD_Char:LCDPort(1)\ : LABEL IS "P2[1]";
+    ATTRIBUTE lib_model OF \LCD_Char:LCDPort(2)\ : LABEL IS "iocell5";
+    ATTRIBUTE Location OF \LCD_Char:LCDPort(2)\ : LABEL IS "P2[2]";
+    ATTRIBUTE lib_model OF \LCD_Char:LCDPort(3)\ : LABEL IS "iocell6";
+    ATTRIBUTE Location OF \LCD_Char:LCDPort(3)\ : LABEL IS "P2[3]";
+    ATTRIBUTE lib_model OF \LCD_Char:LCDPort(4)\ : LABEL IS "iocell7";
+    ATTRIBUTE Location OF \LCD_Char:LCDPort(4)\ : LABEL IS "P2[4]";
+    ATTRIBUTE lib_model OF \LCD_Char:LCDPort(5)\ : LABEL IS "iocell8";
+    ATTRIBUTE Location OF \LCD_Char:LCDPort(5)\ : LABEL IS "P2[5]";
+    ATTRIBUTE lib_model OF \LCD_Char:LCDPort(6)\ : LABEL IS "iocell9";
+    ATTRIBUTE Location OF \LCD_Char:LCDPort(6)\ : LABEL IS "P2[6]";
     ATTRIBUTE lib_model OF MOSI(0) : LABEL IS "iocell10";
     ATTRIBUTE Location OF MOSI(0) : LABEL IS "P5[1]";
     ATTRIBUTE lib_model OF NC_42(0) : LABEL IS "iocell11";
@@ -867,7 +867,7 @@ BEGIN
             out_clock_en => '1',
             out_reset => '0');
 
-    \LCD:LCDPort\:logicalport
+    \LCD_Char:LCDPort\:logicalport
         GENERIC MAP(
             drive_mode => "110110110110110110110",
             ibuf_enabled => "1111111",
@@ -938,18 +938,18 @@ BEGIN
             out_clock_en => open,
             out_reset => open);
 
-    \LCD:LCDPort(0)\:iocell
+    \LCD_Char:LCDPort(0)\:iocell
         GENERIC MAP(
             in_sync_mode => 0,
             out_sync_mode => 0,
             oe_sync_mode => 0,
-            logicalport => "\LCD:LCDPort\",
+            logicalport => "\LCD_Char:LCDPort\",
             logicalport_pin_id => 0,
             io_capabilities => "0000000000000000000000000000000000000000000000000000000000000001")
         PORT MAP(
-            pa_out => \\\LCD:LCDPort(0)\\__PA\,
+            pa_out => \\\LCD_Char:LCDPort(0)\\__PA\,
             oe => open,
-            pad_in => \LCD:LCDPort(0)_PAD\,
+            pad_in => \LCD_Char:LCDPort(0)_PAD\,
             in_clock => open,
             in_clock_en => '1',
             in_reset => '0',
@@ -957,18 +957,18 @@ BEGIN
             out_clock_en => '1',
             out_reset => '0');
 
-    \LCD:LCDPort(1)\:iocell
+    \LCD_Char:LCDPort(1)\:iocell
         GENERIC MAP(
             in_sync_mode => 0,
             out_sync_mode => 0,
             oe_sync_mode => 0,
-            logicalport => "\LCD:LCDPort\",
+            logicalport => "\LCD_Char:LCDPort\",
             logicalport_pin_id => 1,
             io_capabilities => "0000000000000000000000000000000000000000000000000000000000000001")
         PORT MAP(
-            pa_out => \\\LCD:LCDPort(1)\\__PA\,
+            pa_out => \\\LCD_Char:LCDPort(1)\\__PA\,
             oe => open,
-            pad_in => \LCD:LCDPort(1)_PAD\,
+            pad_in => \LCD_Char:LCDPort(1)_PAD\,
             in_clock => open,
             in_clock_en => '1',
             in_reset => '0',
@@ -976,18 +976,18 @@ BEGIN
             out_clock_en => '1',
             out_reset => '0');
 
-    \LCD:LCDPort(2)\:iocell
+    \LCD_Char:LCDPort(2)\:iocell
         GENERIC MAP(
             in_sync_mode => 0,
             out_sync_mode => 0,
             oe_sync_mode => 0,
-            logicalport => "\LCD:LCDPort\",
+            logicalport => "\LCD_Char:LCDPort\",
             logicalport_pin_id => 2,
             io_capabilities => "0000000000000000000000000000000000000000000000000000000000000001")
         PORT MAP(
-            pa_out => \\\LCD:LCDPort(2)\\__PA\,
+            pa_out => \\\LCD_Char:LCDPort(2)\\__PA\,
             oe => open,
-            pad_in => \LCD:LCDPort(2)_PAD\,
+            pad_in => \LCD_Char:LCDPort(2)_PAD\,
             in_clock => open,
             in_clock_en => '1',
             in_reset => '0',
@@ -995,18 +995,18 @@ BEGIN
             out_clock_en => '1',
             out_reset => '0');
 
-    \LCD:LCDPort(3)\:iocell
+    \LCD_Char:LCDPort(3)\:iocell
         GENERIC MAP(
             in_sync_mode => 0,
             out_sync_mode => 0,
             oe_sync_mode => 0,
-            logicalport => "\LCD:LCDPort\",
+            logicalport => "\LCD_Char:LCDPort\",
             logicalport_pin_id => 3,
             io_capabilities => "0000000000000000000000000000000000000000000000000000000000000001")
         PORT MAP(
-            pa_out => \\\LCD:LCDPort(3)\\__PA\,
+            pa_out => \\\LCD_Char:LCDPort(3)\\__PA\,
             oe => open,
-            pad_in => \LCD:LCDPort(3)_PAD\,
+            pad_in => \LCD_Char:LCDPort(3)_PAD\,
             in_clock => open,
             in_clock_en => '1',
             in_reset => '0',
@@ -1014,18 +1014,18 @@ BEGIN
             out_clock_en => '1',
             out_reset => '0');
 
-    \LCD:LCDPort(4)\:iocell
+    \LCD_Char:LCDPort(4)\:iocell
         GENERIC MAP(
             in_sync_mode => 0,
             out_sync_mode => 0,
             oe_sync_mode => 0,
-            logicalport => "\LCD:LCDPort\",
+            logicalport => "\LCD_Char:LCDPort\",
             logicalport_pin_id => 4,
             io_capabilities => "0000000000000000000000000000000000000000000000000000000000000001")
         PORT MAP(
-            pa_out => \\\LCD:LCDPort(4)\\__PA\,
+            pa_out => \\\LCD_Char:LCDPort(4)\\__PA\,
             oe => open,
-            pad_in => \LCD:LCDPort(4)_PAD\,
+            pad_in => \LCD_Char:LCDPort(4)_PAD\,
             in_clock => open,
             in_clock_en => '1',
             in_reset => '0',
@@ -1033,18 +1033,18 @@ BEGIN
             out_clock_en => '1',
             out_reset => '0');
 
-    \LCD:LCDPort(5)\:iocell
+    \LCD_Char:LCDPort(5)\:iocell
         GENERIC MAP(
             in_sync_mode => 0,
             out_sync_mode => 0,
             oe_sync_mode => 0,
-            logicalport => "\LCD:LCDPort\",
+            logicalport => "\LCD_Char:LCDPort\",
             logicalport_pin_id => 5,
             io_capabilities => "0000000000000000000000000000000000000000000000000000000000000001")
         PORT MAP(
-            pa_out => \\\LCD:LCDPort(5)\\__PA\,
+            pa_out => \\\LCD_Char:LCDPort(5)\\__PA\,
             oe => open,
-            pad_in => \LCD:LCDPort(5)_PAD\,
+            pad_in => \LCD_Char:LCDPort(5)_PAD\,
             in_clock => open,
             in_clock_en => '1',
             in_reset => '0',
@@ -1052,18 +1052,18 @@ BEGIN
             out_clock_en => '1',
             out_reset => '0');
 
-    \LCD:LCDPort(6)\:iocell
+    \LCD_Char:LCDPort(6)\:iocell
         GENERIC MAP(
             in_sync_mode => 0,
             out_sync_mode => 0,
             oe_sync_mode => 0,
-            logicalport => "\LCD:LCDPort\",
+            logicalport => "\LCD_Char:LCDPort\",
             logicalport_pin_id => 6,
             io_capabilities => "0000000000000000000000000000000000000000000000000000000000000001")
         PORT MAP(
-            pa_out => \\\LCD:LCDPort(6)\\__PA\,
+            pa_out => \\\LCD_Char:LCDPort(6)\\__PA\,
             oe => open,
-            pad_in => \LCD:LCDPort(6)_PAD\,
+            pad_in => \LCD_Char:LCDPort(6)_PAD\,
             in_clock => open,
             in_clock_en => '1',
             in_reset => '0',

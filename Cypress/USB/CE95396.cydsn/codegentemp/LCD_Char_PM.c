@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: LCD_PM.c
+* File Name: LCD_Char_PM.c
 * Version 2.20
 *
 * Description:
@@ -14,14 +14,14 @@
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "LCD.h"
+#include "LCD_Char.h"
 
 
-static LCD_BACKUP_STRUCT LCD_backup;
+static LCD_Char_BACKUP_STRUCT LCD_Char_backup;
 
 
 /*******************************************************************************
-* Function Name: LCD_SaveConfig
+* Function Name: LCD_Char_SaveConfig
 ********************************************************************************
 *
 * Summary:
@@ -34,13 +34,13 @@ static LCD_BACKUP_STRUCT LCD_backup;
 *  None.
 *
 *******************************************************************************/
-void LCD_SaveConfig(void) 
+void LCD_Char_SaveConfig(void) 
 {
 }
 
 
 /*******************************************************************************
-* Function Name: LCD_RestoreConfig
+* Function Name: LCD_Char_RestoreConfig
 ********************************************************************************
 *
 * Summary:
@@ -53,13 +53,13 @@ void LCD_SaveConfig(void)
 *  None.
 *
 *******************************************************************************/
-void LCD_RestoreConfig(void) 
+void LCD_Char_RestoreConfig(void) 
 {
 }
 
 
 /*******************************************************************************
-* Function Name: LCD_Sleep
+* Function Name: LCD_Char_Sleep
 ********************************************************************************
 *
 * Summary:
@@ -75,16 +75,16 @@ void LCD_RestoreConfig(void)
 *  No.
 *
 *******************************************************************************/
-void LCD_Sleep(void) 
+void LCD_Char_Sleep(void) 
 {
-    LCD_backup.enableState = LCD_enableState;
-    LCD_SaveConfig();
-    LCD_Stop();
+    LCD_Char_backup.enableState = LCD_Char_enableState;
+    LCD_Char_SaveConfig();
+    LCD_Char_Stop();
 }
 
 
 /*******************************************************************************
-* Function Name: LCD_Wakeup
+* Function Name: LCD_Char_Wakeup
 ********************************************************************************
 *
 * Summary:
@@ -92,7 +92,7 @@ void LCD_Sleep(void)
 *  for normal operation.
 *
 * Parameters:
-*  LCD_enableState - Global variable.
+*  LCD_Char_enableState - Global variable.
 *
 * Return:
 *  Status one of standard status for PSoC3 Component
@@ -104,13 +104,13 @@ void LCD_Sleep(void)
 *  No.
 *
 *******************************************************************************/
-void LCD_Wakeup(void) 
+void LCD_Char_Wakeup(void) 
 {
-    LCD_RestoreConfig();
+    LCD_Char_RestoreConfig();
 
-    if(LCD_backup.enableState == 1u)
+    if(LCD_Char_backup.enableState == 1u)
     {
-        LCD_Enable();
+        LCD_Char_Enable();
     }
 }
 

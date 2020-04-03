@@ -611,9 +611,9 @@
 <dep name=".\Generated_Source\PSoC5\CyFlash.h" />
 <dep name=".\Generated_Source\PSoC5\CyLib.h" />
 <dep name=".\Generated_Source\PSoC5\CySpc.h" />
-<dep name=".\Generated_Source\PSoC5\LCD.h" />
-<dep name=".\Generated_Source\PSoC5\LCD_LCDPort.h" />
-<dep name=".\Generated_Source\PSoC5\LCD_LCDPort_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\LCD_Char.h" />
+<dep name=".\Generated_Source\PSoC5\LCD_Char_LCDPort.h" />
+<dep name=".\Generated_Source\PSoC5\LCD_Char_LCDPort_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\MISO.h" />
 <dep name=".\Generated_Source\PSoC5\MISO_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\MOSI.h" />
@@ -689,9 +689,9 @@
 <file name=".\Generated_Source\PSoC5\CyFlash.h" />
 <file name=".\Generated_Source\PSoC5\CyLib.h" />
 <file name=".\Generated_Source\PSoC5\CySpc.h" />
-<file name=".\Generated_Source\PSoC5\LCD.h" />
-<file name=".\Generated_Source\PSoC5\LCD_LCDPort.h" />
-<file name=".\Generated_Source\PSoC5\LCD_LCDPort_aliases.h" />
+<file name=".\Generated_Source\PSoC5\LCD_Char.h" />
+<file name=".\Generated_Source\PSoC5\LCD_Char_LCDPort.h" />
+<file name=".\Generated_Source\PSoC5\LCD_Char_LCDPort_aliases.h" />
 <file name=".\Generated_Source\PSoC5\MISO.h" />
 <file name=".\Generated_Source\PSoC5\MISO_aliases.h" />
 <file name=".\Generated_Source\PSoC5\MOSI.h" />
@@ -961,39 +961,39 @@
 <dep name=".\Generated_Source\PSoC5\cytypes.h" />
 </file>
 <file name=".\Generated_Source\PSoC5\CySpc.c" />
-<file name=".\ARM_GCC_541\Debug\LCD.o">
+<file name=".\ARM_GCC_541\Debug\LCD_Char.o">
 <dep name=".\Generated_Source\PSoC5\CyFlash.h" />
 <dep name=".\Generated_Source\PSoC5\CyLib.h" />
 <dep name=".\Generated_Source\PSoC5\CySpc.h" />
-<dep name=".\Generated_Source\PSoC5\LCD.c" />
-<dep name=".\Generated_Source\PSoC5\LCD.h" />
+<dep name=".\Generated_Source\PSoC5\LCD_Char.c" />
+<dep name=".\Generated_Source\PSoC5\LCD_Char.h" />
 <dep name=".\Generated_Source\PSoC5\cyPm.h" />
 <dep name=".\Generated_Source\PSoC5\cydevice.h" />
 <dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
 <dep name=".\Generated_Source\PSoC5\cyfitter.h" />
 <dep name=".\Generated_Source\PSoC5\cytypes.h" />
 </file>
-<file name=".\Generated_Source\PSoC5\LCD.c" />
-<file name=".\ARM_GCC_541\Debug\LCD_LCDPort.o">
-<dep name=".\Generated_Source\PSoC5\LCD_LCDPort.c" />
-<dep name=".\Generated_Source\PSoC5\LCD_LCDPort.h" />
-<dep name=".\Generated_Source\PSoC5\LCD_LCDPort_aliases.h" />
+<file name=".\Generated_Source\PSoC5\LCD_Char.c" />
+<file name=".\ARM_GCC_541\Debug\LCD_Char_LCDPort.o">
+<dep name=".\Generated_Source\PSoC5\LCD_Char_LCDPort.c" />
+<dep name=".\Generated_Source\PSoC5\LCD_Char_LCDPort.h" />
+<dep name=".\Generated_Source\PSoC5\LCD_Char_LCDPort_aliases.h" />
 <dep name=".\Generated_Source\PSoC5\cydevice.h" />
 <dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
 <dep name=".\Generated_Source\PSoC5\cyfitter.h" />
 <dep name=".\Generated_Source\PSoC5\cypins.h" />
 <dep name=".\Generated_Source\PSoC5\cytypes.h" />
 </file>
-<file name=".\Generated_Source\PSoC5\LCD_LCDPort.c" />
-<file name=".\ARM_GCC_541\Debug\LCD_PM.o">
-<dep name=".\Generated_Source\PSoC5\LCD.h" />
-<dep name=".\Generated_Source\PSoC5\LCD_PM.c" />
+<file name=".\Generated_Source\PSoC5\LCD_Char_LCDPort.c" />
+<file name=".\ARM_GCC_541\Debug\LCD_Char_PM.o">
+<dep name=".\Generated_Source\PSoC5\LCD_Char.h" />
+<dep name=".\Generated_Source\PSoC5\LCD_Char_PM.c" />
 <dep name=".\Generated_Source\PSoC5\cydevice.h" />
 <dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
 <dep name=".\Generated_Source\PSoC5\cyfitter.h" />
 <dep name=".\Generated_Source\PSoC5\cytypes.h" />
 </file>
-<file name=".\Generated_Source\PSoC5\LCD_PM.c" />
+<file name=".\Generated_Source\PSoC5\LCD_Char_PM.c" />
 <file name=".\ARM_GCC_541\Debug\MISO.o">
 <dep name=".\Generated_Source\PSoC5\MISO.c" />
 <dep name=".\Generated_Source\PSoC5\MISO.h" />
@@ -1570,6 +1570,42 @@
 <file name=".\Generated_Source\PSoC5\cydevicegnu.inc" />
 <file name=".\Generated_Source\PSoC5\cydevicegnu_trm.inc" />
 <file name=".\Generated_Source\PSoC5\cyfittergnu.inc" />
+<file name=".\Generated_Source\PSoC5\LCD.h" />
+<file name=".\Generated_Source\PSoC5\LCD_LCDPort.h" />
+<file name=".\Generated_Source\PSoC5\LCD_LCDPort_aliases.h" />
+<file name=".\ARM_GCC_541\Debug\LCD.o">
+<dep name=".\Generated_Source\PSoC5\CyFlash.h" />
+<dep name=".\Generated_Source\PSoC5\CyLib.h" />
+<dep name=".\Generated_Source\PSoC5\CySpc.h" />
+<dep name=".\Generated_Source\PSoC5\LCD.c" />
+<dep name=".\Generated_Source\PSoC5\LCD.h" />
+<dep name=".\Generated_Source\PSoC5\cyPm.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+</file>
+<file name=".\Generated_Source\PSoC5\LCD.c" />
+<file name=".\ARM_GCC_541\Debug\LCD_LCDPort.o">
+<dep name=".\Generated_Source\PSoC5\LCD_LCDPort.c" />
+<dep name=".\Generated_Source\PSoC5\LCD_LCDPort.h" />
+<dep name=".\Generated_Source\PSoC5\LCD_LCDPort_aliases.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cypins.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+</file>
+<file name=".\Generated_Source\PSoC5\LCD_LCDPort.c" />
+<file name=".\ARM_GCC_541\Debug\LCD_PM.o">
+<dep name=".\Generated_Source\PSoC5\LCD.h" />
+<dep name=".\Generated_Source\PSoC5\LCD_PM.c" />
+<dep name=".\Generated_Source\PSoC5\cydevice.h" />
+<dep name=".\Generated_Source\PSoC5\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC5\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC5\cytypes.h" />
+</file>
+<file name=".\Generated_Source\PSoC5\LCD_PM.c" />
 <file name=".\Generated_Source\PSoC5\Pin_1.h" />
 <file name=".\Generated_Source\PSoC5\Pin_1_aliases.h" />
 <file name=".\ARM_GCC_541\Debug\Pin_1.o">
@@ -1843,11 +1879,8 @@
 <dep name=".\ARM_GCC_541\Debug\USBUART_1_vnd.o" />
 <dep name=".\ARM_GCC_541\Debug\USBUART_1_midi.o" />
 <dep name=".\ARM_GCC_541\Debug\USBUART_1_msc.o" />
-<dep name=".\ARM_GCC_541\Debug\LCD.o" />
-<dep name=".\ARM_GCC_541\Debug\LCD_PM.o" />
 <dep name=".\ARM_GCC_541\Debug\USBUART_1_Dm.o" />
 <dep name=".\ARM_GCC_541\Debug\USBUART_1_Dp.o" />
-<dep name=".\ARM_GCC_541\Debug\LCD_LCDPort.o" />
 <dep name=".\ARM_GCC_541\Debug\Cm3Start.o" />
 <dep name=".\ARM_GCC_541\Debug\CyBootAsmGnu.o" />
 <dep name=".\ARM_GCC_541\Debug\CyDmac.o" />
@@ -1890,6 +1923,9 @@
 <dep name=".\ARM_GCC_541\Debug\Clock_1.o" />
 <dep name=".\ARM_GCC_541\Debug\pin_12v_enable.o" />
 <dep name=".\ARM_GCC_541\Debug\pin_Load.o" />
+<dep name=".\ARM_GCC_541\Debug\LCD_Char.o" />
+<dep name=".\ARM_GCC_541\Debug\LCD_Char_PM.o" />
+<dep name=".\ARM_GCC_541\Debug\LCD_Char_LCDPort.o" />
 <dep name=".\ARM_GCC_541\Debug\CE95396.a" />
 <dep name="${CyRoot}\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_541\Debug\CyComponentLibrary.a" />
 </file>
@@ -2018,6 +2054,9 @@
 <name_val_pair name="Generated_Source\PSoC5\Clock_1.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -Wall -ffunction-sections -ffat-lto-objects -O0" />
 <name_val_pair name="Generated_Source\PSoC5\pin_12v_enable.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -Wall -ffunction-sections -ffat-lto-objects -O0" />
 <name_val_pair name="Generated_Source\PSoC5\pin_Load.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\LCD_Char.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\LCD_Char_PM.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Generated_Source\PSoC5\LCD_Char_LCDPort.c" v="-mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -Wall -ffunction-sections -ffat-lto-objects -O0" />
 </name>
 </genericCmdLineData>
 <codeGenCmdLineTag v="-.appdatapath &quot;C:\Users\bryan.lee\AppData\Local\Cypress Semiconductor\PSoC Creator\4.3&quot; -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -.fdsreffile=referenced_files.txt -p C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\USB\CE95396.cydsn\CE95396.cyprj -d CY8C5868AXI-LP035 -s C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\USB\CE95396.cydsn\Generated_Source\PSoC5 -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE" />
@@ -2586,6 +2625,12 @@
 <v>Generated_Source\PSoC5\pin_Load_aliases.h</v>
 <v>Generated_Source\PSoC5\pin_Load.c</v>
 <v>Generated_Source\PSoC5\pin_Load.h</v>
+<v>Generated_Source\PSoC5\LCD_Char.c</v>
+<v>Generated_Source\PSoC5\LCD_Char.h</v>
+<v>Generated_Source\PSoC5\LCD_Char_PM.c</v>
+<v>Generated_Source\PSoC5\LCD_Char_LCDPort_aliases.h</v>
+<v>Generated_Source\PSoC5\LCD_Char_LCDPort.c</v>
+<v>Generated_Source\PSoC5\LCD_Char_LCDPort.h</v>
 </gen_list>
 <warp_dep>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\warp\lib\ieee\work\stdlogic.vif</v>
@@ -2595,7 +2640,7 @@
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\warp\lib\common\stdlogic\rtlpkg.vif</v>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.3\PSoC Creator\warp\lib\common\stdlogic\cy_psoc3.vif</v>
 </warp_dep>
-<deps_time v="132303405866106330" />
+<deps_time v="132304071976809424" />
 <top_block v="TopDesign" />
 <last_generation v="0" />
 <pdl_path v="" />
@@ -2606,7 +2651,7 @@
 <CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563 type_name="CyDesigner.Common.ProjMgmt.Model.CyLinkCustomData" version="1">
 <link_deps_times>
 <name_val_pair name="4bd5669a-0e4e-4e1c-9625-e982dd945372@Debug@DP8051" v="132303107553950833" />
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" v="132303426574047613" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM3" v="132304078342976361" />
 </link_deps_times>
 </CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563>
 </dataGuid>

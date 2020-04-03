@@ -1,5 +1,5 @@
 /*******************************************************************************
-* File Name: LCD_LCDPort.c  
+* File Name: LCD_Char_LCDPort.c  
 * Version 2.20
 *
 * Description:
@@ -15,15 +15,15 @@
 *******************************************************************************/
 
 #include "cytypes.h"
-#include "LCD_LCDPort.h"
+#include "LCD_Char_LCDPort.h"
 
 /* APIs are not generated for P15[7:6] on PSoC 5 */
 #if !(CY_PSOC5A &&\
-	 LCD_LCDPort__PORT == 15 && ((LCD_LCDPort__MASK & 0xC0) != 0))
+	 LCD_Char_LCDPort__PORT == 15 && ((LCD_Char_LCDPort__MASK & 0xC0) != 0))
 
 
 /*******************************************************************************
-* Function Name: LCD_LCDPort_Write
+* Function Name: LCD_Char_LCDPort_Write
 ****************************************************************************//**
 *
 * \brief Writes the value to the physical port (data output register), masking
@@ -52,17 +52,17 @@
 *  this function.
 *
 * \funcusage
-*  \snippet LCD_LCDPort_SUT.c usage_LCD_LCDPort_Write
+*  \snippet LCD_Char_LCDPort_SUT.c usage_LCD_Char_LCDPort_Write
 *******************************************************************************/
-void LCD_LCDPort_Write(uint8 value)
+void LCD_Char_LCDPort_Write(uint8 value)
 {
-    uint8 staticBits = (LCD_LCDPort_DR & (uint8)(~LCD_LCDPort_MASK));
-    LCD_LCDPort_DR = staticBits | ((uint8)(value << LCD_LCDPort_SHIFT) & LCD_LCDPort_MASK);
+    uint8 staticBits = (LCD_Char_LCDPort_DR & (uint8)(~LCD_Char_LCDPort_MASK));
+    LCD_Char_LCDPort_DR = staticBits | ((uint8)(value << LCD_Char_LCDPort_SHIFT) & LCD_Char_LCDPort_MASK);
 }
 
 
 /*******************************************************************************
-* Function Name: LCD_LCDPort_SetDriveMode
+* Function Name: LCD_Char_LCDPort_SetDriveMode
 ****************************************************************************//**
 *
 * \brief Sets the drive mode for each of the Pins component's pins.
@@ -85,22 +85,22 @@ void LCD_LCDPort_Write(uint8 value)
 *  APIs (primary method) or disable interrupts around this function.
 *
 * \funcusage
-*  \snippet LCD_LCDPort_SUT.c usage_LCD_LCDPort_SetDriveMode
+*  \snippet LCD_Char_LCDPort_SUT.c usage_LCD_Char_LCDPort_SetDriveMode
 *******************************************************************************/
-void LCD_LCDPort_SetDriveMode(uint8 mode)
+void LCD_Char_LCDPort_SetDriveMode(uint8 mode)
 {
-	CyPins_SetPinDriveMode(LCD_LCDPort_0, mode);
-	CyPins_SetPinDriveMode(LCD_LCDPort_1, mode);
-	CyPins_SetPinDriveMode(LCD_LCDPort_2, mode);
-	CyPins_SetPinDriveMode(LCD_LCDPort_3, mode);
-	CyPins_SetPinDriveMode(LCD_LCDPort_4, mode);
-	CyPins_SetPinDriveMode(LCD_LCDPort_5, mode);
-	CyPins_SetPinDriveMode(LCD_LCDPort_6, mode);
+	CyPins_SetPinDriveMode(LCD_Char_LCDPort_0, mode);
+	CyPins_SetPinDriveMode(LCD_Char_LCDPort_1, mode);
+	CyPins_SetPinDriveMode(LCD_Char_LCDPort_2, mode);
+	CyPins_SetPinDriveMode(LCD_Char_LCDPort_3, mode);
+	CyPins_SetPinDriveMode(LCD_Char_LCDPort_4, mode);
+	CyPins_SetPinDriveMode(LCD_Char_LCDPort_5, mode);
+	CyPins_SetPinDriveMode(LCD_Char_LCDPort_6, mode);
 }
 
 
 /*******************************************************************************
-* Function Name: LCD_LCDPort_Read
+* Function Name: LCD_Char_LCDPort_Read
 ****************************************************************************//**
 *
 * \brief Reads the associated physical port (pin status register) and masks 
@@ -114,16 +114,16 @@ void LCD_LCDPort_SetDriveMode(uint8 mode)
 *  The current value for the pins in the component as a right justified number.
 *
 * \funcusage
-*  \snippet LCD_LCDPort_SUT.c usage_LCD_LCDPort_Read  
+*  \snippet LCD_Char_LCDPort_SUT.c usage_LCD_Char_LCDPort_Read  
 *******************************************************************************/
-uint8 LCD_LCDPort_Read(void)
+uint8 LCD_Char_LCDPort_Read(void)
 {
-    return (LCD_LCDPort_PS & LCD_LCDPort_MASK) >> LCD_LCDPort_SHIFT;
+    return (LCD_Char_LCDPort_PS & LCD_Char_LCDPort_MASK) >> LCD_Char_LCDPort_SHIFT;
 }
 
 
 /*******************************************************************************
-* Function Name: LCD_LCDPort_ReadDataReg
+* Function Name: LCD_Char_LCDPort_ReadDataReg
 ****************************************************************************//**
 *
 * \brief Reads the associated physical port's data output register and masks 
@@ -132,8 +132,8 @@ uint8 LCD_LCDPort_Read(void)
 *
 * The data output register controls the signal applied to the physical pin in 
 * conjunction with the drive mode parameter. This is not the same as the 
-* preferred LCD_LCDPort_Read() API because the 
-* LCD_LCDPort_ReadDataReg() reads the data register instead of the status 
+* preferred LCD_Char_LCDPort_Read() API because the 
+* LCD_Char_LCDPort_ReadDataReg() reads the data register instead of the status 
 * register. For output pins this is a useful function to determine the value 
 * just written to the pin.
 *
@@ -142,19 +142,19 @@ uint8 LCD_LCDPort_Read(void)
 *  justified number for the component instance.
 *
 * \funcusage
-*  \snippet LCD_LCDPort_SUT.c usage_LCD_LCDPort_ReadDataReg 
+*  \snippet LCD_Char_LCDPort_SUT.c usage_LCD_Char_LCDPort_ReadDataReg 
 *******************************************************************************/
-uint8 LCD_LCDPort_ReadDataReg(void)
+uint8 LCD_Char_LCDPort_ReadDataReg(void)
 {
-    return (LCD_LCDPort_DR & LCD_LCDPort_MASK) >> LCD_LCDPort_SHIFT;
+    return (LCD_Char_LCDPort_DR & LCD_Char_LCDPort_MASK) >> LCD_Char_LCDPort_SHIFT;
 }
 
 
 /* If interrupt is connected for this Pins component */ 
-#if defined(LCD_LCDPort_INTSTAT) 
+#if defined(LCD_Char_LCDPort_INTSTAT) 
 
     /*******************************************************************************
-    * Function Name: LCD_LCDPort_SetInterruptMode
+    * Function Name: LCD_Char_LCDPort_SetInterruptMode
     ****************************************************************************//**
     *
     * \brief Configures the interrupt mode for each of the Pins component's
@@ -167,12 +167,12 @@ uint8 LCD_LCDPort_ReadDataReg(void)
     * \param position
     *  The pin position as listed in the Pins component. You may OR these to be 
     *  able to configure the interrupt mode of multiple pins within a Pins 
-    *  component. Or you may use LCD_LCDPort_INTR_ALL to configure the
+    *  component. Or you may use LCD_Char_LCDPort_INTR_ALL to configure the
     *  interrupt mode of all the pins in the Pins component.       
-    *  - LCD_LCDPort_0_INTR       (First pin in the list)
-    *  - LCD_LCDPort_1_INTR       (Second pin in the list)
+    *  - LCD_Char_LCDPort_0_INTR       (First pin in the list)
+    *  - LCD_Char_LCDPort_1_INTR       (Second pin in the list)
     *  - ...
-    *  - LCD_LCDPort_INTR_ALL     (All pins in Pins component)
+    *  - LCD_Char_LCDPort_INTR_ALL     (All pins in Pins component)
     *
     * \param mode
     *  Interrupt mode for the selected pins. Valid options are documented in
@@ -188,43 +188,43 @@ uint8 LCD_LCDPort_ReadDataReg(void)
     *  port.
     *
     * \funcusage
-    *  \snippet LCD_LCDPort_SUT.c usage_LCD_LCDPort_SetInterruptMode
+    *  \snippet LCD_Char_LCDPort_SUT.c usage_LCD_Char_LCDPort_SetInterruptMode
     *******************************************************************************/
-    void LCD_LCDPort_SetInterruptMode(uint16 position, uint16 mode)
+    void LCD_Char_LCDPort_SetInterruptMode(uint16 position, uint16 mode)
     {
-		if((position & LCD_LCDPort_0_INTR) != 0u) 
+		if((position & LCD_Char_LCDPort_0_INTR) != 0u) 
 		{ 
-			 LCD_LCDPort_0_INTTYPE_REG = (uint8)mode; 
+			 LCD_Char_LCDPort_0_INTTYPE_REG = (uint8)mode; 
 		} 
-		if((position & LCD_LCDPort_1_INTR) != 0u) 
+		if((position & LCD_Char_LCDPort_1_INTR) != 0u) 
 		{ 
-			 LCD_LCDPort_1_INTTYPE_REG = (uint8)mode; 
+			 LCD_Char_LCDPort_1_INTTYPE_REG = (uint8)mode; 
 		} 
-		if((position & LCD_LCDPort_2_INTR) != 0u) 
+		if((position & LCD_Char_LCDPort_2_INTR) != 0u) 
 		{ 
-			 LCD_LCDPort_2_INTTYPE_REG = (uint8)mode; 
+			 LCD_Char_LCDPort_2_INTTYPE_REG = (uint8)mode; 
 		} 
-		if((position & LCD_LCDPort_3_INTR) != 0u) 
+		if((position & LCD_Char_LCDPort_3_INTR) != 0u) 
 		{ 
-			 LCD_LCDPort_3_INTTYPE_REG = (uint8)mode; 
+			 LCD_Char_LCDPort_3_INTTYPE_REG = (uint8)mode; 
 		} 
-		if((position & LCD_LCDPort_4_INTR) != 0u) 
+		if((position & LCD_Char_LCDPort_4_INTR) != 0u) 
 		{ 
-			 LCD_LCDPort_4_INTTYPE_REG = (uint8)mode; 
+			 LCD_Char_LCDPort_4_INTTYPE_REG = (uint8)mode; 
 		} 
-		if((position & LCD_LCDPort_5_INTR) != 0u) 
+		if((position & LCD_Char_LCDPort_5_INTR) != 0u) 
 		{ 
-			 LCD_LCDPort_5_INTTYPE_REG = (uint8)mode; 
+			 LCD_Char_LCDPort_5_INTTYPE_REG = (uint8)mode; 
 		} 
-		if((position & LCD_LCDPort_6_INTR) != 0u) 
+		if((position & LCD_Char_LCDPort_6_INTR) != 0u) 
 		{ 
-			 LCD_LCDPort_6_INTTYPE_REG = (uint8)mode; 
+			 LCD_Char_LCDPort_6_INTTYPE_REG = (uint8)mode; 
 		}
     }
     
     
     /*******************************************************************************
-    * Function Name: LCD_LCDPort_ClearInterrupt
+    * Function Name: LCD_Char_LCDPort_ClearInterrupt
     ****************************************************************************//**
     *
     * \brief Clears any active interrupts attached with the component and returns 
@@ -241,11 +241,11 @@ uint8 LCD_LCDPort_ReadDataReg(void)
     *  those associated with the Pins component.
     *
     * \funcusage
-    *  \snippet LCD_LCDPort_SUT.c usage_LCD_LCDPort_ClearInterrupt
+    *  \snippet LCD_Char_LCDPort_SUT.c usage_LCD_Char_LCDPort_ClearInterrupt
     *******************************************************************************/
-    uint8 LCD_LCDPort_ClearInterrupt(void)
+    uint8 LCD_Char_LCDPort_ClearInterrupt(void)
     {
-        return (LCD_LCDPort_INTSTAT & LCD_LCDPort_MASK) >> LCD_LCDPort_SHIFT;
+        return (LCD_Char_LCDPort_INTSTAT & LCD_Char_LCDPort_MASK) >> LCD_Char_LCDPort_SHIFT;
     }
 
 #endif /* If Interrupts Are Enabled for this Pins component */ 

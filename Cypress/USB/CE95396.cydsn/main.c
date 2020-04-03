@@ -79,10 +79,10 @@ int main()
 
     SPIM_Start();
     USBUART_1_Start(0u, USBUART_1_3V_OPERATION);
-    /*LCD_Char_Start();
+    LCD_Char_Start();
     LCD_Char_Init();
     LCD_Char_ClearDisplay();
-    LCD_Char_PrintString("USB to UART test");*/
+    LCD_Char_PrintString("    EQF1296 DUT!");
     SPIM_Start();
     ADC_SAR_0_Start();
     ADC_SAR_1_Start();
@@ -119,10 +119,11 @@ int main()
         /* If the value read is not a number in the range [0,7] */
         if(rdValue & ERROR_MASK)
         {
-            //LCD_Char_ClearDisplay();
-            //LCD_Char_PrintString("Input Error");
+            LCD_Char_ClearDisplay();
+            LCD_Char_PrintString("Input Error");
             sprintf((char *)wrBuffer, "Input Error, (%d) \n\r",(int)(rdValue));
             PrintToUSBUART((char8 *)wrBuffer);
+            CyDelay(1000);
         }
 
         else /* The input from user is valid */
@@ -159,7 +160,7 @@ int main()
             PrintToUSBUART((char8 *)wrBuffer);
         }
 
-        /* For verification purposes, display the adcReading on the LCD
+        /* For verification purposes, display the adcReading on the LCD*/
         LCD_Char_ClearDisplay();
         LCD_Char_PrintString("0x");
         LCD_Char_PrintInt16(adcReading);
@@ -168,7 +169,7 @@ int main()
         LCD_Char_Position(2,0);
         LCD_Char_PrintInt8(rdBuffer[0]);
         LCD_Char_Position(3,0);
-        LCD_Char_PrintString("end");*/
+        LCD_Char_PrintString("end");
         
 
         /* Clear the transmit buffer before next reading (good practice) */

@@ -2,7 +2,7 @@
 --	Conversion of CE95396.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Thu Apr 02 16:36:14 2020
+--	Fri Apr 03 11:06:25 2020
 --
 
 USE cypress.cypress.all;
@@ -64,29 +64,29 @@ SIGNAL \USBUART_1:dma_complete_6\ : bit;
 SIGNAL \USBUART_1:Net_1916\ : bit;
 SIGNAL \USBUART_1:dma_complete_7\ : bit;
 SIGNAL \USBUART_1:Net_1915\ : bit;
-SIGNAL \LCD:tmpOE__LCDPort_net_6\ : bit;
-SIGNAL \LCD:tmpOE__LCDPort_net_5\ : bit;
-SIGNAL \LCD:tmpOE__LCDPort_net_4\ : bit;
-SIGNAL \LCD:tmpOE__LCDPort_net_3\ : bit;
-SIGNAL \LCD:tmpOE__LCDPort_net_2\ : bit;
-SIGNAL \LCD:tmpOE__LCDPort_net_1\ : bit;
-SIGNAL \LCD:tmpOE__LCDPort_net_0\ : bit;
-SIGNAL \LCD:tmpFB_6__LCDPort_net_6\ : bit;
-SIGNAL \LCD:tmpFB_6__LCDPort_net_5\ : bit;
-SIGNAL \LCD:tmpFB_6__LCDPort_net_4\ : bit;
-SIGNAL \LCD:tmpFB_6__LCDPort_net_3\ : bit;
-SIGNAL \LCD:tmpFB_6__LCDPort_net_2\ : bit;
-SIGNAL \LCD:tmpFB_6__LCDPort_net_1\ : bit;
-SIGNAL \LCD:tmpFB_6__LCDPort_net_0\ : bit;
-SIGNAL \LCD:tmpIO_6__LCDPort_net_6\ : bit;
-SIGNAL \LCD:tmpIO_6__LCDPort_net_5\ : bit;
-SIGNAL \LCD:tmpIO_6__LCDPort_net_4\ : bit;
-SIGNAL \LCD:tmpIO_6__LCDPort_net_3\ : bit;
-SIGNAL \LCD:tmpIO_6__LCDPort_net_2\ : bit;
-SIGNAL \LCD:tmpIO_6__LCDPort_net_1\ : bit;
-SIGNAL \LCD:tmpIO_6__LCDPort_net_0\ : bit;
-TERMINAL \LCD:tmpSIOVREF__LCDPort_net_0\ : bit;
-SIGNAL \LCD:tmpINTERRUPT_0__LCDPort_net_0\ : bit;
+SIGNAL \LCD_Char:tmpOE__LCDPort_net_6\ : bit;
+SIGNAL \LCD_Char:tmpOE__LCDPort_net_5\ : bit;
+SIGNAL \LCD_Char:tmpOE__LCDPort_net_4\ : bit;
+SIGNAL \LCD_Char:tmpOE__LCDPort_net_3\ : bit;
+SIGNAL \LCD_Char:tmpOE__LCDPort_net_2\ : bit;
+SIGNAL \LCD_Char:tmpOE__LCDPort_net_1\ : bit;
+SIGNAL \LCD_Char:tmpOE__LCDPort_net_0\ : bit;
+SIGNAL \LCD_Char:tmpFB_6__LCDPort_net_6\ : bit;
+SIGNAL \LCD_Char:tmpFB_6__LCDPort_net_5\ : bit;
+SIGNAL \LCD_Char:tmpFB_6__LCDPort_net_4\ : bit;
+SIGNAL \LCD_Char:tmpFB_6__LCDPort_net_3\ : bit;
+SIGNAL \LCD_Char:tmpFB_6__LCDPort_net_2\ : bit;
+SIGNAL \LCD_Char:tmpFB_6__LCDPort_net_1\ : bit;
+SIGNAL \LCD_Char:tmpFB_6__LCDPort_net_0\ : bit;
+SIGNAL \LCD_Char:tmpIO_6__LCDPort_net_6\ : bit;
+SIGNAL \LCD_Char:tmpIO_6__LCDPort_net_5\ : bit;
+SIGNAL \LCD_Char:tmpIO_6__LCDPort_net_4\ : bit;
+SIGNAL \LCD_Char:tmpIO_6__LCDPort_net_3\ : bit;
+SIGNAL \LCD_Char:tmpIO_6__LCDPort_net_2\ : bit;
+SIGNAL \LCD_Char:tmpIO_6__LCDPort_net_1\ : bit;
+SIGNAL \LCD_Char:tmpIO_6__LCDPort_net_0\ : bit;
+TERMINAL \LCD_Char:tmpSIOVREF__LCDPort_net_0\ : bit;
+SIGNAL \LCD_Char:tmpINTERRUPT_0__LCDPort_net_0\ : bit;
 SIGNAL tmpOE__MOSI_net_0 : bit;
 SIGNAL Net_337 : bit;
 SIGNAL tmpFB_0__MOSI_net_0 : bit;
@@ -734,7 +734,7 @@ Net_338D <= ((\SPIM:BSPIM:state_1\ and \SPIM:BSPIM:state_0\ and Net_338)
 	GENERIC MAP(int_type=>"10",
 		is_nmi=>'0')
 	PORT MAP(int_signal=>Net_61);
-\LCD:LCDPort\:cy_psoc3_pins_v1_10
+\LCD_Char:LCDPort\:cy_psoc3_pins_v1_10
 	GENERIC MAP(id=>"ac8fb70c-7191-4547-91f8-16d96c1410fe/ed092b9b-d398-4703-be89-cebf998501f6",
 		drive_mode=>"110110110110110110110",
 		ibuf_enabled=>"1111111",
@@ -794,13 +794,13 @@ Net_338D <= ((\SPIM:BSPIM:state_1\ and \SPIM:BSPIM:state_0\ and Net_338)
 			one, one, one),
 		y=>(zero, zero, zero, zero,
 			zero, zero, zero),
-		fb=>(\LCD:tmpFB_6__LCDPort_net_6\, \LCD:tmpFB_6__LCDPort_net_5\, \LCD:tmpFB_6__LCDPort_net_4\, \LCD:tmpFB_6__LCDPort_net_3\,
-			\LCD:tmpFB_6__LCDPort_net_2\, \LCD:tmpFB_6__LCDPort_net_1\, \LCD:tmpFB_6__LCDPort_net_0\),
+		fb=>(\LCD_Char:tmpFB_6__LCDPort_net_6\, \LCD_Char:tmpFB_6__LCDPort_net_5\, \LCD_Char:tmpFB_6__LCDPort_net_4\, \LCD_Char:tmpFB_6__LCDPort_net_3\,
+			\LCD_Char:tmpFB_6__LCDPort_net_2\, \LCD_Char:tmpFB_6__LCDPort_net_1\, \LCD_Char:tmpFB_6__LCDPort_net_0\),
 		analog=>(open, open, open, open,
 			open, open, open),
-		io=>(\LCD:tmpIO_6__LCDPort_net_6\, \LCD:tmpIO_6__LCDPort_net_5\, \LCD:tmpIO_6__LCDPort_net_4\, \LCD:tmpIO_6__LCDPort_net_3\,
-			\LCD:tmpIO_6__LCDPort_net_2\, \LCD:tmpIO_6__LCDPort_net_1\, \LCD:tmpIO_6__LCDPort_net_0\),
-		siovref=>(\LCD:tmpSIOVREF__LCDPort_net_0\),
+		io=>(\LCD_Char:tmpIO_6__LCDPort_net_6\, \LCD_Char:tmpIO_6__LCDPort_net_5\, \LCD_Char:tmpIO_6__LCDPort_net_4\, \LCD_Char:tmpIO_6__LCDPort_net_3\,
+			\LCD_Char:tmpIO_6__LCDPort_net_2\, \LCD_Char:tmpIO_6__LCDPort_net_1\, \LCD_Char:tmpIO_6__LCDPort_net_0\),
+		siovref=>(\LCD_Char:tmpSIOVREF__LCDPort_net_0\),
 		annotation=>(open, open, open, open,
 			open, open, open),
 		in_clock=>zero,
@@ -809,7 +809,7 @@ Net_338D <= ((\SPIM:BSPIM:state_1\ and \SPIM:BSPIM:state_0\ and Net_338)
 		out_clock=>zero,
 		out_clock_en=>one,
 		out_reset=>zero,
-		interrupt=>\LCD:tmpINTERRUPT_0__LCDPort_net_0\);
+		interrupt=>\LCD_Char:tmpINTERRUPT_0__LCDPort_net_0\);
 MOSI:cy_psoc3_pins_v1_10
 	GENERIC MAP(id=>"ed092b9b-d398-4703-be89-cebf998501f6",
 		drive_mode=>"110",
