@@ -1,0 +1,1954 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"cymetadata.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	cy_metadata
+  20              		.global	cy_meta_flashprotect
+  21              		.global	cy_meta_wonvl
+  22              		.global	cy_meta_custnvl
+  23              		.global	cy_meta_configecc
+  24              		.section	.cyconfigecc,"a",%progbits
+  25              		.align	2
+  26              		.type	cy_meta_configecc, %object
+  27              		.size	cy_meta_configecc, 1376
+  28              	cy_meta_configecc:
+  29 0000 06       		.byte	6
+  30 0001 4F       		.byte	79
+  31 0002 00       		.byte	0
+  32 0003 40       		.byte	64
+  33 0004 0B       		.byte	11
+  34 0005 52       		.byte	82
+  35 0006 00       		.byte	0
+  36 0007 40       		.byte	64
+  37 0008 01       		.byte	1
+  38 0009 5B       		.byte	91
+  39 000a 00       		.byte	0
+  40 000b 40       		.byte	64
+  41 000c 01       		.byte	1
+  42 000d 64       		.byte	100
+  43 000e 00       		.byte	0
+  44 000f 40       		.byte	64
+  45 0010 1E       		.byte	30
+  46 0011 00       		.byte	0
+  47 0012 01       		.byte	1
+  48 0013 40       		.byte	64
+  49 0014 24       		.byte	36
+  50 0015 01       		.byte	1
+  51 0016 01       		.byte	1
+  52 0017 40       		.byte	64
+  53 0018 10       		.byte	16
+  54 0019 02       		.byte	2
+  55 001a 01       		.byte	1
+  56 001b 40       		.byte	64
+  57 001c 2E       		.byte	46
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 2
+
+
+  58 001d 03       		.byte	3
+  59 001e 01       		.byte	1
+  60 001f 40       		.byte	64
+  61 0020 12       		.byte	18
+  62 0021 04       		.byte	4
+  63 0022 01       		.byte	1
+  64 0023 40       		.byte	64
+  65 0024 33       		.byte	51
+  66 0025 05       		.byte	5
+  67 0026 01       		.byte	1
+  68 0027 40       		.byte	64
+  69 0028 35       		.byte	53
+  70 0029 06       		.byte	6
+  71 002a 01       		.byte	1
+  72 002b 40       		.byte	64
+  73 002c 3D       		.byte	61
+  74 002d 07       		.byte	7
+  75 002e 01       		.byte	1
+  76 002f 40       		.byte	64
+  77 0030 04       		.byte	4
+  78 0031 0A       		.byte	10
+  79 0032 01       		.byte	1
+  80 0033 40       		.byte	64
+  81 0034 03       		.byte	3
+  82 0035 0B       		.byte	11
+  83 0036 01       		.byte	1
+  84 0037 40       		.byte	64
+  85 0038 0E       		.byte	14
+  86 0039 14       		.byte	20
+  87 003a 01       		.byte	1
+  88 003b 40       		.byte	64
+  89 003c 2A       		.byte	42
+  90 003d 15       		.byte	21
+  91 003e 01       		.byte	1
+  92 003f 40       		.byte	64
+  93 0040 0D       		.byte	13
+  94 0041 16       		.byte	22
+  95 0042 01       		.byte	1
+  96 0043 40       		.byte	64
+  97 0044 32       		.byte	50
+  98 0045 17       		.byte	23
+  99 0046 01       		.byte	1
+ 100 0047 40       		.byte	64
+ 101 0048 01       		.byte	1
+ 102 0049 19       		.byte	25
+ 103 004a 01       		.byte	1
+ 104 004b 40       		.byte	64
+ 105 004c 03       		.byte	3
+ 106 004d 1B       		.byte	27
+ 107 004e 01       		.byte	1
+ 108 004f 40       		.byte	64
+ 109 0050 0C       		.byte	12
+ 110 0051 40       		.byte	64
+ 111 0052 01       		.byte	1
+ 112 0053 40       		.byte	64
+ 113 0054 09       		.byte	9
+ 114 0055 41       		.byte	65
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 3
+
+
+ 115 0056 01       		.byte	1
+ 116 0057 40       		.byte	64
+ 117 0058 0F       		.byte	15
+ 118 0059 42       		.byte	66
+ 119 005a 01       		.byte	1
+ 120 005b 40       		.byte	64
+ 121 005c 09       		.byte	9
+ 122 005d 43       		.byte	67
+ 123 005e 01       		.byte	1
+ 124 005f 40       		.byte	64
+ 125 0060 02       		.byte	2
+ 126 0061 44       		.byte	68
+ 127 0062 01       		.byte	1
+ 128 0063 40       		.byte	64
+ 129 0064 03       		.byte	3
+ 130 0065 45       		.byte	69
+ 131 0066 01       		.byte	1
+ 132 0067 40       		.byte	64
+ 133 0068 04       		.byte	4
+ 134 0069 46       		.byte	70
+ 135 006a 01       		.byte	1
+ 136 006b 40       		.byte	64
+ 137 006c 01       		.byte	1
+ 138 006d 47       		.byte	71
+ 139 006e 01       		.byte	1
+ 140 006f 40       		.byte	64
+ 141 0070 08       		.byte	8
+ 142 0071 48       		.byte	72
+ 143 0072 01       		.byte	1
+ 144 0073 40       		.byte	64
+ 145 0074 14       		.byte	20
+ 146 0075 49       		.byte	73
+ 147 0076 01       		.byte	1
+ 148 0077 40       		.byte	64
+ 149 0078 0C       		.byte	12
+ 150 0079 4C       		.byte	76
+ 151 007a 01       		.byte	1
+ 152 007b 40       		.byte	64
+ 153 007c 0C       		.byte	12
+ 154 007d 4D       		.byte	77
+ 155 007e 01       		.byte	1
+ 156 007f 40       		.byte	64
+ 157 0080 09       		.byte	9
+ 158 0081 50       		.byte	80
+ 159 0082 01       		.byte	1
+ 160 0083 40       		.byte	64
+ 161 0084 02       		.byte	2
+ 162 0085 51       		.byte	81
+ 163 0086 01       		.byte	1
+ 164 0087 40       		.byte	64
+ 165 0088 01       		.byte	1
+ 166 0089 10       		.byte	16
+ 167 008a 0A       		.byte	10
+ 168 008b 4B       		.byte	75
+ 169 008c 0D       		.byte	13
+ 170 008d 20       		.byte	32
+ 171 008e 16       		.byte	22
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 4
+
+
+ 172 008f 4B       		.byte	75
+ 173 0090 19       		.byte	25
+ 174 0091 30       		.byte	48
+ 175 0092 22       		.byte	34
+ 176 0093 4B       		.byte	75
+ 177 0094 01       		.byte	1
+ 178 0095 C0       		.byte	-64
+ 179 0096 08       		.byte	8
+ 180 0097 E4       		.byte	-28
+ 181 0098 09       		.byte	9
+ 182 0099 E0       		.byte	-32
+ 183 009a 18       		.byte	24
+ 184 009b 1C       		.byte	28
+ 185 009c 19       		.byte	25
+ 186 009d 29       		.byte	41
+ 187 009e 28       		.byte	40
+ 188 009f 7F       		.byte	127
+ 189 00a0 29       		.byte	41
+ 190 00a1 70       		.byte	112
+ 191 00a2 30       		.byte	48
+ 192 00a3 F0       		.byte	-16
+ 193 00a4 31       		.byte	49
+ 194 00a5 F0       		.byte	-16
+ 195 00a6 60       		.byte	96
+ 196 00a7 30       		.byte	48
+ 197 00a8 61       		.byte	97
+ 198 00a9 30       		.byte	48
+ 199 00aa 2F       		.byte	47
+ 200 00ab 84       		.byte	-124
+ 201 00ac 86       		.byte	-122
+ 202 00ad 05       		.byte	5
+ 203 00ae 01       		.byte	1
+ 204 00af 01       		.byte	1
+ 205 00b0 0B       		.byte	11
+ 206 00b1 01       		.byte	1
+ 207 00b2 11       		.byte	17
+ 208 00b3 01       		.byte	1
+ 209 00b4 15       		.byte	21
+ 210 00b5 01       		.byte	1
+ 211 00b6 19       		.byte	25
+ 212 00b7 01       		.byte	1
+ 213 00b8 25       		.byte	37
+ 214 00b9 01       		.byte	1
+ 215 00ba 2D       		.byte	45
+ 216 00bb 01       		.byte	1
+ 217 00bc 37       		.byte	55
+ 218 00bd 01       		.byte	1
+ 219 00be 58       		.byte	88
+ 220 00bf 04       		.byte	4
+ 221 00c0 59       		.byte	89
+ 222 00c1 04       		.byte	4
+ 223 00c2 5F       		.byte	95
+ 224 00c3 01       		.byte	1
+ 225 00c4 81       		.byte	-127
+ 226 00c5 01       		.byte	1
+ 227 00c6 8B       		.byte	-117
+ 228 00c7 01       		.byte	1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 5
+
+
+ 229 00c8 90       		.byte	-112
+ 230 00c9 01       		.byte	1
+ 231 00ca 91       		.byte	-111
+ 232 00cb 01       		.byte	1
+ 233 00cc 96       		.byte	-106
+ 234 00cd 01       		.byte	1
+ 235 00ce 98       		.byte	-104
+ 236 00cf 01       		.byte	1
+ 237 00d0 99       		.byte	-103
+ 238 00d1 01       		.byte	1
+ 239 00d2 9C       		.byte	-100
+ 240 00d3 01       		.byte	1
+ 241 00d4 9D       		.byte	-99
+ 242 00d5 01       		.byte	1
+ 243 00d6 A5       		.byte	-91
+ 244 00d7 01       		.byte	1
+ 245 00d8 A6       		.byte	-90
+ 246 00d9 01       		.byte	1
+ 247 00da A8       		.byte	-88
+ 248 00db 01       		.byte	1
+ 249 00dc AB       		.byte	-85
+ 250 00dd 01       		.byte	1
+ 251 00de AE       		.byte	-82
+ 252 00df 01       		.byte	1
+ 253 00e0 B5       		.byte	-75
+ 254 00e1 01       		.byte	1
+ 255 00e2 B6       		.byte	-74
+ 256 00e3 01       		.byte	1
+ 257 00e4 D8       		.byte	-40
+ 258 00e5 04       		.byte	4
+ 259 00e6 D9       		.byte	-39
+ 260 00e7 04       		.byte	4
+ 261 00e8 DF       		.byte	-33
+ 262 00e9 01       		.byte	1
+ 263 00ea 00       		.byte	0
+ 264 00eb 20       		.byte	32
+ 265 00ec 01       		.byte	1
+ 266 00ed 80       		.byte	-128
+ 267 00ee 02       		.byte	2
+ 268 00ef 09       		.byte	9
+ 269 00f0 03       		.byte	3
+ 270 00f1 20       		.byte	32
+ 271 00f2 08       		.byte	8
+ 272 00f3 11       		.byte	17
+ 273 00f4 0A       		.byte	10
+ 274 00f5 11       		.byte	17
+ 275 00f6 0C       		.byte	12
+ 276 00f7 11       		.byte	17
+ 277 00f8 0E       		.byte	14
+ 278 00f9 11       		.byte	17
+ 279 00fa 0F       		.byte	15
+ 280 00fb 02       		.byte	2
+ 281 00fc 16       		.byte	22
+ 282 00fd 21       		.byte	33
+ 283 00fe 17       		.byte	23
+ 284 00ff 10       		.byte	16
+ 285 0100 1D       		.byte	29
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 6
+
+
+ 286 0101 80       		.byte	-128
+ 287 0102 22       		.byte	34
+ 288 0103 80       		.byte	-128
+ 289 0104 27       		.byte	39
+ 290 0105 04       		.byte	4
+ 291 0106 28       		.byte	40
+ 292 0107 10       		.byte	16
+ 293 0108 2B       		.byte	43
+ 294 0109 01       		.byte	1
+ 295 010a 2E       		.byte	46
+ 296 010b 10       		.byte	16
+ 297 010c 2F       		.byte	47
+ 298 010d 20       		.byte	32
+ 299 010e 30       		.byte	48
+ 300 010f 01       		.byte	1
+ 301 0110 32       		.byte	50
+ 302 0111 08       		.byte	8
+ 303 0112 33       		.byte	51
+ 304 0113 30       		.byte	48
+ 305 0114 34       		.byte	52
+ 306 0115 11       		.byte	17
+ 307 0116 35       		.byte	53
+ 308 0117 80       		.byte	-128
+ 309 0118 37       		.byte	55
+ 310 0119 20       		.byte	32
+ 311 011a 3A       		.byte	58
+ 312 011b 01       		.byte	1
+ 313 011c 3B       		.byte	59
+ 314 011d 10       		.byte	16
+ 315 011e 3C       		.byte	60
+ 316 011f 20       		.byte	32
+ 317 0120 3E       		.byte	62
+ 318 0121 21       		.byte	33
+ 319 0122 82       		.byte	-126
+ 320 0123 80       		.byte	-128
+ 321 0124 83       		.byte	-125
+ 322 0125 04       		.byte	4
+ 323 0126 C0       		.byte	-64
+ 324 0127 07       		.byte	7
+ 325 0128 C2       		.byte	-62
+ 326 0129 FF       		.byte	-1
+ 327 012a C4       		.byte	-60
+ 328 012b E0       		.byte	-32
+ 329 012c CA       		.byte	-54
+ 330 012d 6A       		.byte	106
+ 331 012e CC       		.byte	-52
+ 332 012f B7       		.byte	-73
+ 333 0130 CE       		.byte	-50
+ 334 0131 A5       		.byte	-91
+ 335 0132 58       		.byte	88
+ 336 0133 04       		.byte	4
+ 337 0134 59       		.byte	89
+ 338 0135 04       		.byte	4
+ 339 0136 5F       		.byte	95
+ 340 0137 01       		.byte	1
+ 341 0138 84       		.byte	-124
+ 342 0139 03       		.byte	3
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 7
+
+
+ 343 013a 88       		.byte	-120
+ 344 013b 03       		.byte	3
+ 345 013c 8C       		.byte	-116
+ 346 013d 01       		.byte	1
+ 347 013e 8E       		.byte	-114
+ 348 013f 02       		.byte	2
+ 349 0140 90       		.byte	-112
+ 350 0141 03       		.byte	3
+ 351 0142 96       		.byte	-106
+ 352 0143 03       		.byte	3
+ 353 0144 9A       		.byte	-102
+ 354 0145 03       		.byte	3
+ 355 0146 9C       		.byte	-100
+ 356 0147 03       		.byte	3
+ 357 0148 B0       		.byte	-80
+ 358 0149 01       		.byte	1
+ 359 014a B4       		.byte	-76
+ 360 014b 02       		.byte	2
+ 361 014c D8       		.byte	-40
+ 362 014d 04       		.byte	4
+ 363 014e D9       		.byte	-39
+ 364 014f 04       		.byte	4
+ 365 0150 DF       		.byte	-33
+ 366 0151 01       		.byte	1
+ 367 0152 00       		.byte	0
+ 368 0153 20       		.byte	32
+ 369 0154 02       		.byte	2
+ 370 0155 01       		.byte	1
+ 371 0156 03       		.byte	3
+ 372 0157 20       		.byte	32
+ 373 0158 08       		.byte	8
+ 374 0159 11       		.byte	17
+ 375 015a 0A       		.byte	10
+ 376 015b 11       		.byte	17
+ 377 015c 0C       		.byte	12
+ 378 015d 11       		.byte	17
+ 379 015e 0E       		.byte	14
+ 380 015f 11       		.byte	17
+ 381 0160 0F       		.byte	15
+ 382 0161 12       		.byte	18
+ 383 0162 16       		.byte	22
+ 384 0163 21       		.byte	33
+ 385 0164 17       		.byte	23
+ 386 0165 10       		.byte	16
+ 387 0166 18       		.byte	24
+ 388 0167 08       		.byte	8
+ 389 0168 1A       		.byte	26
+ 390 0169 80       		.byte	-128
+ 391 016a 28       		.byte	40
+ 392 016b 10       		.byte	16
+ 393 016c 2B       		.byte	43
+ 394 016d 01       		.byte	1
+ 395 016e 2C       		.byte	44
+ 396 016f 01       		.byte	1
+ 397 0170 2E       		.byte	46
+ 398 0171 10       		.byte	16
+ 399 0172 2F       		.byte	47
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 8
+
+
+ 400 0173 20       		.byte	32
+ 401 0174 30       		.byte	48
+ 402 0175 01       		.byte	1
+ 403 0176 32       		.byte	50
+ 404 0177 08       		.byte	8
+ 405 0178 33       		.byte	51
+ 406 0179 30       		.byte	48
+ 407 017a 34       		.byte	52
+ 408 017b 10       		.byte	16
+ 409 017c 35       		.byte	53
+ 410 017d 01       		.byte	1
+ 411 017e 37       		.byte	55
+ 412 017f 20       		.byte	32
+ 413 0180 3A       		.byte	58
+ 414 0181 01       		.byte	1
+ 415 0182 3B       		.byte	59
+ 416 0183 10       		.byte	16
+ 417 0184 3C       		.byte	60
+ 418 0185 20       		.byte	32
+ 419 0186 3E       		.byte	62
+ 420 0187 21       		.byte	33
+ 421 0188 82       		.byte	-126
+ 422 0189 40       		.byte	64
+ 423 018a 96       		.byte	-106
+ 424 018b 11       		.byte	17
+ 425 018c 97       		.byte	-105
+ 426 018d 10       		.byte	16
+ 427 018e 9C       		.byte	-100
+ 428 018f 01       		.byte	1
+ 429 0190 9D       		.byte	-99
+ 430 0191 02       		.byte	2
+ 431 0192 9E       		.byte	-98
+ 432 0193 01       		.byte	1
+ 433 0194 9F       		.byte	-97
+ 434 0195 20       		.byte	32
+ 435 0196 A1       		.byte	-95
+ 436 0197 80       		.byte	-128
+ 437 0198 A2       		.byte	-94
+ 438 0199 08       		.byte	8
+ 439 019a A4       		.byte	-92
+ 440 019b 10       		.byte	16
+ 441 019c A7       		.byte	-89
+ 442 019d 20       		.byte	32
+ 443 019e B1       		.byte	-79
+ 444 019f 02       		.byte	2
+ 445 01a0 C0       		.byte	-64
+ 446 01a1 07       		.byte	7
+ 447 01a2 C2       		.byte	-62
+ 448 01a3 FF       		.byte	-1
+ 449 01a4 C4       		.byte	-60
+ 450 01a5 E0       		.byte	-32
+ 451 01a6 CA       		.byte	-54
+ 452 01a7 7A       		.byte	122
+ 453 01a8 CC       		.byte	-52
+ 454 01a9 A7       		.byte	-89
+ 455 01aa CE       		.byte	-50
+ 456 01ab A5       		.byte	-91
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 9
+
+
+ 457 01ac EA       		.byte	-22
+ 458 01ad 80       		.byte	-128
+ 459 01ae 58       		.byte	88
+ 460 01af 04       		.byte	4
+ 461 01b0 59       		.byte	89
+ 462 01b1 04       		.byte	4
+ 463 01b2 5F       		.byte	95
+ 464 01b3 01       		.byte	1
+ 465 01b4 8A       		.byte	-118
+ 466 01b5 01       		.byte	1
+ 467 01b6 A2       		.byte	-94
+ 468 01b7 04       		.byte	4
+ 469 01b8 A4       		.byte	-92
+ 470 01b9 02       		.byte	2
+ 471 01ba A8       		.byte	-88
+ 472 01bb 02       		.byte	2
+ 473 01bc B0       		.byte	-80
+ 474 01bd 04       		.byte	4
+ 475 01be B2       		.byte	-78
+ 476 01bf 01       		.byte	1
+ 477 01c0 B6       		.byte	-74
+ 478 01c1 02       		.byte	2
+ 479 01c2 B8       		.byte	-72
+ 480 01c3 80       		.byte	-128
+ 481 01c4 BE       		.byte	-66
+ 482 01c5 40       		.byte	64
+ 483 01c6 D2       		.byte	-46
+ 484 01c7 03       		.byte	3
+ 485 01c8 D3       		.byte	-45
+ 486 01c9 02       		.byte	2
+ 487 01ca D8       		.byte	-40
+ 488 01cb 04       		.byte	4
+ 489 01cc D9       		.byte	-39
+ 490 01cd 04       		.byte	4
+ 491 01ce DB       		.byte	-37
+ 492 01cf 04       		.byte	4
+ 493 01d0 DF       		.byte	-33
+ 494 01d1 01       		.byte	1
+ 495 01d2 00       		.byte	0
+ 496 01d3 20       		.byte	32
+ 497 01d4 02       		.byte	2
+ 498 01d5 01       		.byte	1
+ 499 01d6 05       		.byte	5
+ 500 01d7 01       		.byte	1
+ 501 01d8 07       		.byte	7
+ 502 01d9 14       		.byte	20
+ 503 01da 0B       		.byte	11
+ 504 01db 28       		.byte	40
+ 505 01dc 0C       		.byte	12
+ 506 01dd 12       		.byte	18
+ 507 01de 0E       		.byte	14
+ 508 01df 11       		.byte	17
+ 509 01e0 10       		.byte	16
+ 510 01e1 01       		.byte	1
+ 511 01e2 11       		.byte	17
+ 512 01e3 01       		.byte	1
+ 513 01e4 13       		.byte	19
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 10
+
+
+ 514 01e5 20       		.byte	32
+ 515 01e6 14       		.byte	20
+ 516 01e7 01       		.byte	1
+ 517 01e8 15       		.byte	21
+ 518 01e9 10       		.byte	16
+ 519 01ea 16       		.byte	22
+ 520 01eb 20       		.byte	32
+ 521 01ec 17       		.byte	23
+ 522 01ed 01       		.byte	1
+ 523 01ee 1C       		.byte	28
+ 524 01ef 20       		.byte	32
+ 525 01f0 1D       		.byte	29
+ 526 01f1 05       		.byte	5
+ 527 01f2 1F       		.byte	31
+ 528 01f3 40       		.byte	64
+ 529 01f4 29       		.byte	41
+ 530 01f5 05       		.byte	5
+ 531 01f6 2A       		.byte	42
+ 532 01f7 03       		.byte	3
+ 533 01f8 2B       		.byte	43
+ 534 01f9 40       		.byte	64
+ 535 01fa 2C       		.byte	44
+ 536 01fb 01       		.byte	1
+ 537 01fc 2F       		.byte	47
+ 538 01fd 14       		.byte	20
+ 539 01fe 30       		.byte	48
+ 540 01ff 11       		.byte	17
+ 541 0200 34       		.byte	52
+ 542 0201 10       		.byte	16
+ 543 0202 35       		.byte	53
+ 544 0203 01       		.byte	1
+ 545 0204 37       		.byte	55
+ 546 0205 20       		.byte	32
+ 547 0206 39       		.byte	57
+ 548 0207 01       		.byte	1
+ 549 0208 3B       		.byte	59
+ 550 0209 28       		.byte	40
+ 551 020a 3C       		.byte	60
+ 552 020b 20       		.byte	32
+ 553 020c 3E       		.byte	62
+ 554 020d 01       		.byte	1
+ 555 020e 6D       		.byte	109
+ 556 020f 50       		.byte	80
+ 557 0210 6E       		.byte	110
+ 558 0211 20       		.byte	32
+ 559 0212 8A       		.byte	-118
+ 560 0213 20       		.byte	32
+ 561 0214 96       		.byte	-106
+ 562 0215 11       		.byte	17
+ 563 0216 9B       		.byte	-101
+ 564 0217 10       		.byte	16
+ 565 0218 9C       		.byte	-100
+ 566 0219 01       		.byte	1
+ 567 021a 9D       		.byte	-99
+ 568 021b 03       		.byte	3
+ 569 021c 9E       		.byte	-98
+ 570 021d 01       		.byte	1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 11
+
+
+ 571 021e 9F       		.byte	-97
+ 572 021f 20       		.byte	32
+ 573 0220 A4       		.byte	-92
+ 574 0221 10       		.byte	16
+ 575 0222 A7       		.byte	-89
+ 576 0223 20       		.byte	32
+ 577 0224 A9       		.byte	-87
+ 578 0225 80       		.byte	-128
+ 579 0226 B4       		.byte	-76
+ 580 0227 04       		.byte	4
+ 581 0228 C0       		.byte	-64
+ 582 0229 73       		.byte	115
+ 583 022a C2       		.byte	-62
+ 584 022b F6       		.byte	-10
+ 585 022c C4       		.byte	-60
+ 586 022d FB       		.byte	-5
+ 587 022e CA       		.byte	-54
+ 588 022f 73       		.byte	115
+ 589 0230 CC       		.byte	-52
+ 590 0231 A5       		.byte	-91
+ 591 0232 CE       		.byte	-50
+ 592 0233 A7       		.byte	-89
+ 593 0234 E2       		.byte	-30
+ 594 0235 05       		.byte	5
+ 595 0236 EA       		.byte	-22
+ 596 0237 10       		.byte	16
+ 597 0238 02       		.byte	2
+ 598 0239 44       		.byte	68
+ 599 023a 03       		.byte	3
+ 600 023b 02       		.byte	2
+ 601 023c 04       		.byte	4
+ 602 023d 08       		.byte	8
+ 603 023e 05       		.byte	5
+ 604 023f 08       		.byte	8
+ 605 0240 09       		.byte	9
+ 606 0241 10       		.byte	16
+ 607 0242 0A       		.byte	10
+ 608 0243 21       		.byte	33
+ 609 0244 0B       		.byte	11
+ 610 0245 20       		.byte	32
+ 611 0246 0C       		.byte	12
+ 612 0247 04       		.byte	4
+ 613 0248 0D       		.byte	13
+ 614 0249 02       		.byte	2
+ 615 024a 11       		.byte	17
+ 616 024b 80       		.byte	-128
+ 617 024c 13       		.byte	19
+ 618 024d 40       		.byte	64
+ 619 024e 15       		.byte	21
+ 620 024f 01       		.byte	1
+ 621 0250 16       		.byte	22
+ 622 0251 10       		.byte	16
+ 623 0252 18       		.byte	24
+ 624 0253 01       		.byte	1
+ 625 0254 1B       		.byte	27
+ 626 0255 08       		.byte	8
+ 627 0256 1C       		.byte	28
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 12
+
+
+ 628 0257 02       		.byte	2
+ 629 0258 1D       		.byte	29
+ 630 0259 04       		.byte	4
+ 631 025a 21       		.byte	33
+ 632 025b 40       		.byte	64
+ 633 025c 22       		.byte	34
+ 634 025d 02       		.byte	2
+ 635 025e 23       		.byte	35
+ 636 025f 80       		.byte	-128
+ 637 0260 27       		.byte	39
+ 638 0261 01       		.byte	1
+ 639 0262 29       		.byte	41
+ 640 0263 20       		.byte	32
+ 641 0264 2A       		.byte	42
+ 642 0265 08       		.byte	8
+ 643 0266 2B       		.byte	43
+ 644 0267 10       		.byte	16
+ 645 0268 2F       		.byte	47
+ 646 0269 04       		.byte	4
+ 647 026a 30       		.byte	48
+ 648 026b 40       		.byte	64
+ 649 026c 32       		.byte	50
+ 650 026d 1F       		.byte	31
+ 651 026e 33       		.byte	51
+ 652 026f FF       		.byte	-1
+ 653 0270 34       		.byte	52
+ 654 0271 20       		.byte	32
+ 655 0272 38       		.byte	56
+ 656 0273 08       		.byte	8
+ 657 0274 3E       		.byte	62
+ 658 0275 04       		.byte	4
+ 659 0276 3F       		.byte	63
+ 660 0277 04       		.byte	4
+ 661 0278 56       		.byte	86
+ 662 0279 02       		.byte	2
+ 663 027a 57       		.byte	87
+ 664 027b 3D       		.byte	61
+ 665 027c 58       		.byte	88
+ 666 027d 04       		.byte	4
+ 667 027e 59       		.byte	89
+ 668 027f 04       		.byte	4
+ 669 0280 5B       		.byte	91
+ 670 0281 0C       		.byte	12
+ 671 0282 5F       		.byte	95
+ 672 0283 01       		.byte	1
+ 673 0284 84       		.byte	-124
+ 674 0285 01       		.byte	1
+ 675 0286 93       		.byte	-109
+ 676 0287 01       		.byte	1
+ 677 0288 9A       		.byte	-102
+ 678 0289 03       		.byte	3
+ 679 028a A1       		.byte	-95
+ 680 028b 01       		.byte	1
+ 681 028c AF       		.byte	-81
+ 682 028d 02       		.byte	2
+ 683 028e B0       		.byte	-80
+ 684 028f 01       		.byte	1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 13
+
+
+ 685 0290 B1       		.byte	-79
+ 686 0291 03       		.byte	3
+ 687 0292 B4       		.byte	-76
+ 688 0293 02       		.byte	2
+ 689 0294 B5       		.byte	-75
+ 690 0295 03       		.byte	3
+ 691 0296 D4       		.byte	-44
+ 692 0297 01       		.byte	1
+ 693 0298 D8       		.byte	-40
+ 694 0299 0C       		.byte	12
+ 695 029a D9       		.byte	-39
+ 696 029b 04       		.byte	4
+ 697 029c DB       		.byte	-37
+ 698 029d 0C       		.byte	12
+ 699 029e DC       		.byte	-36
+ 700 029f 90       		.byte	-112
+ 701 02a0 DF       		.byte	-33
+ 702 02a1 01       		.byte	1
+ 703 02a2 00       		.byte	0
+ 704 02a3 04       		.byte	4
+ 705 02a4 05       		.byte	5
+ 706 02a5 80       		.byte	-128
+ 707 02a6 07       		.byte	7
+ 708 02a7 68       		.byte	104
+ 709 02a8 09       		.byte	9
+ 710 02a9 20       		.byte	32
+ 711 02aa 0D       		.byte	13
+ 712 02ab 08       		.byte	8
+ 713 02ac 0E       		.byte	14
+ 714 02ad 09       		.byte	9
+ 715 02ae 0F       		.byte	15
+ 716 02af 80       		.byte	-128
+ 717 02b0 15       		.byte	21
+ 718 02b1 80       		.byte	-128
+ 719 02b2 16       		.byte	22
+ 720 02b3 20       		.byte	32
+ 721 02b4 17       		.byte	23
+ 722 02b5 12       		.byte	18
+ 723 02b6 18       		.byte	24
+ 724 02b7 04       		.byte	4
+ 725 02b8 19       		.byte	25
+ 726 02b9 03       		.byte	3
+ 727 02ba 1A       		.byte	26
+ 728 02bb 40       		.byte	64
+ 729 02bc 1E       		.byte	30
+ 730 02bd 18       		.byte	24
+ 731 02be 1F       		.byte	31
+ 732 02bf 36       		.byte	54
+ 733 02c0 21       		.byte	33
+ 734 02c1 22       		.byte	34
+ 735 02c2 25       		.byte	37
+ 736 02c3 08       		.byte	8
+ 737 02c4 28       		.byte	40
+ 738 02c5 02       		.byte	2
+ 739 02c6 29       		.byte	41
+ 740 02c7 01       		.byte	1
+ 741 02c8 2C       		.byte	44
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 14
+
+
+ 742 02c9 01       		.byte	1
+ 743 02ca 2D       		.byte	45
+ 744 02cb 80       		.byte	-128
+ 745 02cc 2E       		.byte	46
+ 746 02cd 82       		.byte	-126
+ 747 02ce 2F       		.byte	47
+ 748 02cf 1A       		.byte	26
+ 749 02d0 31       		.byte	49
+ 750 02d1 02       		.byte	2
+ 751 02d2 37       		.byte	55
+ 752 02d3 69       		.byte	105
+ 753 02d4 3C       		.byte	60
+ 754 02d5 A0       		.byte	-96
+ 755 02d6 3D       		.byte	61
+ 756 02d7 01       		.byte	1
+ 757 02d8 3E       		.byte	62
+ 758 02d9 25       		.byte	37
+ 759 02da 58       		.byte	88
+ 760 02db 10       		.byte	16
+ 761 02dc 5A       		.byte	90
+ 762 02dd 50       		.byte	80
+ 763 02de 5E       		.byte	94
+ 764 02df 20       		.byte	32
+ 765 02e0 67       		.byte	103
+ 766 02e1 80       		.byte	-128
+ 767 02e2 6E       		.byte	110
+ 768 02e3 04       		.byte	4
+ 769 02e4 6F       		.byte	111
+ 770 02e5 5D       		.byte	93
+ 771 02e6 74       		.byte	116
+ 772 02e7 40       		.byte	64
+ 773 02e8 77       		.byte	119
+ 774 02e9 0A       		.byte	10
+ 775 02ea 79       		.byte	121
+ 776 02eb 40       		.byte	64
+ 777 02ec 7D       		.byte	125
+ 778 02ed 40       		.byte	64
+ 779 02ee 91       		.byte	-111
+ 780 02ef 40       		.byte	64
+ 781 02f0 93       		.byte	-109
+ 782 02f1 80       		.byte	-128
+ 783 02f2 95       		.byte	-107
+ 784 02f3 01       		.byte	1
+ 785 02f4 96       		.byte	-106
+ 786 02f5 11       		.byte	17
+ 787 02f6 97       		.byte	-105
+ 788 02f7 28       		.byte	40
+ 789 02f8 9A       		.byte	-102
+ 790 02f9 03       		.byte	3
+ 791 02fa 9C       		.byte	-100
+ 792 02fb 01       		.byte	1
+ 793 02fc 9D       		.byte	-99
+ 794 02fd 02       		.byte	2
+ 795 02fe 9F       		.byte	-97
+ 796 02ff 25       		.byte	37
+ 797 0300 A0       		.byte	-96
+ 798 0301 10       		.byte	16
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 15
+
+
+ 799 0302 A2       		.byte	-94
+ 800 0303 10       		.byte	16
+ 801 0304 A3       		.byte	-93
+ 802 0305 40       		.byte	64
+ 803 0306 A7       		.byte	-89
+ 804 0307 20       		.byte	32
+ 805 0308 AC       		.byte	-84
+ 806 0309 12       		.byte	18
+ 807 030a C0       		.byte	-64
+ 808 030b F4       		.byte	-12
+ 809 030c C2       		.byte	-62
+ 810 030d F2       		.byte	-14
+ 811 030e C4       		.byte	-60
+ 812 030f F0       		.byte	-16
+ 813 0310 CA       		.byte	-54
+ 814 0311 F9       		.byte	-7
+ 815 0312 CC       		.byte	-52
+ 816 0313 F1       		.byte	-15
+ 817 0314 CE       		.byte	-50
+ 818 0315 F0       		.byte	-16
+ 819 0316 D6       		.byte	-42
+ 820 0317 28       		.byte	40
+ 821 0318 D8       		.byte	-40
+ 822 0319 80       		.byte	-128
+ 823 031a DE       		.byte	-34
+ 824 031b 18       		.byte	24
+ 825 031c B9       		.byte	-71
+ 826 031d 28       		.byte	40
+ 827 031e BF       		.byte	-65
+ 828 031f 14       		.byte	20
+ 829 0320 D9       		.byte	-39
+ 830 0321 04       		.byte	4
+ 831 0322 DF       		.byte	-33
+ 832 0323 01       		.byte	1
+ 833 0324 27       		.byte	39
+ 834 0325 28       		.byte	40
+ 835 0326 83       		.byte	-125
+ 836 0327 28       		.byte	40
+ 837 0328 E6       		.byte	-26
+ 838 0329 80       		.byte	-128
+ 839 032a 01       		.byte	1
+ 840 032b 01       		.byte	1
+ 841 032c 0B       		.byte	11
+ 842 032d 01       		.byte	1
+ 843 032e 11       		.byte	17
+ 844 032f 01       		.byte	1
+ 845 0330 15       		.byte	21
+ 846 0331 01       		.byte	1
+ 847 0332 23       		.byte	35
+ 848 0333 01       		.byte	1
+ 849 0334 25       		.byte	37
+ 850 0335 01       		.byte	1
+ 851 0336 29       		.byte	41
+ 852 0337 01       		.byte	1
+ 853 0338 33       		.byte	51
+ 854 0339 01       		.byte	1
+ 855 033a 58       		.byte	88
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 16
+
+
+ 856 033b 04       		.byte	4
+ 857 033c 59       		.byte	89
+ 858 033d 04       		.byte	4
+ 859 033e 5F       		.byte	95
+ 860 033f 01       		.byte	1
+ 861 0340 D8       		.byte	-40
+ 862 0341 04       		.byte	4
+ 863 0342 D9       		.byte	-39
+ 864 0343 04       		.byte	4
+ 865 0344 DF       		.byte	-33
+ 866 0345 01       		.byte	1
+ 867 0346 00       		.byte	0
+ 868 0347 01       		.byte	1
+ 869 0348 02       		.byte	2
+ 870 0349 01       		.byte	1
+ 871 034a 04       		.byte	4
+ 872 034b 01       		.byte	1
+ 873 034c 05       		.byte	5
+ 874 034d 80       		.byte	-128
+ 875 034e 06       		.byte	6
+ 876 034f 28       		.byte	40
+ 877 0350 08       		.byte	8
+ 878 0351 15       		.byte	21
+ 879 0352 12       		.byte	18
+ 880 0353 10       		.byte	16
+ 881 0354 13       		.byte	19
+ 882 0355 20       		.byte	32
+ 883 0356 16       		.byte	22
+ 884 0357 01       		.byte	1
+ 885 0358 17       		.byte	23
+ 886 0359 28       		.byte	40
+ 887 035a 20       		.byte	32
+ 888 035b 10       		.byte	16
+ 889 035c 28       		.byte	40
+ 890 035d 20       		.byte	32
+ 891 035e 2A       		.byte	42
+ 892 035f 31       		.byte	49
+ 893 0360 2B       		.byte	43
+ 894 0361 80       		.byte	-128
+ 895 0362 2C       		.byte	44
+ 896 0363 10       		.byte	16
+ 897 0364 2E       		.byte	46
+ 898 0365 28       		.byte	40
+ 899 0366 2F       		.byte	47
+ 900 0367 90       		.byte	-112
+ 901 0368 30       		.byte	48
+ 902 0369 05       		.byte	5
+ 903 036a 34       		.byte	52
+ 904 036b 25       		.byte	37
+ 905 036c 36       		.byte	54
+ 906 036d 04       		.byte	4
+ 907 036e 37       		.byte	55
+ 908 036f 28       		.byte	40
+ 909 0370 38       		.byte	56
+ 910 0371 01       		.byte	1
+ 911 0372 3B       		.byte	59
+ 912 0373 20       		.byte	32
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 17
+
+
+ 913 0374 3C       		.byte	60
+ 914 0375 01       		.byte	1
+ 915 0376 8C       		.byte	-116
+ 916 0377 10       		.byte	16
+ 917 0378 90       		.byte	-112
+ 918 0379 01       		.byte	1
+ 919 037a 98       		.byte	-104
+ 920 037b 11       		.byte	17
+ 921 037c 99       		.byte	-103
+ 922 037d 80       		.byte	-128
+ 923 037e 9A       		.byte	-102
+ 924 037f 21       		.byte	33
+ 925 0380 9B       		.byte	-101
+ 926 0381 20       		.byte	32
+ 927 0382 A2       		.byte	-94
+ 928 0383 04       		.byte	4
+ 929 0384 AC       		.byte	-84
+ 930 0385 80       		.byte	-128
+ 931 0386 C0       		.byte	-64
+ 932 0387 F9       		.byte	-7
+ 933 0388 C2       		.byte	-62
+ 934 0389 0E       		.byte	14
+ 935 038a C4       		.byte	-60
+ 936 038b E6       		.byte	-26
+ 937 038c CA       		.byte	-54
+ 938 038d E7       		.byte	-25
+ 939 038e CC       		.byte	-52
+ 940 038f E3       		.byte	-29
+ 941 0390 CE       		.byte	-50
+ 942 0391 85       		.byte	-123
+ 943 0392 E0       		.byte	-32
+ 944 0393 04       		.byte	4
+ 945 0394 E2       		.byte	-30
+ 946 0395 10       		.byte	16
+ 947 0396 E8       		.byte	-24
+ 948 0397 10       		.byte	16
+ 949 0398 EE       		.byte	-18
+ 950 0399 04       		.byte	4
+ 951 039a 07       		.byte	7
+ 952 039b 01       		.byte	1
+ 953 039c 0E       		.byte	14
+ 954 039d 01       		.byte	1
+ 955 039e 33       		.byte	51
+ 956 039f 01       		.byte	1
+ 957 03a0 36       		.byte	54
+ 958 03a1 01       		.byte	1
+ 959 03a2 58       		.byte	88
+ 960 03a3 04       		.byte	4
+ 961 03a4 59       		.byte	89
+ 962 03a5 04       		.byte	4
+ 963 03a6 5F       		.byte	95
+ 964 03a7 01       		.byte	1
+ 965 03a8 D6       		.byte	-42
+ 966 03a9 08       		.byte	8
+ 967 03aa D8       		.byte	-40
+ 968 03ab 04       		.byte	4
+ 969 03ac D9       		.byte	-39
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 18
+
+
+ 970 03ad 04       		.byte	4
+ 971 03ae DB       		.byte	-37
+ 972 03af 04       		.byte	4
+ 973 03b0 DD       		.byte	-35
+ 974 03b1 90       		.byte	-112
+ 975 03b2 DF       		.byte	-33
+ 976 03b3 01       		.byte	1
+ 977 03b4 00       		.byte	0
+ 978 03b5 21       		.byte	33
+ 979 03b6 06       		.byte	6
+ 980 03b7 A0       		.byte	-96
+ 981 03b8 07       		.byte	7
+ 982 03b9 0A       		.byte	10
+ 983 03ba 08       		.byte	8
+ 984 03bb 01       		.byte	1
+ 985 03bc 0B       		.byte	11
+ 986 03bd 20       		.byte	32
+ 987 03be 0E       		.byte	14
+ 988 03bf 09       		.byte	9
+ 989 03c0 10       		.byte	16
+ 990 03c1 10       		.byte	16
+ 991 03c2 12       		.byte	18
+ 992 03c3 01       		.byte	1
+ 993 03c4 13       		.byte	19
+ 994 03c5 28       		.byte	40
+ 995 03c6 16       		.byte	22
+ 996 03c7 01       		.byte	1
+ 997 03c8 17       		.byte	23
+ 998 03c9 20       		.byte	32
+ 999 03ca 1C       		.byte	28
+ 1000 03cb 01       		.byte	1
+ 1001 03cc 1E       		.byte	30
+ 1002 03cd 01       		.byte	1
+ 1003 03ce 24       		.byte	36
+ 1004 03cf 10       		.byte	16
+ 1005 03d0 27       		.byte	39
+ 1006 03d1 20       		.byte	32
+ 1007 03d2 28       		.byte	40
+ 1008 03d3 10       		.byte	16
+ 1009 03d4 2A       		.byte	42
+ 1010 03d5 21       		.byte	33
+ 1011 03d6 2C       		.byte	44
+ 1012 03d7 10       		.byte	16
+ 1013 03d8 2E       		.byte	46
+ 1014 03d9 A2       		.byte	-94
+ 1015 03da 30       		.byte	48
+ 1016 03db 01       		.byte	1
+ 1017 03dc 33       		.byte	51
+ 1018 03dd 20       		.byte	32
+ 1019 03de 36       		.byte	54
+ 1020 03df 04       		.byte	4
+ 1021 03e0 37       		.byte	55
+ 1022 03e1 20       		.byte	32
+ 1023 03e2 38       		.byte	56
+ 1024 03e3 11       		.byte	17
+ 1025 03e4 3E       		.byte	62
+ 1026 03e5 05       		.byte	5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 19
+
+
+ 1027 03e6 58       		.byte	88
+ 1028 03e7 80       		.byte	-128
+ 1029 03e8 60       		.byte	96
+ 1030 03e9 02       		.byte	2
+ 1031 03ea 92       		.byte	-110
+ 1032 03eb 04       		.byte	4
+ 1033 03ec 93       		.byte	-109
+ 1034 03ed 20       		.byte	32
+ 1035 03ee 96       		.byte	-106
+ 1036 03ef 01       		.byte	1
+ 1037 03f0 98       		.byte	-104
+ 1038 03f1 11       		.byte	17
+ 1039 03f2 99       		.byte	-103
+ 1040 03f3 80       		.byte	-128
+ 1041 03f4 9A       		.byte	-102
+ 1042 03f5 A3       		.byte	-93
+ 1043 03f6 9B       		.byte	-101
+ 1044 03f7 02       		.byte	2
+ 1045 03f8 9C       		.byte	-100
+ 1046 03f9 02       		.byte	2
+ 1047 03fa 9F       		.byte	-97
+ 1048 03fb 20       		.byte	32
+ 1049 03fc A0       		.byte	-96
+ 1050 03fd 10       		.byte	16
+ 1051 03fe A2       		.byte	-94
+ 1052 03ff 04       		.byte	4
+ 1053 0400 A3       		.byte	-93
+ 1054 0401 20       		.byte	32
+ 1055 0402 A9       		.byte	-87
+ 1056 0403 40       		.byte	64
+ 1057 0404 AA       		.byte	-86
+ 1058 0405 10       		.byte	16
+ 1059 0406 C0       		.byte	-64
+ 1060 0407 FA       		.byte	-6
+ 1061 0408 C2       		.byte	-62
+ 1062 0409 CC       		.byte	-52
+ 1063 040a C4       		.byte	-60
+ 1064 040b C7       		.byte	-57
+ 1065 040c CA       		.byte	-54
+ 1066 040d F7       		.byte	-9
+ 1067 040e CC       		.byte	-52
+ 1068 040f 65       		.byte	101
+ 1069 0410 CE       		.byte	-50
+ 1070 0411 C5       		.byte	-59
+ 1071 0412 D6       		.byte	-42
+ 1072 0413 08       		.byte	8
+ 1073 0414 D8       		.byte	-40
+ 1074 0415 08       		.byte	8
+ 1075 0416 E8       		.byte	-24
+ 1076 0417 20       		.byte	32
+ 1077 0418 E8       		.byte	-24
+ 1078 0419 20       		.byte	32
+ 1079 041a E0       		.byte	-32
+ 1080 041b 04       		.byte	4
+ 1081 041c E8       		.byte	-24
+ 1082 041d 10       		.byte	16
+ 1083 041e EE       		.byte	-18
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 20
+
+
+ 1084 041f 04       		.byte	4
+ 1085 0420 10       		.byte	16
+ 1086 0421 10       		.byte	16
+ 1087 0422 16       		.byte	22
+ 1088 0423 80       		.byte	-128
+ 1089 0424 33       		.byte	51
+ 1090 0425 80       		.byte	-128
+ 1091 0426 3B       		.byte	59
+ 1092 0427 02       		.byte	2
+ 1093 0428 3E       		.byte	62
+ 1094 0429 80       		.byte	-128
+ 1095 042a 80       		.byte	-128
+ 1096 042b 01       		.byte	1
+ 1097 042c 81       		.byte	-127
+ 1098 042d 10       		.byte	16
+ 1099 042e C4       		.byte	-60
+ 1100 042f 30       		.byte	48
+ 1101 0430 CC       		.byte	-52
+ 1102 0431 10       		.byte	16
+ 1103 0432 CE       		.byte	-50
+ 1104 0433 60       		.byte	96
+ 1105 0434 E2       		.byte	-30
+ 1106 0435 80       		.byte	-128
+ 1107 0436 E6       		.byte	-26
+ 1108 0437 20       		.byte	32
+ 1109 0438 60       		.byte	96
+ 1110 0439 04       		.byte	4
+ 1111 043a 82       		.byte	-126
+ 1112 043b 01       		.byte	1
+ 1113 043c 90       		.byte	-112
+ 1114 043d 02       		.byte	2
+ 1115 043e 97       		.byte	-105
+ 1116 043f 02       		.byte	2
+ 1117 0440 98       		.byte	-104
+ 1118 0441 10       		.byte	16
+ 1119 0442 A1       		.byte	-95
+ 1120 0443 10       		.byte	16
+ 1121 0444 B3       		.byte	-77
+ 1122 0445 80       		.byte	-128
+ 1123 0446 D8       		.byte	-40
+ 1124 0447 40       		.byte	64
+ 1125 0448 E6       		.byte	-26
+ 1126 0449 80       		.byte	-128
+ 1127 044a 5F       		.byte	95
+ 1128 044b 01       		.byte	1
+ 1129 044c 63       		.byte	99
+ 1130 044d 81       		.byte	-127
+ 1131 044e 83       		.byte	-125
+ 1132 044f 41       		.byte	65
+ 1133 0450 90       		.byte	-112
+ 1134 0451 12       		.byte	18
+ 1135 0452 94       		.byte	-108
+ 1136 0453 04       		.byte	4
+ 1137 0454 97       		.byte	-105
+ 1138 0455 02       		.byte	2
+ 1139 0456 98       		.byte	-104
+ 1140 0457 90       		.byte	-112
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 21
+
+
+ 1141 0458 A1       		.byte	-95
+ 1142 0459 10       		.byte	16
+ 1143 045a A2       		.byte	-94
+ 1144 045b 01       		.byte	1
+ 1145 045c A8       		.byte	-88
+ 1146 045d 80       		.byte	-128
+ 1147 045e B4       		.byte	-76
+ 1148 045f 10       		.byte	16
+ 1149 0460 D6       		.byte	-42
+ 1150 0461 C0       		.byte	-64
+ 1151 0462 D8       		.byte	-40
+ 1152 0463 40       		.byte	64
+ 1153 0464 E2       		.byte	-30
+ 1154 0465 A0       		.byte	-96
+ 1155 0466 EE       		.byte	-18
+ 1156 0467 80       		.byte	-128
+ 1157 0468 18       		.byte	24
+ 1158 0469 04       		.byte	4
+ 1159 046a 1F       		.byte	31
+ 1160 046b 08       		.byte	8
+ 1161 046c 90       		.byte	-112
+ 1162 046d 12       		.byte	18
+ 1163 046e 94       		.byte	-108
+ 1164 046f 04       		.byte	4
+ 1165 0470 97       		.byte	-105
+ 1166 0471 02       		.byte	2
+ 1167 0472 98       		.byte	-104
+ 1168 0473 90       		.byte	-112
+ 1169 0474 A1       		.byte	-95
+ 1170 0475 10       		.byte	16
+ 1171 0476 A2       		.byte	-94
+ 1172 0477 01       		.byte	1
+ 1173 0478 C6       		.byte	-58
+ 1174 0479 60       		.byte	96
+ 1175 047a 65       		.byte	101
+ 1176 047b 20       		.byte	32
+ 1177 047c D8       		.byte	-40
+ 1178 047d 01       		.byte	1
+ 1179 047e 20       		.byte	32
+ 1180 047f 20       		.byte	32
+ 1181 0480 9D       		.byte	-99
+ 1182 0481 20       		.byte	32
+ 1183 0482 C8       		.byte	-56
+ 1184 0483 02       		.byte	2
+ 1185 0484 88       		.byte	-120
+ 1186 0485 10       		.byte	16
+ 1187 0486 9D       		.byte	-99
+ 1188 0487 20       		.byte	32
+ 1189 0488 A0       		.byte	-96
+ 1190 0489 10       		.byte	16
+ 1191 048a E6       		.byte	-26
+ 1192 048b 01       		.byte	1
+ 1193 048c 9D       		.byte	-99
+ 1194 048d 20       		.byte	32
+ 1195 048e 24       		.byte	36
+ 1196 048f 08       		.byte	8
+ 1197 0490 90       		.byte	-112
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 22
+
+
+ 1198 0491 16       		.byte	22
+ 1199 0492 97       		.byte	-105
+ 1200 0493 02       		.byte	2
+ 1201 0494 98       		.byte	-104
+ 1202 0495 90       		.byte	-112
+ 1203 0496 A1       		.byte	-95
+ 1204 0497 10       		.byte	16
+ 1205 0498 A2       		.byte	-94
+ 1206 0499 01       		.byte	1
+ 1207 049a B3       		.byte	-77
+ 1208 049b 08       		.byte	8
+ 1209 049c C8       		.byte	-56
+ 1210 049d 20       		.byte	32
+ 1211 049e 50       		.byte	80
+ 1212 049f 05       		.byte	5
+ 1213 04a0 55       		.byte	85
+ 1214 04a1 10       		.byte	16
+ 1215 04a2 5C       		.byte	92
+ 1216 04a3 80       		.byte	-128
+ 1217 04a4 5E       		.byte	94
+ 1218 04a5 02       		.byte	2
+ 1219 04a6 60       		.byte	96
+ 1220 04a7 10       		.byte	16
+ 1221 04a8 80       		.byte	-128
+ 1222 04a9 04       		.byte	4
+ 1223 04aa 8C       		.byte	-116
+ 1224 04ab 04       		.byte	4
+ 1225 04ac 90       		.byte	-112
+ 1226 04ad 16       		.byte	22
+ 1227 04ae 98       		.byte	-104
+ 1228 04af 80       		.byte	-128
+ 1229 04b0 A1       		.byte	-95
+ 1230 04b1 10       		.byte	16
+ 1231 04b2 A2       		.byte	-94
+ 1232 04b3 01       		.byte	1
+ 1233 04b4 AB       		.byte	-85
+ 1234 04b5 01       		.byte	1
+ 1235 04b6 AC       		.byte	-84
+ 1236 04b7 10       		.byte	16
+ 1237 04b8 B4       		.byte	-76
+ 1238 04b9 04       		.byte	4
+ 1239 04ba D4       		.byte	-44
+ 1240 04bb E0       		.byte	-32
+ 1241 04bc D6       		.byte	-42
+ 1242 04bd A0       		.byte	-96
+ 1243 04be D8       		.byte	-40
+ 1244 04bf 40       		.byte	64
+ 1245 04c0 E0       		.byte	-32
+ 1246 04c1 20       		.byte	32
+ 1247 04c2 EC       		.byte	-20
+ 1248 04c3 40       		.byte	64
+ 1249 04c4 EE       		.byte	-18
+ 1250 04c5 20       		.byte	32
+ 1251 04c6 1F       		.byte	31
+ 1252 04c7 80       		.byte	-128
+ 1253 04c8 34       		.byte	52
+ 1254 04c9 02       		.byte	2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 23
+
+
+ 1255 04ca 56       		.byte	86
+ 1256 04cb 20       		.byte	32
+ 1257 04cc 66       		.byte	102
+ 1258 04cd 20       		.byte	32
+ 1259 04ce A0       		.byte	-96
+ 1260 04cf 04       		.byte	4
+ 1261 04d0 B0       		.byte	-80
+ 1262 04d1 04       		.byte	4
+ 1263 04d2 B1       		.byte	-79
+ 1264 04d3 20       		.byte	32
+ 1265 04d4 C6       		.byte	-58
+ 1266 04d5 01       		.byte	1
+ 1267 04d6 CC       		.byte	-52
+ 1268 04d7 01       		.byte	1
+ 1269 04d8 D4       		.byte	-44
+ 1270 04d9 02       		.byte	2
+ 1271 04da D8       		.byte	-40
+ 1272 04db 01       		.byte	1
+ 1273 04dc E8       		.byte	-24
+ 1274 04dd 04       		.byte	4
+ 1275 04de 56       		.byte	86
+ 1276 04df 20       		.byte	32
+ 1277 04e0 66       		.byte	102
+ 1278 04e1 20       		.byte	32
+ 1279 04e2 74       		.byte	116
+ 1280 04e3 04       		.byte	4
+ 1281 04e4 82       		.byte	-126
+ 1282 04e5 20       		.byte	32
+ 1283 04e6 9E       		.byte	-98
+ 1284 04e7 20       		.byte	32
+ 1285 04e8 A0       		.byte	-96
+ 1286 04e9 04       		.byte	4
+ 1287 04ea AB       		.byte	-85
+ 1288 04eb 80       		.byte	-128
+ 1289 04ec B4       		.byte	-76
+ 1290 04ed 02       		.byte	2
+ 1291 04ee D4       		.byte	-44
+ 1292 04ef 02       		.byte	2
+ 1293 04f0 D8       		.byte	-40
+ 1294 04f1 01       		.byte	1
+ 1295 04f2 DE       		.byte	-34
+ 1296 04f3 04       		.byte	4
+ 1297 04f4 E8       		.byte	-24
+ 1298 04f5 08       		.byte	8
+ 1299 04f6 00       		.byte	0
+ 1300 04f7 01       		.byte	1
+ 1301 04f8 01       		.byte	1
+ 1302 04f9 01       		.byte	1
+ 1303 04fa 08       		.byte	8
+ 1304 04fb 01       		.byte	1
+ 1305 04fc 0A       		.byte	10
+ 1306 04fd 01       		.byte	1
+ 1307 04fe 0B       		.byte	11
+ 1308 04ff 01       		.byte	1
+ 1309 0500 10       		.byte	16
+ 1310 0501 01       		.byte	1
+ 1311 0502 11       		.byte	17
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 24
+
+
+ 1312 0503 01       		.byte	1
+ 1313 0504 1A       		.byte	26
+ 1314 0505 01       		.byte	1
+ 1315 0506 1B       		.byte	27
+ 1316 0507 01       		.byte	1
+ 1317 0508 00       		.byte	0
+ 1318 0509 03       		.byte	3
+ 1319 050a 10       		.byte	16
+ 1320 050b 0A       		.byte	10
+ 1321 050c C0       		.byte	-64
+ 1322 050d 00       		.byte	0
+ 1323 050e 40       		.byte	64
+ 1324 050f 80       		.byte	-128
+ 1325 0510 80       		.byte	-128
+ 1326 0511 00       		.byte	0
+ 1327 0512 C0       		.byte	-64
+ 1328 0513 00       		.byte	0
+ 1329 0514 00       		.byte	0
+ 1330 0515 00       		.byte	0
+ 1331 0516 00       		.byte	0
+ 1332 0517 00       		.byte	0
+ 1333 0518 30       		.byte	48
+ 1334 0519 00       		.byte	0
+ 1335 051a 20       		.byte	32
+ 1336 051b 10       		.byte	16
+ 1337 051c 10       		.byte	16
+ 1338 051d 00       		.byte	0
+ 1339 051e 30       		.byte	48
+ 1340 051f 00       		.byte	0
+ 1341 0520 00       		.byte	0
+ 1342 0521 00       		.byte	0
+ 1343 0522 00       		.byte	0
+ 1344 0523 00       		.byte	0
+ 1345 0524 E4       		.byte	-28
+ 1346 0525 00       		.byte	0
+ 1347 0526 20       		.byte	32
+ 1348 0527 CF       		.byte	-49
+ 1349 0528 CF       		.byte	-49
+ 1350 0529 00       		.byte	0
+ 1351 052a E4       		.byte	-28
+ 1352 052b 00       		.byte	0
+ 1353 052c 00       		.byte	0
+ 1354 052d 00       		.byte	0
+ 1355 052e 00       		.byte	0
+ 1356 052f 00       		.byte	0
+ 1357 0530 00       		.byte	0
+ 1358 0531 00       		.byte	0
+ 1359 0532 00       		.byte	0
+ 1360 0533 00       		.byte	0
+ 1361 0534 00       		.byte	0
+ 1362 0535 3F       		.byte	63
+ 1363 0536 3F       		.byte	63
+ 1364 0537 00       		.byte	0
+ 1365 0538 7C       		.byte	124
+ 1366 0539 00       		.byte	0
+ 1367 053a 00       		.byte	0
+ 1368 053b 7C       		.byte	124
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 25
+
+
+ 1369 053c 7C       		.byte	124
+ 1370 053d 00       		.byte	0
+ 1371 053e 7C       		.byte	124
+ 1372 053f 00       		.byte	0
+ 1373 0540 00       		.byte	0
+ 1374 0541 00       		.byte	0
+ 1375 0542 00       		.byte	0
+ 1376 0543 00       		.byte	0
+ 1377 0544 7F       		.byte	127
+ 1378 0545 00       		.byte	0
+ 1379 0546 02       		.byte	2
+ 1380 0547 7D       		.byte	125
+ 1381 0548 7D       		.byte	125
+ 1382 0549 00       		.byte	0
+ 1383 054a 7F       		.byte	127
+ 1384 054b 00       		.byte	0
+ 1385 054c 00       		.byte	0
+ 1386 054d 00       		.byte	0
+ 1387 054e 00       		.byte	0
+ 1388 054f 00       		.byte	0
+ 1389 0550 F0       		.byte	-16
+ 1390 0551 00       		.byte	0
+ 1391 0552 00       		.byte	0
+ 1392 0553 F0       		.byte	-16
+ 1393 0554 F0       		.byte	-16
+ 1394 0555 00       		.byte	0
+ 1395 0556 F0       		.byte	-16
+ 1396 0557 00       		.byte	0
+ 1397 0558 00       		.byte	0
+ 1398 0559 00       		.byte	0
+ 1399 055a 00       		.byte	0
+ 1400 055b 00       		.byte	0
+ 1401 055c 00       		.byte	0
+ 1402 055d 01       		.byte	1
+ 1403 055e 00       		.byte	0
+ 1404 055f 00       		.byte	0
+ 1405              		.section	.cywolatch,"a",%progbits
+ 1406              		.align	2
+ 1407              		.type	cy_meta_wonvl, %object
+ 1408              		.size	cy_meta_wonvl, 4
+ 1409              	cy_meta_wonvl:
+ 1410 0000 BC       		.byte	-68
+ 1411 0001 90       		.byte	-112
+ 1412 0002 AC       		.byte	-84
+ 1413 0003 AF       		.byte	-81
+ 1414              		.section	.cycustnvl,"a",%progbits
+ 1415              		.align	2
+ 1416              		.type	cy_meta_custnvl, %object
+ 1417              		.size	cy_meta_custnvl, 4
+ 1418              	cy_meta_custnvl:
+ 1419 0000 00       		.byte	0
+ 1420 0001 00       		.byte	0
+ 1421 0002 40       		.byte	64
+ 1422 0003 05       		.byte	5
+ 1423              		.section	.cymeta,"a",%progbits
+ 1424              		.align	2
+ 1425              		.type	cy_metadata, %object
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 26
+
+
+ 1426              		.size	cy_metadata, 12
+ 1427              	cy_metadata:
+ 1428 0000 00       		.byte	0
+ 1429 0001 01       		.byte	1
+ 1430 0002 2E       		.byte	46
+ 1431 0003 12       		.byte	18
+ 1432 0004 30       		.byte	48
+ 1433 0005 69       		.byte	105
+ 1434 0006 00       		.byte	0
+ 1435 0007 01       		.byte	1
+ 1436 0008 00       		.byte	0
+ 1437 0009 00       		.byte	0
+ 1438 000a 00       		.byte	0
+ 1439 000b 00       		.byte	0
+ 1440              		.section	.cyflashprotect,"a",%progbits
+ 1441              		.align	2
+ 1442              		.type	cy_meta_flashprotect, %object
+ 1443              		.size	cy_meta_flashprotect, 256
+ 1444              	cy_meta_flashprotect:
+ 1445 0000 00000000 		.space	256
+ 1445      00000000 
+ 1445      00000000 
+ 1445      00000000 
+ 1445      00000000 
+ 1446              		.text
+ 1447              	.Letext0:
+ 1448              		.file 1 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 1449              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.3\\psoc creator\\import\\gnu\\arm\\5.4.
+ 1450              		.file 3 "Generated_Source\\PSoC5\\cymetadata.c"
+ 1451              		.section	.debug_info,"",%progbits
+ 1452              	.Ldebug_info0:
+ 1453 0000 32010000 		.4byte	0x132
+ 1454 0004 0400     		.2byte	0x4
+ 1455 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 1456 000a 04       		.byte	0x4
+ 1457 000b 01       		.uleb128 0x1
+ 1458 000c 24000000 		.4byte	.LASF17
+ 1459 0010 0C       		.byte	0xc
+ 1460 0011 D4010000 		.4byte	.LASF18
+ 1461 0015 7E010000 		.4byte	.LASF19
+ 1462 0019 00000000 		.4byte	.Ldebug_line0
+ 1463 001d 02       		.uleb128 0x2
+ 1464 001e 01       		.byte	0x1
+ 1465 001f 06       		.byte	0x6
+ 1466 0020 72010000 		.4byte	.LASF0
+ 1467 0024 03       		.uleb128 0x3
+ 1468 0025 00000000 		.4byte	.LASF9
+ 1469 0029 01       		.byte	0x1
+ 1470 002a 1D       		.byte	0x1d
+ 1471 002b 2F000000 		.4byte	0x2f
+ 1472 002f 02       		.uleb128 0x2
+ 1473 0030 01       		.byte	0x1
+ 1474 0031 08       		.byte	0x8
+ 1475 0032 16000000 		.4byte	.LASF1
+ 1476 0036 02       		.uleb128 0x2
+ 1477 0037 02       		.byte	0x2
+ 1478 0038 05       		.byte	0x5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 27
+
+
+ 1479 0039 5F010000 		.4byte	.LASF2
+ 1480 003d 02       		.uleb128 0x2
+ 1481 003e 02       		.byte	0x2
+ 1482 003f 07       		.byte	0x7
+ 1483 0040 C4000000 		.4byte	.LASF3
+ 1484 0044 02       		.uleb128 0x2
+ 1485 0045 04       		.byte	0x4
+ 1486 0046 05       		.byte	0x5
+ 1487 0047 69010000 		.4byte	.LASF4
+ 1488 004b 02       		.uleb128 0x2
+ 1489 004c 04       		.byte	0x4
+ 1490 004d 07       		.byte	0x7
+ 1491 004e B2000000 		.4byte	.LASF5
+ 1492 0052 02       		.uleb128 0x2
+ 1493 0053 08       		.byte	0x8
+ 1494 0054 05       		.byte	0x5
+ 1495 0055 51010000 		.4byte	.LASF6
+ 1496 0059 02       		.uleb128 0x2
+ 1497 005a 08       		.byte	0x8
+ 1498 005b 07       		.byte	0x7
+ 1499 005c 06010000 		.4byte	.LASF7
+ 1500 0060 04       		.uleb128 0x4
+ 1501 0061 04       		.byte	0x4
+ 1502 0062 05       		.byte	0x5
+ 1503 0063 696E7400 		.ascii	"int\000"
+ 1504 0067 02       		.uleb128 0x2
+ 1505 0068 04       		.byte	0x4
+ 1506 0069 07       		.byte	0x7
+ 1507 006a F9000000 		.4byte	.LASF8
+ 1508 006e 03       		.uleb128 0x3
+ 1509 006f 1D010000 		.4byte	.LASF10
+ 1510 0073 02       		.byte	0x2
+ 1511 0074 18       		.byte	0x18
+ 1512 0075 24000000 		.4byte	0x24
+ 1513 0079 05       		.uleb128 0x5
+ 1514 007a 91000000 		.4byte	0x91
+ 1515 007e 8A000000 		.4byte	0x8a
+ 1516 0082 06       		.uleb128 0x6
+ 1517 0083 8A000000 		.4byte	0x8a
+ 1518 0087 5F05     		.2byte	0x55f
+ 1519 0089 00       		.byte	0
+ 1520 008a 02       		.uleb128 0x2
+ 1521 008b 04       		.byte	0x4
+ 1522 008c 07       		.byte	0x7
+ 1523 008d 48010000 		.4byte	.LASF11
+ 1524 0091 07       		.uleb128 0x7
+ 1525 0092 6E000000 		.4byte	0x6e
+ 1526 0096 08       		.uleb128 0x8
+ 1527 0097 E7000000 		.4byte	.LASF12
+ 1528 009b 03       		.byte	0x3
+ 1529 009c 1F       		.byte	0x1f
+ 1530 009d A7000000 		.4byte	0xa7
+ 1531 00a1 05       		.uleb128 0x5
+ 1532 00a2 03       		.byte	0x3
+ 1533 00a3 00000000 		.4byte	cy_meta_configecc
+ 1534 00a7 07       		.uleb128 0x7
+ 1535 00a8 79000000 		.4byte	0x79
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 28
+
+
+ 1536 00ac 05       		.uleb128 0x5
+ 1537 00ad 91000000 		.4byte	0x91
+ 1538 00b1 BC000000 		.4byte	0xbc
+ 1539 00b5 09       		.uleb128 0x9
+ 1540 00b6 8A000000 		.4byte	0x8a
+ 1541 00ba 03       		.byte	0x3
+ 1542 00bb 00       		.byte	0
+ 1543 00bc 08       		.uleb128 0x8
+ 1544 00bd D7000000 		.4byte	.LASF13
+ 1545 00c1 03       		.byte	0x3
+ 1546 00c2 D8       		.byte	0xd8
+ 1547 00c3 CD000000 		.4byte	0xcd
+ 1548 00c7 05       		.uleb128 0x5
+ 1549 00c8 03       		.byte	0x3
+ 1550 00c9 00000000 		.4byte	cy_meta_custnvl
+ 1551 00cd 07       		.uleb128 0x7
+ 1552 00ce AC000000 		.4byte	0xac
+ 1553 00d2 08       		.uleb128 0x8
+ 1554 00d3 3A010000 		.4byte	.LASF14
+ 1555 00d7 03       		.byte	0x3
+ 1556 00d8 E6       		.byte	0xe6
+ 1557 00d9 E3000000 		.4byte	0xe3
+ 1558 00dd 05       		.uleb128 0x5
+ 1559 00de 03       		.byte	0x3
+ 1560 00df 00000000 		.4byte	cy_meta_wonvl
+ 1561 00e3 07       		.uleb128 0x7
+ 1562 00e4 AC000000 		.4byte	0xac
+ 1563 00e8 05       		.uleb128 0x5
+ 1564 00e9 91000000 		.4byte	0x91
+ 1565 00ed F8000000 		.4byte	0xf8
+ 1566 00f1 09       		.uleb128 0x9
+ 1567 00f2 8A000000 		.4byte	0x8a
+ 1568 00f6 FF       		.byte	0xff
+ 1569 00f7 00       		.byte	0
+ 1570 00f8 08       		.uleb128 0x8
+ 1571 00f9 25010000 		.4byte	.LASF15
+ 1572 00fd 03       		.byte	0x3
+ 1573 00fe F4       		.byte	0xf4
+ 1574 00ff 09010000 		.4byte	0x109
+ 1575 0103 05       		.uleb128 0x5
+ 1576 0104 03       		.byte	0x3
+ 1577 0105 00000000 		.4byte	cy_meta_flashprotect
+ 1578 0109 07       		.uleb128 0x7
+ 1579 010a E8000000 		.4byte	0xe8
+ 1580 010e 05       		.uleb128 0x5
+ 1581 010f 91000000 		.4byte	0x91
+ 1582 0113 1E010000 		.4byte	0x11e
+ 1583 0117 09       		.uleb128 0x9
+ 1584 0118 8A000000 		.4byte	0x8a
+ 1585 011c 0B       		.byte	0xb
+ 1586 011d 00       		.byte	0
+ 1587 011e 0A       		.uleb128 0xa
+ 1588 011f 0A000000 		.4byte	.LASF16
+ 1589 0123 03       		.byte	0x3
+ 1590 0124 2101     		.2byte	0x121
+ 1591 0126 30010000 		.4byte	0x130
+ 1592 012a 05       		.uleb128 0x5
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 29
+
+
+ 1593 012b 03       		.byte	0x3
+ 1594 012c 00000000 		.4byte	cy_metadata
+ 1595 0130 07       		.uleb128 0x7
+ 1596 0131 0E010000 		.4byte	0x10e
+ 1597 0135 00       		.byte	0
+ 1598              		.section	.debug_abbrev,"",%progbits
+ 1599              	.Ldebug_abbrev0:
+ 1600 0000 01       		.uleb128 0x1
+ 1601 0001 11       		.uleb128 0x11
+ 1602 0002 01       		.byte	0x1
+ 1603 0003 25       		.uleb128 0x25
+ 1604 0004 0E       		.uleb128 0xe
+ 1605 0005 13       		.uleb128 0x13
+ 1606 0006 0B       		.uleb128 0xb
+ 1607 0007 03       		.uleb128 0x3
+ 1608 0008 0E       		.uleb128 0xe
+ 1609 0009 1B       		.uleb128 0x1b
+ 1610 000a 0E       		.uleb128 0xe
+ 1611 000b 10       		.uleb128 0x10
+ 1612 000c 17       		.uleb128 0x17
+ 1613 000d 00       		.byte	0
+ 1614 000e 00       		.byte	0
+ 1615 000f 02       		.uleb128 0x2
+ 1616 0010 24       		.uleb128 0x24
+ 1617 0011 00       		.byte	0
+ 1618 0012 0B       		.uleb128 0xb
+ 1619 0013 0B       		.uleb128 0xb
+ 1620 0014 3E       		.uleb128 0x3e
+ 1621 0015 0B       		.uleb128 0xb
+ 1622 0016 03       		.uleb128 0x3
+ 1623 0017 0E       		.uleb128 0xe
+ 1624 0018 00       		.byte	0
+ 1625 0019 00       		.byte	0
+ 1626 001a 03       		.uleb128 0x3
+ 1627 001b 16       		.uleb128 0x16
+ 1628 001c 00       		.byte	0
+ 1629 001d 03       		.uleb128 0x3
+ 1630 001e 0E       		.uleb128 0xe
+ 1631 001f 3A       		.uleb128 0x3a
+ 1632 0020 0B       		.uleb128 0xb
+ 1633 0021 3B       		.uleb128 0x3b
+ 1634 0022 0B       		.uleb128 0xb
+ 1635 0023 49       		.uleb128 0x49
+ 1636 0024 13       		.uleb128 0x13
+ 1637 0025 00       		.byte	0
+ 1638 0026 00       		.byte	0
+ 1639 0027 04       		.uleb128 0x4
+ 1640 0028 24       		.uleb128 0x24
+ 1641 0029 00       		.byte	0
+ 1642 002a 0B       		.uleb128 0xb
+ 1643 002b 0B       		.uleb128 0xb
+ 1644 002c 3E       		.uleb128 0x3e
+ 1645 002d 0B       		.uleb128 0xb
+ 1646 002e 03       		.uleb128 0x3
+ 1647 002f 08       		.uleb128 0x8
+ 1648 0030 00       		.byte	0
+ 1649 0031 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 30
+
+
+ 1650 0032 05       		.uleb128 0x5
+ 1651 0033 01       		.uleb128 0x1
+ 1652 0034 01       		.byte	0x1
+ 1653 0035 49       		.uleb128 0x49
+ 1654 0036 13       		.uleb128 0x13
+ 1655 0037 01       		.uleb128 0x1
+ 1656 0038 13       		.uleb128 0x13
+ 1657 0039 00       		.byte	0
+ 1658 003a 00       		.byte	0
+ 1659 003b 06       		.uleb128 0x6
+ 1660 003c 21       		.uleb128 0x21
+ 1661 003d 00       		.byte	0
+ 1662 003e 49       		.uleb128 0x49
+ 1663 003f 13       		.uleb128 0x13
+ 1664 0040 2F       		.uleb128 0x2f
+ 1665 0041 05       		.uleb128 0x5
+ 1666 0042 00       		.byte	0
+ 1667 0043 00       		.byte	0
+ 1668 0044 07       		.uleb128 0x7
+ 1669 0045 26       		.uleb128 0x26
+ 1670 0046 00       		.byte	0
+ 1671 0047 49       		.uleb128 0x49
+ 1672 0048 13       		.uleb128 0x13
+ 1673 0049 00       		.byte	0
+ 1674 004a 00       		.byte	0
+ 1675 004b 08       		.uleb128 0x8
+ 1676 004c 34       		.uleb128 0x34
+ 1677 004d 00       		.byte	0
+ 1678 004e 03       		.uleb128 0x3
+ 1679 004f 0E       		.uleb128 0xe
+ 1680 0050 3A       		.uleb128 0x3a
+ 1681 0051 0B       		.uleb128 0xb
+ 1682 0052 3B       		.uleb128 0x3b
+ 1683 0053 0B       		.uleb128 0xb
+ 1684 0054 49       		.uleb128 0x49
+ 1685 0055 13       		.uleb128 0x13
+ 1686 0056 3F       		.uleb128 0x3f
+ 1687 0057 19       		.uleb128 0x19
+ 1688 0058 02       		.uleb128 0x2
+ 1689 0059 18       		.uleb128 0x18
+ 1690 005a 00       		.byte	0
+ 1691 005b 00       		.byte	0
+ 1692 005c 09       		.uleb128 0x9
+ 1693 005d 21       		.uleb128 0x21
+ 1694 005e 00       		.byte	0
+ 1695 005f 49       		.uleb128 0x49
+ 1696 0060 13       		.uleb128 0x13
+ 1697 0061 2F       		.uleb128 0x2f
+ 1698 0062 0B       		.uleb128 0xb
+ 1699 0063 00       		.byte	0
+ 1700 0064 00       		.byte	0
+ 1701 0065 0A       		.uleb128 0xa
+ 1702 0066 34       		.uleb128 0x34
+ 1703 0067 00       		.byte	0
+ 1704 0068 03       		.uleb128 0x3
+ 1705 0069 0E       		.uleb128 0xe
+ 1706 006a 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 31
+
+
+ 1707 006b 0B       		.uleb128 0xb
+ 1708 006c 3B       		.uleb128 0x3b
+ 1709 006d 05       		.uleb128 0x5
+ 1710 006e 49       		.uleb128 0x49
+ 1711 006f 13       		.uleb128 0x13
+ 1712 0070 3F       		.uleb128 0x3f
+ 1713 0071 19       		.uleb128 0x19
+ 1714 0072 02       		.uleb128 0x2
+ 1715 0073 18       		.uleb128 0x18
+ 1716 0074 00       		.byte	0
+ 1717 0075 00       		.byte	0
+ 1718 0076 00       		.byte	0
+ 1719              		.section	.debug_aranges,"",%progbits
+ 1720 0000 14000000 		.4byte	0x14
+ 1721 0004 0200     		.2byte	0x2
+ 1722 0006 00000000 		.4byte	.Ldebug_info0
+ 1723 000a 04       		.byte	0x4
+ 1724 000b 00       		.byte	0
+ 1725 000c 0000     		.2byte	0
+ 1726 000e 0000     		.2byte	0
+ 1727 0010 00000000 		.4byte	0
+ 1728 0014 00000000 		.4byte	0
+ 1729              		.section	.debug_line,"",%progbits
+ 1730              	.Ldebug_line0:
+ 1731 0000 3D010000 		.section	.debug_str,"MS",%progbits,1
+ 1731      02003701 
+ 1731      00000201 
+ 1731      FB0E0D00 
+ 1731      01010101 
+ 1732              	.LASF9:
+ 1733 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 1733      6E74385F 
+ 1733      7400
+ 1734              	.LASF16:
+ 1735 000a 63795F6D 		.ascii	"cy_metadata\000"
+ 1735      65746164 
+ 1735      61746100 
+ 1736              	.LASF1:
+ 1737 0016 756E7369 		.ascii	"unsigned char\000"
+ 1737      676E6564 
+ 1737      20636861 
+ 1737      7200
+ 1738              	.LASF17:
+ 1739 0024 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1739      43313120 
+ 1739      352E342E 
+ 1739      31203230 
+ 1739      31363036 
+ 1740 0057 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1740      20726576 
+ 1740      6973696F 
+ 1740      6E203233 
+ 1740      37373135 
+ 1741 008a 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1741      66756E63 
+ 1741      74696F6E 
+ 1741      2D736563 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 32
+
+
+ 1741      74696F6E 
+ 1742              	.LASF5:
+ 1743 00b2 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1743      20756E73 
+ 1743      69676E65 
+ 1743      6420696E 
+ 1743      7400
+ 1744              	.LASF3:
+ 1745 00c4 73686F72 		.ascii	"short unsigned int\000"
+ 1745      7420756E 
+ 1745      7369676E 
+ 1745      65642069 
+ 1745      6E7400
+ 1746              	.LASF13:
+ 1747 00d7 63795F6D 		.ascii	"cy_meta_custnvl\000"
+ 1747      6574615F 
+ 1747      63757374 
+ 1747      6E766C00 
+ 1748              	.LASF12:
+ 1749 00e7 63795F6D 		.ascii	"cy_meta_configecc\000"
+ 1749      6574615F 
+ 1749      636F6E66 
+ 1749      69676563 
+ 1749      6300
+ 1750              	.LASF8:
+ 1751 00f9 756E7369 		.ascii	"unsigned int\000"
+ 1751      676E6564 
+ 1751      20696E74 
+ 1751      00
+ 1752              	.LASF7:
+ 1753 0106 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1753      206C6F6E 
+ 1753      6720756E 
+ 1753      7369676E 
+ 1753      65642069 
+ 1754              	.LASF10:
+ 1755 011d 75696E74 		.ascii	"uint8_t\000"
+ 1755      385F7400 
+ 1756              	.LASF15:
+ 1757 0125 63795F6D 		.ascii	"cy_meta_flashprotect\000"
+ 1757      6574615F 
+ 1757      666C6173 
+ 1757      6870726F 
+ 1757      74656374 
+ 1758              	.LASF14:
+ 1759 013a 63795F6D 		.ascii	"cy_meta_wonvl\000"
+ 1759      6574615F 
+ 1759      776F6E76 
+ 1759      6C00
+ 1760              	.LASF11:
+ 1761 0148 73697A65 		.ascii	"sizetype\000"
+ 1761      74797065 
+ 1761      00
+ 1762              	.LASF6:
+ 1763 0151 6C6F6E67 		.ascii	"long long int\000"
+ 1763      206C6F6E 
+ 1763      6720696E 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\ccmsa26x.s 			page 33
+
+
+ 1763      7400
+ 1764              	.LASF2:
+ 1765 015f 73686F72 		.ascii	"short int\000"
+ 1765      7420696E 
+ 1765      7400
+ 1766              	.LASF4:
+ 1767 0169 6C6F6E67 		.ascii	"long int\000"
+ 1767      20696E74 
+ 1767      00
+ 1768              	.LASF0:
+ 1769 0172 7369676E 		.ascii	"signed char\000"
+ 1769      65642063 
+ 1769      68617200 
+ 1770              	.LASF19:
+ 1771 017e 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-worl"
+ 1771      73657273 
+ 1771      5C627279 
+ 1771      616E2E6C 
+ 1771      65655C44 
+ 1772 01ac 645C4379 		.ascii	"d\\Cypress\\EQF1296_DUT\\EQF1296_DUT.cydsn\000"
+ 1772      70726573 
+ 1772      735C4551 
+ 1772      46313239 
+ 1772      365F4455 
+ 1773              	.LASF18:
+ 1774 01d4 47656E65 		.ascii	"Generated_Source\\PSoC5\\cymetadata.c\000"
+ 1774      72617465 
+ 1774      645F536F 
+ 1774      75726365 
+ 1774      5C50536F 
+ 1775              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
