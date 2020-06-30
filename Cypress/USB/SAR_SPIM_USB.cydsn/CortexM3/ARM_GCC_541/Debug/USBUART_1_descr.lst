@@ -1,0 +1,1354 @@
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"USBUART_1_descr.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	USBUART_1_DEVICE0_DESCR
+  20              		.section	.rodata
+  21              		.align	2
+  22              		.type	USBUART_1_DEVICE0_DESCR, %object
+  23              		.size	USBUART_1_DEVICE0_DESCR, 18
+  24              	USBUART_1_DEVICE0_DESCR:
+  25 0000 12       		.byte	18
+  26 0001 01       		.byte	1
+  27 0002 00       		.byte	0
+  28 0003 02       		.byte	2
+  29 0004 02       		.byte	2
+  30 0005 00       		.byte	0
+  31 0006 00       		.byte	0
+  32 0007 08       		.byte	8
+  33 0008 B4       		.byte	-76
+  34 0009 04       		.byte	4
+  35 000a 32       		.byte	50
+  36 000b F2       		.byte	-14
+  37 000c 01       		.byte	1
+  38 000d 00       		.byte	0
+  39 000e 01       		.byte	1
+  40 000f 04       		.byte	4
+  41 0010 80       		.byte	-128
+  42 0011 01       		.byte	1
+  43              		.global	USBUART_1_DEVICE0_CONFIGURATION0_DESCR
+  44 0012 0000     		.align	2
+  45              		.type	USBUART_1_DEVICE0_CONFIGURATION0_DESCR, %object
+  46              		.size	USBUART_1_DEVICE0_CONFIGURATION0_DESCR, 67
+  47              	USBUART_1_DEVICE0_CONFIGURATION0_DESCR:
+  48 0014 09       		.byte	9
+  49 0015 02       		.byte	2
+  50 0016 43       		.byte	67
+  51 0017 00       		.byte	0
+  52 0018 02       		.byte	2
+  53 0019 01       		.byte	1
+  54 001a 04       		.byte	4
+  55 001b C0       		.byte	-64
+  56 001c 32       		.byte	50
+  57 001d 09       		.byte	9
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 2
+
+
+  58 001e 04       		.byte	4
+  59 001f 00       		.byte	0
+  60 0020 00       		.byte	0
+  61 0021 01       		.byte	1
+  62 0022 02       		.byte	2
+  63 0023 02       		.byte	2
+  64 0024 00       		.byte	0
+  65 0025 02       		.byte	2
+  66 0026 05       		.byte	5
+  67 0027 24       		.byte	36
+  68 0028 00       		.byte	0
+  69 0029 10       		.byte	16
+  70 002a 01       		.byte	1
+  71 002b 04       		.byte	4
+  72 002c 24       		.byte	36
+  73 002d 02       		.byte	2
+  74 002e 02       		.byte	2
+  75 002f 05       		.byte	5
+  76 0030 24       		.byte	36
+  77 0031 06       		.byte	6
+  78 0032 00       		.byte	0
+  79 0033 01       		.byte	1
+  80 0034 05       		.byte	5
+  81 0035 24       		.byte	36
+  82 0036 01       		.byte	1
+  83 0037 00       		.byte	0
+  84 0038 01       		.byte	1
+  85 0039 07       		.byte	7
+  86 003a 05       		.byte	5
+  87 003b 81       		.byte	-127
+  88 003c 03       		.byte	3
+  89 003d 08       		.byte	8
+  90 003e 00       		.byte	0
+  91 003f 0A       		.byte	10
+  92 0040 09       		.byte	9
+  93 0041 04       		.byte	4
+  94 0042 01       		.byte	1
+  95 0043 00       		.byte	0
+  96 0044 02       		.byte	2
+  97 0045 0A       		.byte	10
+  98 0046 00       		.byte	0
+  99 0047 00       		.byte	0
+ 100 0048 03       		.byte	3
+ 101 0049 07       		.byte	7
+ 102 004a 05       		.byte	5
+ 103 004b 82       		.byte	-126
+ 104 004c 02       		.byte	2
+ 105 004d 40       		.byte	64
+ 106 004e 00       		.byte	0
+ 107 004f 00       		.byte	0
+ 108 0050 07       		.byte	7
+ 109 0051 05       		.byte	5
+ 110 0052 03       		.byte	3
+ 111 0053 02       		.byte	2
+ 112 0054 40       		.byte	64
+ 113 0055 00       		.byte	0
+ 114 0056 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 3
+
+
+ 115              		.global	USBUART_1_STRING_DESCRIPTORS
+ 116 0057 00       		.align	2
+ 117              		.type	USBUART_1_STRING_DESCRIPTORS, %object
+ 118              		.size	USBUART_1_STRING_DESCRIPTORS, 169
+ 119              	USBUART_1_STRING_DESCRIPTORS:
+ 120 0058 04       		.byte	4
+ 121 0059 03       		.byte	3
+ 122 005a 09       		.byte	9
+ 123 005b 04       		.byte	4
+ 124 005c 2C       		.byte	44
+ 125 005d 03       		.byte	3
+ 126 005e 43       		.byte	67
+ 127 005f 00       		.byte	0
+ 128 0060 79       		.byte	121
+ 129 0061 00       		.byte	0
+ 130 0062 70       		.byte	112
+ 131 0063 00       		.byte	0
+ 132 0064 72       		.byte	114
+ 133 0065 00       		.byte	0
+ 134 0066 65       		.byte	101
+ 135 0067 00       		.byte	0
+ 136 0068 73       		.byte	115
+ 137 0069 00       		.byte	0
+ 138 006a 73       		.byte	115
+ 139 006b 00       		.byte	0
+ 140 006c 20       		.byte	32
+ 141 006d 00       		.byte	0
+ 142 006e 53       		.byte	83
+ 143 006f 00       		.byte	0
+ 144 0070 65       		.byte	101
+ 145 0071 00       		.byte	0
+ 146 0072 6D       		.byte	109
+ 147 0073 00       		.byte	0
+ 148 0074 69       		.byte	105
+ 149 0075 00       		.byte	0
+ 150 0076 63       		.byte	99
+ 151 0077 00       		.byte	0
+ 152 0078 6F       		.byte	111
+ 153 0079 00       		.byte	0
+ 154 007a 6E       		.byte	110
+ 155 007b 00       		.byte	0
+ 156 007c 64       		.byte	100
+ 157 007d 00       		.byte	0
+ 158 007e 75       		.byte	117
+ 159 007f 00       		.byte	0
+ 160 0080 63       		.byte	99
+ 161 0081 00       		.byte	0
+ 162 0082 74       		.byte	116
+ 163 0083 00       		.byte	0
+ 164 0084 6F       		.byte	111
+ 165 0085 00       		.byte	0
+ 166 0086 72       		.byte	114
+ 167 0087 00       		.byte	0
+ 168 0088 38       		.byte	56
+ 169 0089 03       		.byte	3
+ 170 008a 43       		.byte	67
+ 171 008b 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 4
+
+
+ 172 008c 44       		.byte	68
+ 173 008d 00       		.byte	0
+ 174 008e 43       		.byte	67
+ 175 008f 00       		.byte	0
+ 176 0090 20       		.byte	32
+ 177 0091 00       		.byte	0
+ 178 0092 43       		.byte	67
+ 179 0093 00       		.byte	0
+ 180 0094 6F       		.byte	111
+ 181 0095 00       		.byte	0
+ 182 0096 6D       		.byte	109
+ 183 0097 00       		.byte	0
+ 184 0098 6D       		.byte	109
+ 185 0099 00       		.byte	0
+ 186 009a 75       		.byte	117
+ 187 009b 00       		.byte	0
+ 188 009c 6E       		.byte	110
+ 189 009d 00       		.byte	0
+ 190 009e 69       		.byte	105
+ 191 009f 00       		.byte	0
+ 192 00a0 63       		.byte	99
+ 193 00a1 00       		.byte	0
+ 194 00a2 61       		.byte	97
+ 195 00a3 00       		.byte	0
+ 196 00a4 74       		.byte	116
+ 197 00a5 00       		.byte	0
+ 198 00a6 69       		.byte	105
+ 199 00a7 00       		.byte	0
+ 200 00a8 6F       		.byte	111
+ 201 00a9 00       		.byte	0
+ 202 00aa 6E       		.byte	110
+ 203 00ab 00       		.byte	0
+ 204 00ac 20       		.byte	32
+ 205 00ad 00       		.byte	0
+ 206 00ae 49       		.byte	73
+ 207 00af 00       		.byte	0
+ 208 00b0 6E       		.byte	110
+ 209 00b1 00       		.byte	0
+ 210 00b2 74       		.byte	116
+ 211 00b3 00       		.byte	0
+ 212 00b4 65       		.byte	101
+ 213 00b5 00       		.byte	0
+ 214 00b6 72       		.byte	114
+ 215 00b7 00       		.byte	0
+ 216 00b8 66       		.byte	102
+ 217 00b9 00       		.byte	0
+ 218 00ba 61       		.byte	97
+ 219 00bb 00       		.byte	0
+ 220 00bc 63       		.byte	99
+ 221 00bd 00       		.byte	0
+ 222 00be 65       		.byte	101
+ 223 00bf 00       		.byte	0
+ 224 00c0 26       		.byte	38
+ 225 00c1 03       		.byte	3
+ 226 00c2 43       		.byte	67
+ 227 00c3 00       		.byte	0
+ 228 00c4 44       		.byte	68
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 5
+
+
+ 229 00c5 00       		.byte	0
+ 230 00c6 43       		.byte	67
+ 231 00c7 00       		.byte	0
+ 232 00c8 20       		.byte	32
+ 233 00c9 00       		.byte	0
+ 234 00ca 44       		.byte	68
+ 235 00cb 00       		.byte	0
+ 236 00cc 61       		.byte	97
+ 237 00cd 00       		.byte	0
+ 238 00ce 74       		.byte	116
+ 239 00cf 00       		.byte	0
+ 240 00d0 61       		.byte	97
+ 241 00d1 00       		.byte	0
+ 242 00d2 20       		.byte	32
+ 243 00d3 00       		.byte	0
+ 244 00d4 49       		.byte	73
+ 245 00d5 00       		.byte	0
+ 246 00d6 6E       		.byte	110
+ 247 00d7 00       		.byte	0
+ 248 00d8 74       		.byte	116
+ 249 00d9 00       		.byte	0
+ 250 00da 65       		.byte	101
+ 251 00db 00       		.byte	0
+ 252 00dc 72       		.byte	114
+ 253 00dd 00       		.byte	0
+ 254 00de 66       		.byte	102
+ 255 00df 00       		.byte	0
+ 256 00e0 61       		.byte	97
+ 257 00e1 00       		.byte	0
+ 258 00e2 63       		.byte	99
+ 259 00e3 00       		.byte	0
+ 260 00e4 65       		.byte	101
+ 261 00e5 00       		.byte	0
+ 262 00e6 1A       		.byte	26
+ 263 00e7 03       		.byte	3
+ 264 00e8 53       		.byte	83
+ 265 00e9 00       		.byte	0
+ 266 00ea 41       		.byte	65
+ 267 00eb 00       		.byte	0
+ 268 00ec 52       		.byte	82
+ 269 00ed 00       		.byte	0
+ 270 00ee 5F       		.byte	95
+ 271 00ef 00       		.byte	0
+ 272 00f0 53       		.byte	83
+ 273 00f1 00       		.byte	0
+ 274 00f2 50       		.byte	80
+ 275 00f3 00       		.byte	0
+ 276 00f4 49       		.byte	73
+ 277 00f5 00       		.byte	0
+ 278 00f6 4D       		.byte	77
+ 279 00f7 00       		.byte	0
+ 280 00f8 5F       		.byte	95
+ 281 00f9 00       		.byte	0
+ 282 00fa 55       		.byte	85
+ 283 00fb 00       		.byte	0
+ 284 00fc 53       		.byte	83
+ 285 00fd 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 6
+
+
+ 286 00fe 42       		.byte	66
+ 287 00ff 00       		.byte	0
+ 288 0100 00       		.byte	0
+ 289              		.global	USBUART_1_SN_STRING_DESCRIPTOR
+ 290 0101 000000   		.align	2
+ 291              		.type	USBUART_1_SN_STRING_DESCRIPTOR, %object
+ 292              		.size	USBUART_1_SN_STRING_DESCRIPTOR, 2
+ 293              	USBUART_1_SN_STRING_DESCRIPTOR:
+ 294 0104 02       		.byte	2
+ 295 0105 03       		.byte	3
+ 296              		.global	USBUART_1_HIDREPORT_DESCRIPTOR1
+ 297 0106 0000     		.align	2
+ 298              		.type	USBUART_1_HIDREPORT_DESCRIPTOR1, %object
+ 299              		.size	USBUART_1_HIDREPORT_DESCRIPTOR1, 54
+ 300              	USBUART_1_HIDREPORT_DESCRIPTOR1:
+ 301 0108 32       		.byte	50
+ 302 0109 00       		.byte	0
+ 303 010a 05       		.byte	5
+ 304 010b 01       		.byte	1
+ 305 010c 09       		.byte	9
+ 306 010d 02       		.byte	2
+ 307 010e A1       		.byte	-95
+ 308 010f 01       		.byte	1
+ 309 0110 09       		.byte	9
+ 310 0111 01       		.byte	1
+ 311 0112 A1       		.byte	-95
+ 312 0113 00       		.byte	0
+ 313 0114 05       		.byte	5
+ 314 0115 09       		.byte	9
+ 315 0116 19       		.byte	25
+ 316 0117 01       		.byte	1
+ 317 0118 29       		.byte	41
+ 318 0119 03       		.byte	3
+ 319 011a 15       		.byte	21
+ 320 011b 00       		.byte	0
+ 321 011c 25       		.byte	37
+ 322 011d 01       		.byte	1
+ 323 011e 95       		.byte	-107
+ 324 011f 03       		.byte	3
+ 325 0120 75       		.byte	117
+ 326 0121 01       		.byte	1
+ 327 0122 81       		.byte	-127
+ 328 0123 02       		.byte	2
+ 329 0124 95       		.byte	-107
+ 330 0125 01       		.byte	1
+ 331 0126 75       		.byte	117
+ 332 0127 05       		.byte	5
+ 333 0128 81       		.byte	-127
+ 334 0129 01       		.byte	1
+ 335 012a 05       		.byte	5
+ 336 012b 01       		.byte	1
+ 337 012c 09       		.byte	9
+ 338 012d 30       		.byte	48
+ 339 012e 09       		.byte	9
+ 340 012f 31       		.byte	49
+ 341 0130 15       		.byte	21
+ 342 0131 81       		.byte	-127
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 7
+
+
+ 343 0132 25       		.byte	37
+ 344 0133 7F       		.byte	127
+ 345 0134 75       		.byte	117
+ 346 0135 08       		.byte	8
+ 347 0136 95       		.byte	-107
+ 348 0137 02       		.byte	2
+ 349 0138 81       		.byte	-127
+ 350 0139 06       		.byte	6
+ 351 013a C0       		.byte	-64
+ 352 013b C0       		.byte	-64
+ 353 013c 00       		.byte	0
+ 354 013d 00       		.byte	0
+ 355              		.global	USBUART_1_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE
+ 356 013e 0000     		.align	2
+ 357              		.type	USBUART_1_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE, %object
+ 358              		.size	USBUART_1_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE, 24
+ 359              	USBUART_1_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE:
+ 360 0140 00       		.byte	0
+ 361 0141 00       		.byte	0
+ 362 0142 81       		.byte	-127
+ 363 0143 03       		.byte	3
+ 364 0144 0800     		.short	8
+ 365 0146 02       		.byte	2
+ 366 0147 00       		.space	1
+ 367 0148 01       		.byte	1
+ 368 0149 00       		.byte	0
+ 369 014a 82       		.byte	-126
+ 370 014b 02       		.byte	2
+ 371 014c 4000     		.short	64
+ 372 014e 0A       		.byte	10
+ 373 014f 00       		.space	1
+ 374 0150 01       		.byte	1
+ 375 0151 00       		.byte	0
+ 376 0152 03       		.byte	3
+ 377 0153 02       		.byte	2
+ 378 0154 4000     		.short	64
+ 379 0156 0A       		.byte	10
+ 380 0157 00       		.space	1
+ 381              		.global	USBUART_1_DEVICE0_CONFIGURATION0_INTERFACE_CLASS
+ 382              		.align	2
+ 383              		.type	USBUART_1_DEVICE0_CONFIGURATION0_INTERFACE_CLASS, %object
+ 384              		.size	USBUART_1_DEVICE0_CONFIGURATION0_INTERFACE_CLASS, 2
+ 385              	USBUART_1_DEVICE0_CONFIGURATION0_INTERFACE_CLASS:
+ 386 0158 02       		.byte	2
+ 387 0159 0A       		.byte	10
+ 388              		.global	USBUART_1_DEVICE0_CONFIGURATION0_TABLE
+ 389 015a 0000     		.align	2
+ 390              		.type	USBUART_1_DEVICE0_CONFIGURATION0_TABLE, %object
+ 391              		.size	USBUART_1_DEVICE0_CONFIGURATION0_TABLE, 40
+ 392              	USBUART_1_DEVICE0_CONFIGURATION0_TABLE:
+ 393 015c 01       		.byte	1
+ 394 015d 000000   		.space	3
+ 395 0160 00000000 		.word	USBUART_1_DEVICE0_CONFIGURATION0_DESCR
+ 396 0164 03       		.byte	3
+ 397 0165 000000   		.space	3
+ 398 0168 00000000 		.word	USBUART_1_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE
+ 399 016c 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 8
+
+
+ 400 016d 000000   		.space	3
+ 401 0170 00000000 		.word	0
+ 402 0174 00       		.byte	0
+ 403 0175 000000   		.space	3
+ 404 0178 00000000 		.word	0
+ 405 017c 00       		.byte	0
+ 406 017d 000000   		.space	3
+ 407 0180 00000000 		.word	USBUART_1_DEVICE0_CONFIGURATION0_INTERFACE_CLASS
+ 408              		.global	USBUART_1_DEVICE0_TABLE
+ 409              		.align	2
+ 410              		.type	USBUART_1_DEVICE0_TABLE, %object
+ 411              		.size	USBUART_1_DEVICE0_TABLE, 24
+ 412              	USBUART_1_DEVICE0_TABLE:
+ 413 0184 01       		.byte	1
+ 414 0185 000000   		.space	3
+ 415 0188 00000000 		.word	USBUART_1_DEVICE0_DESCR
+ 416 018c 00       		.byte	0
+ 417 018d 000000   		.space	3
+ 418 0190 00000000 		.word	0
+ 419 0194 01       		.byte	1
+ 420 0195 000000   		.space	3
+ 421 0198 00000000 		.word	USBUART_1_DEVICE0_CONFIGURATION0_TABLE
+ 422              		.global	USBUART_1_TABLE
+ 423              		.align	2
+ 424              		.type	USBUART_1_TABLE, %object
+ 425              		.size	USBUART_1_TABLE, 8
+ 426              	USBUART_1_TABLE:
+ 427 019c 01       		.byte	1
+ 428 019d 000000   		.space	3
+ 429 01a0 00000000 		.word	USBUART_1_DEVICE0_TABLE
+ 430              		.global	USBUART_1_MSOS_DESCRIPTOR
+ 431              		.align	2
+ 432              		.type	USBUART_1_MSOS_DESCRIPTOR, %object
+ 433              		.size	USBUART_1_MSOS_DESCRIPTOR, 18
+ 434              	USBUART_1_MSOS_DESCRIPTOR:
+ 435 01a4 12       		.byte	18
+ 436 01a5 03       		.byte	3
+ 437 01a6 4D       		.byte	77
+ 438 01a7 00       		.byte	0
+ 439 01a8 53       		.byte	83
+ 440 01a9 00       		.byte	0
+ 441 01aa 46       		.byte	70
+ 442 01ab 00       		.byte	0
+ 443 01ac 54       		.byte	84
+ 444 01ad 00       		.byte	0
+ 445 01ae 31       		.byte	49
+ 446 01af 00       		.byte	0
+ 447 01b0 30       		.byte	48
+ 448 01b1 00       		.byte	0
+ 449 01b2 30       		.byte	48
+ 450 01b3 00       		.byte	0
+ 451 01b4 01       		.byte	1
+ 452 01b5 00       		.byte	0
+ 453              		.global	USBUART_1_MSOS_CONFIGURATION_DESCR
+ 454 01b6 0000     		.align	2
+ 455              		.type	USBUART_1_MSOS_CONFIGURATION_DESCR, %object
+ 456              		.size	USBUART_1_MSOS_CONFIGURATION_DESCR, 40
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 9
+
+
+ 457              	USBUART_1_MSOS_CONFIGURATION_DESCR:
+ 458 01b8 28       		.byte	40
+ 459 01b9 00       		.byte	0
+ 460 01ba 00       		.byte	0
+ 461 01bb 00       		.byte	0
+ 462 01bc 00       		.byte	0
+ 463 01bd 01       		.byte	1
+ 464 01be 04       		.byte	4
+ 465 01bf 00       		.byte	0
+ 466 01c0 01       		.byte	1
+ 467 01c1 00       		.byte	0
+ 468 01c2 00       		.byte	0
+ 469 01c3 00       		.byte	0
+ 470 01c4 00       		.byte	0
+ 471 01c5 00       		.byte	0
+ 472 01c6 00       		.byte	0
+ 473 01c7 00       		.byte	0
+ 474 01c8 00       		.byte	0
+ 475 01c9 01       		.byte	1
+ 476 01ca 43       		.byte	67
+ 477 01cb 59       		.byte	89
+ 478 01cc 55       		.byte	85
+ 479 01cd 53       		.byte	83
+ 480 01ce 42       		.byte	66
+ 481 01cf 00       		.byte	0
+ 482 01d0 00       		.byte	0
+ 483 01d1 00       		.byte	0
+ 484 01d2 30       		.byte	48
+ 485 01d3 30       		.byte	48
+ 486 01d4 30       		.byte	48
+ 487 01d5 30       		.byte	48
+ 488 01d6 31       		.byte	49
+ 489 01d7 00       		.byte	0
+ 490 01d8 00       		.byte	0
+ 491 01d9 00       		.byte	0
+ 492 01da 00       		.byte	0
+ 493 01db 00       		.byte	0
+ 494 01dc 00       		.byte	0
+ 495 01dd 00       		.byte	0
+ 496 01de 00       		.byte	0
+ 497 01df 00       		.byte	0
+ 498              		.comm	USBUART_1_idSerialNumberStringDescriptor,34,4
+ 499              		.text
+ 500              	.Letext0:
+ 501              		.file 1 "Generated_Source\\PSoC5\\cytypes.h"
+ 502              		.file 2 "Generated_Source\\PSoC5\\USBUART_1.h"
+ 503              		.file 3 "Generated_Source\\PSoC5\\USBUART_1_descr.c"
+ 504              		.section	.debug_info,"",%progbits
+ 505              	.Ldebug_info0:
+ 506 0000 07030000 		.4byte	0x307
+ 507 0004 0400     		.2byte	0x4
+ 508 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 509 000a 04       		.byte	0x4
+ 510 000b 01       		.uleb128 0x1
+ 511 000c 1F000000 		.4byte	.LASF38
+ 512 0010 0C       		.byte	0xc
+ 513 0011 B4030000 		.4byte	.LASF39
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 10
+
+
+ 514 0015 04010000 		.4byte	.LASF40
+ 515 0019 00000000 		.4byte	.Ldebug_line0
+ 516 001d 02       		.uleb128 0x2
+ 517 001e 01       		.byte	0x1
+ 518 001f 06       		.byte	0x6
+ 519 0020 85030000 		.4byte	.LASF0
+ 520 0024 02       		.uleb128 0x2
+ 521 0025 01       		.byte	0x1
+ 522 0026 08       		.byte	0x8
+ 523 0027 D5010000 		.4byte	.LASF1
+ 524 002b 02       		.uleb128 0x2
+ 525 002c 02       		.byte	0x2
+ 526 002d 05       		.byte	0x5
+ 527 002e 3D020000 		.4byte	.LASF2
+ 528 0032 02       		.uleb128 0x2
+ 529 0033 02       		.byte	0x2
+ 530 0034 07       		.byte	0x7
+ 531 0035 5C010000 		.4byte	.LASF3
+ 532 0039 02       		.uleb128 0x2
+ 533 003a 04       		.byte	0x4
+ 534 003b 05       		.byte	0x5
+ 535 003c 53010000 		.4byte	.LASF4
+ 536 0040 02       		.uleb128 0x2
+ 537 0041 04       		.byte	0x4
+ 538 0042 07       		.byte	0x7
+ 539 0043 EE010000 		.4byte	.LASF5
+ 540 0047 02       		.uleb128 0x2
+ 541 0048 08       		.byte	0x8
+ 542 0049 05       		.byte	0x5
+ 543 004a B7020000 		.4byte	.LASF6
+ 544 004e 02       		.uleb128 0x2
+ 545 004f 08       		.byte	0x8
+ 546 0050 07       		.byte	0x7
+ 547 0051 78020000 		.4byte	.LASF7
+ 548 0055 03       		.uleb128 0x3
+ 549 0056 04       		.byte	0x4
+ 550 0057 05       		.byte	0x5
+ 551 0058 696E7400 		.ascii	"int\000"
+ 552 005c 02       		.uleb128 0x2
+ 553 005d 04       		.byte	0x4
+ 554 005e 07       		.byte	0x7
+ 555 005f 6B020000 		.4byte	.LASF8
+ 556 0063 04       		.uleb128 0x4
+ 557 0064 1C030000 		.4byte	.LASF9
+ 558 0068 01       		.byte	0x1
+ 559 0069 E401     		.2byte	0x1e4
+ 560 006b 24000000 		.4byte	0x24
+ 561 006f 04       		.uleb128 0x4
+ 562 0070 47020000 		.4byte	.LASF10
+ 563 0074 01       		.byte	0x1
+ 564 0075 E501     		.2byte	0x1e5
+ 565 0077 32000000 		.4byte	0x32
+ 566 007b 02       		.uleb128 0x2
+ 567 007c 04       		.byte	0x4
+ 568 007d 04       		.byte	0x4
+ 569 007e 9D010000 		.4byte	.LASF11
+ 570 0082 02       		.uleb128 0x2
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 11
+
+
+ 571 0083 08       		.byte	0x8
+ 572 0084 04       		.byte	0x4
+ 573 0085 36020000 		.4byte	.LASF12
+ 574 0089 02       		.uleb128 0x2
+ 575 008a 01       		.byte	0x1
+ 576 008b 08       		.byte	0x8
+ 577 008c C5020000 		.4byte	.LASF13
+ 578 0090 02       		.uleb128 0x2
+ 579 0091 08       		.byte	0x8
+ 580 0092 04       		.byte	0x4
+ 581 0093 79030000 		.4byte	.LASF14
+ 582 0097 02       		.uleb128 0x2
+ 583 0098 04       		.byte	0x4
+ 584 0099 07       		.byte	0x7
+ 585 009a AE020000 		.4byte	.LASF15
+ 586 009e 05       		.uleb128 0x5
+ 587 009f 08       		.byte	0x8
+ 588 00a0 02       		.byte	0x2
+ 589 00a1 9E       		.byte	0x9e
+ 590 00a2 EF000000 		.4byte	0xef
+ 591 00a6 06       		.uleb128 0x6
+ 592 00a7 22030000 		.4byte	.LASF16
+ 593 00ab 02       		.byte	0x2
+ 594 00ac A0       		.byte	0xa0
+ 595 00ad 63000000 		.4byte	0x63
+ 596 00b1 00       		.byte	0
+ 597 00b2 06       		.uleb128 0x6
+ 598 00b3 CA010000 		.4byte	.LASF17
+ 599 00b7 02       		.byte	0x2
+ 600 00b8 A1       		.byte	0xa1
+ 601 00b9 63000000 		.4byte	0x63
+ 602 00bd 01       		.byte	0x1
+ 603 00be 06       		.uleb128 0x6
+ 604 00bf 00020000 		.4byte	.LASF18
+ 605 00c3 02       		.byte	0x2
+ 606 00c4 A2       		.byte	0xa2
+ 607 00c5 63000000 		.4byte	0x63
+ 608 00c9 02       		.byte	0x2
+ 609 00ca 06       		.uleb128 0x6
+ 610 00cb E3010000 		.4byte	.LASF19
+ 611 00cf 02       		.byte	0x2
+ 612 00d0 A3       		.byte	0xa3
+ 613 00d1 63000000 		.4byte	0x63
+ 614 00d5 03       		.byte	0x3
+ 615 00d6 06       		.uleb128 0x6
+ 616 00d7 D0020000 		.4byte	.LASF20
+ 617 00db 02       		.byte	0x2
+ 618 00dc A4       		.byte	0xa4
+ 619 00dd 6F000000 		.4byte	0x6f
+ 620 00e1 04       		.byte	0x4
+ 621 00e2 06       		.uleb128 0x6
+ 622 00e3 CA020000 		.4byte	.LASF21
+ 623 00e7 02       		.byte	0x2
+ 624 00e8 A5       		.byte	0xa5
+ 625 00e9 63000000 		.4byte	0x63
+ 626 00ed 06       		.byte	0x6
+ 627 00ee 00       		.byte	0
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 12
+
+
+ 628 00ef 07       		.uleb128 0x7
+ 629 00f0 7F010000 		.4byte	.LASF22
+ 630 00f4 02       		.byte	0x2
+ 631 00f5 A6       		.byte	0xa6
+ 632 00f6 9E000000 		.4byte	0x9e
+ 633 00fa 05       		.uleb128 0x5
+ 634 00fb 08       		.byte	0x8
+ 635 00fc 02       		.byte	0x2
+ 636 00fd B5       		.byte	0xb5
+ 637 00fe 19010000 		.4byte	0x119
+ 638 0102 08       		.uleb128 0x8
+ 639 0103 6300     		.ascii	"c\000"
+ 640 0105 02       		.byte	0x2
+ 641 0106 B7       		.byte	0xb7
+ 642 0107 63000000 		.4byte	0x63
+ 643 010b 00       		.byte	0
+ 644 010c 06       		.uleb128 0x6
+ 645 010d A7020000 		.4byte	.LASF23
+ 646 0111 02       		.byte	0x2
+ 647 0112 B8       		.byte	0xb8
+ 648 0113 19010000 		.4byte	0x119
+ 649 0117 04       		.byte	0x4
+ 650 0118 00       		.byte	0
+ 651 0119 09       		.uleb128 0x9
+ 652 011a 04       		.byte	0x4
+ 653 011b 1F010000 		.4byte	0x11f
+ 654 011f 0A       		.uleb128 0xa
+ 655 0120 07       		.uleb128 0x7
+ 656 0121 6F010000 		.4byte	.LASF24
+ 657 0125 02       		.byte	0x2
+ 658 0126 B9       		.byte	0xb9
+ 659 0127 FA000000 		.4byte	0xfa
+ 660 012b 0B       		.uleb128 0xb
+ 661 012c 3B010000 		.4byte	0x13b
+ 662 0130 3B010000 		.4byte	0x13b
+ 663 0134 0C       		.uleb128 0xc
+ 664 0135 97000000 		.4byte	0x97
+ 665 0139 11       		.byte	0x11
+ 666 013a 00       		.byte	0
+ 667 013b 0D       		.uleb128 0xd
+ 668 013c 63000000 		.4byte	0x63
+ 669 0140 0E       		.uleb128 0xe
+ 670 0141 04030000 		.4byte	.LASF25
+ 671 0145 03       		.byte	0x3
+ 672 0146 24       		.byte	0x24
+ 673 0147 51010000 		.4byte	0x151
+ 674 014b 05       		.uleb128 0x5
+ 675 014c 03       		.byte	0x3
+ 676 014d 00000000 		.4byte	USBUART_1_DEVICE0_DESCR
+ 677 0151 0D       		.uleb128 0xd
+ 678 0152 2B010000 		.4byte	0x12b
+ 679 0156 0B       		.uleb128 0xb
+ 680 0157 3B010000 		.4byte	0x13b
+ 681 015b 66010000 		.4byte	0x166
+ 682 015f 0C       		.uleb128 0xc
+ 683 0160 97000000 		.4byte	0x97
+ 684 0164 42       		.byte	0x42
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 13
+
+
+ 685 0165 00       		.byte	0
+ 686 0166 0E       		.uleb128 0xe
+ 687 0167 A3010000 		.4byte	.LASF26
+ 688 016b 03       		.byte	0x3
+ 689 016c 37       		.byte	0x37
+ 690 016d 77010000 		.4byte	0x177
+ 691 0171 05       		.uleb128 0x5
+ 692 0172 03       		.byte	0x3
+ 693 0173 00000000 		.4byte	USBUART_1_DEVICE0_CONFIGURATION0_DESCR
+ 694 0177 0D       		.uleb128 0xd
+ 695 0178 56010000 		.4byte	0x156
+ 696 017c 0B       		.uleb128 0xb
+ 697 017d 8C010000 		.4byte	0x18c
+ 698 0181 8C010000 		.4byte	0x18c
+ 699 0185 0C       		.uleb128 0xc
+ 700 0186 97000000 		.4byte	0x97
+ 701 018a 02       		.byte	0x2
+ 702 018b 00       		.byte	0
+ 703 018c 0D       		.uleb128 0xd
+ 704 018d EF000000 		.4byte	0xef
+ 705 0191 0E       		.uleb128 0xe
+ 706 0192 2C030000 		.4byte	.LASF27
+ 707 0196 03       		.byte	0x3
+ 708 0197 FC       		.byte	0xfc
+ 709 0198 A2010000 		.4byte	0x1a2
+ 710 019c 05       		.uleb128 0x5
+ 711 019d 03       		.byte	0x3
+ 712 019e 00000000 		.4byte	USBUART_1_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE
+ 713 01a2 0D       		.uleb128 0xd
+ 714 01a3 7C010000 		.4byte	0x17c
+ 715 01a7 0B       		.uleb128 0xb
+ 716 01a8 3B010000 		.4byte	0x13b
+ 717 01ac B7010000 		.4byte	0x1b7
+ 718 01b0 0C       		.uleb128 0xc
+ 719 01b1 97000000 		.4byte	0x97
+ 720 01b5 01       		.byte	0x1
+ 721 01b6 00       		.byte	0
+ 722 01b7 0F       		.uleb128 0xf
+ 723 01b8 05020000 		.4byte	.LASF28
+ 724 01bc 03       		.byte	0x3
+ 725 01bd 0201     		.2byte	0x102
+ 726 01bf C9010000 		.4byte	0x1c9
+ 727 01c3 05       		.uleb128 0x5
+ 728 01c4 03       		.byte	0x3
+ 729 01c5 00000000 		.4byte	USBUART_1_DEVICE0_CONFIGURATION0_INTERFACE_CLASS
+ 730 01c9 0D       		.uleb128 0xd
+ 731 01ca A7010000 		.4byte	0x1a7
+ 732 01ce 0B       		.uleb128 0xb
+ 733 01cf DE010000 		.4byte	0x1de
+ 734 01d3 DE010000 		.4byte	0x1de
+ 735 01d7 0C       		.uleb128 0xc
+ 736 01d8 97000000 		.4byte	0x97
+ 737 01dc 04       		.byte	0x4
+ 738 01dd 00       		.byte	0
+ 739 01de 0D       		.uleb128 0xd
+ 740 01df 20010000 		.4byte	0x120
+ 741 01e3 0F       		.uleb128 0xf
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 14
+
+
+ 742 01e4 DD000000 		.4byte	.LASF29
+ 743 01e8 03       		.byte	0x3
+ 744 01e9 0A01     		.2byte	0x10a
+ 745 01eb F5010000 		.4byte	0x1f5
+ 746 01ef 05       		.uleb128 0x5
+ 747 01f0 03       		.byte	0x3
+ 748 01f1 00000000 		.4byte	USBUART_1_DEVICE0_CONFIGURATION0_TABLE
+ 749 01f5 0D       		.uleb128 0xd
+ 750 01f6 CE010000 		.4byte	0x1ce
+ 751 01fa 0B       		.uleb128 0xb
+ 752 01fb DE010000 		.4byte	0x1de
+ 753 01ff 0A020000 		.4byte	0x20a
+ 754 0203 0C       		.uleb128 0xc
+ 755 0204 97000000 		.4byte	0x97
+ 756 0208 02       		.byte	0x2
+ 757 0209 00       		.byte	0
+ 758 020a 0F       		.uleb128 0xf
+ 759 020b 8F020000 		.4byte	.LASF30
+ 760 020f 03       		.byte	0x3
+ 761 0210 1501     		.2byte	0x115
+ 762 0212 1C020000 		.4byte	0x21c
+ 763 0216 05       		.uleb128 0x5
+ 764 0217 03       		.byte	0x3
+ 765 0218 00000000 		.4byte	USBUART_1_DEVICE0_TABLE
+ 766 021c 0D       		.uleb128 0xd
+ 767 021d FA010000 		.4byte	0x1fa
+ 768 0221 0B       		.uleb128 0xb
+ 769 0222 DE010000 		.4byte	0x1de
+ 770 0226 31020000 		.4byte	0x231
+ 771 022a 0C       		.uleb128 0xc
+ 772 022b 97000000 		.4byte	0x97
+ 773 022f 00       		.byte	0
+ 774 0230 00       		.byte	0
+ 775 0231 0F       		.uleb128 0xf
+ 776 0232 CD000000 		.4byte	.LASF31
+ 777 0236 03       		.byte	0x3
+ 778 0237 1D01     		.2byte	0x11d
+ 779 0239 43020000 		.4byte	0x243
+ 780 023d 05       		.uleb128 0x5
+ 781 023e 03       		.byte	0x3
+ 782 023f 00000000 		.4byte	USBUART_1_TABLE
+ 783 0243 0D       		.uleb128 0xd
+ 784 0244 21020000 		.4byte	0x221
+ 785 0248 0E       		.uleb128 0xe
+ 786 0249 00000000 		.4byte	.LASF32
+ 787 024d 03       		.byte	0x3
+ 788 024e CA       		.byte	0xca
+ 789 024f 59020000 		.4byte	0x259
+ 790 0253 05       		.uleb128 0x5
+ 791 0254 03       		.byte	0x3
+ 792 0255 00000000 		.4byte	USBUART_1_SN_STRING_DESCRIPTOR
+ 793 0259 0D       		.uleb128 0xd
+ 794 025a A7010000 		.4byte	0x1a7
+ 795 025e 0B       		.uleb128 0xb
+ 796 025f 3B010000 		.4byte	0x13b
+ 797 0263 6E020000 		.4byte	0x26e
+ 798 0267 0C       		.uleb128 0xc
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 15
+
+
+ 799 0268 97000000 		.4byte	0x97
+ 800 026c A8       		.byte	0xa8
+ 801 026d 00       		.byte	0
+ 802 026e 0E       		.uleb128 0xe
+ 803 026f 4E020000 		.4byte	.LASF33
+ 804 0273 03       		.byte	0x3
+ 805 0274 96       		.byte	0x96
+ 806 0275 7F020000 		.4byte	0x27f
+ 807 0279 05       		.uleb128 0x5
+ 808 027a 03       		.byte	0x3
+ 809 027b 00000000 		.4byte	USBUART_1_STRING_DESCRIPTORS
+ 810 027f 0D       		.uleb128 0xd
+ 811 0280 5E020000 		.4byte	0x25e
+ 812 0284 0B       		.uleb128 0xb
+ 813 0285 3B010000 		.4byte	0x13b
+ 814 0289 94020000 		.4byte	0x294
+ 815 028d 0C       		.uleb128 0xc
+ 816 028e 97000000 		.4byte	0x97
+ 817 0292 35       		.byte	0x35
+ 818 0293 00       		.byte	0
+ 819 0294 0E       		.uleb128 0xe
+ 820 0295 AD000000 		.4byte	.LASF34
+ 821 0299 03       		.byte	0x3
+ 822 029a D3       		.byte	0xd3
+ 823 029b A5020000 		.4byte	0x2a5
+ 824 029f 05       		.uleb128 0x5
+ 825 02a0 03       		.byte	0x3
+ 826 02a1 00000000 		.4byte	USBUART_1_HIDREPORT_DESCRIPTOR1
+ 827 02a5 0D       		.uleb128 0xd
+ 828 02a6 84020000 		.4byte	0x284
+ 829 02aa 0F       		.uleb128 0xf
+ 830 02ab 5F030000 		.4byte	.LASF35
+ 831 02af 03       		.byte	0x3
+ 832 02b0 2D01     		.2byte	0x12d
+ 833 02b2 BC020000 		.4byte	0x2bc
+ 834 02b6 05       		.uleb128 0x5
+ 835 02b7 03       		.byte	0x3
+ 836 02b8 00000000 		.4byte	USBUART_1_MSOS_DESCRIPTOR
+ 837 02bc 0D       		.uleb128 0xd
+ 838 02bd 2B010000 		.4byte	0x12b
+ 839 02c1 0B       		.uleb128 0xb
+ 840 02c2 3B010000 		.4byte	0x13b
+ 841 02c6 D1020000 		.4byte	0x2d1
+ 842 02ca 0C       		.uleb128 0xc
+ 843 02cb 97000000 		.4byte	0x97
+ 844 02cf 27       		.byte	0x27
+ 845 02d0 00       		.byte	0
+ 846 02d1 0F       		.uleb128 0xf
+ 847 02d2 91030000 		.4byte	.LASF36
+ 848 02d6 03       		.byte	0x3
+ 849 02d7 3801     		.2byte	0x138
+ 850 02d9 E3020000 		.4byte	0x2e3
+ 851 02dd 05       		.uleb128 0x5
+ 852 02de 03       		.byte	0x3
+ 853 02df 00000000 		.4byte	USBUART_1_MSOS_CONFIGURATION_DESCR
+ 854 02e3 0D       		.uleb128 0xd
+ 855 02e4 C1020000 		.4byte	0x2c1
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 16
+
+
+ 856 02e8 0B       		.uleb128 0xb
+ 857 02e9 63000000 		.4byte	0x63
+ 858 02ed F8020000 		.4byte	0x2f8
+ 859 02f1 0C       		.uleb128 0xc
+ 860 02f2 97000000 		.4byte	0x97
+ 861 02f6 21       		.byte	0x21
+ 862 02f7 00       		.byte	0
+ 863 02f8 0F       		.uleb128 0xf
+ 864 02f9 DB020000 		.4byte	.LASF37
+ 865 02fd 03       		.byte	0x3
+ 866 02fe 4B01     		.2byte	0x14b
+ 867 0300 E8020000 		.4byte	0x2e8
+ 868 0304 05       		.uleb128 0x5
+ 869 0305 03       		.byte	0x3
+ 870 0306 00000000 		.4byte	USBUART_1_idSerialNumberStringDescriptor
+ 871 030a 00       		.byte	0
+ 872              		.section	.debug_abbrev,"",%progbits
+ 873              	.Ldebug_abbrev0:
+ 874 0000 01       		.uleb128 0x1
+ 875 0001 11       		.uleb128 0x11
+ 876 0002 01       		.byte	0x1
+ 877 0003 25       		.uleb128 0x25
+ 878 0004 0E       		.uleb128 0xe
+ 879 0005 13       		.uleb128 0x13
+ 880 0006 0B       		.uleb128 0xb
+ 881 0007 03       		.uleb128 0x3
+ 882 0008 0E       		.uleb128 0xe
+ 883 0009 1B       		.uleb128 0x1b
+ 884 000a 0E       		.uleb128 0xe
+ 885 000b 10       		.uleb128 0x10
+ 886 000c 17       		.uleb128 0x17
+ 887 000d 00       		.byte	0
+ 888 000e 00       		.byte	0
+ 889 000f 02       		.uleb128 0x2
+ 890 0010 24       		.uleb128 0x24
+ 891 0011 00       		.byte	0
+ 892 0012 0B       		.uleb128 0xb
+ 893 0013 0B       		.uleb128 0xb
+ 894 0014 3E       		.uleb128 0x3e
+ 895 0015 0B       		.uleb128 0xb
+ 896 0016 03       		.uleb128 0x3
+ 897 0017 0E       		.uleb128 0xe
+ 898 0018 00       		.byte	0
+ 899 0019 00       		.byte	0
+ 900 001a 03       		.uleb128 0x3
+ 901 001b 24       		.uleb128 0x24
+ 902 001c 00       		.byte	0
+ 903 001d 0B       		.uleb128 0xb
+ 904 001e 0B       		.uleb128 0xb
+ 905 001f 3E       		.uleb128 0x3e
+ 906 0020 0B       		.uleb128 0xb
+ 907 0021 03       		.uleb128 0x3
+ 908 0022 08       		.uleb128 0x8
+ 909 0023 00       		.byte	0
+ 910 0024 00       		.byte	0
+ 911 0025 04       		.uleb128 0x4
+ 912 0026 16       		.uleb128 0x16
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 17
+
+
+ 913 0027 00       		.byte	0
+ 914 0028 03       		.uleb128 0x3
+ 915 0029 0E       		.uleb128 0xe
+ 916 002a 3A       		.uleb128 0x3a
+ 917 002b 0B       		.uleb128 0xb
+ 918 002c 3B       		.uleb128 0x3b
+ 919 002d 05       		.uleb128 0x5
+ 920 002e 49       		.uleb128 0x49
+ 921 002f 13       		.uleb128 0x13
+ 922 0030 00       		.byte	0
+ 923 0031 00       		.byte	0
+ 924 0032 05       		.uleb128 0x5
+ 925 0033 13       		.uleb128 0x13
+ 926 0034 01       		.byte	0x1
+ 927 0035 0B       		.uleb128 0xb
+ 928 0036 0B       		.uleb128 0xb
+ 929 0037 3A       		.uleb128 0x3a
+ 930 0038 0B       		.uleb128 0xb
+ 931 0039 3B       		.uleb128 0x3b
+ 932 003a 0B       		.uleb128 0xb
+ 933 003b 01       		.uleb128 0x1
+ 934 003c 13       		.uleb128 0x13
+ 935 003d 00       		.byte	0
+ 936 003e 00       		.byte	0
+ 937 003f 06       		.uleb128 0x6
+ 938 0040 0D       		.uleb128 0xd
+ 939 0041 00       		.byte	0
+ 940 0042 03       		.uleb128 0x3
+ 941 0043 0E       		.uleb128 0xe
+ 942 0044 3A       		.uleb128 0x3a
+ 943 0045 0B       		.uleb128 0xb
+ 944 0046 3B       		.uleb128 0x3b
+ 945 0047 0B       		.uleb128 0xb
+ 946 0048 49       		.uleb128 0x49
+ 947 0049 13       		.uleb128 0x13
+ 948 004a 38       		.uleb128 0x38
+ 949 004b 0B       		.uleb128 0xb
+ 950 004c 00       		.byte	0
+ 951 004d 00       		.byte	0
+ 952 004e 07       		.uleb128 0x7
+ 953 004f 16       		.uleb128 0x16
+ 954 0050 00       		.byte	0
+ 955 0051 03       		.uleb128 0x3
+ 956 0052 0E       		.uleb128 0xe
+ 957 0053 3A       		.uleb128 0x3a
+ 958 0054 0B       		.uleb128 0xb
+ 959 0055 3B       		.uleb128 0x3b
+ 960 0056 0B       		.uleb128 0xb
+ 961 0057 49       		.uleb128 0x49
+ 962 0058 13       		.uleb128 0x13
+ 963 0059 00       		.byte	0
+ 964 005a 00       		.byte	0
+ 965 005b 08       		.uleb128 0x8
+ 966 005c 0D       		.uleb128 0xd
+ 967 005d 00       		.byte	0
+ 968 005e 03       		.uleb128 0x3
+ 969 005f 08       		.uleb128 0x8
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 18
+
+
+ 970 0060 3A       		.uleb128 0x3a
+ 971 0061 0B       		.uleb128 0xb
+ 972 0062 3B       		.uleb128 0x3b
+ 973 0063 0B       		.uleb128 0xb
+ 974 0064 49       		.uleb128 0x49
+ 975 0065 13       		.uleb128 0x13
+ 976 0066 38       		.uleb128 0x38
+ 977 0067 0B       		.uleb128 0xb
+ 978 0068 00       		.byte	0
+ 979 0069 00       		.byte	0
+ 980 006a 09       		.uleb128 0x9
+ 981 006b 0F       		.uleb128 0xf
+ 982 006c 00       		.byte	0
+ 983 006d 0B       		.uleb128 0xb
+ 984 006e 0B       		.uleb128 0xb
+ 985 006f 49       		.uleb128 0x49
+ 986 0070 13       		.uleb128 0x13
+ 987 0071 00       		.byte	0
+ 988 0072 00       		.byte	0
+ 989 0073 0A       		.uleb128 0xa
+ 990 0074 26       		.uleb128 0x26
+ 991 0075 00       		.byte	0
+ 992 0076 00       		.byte	0
+ 993 0077 00       		.byte	0
+ 994 0078 0B       		.uleb128 0xb
+ 995 0079 01       		.uleb128 0x1
+ 996 007a 01       		.byte	0x1
+ 997 007b 49       		.uleb128 0x49
+ 998 007c 13       		.uleb128 0x13
+ 999 007d 01       		.uleb128 0x1
+ 1000 007e 13       		.uleb128 0x13
+ 1001 007f 00       		.byte	0
+ 1002 0080 00       		.byte	0
+ 1003 0081 0C       		.uleb128 0xc
+ 1004 0082 21       		.uleb128 0x21
+ 1005 0083 00       		.byte	0
+ 1006 0084 49       		.uleb128 0x49
+ 1007 0085 13       		.uleb128 0x13
+ 1008 0086 2F       		.uleb128 0x2f
+ 1009 0087 0B       		.uleb128 0xb
+ 1010 0088 00       		.byte	0
+ 1011 0089 00       		.byte	0
+ 1012 008a 0D       		.uleb128 0xd
+ 1013 008b 26       		.uleb128 0x26
+ 1014 008c 00       		.byte	0
+ 1015 008d 49       		.uleb128 0x49
+ 1016 008e 13       		.uleb128 0x13
+ 1017 008f 00       		.byte	0
+ 1018 0090 00       		.byte	0
+ 1019 0091 0E       		.uleb128 0xe
+ 1020 0092 34       		.uleb128 0x34
+ 1021 0093 00       		.byte	0
+ 1022 0094 03       		.uleb128 0x3
+ 1023 0095 0E       		.uleb128 0xe
+ 1024 0096 3A       		.uleb128 0x3a
+ 1025 0097 0B       		.uleb128 0xb
+ 1026 0098 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 19
+
+
+ 1027 0099 0B       		.uleb128 0xb
+ 1028 009a 49       		.uleb128 0x49
+ 1029 009b 13       		.uleb128 0x13
+ 1030 009c 3F       		.uleb128 0x3f
+ 1031 009d 19       		.uleb128 0x19
+ 1032 009e 02       		.uleb128 0x2
+ 1033 009f 18       		.uleb128 0x18
+ 1034 00a0 00       		.byte	0
+ 1035 00a1 00       		.byte	0
+ 1036 00a2 0F       		.uleb128 0xf
+ 1037 00a3 34       		.uleb128 0x34
+ 1038 00a4 00       		.byte	0
+ 1039 00a5 03       		.uleb128 0x3
+ 1040 00a6 0E       		.uleb128 0xe
+ 1041 00a7 3A       		.uleb128 0x3a
+ 1042 00a8 0B       		.uleb128 0xb
+ 1043 00a9 3B       		.uleb128 0x3b
+ 1044 00aa 05       		.uleb128 0x5
+ 1045 00ab 49       		.uleb128 0x49
+ 1046 00ac 13       		.uleb128 0x13
+ 1047 00ad 3F       		.uleb128 0x3f
+ 1048 00ae 19       		.uleb128 0x19
+ 1049 00af 02       		.uleb128 0x2
+ 1050 00b0 18       		.uleb128 0x18
+ 1051 00b1 00       		.byte	0
+ 1052 00b2 00       		.byte	0
+ 1053 00b3 00       		.byte	0
+ 1054              		.section	.debug_aranges,"",%progbits
+ 1055 0000 14000000 		.4byte	0x14
+ 1056 0004 0200     		.2byte	0x2
+ 1057 0006 00000000 		.4byte	.Ldebug_info0
+ 1058 000a 04       		.byte	0x4
+ 1059 000b 00       		.byte	0
+ 1060 000c 0000     		.2byte	0
+ 1061 000e 0000     		.2byte	0
+ 1062 0010 00000000 		.4byte	0
+ 1063 0014 00000000 		.4byte	0
+ 1064              		.section	.debug_line,"",%progbits
+ 1065              	.Ldebug_line0:
+ 1066 0000 61000000 		.section	.debug_str,"MS",%progbits,1
+ 1066      02005B00 
+ 1066      00000201 
+ 1066      FB0E0D00 
+ 1066      01010101 
+ 1067              	.LASF32:
+ 1068 0000 55534255 		.ascii	"USBUART_1_SN_STRING_DESCRIPTOR\000"
+ 1068      4152545F 
+ 1068      315F534E 
+ 1068      5F535452 
+ 1068      494E475F 
+ 1069              	.LASF38:
+ 1070 001f 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1070      43313120 
+ 1070      352E342E 
+ 1070      31203230 
+ 1070      31363036 
+ 1071 0052 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 20
+
+
+ 1071      20726576 
+ 1071      6973696F 
+ 1071      6E203233 
+ 1071      37373135 
+ 1072 0085 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1072      66756E63 
+ 1072      74696F6E 
+ 1072      2D736563 
+ 1072      74696F6E 
+ 1073              	.LASF34:
+ 1074 00ad 55534255 		.ascii	"USBUART_1_HIDREPORT_DESCRIPTOR1\000"
+ 1074      4152545F 
+ 1074      315F4849 
+ 1074      44524550 
+ 1074      4F52545F 
+ 1075              	.LASF31:
+ 1076 00cd 55534255 		.ascii	"USBUART_1_TABLE\000"
+ 1076      4152545F 
+ 1076      315F5441 
+ 1076      424C4500 
+ 1077              	.LASF29:
+ 1078 00dd 55534255 		.ascii	"USBUART_1_DEVICE0_CONFIGURATION0_TABLE\000"
+ 1078      4152545F 
+ 1078      315F4445 
+ 1078      56494345 
+ 1078      305F434F 
+ 1079              	.LASF40:
+ 1080 0104 433A5C55 		.ascii	"C:\\Users\\bryan.lee\\Documents\\GitHub\\hello-worl"
+ 1080      73657273 
+ 1080      5C627279 
+ 1080      616E2E6C 
+ 1080      65655C44 
+ 1081 0132 645C4379 		.ascii	"d\\Cypress\\USB\\SAR_SPIM_USB.cydsn\000"
+ 1081      70726573 
+ 1081      735C5553 
+ 1081      425C5341 
+ 1081      525F5350 
+ 1082              	.LASF4:
+ 1083 0153 6C6F6E67 		.ascii	"long int\000"
+ 1083      20696E74 
+ 1083      00
+ 1084              	.LASF3:
+ 1085 015c 73686F72 		.ascii	"short unsigned int\000"
+ 1085      7420756E 
+ 1085      7369676E 
+ 1085      65642069 
+ 1085      6E7400
+ 1086              	.LASF24:
+ 1087 016f 545F5553 		.ascii	"T_USBUART_1_LUT\000"
+ 1087      42554152 
+ 1087      545F315F 
+ 1087      4C555400 
+ 1088              	.LASF22:
+ 1089 017f 545F5553 		.ascii	"T_USBUART_1_EP_SETTINGS_BLOCK\000"
+ 1089      42554152 
+ 1089      545F315F 
+ 1089      45505F53 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 21
+
+
+ 1089      45545449 
+ 1090              	.LASF11:
+ 1091 019d 666C6F61 		.ascii	"float\000"
+ 1091      7400
+ 1092              	.LASF26:
+ 1093 01a3 55534255 		.ascii	"USBUART_1_DEVICE0_CONFIGURATION0_DESCR\000"
+ 1093      4152545F 
+ 1093      315F4445 
+ 1093      56494345 
+ 1093      305F434F 
+ 1094              	.LASF17:
+ 1095 01ca 616C7453 		.ascii	"altSetting\000"
+ 1095      65747469 
+ 1095      6E6700
+ 1096              	.LASF1:
+ 1097 01d5 756E7369 		.ascii	"unsigned char\000"
+ 1097      676E6564 
+ 1097      20636861 
+ 1097      7200
+ 1098              	.LASF19:
+ 1099 01e3 61747472 		.ascii	"attributes\000"
+ 1099      69627574 
+ 1099      657300
+ 1100              	.LASF5:
+ 1101 01ee 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1101      20756E73 
+ 1101      69676E65 
+ 1101      6420696E 
+ 1101      7400
+ 1102              	.LASF18:
+ 1103 0200 61646472 		.ascii	"addr\000"
+ 1103      00
+ 1104              	.LASF28:
+ 1105 0205 55534255 		.ascii	"USBUART_1_DEVICE0_CONFIGURATION0_INTERFACE_CLASS\000"
+ 1105      4152545F 
+ 1105      315F4445 
+ 1105      56494345 
+ 1105      305F434F 
+ 1106              	.LASF12:
+ 1107 0236 646F7562 		.ascii	"double\000"
+ 1107      6C6500
+ 1108              	.LASF2:
+ 1109 023d 73686F72 		.ascii	"short int\000"
+ 1109      7420696E 
+ 1109      7400
+ 1110              	.LASF10:
+ 1111 0247 75696E74 		.ascii	"uint16\000"
+ 1111      313600
+ 1112              	.LASF33:
+ 1113 024e 55534255 		.ascii	"USBUART_1_STRING_DESCRIPTORS\000"
+ 1113      4152545F 
+ 1113      315F5354 
+ 1113      52494E47 
+ 1113      5F444553 
+ 1114              	.LASF8:
+ 1115 026b 756E7369 		.ascii	"unsigned int\000"
+ 1115      676E6564 
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 22
+
+
+ 1115      20696E74 
+ 1115      00
+ 1116              	.LASF7:
+ 1117 0278 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1117      206C6F6E 
+ 1117      6720756E 
+ 1117      7369676E 
+ 1117      65642069 
+ 1118              	.LASF30:
+ 1119 028f 55534255 		.ascii	"USBUART_1_DEVICE0_TABLE\000"
+ 1119      4152545F 
+ 1119      315F4445 
+ 1119      56494345 
+ 1119      305F5441 
+ 1120              	.LASF23:
+ 1121 02a7 705F6C69 		.ascii	"p_list\000"
+ 1121      737400
+ 1122              	.LASF15:
+ 1123 02ae 73697A65 		.ascii	"sizetype\000"
+ 1123      74797065 
+ 1123      00
+ 1124              	.LASF6:
+ 1125 02b7 6C6F6E67 		.ascii	"long long int\000"
+ 1125      206C6F6E 
+ 1125      6720696E 
+ 1125      7400
+ 1126              	.LASF13:
+ 1127 02c5 63686172 		.ascii	"char\000"
+ 1127      00
+ 1128              	.LASF21:
+ 1129 02ca 624D6973 		.ascii	"bMisc\000"
+ 1129      6300
+ 1130              	.LASF20:
+ 1131 02d0 62756666 		.ascii	"bufferSize\000"
+ 1131      65725369 
+ 1131      7A6500
+ 1132              	.LASF37:
+ 1133 02db 55534255 		.ascii	"USBUART_1_idSerialNumberStringDescriptor\000"
+ 1133      4152545F 
+ 1133      315F6964 
+ 1133      53657269 
+ 1133      616C4E75 
+ 1134              	.LASF25:
+ 1135 0304 55534255 		.ascii	"USBUART_1_DEVICE0_DESCR\000"
+ 1135      4152545F 
+ 1135      315F4445 
+ 1135      56494345 
+ 1135      305F4445 
+ 1136              	.LASF9:
+ 1137 031c 75696E74 		.ascii	"uint8\000"
+ 1137      3800
+ 1138              	.LASF16:
+ 1139 0322 696E7465 		.ascii	"interface\000"
+ 1139      72666163 
+ 1139      6500
+ 1140              	.LASF27:
+ 1141 032c 55534255 		.ascii	"USBUART_1_DEVICE0_CONFIGURATION0_EP_SETTINGS_TABLE\000"
+ARM GAS  C:\Users\bryan.lee\AppData\Local\Temp\cckduDfE.s 			page 23
+
+
+ 1141      4152545F 
+ 1141      315F4445 
+ 1141      56494345 
+ 1141      305F434F 
+ 1142              	.LASF35:
+ 1143 035f 55534255 		.ascii	"USBUART_1_MSOS_DESCRIPTOR\000"
+ 1143      4152545F 
+ 1143      315F4D53 
+ 1143      4F535F44 
+ 1143      45534352 
+ 1144              	.LASF14:
+ 1145 0379 6C6F6E67 		.ascii	"long double\000"
+ 1145      20646F75 
+ 1145      626C6500 
+ 1146              	.LASF0:
+ 1147 0385 7369676E 		.ascii	"signed char\000"
+ 1147      65642063 
+ 1147      68617200 
+ 1148              	.LASF36:
+ 1149 0391 55534255 		.ascii	"USBUART_1_MSOS_CONFIGURATION_DESCR\000"
+ 1149      4152545F 
+ 1149      315F4D53 
+ 1149      4F535F43 
+ 1149      4F4E4649 
+ 1150              	.LASF39:
+ 1151 03b4 47656E65 		.ascii	"Generated_Source\\PSoC5\\USBUART_1_descr.c\000"
+ 1151      72617465 
+ 1151      645F536F 
+ 1151      75726365 
+ 1151      5C50536F 
+ 1152              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

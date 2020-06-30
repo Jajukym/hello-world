@@ -1,0 +1,3333 @@
+##################################################################### 
+                    Table of Contents
+===================================================================== 
+	1::Clock Frequency Summary
+	2::Clock Relationship Summary
+	3::Datasheet Report
+		3.1::Setup to Clock
+		3.2::Clock to Out
+		3.3::Pad to Pad
+	4::Path Details for Clock Frequency Summary
+		4.1::Critical Path Report for Clock
+	5::Path Details for Clock Relationship Summary
+		5.1::Critical Path Report for (Clock:R vs. Clock:R)
+===================================================================== 
+                    End of Table of Contents
+##################################################################### 
+
+##################################################################### 
+                    1::Clock Frequency Summary
+===================================================================== 
+Number of clocks: 11
+Clock: ADC_SAR_0_theACLK                  | N/A                   | Target: 1.83 MHz   | 
+Clock: ADC_SAR_0_theACLK(fixed-function)  | N/A                   | Target: 1.83 MHz   | 
+Clock: ADC_SAR_1_theACLK                  | N/A                   | Target: 1.83 MHz   | 
+Clock: ADC_SAR_1_theACLK(fixed-function)  | N/A                   | Target: 1.83 MHz   | 
+Clock: Clock                              | Frequency: 69.12 MHz  | Target: 1.00 MHz   | 
+Clock: CyBUS_CLK                          | N/A                   | Target: 33.00 MHz  | 
+Clock: CyILO                              | N/A                   | Target: 0.10 MHz   | 
+Clock: CyIMO                              | N/A                   | Target: 24.00 MHz  | 
+Clock: CyMASTER_CLK                       | N/A                   | Target: 33.00 MHz  | 
+Clock: CyPLL_OUT                          | N/A                   | Target: 33.00 MHz  | 
+Clock: CyXTAL                             | N/A                   | Target: 24.00 MHz  | 
+
+ =====================================================================
+                    End of Clock Frequency Summary
+ #####################################################################
+
+
+ #####################################################################
+                    2::Clock Relationship Summary
+ =====================================================================
+
+Launch Clock  Capture Clock  Constraint(R-R)  Slack(R-R)  Constraint(R-F)  Slack(R-F)  Constraint(F-F)  Slack(F-F)  Constraint(F-R)  Slack(F-R)  
+------------  -------------  ---------------  ----------  ---------------  ----------  ---------------  ----------  ---------------  ----------  
+Clock         Clock          1e+006           985533      N/A              N/A         N/A              N/A         N/A              N/A         
+
+ =====================================================================
+                    End of Clock Relationship Summary
+ #####################################################################
+
+
+ #####################################################################
+                    3::Datasheet Report
+
+All values are in Picoseconds
+ =====================================================================
+
+3.1::Setup to Clock                     
+-------------------                     
+
+Port Name    Setup to Clk  Clock Name:Phase  
+-----------  ------------  ----------------  
+MISO(0)_PAD  18178         Clock:R           
+
+
+                       3.2::Clock to Out
+                       -----------------
+
+Port Name    Clock to Out  Clock Name:Phase  
+-----------  ------------  ----------------  
+MOSI(0)_PAD  23717         Clock:R           
+SCLK(0)_PAD  22698         Clock:R           
+SS(0)_PAD    24123         Clock:R           
+
+
+                         3.3::Pad to Pad
+                         ---------------
+
+Port Name (Source)  Port Name (Destination)  Delay  
+------------------  -----------------------  -----  
+
+===================================================================== 
+                    End of Datasheet Report
+##################################################################### 
+##################################################################### 
+                    4::Path Details for Clock Frequency Summary
+===================================================================== 
+4.1::Critical Path Report for Clock
+***********************************
+Clock: Clock
+Frequency: 69.12 MHz | Target: 1.00 MHz
+
+++++ Path 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_2
+Path End       : \SPIM:BSPIM:sR16:Dp:u0\/f1_load
+Capture Clock  : \SPIM:BSPIM:sR16:Dp:u0\/clock
+Path slack     : 985533p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -2850
+----------------------------------------   ------- 
+End-of-path required time (ps)              997150
+
+Launch Clock Arrival Time                       0
++ Clock path delay                          0
++ Data path delay                       11617
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           11617
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                          model name     delay     AT   slack  edge  Fanout
+--------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_2   count7cell      1940   1940  985533  RISE       1
+\SPIM:BSPIM:load_rx_data\/main_2  macrocell1      3353   5293  985533  RISE       1
+\SPIM:BSPIM:load_rx_data\/q       macrocell1      3350   8643  985533  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/f1_load   datapathcell1   2974  11617  985533  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/clock                              datapathcell1       0      0  RISE       1
+
+
+
+===================================================================== 
+                    End of Path Details for Clock Frequency Summary
+##################################################################### 
+
+
+##################################################################### 
+                    5::Path Details for Clock Relationship Summary
+===================================================================== 
+
+5.1::Critical Path Report for (Clock:R vs. Clock:R)
+***************************************************
+
+++++ Path 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_2
+Path End       : \SPIM:BSPIM:sR16:Dp:u0\/f1_load
+Capture Clock  : \SPIM:BSPIM:sR16:Dp:u0\/clock
+Path slack     : 985533p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -2850
+----------------------------------------   ------- 
+End-of-path required time (ps)              997150
+
+Launch Clock Arrival Time                       0
++ Clock path delay                          0
++ Data path delay                       11617
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           11617
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                          model name     delay     AT   slack  edge  Fanout
+--------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_2   count7cell      1940   1940  985533  RISE       1
+\SPIM:BSPIM:load_rx_data\/main_2  macrocell1      3353   5293  985533  RISE       1
+\SPIM:BSPIM:load_rx_data\/q       macrocell1      3350   8643  985533  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/f1_load   datapathcell1   2974  11617  985533  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/clock                              datapathcell1       0      0  RISE       1
+
+
+
+===================================================================== 
+                    End of Path Details for Clock Relationship Summary
+##################################################################### 
+
+##################################################################### 
+                    Detailed Report for all timing paths 
+===================================================================== 
+
+++++ Path 1 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_2
+Path End       : \SPIM:BSPIM:sR16:Dp:u0\/f1_load
+Capture Clock  : \SPIM:BSPIM:sR16:Dp:u0\/clock
+Path slack     : 985533p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -2850
+----------------------------------------   ------- 
+End-of-path required time (ps)              997150
+
+Launch Clock Arrival Time                       0
++ Clock path delay                          0
++ Data path delay                       11617
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           11617
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                          model name     delay     AT   slack  edge  Fanout
+--------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_2   count7cell      1940   1940  985533  RISE       1
+\SPIM:BSPIM:load_rx_data\/main_2  macrocell1      3353   5293  985533  RISE       1
+\SPIM:BSPIM:load_rx_data\/q       macrocell1      3350   8643  985533  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/f1_load   datapathcell1   2974  11617  985533  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/clock                              datapathcell1       0      0  RISE       1
+
+
+
+++++ Path 2 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_2
+Path End       : \SPIM:BSPIM:sR16:Dp:u1\/f1_load
+Capture Clock  : \SPIM:BSPIM:sR16:Dp:u1\/clock
+Path slack     : 985652p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -2850
+----------------------------------------   ------- 
+End-of-path required time (ps)              997150
+
+Launch Clock Arrival Time                       0
++ Clock path delay                          0
++ Data path delay                       11498
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           11498
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                          model name     delay     AT   slack  edge  Fanout
+--------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_2   count7cell      1940   1940  985533  RISE       1
+\SPIM:BSPIM:load_rx_data\/main_2  macrocell1      3353   5293  985533  RISE       1
+\SPIM:BSPIM:load_rx_data\/q       macrocell1      3350   8643  985533  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/f1_load   datapathcell2   2855  11498  985652  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/clock                              datapathcell2       0      0  RISE       1
+
+
+
+++++ Path 3 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:sR16:Dp:u1\/f1_blk_stat_comb
+Path End       : \SPIM:BSPIM:RxStsReg\/status_6
+Capture Clock  : \SPIM:BSPIM:RxStsReg\/clock
+Path slack     : 987227p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                  -500
+----------------------------------------   ------- 
+End-of-path required time (ps)              999500
+
+Launch Clock Arrival Time                       0
++ Clock path delay                          0
++ Data path delay                       12273
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           12273
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/clock                              datapathcell2       0      0  RISE       1
+
+Data path
+pin name                                  model name     delay     AT   slack  edge  Fanout
+----------------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:sR16:Dp:u1\/f1_blk_stat_comb  datapathcell2   3580   3580  987227  RISE       1
+\SPIM:BSPIM:rx_status_6\/main_5           macrocell4      3017   6597  987227  RISE       1
+\SPIM:BSPIM:rx_status_6\/q                macrocell4      3350   9947  987227  RISE       1
+\SPIM:BSPIM:RxStsReg\/status_6            statusicell2    2327  12273  987227  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:RxStsReg\/clock                                statusicell2        0      0  RISE       1
+
+
+
+++++ Path 4 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_2
+Path End       : \SPIM:BSPIM:TxStsReg\/status_3
+Capture Clock  : \SPIM:BSPIM:TxStsReg\/clock
+Path slack     : 987869p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                  -500
+----------------------------------------   ------- 
+End-of-path required time (ps)              999500
+
+Launch Clock Arrival Time                       0
++ Clock path delay                          0
++ Data path delay                       11631
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           11631
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                          model name    delay     AT   slack  edge  Fanout
+--------------------------------  ------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_2   count7cell     1940   1940  985533  RISE       1
+\SPIM:BSPIM:load_rx_data\/main_2  macrocell1     3353   5293  985533  RISE       1
+\SPIM:BSPIM:load_rx_data\/q       macrocell1     3350   8643  985533  RISE       1
+\SPIM:BSPIM:TxStsReg\/status_3    statusicell1   2988  11631  987869  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:TxStsReg\/clock                                statusicell1        0      0  RISE       1
+
+
+
+++++ Path 5 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : \SPIM:BSPIM:sR16:Dp:u1\/cs_addr_1
+Capture Clock  : \SPIM:BSPIM:sR16:Dp:u1\/clock
+Path slack     : 987960p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -6010
+----------------------------------------   ------- 
+End-of-path required time (ps)              993990
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6030
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6030
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                           model name     delay     AT   slack  edge  Fanout
+---------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q             macrocell7      1250   1250  987960  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/cs_addr_1  datapathcell2   4780   6030  987960  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/clock                              datapathcell2       0      0  RISE       1
+
+
+
+++++ Path 6 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:sR16:Dp:u1\/f0_blk_stat_comb
+Path End       : \SPIM:BSPIM:state_2\/main_8
+Capture Clock  : \SPIM:BSPIM:state_2\/clock_0
+Path slack     : 988047p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       8443
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           8443
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/clock                              datapathcell2       0      0  RISE       1
+
+Data path
+pin name                                  model name     delay     AT   slack  edge  Fanout
+----------------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:sR16:Dp:u1\/f0_blk_stat_comb  datapathcell2   3580   3580  988047  RISE       1
+\SPIM:BSPIM:state_2\/main_8               macrocell6      4863   8443  988047  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+
+
+++++ Path 7 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:sR16:Dp:u1\/f0_blk_stat_comb
+Path End       : \SPIM:BSPIM:state_1\/main_8
+Capture Clock  : \SPIM:BSPIM:state_1\/clock_0
+Path slack     : 988047p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       8443
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           8443
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/clock                              datapathcell2       0      0  RISE       1
+
+Data path
+pin name                                  model name     delay     AT   slack  edge  Fanout
+----------------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:sR16:Dp:u1\/f0_blk_stat_comb  datapathcell2   3580   3580  988047  RISE       1
+\SPIM:BSPIM:state_1\/main_8               macrocell7      4863   8443  988047  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+
+
+++++ Path 8 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:sR16:Dp:u1\/f0_blk_stat_comb
+Path End       : \SPIM:BSPIM:state_0\/main_3
+Capture Clock  : \SPIM:BSPIM:state_0\/clock_0
+Path slack     : 988055p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       8435
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           8435
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/clock                              datapathcell2       0      0  RISE       1
+
+Data path
+pin name                                  model name     delay     AT   slack  edge  Fanout
+----------------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:sR16:Dp:u1\/f0_blk_stat_comb  datapathcell2   3580   3580  988047  RISE       1
+\SPIM:BSPIM:state_0\/main_3               macrocell8      4855   8435  988055  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+
+
+++++ Path 9 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:sR16:Dp:u1\/so_comb
+Path End       : Net_337/main_4
+Capture Clock  : Net_337/clock_0
+Path slack     : 988298p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       8192
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           8192
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/clock                              datapathcell2       0      0  RISE       1
+
+Data path
+pin name                         model name     delay     AT   slack  edge  Fanout
+-------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:sR16:Dp:u1\/so_comb  datapathcell2   5360   5360  988298  RISE       1
+Net_337/main_4                   macrocell5      2832   8192  988298  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+
+
+++++ Path 10 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : \SPIM:BSPIM:TxStsReg\/status_0
+Capture Clock  : \SPIM:BSPIM:TxStsReg\/clock
+Path slack     : 988397p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                  -500
+----------------------------------------   ------- 
+End-of-path required time (ps)              999500
+
+Launch Clock Arrival Time                       0
++ Clock path delay                          0
++ Data path delay                       11103
+-------------------------------------   ----- 
+End-of-path arrival time (ps)           11103
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                         model name    delay     AT   slack  edge  Fanout
+-------------------------------  ------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q           macrocell7     1250   1250  987960  RISE       1
+\SPIM:BSPIM:tx_status_0\/main_1  macrocell2     4240   5490  988397  RISE       1
+\SPIM:BSPIM:tx_status_0\/q       macrocell2     3350   8840  988397  RISE       1
+\SPIM:BSPIM:TxStsReg\/status_0   statusicell1   2264  11103  988397  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:TxStsReg\/clock                                statusicell1        0      0  RISE       1
+
+
+
+++++ Path 11 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_2\/q
+Path End       : \SPIM:BSPIM:sR16:Dp:u1\/cs_addr_2
+Capture Clock  : \SPIM:BSPIM:sR16:Dp:u1\/clock
+Path slack     : 988614p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -6010
+----------------------------------------   ------- 
+End-of-path required time (ps)              993990
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5376
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5376
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+Data path
+pin name                           model name     delay     AT   slack  edge  Fanout
+---------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_2\/q             macrocell6      1250   1250  988614  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/cs_addr_2  datapathcell2   4126   5376  988614  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/clock                              datapathcell2       0      0  RISE       1
+
+
+
+++++ Path 12 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : \SPIM:BSPIM:sR16:Dp:u0\/cs_addr_1
+Capture Clock  : \SPIM:BSPIM:sR16:Dp:u0\/clock
+Path slack     : 988883p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -6010
+----------------------------------------   ------- 
+End-of-path required time (ps)              993990
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5107
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5107
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                           model name     delay     AT   slack  edge  Fanout
+---------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q             macrocell7      1250   1250  987960  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/cs_addr_1  datapathcell1   3857   5107  988883  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/clock                              datapathcell1       0      0  RISE       1
+
+
+
+++++ Path 13 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_2\/q
+Path End       : \SPIM:BSPIM:sR16:Dp:u0\/cs_addr_2
+Capture Clock  : \SPIM:BSPIM:sR16:Dp:u0\/clock
+Path slack     : 988990p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -6010
+----------------------------------------   ------- 
+End-of-path required time (ps)              993990
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5000
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5000
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+Data path
+pin name                           model name     delay     AT   slack  edge  Fanout
+---------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_2\/q             macrocell6      1250   1250  988614  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/cs_addr_2  datapathcell1   3750   5000  988990  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/clock                              datapathcell1       0      0  RISE       1
+
+
+
+++++ Path 14 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_0\/q
+Path End       : \SPIM:BSPIM:sR16:Dp:u1\/cs_addr_0
+Capture Clock  : \SPIM:BSPIM:sR16:Dp:u1\/clock
+Path slack     : 989302p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -6010
+----------------------------------------   ------- 
+End-of-path required time (ps)              993990
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4688
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4688
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+Data path
+pin name                           model name     delay     AT   slack  edge  Fanout
+---------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_0\/q             macrocell8      1250   1250  989223  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/cs_addr_0  datapathcell2   3438   4688  989302  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/clock                              datapathcell2       0      0  RISE       1
+
+
+
+++++ Path 15 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_0\/q
+Path End       : \SPIM:BSPIM:sR16:Dp:u0\/cs_addr_0
+Capture Clock  : \SPIM:BSPIM:sR16:Dp:u0\/clock
+Path slack     : 989322p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -6010
+----------------------------------------   ------- 
+End-of-path required time (ps)              993990
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4668
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4668
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+Data path
+pin name                           model name     delay     AT   slack  edge  Fanout
+---------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_0\/q             macrocell8      1250   1250  989223  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/cs_addr_0  datapathcell1   3418   4668  989322  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/clock                              datapathcell1       0      0  RISE       1
+
+
+
+++++ Path 16 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_3
+Path End       : \SPIM:BSPIM:load_cond\/main_4
+Capture Clock  : \SPIM:BSPIM:load_cond\/clock_0
+Path slack     : 989494p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6996
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6996
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_3  count7cell    1940   1940  986048  RISE       1
+\SPIM:BSPIM:load_cond\/main_4    macrocell10   5056   6996  989494  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:load_cond\/clock_0                             macrocell10         0      0  RISE       1
+
+
+
+++++ Path 17 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_3
+Path End       : \SPIM:BSPIM:ld_ident\/main_4
+Capture Clock  : \SPIM:BSPIM:ld_ident\/clock_0
+Path slack     : 989494p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6996
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6996
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_3  count7cell    1940   1940  986048  RISE       1
+\SPIM:BSPIM:ld_ident\/main_4     macrocell11   5056   6996  989494  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+
+
+++++ Path 18 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_2\/q
+Path End       : \SPIM:BSPIM:load_cond\/main_0
+Capture Clock  : \SPIM:BSPIM:load_cond\/clock_0
+Path slack     : 989820p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6670
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6670
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+Data path
+pin name                       model name   delay     AT   slack  edge  Fanout
+-----------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_2\/q         macrocell6    1250   1250  988614  RISE       1
+\SPIM:BSPIM:load_cond\/main_0  macrocell10   5420   6670  989820  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:load_cond\/clock_0                             macrocell10         0      0  RISE       1
+
+
+
+++++ Path 19 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_2\/q
+Path End       : \SPIM:BSPIM:ld_ident\/main_0
+Capture Clock  : \SPIM:BSPIM:ld_ident\/clock_0
+Path slack     : 989820p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6670
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6670
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+Data path
+pin name                      model name   delay     AT   slack  edge  Fanout
+----------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_2\/q        macrocell6    1250   1250  988614  RISE       1
+\SPIM:BSPIM:ld_ident\/main_0  macrocell11   5420   6670  989820  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+
+
+++++ Path 20 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_2
+Path End       : \SPIM:BSPIM:load_cond\/main_5
+Capture Clock  : \SPIM:BSPIM:load_cond\/clock_0
+Path slack     : 989895p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6595
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6595
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_2  count7cell    1940   1940  985533  RISE       1
+\SPIM:BSPIM:load_cond\/main_5    macrocell10   4655   6595  989895  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:load_cond\/clock_0                             macrocell10         0      0  RISE       1
+
+
+
+++++ Path 21 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_2
+Path End       : \SPIM:BSPIM:ld_ident\/main_5
+Capture Clock  : \SPIM:BSPIM:ld_ident\/clock_0
+Path slack     : 989895p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6595
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6595
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_2  count7cell    1940   1940  985533  RISE       1
+\SPIM:BSPIM:ld_ident\/main_5     macrocell11   4655   6595  989895  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+
+
+++++ Path 22 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_2\/q
+Path End       : Net_337/main_1
+Capture Clock  : Net_337/clock_0
+Path slack     : 990311p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6179
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6179
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+Data path
+pin name                model name   delay     AT   slack  edge  Fanout
+----------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_2\/q  macrocell6    1250   1250  988614  RISE       1
+Net_337/main_1          macrocell5    4929   6179  990311  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+
+
+++++ Path 23 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_2\/q
+Path End       : Net_339/main_0
+Capture Clock  : Net_339/clock_0
+Path slack     : 990312p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6178
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6178
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+Data path
+pin name                model name   delay     AT   slack  edge  Fanout
+----------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_2\/q  macrocell6    1250   1250  988614  RISE       1
+Net_339/main_0          macrocell9    4928   6178  990312  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_339/clock_0                                            macrocell9          0      0  RISE       1
+
+
+
+++++ Path 24 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_2\/q
+Path End       : \SPIM:BSPIM:cnt_enable\/main_0
+Capture Clock  : \SPIM:BSPIM:cnt_enable\/clock_0
+Path slack     : 990312p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6178
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6178
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+Data path
+pin name                        model name   delay     AT   slack  edge  Fanout
+------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_2\/q          macrocell6    1250   1250  988614  RISE       1
+\SPIM:BSPIM:cnt_enable\/main_0  macrocell12   4928   6178  990312  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:cnt_enable\/clock_0                            macrocell12         0      0  RISE       1
+
+
+
+++++ Path 25 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : Net_339/main_1
+Capture Clock  : Net_339/clock_0
+Path slack     : 990326p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6164
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6164
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                model name   delay     AT   slack  edge  Fanout
+----------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q  macrocell7    1250   1250  987960  RISE       1
+Net_339/main_1          macrocell9    4914   6164  990326  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_339/clock_0                                            macrocell9          0      0  RISE       1
+
+
+
+++++ Path 26 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : \SPIM:BSPIM:cnt_enable\/main_1
+Capture Clock  : \SPIM:BSPIM:cnt_enable\/clock_0
+Path slack     : 990326p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6164
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6164
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                        model name   delay     AT   slack  edge  Fanout
+------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q          macrocell7    1250   1250  987960  RISE       1
+\SPIM:BSPIM:cnt_enable\/main_1  macrocell12   4914   6164  990326  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:cnt_enable\/clock_0                            macrocell12         0      0  RISE       1
+
+
+
+++++ Path 27 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : Net_337/main_2
+Capture Clock  : Net_337/clock_0
+Path slack     : 990327p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       6163
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           6163
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                model name   delay     AT   slack  edge  Fanout
+----------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q  macrocell7    1250   1250  987960  RISE       1
+Net_337/main_2          macrocell5    4913   6163  990327  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+
+
+++++ Path 28 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_0\/q
+Path End       : \SPIM:BSPIM:load_cond\/main_2
+Capture Clock  : \SPIM:BSPIM:load_cond\/clock_0
+Path slack     : 990728p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5762
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5762
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+Data path
+pin name                       model name   delay     AT   slack  edge  Fanout
+-----------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_0\/q         macrocell8    1250   1250  989223  RISE       1
+\SPIM:BSPIM:load_cond\/main_2  macrocell10   4512   5762  990728  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:load_cond\/clock_0                             macrocell10         0      0  RISE       1
+
+
+
+++++ Path 29 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_0\/q
+Path End       : \SPIM:BSPIM:ld_ident\/main_2
+Capture Clock  : \SPIM:BSPIM:ld_ident\/clock_0
+Path slack     : 990728p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5762
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5762
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+Data path
+pin name                      model name   delay     AT   slack  edge  Fanout
+----------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_0\/q        macrocell8    1250   1250  989223  RISE       1
+\SPIM:BSPIM:ld_ident\/main_2  macrocell11   4512   5762  990728  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+
+
+++++ Path 30 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_0\/q
+Path End       : Net_337/main_3
+Capture Clock  : Net_337/clock_0
+Path slack     : 990742p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5748
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5748
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+Data path
+pin name                model name   delay     AT   slack  edge  Fanout
+----------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_0\/q  macrocell8    1250   1250  989223  RISE       1
+Net_337/main_3          macrocell5    4498   5748  990742  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+
+
+++++ Path 31 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_4
+Path End       : \SPIM:BSPIM:load_cond\/main_3
+Capture Clock  : \SPIM:BSPIM:load_cond\/clock_0
+Path slack     : 990910p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5580
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5580
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_4  count7cell    1940   1940  986325  RISE       1
+\SPIM:BSPIM:load_cond\/main_3    macrocell10   3640   5580  990910  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:load_cond\/clock_0                             macrocell10         0      0  RISE       1
+
+
+
+++++ Path 32 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_4
+Path End       : \SPIM:BSPIM:ld_ident\/main_3
+Capture Clock  : \SPIM:BSPIM:ld_ident\/clock_0
+Path slack     : 990910p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5580
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5580
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_4  count7cell    1940   1940  986325  RISE       1
+\SPIM:BSPIM:ld_ident\/main_3     macrocell11   3640   5580  990910  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+
+
+++++ Path 33 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_4
+Path End       : Net_337/main_5
+Capture Clock  : Net_337/clock_0
+Path slack     : 990929p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5561
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5561
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_4  count7cell    1940   1940  986325  RISE       1
+Net_337/main_5                   macrocell5    3621   5561  990929  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+
+
+++++ Path 34 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_0
+Path End       : \SPIM:BSPIM:load_cond\/main_7
+Capture Clock  : \SPIM:BSPIM:load_cond\/clock_0
+Path slack     : 990966p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5524
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5524
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_0  count7cell    1940   1940  986352  RISE       1
+\SPIM:BSPIM:load_cond\/main_7    macrocell10   3584   5524  990966  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:load_cond\/clock_0                             macrocell10         0      0  RISE       1
+
+
+
+++++ Path 35 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_0
+Path End       : \SPIM:BSPIM:ld_ident\/main_7
+Capture Clock  : \SPIM:BSPIM:ld_ident\/clock_0
+Path slack     : 990966p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5524
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5524
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_0  count7cell    1940   1940  986352  RISE       1
+\SPIM:BSPIM:ld_ident\/main_7     macrocell11   3584   5524  990966  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+
+
+++++ Path 36 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_3
+Path End       : Net_337/main_6
+Capture Clock  : Net_337/clock_0
+Path slack     : 990975p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5515
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5515
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_3  count7cell    1940   1940  986048  RISE       1
+Net_337/main_6                   macrocell5    3575   5515  990975  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+
+
+++++ Path 37 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_2
+Path End       : Net_337/main_7
+Capture Clock  : Net_337/clock_0
+Path slack     : 990978p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5512
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5512
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_2  count7cell    1940   1940  985533  RISE       1
+Net_337/main_7                   macrocell5    3572   5512  990978  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+
+
+++++ Path 38 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : \SPIM:BSPIM:load_cond\/main_1
+Capture Clock  : \SPIM:BSPIM:load_cond\/clock_0
+Path slack     : 990985p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5505
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5505
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                       model name   delay     AT   slack  edge  Fanout
+-----------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q         macrocell7    1250   1250  987960  RISE       1
+\SPIM:BSPIM:load_cond\/main_1  macrocell10   4255   5505  990985  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:load_cond\/clock_0                             macrocell10         0      0  RISE       1
+
+
+
+++++ Path 39 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : \SPIM:BSPIM:ld_ident\/main_1
+Capture Clock  : \SPIM:BSPIM:ld_ident\/clock_0
+Path slack     : 990985p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5505
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5505
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                      model name   delay     AT   slack  edge  Fanout
+----------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q        macrocell7    1250   1250  987960  RISE       1
+\SPIM:BSPIM:ld_ident\/main_1  macrocell11   4255   5505  990985  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+
+
+++++ Path 40 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : \SPIM:BSPIM:state_2\/main_1
+Capture Clock  : \SPIM:BSPIM:state_2\/clock_0
+Path slack     : 991000p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5490
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5490
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                     model name   delay     AT   slack  edge  Fanout
+---------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q       macrocell7    1250   1250  987960  RISE       1
+\SPIM:BSPIM:state_2\/main_1  macrocell6    4240   5490  991000  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+
+
+++++ Path 41 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : \SPIM:BSPIM:state_1\/main_1
+Capture Clock  : \SPIM:BSPIM:state_1\/clock_0
+Path slack     : 991000p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5490
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5490
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                     model name   delay     AT   slack  edge  Fanout
+---------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q       macrocell7    1250   1250  987960  RISE       1
+\SPIM:BSPIM:state_1\/main_1  macrocell7    4240   5490  991000  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+
+
+++++ Path 42 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_1
+Path End       : \SPIM:BSPIM:load_cond\/main_6
+Capture Clock  : \SPIM:BSPIM:load_cond\/clock_0
+Path slack     : 991093p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5397
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5397
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_1  count7cell    1940   1940  986348  RISE       1
+\SPIM:BSPIM:load_cond\/main_6    macrocell10   3457   5397  991093  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:load_cond\/clock_0                             macrocell10         0      0  RISE       1
+
+
+
+++++ Path 43 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_1
+Path End       : \SPIM:BSPIM:ld_ident\/main_6
+Capture Clock  : \SPIM:BSPIM:ld_ident\/clock_0
+Path slack     : 991093p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5397
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5397
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_1  count7cell    1940   1940  986348  RISE       1
+\SPIM:BSPIM:ld_ident\/main_6     macrocell11   3457   5397  991093  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+
+
+++++ Path 44 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_1
+Path End       : Net_337/main_8
+Capture Clock  : Net_337/clock_0
+Path slack     : 991106p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5384
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5384
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_1  count7cell    1940   1940  986348  RISE       1
+Net_337/main_8                   macrocell5    3444   5384  991106  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+
+
+++++ Path 45 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_2
+Path End       : \SPIM:BSPIM:state_2\/main_5
+Capture Clock  : \SPIM:BSPIM:state_2\/clock_0
+Path slack     : 991197p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5293
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5293
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_2  count7cell    1940   1940  985533  RISE       1
+\SPIM:BSPIM:state_2\/main_5      macrocell6    3353   5293  991197  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+
+
+++++ Path 46 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_2
+Path End       : \SPIM:BSPIM:state_1\/main_5
+Capture Clock  : \SPIM:BSPIM:state_1\/clock_0
+Path slack     : 991197p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5293
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5293
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_2  count7cell    1940   1940  985533  RISE       1
+\SPIM:BSPIM:state_1\/main_5      macrocell7    3353   5293  991197  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+
+
+++++ Path 47 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_0\/q
+Path End       : Net_339/main_2
+Capture Clock  : Net_339/clock_0
+Path slack     : 991204p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5286
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5286
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+Data path
+pin name                model name   delay     AT   slack  edge  Fanout
+----------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_0\/q  macrocell8    1250   1250  989223  RISE       1
+Net_339/main_2          macrocell9    4036   5286  991204  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_339/clock_0                                            macrocell9          0      0  RISE       1
+
+
+
+++++ Path 48 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_0\/q
+Path End       : \SPIM:BSPIM:cnt_enable\/main_2
+Capture Clock  : \SPIM:BSPIM:cnt_enable\/clock_0
+Path slack     : 991204p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5286
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5286
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+Data path
+pin name                        model name   delay     AT   slack  edge  Fanout
+------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_0\/q          macrocell8    1250   1250  989223  RISE       1
+\SPIM:BSPIM:cnt_enable\/main_2  macrocell12   4036   5286  991204  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:cnt_enable\/clock_0                            macrocell12         0      0  RISE       1
+
+
+
+++++ Path 49 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_0
+Path End       : Net_337/main_9
+Capture Clock  : Net_337/clock_0
+Path slack     : 991267p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5223
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5223
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_0  count7cell    1940   1940  986352  RISE       1
+Net_337/main_9                   macrocell5    3283   5223  991267  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+
+
+++++ Path 50 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:cnt_enable\/q
+Path End       : \SPIM:BSPIM:BitCounter\/enable
+Capture Clock  : \SPIM:BSPIM:BitCounter\/clock
+Path slack     : 991351p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -4060
+----------------------------------------   ------- 
+End-of-path required time (ps)              995940
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4589
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4589
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:cnt_enable\/clock_0                            macrocell12         0      0  RISE       1
+
+Data path
+pin name                        model name   delay     AT   slack  edge  Fanout
+------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:cnt_enable\/q       macrocell12   1250   1250  991351  RISE       1
+\SPIM:BSPIM:BitCounter\/enable  count7cell    3339   4589  991351  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+
+
+++++ Path 51 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : Net_337/q
+Path End       : Net_337/main_0
+Capture Clock  : Net_337/clock_0
+Path slack     : 991449p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       5041
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           5041
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+Data path
+pin name        model name   delay     AT   slack  edge  Fanout
+--------------  -----------  -----  -----  ------  ----  ------
+Net_337/q       macrocell5    1250   1250  991449  RISE       1
+Net_337/main_0  macrocell5    3791   5041  991449  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+
+
+++++ Path 52 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_2\/q
+Path End       : \SPIM:BSPIM:state_0\/main_0
+Capture Clock  : \SPIM:BSPIM:state_0\/clock_0
+Path slack     : 991502p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4988
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4988
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+Data path
+pin name                     model name   delay     AT   slack  edge  Fanout
+---------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_2\/q       macrocell6    1250   1250  988614  RISE       1
+\SPIM:BSPIM:state_0\/main_0  macrocell8    3738   4988  991502  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+
+
+++++ Path 53 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_2\/q
+Path End       : Net_338/main_0
+Capture Clock  : Net_338/clock_0
+Path slack     : 991502p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4988
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4988
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+Data path
+pin name                model name   delay     AT   slack  edge  Fanout
+----------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_2\/q  macrocell6    1250   1250  988614  RISE       1
+Net_338/main_0          macrocell13   3738   4988  991502  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_338/clock_0                                            macrocell13         0      0  RISE       1
+
+
+
+++++ Path 54 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:ld_ident\/q
+Path End       : \SPIM:BSPIM:state_2\/main_9
+Capture Clock  : \SPIM:BSPIM:state_2\/clock_0
+Path slack     : 991548p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4942
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4942
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+Data path
+pin name                     model name   delay     AT   slack  edge  Fanout
+---------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:ld_ident\/q      macrocell11   1250   1250  991548  RISE       1
+\SPIM:BSPIM:state_2\/main_9  macrocell6    3692   4942  991548  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+
+
+++++ Path 55 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:ld_ident\/q
+Path End       : \SPIM:BSPIM:state_1\/main_9
+Capture Clock  : \SPIM:BSPIM:state_1\/clock_0
+Path slack     : 991548p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4942
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4942
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+Data path
+pin name                     model name   delay     AT   slack  edge  Fanout
+---------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:ld_ident\/q      macrocell11   1250   1250  991548  RISE       1
+\SPIM:BSPIM:state_1\/main_9  macrocell7    3692   4942  991548  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+
+
+++++ Path 56 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_2\/q
+Path End       : \SPIM:BSPIM:state_2\/main_0
+Capture Clock  : \SPIM:BSPIM:state_2\/clock_0
+Path slack     : 991634p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4856
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4856
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+Data path
+pin name                     model name   delay     AT   slack  edge  Fanout
+---------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_2\/q       macrocell6    1250   1250  988614  RISE       1
+\SPIM:BSPIM:state_2\/main_0  macrocell6    3606   4856  991634  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+
+
+++++ Path 57 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_2\/q
+Path End       : \SPIM:BSPIM:state_1\/main_0
+Capture Clock  : \SPIM:BSPIM:state_1\/clock_0
+Path slack     : 991634p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4856
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4856
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+Data path
+pin name                     model name   delay     AT   slack  edge  Fanout
+---------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_2\/q       macrocell6    1250   1250  988614  RISE       1
+\SPIM:BSPIM:state_1\/main_0  macrocell7    3606   4856  991634  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+
+
+++++ Path 58 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_3
+Path End       : \SPIM:BSPIM:state_2\/main_4
+Capture Clock  : \SPIM:BSPIM:state_2\/clock_0
+Path slack     : 991712p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4778
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4778
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_3  count7cell    1940   1940  986048  RISE       1
+\SPIM:BSPIM:state_2\/main_4      macrocell6    2838   4778  991712  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+
+
+++++ Path 59 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_3
+Path End       : \SPIM:BSPIM:state_1\/main_4
+Capture Clock  : \SPIM:BSPIM:state_1\/clock_0
+Path slack     : 991712p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4778
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4778
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_3  count7cell    1940   1940  986048  RISE       1
+\SPIM:BSPIM:state_1\/main_4      macrocell7    2838   4778  991712  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+
+
+++++ Path 60 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : Net_338/q
+Path End       : Net_338/main_3
+Capture Clock  : Net_338/clock_0
+Path slack     : 991807p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4683
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4683
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_338/clock_0                                            macrocell13         0      0  RISE       1
+
+Data path
+pin name        model name   delay     AT   slack  edge  Fanout
+--------------  -----------  -----  -----  ------  ----  ------
+Net_338/q       macrocell13   1250   1250  991807  RISE       1
+Net_338/main_3  macrocell13   3433   4683  991807  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_338/clock_0                                            macrocell13         0      0  RISE       1
+
+
+
+++++ Path 61 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_0\/q
+Path End       : \SPIM:BSPIM:state_0\/main_2
+Capture Clock  : \SPIM:BSPIM:state_0\/clock_0
+Path slack     : 991808p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4682
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4682
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+Data path
+pin name                     model name   delay     AT   slack  edge  Fanout
+---------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_0\/q       macrocell8    1250   1250  989223  RISE       1
+\SPIM:BSPIM:state_0\/main_2  macrocell8    3432   4682  991808  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+
+
+++++ Path 62 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_0\/q
+Path End       : Net_338/main_2
+Capture Clock  : Net_338/clock_0
+Path slack     : 991808p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4682
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4682
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+Data path
+pin name                model name   delay     AT   slack  edge  Fanout
+----------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_0\/q  macrocell8    1250   1250  989223  RISE       1
+Net_338/main_2          macrocell13   3432   4682  991808  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_338/clock_0                                            macrocell13         0      0  RISE       1
+
+
+
+++++ Path 63 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_0\/q
+Path End       : \SPIM:BSPIM:state_2\/main_2
+Capture Clock  : \SPIM:BSPIM:state_2\/clock_0
+Path slack     : 991827p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4663
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4663
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+Data path
+pin name                     model name   delay     AT   slack  edge  Fanout
+---------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_0\/q       macrocell8    1250   1250  989223  RISE       1
+\SPIM:BSPIM:state_2\/main_2  macrocell6    3413   4663  991827  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+
+
+++++ Path 64 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_0\/q
+Path End       : \SPIM:BSPIM:state_1\/main_2
+Capture Clock  : \SPIM:BSPIM:state_1\/clock_0
+Path slack     : 991827p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4663
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4663
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+Data path
+pin name                     model name   delay     AT   slack  edge  Fanout
+---------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_0\/q       macrocell8    1250   1250  989223  RISE       1
+\SPIM:BSPIM:state_1\/main_2  macrocell7    3413   4663  991827  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+
+
+++++ Path 65 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : \SPIM:BSPIM:state_0\/main_1
+Capture Clock  : \SPIM:BSPIM:state_0\/clock_0
+Path slack     : 991897p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4593
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4593
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                     model name   delay     AT   slack  edge  Fanout
+---------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q       macrocell7    1250   1250  987960  RISE       1
+\SPIM:BSPIM:state_0\/main_1  macrocell8    3343   4593  991897  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_0\/clock_0                               macrocell8          0      0  RISE       1
+
+
+
+++++ Path 66 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:state_1\/q
+Path End       : Net_338/main_1
+Capture Clock  : Net_338/clock_0
+Path slack     : 991897p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4593
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4593
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+Data path
+pin name                model name   delay     AT   slack  edge  Fanout
+----------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:state_1\/q  macrocell7    1250   1250  987960  RISE       1
+Net_338/main_1          macrocell13   3343   4593  991897  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_338/clock_0                                            macrocell13         0      0  RISE       1
+
+
+
+++++ Path 67 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_4
+Path End       : \SPIM:BSPIM:state_2\/main_3
+Capture Clock  : \SPIM:BSPIM:state_2\/clock_0
+Path slack     : 991990p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4500
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4500
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_4  count7cell    1940   1940  986325  RISE       1
+\SPIM:BSPIM:state_2\/main_3      macrocell6    2560   4500  991990  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+
+
+++++ Path 68 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_4
+Path End       : \SPIM:BSPIM:state_1\/main_3
+Capture Clock  : \SPIM:BSPIM:state_1\/clock_0
+Path slack     : 991990p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4500
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4500
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_4  count7cell    1940   1940  986325  RISE       1
+\SPIM:BSPIM:state_1\/main_3      macrocell7    2560   4500  991990  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+
+
+++++ Path 69 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_1
+Path End       : \SPIM:BSPIM:state_2\/main_6
+Capture Clock  : \SPIM:BSPIM:state_2\/clock_0
+Path slack     : 992012p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4478
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4478
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_1  count7cell    1940   1940  986348  RISE       1
+\SPIM:BSPIM:state_2\/main_6      macrocell6    2538   4478  992012  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+
+
+++++ Path 70 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_1
+Path End       : \SPIM:BSPIM:state_1\/main_6
+Capture Clock  : \SPIM:BSPIM:state_1\/clock_0
+Path slack     : 992012p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4478
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4478
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_1  count7cell    1940   1940  986348  RISE       1
+\SPIM:BSPIM:state_1\/main_6      macrocell7    2538   4478  992012  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+
+
+++++ Path 71 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_0
+Path End       : \SPIM:BSPIM:state_2\/main_7
+Capture Clock  : \SPIM:BSPIM:state_2\/clock_0
+Path slack     : 992017p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4473
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4473
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_0  count7cell    1940   1940  986352  RISE       1
+\SPIM:BSPIM:state_2\/main_7      macrocell6    2533   4473  992017  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_2\/clock_0                               macrocell6          0      0  RISE       1
+
+
+
+++++ Path 72 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:BitCounter\/count_0
+Path End       : \SPIM:BSPIM:state_1\/main_7
+Capture Clock  : \SPIM:BSPIM:state_1\/clock_0
+Path slack     : 992017p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4473
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4473
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:BitCounter\/clock                              count7cell          0      0  RISE       1
+
+Data path
+pin name                         model name   delay     AT   slack  edge  Fanout
+-------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:BitCounter\/count_0  count7cell    1940   1940  986352  RISE       1
+\SPIM:BSPIM:state_1\/main_7      macrocell7    2533   4473  992017  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:state_1\/clock_0                               macrocell7          0      0  RISE       1
+
+
+
+++++ Path 73 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:ld_ident\/q
+Path End       : \SPIM:BSPIM:ld_ident\/main_8
+Capture Clock  : \SPIM:BSPIM:ld_ident\/clock_0
+Path slack     : 992434p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4056
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4056
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+Data path
+pin name                      model name   delay     AT   slack  edge  Fanout
+----------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:ld_ident\/q       macrocell11   1250   1250  991548  RISE       1
+\SPIM:BSPIM:ld_ident\/main_8  macrocell11   2806   4056  992434  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+
+
+++++ Path 74 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:ld_ident\/q
+Path End       : Net_337/main_10
+Capture Clock  : Net_337/clock_0
+Path slack     : 992437p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       4053
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           4053
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:ld_ident\/clock_0                              macrocell11         0      0  RISE       1
+
+Data path
+pin name                 model name   delay     AT   slack  edge  Fanout
+-----------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:ld_ident\/q  macrocell11   1250   1250  991548  RISE       1
+Net_337/main_10          macrocell5    2803   4053  992437  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_337/clock_0                                            macrocell5          0      0  RISE       1
+
+
+
+++++ Path 75 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:cnt_enable\/q
+Path End       : \SPIM:BSPIM:cnt_enable\/main_3
+Capture Clock  : \SPIM:BSPIM:cnt_enable\/clock_0
+Path slack     : 992629p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       3861
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           3861
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:cnt_enable\/clock_0                            macrocell12         0      0  RISE       1
+
+Data path
+pin name                        model name   delay     AT   slack  edge  Fanout
+------------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:cnt_enable\/q       macrocell12   1250   1250  991351  RISE       1
+\SPIM:BSPIM:cnt_enable\/main_3  macrocell12   2611   3861  992629  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:cnt_enable\/clock_0                            macrocell12         0      0  RISE       1
+
+
+
+++++ Path 76 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : Net_339/q
+Path End       : Net_339/main_3
+Capture Clock  : Net_339/clock_0
+Path slack     : 992937p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       3553
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           3553
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_339/clock_0                                            macrocell9          0      0  RISE       1
+
+Data path
+pin name        model name   delay     AT   slack  edge  Fanout
+--------------  -----------  -----  -----  ------  ----  ------
+Net_339/q       macrocell9    1250   1250  992937  RISE       1
+Net_339/main_3  macrocell9    2303   3553  992937  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+Net_339/clock_0                                            macrocell9          0      0  RISE       1
+
+
+
+++++ Path 77 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:load_cond\/q
+Path End       : \SPIM:BSPIM:load_cond\/main_8
+Capture Clock  : \SPIM:BSPIM:load_cond\/clock_0
+Path slack     : 992950p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3510
+----------------------------------------   ------- 
+End-of-path required time (ps)              996490
+
+Launch Clock Arrival Time                      0
++ Clock path delay                         0
++ Data path delay                       3540
+-------------------------------------   ---- 
+End-of-path arrival time (ps)           3540
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:load_cond\/clock_0                             macrocell10         0      0  RISE       1
+
+Data path
+pin name                       model name   delay     AT   slack  edge  Fanout
+-----------------------------  -----------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:load_cond\/q       macrocell10   1250   1250  992950  RISE       1
+\SPIM:BSPIM:load_cond\/main_8  macrocell10   2290   3540  992950  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:load_cond\/clock_0                             macrocell10         0      0  RISE       1
+
+
+
+++++ Path 78 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+Path Begin     : \SPIM:BSPIM:sR16:Dp:u0\/sol_msb
+Path End       : \SPIM:BSPIM:sR16:Dp:u1\/sir
+Capture Clock  : \SPIM:BSPIM:sR16:Dp:u1\/clock
+Path slack     : 996260p
+
+Capture Clock Arrival Time                       0
++ Clock path delay                               0
++ Cycle adjust (Clock:R#1 vs. Clock:R#2)   1000000
+- Setup time                                 -3020
+----------------------------------------   ------- 
+End-of-path required time (ps)              996980
+
+Launch Clock Arrival Time                     0
++ Clock path delay                        0
++ Data path delay                       720
+-------------------------------------   --- 
+End-of-path arrival time (ps)           720
+ 
+Launch Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u0\/clock                              datapathcell1       0      0  RISE       1
+
+Data path
+pin name                         model name     delay     AT   slack  edge  Fanout
+-------------------------------  -------------  -----  -----  ------  ----  ------
+\SPIM:BSPIM:sR16:Dp:u0\/sol_msb  datapathcell1    720    720  996260  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/sir      datapathcell2      0    720  996260  RISE       1
+
+Capture Clock Path
+pin name                                                   model name      delay     AT  edge  Fanout
+---------------------------------------------------------  --------------  -----  -----  ----  ------
+ClockBlock/dclk_glb_0                                      clockblockcell      0      0  RISE       1
+\SPIM:BSPIM:sR16:Dp:u1\/clock                              datapathcell2       0      0  RISE       1
+
+
+===================================================================== 
+                    End of Detailed Report for all timing paths 
+##################################################################### 
+
+##################################################################### 
+                    End of Timing Report 
+##################################################################### 
+
