@@ -1,7 +1,7 @@
 PROJECT_NAME := ble_peripheral
 
 #path variables, customize to your system
-SDK_PATH = C:/nrf51_sdk
+SDK_PATH = C:\Nordic\nRF51_SDK_9.0.0_2e23562
 OUTPUT_BINARY_DIRECTORY := _build
 GNU_INSTALL_ROOT = C:/Program Files (x86)/GNU Tools ARM Embedded/4.9 2015q2
 
@@ -32,7 +32,7 @@ C_SOURCE_FILES += $(SDK_PATH)/components/drivers_nrf/pstorage/pstorage.c
 C_SOURCE_FILES += $(SDK_PATH)/components/libraries/timer/app_timer.c 
 
 #FreeRTOS C files
-FREERTOS_PATH = C:/projects/FreeRTOS
+FREERTOS_PATH = C:\Users\bryan.lee\Documents\FreeRTOSv10.3.1\FreeRTOS
 C_SOURCE_FILES += freertos_hooks.c
 C_SOURCE_FILES += nrf51_port.c
 C_SOURCE_FILES += $(FREERTOS_PATH)/Source/croutine.c

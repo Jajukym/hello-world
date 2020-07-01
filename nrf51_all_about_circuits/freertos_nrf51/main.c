@@ -22,9 +22,9 @@
 #include "FreeRTOS.h"
 #include "task.h"
 
-#define DEVICE_NAME                      "Custom BLE"                               /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME                      "Custom_BLE_w/_RTOS"                       /**< Name of device. Will be included in the advertising data. */
 #define APP_ADV_INTERVAL                 300                                        /**< The advertising interval (in units of 0.625 ms. This value corresponds to 25 ms). */
-#define APP_ADV_TIMEOUT_IN_SECONDS       0                                         /**< The advertising timeout in units of seconds. */
+#define APP_ADV_TIMEOUT_IN_SECONDS       0                                          /**< The advertising timeout in units of seconds. */
 
 #define MIN_CONN_INTERVAL                MSEC_TO_UNITS(100, UNIT_1_25_MS)           /**< Minimum acceptable connection interval (0.1 seconds). */
 #define MAX_CONN_INTERVAL                MSEC_TO_UNITS(500, UNIT_1_25_MS)           /**< Maximum acceptable connection interval (0.5 second). */
