@@ -1,10 +1,10 @@
 #include "nrf51.h"
-#include "nrf51_bitfields.h"
+#include "nrf51_bitfields.h" //used for GPIO configuration
 
 #define LED_BLUE		23
 #define LED_GREEN		22
 #define LED_RED			21
-#define TOGGLE_TICKS	400000
+#define TOGGLE_TICKS	1000000
 
 int main(void)
 {
@@ -20,10 +20,12 @@ int main(void)
     	toggle_timer--;
     	if(toggle_timer == 0){
     		/*get the status of the LED pin and toggle it*/
-    		if(((NRF_GPIO->OUT >> LED_GREEN) & 1UL) == 0){
+    		if(((NRF_GPIO->OUT >> LED_GREEN) & 1UL) == 0)
+			{
     			NRF_GPIO->OUTSET = (1UL << LED_GREEN);
     		}
-    		else{
+    		else
+			{
     			NRF_GPIO->OUTCLR = (1UL << LED_GREEN);
     		}
     		toggle_timer = TOGGLE_TICKS;
