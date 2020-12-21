@@ -16,15 +16,18 @@
 ##################################################################### 
                     1::Clock Frequency Summary
 ===================================================================== 
-Number of clocks: 8
-Clock: CyECO      | N/A  | Target: 24.00 MHz  | 
-Clock: CyHFClk    | N/A  | Target: 48.00 MHz  | 
-Clock: CyILO      | N/A  | Target: 0.03 MHz   | 
-Clock: CyIMO      | N/A  | Target: 48.00 MHz  | 
-Clock: CyLFClk    | N/A  | Target: 0.03 MHz   | 
-Clock: CyRouted1  | N/A  | Target: 48.00 MHz  | 
-Clock: CySysClk   | N/A  | Target: 48.00 MHz  | 
-Clock: CyWCO      | N/A  | Target: 0.03 MHz   | 
+Number of clocks: 11
+Clock: ClockBlock/ff_div_8  | N/A  | Target: 100.00 MHz  | 
+Clock: Clock_1              | N/A  | Target: 24.00 MHz   | 
+Clock: Clock_1(FFB)         | N/A  | Target: 24.00 MHz   | 
+Clock: CyECO                | N/A  | Target: 24.00 MHz   | 
+Clock: CyHFClk              | N/A  | Target: 48.00 MHz   | 
+Clock: CyILO                | N/A  | Target: 0.03 MHz    | 
+Clock: CyIMO                | N/A  | Target: 48.00 MHz   | 
+Clock: CyLFClk              | N/A  | Target: 0.03 MHz    | 
+Clock: CyRouted1            | N/A  | Target: 48.00 MHz   | 
+Clock: CySysClk             | N/A  | Target: 48.00 MHz   | 
+Clock: CyWCO                | N/A  | Target: 0.03 MHz    | 
 
  =====================================================================
                     End of Clock Frequency Summary
@@ -58,12 +61,19 @@ Port Name  Setup to Clk  Clock Name:Phase
 -----------------------3.2::Clock to Out
 ----------------------------------------
 
-Port Name  Clock to Out  Clock Name:Phase  
----------  ------------  ----------------  
+Port Name            Clock to Out  Clock Name:Phase       
+-------------------  ------------  ---------------------  
+pinBacklight(0)_PAD  15397         ClockBlock/ff_div_8:R  
+pinDB4(0)_PAD        22675         CyHFClk:R              
+pinDB5(0)_PAD        23769         CyHFClk:R              
+pinDB6(0)_PAD        23009         CyHFClk:R              
+pinDB7(0)_PAD        23514         CyHFClk:R              
+pinE(0)_PAD          23954         CyHFClk:R              
+pinRS(0)_PAD         24094         CyHFClk:R              
 
 
--------------------------3.3::Pad to Pad
-----------------------------------------
+                         3.3::Pad to Pad
+                         ---------------
 
 Port Name (Source)  Port Name (Destination)  Delay  
 ------------------  -----------------------  -----  

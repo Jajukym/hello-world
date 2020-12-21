@@ -25,7 +25,7 @@
       <Tool Name="postbuild" Command="" Options="" />
     </Toolchain>
   </Toolchains>
-  <Project Name="PowerSupply test" Path="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn" Version="5.70" Type="Normal">
+  <Project Name="PowerSupply test" Path="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn" Version="5.70" Type="Normal">
     <CMSIS_SVD_File>PowerSupply test.svd</CMSIS_SVD_File>
     <Datasheet />
     <LinkerFiles>
@@ -34,14 +34,14 @@
       <LinkerFile Toolchain="ARM IAR Generic">.\Generated_Source\PSoC4\Cm0Iar.icf</LinkerFile>
     </LinkerFiles>
     <Folders>
-      <Folder BuildType="STRICT" Path="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn">
+      <Folder BuildType="STRICT" Path="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn">
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn">
           <File BuildType="BUILD" Toolchain="">main.c</File>
           <File BuildType="BUILD" Toolchain="">cyapicallbacks.h</File>
         </Files>
       </Folder>
-      <Folder BuildType="STRICT" Path="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn\Generated_Source\PSoC4">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn">
+      <Folder BuildType="STRICT" Path="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn\Generated_Source\PSoC4">
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn">
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\cyfitter_cfg.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\cyfitter_cfg.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\cymetadata.c</File>
@@ -93,37 +93,85 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\cycodeshareimport.ld</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\cycodeshareexport.ld</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\cycodeshareimport.scat</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\LCD.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\LCD.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\LCD_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinRS.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinRS.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinRS_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinRS_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinE.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinE.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinE_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinE_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB4.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB4.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB4_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB4_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB5.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB5.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB5_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB5_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB6.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB6.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB6_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB6_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB7.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB7.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB7_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinDB7_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\LCD_Cntl_Port.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\LCD_Cntl_Port.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\LCD_Cntl_Port_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinBacklight.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinBacklight.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinBacklight_aliases.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\pinBacklight_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Clock_1.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Clock_1.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\PWMBacklight.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\PWMBacklight.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\PWMBacklight_PM.c</File>
         </Files>
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\codegentemp">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn" />
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\ARM_GCC_441">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn" />
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\ARM_GCC_473">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn" />
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\DP8051_Keil_952">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn" />
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\DP8051">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn" />
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM0">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn" />
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM0p">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn" />
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM3">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn" />
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM4">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn" />
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn" />
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\CortexM7">
-        <Files Root="C:\Users\bryan.lee\Documents\Psoc_ Projects\PowerSupply test\PowerSupply test.cydsn" />
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn" />
+      </Folder>
+      <Folder BuildType="EXCLUDE" Path="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn\CharLCDmp_v1_00\API">
+        <Files Root="C:\Users\bryan.lee\Documents\GitHub\hello-world\Cypress\PowerSupply test\PowerSupply test.cydsn">
+          <File BuildType="EXCLUDE" Toolchain="">CharLCDmp_v1_00\API\BarGraph.c</File>
+          <File BuildType="EXCLUDE" Toolchain="">CharLCDmp_v1_00\API\CharLCD.c</File>
+          <File BuildType="EXCLUDE" Toolchain="">CharLCDmp_v1_00\API\CharLCD.h</File>
+          <File BuildType="EXCLUDE" Toolchain="">CharLCDmp_v1_00\API\CharLCD_PM.c</File>
+          <File BuildType="EXCLUDE" Toolchain="">CharLCDmp_v1_00\API\CustChars.c</File>
+        </Files>
       </Folder>
     </Folders>
   </Project>

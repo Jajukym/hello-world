@@ -15,6 +15,8 @@
 void initialize();
 void test();
 void rapid_switch();
+int y = 0;
+
 
 
 
@@ -31,6 +33,10 @@ int main(void)
 
     for(;;)
     {
+        LCD_Position(0,0);
+        LCD_PrintString("Cycle #: ");
+        LCD_Position(0,11);
+        LCD_PrintNumber(y);
         test();
         int x = 0;
         if (x < 7)
@@ -38,6 +44,7 @@ int main(void)
             rapid_switch();
             x++;
         }
+        y++;
         /* Place your application code here. */
     }
 }
@@ -50,6 +57,14 @@ void initialize()
     int y = 0;
     if (y < 5)
     {
+        LCD_Start();
+        LCD_ClearDisplay();
+        LCD_Position(0,1);
+        LCD_PrintString("AC Power Cycle");
+        LCD_Position(1,5);
+        LCD_PrintString("Test");
+        CyDelay(2000);
+        LCD_ClearDisplay();
         pinSwitchIndicator_Write(0);
         CyDelay(250);
         pinSwitchIndicator_Write(1);
