@@ -1,6 +1,6 @@
 -- ======================================================================
 -- PowerSupply test.ctl generated from PowerSupply test
--- 12/18/2020 at 11:06
+-- 01/27/2021 at 11:47
 -- This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 -- ======================================================================
 

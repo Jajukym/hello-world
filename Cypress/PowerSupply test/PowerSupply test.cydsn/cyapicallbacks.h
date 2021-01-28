@@ -11,7 +11,15 @@
 */
 #ifndef CYAPICALLBACKS_H
 #define CYAPICALLBACKS_H
+
     
+    /*ADC reading for each button*/
+#define NO			0x0093
+#define R			0x0000
+#define U			0x0012
+#define D			0x002E
+#define L			0x004A
+#define S			0x0074
 
     /*Define your macro callbacks here */
     /*For more information, refer to the Writing Code topic in the PSoC Creator Help.*/
