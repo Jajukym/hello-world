@@ -18,8 +18,9 @@ void test();
 void rapid_switch();
 void smartbell_test();
 void adc_buttons();
+void LCD_update();
 
-/*Global*/
+/*Global Variables*/
 int x = 0; //cycle count of rapid switch test
 int y = 0; //cycle count of full test
 int z_on = 5000; //time on for smartbell_test()
@@ -41,10 +42,11 @@ int main(void)
     
     for(;;)
     {
-        LCD_Position(0,11);
+        LCD_Position(0,9);
         LCD_PrintNumber(y+1);
         adc_buttons();
-        
+        LCD_update();
+       
         /*if (x < 7) //load test loop
         {
             rapid_switch();
@@ -53,6 +55,7 @@ int main(void)
         test();*/
         smartbell_test();
         y++;
+        
         /* Place your application code here. */
     }
 }
@@ -112,21 +115,21 @@ void smartbell_test()
 
 void adc_buttons()
 {
-   uint16 button = ADC_SAR_Seq_Button_GetResult16(0);
+    uint16 button = ADC_SAR_Seq_Button_GetResult16(0);
     
         switch (button)
         {
             case U: //on time up
             {
-                LCD_Position(1,0);
-                LCD_PrintString("UP");
+                //LCD_Position(1,0);
+                //LCD_PrintString("UP");
                 z_on = z_on + 1000;
                 break;
             }
             case D: //on time down
             {
-                LCD_Position(1,0);
-                LCD_PrintString("DOWN");
+                //LCD_Position(1,0);
+                //LCD_PrintString("DOWN");
                 z_on = z_on - 1000;
                 if (z_on <= 1000)
                 {
@@ -136,8 +139,8 @@ void adc_buttons()
             }
             case L: //off time down
             {
-                LCD_Position(1,0);
-                LCD_PrintString("LEFT");
+                //LCD_Position(1,0);
+                //LCD_PrintString("LEFT");
                 z_off = z_off - 1000;
                 if (z_off <= 1000)
                 {
@@ -147,29 +150,38 @@ void adc_buttons()
             }
             case R: //off time up
             {
-                LCD_Position(1,0);
-                LCD_PrintString("RIGHT");
+                //LCD_Position(1,0);
+                //LCD_PrintString("RIGHT");
                 z_off = z_off + 1000;
                 break;
             }
             case S: //default on/off 1/3
             {
-                LCD_Position(1,0);
-                LCD_PrintString("SELECT");
+                //LCD_Position(1,0);
+                //LCD_PrintString("SELECT");
                 z_on = 5000;
                 z_off = 15000;
                 break;
             }
             default:
             {
-                LCD_Position(1,0);
-                LCD_PrintString("       ");
+                //LCD_Position(1,0);
+                //LCD_PrintString("       ");
                 break;
                
             }
         }
-        
+        //Uncomment to debug button ADC register values.
         /*LCD_Position(1,0);
         LCD_PrintString("Button Data:");
         LCD_PrintInt16(ADC_SAR_Seq_Button_GetResult16(0));*/
+}
+void LCD_update()
+{
+    LCD_Position(1,0);
+    LCD_PrintString("OFF:");
+    LCD_PrintNumber(z_off/1000);
+    LCD_Position(1,8);
+    LCD_PrintString("ON:");
+    LCD_PrintNumber(z_on/1000);
 }
