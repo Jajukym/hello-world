@@ -19,7 +19,7 @@
 #define U			0x000D
 #define D			0x0022
 #define L			0x0036
-#define S			0x0055
+#define S			0x0057 //usually 55
 
     /*Define your macro callbacks here */
     /*For more information, refer to the Writing Code topic in the PSoC Creator Help.*/

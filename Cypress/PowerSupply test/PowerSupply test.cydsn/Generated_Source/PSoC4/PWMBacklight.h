@@ -135,10 +135,10 @@ extern uint8  PWMBacklight_initVar;
 #define PWMBacklight_TC_COMPARE_SWAP                (0lu)
 
 /* PWM Mode */
-#define PWMBacklight_PWM_PERIOD_VALUE               (65535lu)
+#define PWMBacklight_PWM_PERIOD_VALUE               (256lu)
 #define PWMBacklight_PWM_PERIOD_BUF_VALUE           (65535lu)
 #define PWMBacklight_PWM_PERIOD_SWAP                (0lu)
-#define PWMBacklight_PWM_COMPARE_VALUE              (65535lu)
+#define PWMBacklight_PWM_COMPARE_VALUE              (16lu)
 #define PWMBacklight_PWM_COMPARE_BUF_VALUE          (65535lu)
 #define PWMBacklight_PWM_COMPARE_SWAP               (0lu)
 

@@ -23,8 +23,8 @@ void LCD_update();
 /*Global Variables*/
 int x = 0; //cycle count of rapid switch test
 int y = 0; //cycle count of full test
-int z_on = 5000; //time on for smartbell_test()
-int z_off = 15000; //time off for smartbell_test()
+int z_on = 1000; //time on for smartbell_test()
+int z_off = 1000; //time off for smartbell_test()
 
 
 
@@ -42,18 +42,18 @@ int main(void)
     
     for(;;)
     {
-        LCD_Position(0,9);
-        LCD_PrintNumber(y+1);
         adc_buttons();
         LCD_update();
+        
        
         /*if (x < 7) //load test loop
         {
             rapid_switch();
             x++;
-        }
-        test();*/
-        smartbell_test();
+        }*/
+        //test();
+
+        //smartbell_test();
         y++;
         
         /* Place your application code here. */
@@ -66,21 +66,26 @@ int main(void)
 void initialize()
 {
     ADC_SAR_Seq_Button_Start();
-    ADC_SAR_Seq_Button_StartConvert();    
+    ADC_SAR_Seq_Button_StartConvert(); 
+    pinBacklight_Write(1);
     LCD_Start();
     LCD_ClearDisplay();
     LCD_Position(0,1);
     LCD_PrintString("AC Power Cycle");
     LCD_Position(1,5);
     LCD_PrintString("Test");
-    CyDelay(500);
+    CyDelay(1000);
     pinSwitchIndicator_Write(0);
-    CyDelay(250);
+    pinBacklight_Write(0);
+    CyDelay(500);
     pinSwitchIndicator_Write(1);
-    CyDelay(250);
+    pinBacklight_Write(1);
+    CyDelay(500);
     LCD_ClearDisplay();
     LCD_Position(0,0);
     LCD_PrintString("Cycle #: ");
+    pinRelay_Write(1);
+    pinSwitchIndicator_Write(0);
 }
 
 void rapid_switch()
@@ -95,12 +100,12 @@ void rapid_switch()
 
 void test()
 {
-    pinRelay_Write(0);                  //1/60 load test off 5 seconds/on 5 minutes
-    pinSwitchIndicator_Write(1);
-    CyDelay(5000);
-    pinRelay_Write(1);
+    pinRelay_Write(1);                  //1/60 load test off 5 seconds/on 5 minutes
     pinSwitchIndicator_Write(0);
-    CyDelay(300000);
+    CyDelay(5000);
+    pinRelay_Write(0);
+    pinSwitchIndicator_Write(1);
+    CyDelay(10);
 }
 
 void smartbell_test()
@@ -159,8 +164,14 @@ void adc_buttons()
             {
                 //LCD_Position(1,0);
                 //LCD_PrintString("SELECT");
-                z_on = 5000;
-                z_off = 15000;
+                pinRelay_Write(0);
+                pinSwitchIndicator_Write(1);
+                CyDelay(1500);
+                pinRelay_Write(1);
+                pinSwitchIndicator_Write(0);
+                CyDelay(1000);
+                z_on = 1000;
+                z_off = 1000;
                 break;
             }
             default:
@@ -173,15 +184,17 @@ void adc_buttons()
         }
         //Uncomment to debug button ADC register values.
         /*LCD_Position(1,0);
-        LCD_PrintString("Button Data:");
-        LCD_PrintInt16(ADC_SAR_Seq_Button_GetResult16(0));*/
+        LCD_PrintString("Button Data:");*/
+        //LCD_PrintInt16(ADC_SAR_Seq_Button_GetResult16(0));
 }
 void LCD_update()
 {
-    LCD_Position(1,0);
-    LCD_PrintString("OFF:");
-    LCD_PrintNumber(z_off/1000);
-    LCD_Position(1,8);
-    LCD_PrintString("ON:");
-    LCD_PrintNumber(z_on/1000);
+    LCD_Position(0,9);
+    LCD_PrintNumber(y+1);
+    //LCD_Position(1,0);
+    //LCD_PrintString("OFF:");
+    //LCD_PrintNumber(z_off/1000);
+    //LCD_Position(1,8);
+    //LCD_PrintString("ON:");
+    //LCD_PrintNumber(z_on/1000);
 }

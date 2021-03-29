@@ -1,5 +1,5 @@
 # PowerSupply test
-# 2021-02-14 16:51:08Z
+# 2021-02-14 19:04:20Z
 
 # IO_6@[IOP=(0)][IoId=(6)] is reserved: SWDDebugEnabled
 dont_use_io iocell 0 6
@@ -21,7 +21,10 @@ set_io "pinDB6(0)" iocell 1 1
 set_io "pinDB7(0)" iocell 1 0
 set_io "pinBacklight(0)" iocell 0 2
 set_io "Pin_JoyStick(0)" iocell 3 0
+set_location "\Timer_1:TimerUDB:status_tc\" 0 0 0 0
 set_location "\LCD:Cntl_Port:Sync:ctrl_reg\" 1 0 6
-set_location "\PWMBacklight:cy_m0s8_tcpwm_1\" m0s8tcpwmcell -1 -1 1
 set_location "\ADC_SAR_Seq_Button:IRQ\" interrupt -1 -1 15
 set_location "\ADC_SAR_Seq_Button:cy_psoc4_sar\" p4sarcell -1 -1 0
+set_location "\Timer_1:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\" 0 0 6
+set_location "\Timer_1:TimerUDB:rstSts:stsreg\" 0 0 4
+set_location "\Timer_1:TimerUDB:sT8:timerdp:u0\" 0 0 2
